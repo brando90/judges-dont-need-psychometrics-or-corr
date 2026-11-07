@@ -8,6 +8,30 @@ Status: **early, position-paper stage.** No empirical results yet. The toy scrip
 
 ---
 
+## Whiteboard formulation (2026-11-07, with Sam B.)
+
+![Whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png)
+
+A judge outputs a distribution over a score set $R$, conditioned on a candidate $\hat{y}$ and a gold reference $y^{\star}$:
+
+```math
+p(\cdot \mid \hat{y}, y^{\star}) \in \mathcal{P}^{R} = \left\lbrace p : R \to \mathbb{R} \;\middle|\; \sum_{r \in R} p(r \mid \hat{y}, y^{\star}) = 1,\ \ p(r \mid \hat{y}, y^{\star}) \ge 0 \right\rbrace,
+\qquad R = \lbrace 0,1,2,3,4,5 \rbrace \ \text{or} \ [0,1].
+```
+
+**What the field does now:** pick the AI judge $\mathrm{AJ}_j$ that maximizes correlation with the human judge distribution $p^{H}_j$:
+
+```math
+\hat{p}^{\mathrm{AJ}}_j(\cdot \mid \cdot, \cdot) = \arg\max_{\mathrm{AJ}_j \in \Theta} \ \mathrm{Corr}\left( p^{\mathrm{AJ}_j}_j(\cdot \mid \cdot, \cdot),\ p^{H}_j(\cdot \mid \cdot, \cdot) \right)
+```
+
+**What we propose:** pick the judge that minimizes a distributional loss to the human judge (e.g. KL divergence):
+
+```math
+\hat{p}^{\mathrm{AJ}}_j(\cdot \mid \cdot, \cdot) = \arg\min_{\mathrm{AJ}_j \in \Theta} \ \mathcal{L}\left( p^{\mathrm{AJ}_j},\ p^{H} \right),
+\qquad \text{e.g. } \mathcal{L} = D_{\mathrm{KL}}\left( p^{H} \,\Vert\, p^{\mathrm{AJ}_j} \right).
+```
+
 ## 1. The problem
 
 The usual way to validate a judge: collect human scores and judge scores on the same items, make a scatter plot, and report a correlation.
