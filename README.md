@@ -77,6 +77,8 @@ Target venue: [Effective and Efficient Evaluation for AI Scientists, AAAI-27 wor
 
 [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) is the concrete application of this position: AI/agent/LLM judges for formal specification coverage of Lean formalizations (VeriBench), evaluated by predicting the human-rating distribution rather than by correlation.
 
+Origin: this position came out of the trustworthy-theorem-judges study, where we realized the standard practice is odd: we fit and select judges by their correlation with humans, even though correlation (Pearson: linearity only; Spearman: rank only) has severe drawbacks as a target for matching human judgment.
+
 ---
 
 _Drafted with AI assistance (Grok Bot)._

@@ -40,3 +40,5 @@ Python 3.10+ with numpy/scipy. Run with `python experiments/<folder>/<script>.py
 ## Sister repo
 
 Sister repo: https://github.com/brando90/trustworthy-theorem-judges (concrete application: theorem/formalization judges). Keep claims and terminology consistent across both; cross-link rather than duplicate.
+
+Origin: this position came out of the trustworthy-theorem-judges study, where we realized the standard practice is odd: we fit and select judges by their correlation with humans, even though correlation (Pearson: linearity only; Spearman: rank only) has severe drawbacks as a target for matching human judgment.
