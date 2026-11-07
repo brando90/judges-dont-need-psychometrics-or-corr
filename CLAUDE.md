@@ -36,3 +36,7 @@ Venue: AAAI-27 workshop "Effective and Efficient Evaluation for AI Scientists" (
 ## Experiments
 
 Python 3.10+ with numpy/scipy. Run with `python experiments/<folder>/<script>.py`. Scores are on a 0–5 integer scale unless stated otherwise. Laplace-smooth histograms (alpha=1) before computing KL. Fix seeds.
+
+## Sister repo
+
+Sister repo: https://github.com/brando90/trustworthy-theorem-judges (concrete application: theorem/formalization judges). Keep claims and terminology consistent across both; cross-link rather than duplicate.

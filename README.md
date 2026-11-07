@@ -73,6 +73,10 @@ The ideas come from a discussion on 2026-11-07. Notes are in [`paper_latex_and_n
 
 Target venue: [Effective and Efficient Evaluation for AI Scientists, AAAI-27 workshop](https://eval-ai-scientists.github.io/aaai27/) (position paper, 2–4 pages).
 
+## Sister repo
+
+[trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) is the concrete application of this position: AI/agent/LLM judges for formal specification coverage of Lean formalizations (VeriBench), evaluated by predicting the human-rating distribution rather than by correlation.
+
 ---
 
 _Drafted with AI assistance (Grok Bot)._
