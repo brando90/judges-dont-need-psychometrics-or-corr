@@ -1,0 +1,16 @@
+\section{A Synthetic Counterexample}
+\label{sec:toy}
+We draw $n=2000$ human scores uniformly from $\{0,\dots,5\}$. Judge A adds noise in $\{-1,0,1\}$ and clips the result. Judge B outputs $5$ if the human score is at least $3$ and $4$ otherwise, so it preserves order but squashes the scale. KL is computed between Laplace-smoothed marginal histograms (seed 0; script in the supplementary repository).
+
+\begin{table}[h]
+\centering\small\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+Judge & Pearson & Spearman & KL & nMSE \\
+\midrule
+A (noisy faithful) & 0.900 & 0.900 & 0.001 & 0.023 \\
+B (squashed) & 0.877 & 0.878 & 3.420 & 0.216 \\
+\bottomrule
+\end{tabular}
+\caption{Correlation barely separates the two judges. KL and normalized MSE do.}
+\end{table}

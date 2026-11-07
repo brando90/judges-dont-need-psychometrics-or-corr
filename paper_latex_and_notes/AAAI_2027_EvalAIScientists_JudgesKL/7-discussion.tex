@@ -1,0 +1,5 @@
+\section{Counterarguments and Limitations}
+\emph{``Correlation-validated judges have worked so far.''} Progress despite a flawed metric does not make the metric right. At minimum, matching the distribution stops us from optimizing a quantity we do not care about. \emph{``With enough data any metric works.''} Not necessarily. A metric that ignores most of the distribution can be satisfied by degenerate judges no matter how much data is available. \emph{``KL needs many ratings per item.''} This is true for per-item KL. The pooled variant and smoothing are partial remedies, and sample complexity is part of our planned study. Finally, it is possible that in practice the choice of objective changes little. That is an empirical question, and the case study is designed to answer it.
+
+\section{Conclusion}
+A judge is a distribution, so validate it the way we validate distributions. If humans have a taste, match the taste distribution.

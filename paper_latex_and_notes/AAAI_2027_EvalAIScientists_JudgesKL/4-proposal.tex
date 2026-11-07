@@ -1,0 +1,14 @@
+\section{Proposal: Judges as Distributions}
+\label{sec:proposal}
+Let $y$ be an agent's output, $y^*$ a gold reference, and $r$ a score, for example $r\in\{0,\dots,5\}$. A judge is a distribution $\pt(r \mid y, y^*)$, where $\theta$ is anything we can search over: prompt, rubric, sampling temperature, calibration parameters, or weights. Current practice amounts to
+\begin{equation}
+\theta^\star = \arg\max_\theta \ \corr\big(r_\theta, r_{\mathrm{human}}\big).
+\end{equation}
+We instead advocate
+\begin{equation}
+\theta^\star = \arg\min_\theta \E_{x}\big[\KL\big(\ph(\cdot\mid x)\,\|\,\pt(\cdot\mid x)\big)\big].
+\label{eq:kl}
+\end{equation}
+where $x=(y,y^*)$. With several raters per item, $\ph$ is the per-item empirical histogram, and Eq.~\ref{eq:kl} is equivalent up to a constant to the cross-entropy of human ratings under the judge. With one rating per item, a pooled variant compares marginal histograms. That variant is weaker but cheap. Additive smoothing keeps the divergence finite. Because Eq.~\ref{eq:kl} is the standard ML objective, it can be minimized with standard tools such as Adam \citep{kingma2015adam}, or by black-box search over prompts.
+
+\paragraph{Reporting.} KL is a good objective but not an intuitive number to report. For bounded scores we propose also reporting mean squared error on scores normalized to $[0,1]$. Unlike exact-match accuracy, it penalizes a judge that says $0$ when humans say $5$ far more than one that says $4$.

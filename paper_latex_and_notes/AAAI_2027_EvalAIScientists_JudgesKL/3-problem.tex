@@ -1,0 +1,7 @@
+\section{What Correlation Measures}
+\label{sec:problem}
+Pearson's $r$ \citep{pearson1895note} measures only the strength of a \emph{linear} relationship. Spearman's $\rho$ \citep{spearman1904proof} and Kendall's $\tau$ \citep{kendall1938new} measure only agreement in \emph{ordering}. Each statistic is a single summary of a joint distribution, and it is well known that very different joint distributions can share the same summary \citep{anscombe1973graphs}.
+
+For judges, the consequence is concrete. Any strictly increasing transform of a judge's scores leaves rank correlation unchanged, so a judge that compresses every score into $\{4,5\}$ while preserving order looks as good as one that reproduces the human scale. Correlation also discards how much humans disagree on each item, which is exactly the information that describes their taste. Optimizing a judge for correlation therefore optimizes for one moment-like property while leaving the rest of the distribution unconstrained, and that invites spurious agreement.
+
+Psychometric frameworks address real concerns, but they were designed for settings where the instrument cannot be fit directly to data. An LLM judge can be. Once the target is a distribution, its fit can be measured and optimized directly.
