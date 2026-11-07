@@ -21,23 +21,23 @@ Analogy from the call: means and variances are the first two "features" of a dis
 
 ## 2. Proposal: a judge is a distribution, so fit it with KL
 
-**Judge.** Given an agent output $y$ and a gold reference $y^*$, a judge is a distribution over a score $r$:
+**Judge.** Given an agent output $y$ and a gold reference $y^{\star}$, a judge is a distribution over a score $r$:
 
-$$p_\theta(r \mid y, y^*), \qquad r \in \{0,\dots,5\} \text{ (or } [0,1]).$$
+$$p_\theta(r \mid y, y^{\star}), \qquad r \in \lbrace 0,\dots,5 \rbrace \text{ (or } [0,1]).$$
 
 Here $\theta$ is anything you can search over: prompt, rubric, temperature, weights, or calibration parameters.
 
 **What people do now:**
 
-$$\theta^\star = \arg\max_\theta \ \mathrm{corr}\big(r_{\text{judge}}(\theta),\ r_{\text{human}}\big)$$
+$$\theta^{\star} = \arg\max_\theta \ \mathrm{corr}\big(r_{\text{judge}}(\theta),\ r_{\text{human}}\big)$$
 
 **What we argue for:**
 
-$$\theta^\star = \arg\min_\theta \ \mathbb{E}_{(y,y^*)}\Big[ D_{\mathrm{KL}}\big(p_{\text{human}}(\cdot \mid y,y^*)\ \|\ p_\theta(\cdot \mid y,y^*)\big) \Big]$$
+$$\theta^{\star} = \arg\min_\theta \ \mathbb{E}_{(y,y^{\star})}\Big[ D_{\mathrm{KL}}\big(p_{\text{human}}(\cdot \mid y,y^{\star})\ \Vert\ p_\theta(\cdot \mid y,y^{\star})\big) \Big]$$
 
 Practical variants we plan to support:
 
-- **Per-item KL** when several humans rate the same $(y, y^*)$, so $p_{\text{human}}$ is the empirical histogram for that item.
+- **Per-item KL** when several humans rate the same $(y, y^{\star})$, so $p_{\text{human}}$ is the empirical histogram for that item.
 - **Pooled KL** between the marginal score histograms when there is only one rating per item. This is weaker, since it ignores the pairing, but it is cheap.
 - **Smoothing** (additive/Laplace) so that KL stays finite when a judge never uses some score.
 - **Optimization.** Reuse the standard toolbox built for KL objectives (cross-entropy, SGD/Adam) instead of inventing a new metric.
@@ -47,7 +47,7 @@ Practical variants we plan to support:
 ## 3. Planned experiments
 
 1. **Toy counterexamples** (`experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/`): a judge with Pearson ≈ 0.88 whose score distribution is far from the human one (large KL), next to a judge with similar correlation and near-zero KL. Run `python experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/kl_vs_corr.py`.
-2. **Theorem-proving agent judges**: apply KL-based judge fitting and evaluation to the human judgments being collected on whether Brando's theorem-proving agents write good theorems/formalizations. Human data still needs to be collected. An open sub-question is how many human-rated $(y, y^*)$ pairs are needed.
+2. **Theorem-proving agent judges**: apply KL-based judge fitting and evaluation to the human judgments being collected on whether Brando's theorem-proving agents write good theorems/formalizations. Human data still needs to be collected. An open sub-question is how many human-rated $(y, y^{\star})$ pairs are needed.
 
 See [`experiments/README.md`](experiments/README.md).
 
