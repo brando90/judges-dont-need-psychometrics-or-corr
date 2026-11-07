@@ -3,7 +3,6 @@
 **Thesis.** To check whether an LLM (or agent) judge "works", stop computing Pearson/Spearman correlation with human scores and stop borrowing psychometric validity machinery. A judge is a probability distribution over scores. So treat judge evaluation and judge fitting the way ML treats everything else: **match the human score distribution, i.e. minimize a KL divergence.**
 
 > "If humans have some taste, just match the taste distribution. That's it."
-> ([Fathom call, 2026-11-07](https://fathom.video/calls/893310061))
 
 Status: **early, position-paper stage.** No empirical results yet. The toy script in `experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/` is the only number-producing code so far.
 
@@ -70,6 +69,10 @@ The repo follows the [agents-config](https://github.com/brando90/agents-config) 
 
 ## 5. Source
 
-The ideas come from a recorded discussion on 2026-11-07: **[Fathom call: "Impromptu Call"](https://fathom.video/calls/893310061)**. Notes are in [`paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
+The ideas come from a discussion on 2026-11-07. Notes are in [`paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
 
 Target venue: [Effective and Efficient Evaluation for AI Scientists, AAAI-27 workshop](https://eval-ai-scientists.github.io/aaai27/) (position paper, 2–4 pages).
+
+---
+
+_Drafted with AI assistance (Grok Bot)._
