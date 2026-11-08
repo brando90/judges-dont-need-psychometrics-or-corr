@@ -88,12 +88,16 @@ The repo follows the [agents-config](https://github.com/brando90/agents-config) 
 │   └── 01_synthetic_pearson_vs_kl_squashed_judge_0to5/   # kl_vs_corr.py
 └── paper_latex_and_notes/
     ├── AAAI_2027_EvalAIScientists_JudgesKL/    # position-paper draft: 00_main_aaai_2027.tex (+ PDF)
-    └── notes/fathom_call_11-07-2026/           # notes + quotes from the originating call
+    └── notes/
+        ├── fathom_call_11-07-2026/             # notes + quotes from the originating call
+        └── handwritten_corr_vs_loss_splits_received_11-08-2026/  # pages received 11-08-2026
 ```
 
 ## 5. Source
 
 The ideas come from a discussion on 2026-11-07. Notes are in [`paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
+
+Pages received 11-08-2026 (date written not recorded): [`paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md`](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). The author clarification stored there, separate from the handwriting, says the comparison is method 2 versus method 4: correlation or a distributional loss on the training set, hyperparameters on the validation set, test set untouched. Methods 1 and 3 are contextual alternatives. No winner is assumed.
 
 Target venue: [Effective and Efficient Evaluation for AI Scientists, AAAI-27 workshop](https://eval-ai-scientists.github.io/aaai27/) (position paper, 2–4 pages).
 
