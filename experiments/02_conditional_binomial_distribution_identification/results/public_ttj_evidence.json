@@ -3,6 +3,17 @@
   "cached_selection": {
     "ce_selected_ce": 8.868,
     "difference": 0.77,
+    "evaluation_denominator": "5 seeded 5-fold family cross-validation partitions (25 outer folds; 375 pooled out-of-fold rows reusing 75 artifacts)",
+    "original_historical_split": {
+      "ce_selected_ce": 9.133,
+      "difference": 0.423,
+      "spearman_selected_ce": 8.71,
+      "test_artifacts": 30,
+      "test_expert_ratings": 78,
+      "test_tasks": 10,
+      "validation_artifacts": 15
+    },
+    "prior_exposure": "historical ratings, test outcomes and candidate prompts/demonstrations had prior exposure; new family folds do not undo upstream exposure",
     "selection_refit_ci95": [
       -0.895,
       1.317

@@ -3,16 +3,16 @@
   "build_note": "Bundled AAAI-27 requires pdfTeX. Makefile now creates _build and invokes pdfLaTeX/BibTeX; Tectonic is incompatible.",
   "engine": "pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)",
   "final_log_errors": [],
-  "final_log_sha256": "b5d3a77b4e7b949d0eafe21a0b656909725e918bddddc15fc0c278ce6def3088",
+  "final_log_sha256": "76ce430686a916e6e8cce7d97b0f8f10c43ee8d2f35bf50f645aa54c49ccaee7",
   "final_log_warnings": [
     "Underfull \\hbox (badness 3291) in paragraph at lines 64--2",
     "Underfull \\hbox (badness 1184) in paragraph at lines 64--2",
-    "Underfull \\hbox (badness 2653) in paragraph at lines 18--2",
+    "Underfull \\hbox (badness 2653) in paragraph at lines 19--2",
     "Underfull \\hbox (badness 10000) in paragraph at lines 26--30",
     "Underfull \\hbox (badness 1087) in paragraph at lines 26--30"
   ],
   "pages": 3,
-  "pdf_sha256": "2077d27a58836492ff427b0da98785f287e0b17627326ee761cb6544036d9eb0",
+  "pdf_sha256": "484b62240eefa792cbc6444cc921b463e31f8c706f164fd843b603fb4504d8d5",
   "render_tool": "PyMuPDF 2.1: Python bindings for the MuPDF 1.28.6 library.",
   "rendered_pages": [
     {
@@ -22,13 +22,13 @@
     },
     {
       "page": 2,
-      "png_sha256": "736a0dbbac2b7884363709dd814a27f3a8c2cea05302ee181ea6027c88c36c68",
-      "text_characters": 5502
+      "png_sha256": "57450e94881addf034ed1f7884023ca83433cbe902cb93afb9e8646ed1d7fed8",
+      "text_characters": 5577
     },
     {
       "page": 3,
-      "png_sha256": "19e96bef70d95346e009c53de6e4ba9aba6bd679aac17706a1c09b4335ff0f8f",
-      "text_characters": 3732
+      "png_sha256": "fe99b79ad4281aacd2ac9e7e537c09d93ea8f1b904e821f3ae403b10b1daf6fb",
+      "text_characters": 4019
     }
   ],
   "source_sha256": {
@@ -39,7 +39,7 @@
     "3-problem.tex": "f1fd2c6bd4c2c900267501cee7357fcce564fea02299f3ed22406b99bd6eb2cb",
     "4-proposal.tex": "6d930e5d99527aac7742bf5c1bcdd0ea01cb239d064765ede5bc4d9140511f1c",
     "5-toy-counterexample.tex": "1de61b06e5c1c138e009177c43a6da9cfc6eb2b455c15f3e428dde8e3bac30cc",
-    "6-case-study.tex": "0f66c5b8dbb1cd915e525a5eefd6365ee5d2a276e40368d3789fa55ce36c99d1",
+    "6-case-study.tex": "3a1239a5a8119e15420c0ce325c1daac75d257240aa6ae2d845de92f39bfe8af",
     "7-discussion.tex": "ba4d5dff98e202a14f544c7974d1293b4d8c2cfd82727bef19fe00368b6551fe",
     "Makefile": "8fc14d8cd9dcd1dd2de3c8ace90d287e48812f1abe13441574b8be8007a6f849",
     "aaai2027.bst": "5db7765ba99de5c1e4686f9b3940a0add9c5e702f2164514462bec130ccb6e3c",

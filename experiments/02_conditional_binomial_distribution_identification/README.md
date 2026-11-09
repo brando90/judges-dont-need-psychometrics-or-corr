@@ -5,12 +5,12 @@ Controlled synthetic study of conditional rating-distribution identification. Se
 This experiment remains at its canonical numbered home while the parent completes the requested multi-provider review and integrates the paper. It is separate from theorem-judge experiment06's historical fitting and its completed weighted-probability follow-up.
 
 ```bash
-python3 -m unittest discover -s experiments/02_conditional_binomial_distribution_identification -p 'test_study.py' -v
+python3 -m unittest discover -s experiments/02_conditional_binomial_distribution_identification -p 'test*.py' -v
 timeout 1800s python3 experiments/02_conditional_binomial_distribution_identification/verify_results.py
 ```
 
 Verification reconstructs every selection and common-metric summary from the saved evidence without drawing new ratings. For a fresh reproduction, supply a new output directory with `timeout 1800s python3 experiments/02_conditional_binomial_distribution_identification/run_study.py --out /path/to/new-results`. The runner verifies the fixed input/source hashes and refuses to overwrite completed evidence. Dependencies are NumPy and SciPy; measured versions are in `results/COMPLETE.json`. Native numerical libraries are capped at eight threads. All data generated here are synthetic and publishable. The external historical source is public aggregate evidence only.
 
-## Review note (11-08-2026, stage 01 Claude review)
+## Review note (11-08-2026, stages 01–02 review)
 
-The prediction table in `PROTOCOL.md` lists "empty/non-PMF input: invalid, not silently normalized". The scorer functions in `run_study.py` do not implement an explicit rejection of such inputs; every forecast in this study is an analytic probability mass function by construction, and `test_study.py` checks that the binomial rows sum to one. `PROTOCOL.md`, `run_study.py` and `test_study.py` are frozen by `FREEZE.json`, so this contract row is recorded here as unenforced rather than edited. Any future input validation must be added as a separately hashed revision, without changing the measured evidence.
+The prediction table in `PROTOCOL.md` lists "empty/non-PMF input: invalid, not silently normalized". The scorer functions in `run_study.py` do not implement an explicit rejection of such inputs; every forecast in this study is an analytic probability mass function by construction, and `test_study.py` checks that the binomial rows sum to one. `PROTOCOL.md`, `run_study.py` and `test_study.py` are frozen by `FREEZE.json`, so the frozen synthetic runner and measured evidence remain untouched. A separately versioned validation wrapper (`validated_scorer.py`) and deterministic test suite (`test_validated_scorer.py`) enforce rejection of empty, malformed, non-finite or non-normalized inputs for prospective callers while matching `run_study.py` identically on valid inputs.

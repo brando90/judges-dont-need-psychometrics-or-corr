@@ -20,6 +20,9 @@ for commit,path in paths:
                     'url':f'https://github.com/brando90/trustworthy-theorem-judges/blob/{commit}/{path}'})
 assert '8.868 for CE selection versus 8.098 for Spearman selection' in texts[0]
 assert '+0.770 [-0.895, 1.317]' in texts[0]
+assert 'Five seeded five-fold partitions reuse these same artifacts; they are not 375 independent artifacts.' in texts[0]
+assert '| Historical validation selection / old test | 30 test artifacts / 10 tasks / 78 expert ratings | 9.133 | 8.710 | +0.423 |' in texts[0]
+assert 'These old ratings, test outcomes, and candidate prompts had prior exposure. New family folds do not undo upstream selection or demonstration exposure.' in texts[0]
 assert '215/225 Pearson fits did not converge, including 24/25 outer refits' in texts[0]
 assert '+0.023822 [-0.036327, +0.053333]' in texts[1]
 assert '+0.107807 [-0.128950, +0.171668]' in texts[1]
@@ -28,7 +31,11 @@ assert '-0.010409 [-0.061911, +0.005933]' in texts[2]
 assert '998/1,000 valid draws' in texts[2]
 receipt={'scope':'public aggregate results only; no individual ratings, private candidates or sealed data imported',
  'sources':sources,'historical_counts':{'artifacts':75,'tasks':25,'families':19,'expert_ratings':195},
- 'cached_selection':{'ce_selected_ce':8.868,'spearman_selected_ce':8.098,'difference':.770,'selection_refit_ci95':[-.895,1.317]},
+ 'cached_selection':{'ce_selected_ce':8.868,'spearman_selected_ce':8.098,'difference':.770,'selection_refit_ci95':[-.895,1.317],
+                     'evaluation_denominator':'5 seeded 5-fold family cross-validation partitions (25 outer folds; 375 pooled out-of-fold rows reusing 75 artifacts)',
+                     'original_historical_split':{'validation_artifacts':15,'test_artifacts':30,'test_tasks':10,'test_expert_ratings':78,
+                                                  'ce_selected_ce':9.133,'spearman_selected_ce':8.710,'difference':.423},
+                     'prior_exposure':'historical ratings, test outcomes and candidate prompts/demonstrations had prior exposure; new family folds do not undo upstream exposure'},
  'fitted_heads':{'ce_fitted_ce':1.527,'pearson_fitted_ce':1.897,'difference':-.370,'conditional_ci95':[-.690,-.080],
                  'pearson_nonconverged_fits':215,'pearson_total_fits':225,'pearson_nonconverged_final_refits':24,'total_final_refits':25},
  'distance_followup':{'wasserstein_difference':.023822,'wasserstein_ci95':[-.036327,.053333],

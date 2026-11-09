@@ -35,12 +35,12 @@ The [proper-scoring-rule literature](https://sites.stat.washington.edu/raftery/R
 
 [`01_synthetic_pearson_vs_kl_squashed_judge_0to5`](experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/README.md) is the original marginal-histogram illustration. Its code and frozen outputs are preserved; a [new reproduction receipt](experiments/02_conditional_binomial_distribution_identification/results/old_toy_reproduction.json) confirms the original printed numbers. It is not evidence from conditional judge selection.
 
-The sister repository’s historical `06_information_loss_vs_correlation_judge_selection` did **not** establish a held-out CE advantage for CE selection over Spearman selection. Its fitted probability-head comparison also had widespread Pearson-optimizer convergence failures. The [public-evidence section](experiments/02_conditional_binomial_distribution_identification/RESULTS_conditional_identification.md#historical-evidence-preserved) links exact source revisions, preserves the negative/null findings, and records the separately owned completed weighted-probability/stable-Pearson follow-up. No raw human ratings, private candidate artifacts or sealed data enter this repository. Fresh human returns were not independently checked from cloud here and are not declared absent.
+The sister repository’s historical `06_information_loss_vs_correlation_judge_selection` did **not** establish a held-out CE advantage for CE selection over Spearman selection under either five seeded five-fold family partitions (8.868 versus 8.098; +0.770 [-0.895, 1.317]) or the original 15-validation/30-test-artifact split (9.133 versus 8.710; +0.423), and those historical ratings, test outcomes and candidate prompts had prior exposure. Its fitted probability-head comparison also had widespread Pearson-optimizer convergence failures. The [public-evidence section](experiments/02_conditional_binomial_distribution_identification/RESULTS_conditional_identification.md#historical-evidence-preserved) links exact source revisions, preserves the negative/null findings, and records the separately owned completed weighted-probability/stable-Pearson follow-up. No raw human ratings, private candidate artifacts or sealed data enter this repository. Fresh human returns were not independently checked from cloud here and are not declared absent.
 
 ## Reproduce and inspect
 
 ```bash
-python3 -m unittest discover -s experiments/02_conditional_binomial_distribution_identification -p test_study.py -v
+python3 -m unittest discover -s experiments/02_conditional_binomial_distribution_identification -p 'test*.py' -v
 python3 experiments/02_conditional_binomial_distribution_identification/verify_results.py
 python3 experiments/02_conditional_binomial_distribution_identification/make_report.py
 ```
@@ -49,7 +49,7 @@ The [experiment index](experiments/README.md) links the complete procedure, hash
 
 ## Origin and scope
 
-The project began with the [11-07-2026 discussion notes](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md), the [whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png), and [handwritten selection/fitting notes received 11-08-2026](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). Those source records remain unchanged. The [research synthesis](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md) provides further historical context.
+The project began with the [original README formulation at commit `f2272f9`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/f2272f9628f1f31575ecbdaa304f33c9ad0743f1/README.md), the [11-07-2026 discussion notes](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md), the [whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png), and [handwritten selection/fitting notes received 11-08-2026](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). Those source records remain unchanged. The [research synthesis](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md) provides further historical context.
 
 The [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) project studies the applied judge problem. This repository’s new experiment isolates a distribution-identification question; it does not duplicate historical probability fitting, validate a deployed human judge, or establish natural-task generalization.
 
