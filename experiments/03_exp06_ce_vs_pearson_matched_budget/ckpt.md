@@ -5,11 +5,12 @@
 **TLDR:** The matched cross-entropy versus Pearson comparison is complete; no scientific rerun remains under that request. This repository now also holds the full historical experiment package and private reconstruction inputs; see CKPT_migration_11-09-2026.md for the completed relocation.
 
 Created: 11-09-2026 10:25 PST
-Last updated: 11-09-2026 12:17 PST
+Last updated: 11-09-2026 14:34 PST
 
 ## Goal
 - Fairly compare cross-entropy (CE) and Pearson objectives on held-out human-rating metrics while preserving historical evidence.
 ## What ran
+- Prospective TVD evaluator published in trustworthy-theorem-judges at 27237a2; matching panel published here at 7e87102. Paper-coordination packet below; no new experiment.
 - Historical failure reproduced with the original configured condition; longer-budget and no-penalty diagnostic ablations were retained. Five synthetic test groups passed.
 - Frozen matched-simplex comparison completed locally under Brando’s standing fallback authorization; 50 primary fits and 49,204 bootstrap fits attempted. No new model calls.
 ## Results
@@ -20,7 +21,7 @@ Last updated: 11-09-2026 12:17 PST
 - No execution blocker; the requested comparison is complete. The old nonlinear softmax optimization problem remains unresolved; the new condition avoids that confound rather than relabeling old fits.
 - Native chat indexes remain separate. Shared project/checkpoint reads are verified across all three profiles; native cross-account sidebar/resume behavior is not certified.
 ## Next steps
-- [p 8/10] Decide paper inclusion separately; keep this experiment at its canonical home while that live dependency remains.
+- [p 8/10] VeriBench paper owner reads the coordination packet below and integrates only condition-matched public evidence; practical judge development remains with the sole human-rating owner.
 ## Brando to-do
 - None for the completed comparison. No background experiment, reconnect loop or temporary checkout remains.
 
@@ -30,6 +31,34 @@ Last updated: 11-09-2026 12:17 PST
 11-09-2026 -- Brando authorized remote-first/local-CPU fallback without future confirmation. Original-settings diagnostic failed at 300 iterations, the 3,000-iteration ablation also failed, and the no-penalty ablation failed at 300. Reviewed gradient/variance controls and froze the matched-mixture condition before new held-out measurement.
 11-09-2026 -- Receiving chat verified the supplied checkpoint SHA-256, read original/follow-up source, prepared training-only diagnosis and candidate CE/Pearson mixture implementation, passed five synthetic controls, and verified three shared project pointers. SNAP guard has an active cooldown; local fallback question is pending. No empirical rerun launched.
 11-09-2026 10:25 PST -- Created the handoff for the user-selected “Fix Pearson Fits and Rerun Exp 06” chat; the originating chat will stop experiment execution when the handoff is delivered.
+
+11-09-2026 14:34 PST -- Recorded the user-authorized public-paper coordination packet: pinned evaluator definitions/receipts, separate historical evidence, practical sole owner, private-results boundary and immutable without-DT baseline; no new fitting or inference.
+
+## Public-paper coordination packet — 11-09-2026
+
+**Request and ownership.** Verified Brando's direct instruction in the “Check DT status in VeriBench” chat (01a1a7da-397d-7c53-b93a-3f5d3bf1886e): coordinate the public differential-testing (DT) and judge evidence for the Transactions on Machine Learning Research (TMLR) and AAAI drafts, keep private benchmark results in the private report/blog, and preserve his photographed without-DT baseline unchanged. That chat owns VeriBench manuscript integration and checks. This chat retains the evaluator assignment and completed objective-comparison evidence. “Prepare human grading task — sole owner” (01a1a8f9-dcb7-7381-9368-91d6e51faffd) owns collection and practical judge development; see its [coordination record](https://github.com/brando90/trustworthy-theorem-judges/blob/b3ce98e0034972ee5d7423a1ff54f4609ab3ea11/experiments/09_human_rating_collection/COORDINATION_11-09-2026.md) and [handoff](https://github.com/brando90/trustworthy-theorem-judges/blob/b3ce98e0034972ee5d7423a1ff54f4609ab3ea11/experiments/02_probabilistic_ordinal_judge/CKPT_HANDOFF_11-09-2026.md). The TVD worktree mentioned historically in that handoff has been removed after verified publication and local synchronization.
+
+**Canonical evaluator and publication.** The [applied evaluator commit](https://github.com/brando90/trustworthy-theorem-judges/commit/27237a27d49b83cfdb910153b59af32e15198325) is `27237a27d49b83cfdb910153b59af32e15198325`; its relevant files remain byte-identical on inspected main `b3ce98e0034972ee5d7423a1ff54f4609ab3ea11`. Manifest version: `native_probability_offline_v1`; metrics version: `native_probability_metrics_v2`. This repository's [prospective-panel commit](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/commit/7e87102867c07795c7cd466da14e14cca9aead7f) is `7e87102867c07795c7cd466da14e14cca9aead7f`. Both were pushed to main and synchronized locally; temporary publication worktrees were removed.
+
+For an artifact's forecast q over ratings 0–5, let Q(k) be its cumulative probability and p_hat its empirical human rating frequency. Normalized ranked probability score (RPS) is primary and the common validation criterion: average `(1/5) sum_{k=0}^4 (Q(k)-1{y<=k})^2` over observed human ratings. Cross-entropy (CE), the average `-ln(q(y))`, and total variation distance (TVD), `0.5 sum_r |q(r)-p_hat(r)|`, are secondary. Average each artifact's metric equally across the same eligible artifacts; preserve the full scheduled denominator and failed/missing forecasts. The evaluator's CE has no probability floor and permits infinity for zero observed-rating probability. TVD uses the empirical histogram once, not distances to individual one-hot ratings; its full-denominator bounds use 0–1 and are not confidence intervals. TVD mutual information is a different target and is not part of this extension. The complete definitions and historical distinctions remain in [EVALUATION_CRITERION_11-09-2026.md](EVALUATION_CRITERION_11-09-2026.md).
+
+| Applied-study artifact under experiments/02_probabilistic_ordinal_judge/ | SHA-256 at the evaluator publication |
+| --- | --- |
+| native_probability/scaffold.py | 5c5b5520040dd4c6320eb01f24c9eb7af52bb4862f50da8f6f24f83ca1825a82 |
+| config.json | 57501935e8f169bb7f442288ef238416208af6c63a1eb97b2dd5ca01318e9bd8 |
+| PRIORITY_2_VS_4_11-09-2026.md | c39a649ced5c8d25e203e444bbf6d7cd7806aadbb9568570359969db02b2259d |
+
+**Which evidence supports which claim.**
+
+- **Evaluator extension:** 17/17 deterministic synthetic evaluator tests passed at publication. This supports the documented computation, parsing, hashing, weighting and missingness behavior. It supplies no new model forecasts, fitted judge, human-agreement measurement, deployment result or public DT outcome.
+- **Historical VeriBench judge component:** use the exact condition-matched original receipt, supported by the [historical aggregate archive and limitations](https://github.com/brando90/trustworthy-theorem-judges/blob/b3ce98e0034972ee5d7423a1ff54f4609ab3ea11/experiments/01_legacy_veribench_judge/README.md) and its [source manifest](https://github.com/brando90/trustworthy-theorem-judges/blob/b3ce98e0034972ee5d7423a1ff54f4609ab3ea11/experiments/01_legacy_veribench_judge/SOURCE_MANIFEST.json). The original score-mapped judge, selected two-model judge and cross-validated recipe are distinct conditions; none becomes a new RPS-primary/TVD-evaluated judge by relabeling. Preserve split/exposure, reference-version, solver-population, absolute-bias and repeatability limitations. These are human-rating agreement records, not formal-prover acceptance evidence.
+- **Separate objective-comparison study:** this repository's [RESULTS_comparison.md](RESULTS_comparison.md) compares CE versus Pearson fitting of mixtures over five cached scalar-judge histograms. It uses 75 artifacts, 25 tasks, 19 task families and 195 expert ratings, with prior test exposure. Its frozen primary endpoint remains held-out CE. It is eligible as explicitly labeled retrospective objective-comparison evidence, not a validation of a deployed VeriBench judge, fresh probability-output judge, DT intervention or frontier-agent transfer.
+
+The objective-comparison report's paired CE-minus-Pearson contrasts are CE `-0.260401 [-1.457729, 0.198472]`, RPS `-0.004555 [-0.035602, 0.009965]`, and TVD `-0.005688 [-0.067752, 0.027772]`. These are 95% task-family percentile intervals with both methods refitted; 998/1,000 draws passed certificates, two failed draws were retained and excluded from intervals; p-val=n/a. Every interval includes zero. The full report gives the other diagnostics and limitations. RPS and TVD remain secondary for that completed comparison; the prospective primary criterion does not rewrite it.
+
+**Publication handoff.** Both public drafts must identify the same exact judge condition and evidence revision whenever they make the same claim. Any replacement practical-judge result requires the sole owner's packet: actual model/version, harness/effort, prompts/rubric and input hashes, evaluator version, rating scale, probability policy, train/validation/test membership and exposure, observed/missing denominators, paired uncertainty, frozen selected parameters/forecasts and aggregate result hashes. No replacement human-validation result is supplied by this evaluator assignment; retain the historical condition and label a proposed replacement pending until that packet exists. No extra experiment is needed merely to coordinate.
+
+**Boundaries.** The DT paper owner maintains the public DT receipts separately; this packet does not revise or merge them with the cached judge comparison. Private benchmark results remain only in the private report/blog and are not copied into this checkpoint or either public draft. Brando's photographed without-DT baseline is immutable: no re-estimation, rescaling, denominator substitution or replacement by another historical row. Preserve every completed study's frozen protocols, metrics and result hashes. No fitting, inference or paper edit was launched by this coordination update.
 
 ## User authorization and ownership
 
