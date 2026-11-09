@@ -1,6 +1,6 @@
 # Matched cross-entropy versus Pearson comparison
 
-**Status, 11-09-2026: DRAFT, empirical execution not authorized by a freeze yet.** Review the training-only historical reproduction before accepting this new condition. A hash manifest, `FREEZE.json`, must bind this protocol, configuration and executable sources before any new held-out measurement. Historical test exposure makes the comparison retrospective even after this freeze.
+**Status, 11-09-2026: FROZEN after training-only diagnostic review, before new held-out measurement.** The original configured fit reproduced iteration-limit failure; a tenfold iteration budget still failed while prediction spread collapsed further. The analytic gradient checks do not establish a gradient bug. These controls motivate a separately labeled, certifiable mixture comparison. `FREEZE.json` binds this protocol, configuration and executable sources before measurement. Historical test exposure makes the comparison retrospective even after this freeze.
 
 ## Question and distinction from the old condition
 
@@ -60,3 +60,7 @@ Save every attempted fit receipt. A primary certificate failure remains in the p
 `scripts/verify.py` independently reconstructs every saved primary prediction from weights, candidate histograms and freshly reconstructed family folds. It computes the full metric panel using a separate implementation and SciPy's correlation routines, recomputes interval endpoints, checks denominator/receipt reconciliation and rechecks primary CE certificates. It does not claim independent rerunning of every bootstrap fit.
 
 Raw human ratings, per-artifact forecasts, learned weights, native session paths and resamples stay under ignored private storage. Publish aggregate results, all numerical fit receipts, the resampling failure ledger, source hashes and verification. No paper claim changes until results and limitations have been verified. Keep this folder active while its results are an unresolved paper-integration dependency.
+
+## Execution decision
+
+Brando explicitly authorized other suitable CPUs and local fallback on 11-09-2026. The shared SNAP reconnect guard is still in cooldown; no reusable control connection was found for the five SNAP nodes, FarmShare or Sherlock. Execute this bounded cached-data study locally with one numerical-library thread and a two-hour supervisor timeout. This changes execution location, not data, splits or scientific budgets. Record actual Python/NumPy/SciPy versions. The historical reproduction uses the original algorithm/settings but a different SciPy version, so it is not a bitwise trajectory reproduction.

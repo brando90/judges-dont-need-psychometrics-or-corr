@@ -1,0 +1,18 @@
+{
+  "diagnostic_reviewed": true,
+  "frozen_at": "2026-11-09T10:53:52.137309-08:00",
+  "diagnostic_sha256": "47b10d778016bc1b6b1b5deea3bf6aec7d6a5f6f9157b7c241006c26d419271a",
+  "files": {
+    "PROTOCOL.md": "891dca9ccd37c3e0090ae41fe20e4527527ab9863477a1803376b8013d3cd3f4",
+    "protocol.json": "58f255cf0a8d081732605731b6c11114d3dd58014c1b7f2974c706a1a55aefa3",
+    "scripts/ce_mixture.py": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+    "scripts/diagnose.py": "371891ad1364cb14c926f0ef95f89c3874419aa821dc9e3bd70537550d4c94c8",
+    "scripts/historical/fit_heads.py": "df0b86b65fa1c59e7eba8d65283e47855b271d97c49bde7770930ddb6f7aa6f4",
+    "scripts/historical/metrics.py": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+    "scripts/historical/mixture_models.py": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+    "scripts/historical/run_cached.py": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d",
+    "scripts/run_comparison.py": "8df71521634aa617a04e1c6d08ae00855ab27165c43271693b2f5d47174db3f1",
+    "scripts/test_controls.py": "7439a728013232bed0bd1a8ed5bf9bc0519854e20b1e679aa7d42c88fd0af718",
+    "scripts/verify.py": "a35ccb29bb3da43f2f4079ac281b8c586a4391b540a2e0929a3bfef6752d03de"
+  }
+}

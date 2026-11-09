@@ -8,13 +8,13 @@ Last updated: 11-09-2026 10:36 PST
 ## Goal
 - Fairly compare cross-entropy (CE) and correlation objectives on held-out human-rating metrics, preserving the original evidence.
 ## What ran
-- Receiving chat verified the handoff hash and owns execution. Diagnostic and candidate-mixture scripts are prepared; five synthetic implementation tests pass. No new empirical fits or model calls have run.
+- Receiving chat verified the handoff hash and owns execution. Diagnostic and candidate-mixture scripts are prepared; five synthetic implementation tests pass. Three training-only diagnostic fits completed; no new held-out comparison or model calls have run yet.
 - The new repository was fast-forwarded to `da427310226d60a289aef5863ec98f267f1e63ff`; original source checkout is `trustworthy-theorem-judges` at `304d030c8b7d4498ebe01e5be85fcbeb2700ff12`.
 - Codex Desktop already contains this project. The originating chat was successfully moved into it.
 ## Results
-- No corrected rerun results yet. Old Pearson: 215/225 fits unconverged; see the verified historical results below.
+- Training-only diagnostic reproduced iteration-limit failure; full comparison results pending. Old Pearson: 215/225 fits unconverged; see the verified historical results below.
 ## Stuck / blocked
-- Empirical execution awaits SNAP access or the pending explicit local-CPU fallback decision; do not treat silence as approval. No background experiment or reconnect loop was launched.
+- Local CPU fallback is explicitly authorized on 11-09-2026. Historical diagnostic completed; the matched mixture protocol is frozen before measurement.
 - Native indexes are separate: this chat is present in the personal index, absent from Vals/Stanford. Shared project pointers and byte-identical checkpoint reads are verified for all three profiles; see SESSION_ACCESS.md.
 ## Next steps
 - [p 10/10] Read this checkpoint and the source files below; reproduce and diagnose one old failing fit before choosing the repair.
@@ -24,6 +24,7 @@ Last updated: 11-09-2026 10:36 PST
 - None for this cached-data repair. New human ratings remain a separate future confirmation study.
 
 ## Log
+11-09-2026 -- Brando authorized remote-first/local-CPU fallback without future confirmation. Original-settings diagnostic failed at 300 iterations, the 3,000-iteration ablation also failed, and the no-penalty ablation failed at 300. Reviewed gradient/variance controls and froze the matched-mixture condition before new held-out measurement.
 11-09-2026 -- Receiving chat verified the supplied checkpoint SHA-256, read original/follow-up source, prepared training-only diagnosis and candidate CE/Pearson mixture implementation, passed five synthetic controls, and verified three shared project pointers. SNAP guard has an active cooldown; local fallback question is pending. No empirical rerun launched.
 11-09-2026 10:25 PST -- Created the handoff for the user-selected “Fix Pearson Fits and Rerun Exp 06” chat; the originating chat will stop experiment execution when the handoff is delivered.
 
@@ -31,7 +32,7 @@ Last updated: 11-09-2026 10:36 PST
 
 ### Receiving-chat continuation commands
 
-The receiving chat is the sole owner. Source snapshots are verified against the source commit, and five synthetic test groups pass. `PROTOCOL.md` is a draft; `FREEZE.json` deliberately does not yet exist. Do not run the comparison before reviewing the historical reproduction and freezing the final design.
+The receiving chat is the sole owner. Source snapshots are verified against the source commit, and five synthetic test groups pass. `PROTOCOL.md` and `FREEZE.json` now freeze the matched mixture condition after diagnostic review. Do not run the comparison before reviewing the historical reproduction and freezing the final design.
 
 1. Read the local-fallback answer if any; otherwise recheck `python3 ~/agents-config/scripts/snap_reconnect.py --status` and use the prescribed gateway route only when admitted. Checks found no reusable control sockets for any of the five SNAP nodes, FarmShare or Sherlock. This does not establish an outage on those clusters.
 2. On an authorized execution host, run `scripts/diagnose.py --data <cached_v1/dataset.json> --historical-results <historical results/head_results.json> --out <new diagnostic.json>` with this experiment's full script path. The local private source paths are in the handoff below. Inspect the exact reproduction and diagnostic ablations; no empirical fit has run yet.
