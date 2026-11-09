@@ -1,0 +1,2 @@
+# Preserve hashed csv.DictWriter output exactly, including its standard CRLF endings.
+experiments/02_conditional_binomial_distribution_identification/results/*.csv -text whitespace=cr-at-eol

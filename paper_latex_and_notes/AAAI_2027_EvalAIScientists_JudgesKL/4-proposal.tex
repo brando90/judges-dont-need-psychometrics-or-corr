@@ -1,14 +1,27 @@
-\section{Proposal: Judges as Distributions}
+% !TEX root = 00_main_aaai_2027.tex
+\section{Evaluate Conditional Probability Forecasts}
 \label{sec:proposal}
-Let $y$ be an agent's output, $y^*$ a gold reference, and $r$ a score, for example $r\in\{0,\dots,5\}$. A judge is a distribution $\pt(r \mid y, y^*)$, where $\theta$ is anything we can search over: prompt, rubric, sampling temperature, calibration parameters, or weights. Current practice amounts to
+For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, consider
 \begin{equation}
-\theta^\star = \arg\max_\theta \ \corr\big(r_\theta, r_{\mathrm{human}}\big).
-\end{equation}
-We instead advocate
-\begin{equation}
-\theta^\star = \arg\min_\theta \E_{x}\big[\KL\big(\ph(\cdot\mid x)\,\|\,\pt(\cdot\mid x)\big)\big].
+\min_\theta\ \mathbb{E}_{x}\big[\KL(p(\cdot\mid x)\,\|\,q_\theta(\cdot\mid x))\big].
 \label{eq:kl}
 \end{equation}
-where $x=(y,y^*)$. With several raters per item, $\ph$ is the per-item empirical histogram, and Eq.~\ref{eq:kl} is equivalent up to a constant to the cross-entropy of human ratings under the judge. With one rating per item, a pooled variant compares marginal histograms. That variant is weaker but cheap. Additive smoothing keeps the divergence finite. Because Eq.~\ref{eq:kl} is the standard ML objective, it can be minimized with standard tools such as Adam \citep{kingma2015adam}, or by black-box search over prompts.
+The target $p$ is a population distribution, not a sparse empirical histogram.
+Cross-entropy (CE), $\mathbb{E}_{x,R}[-\log q_\theta(R\mid x)]$, differs from Eq.~\ref{eq:kl} by an entropy term independent of $\theta$.
+One observed rating per item supplies a valid conditional log-loss observation.
+It does not require marginal pooling and does not identify an unconstrained distribution at that item without shared structure or further assumptions.
 
-\paragraph{Reporting.} KL is a good objective but not an intuitive number to report. For bounded scores we propose also reporting mean squared error on scores normalized to $[0,1]$. Unlike exact-match accuracy, it penalizes a judge that says $0$ when humans say $5$ far more than one that says $4$.
+We also evaluate the Brier score and ranked probability score (RPS), using the loss orientation of proper scoring rules~\citep{gneiting2007strictly}:
+\begin{align}
+L_{\rm Brier}(q,r)&=\sum_{j=0}^{5}(q_j-\mathbf{1}\{r=j\})^2,\\
+L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
+\end{align}
+where $Q_j=\sum_{k=0}^j q_k$.
+Their expected excess losses over the oracle are $\sum_j(q_j-p_j)^2$ and $\frac{1}{5}\sum_{j=0}^4(Q_j-P_j)^2$.
+These vanish only when the categorical distributions agree.
+CE has excess loss $\KL(p\|q)$, assuming forecast support covers the population support.
+
+Empirical evaluation averages losses over observed ratings, including with one rating per input.
+A histogram of two or three ratings remains a noisy estimate, and pooling marginal histograms discards the input--rating association.
+Probability fitting also does not remove finite-sample selection error, model misspecification, or optimization failure.
+We retain Pearson, Spearman and Kendall as diagnostics, with normalized scalar error and signed bias when score levels matter.

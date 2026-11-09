@@ -1,0 +1,4 @@
+A: noisy faithful      pearson=0.900 spearman=0.900 KL(P_h||P_j)= 0.001 nMSE=0.023
+B: inflated/squashed   pearson=0.877 spearman=0.878 KL(P_h||P_j)= 3.420 nMSE=0.216
+Human hist:   [0.148 0.168 0.163 0.175 0.172 0.174]
+Judge B hist: [0.    0.    0.    0.    0.478 0.52 ]

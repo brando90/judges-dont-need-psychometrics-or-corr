@@ -1,3 +1,19 @@
+% !TEX root = 00_main_aaai_2027.tex
 \begin{abstract}
-LLM judges are increasingly the measuring instrument for AI scientists, yet a judge is usually validated by the correlation (Pearson, Spearman, or Kendall) between its scores and human scores, sometimes supplemented with validity frameworks borrowed from psychometrics. We argue that neither is needed. A judge is a conditional distribution over scores, $\pt(r \mid y, y^*)$, and the question ``does this judge agree with humans?'' is the standard machine-learning question of whether one distribution matches another. Correlation summarizes only one property of that relationship: linearity for Pearson, ordering for rank correlations. A judge can therefore score well while its score distribution differs sharply from the human one. We propose fitting and selecting judges by minimizing $\KL(\ph \,\|\, \pt)$, reusing the mature optimization toolbox built for this objective, and reporting normalized squared error for interpretability. We give a synthetic counterexample and outline a planned case study on judging theorem-proving agents.
+% CS197 move 1: problem motivation (failure mode) -- association does not identify probability forecasts.
+A judge can predict the correct mean rating while assigning the wrong conditional distribution to every input.
+% CS197 move 2: assumption (setup bit) -- scope is correlation alone, not all validation methods.
+Correlation between scalar judge and human scores cannot distinguish such forecasts.
+% CS197 move 3: contribution (bit flip) -- identify the desired target explicitly.
+We argue for evaluating the conditional rating distribution with proper probability losses, alongside scalar association and agreement diagnostics.
+% CS197 move 4: instantiation (bit flip instantiation) -- controlled synthetic identification, not natural-human validation.
+A binomial construction gives five candidate distributions with identical conditional means and distinct expected cross-entropy, Brier score and ranked probability score.
+% CS197 move 5a: evaluation -- provenance: experiment02/results/summary.json, m=1 ce.
+With one synthetic rating per item, cross-entropy selects the true distribution in 249 of 256 replications.
+% CS197 move 5b: diagnostic -- provenance: experiment02/results/selection_rows.csv, all scalar criteria.
+Pearson, Spearman, Kendall and scalar mean squared error retain all five candidates as ties throughout.
+% CS197 move 5c: limitations -- include every tie, preserve contradictory historical evidence.
+We enumerate these ties, reproduce the older marginal-histogram example, and retain inconclusive historical theorem-judge evidence.
+% CS197 move 6: implication (north star) -- narrow supported thesis.
+The result supports distribution-aware evaluation without implying human generalization, universal finite-sample superiority, or that psychometric methods are unnecessary.
 \end{abstract}

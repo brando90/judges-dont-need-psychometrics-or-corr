@@ -1,0 +1,50 @@
+{
+  "build_command": "make -C paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL",
+  "build_note": "Bundled AAAI-27 requires pdfTeX. Makefile now creates _build and invokes pdfLaTeX/BibTeX; Tectonic is incompatible.",
+  "engine": "pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)",
+  "final_log_errors": [],
+  "final_log_sha256": "76ce430686a916e6e8cce7d97b0f8f10c43ee8d2f35bf50f645aa54c49ccaee7",
+  "final_log_warnings": [
+    "Underfull \\hbox (badness 3291) in paragraph at lines 64--2",
+    "Underfull \\hbox (badness 1184) in paragraph at lines 64--2",
+    "Underfull \\hbox (badness 2653) in paragraph at lines 19--2",
+    "Underfull \\hbox (badness 10000) in paragraph at lines 26--30",
+    "Underfull \\hbox (badness 1087) in paragraph at lines 26--30"
+  ],
+  "pages": 3,
+  "pdf_sha256": "484b62240eefa792cbc6444cc921b463e31f8c706f164fd843b603fb4504d8d5",
+  "render_tool": "PyMuPDF 2.1: Python bindings for the MuPDF 1.28.6 library.",
+  "rendered_pages": [
+    {
+      "page": 1,
+      "png_sha256": "6b835585f87cbec3f7ba682a6abd999d80f6a91ebb35d35ce7de965ef20c30aa",
+      "text_characters": 4478
+    },
+    {
+      "page": 2,
+      "png_sha256": "57450e94881addf034ed1f7884023ca83433cbe902cb93afb9e8646ed1d7fed8",
+      "text_characters": 5577
+    },
+    {
+      "page": 3,
+      "png_sha256": "fe99b79ad4281aacd2ac9e7e537c09d93ea8f1b904e821f3ae403b10b1daf6fb",
+      "text_characters": 4019
+    }
+  ],
+  "source_sha256": {
+    "00_main.bib": "3c16c2c6a8eb32d922c0c7fb0bac39d4b8d5d37b204c830074475d0ed237c4c1",
+    "00_main_aaai_2027.tex": "2d1ae3f07af91fd448b20dcb59ed71d77e7b6a2edf8e4e9fc03dbaa5da45f433",
+    "1-abstract.tex": "0ae53753e49f46a1aba599353e770c3c326194a8adf3dd388549c57841bc9c47",
+    "2-introduction.tex": "6848a64f81f1362f829d9bd118444fa25693f27fe28ad053e4ee347451428888",
+    "3-problem.tex": "f1fd2c6bd4c2c900267501cee7357fcce564fea02299f3ed22406b99bd6eb2cb",
+    "4-proposal.tex": "6d930e5d99527aac7742bf5c1bcdd0ea01cb239d064765ede5bc4d9140511f1c",
+    "5-toy-counterexample.tex": "1de61b06e5c1c138e009177c43a6da9cfc6eb2b455c15f3e428dde8e3bac30cc",
+    "6-case-study.tex": "3a1239a5a8119e15420c0ce325c1daac75d257240aa6ae2d845de92f39bfe8af",
+    "7-discussion.tex": "ba4d5dff98e202a14f544c7974d1293b4d8c2cfd82727bef19fe00368b6551fe",
+    "Makefile": "8fc14d8cd9dcd1dd2de3c8ace90d287e48812f1abe13441574b8be8007a6f849",
+    "aaai2027.bst": "5db7765ba99de5c1e4686f9b3940a0add9c5e702f2164514462bec130ccb6e3c",
+    "aaai2027.sty": "01990f8d3716f8e39c5b28a7478f3ac6e28630d1161de6105a7217f5e7f60e43",
+    "math_commands.tex": "c1c4ba3b9beb1520e24c31431606e8ebc878be11283c9beec92ebd68d2f46c6c"
+  },
+  "visual_inspection": "all pages viewed by implementation owner; no clipping, overlap or unresolved citations observed"
+}

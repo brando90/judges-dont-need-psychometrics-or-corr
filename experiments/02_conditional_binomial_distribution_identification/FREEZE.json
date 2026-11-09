@@ -1,0 +1,16 @@
+{
+  "amendment": {
+    "previous_freeze_commit": "9139470",
+    "reason": "Premeasurement test assertion shape corrected; NumPy assert_allclose does not broadcast row vectors. Study/scorer/design unchanged; no study ratings generated.",
+    "utc": "2026-11-09T04:58:44Z"
+  },
+  "hashes": {
+    "PROTOCOL.md": "fe1ff27cf2d6060b77c4a97e18cd3a98340235df14bd7f88750312a598c13101",
+    "input_manifest.json": "a3c5aea8cf49cc326512ee3d3aea057acc52f5f58a8b19599a0f429092814756",
+    "protocol.json": "5160628458df8e20ada2e6c0021eef2f4f9e8bc469f017eaa7002a54f760471a",
+    "run_study.py": "c429a118db875fc59bf072f5fb8e3e70a8c4e855cc7e01cd9bf8d3639eae967a",
+    "test_study.py": "4c13a2ccb9384ae7372f2de209ee2cf5391e1d73a25872e28947e7a4af712f8c"
+  },
+  "status": "fixed before synthetic ratings or metrics are generated",
+  "utc": "2026-11-09T04:57:49Z"
+}

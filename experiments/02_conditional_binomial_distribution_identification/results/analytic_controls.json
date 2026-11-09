@@ -1,0 +1,8 @@
+{
+  "oracle_kl": 0.0,
+  "oracle_mean_mse": 4.509243976458649e-33,
+  "permutation_conditional_kl": 2.8866895679055276,
+  "permutation_marginal_max_absolute_difference": 2.7755575615628914e-17,
+  "population_expected_identity": "CE(q)-CE(p)=KL(p||q); Brier excess=mean sum(q-p)^2; RPS excess=mean(CDF(q)-CDF(p))^2",
+  "shared_mean_max_absolute_difference": 8.881784197001252e-16
+}

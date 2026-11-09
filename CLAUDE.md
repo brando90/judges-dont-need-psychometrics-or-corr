@@ -1,6 +1,6 @@
 # Project: judges-dont-need-psychometrics-or-corr
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/CLAUDE.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/AGENTS.md>
 
 **TLDR:** Shared agent policy lives in agents-config. Read it first, then the project facts below. `AGENTS.md` and `CLAUDE.md` are identical.
 
@@ -21,7 +21,7 @@ Read every setting, definition, number and citation from this repo (experiment R
 
 ## Thesis
 
-LLM/agent judges should be fit and evaluated by matching the human score distribution, i.e. minimizing E[KL(p_human(r|y,y*) ‖ p_θ(r|y,y*))], not by maximizing Pearson/Spearman correlation or applying psychometric validity frameworks. For human-readable reporting on bounded scores, use MSE on normalized scores. Source: Fathom call <https://fathom.video/calls/893310061>, with notes in `paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`.
+The supported thesis is that correlation alone does not identify a desired conditional human-rating distribution. Fit/evaluate probability forecasts with proper losses such as individual-rating cross-entropy, Brier score and ranked probability score; retain correlations as scalar diagnostics. Mean squared error identifies a conditional mean, not a distribution. One observed rating per item supports conditional log-loss evaluation; sparse empirical histograms are not known population distributions. The synthetic study does not establish human generalization, universal finite-sample superiority, or that every psychometric method is unnecessary. Original discussion: <https://fathom.video/calls/893310061>; preserve its historical notes.
 
 ## Layout (agents-config Rule 49: root buckets only)
 
@@ -31,11 +31,11 @@ LLM/agent judges should be fit and evaluated by matching the human score distrib
 
 ## Paper (agents-config Rule 35)
 
-Venue: AAAI-27 workshop "Effective and Efficient Evaluation for AI Scientists" (<https://eval-ai-scientists.github.io/aaai27/>). It is a position paper of 2–4 pages excluding references, in the AAAI-27 two-column kit, anonymized, submitted through OpenReview, due 11-20-2026 06:00 UTC. Build with `cd paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL && make` (tectonic, or `make latexmk`). Aux files go to the gitignored `_build/`. Commit the rebuilt `00_main_aaai_2027.pdf` in the same commit as any semantic `.tex`/`.bib` change.
+Venue: AAAI-27 workshop "Effective and Efficient Evaluation for AI Scientists" (<https://eval-ai-scientists.github.io/aaai27/>). It is a position paper of 2–4 pages excluding references, in the AAAI-27 two-column kit, anonymized, submitted through OpenReview, due 11-20-2026 06:00 UTC. The bundled AAAI-27 style requires pdfTeX, so Tectonic is incompatible. Build with `cd paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL && make` (pdfLaTeX and BibTeX; or `make latexmk` when available). Aux files go to the gitignored `_build/`. Commit the rebuilt `00_main_aaai_2027.pdf` in the same commit as any semantic `.tex`/`.bib` change.
 
 ## Experiments
 
-Python 3.10+ with numpy/scipy. Run with `python experiments/<folder>/<script>.py`. Scores are on a 0–5 integer scale unless stated otherwise. Laplace-smooth histograms (alpha=1) before computing KL. Fix seeds.
+Python 3.10+ with numpy/scipy. Run with `python experiments/<folder>/<script>.py`. Scores are on a 0–5 integer scale unless stated otherwise. Follow each fixed experiment’s scorer definitions. The historical marginal toy uses Laplace alpha=1; the new conditional study uses strictly positive analytic forecasts and individual-rating proper losses. Fix seeds.
 
 ## Sister repo
 

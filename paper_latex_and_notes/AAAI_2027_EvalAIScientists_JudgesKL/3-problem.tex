@@ -1,7 +1,22 @@
-\section{What Correlation Measures}
+% !TEX root = 00_main_aaai_2027.tex
+\section{What Scalar Criteria Identify}
 \label{sec:problem}
-Pearson's $r$ \citep{pearson1895note} measures only the strength of a \emph{linear} relationship. Spearman's $\rho$ \citep{spearman1904proof} and Kendall's $\tau$ \citep{kendall1938new} measure only agreement in \emph{ordering}. Each statistic is a single summary of a joint distribution, and it is well known that very different joint distributions can share the same summary \citep{anscombe1973graphs}.
+Let $p(r\mid x)$ be the distribution of a specified rating population and let a judge report $q(r\mid x)$.
+Write $\mu_q(x)=\sum_r r q(r\mid x)$.
+Pearson correlation measures linear association between scalar summaries; Spearman and Kendall measure ordering with their respective tie conventions.
+A strictly increasing transformation preserves ranks, but compression into two bins generally introduces ties and can change rank correlation.
+None of these statistics identifies the full conditional distribution when different forecasts share $\mu_q$.
 
-For judges, the consequence is concrete. Any strictly increasing transform of a judge's scores leaves rank correlation unchanged, so a judge that compresses every score into $\{4,5\}$ while preserving order looks as good as one that reproduces the human scale. Correlation also discards how much humans disagree on each item, which is exactly the information that describes their taste. Optimizing a judge for correlation therefore optimizes for one moment-like property while leaving the rest of the distribution unconstrained, and that invites spurious agreement.
+Squared error also has a narrower target.
+For any scalar prediction $a(x)$,
+\begin{align}
+\mathbb{E}[(a-R)^2\mid x]
+&=(a-\mathbb{E}[R\mid x])^2 \\
+&\quad+\operatorname{Var}(R\mid x).
+\end{align}
+It identifies the conditional mean under finite second moments, not an arbitrary conditional distribution.
+Scaling a bounded rating to $[0,1]$ changes the units, not that identification property.
 
-Psychometric frameworks address real concerns, but they were designed for settings where the instrument cannot be fit directly to data. An LLM judge can be. Once the target is a distribution, its fit can be measured and optimized directly.
+These limitations do not establish that every psychometric method is unnecessary.
+Construct validity concerns the interpretation supported by a body of evidence, rather than a single agreement coefficient~\citep{cronbach1955construct}.
+Choosing whose judgments to model and whether the rating task measures the intended construct remain necessary even with a proper probability loss.

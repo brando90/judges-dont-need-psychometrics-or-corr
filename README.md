@@ -1,115 +1,56 @@
 # judges-dont-need-psychometrics-or-corr
 
-**Thesis.** To check whether an LLM (or agent) judge "works", stop computing Pearson/Spearman correlation with human scores and stop borrowing psychometric validity machinery. A judge is a probability distribution over scores. So treat judge evaluation and judge fitting the way ML treats everything else: **match the human score distribution, i.e. minimize a KL divergence.**
+**Supported thesis:** correlation alone does not identify a judge’s desired conditional rating distribution. When that distribution is the target, fit and evaluate probability forecasts with proper probability losses, and retain correlations as useful diagnostics of scalar association.
 
-> "If humans have some taste, just match the taste distribution. That's it."
+The project’s original title expresses its research direction. The evidence does **not** establish that every psychometric method is unnecessary, or that cross-entropy always selects the best finite-sample system. Defining the human population, checking input correspondence, and studying reliability and construct validity remain separate questions.
 
-Status: **early, position-paper stage.** No empirical results yet. The toy script in `experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/` is the only number-producing code so far.
+**Status (11-08-2026):** the controlled synthetic conditional-distribution study is complete and awaiting the parent’s requested multi-provider review. The paper has been revised to distinguish distribution identification, mean prediction and historical evidence. No venue submission is authorized or performed.
 
----
+## What the new study establishes
 
-## Whiteboard formulation (2026-11-07, with Sam B.)
+[`02_conditional_binomial_distribution_identification`](experiments/02_conditional_binomial_distribution_identification/README.md) uses a known Binomial(5,t) population and five distributions with exactly the same conditional mean 5t. It includes the true distribution, an item-permutation control, and three constant controls. All seven selection criteria use the same nine candidates, disjoint train/validation/test families, and search budget.
 
-![Whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png)
+- **Population identification:** cross-entropy (CE), Brier score and ranked probability score uniquely identify the true distribution in this candidate set. Pearson, Spearman, Kendall and scalar mean squared error tie across the five same-mean candidates on every possible rating realization.
+- **Finite sampling:** with one synthetic rating per item, CE selected the true distribution in 249/256 rating replications; Brier and ranked probability score each did so in 245/256. All three did so in 256/256 replications with two or three ratings. Those are finite simulation counts, not a guarantee of zero selection error.
+- **Tie accounting:** the scalar criteria retain five-way ties. Their exact expected test CE ranges from 1.328246 to 3.347873 nats across tied candidates; the uniform-tie mean is 1.994927. A tie policy can select the oracle, so the result does not establish superiority under every tie policy.
+- **Conditional versus marginal:** the permutation control has the same aggregate histogram as the oracle but conditional Kullback–Leibler divergence 2.886690 nats. Matching marginal histograms cannot establish correct item-conditioned forecasts.
 
-A judge outputs a distribution over a score set $R$, conditioned on a candidate $\hat{y}$ and a gold reference $y^{\star}$:
+All 768 simulation conditions and 5,376 selections completed, with zero failed selections, zero provider calls and $0 provider inference charges. These are synthetic results only. The [full report](experiments/02_conditional_binomial_distribution_identification/RESULTS_conditional_identification.md) gives every common test metric, 95% Monte Carlo intervals over rating replications, complete tie ranges, and the scope of each uncertainty statement. No hypothesis test was declared (p-val=n/a).
 
-```math
-p(\cdot \mid \hat{y}, y^{\star}) \in \mathcal{P}^{R} = \left\lbrace p : R \to \mathbb{R} \;\middle|\; \sum_{r \in R} p(r \mid \hat{y}, y^{\star}) = 1,\ \ p(r \mid \hat{y}, y^{\star}) \ge 0 \right\rbrace,
-\qquad R = \lbrace 0,1,2,3,4,5 \rbrace \ \text{or} \ [0,1].
-```
+## The target and the loss
 
-**What the field does now:** pick the AI judge $\mathrm{AJ}_j$ that maximizes correlation with the human judge distribution $p^{H}_j$:
-
-```math
-\hat{p}^{\mathrm{AJ}}_j(\cdot \mid \cdot, \cdot) = \arg\max_{\mathrm{AJ}_j \in \Theta} \ \mathrm{Corr}\left( p^{\mathrm{AJ}_j}_j(\cdot \mid \cdot, \cdot),\ p^{H}_j(\cdot \mid \cdot, \cdot) \right)
-```
-
-**What we propose:** pick the judge that minimizes a distributional loss to the human judge (e.g. KL divergence):
+Given candidate output y and reference y*, define x=(y,y*), a rating population, and its conditional distribution p_human(r|x). A probabilistic judge reports q_theta(r|x). The distributional target is
 
 ```math
-\hat{p}^{\mathrm{AJ}}_j(\cdot \mid \cdot, \cdot) = \arg\min_{\mathrm{AJ}_j \in \Theta} \ \mathcal{L}\left( p^{\mathrm{AJ}_j},\ p^{H} \right),
-\qquad \text{e.g. } \mathcal{L} = D_{\mathrm{KL}}\left( p^{H} \,\Vert\, p^{\mathrm{AJ}_j} \right).
+\min_\theta \; \mathbb{E}_x D_{\mathrm{KL}}\big(p_{\mathrm{human}}(\cdot\mid x)\,\|\,q_\theta(\cdot\mid x)\big).
 ```
 
-## 1. The problem
+Population cross-entropy differs from this target by an entropy term independent of the judge. **One rating per item supplies a valid conditional log-loss observation**, -log q_theta(r|x). It does not require pooled marginal Kullback–Leibler divergence, and it does not reveal the full distribution of an unconstrained individual item. Shared structure and appropriate data are still needed to learn conditional distributions. Sparse empirical histograms are noisy summaries, not known human populations.
 
-The usual way to validate a judge: collect human scores and judge scores on the same items, make a scatter plot, and report a correlation.
+The [proper-scoring-rule literature](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf) provides the population identification results underlying CE, Brier score and ranked probability score. Properness does not guarantee a finite-sample winner under every metric or model class.
 
-- **Pearson** only measures *linear* association. If the relationship isn't linear in the features you happened to plot, it tells you something misleading.
-- **Spearman / Kendall** only measure *rank order*. They tell you whether the ordering is right, not whether the scores are.
-- Together they still capture only **some** distributional properties of human judgment, not all of it. A judge can be highly correlated with humans while assigning a completely different score distribution (for example, giving everything a 4 or a 5). Correlation is also easy to over-read and invites spurious conclusions.
-- **Psychometrics.** A common response is to import validity and reliability metrics from psychometrics. The argument here is that we don't need them. Fitting and evaluating a conditional distribution is a standard ML problem with mature tools.
+**Mean squared error identifies a conditional mean, not a distribution.** Report normalized score error, mean absolute error and signed bias when scalar score values matter. Pearson measures linear association; Spearman and Kendall measure ordering with their specified tie conventions. A strictly increasing transform preserves ranks; compression to two bins generally introduces ties and need not preserve rank correlation.
 
-Analogy from the call: means and variances are the first two "features" of a distribution. Keep adding moments and you pin down the whole PMF/PDF. Correlation fixates on one summary. KL compares the whole distribution.
+## Prior evidence remains separate
 
-## 2. Proposal: a judge is a distribution, so fit it with KL
+[`01_synthetic_pearson_vs_kl_squashed_judge_0to5`](experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/README.md) is the original marginal-histogram illustration. Its code and frozen outputs are preserved; a [new reproduction receipt](experiments/02_conditional_binomial_distribution_identification/results/old_toy_reproduction.json) confirms the original printed numbers. It is not evidence from conditional judge selection.
 
-**Judge.** Given an agent output $y$ and a gold reference $y^{\star}$, a judge is a distribution over a score $r$:
+The sister repository’s historical `06_information_loss_vs_correlation_judge_selection` did **not** establish a held-out CE advantage for CE selection over Spearman selection under either five seeded five-fold family partitions (8.868 versus 8.098; +0.770 [-0.895, 1.317]) or the original 15-validation/30-test-artifact split (9.133 versus 8.710; +0.423), and those historical ratings, test outcomes and candidate prompts had prior exposure. Its fitted probability-head comparison also had widespread Pearson-optimizer convergence failures. The [public-evidence section](experiments/02_conditional_binomial_distribution_identification/RESULTS_conditional_identification.md#historical-evidence-preserved) links exact source revisions, preserves the negative/null findings, and records the separately owned completed weighted-probability/stable-Pearson follow-up. No raw human ratings, private candidate artifacts or sealed data enter this repository. Fresh human returns were not independently checked from cloud here and are not declared absent.
 
-$$p_\theta(r \mid y, y^{\star}), \qquad r \in \lbrace 0,\dots,5 \rbrace \text{ (or } [0,1]).$$
+## Reproduce and inspect
 
-Here $\theta$ is anything you can search over: prompt, rubric, temperature, weights, or calibration parameters.
-
-**What people do now:**
-
-$$\theta^{\star} = \arg\max_\theta \ \mathrm{corr}\big(r_{\text{judge}}(\theta),\ r_{\text{human}}\big)$$
-
-**What we argue for:**
-
-$$\theta^{\star} = \arg\min_\theta \ \mathbb{E}_{(y,y^{\star})}\Big[ D_{\mathrm{KL}}\big(p_{\text{human}}(\cdot \mid y,y^{\star})\ \Vert\ p_\theta(\cdot \mid y,y^{\star})\big) \Big]$$
-
-Practical variants we plan to support:
-
-- **Per-item KL** when several humans rate the same $(y, y^{\star})$, so $p_{\text{human}}$ is the empirical histogram for that item.
-- **Pooled KL** between the marginal score histograms when there is only one rating per item. This is weaker, since it ignores the pairing, but it is cheap.
-- **Smoothing** (additive/Laplace) so that KL stays finite when a judge never uses some score.
-- **Optimization.** Reuse the standard toolbox built for KL objectives (cross-entropy, SGD/Adam) instead of inventing a new metric.
-
-**Reporting.** KL is the right *objective*, but it isn't intuitive for people to read. For bounded scores we plan to also report **MSE on normalized scores** (for example, divide a 0–5 score by 5). Unlike classification accuracy, MSE penalizes judge=0 vs human=5 much more than judge=4 vs human=5. Exactly which metric to report is still an open question from the call.
-
-## 3. Planned experiments
-
-1. **Toy counterexamples** (`experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/`): a judge with Pearson ≈ 0.88 whose score distribution is far from the human one (large KL), next to a judge with similar correlation and near-zero KL. Run `python experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/kl_vs_corr.py`.
-2. **Theorem-proving agent judges**: apply KL-based judge fitting and evaluation to the human judgments being collected on whether Brando's theorem-proving agents write good theorems/formalizations. Human data still needs to be collected. An open sub-question is how many human-rated $(y, y^{\star})$ pairs are needed.
-
-See [`experiments/README.md`](experiments/README.md).
-
-## 4. Repo layout
-
-The repo follows the [agents-config](https://github.com/brando90/agents-config) research layout (Rule 49): an `experiments/` bucket, a `paper_latex_and_notes/` bucket, and later `src/`.
-
-```
-.
-├── README.md
-├── AGENTS.md / CLAUDE.md                       # identical agent entry points (route to ~/agents-config)
-├── experiments/
-│   ├── README.md                               # experiment index
-│   └── 01_synthetic_pearson_vs_kl_squashed_judge_0to5/   # kl_vs_corr.py
-└── paper_latex_and_notes/
-    ├── AAAI_2027_EvalAIScientists_JudgesKL/    # position-paper draft: 00_main_aaai_2027.tex (+ PDF)
-    └── notes/
-        ├── fathom_call_11-07-2026/             # notes + quotes from the originating call
-        ├── handwritten_corr_vs_loss_splits_received_11-08-2026/  # pages received 11-08-2026
-        └── correlation_vs_loss_judges_notes_11-07-2026.md  # transcription plus cited synthesis
+```bash
+python3 -m unittest discover -s experiments/02_conditional_binomial_distribution_identification -p 'test*.py' -v
+python3 experiments/02_conditional_binomial_distribution_identification/verify_results.py
+python3 experiments/02_conditional_binomial_distribution_identification/make_report.py
 ```
 
-## 5. Source
+The [experiment index](experiments/README.md) links the complete procedure, hashes and results. The [paper source and current PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md) live together. New measurement runs refuse to overwrite completed evidence; deterministic verification uses the saved rows without new rating samples.
 
-The ideas come from a discussion on 2026-11-07. Notes are in [`paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
+## Origin and scope
 
-Research synthesis of those 11-07-2026 notes (transcription, prior art, and experiment design): [`paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md`](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md).
+The project began with the [original README formulation at commit `f2272f9`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/f2272f9628f1f31575ecbdaa304f33c9ad0743f1/README.md), the [11-07-2026 discussion notes](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md), the [whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png), and [handwritten selection/fitting notes received 11-08-2026](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). Those source records remain unchanged. The [research synthesis](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md) provides further historical context.
 
-Pages received 11-08-2026 (date written not recorded): [`paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md`](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). The author clarification stored there, separate from the handwriting, says the comparison is method 2 versus method 4: correlation or a distributional loss on the training set, hyperparameters on the validation set, test set untouched. Methods 1 and 3 are contextual alternatives. No winner is assumed.
+The [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) project studies the applied judge problem. This repository’s new experiment isolates a distribution-identification question; it does not duplicate historical probability fitting, validate a deployed human judge, or establish natural-task generalization.
 
-Target venue: [Effective and Efficient Evaluation for AI Scientists, AAAI-27 workshop](https://eval-ai-scientists.github.io/aaai27/) (position paper, 2–4 pages).
-
-## Sister repo
-
-[trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) is the concrete application of this position: AI/agent/LLM judges for formal specification coverage of Lean formalizations (VeriBench), evaluated by predicting the human-rating distribution rather than by correlation.
-
-Origin: this position came out of the trustworthy-theorem-judges study, where we realized the standard practice is odd: we fit and select judges by their correlation with humans, even though correlation (Pearson: linearity only; Spearman: rank only) has severe drawbacks as a target for matching human judgment.
-
----
-
-_Drafted with AI assistance (Grok Bot)._
+**TLDR-end:** [judge objectives: conditional identification] Evaluate conditional probability forecasts when the full rating distribution is the target. Correlations and scalar errors remain informative diagnostics, but neither alone identifies distribution shape.

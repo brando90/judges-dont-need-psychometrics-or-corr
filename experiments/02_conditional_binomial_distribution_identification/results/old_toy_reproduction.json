@@ -1,0 +1,8 @@
+{
+  "exit_code": 0,
+  "source": "experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/kl_vs_corr.py",
+  "source_sha256": "f88154e06d68135c9a4966c9277dca9e1e12d2a65d685ac6cd15b6cbf81b2f43",
+  "stdout_sha256": "16ef9fd9dc33a0017c8d684558beb797953815ba1420259d17c30722c2247599",
+  "historical_first_two_lines_match": true,
+  "interpretation": "Marginal histograms only; two-bin compression introduces ties and is not strictly order preserving. It is not conditional judge selection."
+}
