@@ -1,0 +1,601 @@
+{
+  "summary": "Canonical import of this chat's historical objective experiments; scientific evidence preserved byte-for-byte.",
+  "verified_at": "11-09-2026 12:14 PST",
+  "source_repository": "brando90/trustworthy-theorem-judges",
+  "source_revision": "996aa276890547e1a459ce40e94804245f23325e",
+  "source_experiment": "experiments/06_information_loss_vs_correlation_judge_selection",
+  "destination_experiment": "experiments/03_exp06_ce_vs_pearson_matched_budget",
+  "historical_subdirectory": "historical_exp06",
+  "public_file_count": 83,
+  "public_bytes": 2276361,
+  "files": [
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/CKPT_objective_comparison.md",
+      "destination": "historical_exp06/CKPT_objective_comparison.md",
+      "git_blob": "bcb27fbc02dbbaaa3363ff5f1444fa32172b5de4",
+      "sha256": "3b4ba0426fd0ad217b8b2d3de76ed6944086e90492b6c207ed6343f07362c9c5",
+      "bytes": 3043
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/DATA_INVENTORY.md",
+      "destination": "historical_exp06/DATA_INVENTORY.md",
+      "git_blob": "ed0fbb9f5e026ee9ef1243c019d27ddb3d8ac714",
+      "sha256": "c72aadc8dce8a1193148f07729aa8c6e4165207dd4ebefe99758c26edc718251",
+      "bytes": 4705
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/HANDOFF_VALS_CODEX.md",
+      "destination": "historical_exp06/HANDOFF_VALS_CODEX.md",
+      "git_blob": "6ac1782da0baddee31bf2a5385ee5c776a425331",
+      "sha256": "9d25b9742333ee032889d8eda55e9637610292cfc64196d13bfd3aa5e35d2c8d",
+      "bytes": 7875
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/HEAD_PROTOCOL.md",
+      "destination": "historical_exp06/HEAD_PROTOCOL.md",
+      "git_blob": "a90169cc7dbcadaa86387c02c42dab3702d1b869",
+      "sha256": "bfb2057cb28c82f31add192072fe8a9756541be51350c8551998f65b9ab8d1fb",
+      "bytes": 3561
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/MATH_AND_NOTE.md",
+      "destination": "historical_exp06/MATH_AND_NOTE.md",
+      "git_blob": "6d95ffbd8e02ac020ec1864bcc581565416303d9",
+      "sha256": "3e06b22a12bf2887d3777f69acc5c92629774070fa49201cc42199cd41a0ec2c",
+      "bytes": 4447
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/PROTOCOL_FROZEN.md",
+      "destination": "historical_exp06/PROTOCOL_FROZEN.md",
+      "git_blob": "0d2b121e71795ae89888ee256f7f2011bbc6a35c",
+      "sha256": "ac44bd7c071d29512748164eb7ac5c7021676d84d633ecc715065cc5d229440a",
+      "bytes": 5110
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/README.md",
+      "destination": "historical_exp06/README.md",
+      "git_blob": "53f5f4e8de69a604c25d9469bc00f0e51c0d59d4",
+      "sha256": "a9012fe6c773414f97a397da265f73db36cabe3b795255158422b6eec9588a3a",
+      "bytes": 11935
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/RESULTS.md",
+      "destination": "historical_exp06/RESULTS.md",
+      "git_blob": "fa8952d6b0ee69741733e6661390f47f313479f3",
+      "sha256": "8a4a2a6a2ae55c3c5ec8905cd60fc78e001d8ac4982d4fd0294db14e89cc3606",
+      "bytes": 16663
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/CKPT_notes_followup.md",
+      "destination": "historical_exp06/followup_11-07-2026/CKPT_notes_followup.md",
+      "git_blob": "a6ede9bf4172a2dc441abd41344d6f5fc8ceac42",
+      "sha256": "151f5ee9edb62afef63e0b772f2f153b3faa697ca319686d1f398fc334016069",
+      "bytes": 2086
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/FOLLOWUP_PROMPT.md",
+      "destination": "historical_exp06/followup_11-07-2026/FOLLOWUP_PROMPT.md",
+      "git_blob": "6db7b2913378029eb105af07b363823b09a353fc",
+      "sha256": "680e34d441b1cea9451d28ab78cc5dbc4de127a3bbc824a7012f6ad1d38a891e",
+      "bytes": 5591
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/LITERATURE.md",
+      "destination": "historical_exp06/followup_11-07-2026/LITERATURE.md",
+      "git_blob": "18318155a9ba47f34881b91d95a080bbc4ecd19f",
+      "sha256": "36a8be252f1545a8d24a58d9de198d4405c734d5a8eb71900eaa97346aa20eb3",
+      "bytes": 3506
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/NATIVE_PROBABILITY_PROMPT_TEMPLATE.md",
+      "destination": "historical_exp06/followup_11-07-2026/NATIVE_PROBABILITY_PROMPT_TEMPLATE.md",
+      "git_blob": "8bd6ff38862ac2bbf1c89ed35059fb204bdd0063",
+      "sha256": "449bb8280d11b5beeecb83e56b36ee560cfd8f16bcd9fe1c3bffa5d26ebc50b7",
+      "bytes": 1644
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/NOTES_11-07-2026_correlation_vs_loss.md",
+      "destination": "historical_exp06/followup_11-07-2026/NOTES_11-07-2026_correlation_vs_loss.md",
+      "git_blob": "6e70b500beef5714fc8a8243565b8232b4effc57",
+      "sha256": "058dd6836358d3850bc40c762136eee6496edbcc98527d5b3d0a63535ff15532",
+      "bytes": 10457
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/PROTOCOL.md",
+      "destination": "historical_exp06/followup_11-07-2026/PROTOCOL.md",
+      "git_blob": "080aa9f787c1ffebf3e01efa39a6c144fc7b4f37",
+      "sha256": "a1c5ae7ef746683d0125f377bcbb4b469c3a66eddb0512db01f0adeb16969b05",
+      "bytes": 5261
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/RESULTS.md",
+      "destination": "historical_exp06/followup_11-07-2026/RESULTS.md",
+      "git_blob": "4c63fddb533feccd08f5256a6b9fd85a3ccd71a2",
+      "sha256": "6d30af749f345a53717f815a94a1580279b724336bc8ffecf7b76634f6f35ed8",
+      "bytes": 8211
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/protocol.json",
+      "destination": "historical_exp06/followup_11-07-2026/protocol.json",
+      "git_blob": "ae13836afd01c39a051a29484b9feb12a581a6a0",
+      "sha256": "0ebb9ae77dd5844159c9e9676fd7aff5e895eb2eef2aacb3c1dfb896e4f02824",
+      "bytes": 525
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/google_sync.json",
+      "destination": "historical_exp06/followup_11-07-2026/results/google_sync.json",
+      "git_blob": "2148bb064aa6557da5db1553bec398cc16f38900",
+      "sha256": "0da8878783c9afbb0da28822b77151e235376de40fb63c170ae48080f1709ac7",
+      "bytes": 468
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/launch.json",
+      "destination": "historical_exp06/followup_11-07-2026/results/launch.json",
+      "git_blob": "e35731124347a5233b37d0593e6caff0562d8924",
+      "sha256": "7c660164cec1549786e8310fa58005b005c5bf65052d9328f1680936eebd7d16",
+      "bytes": 961
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/results.json",
+      "destination": "historical_exp06/followup_11-07-2026/results/results.json",
+      "git_blob": "a76652621c914efc6b29524adc4c41380d5c69db",
+      "sha256": "30560948bae3bba8a279d8d72de5c461a253a55c9214ca43023e12c502b8b640",
+      "bytes": 20147
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/terminal.json",
+      "destination": "historical_exp06/followup_11-07-2026/results/terminal.json",
+      "git_blob": "a2b48bdcf5bec4d375a5e95d49be73454e981cc9",
+      "sha256": "3785f7385e85891ba5d78fa644a4e0ee2168a24f6758fa2a5aa086f4350b085d",
+      "bytes": 1184
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/verification.json",
+      "destination": "historical_exp06/followup_11-07-2026/results/verification.json",
+      "git_blob": "539fda80b7fe61dc437962e4241a26d250cb6e45",
+      "sha256": "4de6e254f6cabbebcd48024dd4d1e5222e24ad1a568c1bf8c9ebda40b3ef6136",
+      "bytes": 257
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/run_distances.py",
+      "destination": "historical_exp06/followup_11-07-2026/scripts/run_distances.py",
+      "git_blob": "cdb490e8605c56da158fb746051268a7db27dc5b",
+      "sha256": "37ff316fdff185530718c18d86acac4bc766e14fb9aed8ba975768ed40265017",
+      "bytes": 9234
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/supervise.py",
+      "destination": "historical_exp06/followup_11-07-2026/scripts/supervise.py",
+      "git_blob": "03752c1b5bbc814723bdeea1b3dbd639feba5e98",
+      "sha256": "33a60607b1ab162a0d4e8613a0b53aa486035003550d4f5348beeda0e61b7ad1",
+      "bytes": 2187
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/verify_distances.py",
+      "destination": "historical_exp06/followup_11-07-2026/scripts/verify_distances.py",
+      "git_blob": "2864e9869cb5bc90b145973df48eb9342555112d",
+      "sha256": "00b74c896f7656e2684837fab5687240bfdbb491f03e072ef84f85c990850a14",
+      "bytes": 4059
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/head_protocol.json",
+      "destination": "historical_exp06/head_protocol.json",
+      "git_blob": "35ca01ee8da9136935fbbfd9a2508576cfdba58b",
+      "sha256": "710ddb9ba5a70d8720ecb7a2d672358c92c2052e5e7aa37a456d03fcc99eb56e",
+      "bytes": 420
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/math_checks.json",
+      "destination": "historical_exp06/math_checks.json",
+      "git_blob": "ba487d54c83fea788eff370c506a66611deef7f0",
+      "sha256": "fa68f28a500dded4a444ae2c27ccaa1f8f0ed1b22dccbfbefd43de2a4afd785d",
+      "bytes": 333
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/protocol.json",
+      "destination": "historical_exp06/protocol.json",
+      "git_blob": "78f0f3a155e639c84aa2e14046809277d94833d1",
+      "sha256": "e224e48f04c0c24369727f29649565976388ded368f43a99387850529e1db0ea",
+      "bytes": 779
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/google_sync.json",
+      "destination": "historical_exp06/results/google_sync.json",
+      "git_blob": "23dc5775825f0d83f70a3d081eac80016250315b",
+      "sha256": "ad3160c0e0537b32e4286e1ac41b19b69f7556cb84d985a96e4c3508cbf07868",
+      "bytes": 442
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/head_launch.json",
+      "destination": "historical_exp06/results/head_launch.json",
+      "git_blob": "80d14cf49f5f380f1a289c60f67944faa66af104",
+      "sha256": "30bb052d85b13021f32a18a1d685513688b8030fe96b6caec81e5138ffef3b92",
+      "bytes": 787
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/head_progress.json",
+      "destination": "historical_exp06/results/head_progress.json",
+      "git_blob": "619aacdde41eb5fa92c61150618b09e8fb3cd70d",
+      "sha256": "8204458758ab1ffd099b9c9b556fbc78b45de8d519d488e6535c50f9159e1874",
+      "bytes": 106
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/head_results.json",
+      "destination": "historical_exp06/results/head_results.json",
+      "git_blob": "09ec1a25560799d268dd7a25b4dd1a58b858a647",
+      "sha256": "333d01fa201da5f6eaf5aeb50f4a89180f85e3d2e02e55484740dea8dd47d3a1",
+      "bytes": 257869
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/head_terminal.json",
+      "destination": "historical_exp06/results/head_terminal.json",
+      "git_blob": "8ff2804f78c32b211ed411fbe9ae5ed93b6b81c0",
+      "sha256": "189c65024dc77e59d58af4566bb1d5245f799240f9f55cc9d73333988df3804d",
+      "bytes": 924
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/head_verification.json",
+      "destination": "historical_exp06/results/head_verification.json",
+      "git_blob": "df75fa11bb353a781f23177c21f52744a98118b0",
+      "sha256": "7c833377394e17d415a99523be04a54ab45687138836f85a8e2aaf0b67e9d3d3",
+      "bytes": 1406
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/launch.json",
+      "destination": "historical_exp06/results/launch.json",
+      "git_blob": "42e626074dc25ad2d23989bfaf113ab76733a466",
+      "sha256": "a24acfcf5e281e231ebdf3e8bf8088ceec0c6fb0abc1428c4a0afc350730b43e",
+      "bytes": 1056
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/progress.json",
+      "destination": "historical_exp06/results/progress.json",
+      "git_blob": "3a956d9fbc2094fec6e18957a86ff186097112b4",
+      "sha256": "6bbfc71b2d6395a06e97ee37da3a90dea0dc67e2d00775edf007000fb9baca95",
+      "bytes": 91
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/results.json",
+      "destination": "historical_exp06/results/results.json",
+      "git_blob": "fc7f8b1d44b138262bc26f85cba9b52b61eac5ff",
+      "sha256": "c5901ed28181fc6eb75a20c0c8f6e2f4fc3e5b69f656b7b94f950ad160eec633",
+      "bytes": 431943
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/terminal.json",
+      "destination": "historical_exp06/results/terminal.json",
+      "git_blob": "108e25ddff65a806329a0defa76f2c2a051808b3",
+      "sha256": "58169e054c8710568d4ec81893baa5027916019d39a8d90a0cf1cacbf3eab400",
+      "bytes": 1192
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/results/verification.json",
+      "destination": "historical_exp06/results/verification.json",
+      "git_blob": "39d512312c4f887ec33e1499c45f29a33b786980",
+      "sha256": "03abc530236eb63a75c3aca553460c21379cde90c7abd8bba370e56161286613",
+      "bytes": 379
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/check_objectives.py",
+      "destination": "historical_exp06/scripts/check_objectives.py",
+      "git_blob": "9d9cabea07e30b68f69996f47c42690093cb5658",
+      "sha256": "52e32eebce476d5f2e61735a83cdf14aaa52713360c9646324658bdbee574bd1",
+      "bytes": 1705
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/fit_heads.py",
+      "destination": "historical_exp06/scripts/fit_heads.py",
+      "git_blob": "f59efafeef5bddc060c7cd96f30c2c4538433754",
+      "sha256": "df0b86b65fa1c59e7eba8d65283e47855b271d97c49bde7770930ddb6f7aa6f4",
+      "bytes": 7840
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/head_supervisor.py",
+      "destination": "historical_exp06/scripts/head_supervisor.py",
+      "git_blob": "718904fec558ae83f0097ba28b186f3ad89d338d",
+      "sha256": "046bf91c32deb63b11bc78096bb7e439c6543a3512531c1720c96ccc950689a8",
+      "bytes": 2376
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/import_cached.py",
+      "destination": "historical_exp06/scripts/import_cached.py",
+      "git_blob": "04d831bc4cfe8ba7a60e32ec5ee43c3d041d47ba",
+      "sha256": "da136ef80c4d5ec4168876fc91d1e80843a5a4a4230286aee430d9a688305080",
+      "bytes": 5815
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/metrics.py",
+      "destination": "historical_exp06/scripts/metrics.py",
+      "git_blob": "bf93da64543000056129203ba7b1af24489d8e41",
+      "sha256": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+      "bytes": 2561
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/remote_supervisor.py",
+      "destination": "historical_exp06/scripts/remote_supervisor.py",
+      "git_blob": "8963cb4f2a757e7a064ed16ed878abf87bed82bb",
+      "sha256": "1346f3d2b233907317b4835c83575781311eaf0403cd117215e978d3bf70c76f",
+      "bytes": 2038
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/run_cached.py",
+      "destination": "historical_exp06/scripts/run_cached.py",
+      "git_blob": "fe93d386d69bb051086840908f4815eb3b194c35",
+      "sha256": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d",
+      "bytes": 10389
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/run_snap.sh",
+      "destination": "historical_exp06/scripts/run_snap.sh",
+      "git_blob": "05ac1149decd510445e8aa398a9bbacdc41204fd",
+      "sha256": "72b59c48b31a39f442ec8112263dfec2103310f6185e89cf5dfa887b0ca49b38",
+      "bytes": 770
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/test_metrics.py",
+      "destination": "historical_exp06/scripts/test_metrics.py",
+      "git_blob": "c61b3b8fa0c4fc02e38cbe2a6a553d40792c23d8",
+      "sha256": "9f91df589791c8a590d384c9e25b57f09d284f6295454fd0c88d1e20a3fc871e",
+      "bytes": 3240
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/verify_heads.py",
+      "destination": "historical_exp06/scripts/verify_heads.py",
+      "git_blob": "faa1d26d39abba9f66cfc866b541cdc504aab895",
+      "sha256": "cd50b7e4e43cace8f2a981d4f560dd1013b98d7b9583d97de98ab1c3c8b4e697",
+      "bytes": 3629
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/verify_results.py",
+      "destination": "historical_exp06/scripts/verify_results.py",
+      "git_blob": "a4e5810081baed01b08745b44782b2fcb890e7eb",
+      "sha256": "c9b995fbd39783b5296d8e909fca1f58bbefc7e9bef0aa6a46c0b73e20e642eb",
+      "bytes": 3307
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/scripts/write_report.py",
+      "destination": "historical_exp06/scripts/write_report.py",
+      "git_blob": "2ce3e495cb1e67b0743a8dc9bea1b3fdf280a4a0",
+      "sha256": "7cbb10d8ef9943c946ab61d87843a88c11a1197d3018ce9ea7f3178c5c618f08",
+      "bytes": 15940
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/source_audit.json",
+      "destination": "historical_exp06/source_audit.json",
+      "git_blob": "79b1bd648e7ba4c19acede109d33895f05bca8a1",
+      "sha256": "866d9e0110e9be37135dc46f0d2ce51f935d09150d3425fbbfc4a7ea2a6de7da",
+      "bytes": 6563
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/CKPT_training_followup.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/CKPT_training_followup.md",
+      "git_blob": "fc4e0f58e7871d3916463a775dcefb9b4178595d",
+      "sha256": "5bbb6d19a6da7744e680bc48a6753239506fac639b027de7ce6fb40742c1847d",
+      "bytes": 3782
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/ENVIRONMENT_NOTE.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/ENVIRONMENT_NOTE.md",
+      "git_blob": "5973320a18a712d9c26cd058836974249638a95a",
+      "sha256": "43195b1fe18fa94c963ec308eef636d4c721c40fcab41dd8bbeef22b0f9962c1",
+      "bytes": 1324
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/MATH_baseline.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/MATH_baseline.md",
+      "git_blob": "ff6fb25c16685cca417afcab79f14b647abf464d",
+      "sha256": "61edfcd984905f02aff8777ca61a982765deccb5ba04b02aa302db6d224b7c47",
+      "bytes": 7509
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/PROTOCOL.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/PROTOCOL.md",
+      "git_blob": "05e52ae2f06e06c250b0b7103658f6509344251f",
+      "sha256": "0677cbe5f578f2917f8df5b147893465579f2018fdca5baf581f2546e728dd60",
+      "bytes": 8782
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/README.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/README.md",
+      "git_blob": "bc902965881ce9a7b07112920b9ef1a1320adba0",
+      "sha256": "40dca662d91bb06a9f2c831c6bfa671d1106d4d59eaf10233c1fb304e5e8b791",
+      "bytes": 3680
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/RESULTS_training.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/RESULTS_training.md",
+      "git_blob": "78a4aa6e47bdfe357c85b3da072b62c79a8134d3",
+      "sha256": "5319675968fb18af40fc21736109839ad863b333926cbe25515533c2fef5562a",
+      "bytes": 19732
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/protocol.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/protocol.json",
+      "git_blob": "d474ce1a39a65b5e2da35e66b4787f475c91a200",
+      "sha256": "7ef12e892c4ed3d31feb34b507ce7d5f0921ddb4771e6af63349b2446af226cd",
+      "bytes": 1197
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/results.md",
+      "git_blob": "60fb7eb68e94369f3143bab09561a64a0259641d",
+      "sha256": "c560c25d8d82ab8f320d3b6a145a9b882a960d1682b045c9f7f78d0c81d0c5da",
+      "bytes": 1099
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/companion_sync.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/companion_sync.json",
+      "git_blob": "85712c1328c45e684466ccf0569e245563eddca4",
+      "sha256": "248223470b36bab8614dbaa19bfadb044c62dd9430d92ade5a65d571c71d9c31",
+      "bytes": 436
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/controls_preflight.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/controls_preflight.json",
+      "git_blob": "3907a7d0f04d04742f3c6f71bf2b69f9598d1072",
+      "sha256": "05b5fd92d258642851ae495fe074c724e4855df3b94fb61fbb30ea79f45c885d",
+      "bytes": 3542
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/launch.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/launch.json",
+      "git_blob": "e32ede2a28a82c69dfc13ae8790da3db85c41189",
+      "sha256": "4d2e80922500f33df538a8aaca4ad7192b2897e5219ed898bffa79aec5fc7c78",
+      "bytes": 2200
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/mixture_fit_receipts.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/mixture_fit_receipts.json",
+      "git_blob": "7992f8e9c68e0879ea53d899cbef9ed7a08767eb",
+      "sha256": "2df48ba0dbbb043f6445618c2b662c38c1a20df2239303b70dbad1fc0103d7f4",
+      "bytes": 62705
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/notification_receipt.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/notification_receipt.json",
+      "git_blob": "9225e28bd9caf3a34a9bbb31e5b89f73a98e7c84",
+      "sha256": "70ba36c36a4ef3ea766dead20975382729804821f6387a9fd43952a70ac7d97f",
+      "bytes": 405
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/preflight.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/preflight.json",
+      "git_blob": "d8df9025d44b36a1143cc37dc318aa89d0408398",
+      "sha256": "76f12d1fc1e2539e4d98451ec150fa9c142e8cb1dd4add4b7ef577cf3a65e9bb",
+      "bytes": 793
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/progress.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/progress.json",
+      "git_blob": "bdf9a56732af2c41ed64d5c809a081422ad54cf2",
+      "sha256": "7616fc134d1bd8bf379575b6272db650b8c0dde1f738bb91ec0893f7c03a635d",
+      "bytes": 476
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/results.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/results.json",
+      "git_blob": "0ef1c0c033908c4149b01e73994cedbc6c87eab5",
+      "sha256": "7bbead25ee3577cb5cbd2e5f41264f9a4953bd7eb360b962b93d0dbe66396ee2",
+      "bytes": 1151232
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/terminal.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/terminal.json",
+      "git_blob": "3ad53b8c3a67c80f40217fdf66dd19c532f45cf2",
+      "sha256": "de4df59917894c1ff0be135133aba175fa8f6bc43e5e2cb127ae0caca4e9a66c",
+      "bytes": 2424
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/verification.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/verification.json",
+      "git_blob": "f85ebc29a530c4702228ff6cabbf9a76965a4450",
+      "sha256": "3ccaf7fe965e431a2d09d223a0ff552ead12a06556fef78bf348d6cf1e499e20",
+      "bytes": 1159
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/verification_refit_samples.json",
+      "destination": "historical_exp06/training_followup_11-08-2026/results/verification_refit_samples.json",
+      "git_blob": "35cbecd702eb748b5397de89b9b7c110bba8674e",
+      "sha256": "d8c3f7b9a6438a874029f6779da6c712aaea0c5656e8a90f0bd9ab94dc3e0423",
+      "bytes": 7678
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_execute.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/PROMPT_execute.md",
+      "git_blob": "41278669308ff77f4a1d7a472515880197400616",
+      "sha256": "e946647699efb52478d9276d014c0d8b97538ef34904e6ae790e00bfbc64c040",
+      "bytes": 2163
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_mixture.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/PROMPT_mixture.md",
+      "git_blob": "f137cc23c6a0053dac5b70ac73846d9a9cc38ba9",
+      "sha256": "5fa0a19aee4bec851ac7711cf3446515ede0a157a8503ab1a91c75a6116caa3b",
+      "bytes": 2322
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_verify_refit_samples.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/PROMPT_verify_refit_samples.md",
+      "git_blob": "7dc5f68187aa3bf6f209b52d14253c0b323cec21",
+      "sha256": "7fe2b445e935a24157bdfb061c5edf01c588c3366738c8672dbf9fb1bf766c0d",
+      "bytes": 1446
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_verify_training.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/PROMPT_verify_training.md",
+      "git_blob": "4bcf8e9dbde5775c98c1d91de5eb617c6219ae5c",
+      "sha256": "8a3a93ffe53b929efae75a610e52ccb3e8d8e5597d893351205c4f5f3fc06019",
+      "bytes": 1553
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_weighted_softmax.md",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/PROMPT_weighted_softmax.md",
+      "git_blob": "9aa3f01b652172f4dd00e5ec477be456d01a599c",
+      "sha256": "2edd8990f383a2a9cb7e1424f1da6fa2710bb62d9d7d349c3667c153ae178e84",
+      "bytes": 2038
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/check_mixtures.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/check_mixtures.py",
+      "git_blob": "4b5eec27dbb00ddf73bfdac89a771482ed80d1ef",
+      "sha256": "9269fc8ddc161a50d52b54ac516b42c16f6a2cab974cc3ca2d0349114e58bf64",
+      "bytes": 4924
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/mixture_models.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/mixture_models.py",
+      "git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/run_training.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/run_training.py",
+      "git_blob": "9caa525626b81fbd29be1ce6829489b176ad6a4f",
+      "sha256": "d70651a63eedafe2d0a184c73afde33f09295789be344cb48f3235ab8035239e",
+      "bytes": 13962
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/supervise.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/supervise.py",
+      "git_blob": "1042570eda99baa82af870858a2044d550b3853b",
+      "sha256": "91d7d1c43a633c36ed88a7f01d7a865c5aabb27d7e4c097eecb70ebda42081e7",
+      "bytes": 2772
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/verify_refit_samples.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/verify_refit_samples.py",
+      "git_blob": "17a2b7e9cb6ff521186326e84b7dfe952f1a7902",
+      "sha256": "3b96813df33efdeafc5f0b8cf6c9ed4ff643eb84b86dc946361d0b4faf484937",
+      "bytes": 9817
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/verify_training.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/verify_training.py",
+      "git_blob": "2e83791a75efc5dcddd73e7bc757f9863a11eaad",
+      "sha256": "360a05589833b46a693b7b3f08ab0092e6089354b383746ad4903e3469fda68e",
+      "bytes": 23202
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/weighted_softmax.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/weighted_softmax.py",
+      "git_blob": "ef17b7e397bbc1ec264c7adbfbc5337bbad93338",
+      "sha256": "bc4f18f2aa3a9a737f992785778a495a6d78d957c79a2eea3b183ffaf7dbd20f",
+      "bytes": 12009
+    },
+    {
+      "source": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/write_report.py",
+      "destination": "historical_exp06/training_followup_11-08-2026/scripts/write_report.py",
+      "git_blob": "437df4ae7b245f05c70815809e37f557d7c0923e",
+      "sha256": "66262b96c7eb3364d7d2e836cccee9193df9f2eda2302c1227c80a82c4de7b2e",
+      "bytes": 13364
+    }
+  ],
+  "private_file_count": 1521,
+  "private_bytes": 42669277,
+  "private_receipt": "private/MIGRATION_exp06_11-09-2026.json",
+  "private_receipt_sha256": "2ef5a4f1ed801dc4460fe63d89a844595155396db80592e5a8a89415fc8ef573",
+  "original_source_images": 4,
+  "scientific_runs_started": 0,
+  "historical_public_sources_retained": "Frozen provenance and experiment07 importer compatibility; ongoing objective research belongs here."
+}

@@ -1,11 +1,15 @@
 # 03_exp06_ce_vs_pearson_matched_budget
 
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/README.md>
+
 Diagnose historical experiment 06’s Pearson failure and compare cross-entropy with Pearson within a shared, certified probability-mixture family. The comparison is complete; it does not establish CE superiority.
 
 - [Full results and statistics](RESULTS_comparison.md)
 - [Frozen protocol](PROTOCOL.md) and [source freeze](FREEZE.json)
 - [Checkpoint](ckpt.md) and [profile continuation access](SESSION_ACCESS.md)
 - [Independent verification](results/verification.json)
+- [Historical experiment migration and canonical paths](MIGRATION_11-09-2026.md), [manifest](MIGRATION_MANIFEST_11-09-2026.json) and [migration checkpoint](CKPT_migration_11-09-2026.md)
+- [Evaluation criterion and repository ownership](EVALUATION_CRITERION_11-09-2026.md)
 
 Live dependency: the completed result still needs a paper-integration decision, so this canonical experiment folder remains active. The paper has not been changed.
 

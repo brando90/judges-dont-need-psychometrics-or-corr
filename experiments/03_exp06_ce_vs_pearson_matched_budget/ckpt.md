@@ -1,9 +1,11 @@
 # Fix Pearson fits and rerun experiment 06 with matched budgets
 
-**TLDR:** Continue the historical experiment 06 comparison in this repository. Diagnose the failed Pearson softmax fits, repair the comparison, and run cross-entropy versus correlation with matched budgets; also finish verifying cross-account Codex session access.
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/ckpt.md>
+
+**TLDR:** The matched cross-entropy versus Pearson comparison is complete; no scientific rerun remains under that request. This repository now also holds the full historical experiment package and private reconstruction inputs; see CKPT_migration_11-09-2026.md for the completed relocation.
 
 Created: 11-09-2026 10:25 PST
-Last updated: 11-09-2026 10:59 PST
+Last updated: 11-09-2026 12:17 PST
 
 ## Goal
 - Fairly compare cross-entropy (CE) and Pearson objectives on held-out human-rating metrics while preserving historical evidence.
@@ -23,6 +25,7 @@ Last updated: 11-09-2026 10:59 PST
 - None for the completed comparison. No background experiment, reconnect loop or temporary checkout remains.
 
 ## Log
+11-09-2026 12:16 PST -- Completed this chat's historical-package relocation: historical_exp06/ holds the full original public study, distance follow-up and weighted-PMF training; private/historical_exp06/ is the single canonical private store. All 83 public and 1,521 private files verified, original freezes preserved, no scientific rerun. See CKPT_migration_11-09-2026.md and MIGRATION_11-09-2026.md; the earlier instruction to switch the working directory is obsolete.
 11-09-2026 -- Completed the frozen local comparison in 63.08 seconds; all primary fits passed, two CE bootstrap certificates failed and were retained. Independent verification passed. Published findings companion and verified public viewer-link access. Rule 55 preference update pushed as agents-config 9aee76b.
 11-09-2026 -- Brando authorized remote-first/local-CPU fallback without future confirmation. Original-settings diagnostic failed at 300 iterations, the 3,000-iteration ablation also failed, and the no-penalty ablation failed at 300. Reviewed gradient/variance controls and froze the matched-mixture condition before new held-out measurement.
 11-09-2026 -- Receiving chat verified the supplied checkpoint SHA-256, read original/follow-up source, prepared training-only diagnosis and candidate CE/Pearson mixture implementation, passed five synthetic controls, and verified three shared project pointers. SNAP guard has an active cooldown; local fallback question is pending. No empirical rerun launched.
@@ -44,6 +47,7 @@ Read this repository's `AGENTS.md` and the current shared instruction index befo
 
 ## Project placement and historical lineage
 
+- Migration completed 11-09-2026: the full historical package is now in `historical_exp06/`, with private inputs in `private/historical_exp06/`. [Migration checkpoint](CKPT_migration_11-09-2026.md) records current ownership, verification and compatibility paths. The source locations below describe historical provenance.
 - New canonical working repository: `/Users/brandomiranda/judges-dont-need-psychometrics-or-corr`.
 - New canonical experiment: `experiments/03_exp06_ce_vs_pearson_matched_budget/` in that repository. “Experiment 06” remains the historical sister-repository identifier; local number 03 avoids collisions with existing experiments 01 and 02.
 - Historical repository: `/Users/brandomiranda/trustworthy-theorem-judges`.
