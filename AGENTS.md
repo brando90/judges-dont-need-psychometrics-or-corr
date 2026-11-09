@@ -4,6 +4,10 @@
 
 **TLDR:** Shared agent policy lives in agents-config. Read it first, then the project facts below. `AGENTS.md` and `CLAUDE.md` are identical.
 
+## Current priority — user clarification, 11-09-2026
+
+The first practical priority is the best judge for the intended human-rating task, owned by [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges). Pursue method 2 (correlation training) and method 4 (proper-loss training) fairly, with matched data, model family, harness and search budgets, validation-based hyperparameter selection, and a common held-out metric panel. This repository tests whether correlation-based optimization is inferior or an insufficiently justified default; its title and the user's hypothesis do not establish the outcome. Pearson measures linear association between predicted and human ratings; it does not constrain a neural judge or its input-to-rating mapping to be linear. High correlation can coexist with substantial signed bias and absolute error. Preserve scientific pins, frozen evidence, existing tests and active ownership; inspect the [completed experiment 03](experiments/03_exp06_ce_vs_pearson_matched_budget/RESULTS_comparison.md) and its [checkpoint](experiments/03_exp06_ce_vs_pearson_matched_budget/ckpt.md) before scheduling further work.
+
 ## Start here
 
 At each new non-trivial task, refresh and read the home-level index `~/agents-config/INDEX_RULES.md`, and follow its triggered rules:
@@ -45,4 +49,4 @@ Python 3.10+ with numpy/scipy. Run with `python experiments/<folder>/<script>.py
 
 Sister repo: https://github.com/brando90/trustworthy-theorem-judges (concrete application: theorem/formalization judges). Keep claims and terminology consistent across both; cross-link rather than duplicate.
 
-Origin: this position came out of the trustworthy-theorem-judges study, where we realized the standard practice is odd: we fit and select judges by their correlation with humans, even though correlation (Pearson: linearity only; Spearman: rank only) has severe drawbacks as a target for matching human judgment.
+Origin: this project arose from the trustworthy-theorem-judges study's question about choosing and training judges by correlation with human ratings. Pearson measures linear association of the resulting ratings; Spearman measures their ordering. Neither definition requires a linear input-to-rating mapping.

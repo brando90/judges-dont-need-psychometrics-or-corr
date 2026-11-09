@@ -1,10 +1,14 @@
 # judges-dont-need-psychometrics-or-corr
 
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/README.md>
+
 **Supported thesis:** correlation alone does not identify a judge’s desired conditional rating distribution. When that distribution is the target, fit and evaluate probability forecasts with proper probability losses, and retain correlations as useful diagnostics of scalar association.
 
 The project’s original title expresses its research direction. The evidence does **not** establish that every psychometric method is unnecessary, or that cross-entropy always selects the best finite-sample system. Defining the human population, checking input correspondence, and studying reliability and construct validity remain separate questions.
 
 **Status (11-08-2026):** the controlled synthetic conditional-distribution study is complete and awaiting the parent’s requested multi-provider review. The paper has been revised to distinguish distribution identification, mean prediction and historical evidence. No venue submission is authorized or performed.
+
+**Current priority (11-09-2026):** [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) owns finding the best practical judge using method 2 (correlation training) and method 4 (proper-loss training). This repository tests the proposed inferiority of correlation-based optimization without assuming a winner. Follow the [current comparison and ownership instructions](AGENTS.md#current-priority--user-clarification-11-09-2026), including the completed experiment 03 and its checkpoint.
 
 ## What the new study establishes
 
