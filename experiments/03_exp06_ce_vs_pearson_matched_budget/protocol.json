@@ -1,0 +1,29 @@
+{
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "candidate_order": [
+    "H0_sol",
+    "H0_opus",
+    "H1_sol",
+    "H2_sol",
+    "H2_opus"
+  ],
+  "seeds": [
+    11062026,
+    11062027,
+    11062028,
+    11062029,
+    11062030
+  ],
+  "bootstrap_seed": 1106202606,
+  "condition": "new_matched_simplex_ce_pearson",
+  "epsilon": 1e-06,
+  "bootstrap_draws": 1000,
+  "max_wall_seconds": 7200,
+  "max_cpu_threads": 1,
+  "primary_contrast": "CE minus Pearson held-out cross-entropy",
+  "max_evaluations_per_fit": 2000,
+  "max_iterations_per_fit": 1000,
+  "hyperparameter_candidates": 1,
+  "ce_ftol": 1e-15,
+  "certificate_tolerance": 1e-08
+}

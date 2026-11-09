@@ -1,0 +1,30 @@
+{
+  "source_repository": "brando90/trustworthy-theorem-judges",
+  "source_revision": "304d030c8b7d4498ebe01e5be85fcbeb2700ff12",
+  "files": {
+    "scripts/fit_heads.py": {
+      "sha256": "df0b86b65fa1c59e7eba8d65283e47855b271d97c49bde7770930ddb6f7aa6f4",
+      "snapshot": "scripts/historical/fit_heads.py"
+    },
+    "scripts/metrics.py": {
+      "sha256": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+      "snapshot": "scripts/historical/metrics.py"
+    },
+    "scripts/run_cached.py": {
+      "sha256": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d",
+      "snapshot": "scripts/historical/run_cached.py"
+    },
+    "protocol.json": {
+      "sha256": "e224e48f04c0c24369727f29649565976388ded368f43a99387850529e1db0ea",
+      "snapshot": "scripts/historical/protocol.json"
+    },
+    "head_protocol.json": {
+      "sha256": "710ddb9ba5a70d8720ecb7a2d672358c92c2052e5e7aa37a456d03fcc99eb56e",
+      "snapshot": "scripts/historical/head_protocol.json"
+    },
+    "training_followup_11-08-2026/scripts/mixture_models.py": {
+      "sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "snapshot": "scripts/historical/mixture_models.py"
+    }
+  }
+}
