@@ -1,0 +1,10 @@
+{
+  "bootstrap_intervals_recomputed": true,
+  "independent_full_metric_panel": true,
+  "maximum_prediction_error": 1.1102230246251565e-16,
+  "private_refits_independently_reexecuted": false,
+  "reconstructed_models": 75,
+  "reconstructed_primary_forecasts": 1125,
+  "results_sha256": "8f15acba57172e95a23751f6f8e0b2000c2ae3bce981923ddcf45652c92c5787",
+  "status": "PASS"
+}

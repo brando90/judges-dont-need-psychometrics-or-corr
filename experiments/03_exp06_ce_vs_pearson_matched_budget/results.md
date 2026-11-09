@@ -1,9 +1,7 @@
-# Cross-entropy versus Pearson: execution status
+# Cross-entropy versus Pearson: complete
 
-**Status, 11-09-2026:** Handoff accepted and its SHA-256 verified. Historical source snapshots and a training-only diagnostic runner are prepared. No new empirical fits have run.
+**Status, 11-09-2026:** The historical failure was reproduced; the separately frozen matched-mixture comparison and independent primary-prediction verification are complete. All 50 primary fits passed. Two CE certificate failures among 49,204 bootstrap fits were retained, leaving 998/1,000 valid resamples.
 
-The cluster reconnect guard remains in its shared cooldown. A local CPU fallback question is pending because the shared execution rule requires SNAP. Synthetic deterministic implementation checks passed; they are not empirical comparison results.
+CE minus Pearson held-out log loss was -0.260401 [-1.457729, 0.198472], 95% paired task-family percentile interval with refitting, p-val=n/a. The interval includes zero. Both methods had worse observed log loss than the training-human-marginal baseline.
 
-The proposed new condition uses the same simplex of cached probability forecasts for both objectives. This is distinct from the original affine-softmax condition. The final protocol will be frozen only after reproducing and reviewing a historical failing fit. Neither objective is presumed to win.
-
-See [ckpt.md](ckpt.md) for the complete source handoff, [SOURCE_MANIFEST.json](SOURCE_MANIFEST.json) for exact copied-source hashes, and [SESSION_ACCESS.md](SESSION_ACCESS.md) for verified cross-profile continuation access and remaining native-history limits.
+See [RESULTS_comparison.md](RESULTS_comparison.md) for the full table, numerical diagnosis and limitations; [ckpt.md](ckpt.md) for continuation; [SESSION_ACCESS.md](SESSION_ACCESS.md) for cross-profile context. The old affine-softmax optimization problem remains unresolved; this new condition avoids its optimization confound rather than rewriting its results.

@@ -1,0 +1,8 @@
+{
+  "uncompressed_name": "bootstrap_fit_receipts.json",
+  "sha256": "9a7aa33b125641aa5dd50b91a1b0f00882a169c0baeb9595e5c9ac201ebdf795",
+  "uncompressed_bytes": 77018335,
+  "gzip_bytes": 5112469,
+  "reconstruction": "gzip -dk bootstrap_fit_receipts.json.gz",
+  "reason": "Lossless compression of complete public numerical receipts; raw ratings and forecasts are not included."
+}

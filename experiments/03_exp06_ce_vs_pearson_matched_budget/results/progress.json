@@ -1,0 +1,16 @@
+{
+  "counts": {
+    "artifacts": 75,
+    "bootstrap_draws": 1000,
+    "bootstrap_fits": 49204,
+    "expert_ratings": 195,
+    "failed_bootstrap_fits": 2,
+    "failed_primary_fits": 0,
+    "families": 19,
+    "invalid_bootstrap_draws": 2,
+    "primary_fits": 50,
+    "tasks": 25
+  },
+  "elapsed_seconds": 63.09189362498,
+  "phase": "complete"
+}

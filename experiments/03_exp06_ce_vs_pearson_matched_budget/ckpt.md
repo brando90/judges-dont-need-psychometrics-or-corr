@@ -3,42 +3,38 @@
 **TLDR:** Continue the historical experiment 06 comparison in this repository. Diagnose the failed Pearson softmax fits, repair the comparison, and run cross-entropy versus correlation with matched budgets; also finish verifying cross-account Codex session access.
 
 Created: 11-09-2026 10:25 PST
-Last updated: 11-09-2026 10:36 PST
+Last updated: 11-09-2026 10:59 PST
 
 ## Goal
-- Fairly compare cross-entropy (CE) and correlation objectives on held-out human-rating metrics, preserving the original evidence.
+- Fairly compare cross-entropy (CE) and Pearson objectives on held-out human-rating metrics while preserving historical evidence.
 ## What ran
-- Receiving chat verified the handoff hash and owns execution. Diagnostic and candidate-mixture scripts are prepared; five synthetic implementation tests pass. Three training-only diagnostic fits completed; no new held-out comparison or model calls have run yet.
-- The new repository was fast-forwarded to `da427310226d60a289aef5863ec98f267f1e63ff`; original source checkout is `trustworthy-theorem-judges` at `304d030c8b7d4498ebe01e5be85fcbeb2700ff12`.
-- Codex Desktop already contains this project. The originating chat was successfully moved into it.
+- Historical failure reproduced with the original configured condition; longer-budget and no-penalty diagnostic ablations were retained. Five synthetic test groups passed.
+- Frozen matched-simplex comparison completed locally under Brando’s standing fallback authorization; 50 primary fits and 49,204 bootstrap fits attempted. No new model calls.
 ## Results
-- Training-only diagnostic reproduced iteration-limit failure; full comparison results pending. Old Pearson: 215/225 fits unconverged; see the verified historical results below.
+- All 50 primary fits passed. CE minus Pearson held-out log loss: -0.260401 [-1.457729, 0.198472], 95% family-bootstrap interval with refitting, 998/1,000 valid draws, p-val=n/a. CE superiority is not established.
+- Two CE bootstrap certificates failed and remain in the ledger; no replacements. Independent reconstruction of 75 models / 1,125 primary forecasts and the full metric panel passed.
+- Both mixture methods had worse observed log loss than the training-human-marginal baseline. See RESULTS_comparison.md and its Google companion for full statistics.
 ## Stuck / blocked
-- Local CPU fallback is explicitly authorized on 11-09-2026. Historical diagnostic completed; the matched mixture protocol is frozen before measurement.
-- Native indexes are separate: this chat is present in the personal index, absent from Vals/Stanford. Shared project pointers and byte-identical checkpoint reads are verified for all three profiles; see SESSION_ACCESS.md.
+- No execution blocker; the requested comparison is complete. The old nonlinear softmax optimization problem remains unresolved; the new condition avoids that confound rather than relabeling old fits.
+- Native chat indexes remain separate. Shared project/checkpoint reads are verified across all three profiles; native cross-account sidebar/resume behavior is not certified.
 ## Next steps
-- [p 10/10] Read this checkpoint and the source files below; reproduce and diagnose one old failing fit before choosing the repair.
-- [p 10/10] Implement, fix the evaluation setup before measurement, run and independently verify a fair comparison; publish to this repository's main branch.
-- [p 9/10] Verify shared project/checkpoint access for the personal, Vals and Stanford Codex profiles and document native-session storage and limits.
+- [p 8/10] Decide paper inclusion separately; keep this experiment at its canonical home while that live dependency remains.
 ## Brando to-do
-- None for this cached-data repair. New human ratings remain a separate future confirmation study.
+- None for the completed comparison. No background experiment, reconnect loop or temporary checkout remains.
 
 ## Log
+11-09-2026 -- Completed the frozen local comparison in 63.08 seconds; all primary fits passed, two CE bootstrap certificates failed and were retained. Independent verification passed. Published findings companion and verified public viewer-link access. Rule 55 preference update pushed as agents-config 9aee76b.
 11-09-2026 -- Brando authorized remote-first/local-CPU fallback without future confirmation. Original-settings diagnostic failed at 300 iterations, the 3,000-iteration ablation also failed, and the no-penalty ablation failed at 300. Reviewed gradient/variance controls and froze the matched-mixture condition before new held-out measurement.
 11-09-2026 -- Receiving chat verified the supplied checkpoint SHA-256, read original/follow-up source, prepared training-only diagnosis and candidate CE/Pearson mixture implementation, passed five synthetic controls, and verified three shared project pointers. SNAP guard has an active cooldown; local fallback question is pending. No empirical rerun launched.
 11-09-2026 10:25 PST -- Created the handoff for the user-selected “Fix Pearson Fits and Rerun Exp 06” chat; the originating chat will stop experiment execution when the handoff is delivered.
 
 ## User authorization and ownership
 
-### Receiving-chat continuation commands
+### Receiving-chat completion and reproduction
 
-The receiving chat is the sole owner. Source snapshots are verified against the source commit, and five synthetic test groups pass. `PROTOCOL.md` and `FREEZE.json` now freeze the matched mixture condition after diagnostic review. Do not run the comparison before reviewing the historical reproduction and freezing the final design.
+The receiving chat completed execution and is the sole notifier. The frozen sources and original results are retained. Read RESULTS_comparison.md and results/verification.json; private forecasts and bootstrap draws are in private/run_v1. Run `python build_report.py` to rebuild the report from committed aggregate evidence. The complete public numerical bootstrap-fit ledger is losslessly compressed; decompress it before running the frozen verifier. A fresh scientific rerun must use new output paths and the same private dataset hash, never overwrite completed evidence.
 
-1. Read the local-fallback answer if any; otherwise recheck `python3 ~/agents-config/scripts/snap_reconnect.py --status` and use the prescribed gateway route only when admitted. Checks found no reusable control sockets for any of the five SNAP nodes, FarmShare or Sherlock. This does not establish an outage on those clusters.
-2. On an authorized execution host, run `scripts/diagnose.py --data <cached_v1/dataset.json> --historical-results <historical results/head_results.json> --out <new diagnostic.json>` with this experiment's full script path. The local private source paths are in the handoff below. Inspect the exact reproduction and diagnostic ablations; no empirical fit has run yet.
-3. Review/finalize `PROTOCOL.md` and `protocol.json`, then create `FREEZE.json` with `diagnostic_reviewed: true` and a `files` map binding the protocol/configuration and every executable source to its SHA-256. Commit before measuring held-out outcomes.
-4. Run `scripts/run_comparison.py --data <dataset.json> --out <new public results directory> --private-out <ignored private run directory>` with one CPU thread and a two-hour process timeout. Then run `scripts/verify.py` with the same arguments. Keep every attempted fit and numerical failure.
-5. Generate the full report from saved outputs, update this checkpoint/index, publish verified results, and finish the findings companion. The project pointers are already installed and verified for all three profiles; native cross-account sidebar visibility remains unverified.
+Google companion: https://docs.google.com/document/d/1f6AtTPIoHx-B3jaOy4ot8TNH__t_Kbiut5KwO0kKuX0/edit . Native readback verified its main results, and browser sharing showed “Anyone on the internet with the link can view” with “Access updated”. Shared profile pointers remain verified; authentication and live session databases were not merged.
 
 The user explicitly requested: “Investigate why the Pearson fits failed to converge, fix it, and rerun experiment 06 with matched budgets. I want a fair comparison of CE vs correlation objectives.” They then specified that this work belongs in `https://github.com/brando90/judges-dont-need-psychometrics-or-corr`, requested its Codex Desktop project and cross-account session access, and asked the originating chat to save `ckpt.md` and transfer all remaining work to **Fix Pearson Fits and Rerun Exp 06**.
 

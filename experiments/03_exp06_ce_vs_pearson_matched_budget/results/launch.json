@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-11-09T10:54:20.693156-08:00",
+  "host": "local Mac CPU fallback (exact hostname and process ID in private receipt)",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "cpu_threads": 1,
+  "timeout_seconds": 7200,
+  "freeze_commit": "0549cffd4ef4b89935f928ba71e7791317c0e2b5",
+  "permission_mode": "danger-full-access; approval never",
+  "execution_reason": "User-authorized local fallback while remote reconnect guard remains in cooldown",
+  "new_inference_calls": 0,
+  "provider_cost_usd": 0
+}
