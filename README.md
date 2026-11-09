@@ -90,12 +90,15 @@ The repo follows the [agents-config](https://github.com/brando90/agents-config) 
     ├── AAAI_2027_EvalAIScientists_JudgesKL/    # position-paper draft: 00_main_aaai_2027.tex (+ PDF)
     └── notes/
         ├── fathom_call_11-07-2026/             # notes + quotes from the originating call
-        └── handwritten_corr_vs_loss_splits_received_11-08-2026/  # pages received 11-08-2026
+        ├── handwritten_corr_vs_loss_splits_received_11-08-2026/  # pages received 11-08-2026
+        └── correlation_vs_loss_judges_notes_11-07-2026.md  # transcription plus cited synthesis
 ```
 
 ## 5. Source
 
 The ideas come from a discussion on 2026-11-07. Notes are in [`paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md`](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
+
+Research synthesis of those 11-07-2026 notes (transcription, prior art, and experiment design): [`paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md`](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md).
 
 Pages received 11-08-2026 (date written not recorded): [`paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md`](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). The author clarification stored there, separate from the handwriting, says the comparison is method 2 versus method 4: correlation or a distributional loss on the training set, hyperparameters on the validation set, test set untouched. Methods 1 and 3 are contextual alternatives. No winner is assumed.
 
