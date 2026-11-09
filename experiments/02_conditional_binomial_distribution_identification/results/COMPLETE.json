@@ -1,0 +1,26 @@
+{
+  "artifact_hashes": {
+    "analytic_controls.json": "4149c3309fafd226d56b48be871916531739570b4c350386625bd4f56c986477",
+    "candidate_rows.csv": "493acb5dbb0800a7c7461702bed5ab3e862f98566db0dee22fc68781df15b751",
+    "population_metrics.csv": "9edc2b8f5ffcccb157f1f18f9f014a1c41dfdc6521a509ecbedd1e144eba6ff0",
+    "selection_rows.csv": "c69902d023b04b2b219f1b4444f22f8262725c746802cb46267c46b852485d90",
+    "summary.json": "c554766c7c92543cd0431162aa6730170829f8d1aa6378e0038cc1c1b09e0833",
+    "synthetic_trace.json": "d07a0be778890cffccaf7599ecbada2fe6f3efb22dbbe79ad1498cb549371344"
+  },
+  "candidate_rows": 6912,
+  "failures": 0,
+  "freeze_sha256": "e4766e8f661d18f26ae4e768601214eff6cbb561275d5a7830bbdfde35d4132d",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "replications": 256,
+  "selection_rows": 5376,
+  "simulation_conditions": 768,
+  "status": "complete",
+  "utc": "2026-11-09T04:59:15Z",
+  "versions": {
+    "numpy": "2.2.6",
+    "python": "3.12.3",
+    "scipy": "1.17.1"
+  },
+  "wall_seconds": 13.51270346250385
+}

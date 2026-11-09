@@ -1,3 +1,25 @@
-\section{Planned Case Study: Judging Theorem-Proving Agents}
+% !TEX root = 00_main_aaai_2027.tex
+\section{Historical Theorem-Judge Evidence}
 \label{sec:case}
-We are collecting human ratings of whether theorem-proving agents produce good formal theorems relative to a reference ($y^*$). We plan to (i) fit LLM judges by Eq.~\ref{eq:kl} and by correlation maximization, (ii) compare them on held-out items using KL, normalized MSE, and correlation, and (iii) study how many human-rated pairs are needed for the KL estimate to stabilize. No results are reported here.
+The companion repository reports a retrospective comparison on 75 artifacts, 25 tasks, 19 families and 195 expert ratings~\citep{companion2026}.
+We import only public aggregates and preserve their limitations.
+% Provenance: experiment02/results/public_ttj_evidence.json; TTJ 5aef572d30048e6ce574b39d91877c14ab9b3ad7, experiment06/RESULTS.md.
+Cached-histogram CE selection had held-out CE 8.868 versus 8.098 for Spearman selection.
+The difference was $+0.770$ [$-0.895$, $1.317$], using a 95\% family-bootstrap interval that repeats selection.
+It does not establish a CE advantage.
+
+A separate fitted-head comparison favored CE fitting by $-0.370$ [$-0.690$, $-0.080$] in test CE, conditional on fitted heads.
+However, 215/225 Pearson fits failed to converge, including 24/25 final refits.
+This limits any objective-level interpretation of the comparison.
+Neither the Wasserstein nor the kernel-distance follow-up resolved an advantage over Spearman selection.
+All intervals are descriptive; no confirmatory hypothesis test was specified.
+
+% Provenance: TTJ ea5d84238f6f27bf24ddc0359409921a2e55c459, training_followup_11-08-2026/RESULTS_training.md.
+The separately completed weighted-probability and stable-Pearson follow-up resolved the earlier numerical comparator issue~\citep{companionweighted2026}.
+All 50 primary fits passed checks and all 900 secondary fits converged.
+Its weighted-loss difference was $-0.010409$ [$-0.061911$, $+0.005933$], with both mixtures refitted in 998/1,000 valid family-bootstrap draws.
+Two numerical certificate failures were retained without replacement; the interval conditions on successful draws.
+It still does not establish an advantage.
+Our synthetic experiment neither reruns this condition nor replaces its conclusions.
+Fresh human returns were not independently checked from cloud for this report; we do not infer that they are absent.
+Natural-output generalization still requires matched probability forecasts, an explicit rater population, stable comparison procedures and appropriately held-out evidence.

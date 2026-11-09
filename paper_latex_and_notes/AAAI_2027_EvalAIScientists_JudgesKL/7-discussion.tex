@@ -1,5 +1,17 @@
-\section{Counterarguments and Limitations}
-\emph{``Correlation-validated judges have worked so far.''} Progress despite a flawed metric does not make the metric right. At minimum, matching the distribution stops us from optimizing a quantity we do not care about. \emph{``With enough data any metric works.''} Not necessarily. A metric that ignores most of the distribution can be satisfied by degenerate judges no matter how much data is available. \emph{``KL needs many ratings per item.''} This is true for per-item KL. The pooled variant and smoothing are partial remedies, and sample complexity is part of our planned study. Finally, it is possible that in practice the choice of objective changes little. That is an empirical question, and the case study is designed to answer it.
+% !TEX root = 00_main_aaai_2027.tex
+\section{Scope and Limitations}
+The construction deliberately includes the oracle and changes distribution shape without changing the mean.
+It demonstrates nonidentification by scalar summaries, not the prevalence of this failure among natural judges.
+The family split holds out synthetic parameter bands; it is not evidence of transfer across real tasks, solvers, raters or model families.
+Independent binomial ratings omit rater heterogeneity and dependence.
+The study trains no language model and uses no new provider calls.
+
+One observed rating can score a conditional forecast, but learning a flexible conditional distribution requires data and shared structure.
+Neither a high correlation nor low finite-sample proper loss establishes that an entire human population has been learned.
+When only a conditional mean or ranking is required, scalar objectives may be appropriate for that narrower target.
+When the distribution is required, report proper probability losses and keep association, absolute error and bias as complementary diagnostics.
 
 \section{Conclusion}
-A judge is a distribution, so validate it the way we validate distributions. If humans have a taste, match the taste distribution.
+Correlation alone does not identify a judge's conditional rating distribution.
+Proper probability losses identify that target in the population under their assumptions; sparse data and optimization still determine empirical selection quality.
+Our controlled study supports this distinction while preserving inconclusive historical evidence.

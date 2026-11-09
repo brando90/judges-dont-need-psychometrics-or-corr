@@ -1,0 +1,78 @@
+{
+  "active_followup_status_at_pinned_commit": "COMPLETE: independently verified historical comparison; advantage unresolved",
+  "cached_selection": {
+    "ce_selected_ce": 8.868,
+    "difference": 0.77,
+    "selection_refit_ci95": [
+      -0.895,
+      1.317
+    ],
+    "spearman_selected_ce": 8.098
+  },
+  "distance_followup": {
+    "mmd2_ci95": [
+      -0.12895,
+      0.171668
+    ],
+    "mmd2_difference": 0.107807,
+    "wasserstein_ci95": [
+      -0.036327,
+      0.053333
+    ],
+    "wasserstein_difference": 0.023822
+  },
+  "fitted_heads": {
+    "ce_fitted_ce": 1.527,
+    "conditional_ci95": [
+      -0.69,
+      -0.08
+    ],
+    "difference": -0.37,
+    "pearson_fitted_ce": 1.897,
+    "pearson_nonconverged_final_refits": 24,
+    "pearson_nonconverged_fits": 215,
+    "pearson_total_fits": 225,
+    "total_final_refits": 25
+  },
+  "historical_counts": {
+    "artifacts": 75,
+    "expert_ratings": 195,
+    "families": 19,
+    "tasks": 25
+  },
+  "human_return_cloud_status": "not independently verified by this worker; do not declare fresh returns absent",
+  "scope": "public aggregate results only; no individual ratings, private candidates or sealed data imported",
+  "sources": [
+    {
+      "commit": "5aef572d30048e6ce574b39d91877c14ab9b3ad7",
+      "path": "experiments/06_information_loss_vs_correlation_judge_selection/RESULTS.md",
+      "sha256": "8a4a2a6a2ae55c3c5ec8905cd60fc78e001d8ac4982d4fd0294db14e89cc3606",
+      "url": "https://github.com/brando90/trustworthy-theorem-judges/blob/5aef572d30048e6ce574b39d91877c14ab9b3ad7/experiments/06_information_loss_vs_correlation_judge_selection/RESULTS.md"
+    },
+    {
+      "commit": "5aef572d30048e6ce574b39d91877c14ab9b3ad7",
+      "path": "experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/RESULTS.md",
+      "sha256": "6d30af749f345a53717f815a94a1580279b724336bc8ffecf7b76634f6f35ed8",
+      "url": "https://github.com/brando90/trustworthy-theorem-judges/blob/5aef572d30048e6ce574b39d91877c14ab9b3ad7/experiments/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/RESULTS.md"
+    },
+    {
+      "commit": "ea5d84238f6f27bf24ddc0359409921a2e55c459",
+      "path": "experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/RESULTS_training.md",
+      "sha256": "5319675968fb18af40fc21736109839ad863b333926cbe25515533c2fef5562a",
+      "url": "https://github.com/brando90/trustworthy-theorem-judges/blob/ea5d84238f6f27bf24ddc0359409921a2e55c459/experiments/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/RESULTS_training.md"
+    }
+  ],
+  "weighted_training_followup": {
+    "attempted_refit_draws": 1000,
+    "difference": -0.010409,
+    "pearson_loss": 0.202068,
+    "primary_fits": 50,
+    "refit_ci95": [
+      -0.061911,
+      0.005933
+    ],
+    "secondary_fits": 900,
+    "valid_refit_draws": 998,
+    "weighted_loss": 0.191659
+  }
+}

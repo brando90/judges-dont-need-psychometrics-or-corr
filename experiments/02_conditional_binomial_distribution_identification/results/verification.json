@@ -1,0 +1,18 @@
+{
+  "candidate_rows": 6912,
+  "checks": [
+    "source/input hashes",
+    "all result hashes",
+    "unique/full denominators",
+    "all selection/tie memberships",
+    "all selected common-metric values",
+    "all Monte Carlo intervals and percentiles",
+    "independent scipy binomial probabilities and direct six-outcome loss enumeration"
+  ],
+  "new_provider_calls": 0,
+  "new_rating_samples": 0,
+  "script_sha256": "8a0f3b4fcf62c984baf4a3e8b915b625d13a24ee45a4f386f9d13b157674015f",
+  "selected_metric_checks": 419328,
+  "selection_rows": 5376,
+  "status": "verified"
+}

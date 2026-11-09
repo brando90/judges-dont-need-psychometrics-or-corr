@@ -1,34 +1,14 @@
 # Experiments
 
-All experiments are **planned / in progress**. Don't add results here unless code in this folder actually produced them.
+Each experiment has one canonical home. Historical evidence is preserved; completed measurements are distinguished from review and publication.
 
-Origin: [Fathom call, 2026-11-07](https://fathom.video/calls/893310061). Notes are in [`../paper_latex_and_notes/notes/fathom_call_11-07-2026/`](../paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md).
+| Folder | Setup | Status |
+| --- | --- | --- |
+| [01_synthetic_pearson_vs_kl_squashed_judge_0to5](01_synthetic_pearson_vs_kl_squashed_judge_0to5/README.md) | Historical scalar-score example comparing smoothed marginal histograms | Original code/output preserved; reproduced by experiment02 |
+| [02_conditional_binomial_distribution_identification](02_conditional_binomial_distribution_identification/README.md) | Known binomial conditional population; nine candidates, held-out parameter families, one/two/three synthetic ratings per item, full tie accounting | All 768 simulation conditions and 5,376 selections complete; parent review and paper integration remain active |
 
-| Folder | What | Status |
-|---|---|---|
-| `01_synthetic_pearson_vs_kl_squashed_judge_0to5/` | Synthetic 0–5 scores: high Pearson/Spearman, but large KL(P_human ‖ P_judge) | runnable |
-| `02_kl_vs_corr_judge_fit_theorem_proving_human_ratings/` (todo) | Fit/evaluate LLM judges on human ratings of theorem-proving agent outputs by KL; report normalized MSE | waiting on human data |
+The former placeholder `02_kl_vs_corr_judge_fit_theorem_proving_human_ratings` was never created. Historical theorem-judge fitting and the completed weighted-probability follow-up belong to the sister repository’s [experiment06](https://github.com/brando90/trustworthy-theorem-judges/tree/main/experiments/06_information_loss_vs_correlation_judge_selection); experiment02 here is a distinct controlled identification study.
 
-## 01: toy counterexample
+Reproduction commands, every common metric, uncertainty definitions and exact public sister-repository revisions are in the [conditional-identification report](02_conditional_binomial_distribution_identification/RESULTS_conditional_identification.md). No human or private source data are stored here.
 
-```bash
-pip install numpy scipy
-python experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/kl_vs_corr.py
-```
-
-Output (seed 0, n=2000):
-
-```
-A: noisy faithful      pearson=0.900 spearman=0.900 KL(P_h||P_j)= 0.001 nMSE=0.023
-B: inflated/squashed   pearson=0.877 spearman=0.878 KL(P_h||P_j)= 3.420 nMSE=0.216
-```
-
-The two judges have nearly the same correlation, but judge B only ever outputs 4 or 5, and KL exposes that.
-
-## 02: theorem-proving judges (planned)
-
-- Data: human scores r ∈ {0..5} for (agent output y, gold reference y*) pairs, with multiple raters per item where possible so we can compute per-item KL.
-- Judges: LLM judges p_θ(r | y, y*), with θ = prompt/rubric/temperature/calibration.
-- Objective: minimize E[KL(p_human ‖ p_θ)], compared against maximizing Pearson/Spearman.
-- Report: KL, normalized MSE, and correlation for reference.
-- Open question: how many human-rated pairs are needed.
+**TLDR-end:** [judge objectives: experiments] The old marginal toy and the new conditional study answer different questions. Both remain reproducible, with the new study awaiting parent review.

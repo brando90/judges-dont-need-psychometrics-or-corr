@@ -1,6 +1,22 @@
+% !TEX root = 00_main_aaai_2027.tex
 \section{Introduction}
-Automated research systems are increasingly scored by LLM judges, so the reliability of the judge bounds the reliability of every reported gap between systems. The dominant recipe for validating a judge is simple. Collect human ratings, collect judge ratings on the same items, and report their correlation \citep{zheng2023judging,liu2023geval}. When that feels insufficient, practitioners often turn to psychometrics for reliability and validity criteria.
+A scalar agreement statistic does not determine whether a judge predicts how human ratings vary across inputs.
+G-Eval evaluates text judges using correlation with human judgments~\citep{liu2023geval}.
+MT-Bench and Chatbot Arena also study agreement with human preferences and document judge biases~\citep{zheng2023judging}.
+These comparisons answer useful questions, but do not by themselves identify a conditional rating distribution.
 
-This paper takes the position that both moves are unnecessary and that correlation is actively misleading as an objective. If humans have a ``taste'' (a distribution over scores they assign to an output), then the judge should match that taste distribution. Matching distributions is the core operation of modern machine learning. Maximum likelihood minimizes a KL divergence \citep{kullback1951information}, and it is the objective large language models are trained on. We do not need a new instrument theory. We need to use the one we already have.
+We take the distribution as the target when the evaluation requires probabilities for each possible rating.
+Proper scoring rules provide an established framework for this target~\citep{gneiting2007strictly}.
+Our contribution is a controlled identification study that makes the information discarded by scalar criteria explicit.
+We do not claim a new proper scoring rule.
 
-\paragraph{Contributions.} (i) We formalize a judge as a conditional score distribution and contrast the correlation objective with a KL objective (Proposal section). (ii) We show a synthetic case where two judges have near-identical correlation with humans but very different KL (Synthetic Counterexample section). (iii) We outline a planned evaluation on judges of theorem-proving agents (Case Study section).
+The study separates three questions: population identification, selection with sparse ratings, and agreement of scalar means.
+It compares the same candidates and splits under probability-loss and correlation selection.
+A separate permutation control shows why matching aggregate histograms cannot establish correct item conditioning.
+
+We make the following contributions:
+\begin{enumerate}
+\item We construct conditional distributions that share their means but differ under proper probability losses.
+\item We evaluate selection using one, two and three synthetic ratings per item, reporting every tied minimizer and common test metric.
+\item We preserve historical null findings and identify the limits of transferring this synthetic result to human-rated judges.
+\end{enumerate}

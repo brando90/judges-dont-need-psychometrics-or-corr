@@ -1,16 +1,66 @@
-\section{A Synthetic Counterexample}
+% !TEX root = 00_main_aaai_2027.tex
+\section{Controlled Conditional Identification}
 \label{sec:toy}
-We draw $n=2000$ human scores uniformly from $\{0,\dots,5\}$. Judge A adds noise in $\{-1,0,1\}$ and clips the result. Judge B outputs $5$ if the human score is at least $3$ and $4$ otherwise, so it preserves order but squashes the scale. KL is computed between Laplace-smoothed marginal histograms (seed 0; script in the supplementary repository).
+Our new experiment uses $p(r\mid t)=\operatorname{Binomial}(5,t)$ for a fixed symmetric grid inside $[0.1,0.9]$.
+Define
+\begin{equation}
+q_\lambda(r\mid t)=(1-\lambda)p(r\mid t)
+ +\lambda[(1-t)\delta_0+t\delta_5].
+\end{equation}
+For $\lambda\in\{0,.25,.5,.75,.95\}$, every forecast has mean $5t$.
+Consequently all five receive identical scalar correlations and squared errors on every realized rating dataset.
+Their conditional distributions differ whenever $\lambda>0$.
+The excess proper losses are strictly positive; Brier and RPS excess losses scale as $\lambda^2$.
 
-\begin{table}[h]
+% Provenance: experiments/02_conditional_binomial_distribution_identification/input_manifest.json and protocol.json.
+We use twelve symmetric parameter-band families, holding out six/three/three families for train/validation/test, with 96/48/48 items respectively.
+The nine-candidate pool adds $p(r\mid1-t)$, constant binomial and uniform forecasts, and a Laplace-smoothed train-rating constant.
+Only the final constant is fitted; every criterion selects from the same nine candidates using validation ratings.
+The reversed conditional preserves each split's aggregate histogram exactly by symmetry.
+
+% Provenance: experiments/02_conditional_binomial_distribution_identification/results/population_metrics.csv.
+\begin{table}[t]
 \centering\small\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lcccc}
+\begin{tabular}{lrrrr}
 \toprule
-Judge & Pearson & Spearman & KL & nMSE \\
+Candidate & CE & Brier & RPS & nMSE \\
 \midrule
-A (noisy faithful) & 0.900 & 0.900 & 0.001 & 0.023 \\
-B (squashed) & 0.877 & 0.878 & 3.420 & 0.216 \\
+$q_0$ & 1.328 & .699 & .104 & .038 \\
+$q_{.25}$ & 1.446 & .733 & .109 & .038 \\
+$q_{.50}$ & 1.689 & .835 & .125 & .038 \\
+$q_{.75}$ & 2.164 & 1.004 & .152 & .038 \\
+$q_{.95}$ & 3.348 & 1.188 & .181 & .038 \\
+Reversed conditional & 4.215 & 1.113 & .384 & .282 \\
 \bottomrule
 \end{tabular}
-\caption{Correlation barely separates the two judges. KL and normalized MSE do.}
+\caption{\textbf{Identical mean predictions can have different distributional losses.} Exact expectations on the fixed synthetic test grid; CE uses nats and nMSE normalizes ratings by five.
+These deterministic expectations need no sampling interval.}
+\label{tab:population}
 \end{table}
+
+% Provenance: experiments/02_conditional_binomial_distribution_identification/results/summary.json; full selected metric rows in selection_rows.csv.
+We generate 256 independent rating replications, each providing three ratings per item, and compare their one-, two- and three-rating prefixes.
+The procedure and source hashes were committed before measurement.
+All 768 conditions and 5,376 selections completed without missing selections.
+With one rating, CE selects the oracle in 249/256 replications, and Brier and RPS each select it in 245/256.
+Their mean exact test CE values are 1.331 [1.329, 1.334] and 1.333 [1.330, 1.336], respectively.
+Intervals are 95\% Student-$t$ Monte Carlo intervals across independent rating replications on fixed items; no hypothesis test was specified.
+All three proper losses select the oracle in 256/256 two-rating and three-rating replications, which does not prove zero selection error beyond these replications.
+
+Pearson, Spearman, Kendall and nMSE retain all five mixture candidates in every replication.
+We enumerate the full tie set with tolerance $10^{-12}$ rather than select by array order.
+Their exact test CE spans 1.328--3.348; uniform tie-breaking has expected CE 1.995.
+A tie policy that always picks the oracle attains CE 1.328, so superiority is not independent of tie policy.
+These are losses of individual selected forecasts, not of an averaged distribution.
+
+% Provenance: experiments/02_conditional_binomial_distribution_identification/results/analytic_controls.json and population_metrics.csv.
+The reversed conditional has identical marginal probabilities but conditional KL 2.887 nats.
+The five mixtures have zero normalized mean bias, mean 0.5, and normalized individual-rating MAE 0.157.
+Their correlations with the population conditional mean are all one, but Pearson correlation with a future individual rating is 0.786.
+Population-mean agreement is therefore distinct from agreement with noisy individual ratings.
+
+\paragraph{Historical toy.}
+% Provenance: experiments/02_conditional_binomial_distribution_identification/results/old_toy_stdout.txt and old_toy_reproduction.json.
+We reproduced the original seed-0 marginal-histogram example without modifying its code or frozen output.
+Its noisy and two-bin judges have Pearson 0.900/0.877, Spearman 0.900/0.878, marginal KL 0.001/3.420, and nMSE 0.023/0.216.
+It is a single-seed marginal illustration, not conditional judge selection; the two-bin transform introduces ties.
