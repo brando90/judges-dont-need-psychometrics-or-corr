@@ -19,7 +19,7 @@ class StudyTests(unittest.TestCase):
         t=np.linspace(.1,.9,17)
         p=s.population(t)
         q,mu=s.candidates(t,np.array([[1,2,3]]),CONFIG)
-        np.testing.assert_allclose(q[:5]@s.SCORES,5*t,atol=1e-14)
+        np.testing.assert_allclose(q[:5]@s.SCORES,np.tile(5*t,(5,1)),atol=1e-14)
         base=s.expected_metrics(p,q[0],mu[0])
         for i in range(1,5):
             row=s.expected_metrics(p,q[i],mu[i])
