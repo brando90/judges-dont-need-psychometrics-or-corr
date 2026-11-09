@@ -10,3 +10,7 @@ timeout 1800s python3 experiments/02_conditional_binomial_distribution_identific
 ```
 
 Verification reconstructs every selection and common-metric summary from the saved evidence without drawing new ratings. For a fresh reproduction, supply a new output directory with `timeout 1800s python3 experiments/02_conditional_binomial_distribution_identification/run_study.py --out /path/to/new-results`. The runner verifies the fixed input/source hashes and refuses to overwrite completed evidence. Dependencies are NumPy and SciPy; measured versions are in `results/COMPLETE.json`. Native numerical libraries are capped at eight threads. All data generated here are synthetic and publishable. The external historical source is public aggregate evidence only.
+
+## Review note (11-08-2026, stage 01 Claude review)
+
+The prediction table in `PROTOCOL.md` lists "empty/non-PMF input: invalid, not silently normalized". The scorer functions in `run_study.py` do not implement an explicit rejection of such inputs; every forecast in this study is an analytic probability mass function by construction, and `test_study.py` checks that the binomial rows sum to one. `PROTOCOL.md`, `run_study.py` and `test_study.py` are frozen by `FREEZE.json`, so this contract row is recorded here as unenforced rather than edited. Any future input validation must be added as a separately hashed revision, without changing the measured evidence.
