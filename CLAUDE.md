@@ -15,6 +15,10 @@ else git clone https://github.com/brando90/agents-config.git "$HOME/agents-confi
 
 If you are offline, read <https://raw.githubusercontent.com/brando90/agents-config/main/INDEX_RULES.md>.
 
+## Research workflow: no branches
+
+This is a research project. Each experiment lives in its own numbered experiment folder (`experiments/NN_<setup_name>/`). Commit and push straight to `main`. Do not create branches or pull requests. If a leftover branch turns up, merge it into `main` (no force-push) and delete it. If two experiments pick the same number, keep the one already on `main` and renumber the new folder to the next free number, updating its internal references.
+
 ## Research precision (keep near the top)
 
 Read every setting, definition, number and citation from this repo (experiment READMEs, scripts, run records, the paper) before writing it. Write `unknown` only after a documented search, and never guess. **Never fabricate results or citations.** Every number in the README or paper must be printed by a script in `experiments/`. Planned work stays marked as planned.
