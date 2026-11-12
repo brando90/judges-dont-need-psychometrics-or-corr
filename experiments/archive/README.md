@@ -1,0 +1,56 @@
+# Completed objective-comparison follow-ups
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/README.md>
+
+**TLDR:** These completed studies belong to the position paper's question about training and selecting judges. They form a progression of related conditions, not independent human-rating datasets. Their original experiment numbers and scientific files are preserved; new applied collection remains in trustworthy-theorem-judges.
+
+## What each study adds
+
+| Historical identity and current home | Question or change | Relation to the other studies |
+| --- | --- | --- |
+| [06_information_loss_vs_correlation_judge_selection](../03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md), retained within [03_exp06_ce_vs_pearson_matched_budget](../03_exp06_ce_vs_pearson_matched_budget/README.md) | Earlier fixed-candidate selection, probability-head fitting, distance comparisons and weighted-loss follow-ups; experiment 03 then compares cross-entropy and Pearson with certified mixture fits. | The complete earlier package was already migrated on 11-09-2026. The redundant source-repository copy is now retired; frozen source snapshots required by experiment 03 remain. |
+| [11_formulation4_train_only_ce_mixture_cv](11_formulation4_train_only_ce_mixture_cv/README.md) | Fit cross-entropy mixtures on training tasks only and evaluate with repeated five-fold splits. | Establishes the train-only baseline preceding experiment 12; it does not compare both training objectives. |
+| [12_formulation2_vs_4_corr_vs_ce_80_20_splits](12_formulation2_vs_4_corr_vs_ce_80_20_splits/README.md) | Compare correlation and cross-entropy training on repeated 80/20 task splits, plus a separate fixed-split agent comparison. | Extends the baseline with objective comparisons on the same five cached judges and historical ratings. |
+| [13_toy_pearson_vs_ce_nonlinear_ratings](13_toy_pearson_vs_ce_nonlinear_ratings/README.md) | Fit flexible judges to nonlinear synthetic rating distributions across training sizes. | A distinct synthetic illustration: unlike experiment 01's marginal-histogram example and experiment 02's fixed-candidate conditional-identification study, it learns a judge. It supplies no human observations or human sample-size guarantee. |
+| [14_open_weight_judge_pool_corr_vs_ce_80_20](14_open_weight_judge_pool_corr_vs_ce_80_20/README.md) | Expand experiment 12's judge pool with open-weight model outputs and a larger-pool Pearson solver. | Reuses the same human ratings. Its old-five-judge condition is a reproduction check; its added judge outputs are a distinct condition, not new human data. |
+
+## Why there were so many similar folders
+
+The work progressed through different selection rules, training objectives, split procedures, solver repairs, synthetic constructions and candidate pools. Saving these as separately numbered experiments preserved their different conditions, but the old layout hid that progression. Most empirical follow-ups reuse the same historical ratings; neither repeated splits nor additional judges create independent replications of human evidence.
+
+There was also a real duplication: the full experiment 06 package remained in trustworthy-theorem-judges after its canonical copy moved here. This consolidation removes that redundant public tree. Vendored solver snapshots and experiment 03's six source imports remain because frozen protocols depend on their exact bytes. Similarity alone is not a reason to merge conditions or discard provenance.
+
+The applied repository keeps its original-rating provenance, practical judge study, packet preparation and task/solver/rater size planning. Its paper can cite these objective studies as related evidence without owning another editable copy.
+
+## Migration and preservation — 11-11-2026
+
+The [per-file migration manifest](MIGRATION_11-11-2026.json) records source commit, Git blob, SHA-256 digest, destination and preservation status. Original source revision: [af77a7d](https://github.com/brando90/trustworthy-theorem-judges/tree/af77a7d06e5ea6b0f0a7c3ae68f2120ace676356).
+
+- 112 tracked files from experiments 11–14 were copied byte-for-byte into this archive: 14, 26, 13 and 59 files respectively.
+- Experiment 06's 83-file destination package was already present and remains unchanged. Of the retiring source files, 82 match it exactly; the source README adds only a prior relocation notice. The manifest preserves that notice, both digests and the immutable source reference.
+- Original numbers are retained across the repository boundary; these are imported historical identities, not newly run experiments.
+- Frozen protocols, results, scripts, source hashes and historical README contents are unchanged. Their old paths and document addresses describe the run-time location; use this index and the manifest for current navigation.
+- No untracked or ignored files existed inside the moved public trees. Existing private experiment 06 inputs remain in experiment 03's ignored canonical store; its source-repository compatibility link stays because verified consumers and the prior migration check use it. No individual ratings were added to public Git by this move.
+
+## Verification receipt
+
+The transfer check verifies 195 mapped files: 112 newly copied files and the existing 83-file experiment 06 package. All 194 comparable source files match exactly; the one README navigation addition is retained in the manifest. Python syntax checks cover 68 files and JSON parsing covers 51. The earlier migration verifier also passes its 83 public files, 11 frozen files, six original imports and 1,521 private files. No scientific measurement was rerun.
+
+Three original lines in experiment 14 have trailing whitespace (`scripts/assemble.py:21`, `render.py:16`, `run_slot.py:51`). They are preserved byte-for-byte; whitespace checks on newly authored navigation and verification code pass. This is an inherited formatting issue, not an unverified content change.
+
+## Verify and reproduce
+
+From this repository's root:
+
+```sh
+python3 experiments/archive/verify_migration.py
+python3 experiments/03_exp06_ce_vs_pearson_matched_budget/scripts/verify_migration.py --with-private
+```
+
+Omit `--with-private` on machines without the original private inputs. For source-history and removal verification, add `--source-repo /path/to/trustworthy-theorem-judges --check-source-removed` to the first command. These checks read saved evidence; they do not fit models, regenerate ratings or overwrite results.
+
+Current importer consumers use experiment 03's canonical `historical_exp06/scripts/import_cached.py`; trustworthy-theorem-judges experiment 07 accepts `JUDGE_OBJECTIVES_REPO` for a non-sibling checkout. Commit-pinned citations to earlier source revisions remain valid and are deliberately unchanged.
+
+For numerical reproduction, follow the original experiment's protocol and preserve its inputs, seeds and dependencies. Experiments 11, 12 and 14 contain recorded scratch/remote paths in dataset builders, agent-selection scripts and model launchers; those predate this migration. They are retained as frozen execution evidence, not advertised as portable entry points. Reconstruct their recorded environment from the source revision or supply an explicitly versioned adapter and verify input equivalence before a new run. Experiment 14's documented dataset builder is now in the adjacent experiment 12 directory. Report scripts for 14 expect that experiment as their working directory. No scientific run was launched by this consolidation.
+
+**TLDR-end:** [judge objectives: consolidation] The general objective-comparison history now has one canonical project. The index makes its distinct conditions, shared data and genuine duplicate explicit.

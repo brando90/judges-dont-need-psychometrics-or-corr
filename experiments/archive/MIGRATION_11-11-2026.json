@@ -1,0 +1,1775 @@
+{
+  "date": "11-11-2026",
+  "purpose": "Consolidate general objective-comparison research in the position-paper repository; no new scientific runs.",
+  "source_repository": "https://github.com/brando90/trustworthy-theorem-judges",
+  "source_commit": "af77a7d06e5ea6b0f0a7c3ae68f2120ace676356",
+  "destination_repository": "https://github.com/brando90/judges-dont-need-psychometrics-or-corr",
+  "file_counts": {
+    "06_information_loss_vs_correlation_judge_selection": 83,
+    "11_formulation4_train_only_ce_mixture_cv": 14,
+    "12_formulation2_vs_4_corr_vs_ce_80_20_splits": 26,
+    "13_toy_pearson_vs_ce_nonlinear_ratings": 13,
+    "14_open_weight_judge_pool_corr_vs_ce_80_20": 59
+  },
+  "new_files_copied": 112,
+  "previously_migrated_files": 83,
+  "files": [
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/CKPT_objective_comparison.md",
+      "source_git_blob": "bcb27fbc02dbbaaa3363ff5f1444fa32172b5de4",
+      "source_sha256": "3b4ba0426fd0ad217b8b2d3de76ed6944086e90492b6c207ed6343f07362c9c5",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/CKPT_objective_comparison.md",
+      "destination_sha256": "3b4ba0426fd0ad217b8b2d3de76ed6944086e90492b6c207ed6343f07362c9c5",
+      "bytes": 3043,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/DATA_INVENTORY.md",
+      "source_git_blob": "ed0fbb9f5e026ee9ef1243c019d27ddb3d8ac714",
+      "source_sha256": "c72aadc8dce8a1193148f07729aa8c6e4165207dd4ebefe99758c26edc718251",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/DATA_INVENTORY.md",
+      "destination_sha256": "c72aadc8dce8a1193148f07729aa8c6e4165207dd4ebefe99758c26edc718251",
+      "bytes": 4705,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/HANDOFF_VALS_CODEX.md",
+      "source_git_blob": "6ac1782da0baddee31bf2a5385ee5c776a425331",
+      "source_sha256": "9d25b9742333ee032889d8eda55e9637610292cfc64196d13bfd3aa5e35d2c8d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/HANDOFF_VALS_CODEX.md",
+      "destination_sha256": "9d25b9742333ee032889d8eda55e9637610292cfc64196d13bfd3aa5e35d2c8d",
+      "bytes": 7875,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/HEAD_PROTOCOL.md",
+      "source_git_blob": "a90169cc7dbcadaa86387c02c42dab3702d1b869",
+      "source_sha256": "bfb2057cb28c82f31add192072fe8a9756541be51350c8551998f65b9ab8d1fb",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/HEAD_PROTOCOL.md",
+      "destination_sha256": "bfb2057cb28c82f31add192072fe8a9756541be51350c8551998f65b9ab8d1fb",
+      "bytes": 3561,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/MATH_AND_NOTE.md",
+      "source_git_blob": "6d95ffbd8e02ac020ec1864bcc581565416303d9",
+      "source_sha256": "3e06b22a12bf2887d3777f69acc5c92629774070fa49201cc42199cd41a0ec2c",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/MATH_AND_NOTE.md",
+      "destination_sha256": "3e06b22a12bf2887d3777f69acc5c92629774070fa49201cc42199cd41a0ec2c",
+      "bytes": 4447,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/PROTOCOL_FROZEN.md",
+      "source_git_blob": "0d2b121e71795ae89888ee256f7f2011bbc6a35c",
+      "source_sha256": "ac44bd7c071d29512748164eb7ac5c7021676d84d633ecc715065cc5d229440a",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/PROTOCOL_FROZEN.md",
+      "destination_sha256": "ac44bd7c071d29512748164eb7ac5c7021676d84d633ecc715065cc5d229440a",
+      "bytes": 5110,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/README.md",
+      "source_git_blob": "5ed5fd19235e9130cb52e76d2daf2edb8013a5d3",
+      "source_sha256": "f531b03fd4dd89dd219c559cbbb8f8aaca6613effa39ff8e90d16c2da3824e87",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md",
+      "destination_sha256": "a9012fe6c773414f97a397da265f73db36cabe3b795255158422b6eec9588a3a",
+      "bytes": 12701,
+      "preservation": "original_readme_plus_relocation_notice_in_source"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/RESULTS.md",
+      "source_git_blob": "fa8952d6b0ee69741733e6661390f47f313479f3",
+      "source_sha256": "8a4a2a6a2ae55c3c5ec8905cd60fc78e001d8ac4982d4fd0294db14e89cc3606",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/RESULTS.md",
+      "destination_sha256": "8a4a2a6a2ae55c3c5ec8905cd60fc78e001d8ac4982d4fd0294db14e89cc3606",
+      "bytes": 16663,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/CKPT_notes_followup.md",
+      "source_git_blob": "a6ede9bf4172a2dc441abd41344d6f5fc8ceac42",
+      "source_sha256": "151f5ee9edb62afef63e0b772f2f153b3faa697ca319686d1f398fc334016069",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/CKPT_notes_followup.md",
+      "destination_sha256": "151f5ee9edb62afef63e0b772f2f153b3faa697ca319686d1f398fc334016069",
+      "bytes": 2086,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/FOLLOWUP_PROMPT.md",
+      "source_git_blob": "6db7b2913378029eb105af07b363823b09a353fc",
+      "source_sha256": "680e34d441b1cea9451d28ab78cc5dbc4de127a3bbc824a7012f6ad1d38a891e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/FOLLOWUP_PROMPT.md",
+      "destination_sha256": "680e34d441b1cea9451d28ab78cc5dbc4de127a3bbc824a7012f6ad1d38a891e",
+      "bytes": 5591,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/LITERATURE.md",
+      "source_git_blob": "18318155a9ba47f34881b91d95a080bbc4ecd19f",
+      "source_sha256": "36a8be252f1545a8d24a58d9de198d4405c734d5a8eb71900eaa97346aa20eb3",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/LITERATURE.md",
+      "destination_sha256": "36a8be252f1545a8d24a58d9de198d4405c734d5a8eb71900eaa97346aa20eb3",
+      "bytes": 3506,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/NATIVE_PROBABILITY_PROMPT_TEMPLATE.md",
+      "source_git_blob": "8bd6ff38862ac2bbf1c89ed35059fb204bdd0063",
+      "source_sha256": "449bb8280d11b5beeecb83e56b36ee560cfd8f16bcd9fe1c3bffa5d26ebc50b7",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/NATIVE_PROBABILITY_PROMPT_TEMPLATE.md",
+      "destination_sha256": "449bb8280d11b5beeecb83e56b36ee560cfd8f16bcd9fe1c3bffa5d26ebc50b7",
+      "bytes": 1644,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/NOTES_11-07-2026_correlation_vs_loss.md",
+      "source_git_blob": "6e70b500beef5714fc8a8243565b8232b4effc57",
+      "source_sha256": "058dd6836358d3850bc40c762136eee6496edbcc98527d5b3d0a63535ff15532",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/NOTES_11-07-2026_correlation_vs_loss.md",
+      "destination_sha256": "058dd6836358d3850bc40c762136eee6496edbcc98527d5b3d0a63535ff15532",
+      "bytes": 10457,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/PROTOCOL.md",
+      "source_git_blob": "080aa9f787c1ffebf3e01efa39a6c144fc7b4f37",
+      "source_sha256": "a1c5ae7ef746683d0125f377bcbb4b469c3a66eddb0512db01f0adeb16969b05",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/PROTOCOL.md",
+      "destination_sha256": "a1c5ae7ef746683d0125f377bcbb4b469c3a66eddb0512db01f0adeb16969b05",
+      "bytes": 5261,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/RESULTS.md",
+      "source_git_blob": "4c63fddb533feccd08f5256a6b9fd85a3ccd71a2",
+      "source_sha256": "6d30af749f345a53717f815a94a1580279b724336bc8ffecf7b76634f6f35ed8",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/RESULTS.md",
+      "destination_sha256": "6d30af749f345a53717f815a94a1580279b724336bc8ffecf7b76634f6f35ed8",
+      "bytes": 8211,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/protocol.json",
+      "source_git_blob": "ae13836afd01c39a051a29484b9feb12a581a6a0",
+      "source_sha256": "0ebb9ae77dd5844159c9e9676fd7aff5e895eb2eef2aacb3c1dfb896e4f02824",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/protocol.json",
+      "destination_sha256": "0ebb9ae77dd5844159c9e9676fd7aff5e895eb2eef2aacb3c1dfb896e4f02824",
+      "bytes": 525,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/google_sync.json",
+      "source_git_blob": "2148bb064aa6557da5db1553bec398cc16f38900",
+      "source_sha256": "0da8878783c9afbb0da28822b77151e235376de40fb63c170ae48080f1709ac7",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/results/google_sync.json",
+      "destination_sha256": "0da8878783c9afbb0da28822b77151e235376de40fb63c170ae48080f1709ac7",
+      "bytes": 468,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/launch.json",
+      "source_git_blob": "e35731124347a5233b37d0593e6caff0562d8924",
+      "source_sha256": "7c660164cec1549786e8310fa58005b005c5bf65052d9328f1680936eebd7d16",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/results/launch.json",
+      "destination_sha256": "7c660164cec1549786e8310fa58005b005c5bf65052d9328f1680936eebd7d16",
+      "bytes": 961,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/results.json",
+      "source_git_blob": "a76652621c914efc6b29524adc4c41380d5c69db",
+      "source_sha256": "30560948bae3bba8a279d8d72de5c461a253a55c9214ca43023e12c502b8b640",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/results/results.json",
+      "destination_sha256": "30560948bae3bba8a279d8d72de5c461a253a55c9214ca43023e12c502b8b640",
+      "bytes": 20147,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/terminal.json",
+      "source_git_blob": "a2b48bdcf5bec4d375a5e95d49be73454e981cc9",
+      "source_sha256": "3785f7385e85891ba5d78fa644a4e0ee2168a24f6758fa2a5aa086f4350b085d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/results/terminal.json",
+      "destination_sha256": "3785f7385e85891ba5d78fa644a4e0ee2168a24f6758fa2a5aa086f4350b085d",
+      "bytes": 1184,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/results/verification.json",
+      "source_git_blob": "539fda80b7fe61dc437962e4241a26d250cb6e45",
+      "source_sha256": "4de6e254f6cabbebcd48024dd4d1e5222e24ad1a568c1bf8c9ebda40b3ef6136",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/results/verification.json",
+      "destination_sha256": "4de6e254f6cabbebcd48024dd4d1e5222e24ad1a568c1bf8c9ebda40b3ef6136",
+      "bytes": 257,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/run_distances.py",
+      "source_git_blob": "cdb490e8605c56da158fb746051268a7db27dc5b",
+      "source_sha256": "37ff316fdff185530718c18d86acac4bc766e14fb9aed8ba975768ed40265017",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/scripts/run_distances.py",
+      "destination_sha256": "37ff316fdff185530718c18d86acac4bc766e14fb9aed8ba975768ed40265017",
+      "bytes": 9234,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/supervise.py",
+      "source_git_blob": "03752c1b5bbc814723bdeea1b3dbd639feba5e98",
+      "source_sha256": "33a60607b1ab162a0d4e8613a0b53aa486035003550d4f5348beeda0e61b7ad1",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/scripts/supervise.py",
+      "destination_sha256": "33a60607b1ab162a0d4e8613a0b53aa486035003550d4f5348beeda0e61b7ad1",
+      "bytes": 2187,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/followup_11-07-2026/scripts/verify_distances.py",
+      "source_git_blob": "2864e9869cb5bc90b145973df48eb9342555112d",
+      "source_sha256": "00b74c896f7656e2684837fab5687240bfdbb491f03e072ef84f85c990850a14",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/followup_11-07-2026/scripts/verify_distances.py",
+      "destination_sha256": "00b74c896f7656e2684837fab5687240bfdbb491f03e072ef84f85c990850a14",
+      "bytes": 4059,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/head_protocol.json",
+      "source_git_blob": "35ca01ee8da9136935fbbfd9a2508576cfdba58b",
+      "source_sha256": "710ddb9ba5a70d8720ecb7a2d672358c92c2052e5e7aa37a456d03fcc99eb56e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/head_protocol.json",
+      "destination_sha256": "710ddb9ba5a70d8720ecb7a2d672358c92c2052e5e7aa37a456d03fcc99eb56e",
+      "bytes": 420,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/math_checks.json",
+      "source_git_blob": "ba487d54c83fea788eff370c506a66611deef7f0",
+      "source_sha256": "fa68f28a500dded4a444ae2c27ccaa1f8f0ed1b22dccbfbefd43de2a4afd785d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/math_checks.json",
+      "destination_sha256": "fa68f28a500dded4a444ae2c27ccaa1f8f0ed1b22dccbfbefd43de2a4afd785d",
+      "bytes": 333,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/protocol.json",
+      "source_git_blob": "78f0f3a155e639c84aa2e14046809277d94833d1",
+      "source_sha256": "e224e48f04c0c24369727f29649565976388ded368f43a99387850529e1db0ea",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/protocol.json",
+      "destination_sha256": "e224e48f04c0c24369727f29649565976388ded368f43a99387850529e1db0ea",
+      "bytes": 779,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/google_sync.json",
+      "source_git_blob": "23dc5775825f0d83f70a3d081eac80016250315b",
+      "source_sha256": "ad3160c0e0537b32e4286e1ac41b19b69f7556cb84d985a96e4c3508cbf07868",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/google_sync.json",
+      "destination_sha256": "ad3160c0e0537b32e4286e1ac41b19b69f7556cb84d985a96e4c3508cbf07868",
+      "bytes": 442,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/head_launch.json",
+      "source_git_blob": "80d14cf49f5f380f1a289c60f67944faa66af104",
+      "source_sha256": "30bb052d85b13021f32a18a1d685513688b8030fe96b6caec81e5138ffef3b92",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/head_launch.json",
+      "destination_sha256": "30bb052d85b13021f32a18a1d685513688b8030fe96b6caec81e5138ffef3b92",
+      "bytes": 787,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/head_progress.json",
+      "source_git_blob": "619aacdde41eb5fa92c61150618b09e8fb3cd70d",
+      "source_sha256": "8204458758ab1ffd099b9c9b556fbc78b45de8d519d488e6535c50f9159e1874",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/head_progress.json",
+      "destination_sha256": "8204458758ab1ffd099b9c9b556fbc78b45de8d519d488e6535c50f9159e1874",
+      "bytes": 106,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/head_results.json",
+      "source_git_blob": "09ec1a25560799d268dd7a25b4dd1a58b858a647",
+      "source_sha256": "333d01fa201da5f6eaf5aeb50f4a89180f85e3d2e02e55484740dea8dd47d3a1",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/head_results.json",
+      "destination_sha256": "333d01fa201da5f6eaf5aeb50f4a89180f85e3d2e02e55484740dea8dd47d3a1",
+      "bytes": 257869,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/head_terminal.json",
+      "source_git_blob": "8ff2804f78c32b211ed411fbe9ae5ed93b6b81c0",
+      "source_sha256": "189c65024dc77e59d58af4566bb1d5245f799240f9f55cc9d73333988df3804d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/head_terminal.json",
+      "destination_sha256": "189c65024dc77e59d58af4566bb1d5245f799240f9f55cc9d73333988df3804d",
+      "bytes": 924,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/head_verification.json",
+      "source_git_blob": "df75fa11bb353a781f23177c21f52744a98118b0",
+      "source_sha256": "7c833377394e17d415a99523be04a54ab45687138836f85a8e2aaf0b67e9d3d3",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/head_verification.json",
+      "destination_sha256": "7c833377394e17d415a99523be04a54ab45687138836f85a8e2aaf0b67e9d3d3",
+      "bytes": 1406,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/launch.json",
+      "source_git_blob": "42e626074dc25ad2d23989bfaf113ab76733a466",
+      "source_sha256": "a24acfcf5e281e231ebdf3e8bf8088ceec0c6fb0abc1428c4a0afc350730b43e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/launch.json",
+      "destination_sha256": "a24acfcf5e281e231ebdf3e8bf8088ceec0c6fb0abc1428c4a0afc350730b43e",
+      "bytes": 1056,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/progress.json",
+      "source_git_blob": "3a956d9fbc2094fec6e18957a86ff186097112b4",
+      "source_sha256": "6bbfc71b2d6395a06e97ee37da3a90dea0dc67e2d00775edf007000fb9baca95",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/progress.json",
+      "destination_sha256": "6bbfc71b2d6395a06e97ee37da3a90dea0dc67e2d00775edf007000fb9baca95",
+      "bytes": 91,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/results.json",
+      "source_git_blob": "fc7f8b1d44b138262bc26f85cba9b52b61eac5ff",
+      "source_sha256": "c5901ed28181fc6eb75a20c0c8f6e2f4fc3e5b69f656b7b94f950ad160eec633",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/results.json",
+      "destination_sha256": "c5901ed28181fc6eb75a20c0c8f6e2f4fc3e5b69f656b7b94f950ad160eec633",
+      "bytes": 431943,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/terminal.json",
+      "source_git_blob": "108e25ddff65a806329a0defa76f2c2a051808b3",
+      "source_sha256": "58169e054c8710568d4ec81893baa5027916019d39a8d90a0cf1cacbf3eab400",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/terminal.json",
+      "destination_sha256": "58169e054c8710568d4ec81893baa5027916019d39a8d90a0cf1cacbf3eab400",
+      "bytes": 1192,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/results/verification.json",
+      "source_git_blob": "39d512312c4f887ec33e1499c45f29a33b786980",
+      "source_sha256": "03abc530236eb63a75c3aca553460c21379cde90c7abd8bba370e56161286613",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/results/verification.json",
+      "destination_sha256": "03abc530236eb63a75c3aca553460c21379cde90c7abd8bba370e56161286613",
+      "bytes": 379,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/check_objectives.py",
+      "source_git_blob": "9d9cabea07e30b68f69996f47c42690093cb5658",
+      "source_sha256": "52e32eebce476d5f2e61735a83cdf14aaa52713360c9646324658bdbee574bd1",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/check_objectives.py",
+      "destination_sha256": "52e32eebce476d5f2e61735a83cdf14aaa52713360c9646324658bdbee574bd1",
+      "bytes": 1705,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/fit_heads.py",
+      "source_git_blob": "f59efafeef5bddc060c7cd96f30c2c4538433754",
+      "source_sha256": "df0b86b65fa1c59e7eba8d65283e47855b271d97c49bde7770930ddb6f7aa6f4",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/fit_heads.py",
+      "destination_sha256": "df0b86b65fa1c59e7eba8d65283e47855b271d97c49bde7770930ddb6f7aa6f4",
+      "bytes": 7840,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/head_supervisor.py",
+      "source_git_blob": "718904fec558ae83f0097ba28b186f3ad89d338d",
+      "source_sha256": "046bf91c32deb63b11bc78096bb7e439c6543a3512531c1720c96ccc950689a8",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/head_supervisor.py",
+      "destination_sha256": "046bf91c32deb63b11bc78096bb7e439c6543a3512531c1720c96ccc950689a8",
+      "bytes": 2376,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/import_cached.py",
+      "source_git_blob": "04d831bc4cfe8ba7a60e32ec5ee43c3d041d47ba",
+      "source_sha256": "da136ef80c4d5ec4168876fc91d1e80843a5a4a4230286aee430d9a688305080",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/import_cached.py",
+      "destination_sha256": "da136ef80c4d5ec4168876fc91d1e80843a5a4a4230286aee430d9a688305080",
+      "bytes": 5815,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/metrics.py",
+      "source_git_blob": "bf93da64543000056129203ba7b1af24489d8e41",
+      "source_sha256": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/metrics.py",
+      "destination_sha256": "c7b55eadbd258dbae156c7bb99a84647c3bf197f1188dca5a55726cb81ee4e49",
+      "bytes": 2561,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/remote_supervisor.py",
+      "source_git_blob": "8963cb4f2a757e7a064ed16ed878abf87bed82bb",
+      "source_sha256": "1346f3d2b233907317b4835c83575781311eaf0403cd117215e978d3bf70c76f",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/remote_supervisor.py",
+      "destination_sha256": "1346f3d2b233907317b4835c83575781311eaf0403cd117215e978d3bf70c76f",
+      "bytes": 2038,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/run_cached.py",
+      "source_git_blob": "fe93d386d69bb051086840908f4815eb3b194c35",
+      "source_sha256": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/run_cached.py",
+      "destination_sha256": "b77701b6455d5efa0387a9a82e5135fdfd057d39eeccb05e9946b84fc7bfa50d",
+      "bytes": 10389,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/run_snap.sh",
+      "source_git_blob": "05ac1149decd510445e8aa398a9bbacdc41204fd",
+      "source_sha256": "72b59c48b31a39f442ec8112263dfec2103310f6185e89cf5dfa887b0ca49b38",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/run_snap.sh",
+      "destination_sha256": "72b59c48b31a39f442ec8112263dfec2103310f6185e89cf5dfa887b0ca49b38",
+      "bytes": 770,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/test_metrics.py",
+      "source_git_blob": "c61b3b8fa0c4fc02e38cbe2a6a553d40792c23d8",
+      "source_sha256": "9f91df589791c8a590d384c9e25b57f09d284f6295454fd0c88d1e20a3fc871e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/test_metrics.py",
+      "destination_sha256": "9f91df589791c8a590d384c9e25b57f09d284f6295454fd0c88d1e20a3fc871e",
+      "bytes": 3240,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/verify_heads.py",
+      "source_git_blob": "faa1d26d39abba9f66cfc866b541cdc504aab895",
+      "source_sha256": "cd50b7e4e43cace8f2a981d4f560dd1013b98d7b9583d97de98ab1c3c8b4e697",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/verify_heads.py",
+      "destination_sha256": "cd50b7e4e43cace8f2a981d4f560dd1013b98d7b9583d97de98ab1c3c8b4e697",
+      "bytes": 3629,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/verify_results.py",
+      "source_git_blob": "a4e5810081baed01b08745b44782b2fcb890e7eb",
+      "source_sha256": "c9b995fbd39783b5296d8e909fca1f58bbefc7e9bef0aa6a46c0b73e20e642eb",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/verify_results.py",
+      "destination_sha256": "c9b995fbd39783b5296d8e909fca1f58bbefc7e9bef0aa6a46c0b73e20e642eb",
+      "bytes": 3307,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/scripts/write_report.py",
+      "source_git_blob": "2ce3e495cb1e67b0743a8dc9bea1b3fdf280a4a0",
+      "source_sha256": "7cbb10d8ef9943c946ab61d87843a88c11a1197d3018ce9ea7f3178c5c618f08",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/scripts/write_report.py",
+      "destination_sha256": "7cbb10d8ef9943c946ab61d87843a88c11a1197d3018ce9ea7f3178c5c618f08",
+      "bytes": 15940,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/source_audit.json",
+      "source_git_blob": "79b1bd648e7ba4c19acede109d33895f05bca8a1",
+      "source_sha256": "866d9e0110e9be37135dc46f0d2ce51f935d09150d3425fbbfc4a7ea2a6de7da",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/source_audit.json",
+      "destination_sha256": "866d9e0110e9be37135dc46f0d2ce51f935d09150d3425fbbfc4a7ea2a6de7da",
+      "bytes": 6563,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/CKPT_training_followup.md",
+      "source_git_blob": "fc4e0f58e7871d3916463a775dcefb9b4178595d",
+      "source_sha256": "5bbb6d19a6da7744e680bc48a6753239506fac639b027de7ce6fb40742c1847d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/CKPT_training_followup.md",
+      "destination_sha256": "5bbb6d19a6da7744e680bc48a6753239506fac639b027de7ce6fb40742c1847d",
+      "bytes": 3782,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/ENVIRONMENT_NOTE.md",
+      "source_git_blob": "5973320a18a712d9c26cd058836974249638a95a",
+      "source_sha256": "43195b1fe18fa94c963ec308eef636d4c721c40fcab41dd8bbeef22b0f9962c1",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/ENVIRONMENT_NOTE.md",
+      "destination_sha256": "43195b1fe18fa94c963ec308eef636d4c721c40fcab41dd8bbeef22b0f9962c1",
+      "bytes": 1324,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/MATH_baseline.md",
+      "source_git_blob": "ff6fb25c16685cca417afcab79f14b647abf464d",
+      "source_sha256": "61edfcd984905f02aff8777ca61a982765deccb5ba04b02aa302db6d224b7c47",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/MATH_baseline.md",
+      "destination_sha256": "61edfcd984905f02aff8777ca61a982765deccb5ba04b02aa302db6d224b7c47",
+      "bytes": 7509,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/PROTOCOL.md",
+      "source_git_blob": "05e52ae2f06e06c250b0b7103658f6509344251f",
+      "source_sha256": "0677cbe5f578f2917f8df5b147893465579f2018fdca5baf581f2546e728dd60",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/PROTOCOL.md",
+      "destination_sha256": "0677cbe5f578f2917f8df5b147893465579f2018fdca5baf581f2546e728dd60",
+      "bytes": 8782,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/README.md",
+      "source_git_blob": "bc902965881ce9a7b07112920b9ef1a1320adba0",
+      "source_sha256": "40dca662d91bb06a9f2c831c6bfa671d1106d4d59eaf10233c1fb304e5e8b791",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/README.md",
+      "destination_sha256": "40dca662d91bb06a9f2c831c6bfa671d1106d4d59eaf10233c1fb304e5e8b791",
+      "bytes": 3680,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/RESULTS_training.md",
+      "source_git_blob": "78a4aa6e47bdfe357c85b3da072b62c79a8134d3",
+      "source_sha256": "5319675968fb18af40fc21736109839ad863b333926cbe25515533c2fef5562a",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/RESULTS_training.md",
+      "destination_sha256": "5319675968fb18af40fc21736109839ad863b333926cbe25515533c2fef5562a",
+      "bytes": 19732,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/protocol.json",
+      "source_git_blob": "d474ce1a39a65b5e2da35e66b4787f475c91a200",
+      "source_sha256": "7ef12e892c4ed3d31feb34b507ce7d5f0921ddb4771e6af63349b2446af226cd",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/protocol.json",
+      "destination_sha256": "7ef12e892c4ed3d31feb34b507ce7d5f0921ddb4771e6af63349b2446af226cd",
+      "bytes": 1197,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results.md",
+      "source_git_blob": "60fb7eb68e94369f3143bab09561a64a0259641d",
+      "source_sha256": "c560c25d8d82ab8f320d3b6a145a9b882a960d1682b045c9f7f78d0c81d0c5da",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results.md",
+      "destination_sha256": "c560c25d8d82ab8f320d3b6a145a9b882a960d1682b045c9f7f78d0c81d0c5da",
+      "bytes": 1099,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/companion_sync.json",
+      "source_git_blob": "85712c1328c45e684466ccf0569e245563eddca4",
+      "source_sha256": "248223470b36bab8614dbaa19bfadb044c62dd9430d92ade5a65d571c71d9c31",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/companion_sync.json",
+      "destination_sha256": "248223470b36bab8614dbaa19bfadb044c62dd9430d92ade5a65d571c71d9c31",
+      "bytes": 436,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/controls_preflight.json",
+      "source_git_blob": "3907a7d0f04d04742f3c6f71bf2b69f9598d1072",
+      "source_sha256": "05b5fd92d258642851ae495fe074c724e4855df3b94fb61fbb30ea79f45c885d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/controls_preflight.json",
+      "destination_sha256": "05b5fd92d258642851ae495fe074c724e4855df3b94fb61fbb30ea79f45c885d",
+      "bytes": 3542,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/launch.json",
+      "source_git_blob": "e32ede2a28a82c69dfc13ae8790da3db85c41189",
+      "source_sha256": "4d2e80922500f33df538a8aaca4ad7192b2897e5219ed898bffa79aec5fc7c78",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/launch.json",
+      "destination_sha256": "4d2e80922500f33df538a8aaca4ad7192b2897e5219ed898bffa79aec5fc7c78",
+      "bytes": 2200,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/mixture_fit_receipts.json",
+      "source_git_blob": "7992f8e9c68e0879ea53d899cbef9ed7a08767eb",
+      "source_sha256": "2df48ba0dbbb043f6445618c2b662c38c1a20df2239303b70dbad1fc0103d7f4",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/mixture_fit_receipts.json",
+      "destination_sha256": "2df48ba0dbbb043f6445618c2b662c38c1a20df2239303b70dbad1fc0103d7f4",
+      "bytes": 62705,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/notification_receipt.json",
+      "source_git_blob": "9225e28bd9caf3a34a9bbb31e5b89f73a98e7c84",
+      "source_sha256": "70ba36c36a4ef3ea766dead20975382729804821f6387a9fd43952a70ac7d97f",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/notification_receipt.json",
+      "destination_sha256": "70ba36c36a4ef3ea766dead20975382729804821f6387a9fd43952a70ac7d97f",
+      "bytes": 405,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/preflight.json",
+      "source_git_blob": "d8df9025d44b36a1143cc37dc318aa89d0408398",
+      "source_sha256": "76f12d1fc1e2539e4d98451ec150fa9c142e8cb1dd4add4b7ef577cf3a65e9bb",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/preflight.json",
+      "destination_sha256": "76f12d1fc1e2539e4d98451ec150fa9c142e8cb1dd4add4b7ef577cf3a65e9bb",
+      "bytes": 793,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/progress.json",
+      "source_git_blob": "bdf9a56732af2c41ed64d5c809a081422ad54cf2",
+      "source_sha256": "7616fc134d1bd8bf379575b6272db650b8c0dde1f738bb91ec0893f7c03a635d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/progress.json",
+      "destination_sha256": "7616fc134d1bd8bf379575b6272db650b8c0dde1f738bb91ec0893f7c03a635d",
+      "bytes": 476,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/results.json",
+      "source_git_blob": "0ef1c0c033908c4149b01e73994cedbc6c87eab5",
+      "source_sha256": "7bbead25ee3577cb5cbd2e5f41264f9a4953bd7eb360b962b93d0dbe66396ee2",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/results.json",
+      "destination_sha256": "7bbead25ee3577cb5cbd2e5f41264f9a4953bd7eb360b962b93d0dbe66396ee2",
+      "bytes": 1151232,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/terminal.json",
+      "source_git_blob": "3ad53b8c3a67c80f40217fdf66dd19c532f45cf2",
+      "source_sha256": "de4df59917894c1ff0be135133aba175fa8f6bc43e5e2cb127ae0caca4e9a66c",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/terminal.json",
+      "destination_sha256": "de4df59917894c1ff0be135133aba175fa8f6bc43e5e2cb127ae0caca4e9a66c",
+      "bytes": 2424,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/verification.json",
+      "source_git_blob": "f85ebc29a530c4702228ff6cabbf9a76965a4450",
+      "source_sha256": "3ccaf7fe965e431a2d09d223a0ff552ead12a06556fef78bf348d6cf1e499e20",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/verification.json",
+      "destination_sha256": "3ccaf7fe965e431a2d09d223a0ff552ead12a06556fef78bf348d6cf1e499e20",
+      "bytes": 1159,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/results/verification_refit_samples.json",
+      "source_git_blob": "35cbecd702eb748b5397de89b9b7c110bba8674e",
+      "source_sha256": "d8c3f7b9a6438a874029f6779da6c712aaea0c5656e8a90f0bd9ab94dc3e0423",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/results/verification_refit_samples.json",
+      "destination_sha256": "d8c3f7b9a6438a874029f6779da6c712aaea0c5656e8a90f0bd9ab94dc3e0423",
+      "bytes": 7678,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_execute.md",
+      "source_git_blob": "41278669308ff77f4a1d7a472515880197400616",
+      "source_sha256": "e946647699efb52478d9276d014c0d8b97538ef34904e6ae790e00bfbc64c040",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/PROMPT_execute.md",
+      "destination_sha256": "e946647699efb52478d9276d014c0d8b97538ef34904e6ae790e00bfbc64c040",
+      "bytes": 2163,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_mixture.md",
+      "source_git_blob": "f137cc23c6a0053dac5b70ac73846d9a9cc38ba9",
+      "source_sha256": "5fa0a19aee4bec851ac7711cf3446515ede0a157a8503ab1a91c75a6116caa3b",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/PROMPT_mixture.md",
+      "destination_sha256": "5fa0a19aee4bec851ac7711cf3446515ede0a157a8503ab1a91c75a6116caa3b",
+      "bytes": 2322,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_verify_refit_samples.md",
+      "source_git_blob": "7dc5f68187aa3bf6f209b52d14253c0b323cec21",
+      "source_sha256": "7fe2b445e935a24157bdfb061c5edf01c588c3366738c8672dbf9fb1bf766c0d",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/PROMPT_verify_refit_samples.md",
+      "destination_sha256": "7fe2b445e935a24157bdfb061c5edf01c588c3366738c8672dbf9fb1bf766c0d",
+      "bytes": 1446,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_verify_training.md",
+      "source_git_blob": "4bcf8e9dbde5775c98c1d91de5eb617c6219ae5c",
+      "source_sha256": "8a3a93ffe53b929efae75a610e52ccb3e8d8e5597d893351205c4f5f3fc06019",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/PROMPT_verify_training.md",
+      "destination_sha256": "8a3a93ffe53b929efae75a610e52ccb3e8d8e5597d893351205c4f5f3fc06019",
+      "bytes": 1553,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/PROMPT_weighted_softmax.md",
+      "source_git_blob": "9aa3f01b652172f4dd00e5ec477be456d01a599c",
+      "source_sha256": "2edd8990f383a2a9cb7e1424f1da6fa2710bb62d9d7d349c3667c153ae178e84",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/PROMPT_weighted_softmax.md",
+      "destination_sha256": "2edd8990f383a2a9cb7e1424f1da6fa2710bb62d9d7d349c3667c153ae178e84",
+      "bytes": 2038,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/check_mixtures.py",
+      "source_git_blob": "4b5eec27dbb00ddf73bfdac89a771482ed80d1ef",
+      "source_sha256": "9269fc8ddc161a50d52b54ac516b42c16f6a2cab974cc3ca2d0349114e58bf64",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/check_mixtures.py",
+      "destination_sha256": "9269fc8ddc161a50d52b54ac516b42c16f6a2cab974cc3ca2d0349114e58bf64",
+      "bytes": 4924,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/run_training.py",
+      "source_git_blob": "9caa525626b81fbd29be1ce6829489b176ad6a4f",
+      "source_sha256": "d70651a63eedafe2d0a184c73afde33f09295789be344cb48f3235ab8035239e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/run_training.py",
+      "destination_sha256": "d70651a63eedafe2d0a184c73afde33f09295789be344cb48f3235ab8035239e",
+      "bytes": 13962,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/supervise.py",
+      "source_git_blob": "1042570eda99baa82af870858a2044d550b3853b",
+      "source_sha256": "91d7d1c43a633c36ed88a7f01d7a865c5aabb27d7e4c097eecb70ebda42081e7",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/supervise.py",
+      "destination_sha256": "91d7d1c43a633c36ed88a7f01d7a865c5aabb27d7e4c097eecb70ebda42081e7",
+      "bytes": 2772,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/verify_refit_samples.py",
+      "source_git_blob": "17a2b7e9cb6ff521186326e84b7dfe952f1a7902",
+      "source_sha256": "3b96813df33efdeafc5f0b8cf6c9ed4ff643eb84b86dc946361d0b4faf484937",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/verify_refit_samples.py",
+      "destination_sha256": "3b96813df33efdeafc5f0b8cf6c9ed4ff643eb84b86dc946361d0b4faf484937",
+      "bytes": 9817,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/verify_training.py",
+      "source_git_blob": "2e83791a75efc5dcddd73e7bc757f9863a11eaad",
+      "source_sha256": "360a05589833b46a693b7b3f08ab0092e6089354b383746ad4903e3469fda68e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/verify_training.py",
+      "destination_sha256": "360a05589833b46a693b7b3f08ab0092e6089354b383746ad4903e3469fda68e",
+      "bytes": 23202,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/weighted_softmax.py",
+      "source_git_blob": "ef17b7e397bbc1ec264c7adbfbc5337bbad93338",
+      "source_sha256": "bc4f18f2aa3a9a737f992785778a495a6d78d957c79a2eea3b183ffaf7dbd20f",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/weighted_softmax.py",
+      "destination_sha256": "bc4f18f2aa3a9a737f992785778a495a6d78d957c79a2eea3b183ffaf7dbd20f",
+      "bytes": 12009,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/06_information_loss_vs_correlation_judge_selection/training_followup_11-08-2026/scripts/write_report.py",
+      "source_git_blob": "437df4ae7b245f05c70815809e37f557d7c0923e",
+      "source_sha256": "66262b96c7eb3364d7d2e836cccee9193df9f2eda2302c1227c80a82c4de7b2e",
+      "destination_path": "experiments/03_exp06_ce_vs_pearson_matched_budget/historical_exp06/training_followup_11-08-2026/scripts/write_report.py",
+      "destination_sha256": "66262b96c7eb3364d7d2e836cccee9193df9f2eda2302c1227c80a82c4de7b2e",
+      "bytes": 13364,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/README.md",
+      "source_git_blob": "f2026ee132b29b9c38253afff7a739d482e7ce75",
+      "source_sha256": "0cc0e23159b152b62abe95b93050d97ada1f357fc439dda7bed94c339466c016",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/README.md",
+      "destination_sha256": "0cc0e23159b152b62abe95b93050d97ada1f357fc439dda7bed94c339466c016",
+      "bytes": 2577,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results.md",
+      "source_git_blob": "1cdee8f892cc0dd091958e1e535a3b58ac752bac",
+      "source_sha256": "bd9719df5b9d55511dcd41f2e72a8e264e11330f9d01a091d4060740037b9553",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results.md",
+      "destination_sha256": "bd9719df5b9d55511dcd41f2e72a8e264e11330f9d01a091d4060740037b9553",
+      "bytes": 2157,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results/results.json",
+      "source_git_blob": "36edd8da8506f4ab85d86a50fc4a0c36d6e1d851",
+      "source_sha256": "d56a861130d7e7cd7c9f56f6c73971c235517b5f6b81f03f65b4472add203f1c",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results/results.json",
+      "destination_sha256": "d56a861130d7e7cd7c9f56f6c73971c235517b5f6b81f03f65b4472add203f1c",
+      "bytes": 3272,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results/run_transcript.txt",
+      "source_git_blob": "30b2d10edd2cc306ab120dafaca9e3bed909801d",
+      "source_sha256": "748f777fc257cebd055c56689b186b422114bd9b786398656e663dee1293b504",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/results/run_transcript.txt",
+      "destination_sha256": "748f777fc257cebd055c56689b186b422114bd9b786398656e663dee1293b504",
+      "bytes": 3273,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/build_dataset.py",
+      "source_git_blob": "ae39da7976dc12c5bad9f1baf2fe1465725d7313",
+      "source_sha256": "0720b3dbb604889ad27f6b23f62925d9e82576c8719c51d4940bf05df6411713",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/build_dataset.py",
+      "destination_sha256": "0720b3dbb604889ad27f6b23f62925d9e82576c8719c51d4940bf05df6411713",
+      "bytes": 2070,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/metrics.py",
+      "source_git_blob": "03d117621a2defb4a9e971dbf8c290f368af77ba",
+      "source_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/metrics.py",
+      "destination_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "bytes": 2444,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/models.py",
+      "source_git_blob": "8b1163cad2a25c4dd62cb1a76ac3ce49d7e43ddf",
+      "source_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/models.py",
+      "destination_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "bytes": 7231,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/predict.py",
+      "source_git_blob": "215e65e3b667db359308b4166e7dcfb373137e4a",
+      "source_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/predict.py",
+      "destination_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "bytes": 1560,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/run.py",
+      "source_git_blob": "b659f7a995274b6377e96ac6e1374f4603d2f4e4",
+      "source_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/run.py",
+      "destination_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "bytes": 10024,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/vendor/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/vendor/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/verify.py",
+      "source_git_blob": "65ed58a8fdf7e2172bb4b6503abe2c211deba8ed",
+      "source_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/exp10_scripts/verify.py",
+      "destination_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "bytes": 5343,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/run_formulation4.py",
+      "source_git_blob": "c1c4f3e2190ce1b0483f76c0cfa77a99139308d6",
+      "source_sha256": "0c5849adf095a951035b2132dbfd780bb311bdd1c2bcaffa7e97c358ef11bc63",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/run_formulation4.py",
+      "destination_sha256": "0c5849adf095a951035b2132dbfd780bb311bdd1c2bcaffa7e97c358ef11bc63",
+      "bytes": 4116,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/vendor_exp03/ce_mixture.py",
+      "source_git_blob": "565657833ad189418a6e067e750be417c03e6435",
+      "source_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/vendor_exp03/ce_mixture.py",
+      "destination_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "bytes": 5234,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/vendor_exp03/historical/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/archive/11_formulation4_train_only_ce_mixture_cv/scripts/vendor_exp03/historical/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/README.md",
+      "source_git_blob": "9a3c46184603b847fd04bb2f8de52ad911030d4f",
+      "source_sha256": "c685e0ecebc0083a593f77f840ce365fae2b3767128f01d8981b90b653a53eca",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/README.md",
+      "destination_sha256": "c685e0ecebc0083a593f77f840ce365fae2b3767128f01d8981b90b653a53eca",
+      "bytes": 2780,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/spec_ce.json",
+      "source_git_blob": "91d0fb404309801ac8ced28333e13a240575228f",
+      "source_sha256": "7a57f8a9e2a769ff9bf980f6babc207f418aca9823f8637aa5ae7125622d9381",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/spec_ce.json",
+      "destination_sha256": "7a57f8a9e2a769ff9bf980f6babc207f418aca9823f8637aa5ae7125622d9381",
+      "bytes": 646,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/spec_corr.json",
+      "source_git_blob": "92789c96555fe4e9a6171ba93a83596fab256456",
+      "source_sha256": "1a45f523f2bd0d994707046842ea2e418107cea60ef0a871d144227083265861",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/spec_corr.json",
+      "destination_sha256": "1a45f523f2bd0d994707046842ea2e418107cea60ef0a871d144227083265861",
+      "bytes": 411,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_ce/opt.py",
+      "source_git_blob": "de3293b0733d8695bbcf81ccb44c74b0dfcba288",
+      "source_sha256": "dcf12231112f617dd38862319f6746d19da13a6bfe393b404cb99b658d06b193",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_ce/opt.py",
+      "destination_sha256": "dcf12231112f617dd38862319f6746d19da13a6bfe393b404cb99b658d06b193",
+      "bytes": 1758,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_ce/result.json",
+      "source_git_blob": "9abea48743d8a953f0dcd2b4c91a72c91144c79c",
+      "source_sha256": "42ef47768889ff0631532468bdc905639163d4acee6dbc4a409d66a160afbb00",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_ce/result.json",
+      "destination_sha256": "42ef47768889ff0631532468bdc905639163d4acee6dbc4a409d66a160afbb00",
+      "bytes": 677,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_corr/search.py",
+      "source_git_blob": "dd9d91af9b2dd590097d843230d390fe140b36df",
+      "source_sha256": "c19bf9feacb243dfdbae40edc7c6ea163ff09f5d9bc93f2f4ae27b0e2b9bdaa5",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_fixed_split/work_corr/search.py",
+      "destination_sha256": "c19bf9feacb243dfdbae40edc7c6ea163ff09f5d9bc93f2f4ae27b0e2b9bdaa5",
+      "bytes": 1819,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_log.md",
+      "source_git_blob": "d012cb50b4d0eb8e285758d277cdf55eb736deca",
+      "source_sha256": "05a24ca09b89b236d9548bbbf26cbdac5b5e76dd0f033839918c816cf1ecb9cd",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/agent_log.md",
+      "destination_sha256": "05a24ca09b89b236d9548bbbf26cbdac5b5e76dd0f033839918c816cf1ecb9cd",
+      "bytes": 1241,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results.md",
+      "source_git_blob": "9389c98df8be6cdb26e2c8702b11b82e3bc18e3e",
+      "source_sha256": "d2df429582dd54d4b25475a0671f447c994869a6bba5e5eef8f977c83c7fb40c",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results.md",
+      "destination_sha256": "d2df429582dd54d4b25475a0671f447c994869a6bba5e5eef8f977c83c7fb40c",
+      "bytes": 9283,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/fixed_split_agents.json",
+      "source_git_blob": "2f96a90a0e87a5ba678d77a2e6cac012de1c3551",
+      "source_sha256": "06072ac2acaf78e563e49d99e8a0bfa3ebe74cc1c692279923c787da8b9fbf12",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/fixed_split_agents.json",
+      "destination_sha256": "06072ac2acaf78e563e49d99e8a0bfa3ebe74cc1c692279923c787da8b9fbf12",
+      "bytes": 2812,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/per_artifact.json",
+      "source_git_blob": "ac561855d8397aa2bf6517b02538904e09166f93",
+      "source_sha256": "e9f9ac8a01119c693dfe21b261ce5fdde6384bed0fc46cc8551e9be7f6cfdc0d",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/per_artifact.json",
+      "destination_sha256": "e9f9ac8a01119c693dfe21b261ce5fdde6384bed0fc46cc8551e9be7f6cfdc0d",
+      "bytes": 32776,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/results.json",
+      "source_git_blob": "82743c6ac3a95214d51fda890f9eb3205498cbb6",
+      "source_sha256": "f4ae80d736c6bd4110040de1ff0d07aaf60e8e4edc3b393658b3d4444a7df9b1",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/results.json",
+      "destination_sha256": "f4ae80d736c6bd4110040de1ff0d07aaf60e8e4edc3b393658b3d4444a7df9b1",
+      "bytes": 17256,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/run_transcript.txt",
+      "source_git_blob": "45277125636822817e3de1e030f4fc2c60c1adbc",
+      "source_sha256": "e708c04490ea8e2aff275706d5fa32e15471d3f532d688f39d3529a11e08067b",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/results/run_transcript.txt",
+      "destination_sha256": "e708c04490ea8e2aff275706d5fa32e15471d3f532d688f39d3529a11e08067b",
+      "bytes": 10118,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/build_dataset.py",
+      "source_git_blob": "ae39da7976dc12c5bad9f1baf2fe1465725d7313",
+      "source_sha256": "0720b3dbb604889ad27f6b23f62925d9e82576c8719c51d4940bf05df6411713",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/build_dataset.py",
+      "destination_sha256": "0720b3dbb604889ad27f6b23f62925d9e82576c8719c51d4940bf05df6411713",
+      "bytes": 2070,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/common.py",
+      "source_git_blob": "10c8282f3dcb09bc9231107ec05638021306d71b",
+      "source_sha256": "4c95a1989fb4a6658a600a6df0e708602ebc4d5a0a146cb647995d17ffe44b2a",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/common.py",
+      "destination_sha256": "4c95a1989fb4a6658a600a6df0e708602ebc4d5a0a146cb647995d17ffe44b2a",
+      "bytes": 2110,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/metrics.py",
+      "source_git_blob": "03d117621a2defb4a9e971dbf8c290f368af77ba",
+      "source_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/metrics.py",
+      "destination_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "bytes": 2444,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/models.py",
+      "source_git_blob": "8b1163cad2a25c4dd62cb1a76ac3ce49d7e43ddf",
+      "source_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/models.py",
+      "destination_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "bytes": 7231,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/predict.py",
+      "source_git_blob": "215e65e3b667db359308b4166e7dcfb373137e4a",
+      "source_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/predict.py",
+      "destination_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "bytes": 1560,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/run.py",
+      "source_git_blob": "b659f7a995274b6377e96ac6e1374f4603d2f4e4",
+      "source_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/run.py",
+      "destination_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "bytes": 10024,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/vendor/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/vendor/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/verify.py",
+      "source_git_blob": "65ed58a8fdf7e2172bb4b6503abe2c211deba8ed",
+      "source_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/exp10_scripts/verify.py",
+      "destination_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "bytes": 5343,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/make_report.py",
+      "source_git_blob": "cfe7ecd8582d396f8d6d81a5b30385f6edbab9ed",
+      "source_sha256": "03ca9636f8c72f41df46829d0daac902eda74f589410a95823ad3ccd41562731",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/make_report.py",
+      "destination_sha256": "03ca9636f8c72f41df46829d0daac902eda74f589410a95823ad3ccd41562731",
+      "bytes": 10973,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/prep_agent_inputs.py",
+      "source_git_blob": "2201df8bf3dd858b8021c276cdab77ec94711313",
+      "source_sha256": "03706a11387102c3468151f64879e857ee25949ec55a9e537f855d774b87d906",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/prep_agent_inputs.py",
+      "destination_sha256": "03706a11387102c3468151f64879e857ee25949ec55a9e537f855d774b87d906",
+      "bytes": 983,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/run_exp12.py",
+      "source_git_blob": "149b7c4af3522b01469032542ac5f16ea58287e7",
+      "source_sha256": "e66749d4dfc418bfccc640719715e80cc13b312e6011c65c8ac532e39b71ac18",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/run_exp12.py",
+      "destination_sha256": "e66749d4dfc418bfccc640719715e80cc13b312e6011c65c8ac532e39b71ac18",
+      "bytes": 8623,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/score_agents.py",
+      "source_git_blob": "cbd7959a6c40d21936768022a08179ce1da6d802",
+      "source_sha256": "837c85e178643755b0067af87a0409ffc771a4f7ca1ba446f99a4e76815205d0",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/score_agents.py",
+      "destination_sha256": "837c85e178643755b0067af87a0409ffc771a4f7ca1ba446f99a4e76815205d0",
+      "bytes": 1299,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/vendor_exp03/ce_mixture.py",
+      "source_git_blob": "565657833ad189418a6e067e750be417c03e6435",
+      "source_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/vendor_exp03/ce_mixture.py",
+      "destination_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "bytes": 5234,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/vendor_exp03/historical/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/scripts/vendor_exp03/historical/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/README.md",
+      "source_git_blob": "c52d7e197c32e4384d0eb3e7f0f1e2bfbd7559cb",
+      "source_sha256": "08eadcbe3ed89e79fb245b7872abd2cd26d358594af2748c4d51830a5f2976f5",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/README.md",
+      "destination_sha256": "08eadcbe3ed89e79fb245b7872abd2cd26d358594af2748c4d51830a5f2976f5",
+      "bytes": 3843,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/agent_log.md",
+      "source_git_blob": "556b6dcc5cd4fb165b75ac2b67686b2fad83055d",
+      "source_sha256": "02ccd79abb955bc8bd4575bf8f8605637f813aa7f830ccc60635c3ff414b4e99",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/agent_log.md",
+      "destination_sha256": "02ccd79abb955bc8bd4575bf8f8605637f813aa7f830ccc60635c3ff414b4e99",
+      "bytes": 1882,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/fig_distributions.png",
+      "source_git_blob": "6c246e09e5107e1e39885f752ba993c7c81f67bb",
+      "source_sha256": "4f10a4320e751b84ba7a2272fa3af16123f24c54ccaaa3ad6b07828dccf56934",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/fig_distributions.png",
+      "destination_sha256": "4f10a4320e751b84ba7a2272fa3af16123f24c54ccaaa3ad6b07828dccf56934",
+      "bytes": 44775,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/fig_excess_vs_n.png",
+      "source_git_blob": "e7ae6b307d326eef02ce13f094393e087a15ba2e",
+      "source_sha256": "51e96627a65b414cfb9e011ec832a701d44a7d63952df47d2c151bcbb8c0d9b6",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/fig_excess_vs_n.png",
+      "destination_sha256": "51e96627a65b414cfb9e011ec832a701d44a7d63952df47d2c151bcbb8c0d9b6",
+      "bytes": 296844,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results.md",
+      "source_git_blob": "b09ead04ccdc1a1d343555b8219ad9503e12ba21",
+      "source_sha256": "503afde572963c9e84222724063de5ccbeae762c2758f82d687395f55d12d73a",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results.md",
+      "destination_sha256": "503afde572963c9e84222724063de5ccbeae762c2758f82d687395f55d12d73a",
+      "bytes": 16126,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/population.json",
+      "source_git_blob": "915290892210c43f68204da7e14b86aebcdda708",
+      "source_sha256": "bfba0d63366881677c53ad1f1f2c2f0751c4d7b793737e84d68376b9f06a055c",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/population.json",
+      "destination_sha256": "bfba0d63366881677c53ad1f1f2c2f0751c4d7b793737e84d68376b9f06a055c",
+      "bytes": 2051,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/raw.jsonl",
+      "source_git_blob": "7e46d82175623a8c9fbe859d81d3ef49acad9125",
+      "source_sha256": "9ed0f612e6810ba69a523dbb50f34acaa0e06c9092b1bc732178439bbea97c36",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/raw.jsonl",
+      "destination_sha256": "9ed0f612e6810ba69a523dbb50f34acaa0e06c9092b1bc732178439bbea97c36",
+      "bytes": 2073811,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/report_log.txt",
+      "source_git_blob": "264e3d605be6c88d939d161280a35b1774d8ee35",
+      "source_sha256": "a249daf59b482dc3f6de3acbca24725ac9d881e19ecc746ea925be8c80a8c9a9",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/report_log.txt",
+      "destination_sha256": "a249daf59b482dc3f6de3acbca24725ac9d881e19ecc746ea925be8c80a8c9a9",
+      "bytes": 174,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/run_transcript.txt",
+      "source_git_blob": "6965701d6d88f82b639c04dfaccc0b90320a6676",
+      "source_sha256": "ffcbe97a64a190da123e2dff35d807d97bc07e934a04005c4291b9da6723da47",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/run_transcript.txt",
+      "destination_sha256": "ffcbe97a64a190da123e2dff35d807d97bc07e934a04005c4291b9da6723da47",
+      "bytes": 157,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/summary.json",
+      "source_git_blob": "43d15003c623d565226e7051e779666a58cd0d19",
+      "source_sha256": "aa49a36c431b00cbe23b07358f6822b6691ea2d5e0c3ae0dee4862bd195c8ea3",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/results/summary.json",
+      "destination_sha256": "aa49a36c431b00cbe23b07358f6822b6691ea2d5e0c3ae0dee4862bd195c8ea3",
+      "bytes": 6841,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/make_report.py",
+      "source_git_blob": "afb2ccb898a89a818bb7ae34dab27d1305c7f7ce",
+      "source_sha256": "02d17959c6e37f33f8b088e75016be9bddbabd73ccb5c03daa435f9820fad6b6",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/make_report.py",
+      "destination_sha256": "02d17959c6e37f33f8b088e75016be9bddbabd73ccb5c03daa435f9820fad6b6",
+      "bytes": 11480,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/run_sweep.py",
+      "source_git_blob": "8aa29ddf7c7f5091aa5cd1a63bd93077c2c2836c",
+      "source_sha256": "9c0593836d5d3e48b89816c8de2b1d033cb22ecf00bdfead39a842b35732558e",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/run_sweep.py",
+      "destination_sha256": "9c0593836d5d3e48b89816c8de2b1d033cb22ecf00bdfead39a842b35732558e",
+      "bytes": 1186,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/toy.py",
+      "source_git_blob": "1cdb29b6bd42f3e2ca4f0f2fd97249ad92ce7ab7",
+      "source_sha256": "c7d230dde3f1beeea0270f83531b52e4ea328cc2fcc7ca2aec687cef27b6d446",
+      "destination_path": "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/scripts/toy.py",
+      "destination_sha256": "c7d230dde3f1beeea0270f83531b52e4ea328cc2fcc7ca2aec687cef27b6d446",
+      "bytes": 6711,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/README.md",
+      "source_git_blob": "2376c11ceebd4636ae73696bc62feb6b075f0184",
+      "source_sha256": "9278d8e34f6dbbf9fd686b1184a9687791a1d8df573b8db9fae2f6e9a33c1e19",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/README.md",
+      "destination_sha256": "9278d8e34f6dbbf9fd686b1184a9687791a1d8df573b8db9fae2f6e9a33c1e19",
+      "bytes": 2513,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/agent_log.md",
+      "source_git_blob": "9142d6bc96907da409ee62cdac238e34ca42a425",
+      "source_sha256": "802f6bbebbe2e20ccbabcfcc7db6ad29abfe56df00d78ad0862794ae1c4219cf",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/agent_log.md",
+      "destination_sha256": "802f6bbebbe2e20ccbabcfcc7db6ad29abfe56df00d78ad0862794ae1c4219cf",
+      "bytes": 2161,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results.md",
+      "source_git_blob": "f30c1fa925519a8383bb86242ae6f418b51ae02a",
+      "source_sha256": "92362a407b045a57206bb7bf3a5fcf29fd07b8cc6b12e61a553f6e5f87e4b440",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results.md",
+      "destination_sha256": "92362a407b045a57206bb7bf3a5fcf29fd07b8cc6b12e61a553f6e5f87e4b440",
+      "bytes": 15957,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/all/per_artifact.json",
+      "source_git_blob": "91e3391d75fcafc733132e7b003bd281f7b39093",
+      "source_sha256": "257ffd5f633bb3de7f9e5bdfbdafa8c9808cdb2f02ff51050c3dc0f7e69b56ea",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/all/per_artifact.json",
+      "destination_sha256": "257ffd5f633bb3de7f9e5bdfbdafa8c9808cdb2f02ff51050c3dc0f7e69b56ea",
+      "bytes": 32653,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/all/results.json",
+      "source_git_blob": "7c73032a2f4f883916f46e06d9798ef34ff638f8",
+      "source_sha256": "4b9a5af23b9c2dc5c2f2325faa3d57fe0038517d9deddddd510864bd41ebec79",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/all/results.json",
+      "destination_sha256": "4b9a5af23b9c2dc5c2f2325faa3d57fe0038517d9deddddd510864bd41ebec79",
+      "bytes": 26984,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_parse_stats.json",
+      "source_git_blob": "c2bdc51ee10b158e7e3cb8455f9ce22f6b080cf2",
+      "source_sha256": "5c07d7c5bac9172c53ea84f1fb751ebb974895e19b3a0ccd2d585d3955253353",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_parse_stats.json",
+      "destination_sha256": "5c07d7c5bac9172c53ea84f1fb751ebb974895e19b3a0ccd2d585d3955253353",
+      "bytes": 4051,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_scores.json",
+      "source_git_blob": "2f0dea44aa111de3521342839b03f22249d2a1b5",
+      "source_sha256": "e51e7297e8d53a5e6f4d3229b02511a3c33dd70d38f135f4ce09f9b1da66f9bc",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_scores.json",
+      "destination_sha256": "e51e7297e8d53a5e6f4d3229b02511a3c33dd70d38f135f4ce09f9b1da66f9bc",
+      "bytes": 43764,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_table.json",
+      "source_git_blob": "ea76dc64394ed64cf5188c57f94047360492bb0e",
+      "source_sha256": "44b9bfac32719f055d830b8ef5312d165e7088fa4955fc2d101ee20b334d6aca",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/judge_table.json",
+      "destination_sha256": "44b9bfac32719f055d830b8ef5312d165e7088fa4955fc2d101ee20b334d6aca",
+      "bytes": 12008,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/old5/per_artifact.json",
+      "source_git_blob": "fb00ef9b2a9a9d007782a944f6a9ca58b1331d0e",
+      "source_sha256": "896f09b18da8cc7f484800d95b8f74e4dd3665efc326c0a1360eb6f4ef961643",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/old5/per_artifact.json",
+      "destination_sha256": "896f09b18da8cc7f484800d95b8f74e4dd3665efc326c0a1360eb6f4ef961643",
+      "bytes": 32780,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/old5/results.json",
+      "source_git_blob": "02c22ee92172e168765ea635bd11a41274a746c7",
+      "source_sha256": "cd330b0c5459d8105bafde826676ccd9d711e9000cd16742534e29b52641c2c9",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/old5/results.json",
+      "destination_sha256": "cd330b0c5459d8105bafde826676ccd9d711e9000cd16742534e29b52641c2c9",
+      "bytes": 17261,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/open/per_artifact.json",
+      "source_git_blob": "270bd68db6beda95182bd8e7df899ebeffe854b2",
+      "source_sha256": "aea7a3e65d1037f40e5b010d9c21b038845ecfa6c093024985819600b9996f62",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/open/per_artifact.json",
+      "destination_sha256": "aea7a3e65d1037f40e5b010d9c21b038845ecfa6c093024985819600b9996f62",
+      "bytes": 32410,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/open/results.json",
+      "source_git_blob": "c92100c59f7cb719fb31de8ee61b2301a2d67c00",
+      "source_sha256": "fe0ec9fe6c6efccb31971f3a8d9dfca76a59ff5c9aae985e386bf2194b736fb0",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/open/results.json",
+      "destination_sha256": "fe0ec9fe6c6efccb31971f3a8d9dfca76a59ff5c9aae985e386bf2194b736fb0",
+      "bytes": 26379,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/glm4_9b.jsonl",
+      "source_git_blob": "c9c426ac621fec01f3995a908eea14c049a04329",
+      "source_sha256": "3360ef5b2e1003d1f027f44482c1e37d59eecd71f46e5f2829d23267b4636083",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/glm4_9b.jsonl",
+      "destination_sha256": "3360ef5b2e1003d1f027f44482c1e37d59eecd71f46e5f2829d23267b4636083",
+      "bytes": 392753,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/glm4_9b.jsonl.done",
+      "source_git_blob": "b663f964cb2dd46a575714b49750a67f6698e2e5",
+      "source_sha256": "f8faef271e4252bcdcd218811dc3bc7aa7f1c8f0e99b19c16bbeafbc714200fb",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/glm4_9b.jsonl.done",
+      "destination_sha256": "f8faef271e4252bcdcd218811dc3bc7aa7f1c8f0e99b19c16bbeafbc714200fb",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/granite33_8b.jsonl",
+      "source_git_blob": "39886f1bfce98a0691a5c5a1b4989da91f971d82",
+      "source_sha256": "b6131bace55d30e2481a7b6ba2958ab56780604dd40b34180afe52077e6285a2",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/granite33_8b.jsonl",
+      "destination_sha256": "b6131bace55d30e2481a7b6ba2958ab56780604dd40b34180afe52077e6285a2",
+      "bytes": 615627,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/granite33_8b.jsonl.done",
+      "source_git_blob": "3c71c9caae511159526c98d58ca5cc228644d6e7",
+      "source_sha256": "13c9c14dcb5a123eec76b89ae5df40cae1cfe661a833f0ebf8b3cd34de3e4b37",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/granite33_8b.jsonl.done",
+      "destination_sha256": "13c9c14dcb5a123eec76b89ae5df40cae1cfe661a833f0ebf8b3cd34de3e4b37",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/hermes3_8b.jsonl",
+      "source_git_blob": "0887ae2470d74f8dc62f8ba2bf4c90c9ff48e48b",
+      "source_sha256": "409113b628f6740dc18c440ad62d287dd58f6cd73007d408ac83df98945d1a89",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/hermes3_8b.jsonl",
+      "destination_sha256": "409113b628f6740dc18c440ad62d287dd58f6cd73007d408ac83df98945d1a89",
+      "bytes": 504784,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/hermes3_8b.jsonl.done",
+      "source_git_blob": "f575715aa7f2b4d2c6dd3446bd066a2073f7cefc",
+      "source_sha256": "47041496d3900bf3fe7dc1bebcb1ed2a52e221384ca8ce311f99560a673aaa80",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/hermes3_8b.jsonl.done",
+      "destination_sha256": "47041496d3900bf3fe7dc1bebcb1ed2a52e221384ca8ce311f99560a673aaa80",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/llama31_8b.jsonl",
+      "source_git_blob": "a712e9f8a4db98e036021fde74320dd5b11df625",
+      "source_sha256": "583a6b27b145bd91fe7d28d02a1c273c260170f9dce27d333177a347b7e9ca8a",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/llama31_8b.jsonl",
+      "destination_sha256": "583a6b27b145bd91fe7d28d02a1c273c260170f9dce27d333177a347b7e9ca8a",
+      "bytes": 595490,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/llama31_8b.jsonl.done",
+      "source_git_blob": "1ab9db18a47e6e221d84096008c75dfa854ce430",
+      "source_sha256": "2435e1939c13f87e3edd53de683d036ee043bba8f1236946d4bd3aae1b8e0ef9",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/llama31_8b.jsonl.done",
+      "destination_sha256": "2435e1939c13f87e3edd53de683d036ee043bba8f1236946d4bd3aae1b8e0ef9",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/mistral7b_v03.jsonl",
+      "source_git_blob": "573c0c00757b09fba99f01bb4323df1dfded7765",
+      "source_sha256": "b41ae5e5a786de006c8c76f66c2c81dda8a16326e1f8927a16b754f1b3c8b8ca",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/mistral7b_v03.jsonl",
+      "destination_sha256": "b41ae5e5a786de006c8c76f66c2c81dda8a16326e1f8927a16b754f1b3c8b8ca",
+      "bytes": 484750,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/mistral7b_v03.jsonl.done",
+      "source_git_blob": "d289ac849115516db3542e5d75082defb3aa3953",
+      "source_sha256": "f3b27b4483c7158835c132e4d35f0b94a7ed6898c777d7774e6f2e121f5c9868",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/mistral7b_v03.jsonl.done",
+      "destination_sha256": "f3b27b4483c7158835c132e4d35f0b94a7ed6898c777d7774e6f2e121f5c9868",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/olmo3_7b.jsonl",
+      "source_git_blob": "2cb3c7b244c9c46eace1469527c2bc2e1840cf83",
+      "source_sha256": "67b153a7c6eaa17b78be4675e957be0d04ad41c0be55497519dcd505b3760a70",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/olmo3_7b.jsonl",
+      "destination_sha256": "67b153a7c6eaa17b78be4675e957be0d04ad41c0be55497519dcd505b3760a70",
+      "bytes": 818666,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/olmo3_7b.jsonl.done",
+      "source_git_blob": "36ba365234ff72ad50f3f04fd4e4f437063536c7",
+      "source_sha256": "0f5576b58c142b8f3cf6a47fd4a9d66af913833c5d45a28112e3a4a5b8851138",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/olmo3_7b.jsonl.done",
+      "destination_sha256": "0f5576b58c142b8f3cf6a47fd4a9d66af913833c5d45a28112e3a4a5b8851138",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/phi4_mini.jsonl",
+      "source_git_blob": "5eeb8b1d78fb2e78870651187d4c33c1d58857e4",
+      "source_sha256": "35828d8be343d81e0b14fa0210d1834bcb8bbb04c8942a02a4eb86cbed491fac",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/phi4_mini.jsonl",
+      "destination_sha256": "35828d8be343d81e0b14fa0210d1834bcb8bbb04c8942a02a4eb86cbed491fac",
+      "bytes": 1954812,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/phi4_mini.jsonl.done",
+      "source_git_blob": "a262ceb35bd92c3636770a44020445b0c0cc90ff",
+      "source_sha256": "5ec5efa689e900308122d4fc8f12f819965c9a50316b5776f7b5955c798b73f6",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/phi4_mini.jsonl.done",
+      "destination_sha256": "5ec5efa689e900308122d4fc8f12f819965c9a50316b5776f7b5955c798b73f6",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25_7b.jsonl",
+      "source_git_blob": "7120e44e4bd2bfaf6f7a8c4da19304e6baf10a7b",
+      "source_sha256": "23893936c09f36f260a48ba32387a4fe11e5355834de514bec27115a092e5a58",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25_7b.jsonl",
+      "destination_sha256": "23893936c09f36f260a48ba32387a4fe11e5355834de514bec27115a092e5a58",
+      "bytes": 450748,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25_7b.jsonl.done",
+      "source_git_blob": "958dcd2edf00e8100be08cc619a8fa1b102e23c8",
+      "source_sha256": "e470d2ca61c75cc193c605af6324e5013a1b5f90c99f089989f89699e71a9af9",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25_7b.jsonl.done",
+      "destination_sha256": "e470d2ca61c75cc193c605af6324e5013a1b5f90c99f089989f89699e71a9af9",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_14b.jsonl",
+      "source_git_blob": "c83a7b4095162f1c0bda9334c4ca9ee24aa79c6a",
+      "source_sha256": "72fb08db698ff1de7df94f04bd0b0d7e4dd371c70805691f660c1638c829a0a9",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_14b.jsonl",
+      "destination_sha256": "72fb08db698ff1de7df94f04bd0b0d7e4dd371c70805691f660c1638c829a0a9",
+      "bytes": 439870,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_14b.jsonl.done",
+      "source_git_blob": "1a4b29f1127efd4392c8045290e682338f95cc0f",
+      "source_sha256": "80d2268d48f0e3ca31b44908bec604b62b47d567afe756515847558193c4a05b",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_14b.jsonl.done",
+      "destination_sha256": "80d2268d48f0e3ca31b44908bec604b62b47d567afe756515847558193c4a05b",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_7b.jsonl",
+      "source_git_blob": "9c95b7ccfc84fba41386587ac923615fdb8fa875",
+      "source_sha256": "e325af9363021102c7d6013868b447e0b6ad7128e7515e5be80a8e8557dbcd84",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_7b.jsonl",
+      "destination_sha256": "e325af9363021102c7d6013868b447e0b6ad7128e7515e5be80a8e8557dbcd84",
+      "bytes": 390332,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_7b.jsonl.done",
+      "source_git_blob": "d8b7cec27b71bab2d0f97f565f55c2bb401e5b75",
+      "source_sha256": "aa2c3468c6ee7a0ca0fd67753095451e86ce7af825e77ccf30a69cea3700287b",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q25c_7b.jsonl.done",
+      "destination_sha256": "aa2c3468c6ee7a0ca0fd67753095451e86ce7af825e77ccf30a69cea3700287b",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_14b.jsonl",
+      "source_git_blob": "85cc001c2309d02cbe67c8b10dd300b55c1c0d82",
+      "source_sha256": "6d33b0545bc60eb335a2e2fe252d7c5667a16143928ef70ca1f588e2075ca78c",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_14b.jsonl",
+      "destination_sha256": "6d33b0545bc60eb335a2e2fe252d7c5667a16143928ef70ca1f588e2075ca78c",
+      "bytes": 536472,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_14b.jsonl.done",
+      "source_git_blob": "ff376f3e606c2fa9e6ebb4919b7c55fb9ba9a4ef",
+      "source_sha256": "606fb75b1311522ed9bbd9b8eb062b4f9561b253c117b731b517e887ff03b0b6",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_14b.jsonl.done",
+      "destination_sha256": "606fb75b1311522ed9bbd9b8eb062b4f9561b253c117b731b517e887ff03b0b6",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_30b_a3b_awq.jsonl",
+      "source_git_blob": "91c5b221e2d50375225ac105e624c62648811f27",
+      "source_sha256": "9a0ec3a6b85e7815a3475b49d19b512428daee34b5ea463d8bd1af113a6bbc39",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_30b_a3b_awq.jsonl",
+      "destination_sha256": "9a0ec3a6b85e7815a3475b49d19b512428daee34b5ea463d8bd1af113a6bbc39",
+      "bytes": 583157,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_30b_a3b_awq.jsonl.done",
+      "source_git_blob": "7cf5a45fdb6122e4b2277e230408f85c76ddd601",
+      "source_sha256": "784731675ea3349a74218bcdfe89d151c6067f7e85db066efcbbe8913d94e89a",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_30b_a3b_awq.jsonl.done",
+      "destination_sha256": "784731675ea3349a74218bcdfe89d151c6067f7e85db066efcbbe8913d94e89a",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_4b_2507.jsonl",
+      "source_git_blob": "1d3325489ba8a465b2abf9423ff6b3d9a7a56c12",
+      "source_sha256": "bde8e8b681931e54311571eb747001f82904ccbc80ed7233fb2d85379ae09a80",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_4b_2507.jsonl",
+      "destination_sha256": "bde8e8b681931e54311571eb747001f82904ccbc80ed7233fb2d85379ae09a80",
+      "bytes": 669723,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_4b_2507.jsonl.done",
+      "source_git_blob": "cdc57c9cae5f6d1827b7edf39f19dfe0356e3c73",
+      "source_sha256": "43dbebeac25c34f30b646ffac494858e32bfc909afb6e1f8a14afbf93e08aaf7",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_4b_2507.jsonl.done",
+      "destination_sha256": "43dbebeac25c34f30b646ffac494858e32bfc909afb6e1f8a14afbf93e08aaf7",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_8b.jsonl",
+      "source_git_blob": "d7c571820f484920a1b06441cb8f52e67bb91702",
+      "source_sha256": "42075e92c5d86a9dc5f4e08dd8b962903393ef0e9de442da70f4001d1a7345c1",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_8b.jsonl",
+      "destination_sha256": "42075e92c5d86a9dc5f4e08dd8b962903393ef0e9de442da70f4001d1a7345c1",
+      "bytes": 516375,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_8b.jsonl.done",
+      "source_git_blob": "06516478f41e07eac6573963d648497164930bfa",
+      "source_sha256": "728d3ca190c75a1e189465345497b22d0524c9502bbea6d2931898d28ed2f5ad",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/q3_8b.jsonl.done",
+      "destination_sha256": "728d3ca190c75a1e189465345497b22d0524c9502bbea6d2931898d28ed2f5ad",
+      "bytes": 18,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/seed_coder_8b.jsonl",
+      "source_git_blob": "9d1a70f6f55a1f3d9e6c432778feabcc9bcc29d7",
+      "source_sha256": "a1873a614efb3e353993a9397950f23bb373c37fed6fc0b87f84b4a6a7cc0046",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/seed_coder_8b.jsonl",
+      "destination_sha256": "a1873a614efb3e353993a9397950f23bb373c37fed6fc0b87f84b4a6a7cc0046",
+      "bytes": 516452,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/seed_coder_8b.jsonl.done",
+      "source_git_blob": "42b87e2e9cee8baf181f5a2fecdf84b2e14a37d3",
+      "source_sha256": "95527e08a647b82a7374060e033694a47ea2dd7f1c21a1553185b4cfecb454c5",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/results/raw_judge_outputs/seed_coder_8b.jsonl.done",
+      "destination_sha256": "95527e08a647b82a7374060e033694a47ea2dd7f1c21a1553185b4cfecb454c5",
+      "bytes": 17,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/assemble.py",
+      "source_git_blob": "e80eb78c194574cad8a4195da252192fedc7f775",
+      "source_sha256": "11ebabfd2af6d5294ccb31aee341f59e0fea58a9df08b4acbb315fb1366f302a",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/assemble.py",
+      "destination_sha256": "11ebabfd2af6d5294ccb31aee341f59e0fea58a9df08b4acbb315fb1366f302a",
+      "bytes": 2841,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/check_nnls.py",
+      "source_git_blob": "0d1f2160182f789ec8a60cd28b05535aeb700572",
+      "source_sha256": "e56f93b1f23c92d8220e7bab40954a2e3e91aa4d92d6b4e55dd3f4eb74daa51a",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/check_nnls.py",
+      "destination_sha256": "e56f93b1f23c92d8220e7bab40954a2e3e91aa4d92d6b4e55dd3f4eb74daa51a",
+      "bytes": 725,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/common.py",
+      "source_git_blob": "10c8282f3dcb09bc9231107ec05638021306d71b",
+      "source_sha256": "4c95a1989fb4a6658a600a6df0e708602ebc4d5a0a146cb647995d17ffe44b2a",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/common.py",
+      "destination_sha256": "4c95a1989fb4a6658a600a6df0e708602ebc4d5a0a146cb647995d17ffe44b2a",
+      "bytes": 2110,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/metrics.py",
+      "source_git_blob": "03d117621a2defb4a9e971dbf8c290f368af77ba",
+      "source_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/metrics.py",
+      "destination_sha256": "13fff6c7dc1d4c450028a5e41e1f3e35df8e5bf7f6b8ead1d60a134e500870bb",
+      "bytes": 2444,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/models.py",
+      "source_git_blob": "8b1163cad2a25c4dd62cb1a76ac3ce49d7e43ddf",
+      "source_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/models.py",
+      "destination_sha256": "1d0b6ff0db7570aa18deac7c19137c295852b00a2d1e5428a1fa663d001d0013",
+      "bytes": 7231,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/predict.py",
+      "source_git_blob": "215e65e3b667db359308b4166e7dcfb373137e4a",
+      "source_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/predict.py",
+      "destination_sha256": "ec24aa76708203c70122af0c89047fe27a2eb488a09d9df55dbc5e2e1ea7aa62",
+      "bytes": 1560,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/run.py",
+      "source_git_blob": "b659f7a995274b6377e96ac6e1374f4603d2f4e4",
+      "source_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/run.py",
+      "destination_sha256": "5912a1ab708a7e0174462861dc198be5067d60b9b9e91541bba159040fc81623",
+      "bytes": 10024,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/vendor/mixture_models.py",
+      "source_git_blob": "81659db32391e33ad24532a279f328ab95e30ace",
+      "source_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/vendor/mixture_models.py",
+      "destination_sha256": "536582cb108b8b2a1df8f0e7d05d9a0ce881d26be9c5d7f35b36fbb7f66ec046",
+      "bytes": 9617,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/verify.py",
+      "source_git_blob": "65ed58a8fdf7e2172bb4b6503abe2c211deba8ed",
+      "source_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/exp10_scripts/verify.py",
+      "destination_sha256": "5e03e1d8fd3e8a124efe394f7060d62a0c4d9c33ae5e335ac7b206d566aecc58",
+      "bytes": 5343,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/judge_table.py",
+      "source_git_blob": "34e3817c8dd26a28dd0e7bd200d5090c76910908",
+      "source_sha256": "1958fb567ed96cd034436add19246c043f88a2c683f15522fafccf62af187b51",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/judge_table.py",
+      "destination_sha256": "1958fb567ed96cd034436add19246c043f88a2c683f15522fafccf62af187b51",
+      "bytes": 806,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/make_report14.py",
+      "source_git_blob": "6644b987181803000e3be647b20e0e13b045a650",
+      "source_sha256": "dc5d6d1fe7c1cb5c80ef5f83c7ea6ef8947afc3e1c7c4748d0d1edbbf3851345",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/make_report14.py",
+      "destination_sha256": "dc5d6d1fe7c1cb5c80ef5f83c7ea6ef8947afc3e1c7c4748d0d1edbbf3851345",
+      "bytes": 4370,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/nnls_pearson.py",
+      "source_git_blob": "65964ff68ec0993cced0a0492a5072e16140cee7",
+      "source_sha256": "1064b624293134ef77ff87b5ef31e8f859b8f1cfe84466ed294445a9fa5085fb",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/nnls_pearson.py",
+      "destination_sha256": "1064b624293134ef77ff87b5ef31e8f859b8f1cfe84466ed294445a9fa5085fb",
+      "bytes": 1667,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/render.py",
+      "source_git_blob": "9edaddf39605435073b6b69a13e5e496f3d1cad8",
+      "source_sha256": "b8fa812d74ef04a13a93108deccaf2a971df0f717bc6b85a8921092faa6d2903",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/render.py",
+      "destination_sha256": "b8fa812d74ef04a13a93108deccaf2a971df0f717bc6b85a8921092faa6d2903",
+      "bytes": 809,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/run_pool.py",
+      "source_git_blob": "eacfc07ad2f9ae5c57e20995dd422fd63baddd79",
+      "source_sha256": "67ddb5974da704298d45afb7d5576aa211b77778bcccc030564284afdb8c773e",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/run_pool.py",
+      "destination_sha256": "67ddb5974da704298d45afb7d5576aa211b77778bcccc030564284afdb8c773e",
+      "bytes": 8803,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/run_slot.py",
+      "source_git_blob": "894123162b5e06f56fda3dfa6fc3c70de1813bd1",
+      "source_sha256": "bd94e4b92d38677099dbe2bb49964f1f0317da08e0a7aea81b437f5e7319a964",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/run_slot.py",
+      "destination_sha256": "bd94e4b92d38677099dbe2bb49964f1f0317da08e0a7aea81b437f5e7319a964",
+      "bytes": 4427,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/vendor_exp03/ce_mixture.py",
+      "source_git_blob": "565657833ad189418a6e067e750be417c03e6435",
+      "source_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/vendor_exp03/ce_mixture.py",
+      "destination_sha256": "d0b7f071ce463c282e9d728756e079f7a4176d7f0b4c0d818cacdd1c05f7885f",
+      "bytes": 5234,
+      "preservation": "byte_identical"
+    },
+    {
+      "source_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/vendor_exp03/historical/mixture_models.py",
+      "source_git_blob": "4e3d4eb3ddc62eb174fd1eb9069c88da30a1f7cf",
+      "source_sha256": "82dc6bf59a8fa270e8c926a560d43b53974a61c49e71804d6e0ac45f3eca2fc5",
+      "destination_path": "experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/scripts/vendor_exp03/historical/mixture_models.py",
+      "destination_sha256": "82dc6bf59a8fa270e8c926a560d43b53974a61c49e71804d6e0ac45f3eca2fc5",
+      "bytes": 9728,
+      "preservation": "byte_identical"
+    }
+  ],
+  "source06_navigation_notice": "**Canonical home moved, 11-09-2026:** This chat's general objective-comparison work now belongs to [judges-dont-need-psychometrics-or-corr, experiment 03](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/MIGRATION_11-09-2026.md). Its `historical_exp06/` preserves all 83 public files, including the distance and weighted-training follow-ups; the private store moved there with a compatibility link here. Continue objective research and checkpoint updates in that project. Files below remain frozen historical provenance, and `scripts/import_cached.py` remains available for experiment 07's existing importer dependency. No scientific condition was rerun or relabeled by this relocation.",
+  "source06_readme_difference": "Destination retains the original README bound by the 11-09-2026 manifest. Source adds only the navigation notice recorded above; the complete source revision and blob are preserved in Git."
+}

@@ -4,6 +4,8 @@
 
 **TLDR:** The working directory and completed CE-versus-Pearson comparison were already in this repository. This migration completes the missing historical experiment package, including prompts, protocols, reports, checkpoints, original images and private reconstruction inputs; it does not rerun or amend a scientific condition.
 
+**Consolidation update, 11-11-2026:** the redundant public source copy is retired now that its live experiment 07 importer calls this canonical copy. This experiment's original 83-file archive, six frozen source imports and private store are unchanged. The [current archive guide](../archive/README.md) owns the additional experiment 11–14 moves, checks and current navigation. The dated receipt below describes the earlier migration state.
+
 ## Canonical locations
 
 | Material | Location relative to this experiment |
