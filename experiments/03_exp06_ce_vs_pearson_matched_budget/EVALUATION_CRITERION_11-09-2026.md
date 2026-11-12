@@ -24,7 +24,7 @@ Thus CE training beats correlation training **under the planned primary criterio
 
 ## Prospective secondary metrics — user decision, 11-09-2026
 
-Brando requested TVD explicitly in both repositories' prospective evaluation panels, keeping RPS primary and CE/TVD secondary. This changes no completed experiment's frozen protocol, scorer, forecast or result. The applied study owns the [prospective evaluator](https://github.com/brando90/trustworthy-theorem-judges/tree/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5/native_probability); this repository uses the same definitions for prospective objective comparisons.
+Brando requested TVD explicitly in both repositories' prospective evaluation panels, keeping RPS primary and CE/TVD secondary. This changes no completed experiment's frozen protocol, scorer, forecast or result. The applied study owns the [prospective evaluator](https://github.com/brando90/trustworthy-theorem-judges/tree/main/experiments/02_design_a_judge_that_predicts_human_ratings_0_to_5_start_06Nov2026/native_probability); this repository uses the same definitions for prospective objective comparisons.
 
 For artifact i, let q_i(r) be the forecast probability of rating r in {0,1,2,3,4,5}, and let p_hat_i(r) be the empirical frequency among that artifact's observed human ratings. All three metrics are lower-is-better.
 
