@@ -94,7 +94,7 @@ For the prospective human study, retain the existing planned primary RPS endpoin
 
 Training on “all the data” can mean refitting on training plus validation after choices are fixed; it must exclude the final test. If final performance is evaluated after such a refit, declare the refit beforehand and evaluate that exact procedure. Matching a human-rating distribution also remains distinct from proving formal-specification entailment or semantic correctness.
 
-The active [sister-repository collection workflow](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings/README.md) preserves inherited set-N materials. That collection is distinct from the prospective distribution study. Preserve its delivered packets, assignment rules and evaluation-only scope; do not relabel those ratings as fresh training data or stop that collection because this note proposes a new study design.
+The active [sister-repository collection workflow](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md) preserves inherited set-N materials. That collection is distinct from the prospective distribution study. Preserve its delivered packets, assignment rules and evaluation-only scope; do not relabel those ratings as fresh training data or stop that collection because this note proposes a new study design.
 
 No new measured run, new rater assignment or fixed-procedure change was launched by this transcription/recommendation task.
 
