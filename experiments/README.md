@@ -23,6 +23,6 @@
 
 The [archive guide and migration receipt](archive/README.md) explain what changed between these studies, which files were duplicates, current paths and reproducibility limits. Original experiment numbers are preserved after migration; no new studies were created by moving folders.
 
-[trustworthy-theorem-judges experiment 09](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_09Nov2026/README.md) owns the current participant task and collection. Its original-rating provenance, practical judge comparison and task/solver/rater size planning stay in that project. This repository owns the general objective-comparison research and links to the authorized shared data rather than creating a competing collection.
+[trustworthy-theorem-judges experiment 09](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md) owns the current participant task and collection. Its original-rating provenance, practical judge comparison and task/solver/rater size planning stay in that project. This repository owns the general objective-comparison research and links to the authorized shared data rather than creating a competing collection.
 
 **TLDR-end:** [judge objectives: experiments] Two evidence groups replace a flat list of seemingly repeated tasks: synthetic distribution studies and historical human-rating objective comparisons. Their original conditions and shared-data limitations remain visible.
