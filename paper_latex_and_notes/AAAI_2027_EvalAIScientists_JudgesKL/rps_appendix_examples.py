@@ -62,6 +62,50 @@ def main():
         worst = max(worst, abs(5 * rps(q, r) - abs_form), abs(expected_rps(q, p) - decomposition))
     print(f"Identity checks on 2,000 random forecasts: max absolute error {worst:.1e}")
 
+    # Excess expected RPS = mean squared CDF gap = energy distance / 10 on the integer scale.
+    worst = 0.0
+    for _ in range(2000):
+        q, p = rng.dirichlet(np.ones(K)), rng.dirichlet(np.ones(K))
+        excess = expected_rps(q, p) - expected_rps(p, p)
+        d = np.abs(GRID[:, None] - GRID[None, :])
+        energy = 2 * (np.outer(q, p) * d).sum() - (np.outer(q, q) * d).sum() - (np.outer(p, p) * d).sum()
+        worst = max(worst, abs(excess - np.mean((np.cumsum(q)[:5] - np.cumsum(p)[:5]) ** 2)), abs(10 * excess - energy))
+    print(f"Excess RPS = mean squared CDF gap = energy distance / 10: max absolute error {worst:.1e}")
+
+    # Sparse ratings: plug-in distances to a few-rating histogram reward overconfidence.
+    p = np.array([0, 0, 0, 0.6, 0, 0.4])
+
+    def expected_tvd_to_histogram(q, n):
+        total = 0.0
+        for ratings in np.ndindex(*([K] * n)):
+            prob = np.prod([p[r] for r in ratings])
+            if prob:
+                hist = np.bincount(ratings, minlength=K) / n
+                total += prob * 0.5 * np.abs(q - hist).sum()
+        return total
+
+    def expected_w1_one_rating(q):
+        return sum(p[r] * np.abs(np.cumsum(q) - np.cumsum(point_mass(r))).sum() for r in range(K))
+
+    print("Raters choose 3 w.p. 0.6 and 5 w.p. 0.4:")
+    print("  truth's expected TVD to its own 1/2/3-rating histogram:",
+          [round(expected_tvd_to_histogram(p, n), 3) for n in (1, 2, 3)])
+    for name, q in [("truth", p), ("all mass on 3", point_mass(3)), ("all mass on 4", point_mass(4))]:
+        print(f"  {name:<14} one-rating TVD={expected_tvd_to_histogram(q, 1):.2f}"
+              f"  one-rating W1={expected_w1_one_rating(q):.2f}  expected RPS={expected_rps(q, p):.3f}")
+
+    # The squared-absolute variant of RPS is not proper: a concentrated forecast beats the truth.
+    def sa_rps(q, r):
+        return float(np.abs(np.cumsum(q)[:5] - (r <= np.arange(5))).sum() ** 2 / 5)
+
+    p = np.array([0.2, 0.2, 0.2, 0.2, 0.1, 0.1])
+    q = np.array([0, 0, 0.9, 0.1, 0, 0])
+    sa = lambda f: sum(p[r] * sa_rps(f, r) for r in range(K))
+    print("Raters spread (0.2, 0.2, 0.2, 0.2, 0.1, 0.1); forecast (0, 0, 0.9, 0.1, 0, 0):")
+    print(f"  squared-absolute RPS: truth {sa(p):.3f}, concentrated forecast {sa(q):.3f}")
+    print(f"  RPS:                  truth {expected_rps(p, p):.3f}, concentrated forecast {expected_rps(q, p):.3f}")
+    print("Point mass d ratings away from r = 4, RPS:", [round(rps(point_mass(4 - d), 4), 1) for d in range(5)])
+
 
 if __name__ == "__main__":
     main()

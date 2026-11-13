@@ -1,6 +1,6 @@
 % !TEX root = 00_main_aaai_2027.tex
 % Appendix: the ranked probability score (RPS).
-% Provenance: every worked-example number is printed by rps_appendix_examples.py in this directory;
+% Provenance: every worked-example and sparse-rating number is printed by rps_appendix_examples.py in this directory;
 % the experiment-11 numbers come from experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/results.md.
 \section{The Ranked Probability Score (RPS)}\label{app:rps}
 
@@ -88,14 +88,50 @@ Judge~A predicts the human distribution; Judge~B puts all its mass on 4.
 Both have expected rating 4, so on every such artifact they produce the same expected rating and any correlation with human mean ratings scores them identically.
 Their expected RPS differs: $0.10$ for Judge~A (all irreducible disagreement) and $0.20$ for Judge~B. A uniform forecast over $0,\dots,5$ scores $0.206$.
 
+\paragraph{Why the cumulative form: robustness with few ratings.}
+Each artifact has only two or three human ratings, so its rating histogram leaves at least three of the six bins empty.
+Distances computed bin by bin between the judge's probability mass function and such a histogram are dominated by the empty bins.
+The Kullback--Leibler divergence is infinite or set by a probability floor.
+Total variation distance (TVD) is biased upward even for the true distribution.
+Suppose raters choose 3 with probability $0.6$ and 5 with probability $0.4$.
+The true distribution's expected TVD to its own histogram of 1, 2 or 3 ratings is $0.48$, $0.288$ and $0.23$.
+With one rating per artifact, a forecast that puts all its mass on 3 scores better ($0.40$) than the truth ($0.48$), so plug-in TVD rewards overconfidence.
+Scoring each rating by the absolute gap between CDFs, the one-rating Wasserstein-1 distance, has the same flaw ($0.80$ for the point mass vs $0.96$ for the truth) because it is minimized by a point mass at the median.
+RPS ranks the truth first ($0.096$ vs $0.160$).
+
+The cumulative form avoids the problem.
+Each $Q_j=\Pr[R\le j]$ pools every rating category at or below $j$, so every rating informs every threshold and no threshold is ever empty.
+The empirical CDF at a threshold is an average of indicators and therefore an unbiased estimate of $P_j$.
+Its sampling noise contributes exactly the judge-independent term $P_j(1-P_j)$ in Eq.~\ref{eq:rps-decomposition}, which cancels when two judges are compared on the same artifacts.
+Squaring the gaps, rather than taking their absolute values, is what makes the score proper.
+A related cumulative view appears in \citet{schaeffer2024elusive}, who compared distributions of per-sample score--compute correlations through survival functions (complementary CDFs). Those read off the fraction of samples above any threshold, and the authors summarized them with the area under the survival function and with Wasserstein distances, which are also defined through CDFs.
+
+\paragraph{RPS as a distance between distributions, and ``root RPS''.}
+If the human distribution $p$ were known, the excess term in Eq.~\ref{eq:rps-decomposition}, $\frac{1}{5}\sum_j(Q_j-P_j)^2$, would be a squared $\ell_2$ distance between the two CDFs.
+This is the squared Cramér distance~\citep{bellemare2017cramer}, and on the integer rating scale it equals one tenth of the energy distance between $q$ and $p$~\citep{szekely2013energy}.
+Its square root is a true metric between rating distributions, a principled ``root RPS''.
+In practice $p$ is unknown, so we estimate the expected RPS from observed ratings.
+For one artifact the excess and the disagreement floor cannot be separated, but the floor is the same for every judge.
+Differences in mean RPS between two judges are therefore unbiased estimates of differences in their squared Cramér distances to the human distributions (up to the factor $\frac{1}{5}$).
+We know of no standard metric called root RPS.
+Taking the square root of a mean RPS does not change how judges are ranked, but taking it per rating before averaging would lose this unbiasedness.
+\citet{bellemare2017cramer} also show that, unlike the Wasserstein distance, the Cramér distance has unbiased sample gradients, which makes RPS usable as a training loss as well as an evaluation metric.
+
 \paragraph{Why RPS suits judges of ordinal human ratings.}
 \begin{itemize}
 \item \textbf{Order matters.} Ratings are ordered; RPS charges more for larger misses. CE and the categorical Brier score treat ratings as unordered labels.
 \item \textbf{It targets the whole distribution.} Being strictly proper, RPS is minimized only by the true conditional rating distribution. Correlation ignores calibration and spread, and mean squared error identifies only the conditional mean.
-\item \textbf{It works with sparse ratings.} Each observed rating is scored directly, so artifacts with one to three ratings contribute without estimating a histogram.
+\item \textbf{It works with sparse ratings.} Each observed rating is scored directly through the CDF, so artifacts with one to three ratings contribute without estimating a histogram, and empty rating categories do not distort the score.
 \item \textbf{It is bounded.} RPS lies in $[0,1]$ and cannot be dominated by one rating that received near-zero probability. CE can: in our retrospective human-rating analysis (archived experiment~11), judge mixtures had higher held-out CE than a constant forecast of the training ratings ($5.43$ vs $1.85$ nats), driven by the $10^{-6}$ probability floor, while their held-out RPS was lower ($0.137$ vs $0.183$).
 \item \textbf{It is interpretable.} The absolute-error form is in rating points, and Eq.~\ref{eq:rps-decomposition} separates the judge's error from the noise floor set by rater disagreement.
 \end{itemize}
 
 \paragraph{Limitations.}
 RPS assumes equally spaced ratings: a miss from 0 to 1 costs the same as a miss from 4 to 5. It weights all thresholds equally. It is less sensitive than CE to the probability given to rare ratings, which is why we keep CE as a secondary metric. With two or three ratings per artifact, $\hat P_{ij}(1-\hat P_{ij})$ is a noisy estimate of rater disagreement, so comparisons between judges should use paired differences on the same artifacts.
+\citet{galdran2023performance} notes two further behaviors.
+First, the penalty for a confident miss grows only linearly with distance: a point mass $d$ ratings away from $r$ scores $d/5$.
+Second, RPS can prefer a symmetric forecast to one with more probability on the observed rating.
+That work proposes a squared-absolute variant, $\frac{1}{5}\bigl(\sum_j\lvert Q_j-\mathbf{1}\{r\le j\}\rvert\bigr)^2$.
+In our numeric check this variant is not proper.
+For raters distributed $(0.2,0.2,0.2,0.2,0.1,0.1)$ over ratings $0,\dots,5$, the forecast $(0,0,0.9,0.1,0,0)$ has a lower expected variant score ($0.498$) than the true distribution ($0.680$), whereas RPS prefers the truth ($0.178$ vs $0.246$).
+We therefore keep RPS.
