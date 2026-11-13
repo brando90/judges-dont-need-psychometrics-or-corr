@@ -16,7 +16,7 @@ We also evaluate the Brier score and ranked probability score (RPS), using the l
 L_{\rm Brier}(q,r)&=\sum_{j=0}^{5}(q_j-\mathbf{1}\{r=j\})^2,\\
 L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
 \end{align}
-where $Q_j=\sum_{k=0}^j q_k$.
+where $Q_j=\sum_{k=0}^j q_k$. Appendix~\ref{app:rps} explains RPS in detail: intuition, propriety and why it suits ordinal human ratings.
 Their expected excess losses over the oracle are $\sum_j(q_j-p_j)^2$ and $\frac{1}{5}\sum_{j=0}^4(Q_j-P_j)^2$.
 These vanish only when the categorical distributions agree.
 CE has excess loss $\KL(p\|q)$, assuming forecast support covers the population support.

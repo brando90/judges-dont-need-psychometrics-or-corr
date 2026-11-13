@@ -1,6 +1,6 @@
 # Correlation Alone Does Not Identify a Judge's Conditional Rating Distribution
 
-Research draft in the bundled AAAI-27 author kit. No venue submission has been made. The current [three-page PDF](00_main_aaai_2027.pdf) includes the completed controlled synthetic study and public historical results, including null findings. Implementation is complete; the parent owns the requested multi-provider review and main publication.
+Research draft in the bundled AAAI-27 author kit. No venue submission has been made. The current [four-page PDF](00_main_aaai_2027.pdf) includes the completed controlled synthetic study and public historical results, including null findings, followed by the references and an appendix that explains the ranked probability score (RPS) with intuition, propriety and worked examples ([8-appendix-rps.tex](8-appendix-rps.tex); every example number is printed by [rps_appendix_examples.py](rps_appendix_examples.py)). The 2–4 page limit excludes references; whether the appendix counts toward it should be checked against the workshop call before submission. Implementation is complete; the parent owns the requested multi-provider review and main publication.
 
 Layout follows agents-config (Rules 35/49): one venue dir under `paper_latex_and_notes/`, main file `00_main_aaai_2027.tex`, numbered section files, `00_main.bib`, `math_commands.tex`, `figures/`, committed PDF, aux files in `_build/`. Style files `aaai2027.sty` and `aaai2027.bst` come from https://aaai.org/authorkit27/.
 

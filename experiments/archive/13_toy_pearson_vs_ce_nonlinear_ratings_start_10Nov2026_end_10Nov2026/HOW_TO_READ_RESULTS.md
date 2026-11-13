@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/HOW_TO_READ_RESULTS.md>
 
-**TLDR:** A synthetic toy. Judges are trained on n sampled training tasks, then every reported number is computed on 500 fresh test tasks against the **true** rating distribution, not sampled ratings. "CE fit", "RPS fit" and "Pearson fit" name how a judge was **trained**; all are scored with the same test metrics. (This guide was added on 11-13-2026; `results.md` is a frozen copy and is unchanged.)
+**TLDR:** A synthetic toy. Judges are trained on n sampled training tasks, then every reported number is computed on 500 fresh test tasks against the **true** rating distribution, not sampled ratings. "CE fit" (cross-entropy), "RPS fit" (ranked probability score) and "Pearson fit" name how a judge was **trained**; all are scored with the same test metrics. (This guide was added on 11-13-2026; `results.md` is a frozen copy and is unchanged.)
 
 ## What is compared
 

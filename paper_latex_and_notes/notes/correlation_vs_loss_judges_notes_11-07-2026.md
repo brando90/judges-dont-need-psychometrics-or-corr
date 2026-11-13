@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md>
 
-**TLDR:** Matching human judgments is the standard way LLM judges are justified, and correlation is one common metric for it. If the target is the distribution of human judgments, proper scoring rules (log loss, Brier, RPS) are the principled objective and primary metric; correlation is a secondary diagnostic.
+**TLDR:** Matching human judgments is the standard way LLM judges are justified, and correlation is one common metric for it. If the target is the distribution of human judgments, proper scoring rules (log loss, Brier, ranked probability score (RPS)) are the principled objective and primary metric; correlation is a secondary diagnostic.
 
 Source: three handwritten pages from Brando Miranda (11-07-2026), transcribed and answered in a Grok Bot research session. Google Doc copy: [Trustworthy LLM Judges: Research Notes and Experimental Framing](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit).
 

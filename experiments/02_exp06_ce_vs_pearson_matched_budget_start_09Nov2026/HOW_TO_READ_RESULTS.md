@@ -29,7 +29,7 @@ The [historical failure diagnosis](RESULTS_comparison.md#historical-failure-diag
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
 | CE (primary) | Mean over observed human ratings of −ln q(rating) | 0 to ∞, in nats | Lower |
-| RPS | Mean over observed human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
+| Ranked probability score (RPS) | Mean over observed human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
 | TVD | 0.5 Σ_r abs(q(r) − p̂(r)), with p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 | Pearson / Spearman / Kendall | Correlation between the judge's expected rating and the human mean rating across test artifacts | −1 to 1 | Higher |
 | MSE / MAE / bias | Judge's expected rating vs human mean rating, on a 0–1 scale; bias is judge minus human | — | Lower (bias: closer to 0) |

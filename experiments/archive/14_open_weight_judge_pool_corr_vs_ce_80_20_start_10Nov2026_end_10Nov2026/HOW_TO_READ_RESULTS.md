@@ -25,7 +25,7 @@ Splits group whole tasks, not task families. **Prior exposure:** the 75 artifact
 
 ## Metrics and differences
 
-Metrics are defined exactly as in experiment 12: RPS (main; 0 to 1, lower is better), CE (nats, lower is better), TVD (0 to 1, lower is better), Spearman and Pearson (−1 to 1, higher is better).
+Metrics are defined exactly as in experiment 12: ranked probability score (RPS; main; 0 to 1, lower is better), CE (nats, lower is better), TVD (0 to 1, lower is better), Spearman and Pearson (−1 to 1, higher is better).
 
 "② minus ④" is **the column's test metric for the ② judge minus the same test metric for the ④ judge.** For RPS, CE and TVD, positive means the ④ (loss-trained) judge did better; for correlations, positive means the ② judge did better.
 

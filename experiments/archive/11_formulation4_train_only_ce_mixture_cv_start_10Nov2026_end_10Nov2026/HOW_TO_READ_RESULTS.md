@@ -26,7 +26,7 @@ There is no correlation-trained judge in this experiment.
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
 | CE (primary here) | Mean over human ratings of −ln q(rating), probability floor 1e-6 | 0 to ∞, nats | Lower |
-| RPS | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})² | 0 to 1 | Lower |
+| Ranked probability score (RPS) | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})² | 0 to 1 | Lower |
 | TVD | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 
 ## How to read a difference

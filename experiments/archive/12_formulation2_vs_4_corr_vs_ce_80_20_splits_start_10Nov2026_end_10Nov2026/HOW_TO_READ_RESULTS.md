@@ -25,7 +25,7 @@
 
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
-| RPS (main) | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
+| Ranked probability score (RPS, main) | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
 | CE | Mean over human ratings of −ln q(rating), probability floor 1e-6 | 0 to ∞, nats | Lower |
 | TVD | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 | Spearman / Pearson | Correlation between the judge's expected rating and the human mean rating across one split's 15 test artifacts | −1 to 1 | Higher |

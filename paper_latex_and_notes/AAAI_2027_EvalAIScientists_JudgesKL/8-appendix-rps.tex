@@ -1,0 +1,101 @@
+% !TEX root = 00_main_aaai_2027.tex
+% Appendix: the ranked probability score (RPS).
+% Provenance: every worked-example number is printed by rps_appendix_examples.py in this directory;
+% the experiment-11 numbers come from experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/results.md.
+\section{The Ranked Probability Score (RPS)}\label{app:rps}
+
+\paragraph{Setting.}
+A human rating is an ordered category $r\in\{0,1,\dots,5\}$.
+For an artifact, a judge outputs a forecast distribution $q=(q_0,\dots,q_5)$ over ratings.
+Its cumulative distribution function (CDF) and survival function are
+\begin{align}
+Q_j &\stackrel{\rm def}{=} \Pr_q[R\le j]=\sum_{k=0}^{j} q_k,\\
+S_j &\stackrel{\rm def}{=} \Pr_q[R> j]=1-Q_j,
+\end{align}
+for thresholds $j=0,\dots,4$. The last threshold is omitted because $Q_5=1$ for every forecast.
+
+\paragraph{Definition.}
+The ranked probability score (RPS)~\citep{epstein1969scoring} compares the judge's CDF with the step function of the observed rating:
+\begin{align}
+L_{\rm RPS}(q,r) &\stackrel{\rm def}{=} \frac{1}{5}\sum_{j=0}^{4}\bigl(Q_j-\mathbf{1}\{r\le j\}\bigr)^2 \label{eq:rps-cdf}\\
+&= \frac{1}{5}\sum_{j=0}^{4}\bigl(S_j-\mathbf{1}\{r> j\}\bigr)^2. \label{eq:rps-sf}
+\end{align}
+We use it as a loss: lower is better.
+Dividing by the five thresholds puts it in $[0,1]$.
+It is $0$ only when $q$ puts all its mass on $r$, and $1$ when $q$ puts all its mass on the opposite end of the scale (for example $q_0=1$ when $r=5$).
+Some references omit the factor $1/5$; their values are five times ours.
+
+\paragraph{Empirical RPS.}
+For $N$ artifacts $x_i$ with $n_i$ human ratings $r_{i1},\dots,r_{in_i}$ each, we average over ratings and then artifacts:
+\begin{equation}
+\widehat{\rm RPS}=\frac{1}{N}\sum_{i=1}^{N}\frac{1}{n_i}\sum_{m=1}^{n_i}L_{\rm RPS}(q_i,r_{im}).
+\end{equation}
+Writing $\hat P_{ij}$ for the empirical CDF of artifact $i$'s ratings, the inner average equals $\frac{1}{5}\sum_j[(Q_{ij}-\hat P_{ij})^2+\hat P_{ij}(1-\hat P_{ij})]$.
+One rating per artifact already gives an unbiased estimate of the judge's expected score; no per-artifact histogram has to be estimated.
+
+\paragraph{Intuition 1: five yes/no questions.}
+At each threshold $j$ the judge answers ``is the rating at most $j$?'' with probability $Q_j$, and the human rating supplies the answer.
+Each summand in Eq.~\ref{eq:rps-cdf} is the Brier score of one such binary forecast, so RPS is the average Brier score over the five threshold questions.
+Equivalently (Eq.~\ref{eq:rps-sf}), the judge forecasts the survival function: the chance that the rating exceeds each threshold.
+
+\paragraph{Intuition 2: distance between staircases.}
+The judge's CDF is a staircase that rises from $0$ to $1$; the observed rating is a single step at $r$.
+RPS sums the squared vertical gaps between the two at each threshold.
+A near miss leaves gaps at few thresholds and a far miss at many.
+Table~\ref{tab:rps-examples} shows this for one human rating $r=4$.
+Cross-entropy (CE) is infinite (or set by a probability floor) for every forecast with $q_4=0$, and the Brier score over the six categories, $\sum_k(q_k-\mathbf{1}\{r=k\})^2$, is $2$ for every point mass away from $4$. Only RPS gives the near miss a better (lower) score than the far miss.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Forecast for $r=4$ & RPS & Brier & CE \\
+\midrule
+all mass on 4 & 0.000 & 0.0 & 0 \\
+all mass on 5 & 0.200 & 2.0 & $\infty$ \\
+all mass on 0 & 0.800 & 2.0 & $\infty$ \\
+half on 3, half on 5 & 0.100 & 1.5 & $\infty$ \\
+\bottomrule
+\end{tabular}
+\caption{Scores of four forecasts against one human rating $r=4$ (lower is better).}
+\label{tab:rps-examples}
+\end{table}
+
+\paragraph{Intuition 3: rating points.}
+For integer ratings, RPS has an absolute-error form, the discrete case of the identity for the continuous ranked probability score~\citep{matheson1976scoring,gneiting2007strictly}:
+\begin{equation}
+5\,L_{\rm RPS}(q,r)=\E_q\lvert R-r\rvert-\tfrac{1}{2}\E_q\lvert R-R'\rvert,
+\end{equation}
+where $R$ and $R'$ are independent draws from $q$.
+The first term is the expected distance, in rating points, between a rating sampled from the judge and the human rating.
+The second term subtracts half the judge's own spread, so a judge is not penalized merely for spreading its probability.
+
+\paragraph{Why RPS is proper.}
+Let the human rating be drawn from $p$ with CDF $P$. Then
+\begin{align}
+\E_{R\sim p}\bigl[L_{\rm RPS}(q,R)\bigr]
+&=\underbrace{\frac{1}{5}\sum_{j=0}^{4}(Q_j-P_j)^2}_{\text{excess: judge's error}}\nonumber\\
+&\quad+\underbrace{\frac{1}{5}\sum_{j=0}^{4}P_j(1-P_j)}_{\text{rater disagreement}}.
+\label{eq:rps-decomposition}
+\end{align}
+The second term does not depend on $q$: it is the irreducible disagreement among raters.
+The first term is nonnegative and is zero only when $Q=P$, that is, $q=p$.
+So RPS is strictly proper~\citep{gneiting2007strictly}: a judge minimizes its expected RPS only by reporting the full human rating distribution, including how much raters disagree.
+
+\paragraph{Example: disagreement that correlation cannot see.}
+Suppose raters split evenly between ratings 3 and 5 on an artifact.
+Judge~A predicts the human distribution; Judge~B puts all its mass on 4.
+Both have expected rating 4, so on every such artifact they produce the same expected rating and any correlation with human mean ratings scores them identically.
+Their expected RPS differs: $0.10$ for Judge~A (all irreducible disagreement) and $0.20$ for Judge~B. A uniform forecast over $0,\dots,5$ scores $0.206$.
+
+\paragraph{Why RPS suits judges of ordinal human ratings.}
+\begin{itemize}
+\item \textbf{Order matters.} Ratings are ordered; RPS charges more for larger misses. CE and the categorical Brier score treat ratings as unordered labels.
+\item \textbf{It targets the whole distribution.} Being strictly proper, RPS is minimized only by the true conditional rating distribution. Correlation ignores calibration and spread, and mean squared error identifies only the conditional mean.
+\item \textbf{It works with sparse ratings.} Each observed rating is scored directly, so artifacts with one to three ratings contribute without estimating a histogram.
+\item \textbf{It is bounded.} RPS lies in $[0,1]$ and cannot be dominated by one rating that received near-zero probability. CE can: in our retrospective human-rating analysis (archived experiment~11), judge mixtures had higher held-out CE than a constant forecast of the training ratings ($5.43$ vs $1.85$ nats), driven by the $10^{-6}$ probability floor, while their held-out RPS was lower ($0.137$ vs $0.183$).
+\item \textbf{It is interpretable.} The absolute-error form is in rating points, and Eq.~\ref{eq:rps-decomposition} separates the judge's error from the noise floor set by rater disagreement.
+\end{itemize}
+
+\paragraph{Limitations.}
+RPS assumes equally spaced ratings: a miss from 0 to 1 costs the same as a miss from 4 to 5. It weights all thresholds equally. It is less sensitive than CE to the probability given to rare ratings, which is why we keep CE as a secondary metric. With two or three ratings per artifact, $\hat P_{ij}(1-\hat P_{ij})$ is a noisy estimate of rater disagreement, so comparisons between judges should use paired differences on the same artifacts.

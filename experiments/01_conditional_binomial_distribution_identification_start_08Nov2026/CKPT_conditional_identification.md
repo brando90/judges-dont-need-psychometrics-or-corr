@@ -8,7 +8,7 @@ Last updated: 11-08-2026 21:18 PST
 - Eight checks pass; full run completed in 13.51 seconds, 768 conditions / 5,376 selections / 6,912 candidate evaluations.
 - Independent reconstruction verifies 419,328 selected metric values, all ties, intervals and result hashes; no new samples.
 ## Results
-- CE selects oracle 249/256 with one rating; Brier/RPS 245/256; all 256/256 at two/three ratings.
+- CE selects oracle 249/256 with one rating; Brier/ranked probability score (RPS) 245/256; all 256/256 at two/three ratings.
 - Pearson/Spearman/Kendall/nMSE retain five-way ties throughout; no failed selection, calls or provider cost.
 ## Stuck / blocked
 - No blocker. Three-page PDF built with pdfLaTeX/BibTeX; all pages inspected, no clipping or unresolved citations.

@@ -6,7 +6,7 @@
 
 ## What is compared
 
-Seven selection criteria: CE, Brier, RPS, Pearson, Spearman, Kendall and normalized mean squared error (nMSE). Each picks one of nine fixed candidate forecasts: the true distribution, four wrong mixtures with the same mean, a permuted control and three constants. Only the empirical constant is fitted, on training ratings.
+Seven selection criteria: cross-entropy (CE), Brier score, ranked probability score (RPS), Pearson, Spearman, Kendall and normalized mean squared error (nMSE). Each picks one of nine fixed candidate forecasts: the true distribution, four wrong mixtures with the same mean, a permuted control and three constants. Only the empirical constant is fitted, on training ratings.
 
 ## Which data each number uses
 
