@@ -1,0 +1,23 @@
+{
+  "source_type": "published_journal_article",
+  "title": "Generalizability Theory",
+  "authors": ["Richard J. Shavelson", "Noreen M. Webb", "Glenn L. Rowley"],
+  "journal": "American Psychologist",
+  "year": 1989,
+  "volume": 44,
+  "issue": 6,
+  "printed_pages": "922-932",
+  "pdf_pages": 11,
+  "source_url": "https://drive.google.com/file/d/1lftgBiJRKw89dl_aBzURBTof-eTKFO20/view?usp=sharing",
+  "retrieval_url": "https://drive.google.com/uc?export=download&id=1lftgBiJRKw89dl_aBzURBTof-eTKFO20",
+  "retrieved_local_date": "2026-11-13",
+  "timezone": "America/Los_Angeles",
+  "bytes": 1346560,
+  "sha256": "0fdeaeb38f8b3d42c1da1d4bac4e20f71c64a8ea84430408698311963e1e5186",
+  "local_pdf": "sources/local/shavelson_webb_rowley_1989_generalizability_theory.pdf",
+  "local_text": "sources/local/shavelson_webb_rowley_1989_generalizability_theory.txt",
+  "redistributed_in_git": false,
+  "reason": "Published article carries a copyright notice; a redistribution license was not verified. Citation, source link and retrieval digest are public; reading copies remain local.",
+  "reading_scope": "All extracted text from 11 pages; printed page 925 also visually inspected. Extracted equations contain OCR artifacts.",
+  "experiment_status": "planned_not_run"
+}

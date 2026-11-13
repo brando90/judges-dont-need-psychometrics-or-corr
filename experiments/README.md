@@ -13,6 +13,7 @@ Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>`
 | 00 | 11-07-2026 | Active | Code and first results added together in `f0f1ed6`. |
 | 01 | 11-08-2026 | Active | Procedure frozen in `9139470`; results in `8137f52`. Its `results.md` still marks the multi-provider review and main publication `PENDING`. |
 | 02 | 11-09-2026 | Active | Handoff `be28db0` (10:26 PST); comparison results `8a44e6d` (11:01 PST); paper integration still open. It is a new comparison on cached experiment 06 data, so it uses its own start date, not experiment 06's 11-06-2026 start. |
+| 04 | 11-13-2026 | Active planning | Public-theory source reading and plan started on this date; no experimental phase has run. User-requested identifier 04 is retained; the gap at 03 is intentional. |
 | 11–14 | 11-10-2026 | 11-10-2026 | Archived. Each was run and committed on 11-10-2026 in trustworthy-theorem-judges (`652f075`, `6d11895`, `597f245`, `ae2585b`). Its 11-11-2026 archive move (`bc15da9`) and the import here were moves, not new work. Archived experiments keep their original numbers. Same-day start and end were rechecked on 11-13-2026: these were short runs that built on each other in one evening. 11 was committed at 15:08 PST; 12 at 17:50 (full run 160 s); 13 at 18:46 (sweep 435 s); 14 ran 18:03–20:43 (GPU scoring about 1 h 50 min). No folder changed after its commit (the moves are byte-identical renames). The formulations they test were written down on 11-09-2026 (`930da26`), but no experiment work appears before 11-10. |
 
 ## Synthetic illustrations and identification
@@ -22,6 +23,12 @@ Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>`
 | [00_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026](00_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026/README.md) | Original scalar example comparing smoothed marginal histograms | Active. Historical code and output preserved; reproduced by experiment 01 |
 | [01_conditional_binomial_distribution_identification_start_08Nov2026](01_conditional_binomial_distribution_identification_start_08Nov2026/README.md) | Identify a known conditional population among analytic probability candidates, with full tie accounting | Active. Simulation finished; parent review and paper integration remain open |
 | [13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026](archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/README.md) | Learn flexible judges from nonlinear synthetic ratings across training sizes | Completed illustration, imported unchanged; not human-data evidence |
+
+## Planned reliability and distribution-accuracy study
+
+| Folder | Distinct question | Status |
+| --- | --- | --- |
+| [04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) | Are moment matching and generalizability-theory reliability sufficient for human-rating distribution accuracy, and when does variance decomposition improve evaluation design? | Planned, not run. Published-source reading and falsifiable plan complete; no unpublished study is evaluated |
 
 ## Historical human-rating objective comparisons
 
@@ -36,4 +43,4 @@ The [archive guide and migration receipt](archive/README.md) explain what change
 
 [trustworthy-theorem-judges experiment 09](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md) owns the current participant task and collection. Its original-rating provenance, practical judge comparison and task/solver/rater size planning stay in that project. This repository owns the general objective-comparison research and links to the authorized shared data rather than creating a competing collection.
 
-**TLDR-end:** [judge objectives: experiments] Two evidence groups replace a flat list of seemingly repeated tasks: synthetic distribution studies and historical human-rating objective comparisons. Their original conditions and shared-data limitations remain visible.
+**TLDR-end:** [judge objectives: experiments] Separate synthetic distribution evidence, historical human-rating comparisons and the planned reliability study. The reliability study has no experimental results yet; existing evidence and shared-data limitations remain unchanged.
