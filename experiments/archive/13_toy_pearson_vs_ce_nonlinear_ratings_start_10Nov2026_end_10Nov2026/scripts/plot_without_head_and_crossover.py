@@ -54,6 +54,7 @@ for i, sc in enumerate("AB"):
             ax.annotate(f"CE-trained better from n = {start}\n({3 * start} training ratings)", xy=(start, 0.97), xycoords=("data", "axes fraction"),
                         xytext=(6, -2), textcoords="offset points", va="top", fontsize=8)
         ax.set_xscale("log"); ax.set_yscale("log")
+        ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
         ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
@@ -87,6 +88,7 @@ for i, sc in enumerate("AB"):
         ax.axhline(TARGET[met], color="gray", lw=1)
         ax.text(NS[0], TARGET[met] * 1.08, f"target {TARGET[met]}", color="gray", fontsize=8)
         ax.set_xscale("log"); ax.set_yscale("log")
+        ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
         ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
