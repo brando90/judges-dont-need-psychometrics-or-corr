@@ -1,0 +1,12 @@
+{
+  "hashes": {
+    "protocol.json": "a80859902c4f308db1b7d0de056aab9f4154c0a4f6e7a9493a72b59294c981f0",
+    "scripts/check_counterexamples.py": "5277cc8948637f6ae064357cd202a80920fd38f4e1d4d617bf8c2aec36b94bef",
+    "scripts/gtheory_lib.py": "244695a73be66003cc80cf5676acaaaa4d1754f1f1856efec58dd31fc0478aca",
+    "scripts/run_d_study.py": "04244a786cefa4e57d07d341830fb607f801b53445bf9e9fd53560a5e430658b",
+    "scripts/run_historical.py": "9849b1b1080b261def1e77f77fa660f7f0e10c10c9448be3fdf226a296a197c4",
+    "scripts/test_metrics.py": "1d6ed9a933cbc617726e83b0fda050500c7ed276734b7606020d0fab3cf2673c"
+  },
+  "status": "fixed before Phase A/B/C measurements; formula unit checks (test_metrics) already run",
+  "utc": "2026-11-13T20:00:29Z"
+}

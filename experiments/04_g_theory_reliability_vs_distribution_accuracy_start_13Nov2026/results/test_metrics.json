@@ -1,0 +1,4731 @@
+{
+ "n_checks": 945,
+ "n_fail": 0,
+ "checks": [
+  {
+   "check": "rps_individual[0,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[0,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[0,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[1,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[1,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[2,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[2,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[3,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[3,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[4,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[4,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[5,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[5,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[6,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[6,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,0,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,1,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,2,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,3,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,4,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,5,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,6,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_individual[7,7,5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_rps[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "rps_excess_identity[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "brier_excess[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "tvd_subset_max[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "expected_ce[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "kl_identity[7,7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "third_difference_orthogonal[s=0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "third_difference_orthogonal[s=1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "third_difference_orthogonal[s=2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "law_of_total_variance",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "shift_invariant_components",
+   "pass": true,
+   "detail": "({'u': Fraction(9, 50), 'a': Fraction(0, 1), 'e': Fraction(27, 50)}, {'u': Fraction(9, 50), 'a': Fraction(0, 1), 'e': Fraction(27, 50)})"
+  },
+  {
+   "check": "zero_denominator_undefined",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "no_object_variance_gives_zero",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "phi_le_erho2_600_random_cases",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "check": "d_study_cov[0,1,1]",
+   "pass": true,
+   "detail": "(np.float64(3.523671880881477), np.float64(3.5236718808814764), np.float64(0.7204399622265928), np.float64(0.7204399622265925))"
+  },
+  {
+   "check": "d_study_cov[0,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.2726965800321695), np.float64(1.2726965800321692), np.float64(0.19506310362400886), np.float64(0.19506310362400878))"
+  },
+  {
+   "check": "d_study_cov[0,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.9806038211790415), np.float64(0.9806038211790415), np.float64(0.18146203742620548), np.float64(0.18146203742620542))"
+  },
+  {
+   "check": "d_study_cov[1,1,1]",
+   "pass": true,
+   "detail": "(np.float64(6.956825410800571), np.float64(6.95682541080057), np.float64(2.8123544899415576), np.float64(2.8123544899415576))"
+  },
+  {
+   "check": "d_study_cov[1,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.841960881366288), np.float64(2.8419608813662878), np.float64(0.9086091355227609), np.float64(0.9086091355227606))"
+  },
+  {
+   "check": "d_study_cov[1,4,2]",
+   "pass": true,
+   "detail": "(np.float64(2.2556980271412157), np.float64(2.255698027141216), np.float64(1.1662982149879693), np.float64(1.1662982149879693))"
+  },
+  {
+   "check": "d_study_cov[2,1,1]",
+   "pass": true,
+   "detail": "(np.float64(6.29685679413529), np.float64(6.296856794135289), np.float64(3.4363513402413357), np.float64(3.436351340241335))"
+  },
+  {
+   "check": "d_study_cov[2,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.6074291368430078), np.float64(1.6074291368430078), np.float64(0.9328253295909474), np.float64(0.9328253295909472))"
+  },
+  {
+   "check": "d_study_cov[2,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.4487674981578498), np.float64(1.4487674981578496), np.float64(0.7306267638021621), np.float64(0.730626763802162))"
+  },
+  {
+   "check": "d_study_cov[3,1,1]",
+   "pass": true,
+   "detail": "(np.float64(5.023114135754813), np.float64(5.023114135754814), np.float64(1.3726894919180443), np.float64(1.3726894919180452))"
+  },
+  {
+   "check": "d_study_cov[3,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.4299254720579326), np.float64(1.4299254720579326), np.float64(0.41225209100290894), np.float64(0.41225209100290916))"
+  },
+  {
+   "check": "d_study_cov[3,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.3283548127935954), np.float64(1.3283548127935954), np.float64(0.5489391146798562), np.float64(0.5489391146798561))"
+  },
+  {
+   "check": "d_study_cov[4,1,1]",
+   "pass": true,
+   "detail": "(np.float64(2.124482071070237), np.float64(2.1244820710702372), np.float64(0.5721326620541771), np.float64(0.5721326620541776))"
+  },
+  {
+   "check": "d_study_cov[4,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.6039489001516264), np.float64(0.6039489001516264), np.float64(0.10715195141746818), np.float64(0.10715195141746825))"
+  },
+  {
+   "check": "d_study_cov[4,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.5992465851788763), np.float64(0.5992465851788764), np.float64(0.09338417840027205), np.float64(0.0933841784002721))"
+  },
+  {
+   "check": "d_study_cov[5,1,1]",
+   "pass": true,
+   "detail": "(np.float64(7.724758417131065), np.float64(7.724758417131067), np.float64(0.9685516399887102), np.float64(0.9685516399887115))"
+  },
+  {
+   "check": "d_study_cov[5,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.430196745306629), np.float64(2.4301967453066284), np.float64(0.4796663058108843), np.float64(0.47966630581088454))"
+  },
+  {
+   "check": "d_study_cov[5,4,2]",
+   "pass": true,
+   "detail": "(np.float64(2.480626345381033), np.float64(2.480626345381033), np.float64(0.2463531395020931), np.float64(0.2463531395020934))"
+  },
+  {
+   "check": "d_study_cov[6,1,1]",
+   "pass": true,
+   "detail": "(np.float64(5.961179153912675), np.float64(5.961179153912674), np.float64(1.161189769758188), np.float64(1.1611897697581872))"
+  },
+  {
+   "check": "d_study_cov[6,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.8632789268759808), np.float64(1.8632789268759802), np.float64(0.3203214966577375), np.float64(0.32032149665773735))"
+  },
+  {
+   "check": "d_study_cov[6,4,2]",
+   "pass": true,
+   "detail": "(np.float64(2.4532705923939333), np.float64(2.453270592393933), np.float64(0.22137240232992192), np.float64(0.22137240232992184))"
+  },
+  {
+   "check": "d_study_cov[7,1,1]",
+   "pass": true,
+   "detail": "(np.float64(4.698252166940051), np.float64(4.698252166940051), np.float64(1.8301462158965158), np.float64(1.8301462158965158))"
+  },
+  {
+   "check": "d_study_cov[7,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.9789510461207473), np.float64(0.9789510461207471), np.float64(0.38751824255009243), np.float64(0.38751824255009226))"
+  },
+  {
+   "check": "d_study_cov[7,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.9896069913928762), np.float64(0.989606991392876), np.float64(0.3942510347889022), np.float64(0.394251034788902))"
+  },
+  {
+   "check": "d_study_cov[8,1,1]",
+   "pass": true,
+   "detail": "(np.float64(7.0872496678662875), np.float64(7.087249667866288), np.float64(3.926548626996901), np.float64(3.926548626996902))"
+  },
+  {
+   "check": "d_study_cov[8,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.24104199364703), np.float64(2.24104199364703), np.float64(1.3940165558537863), np.float64(1.3940165558537863))"
+  },
+  {
+   "check": "d_study_cov[8,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.8382504080871733), np.float64(1.8382504080871735), np.float64(1.193378151542507), np.float64(1.193378151542507))"
+  },
+  {
+   "check": "d_study_cov[9,1,1]",
+   "pass": true,
+   "detail": "(np.float64(6.589355493011936), np.float64(6.589355493011936), np.float64(1.318222388130891), np.float64(1.3182223881308905))"
+  },
+  {
+   "check": "d_study_cov[9,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.034352687127697), np.float64(2.034352687127697), np.float64(0.3793552385193224), np.float64(0.3793552385193224))"
+  },
+  {
+   "check": "d_study_cov[9,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.2393600019017363), np.float64(1.2393600019017363), np.float64(0.246173808309877), np.float64(0.2461738083098769))"
+  },
+  {
+   "check": "d_study_cov[10,1,1]",
+   "pass": true,
+   "detail": "(np.float64(5.046625558477565), np.float64(5.046625558477565), np.float64(3.1935281684098236), np.float64(3.1935281684098236))"
+  },
+  {
+   "check": "d_study_cov[10,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.8292426839711609), np.float64(1.8292426839711609), np.float64(1.2419562509759632), np.float64(1.2419562509759632))"
+  },
+  {
+   "check": "d_study_cov[10,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.2712077502157593), np.float64(1.2712077502157593), np.float64(0.6952795539025685), np.float64(0.6952795539025682))"
+  },
+  {
+   "check": "d_study_cov[11,1,1]",
+   "pass": true,
+   "detail": "(np.float64(2.4585672707658572), np.float64(2.4585672707658572), np.float64(1.6365856424935967), np.float64(1.6365856424935967))"
+  },
+  {
+   "check": "d_study_cov[11,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.922130304872395), np.float64(0.9221303048723949), np.float64(0.6216545911194675), np.float64(0.6216545911194673))"
+  },
+  {
+   "check": "d_study_cov[11,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.0141920724926219), np.float64(1.0141920724926219), np.float64(0.6833129346093173), np.float64(0.6833129346093172))"
+  },
+  {
+   "check": "d_study_cov[12,1,1]",
+   "pass": true,
+   "detail": "(np.float64(5.6620087859088635), np.float64(5.662008785908863), np.float64(2.1418631078878496), np.float64(2.14186310788785))"
+  },
+  {
+   "check": "d_study_cov[12,2,3]",
+   "pass": true,
+   "detail": "(np.float64(1.8912704258841313), np.float64(1.891270425884131), np.float64(0.3734748107364655), np.float64(0.3734748107364655))"
+  },
+  {
+   "check": "d_study_cov[12,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.3914059366372886), np.float64(1.3914059366372886), np.float64(0.2798988957772861), np.float64(0.27989889577728605))"
+  },
+  {
+   "check": "d_study_cov[13,1,1]",
+   "pass": true,
+   "detail": "(np.float64(7.775400110450988), np.float64(7.775400110450988), np.float64(6.640483767197098), np.float64(6.640483767197098))"
+  },
+  {
+   "check": "d_study_cov[13,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.2383532326358826), np.float64(2.238353232635882), np.float64(1.9875196463682114), np.float64(1.9875196463682108))"
+  },
+  {
+   "check": "d_study_cov[13,4,2]",
+   "pass": true,
+   "detail": "(np.float64(2.552235985295229), np.float64(2.552235985295228), np.float64(2.3501870865209207), np.float64(2.3501870865209202))"
+  },
+  {
+   "check": "d_study_cov[14,1,1]",
+   "pass": true,
+   "detail": "(np.float64(6.373723989953784), np.float64(6.373723989953784), np.float64(0.6453171261491972), np.float64(0.6453171261491972))"
+  },
+  {
+   "check": "d_study_cov[14,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.892182503564085), np.float64(2.8921825035640847), np.float64(0.15159014418112965), np.float64(0.15159014418112954))"
+  },
+  {
+   "check": "d_study_cov[14,4,2]",
+   "pass": true,
+   "detail": "(np.float64(1.716851085395909), np.float64(1.7168510853959087), np.float64(0.11216123185638491), np.float64(0.11216123185638491))"
+  },
+  {
+   "check": "d_study_cov[15,1,1]",
+   "pass": true,
+   "detail": "(np.float64(2.341178659680383), np.float64(2.341178659680383), np.float64(1.0121032666933658), np.float64(1.012103266693366))"
+  },
+  {
+   "check": "d_study_cov[15,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.8977037972597416), np.float64(0.8977037972597415), np.float64(0.34293420776445216), np.float64(0.34293420776445205))"
+  },
+  {
+   "check": "d_study_cov[15,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.8062018846119199), np.float64(0.8062018846119201), np.float64(0.4248648541600737), np.float64(0.4248648541600737))"
+  },
+  {
+   "check": "d_study_cov[16,1,1]",
+   "pass": true,
+   "detail": "(np.float64(2.9897006512495503), np.float64(2.9897006512495508), np.float64(1.4717827235326317), np.float64(1.4717827235326322))"
+  },
+  {
+   "check": "d_study_cov[16,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.6509661815307359), np.float64(0.650966181530736), np.float64(0.29723872010137065), np.float64(0.29723872010137076))"
+  },
+  {
+   "check": "d_study_cov[16,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.5712054753737441), np.float64(0.5712054753737441), np.float64(0.2827518581931998), np.float64(0.2827518581931998))"
+  },
+  {
+   "check": "d_study_cov[17,1,1]",
+   "pass": true,
+   "detail": "(np.float64(1.9477796152177569), np.float64(1.9477796152177569), np.float64(0.45958125144655426), np.float64(0.45958125144655426))"
+  },
+  {
+   "check": "d_study_cov[17,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.641618310172841), np.float64(0.6416183101728409), np.float64(0.17503792532284954), np.float64(0.1750379253228495))"
+  },
+  {
+   "check": "d_study_cov[17,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.7743369718413023), np.float64(0.7743369718413022), np.float64(0.10181616455425954), np.float64(0.1018161645542594))"
+  },
+  {
+   "check": "d_study_cov[18,1,1]",
+   "pass": true,
+   "detail": "(np.float64(2.296006448085431), np.float64(2.296006448085431), np.float64(0.7548219960175715), np.float64(0.7548219960175717))"
+  },
+  {
+   "check": "d_study_cov[18,2,3]",
+   "pass": true,
+   "detail": "(np.float64(0.5709449033254255), np.float64(0.5709449033254255), np.float64(0.2248071031795606), np.float64(0.2248071031795606))"
+  },
+  {
+   "check": "d_study_cov[18,4,2]",
+   "pass": true,
+   "detail": "(np.float64(0.49715079101950566), np.float64(0.4971507910195057), np.float64(0.14282115299509238), np.float64(0.14282115299509235))"
+  },
+  {
+   "check": "d_study_cov[19,1,1]",
+   "pass": true,
+   "detail": "(np.float64(6.319128488190987), np.float64(6.319128488190987), np.float64(4.048884202031696), np.float64(4.048884202031697))"
+  },
+  {
+   "check": "d_study_cov[19,2,3]",
+   "pass": true,
+   "detail": "(np.float64(2.356796011357846), np.float64(2.3567960113578454), np.float64(1.4323816521680488), np.float64(1.4323816521680484))"
+  },
+  {
+   "check": "d_study_cov[19,4,2]",
+   "pass": true,
+   "detail": "(np.float64(2.1238843590394434), np.float64(2.123884359039444), np.float64(1.53493095578445), np.float64(1.53493095578445))"
+  },
+  {
+   "check": "ems_trace[0,u]",
+   "pass": true,
+   "detail": "(np.float64(16.56062182265533), np.float64(16.560621822655328))"
+  },
+  {
+   "check": "ems_trace[0,a]",
+   "pass": true,
+   "detail": "(np.float64(40.042434816533785), np.float64(40.042434816533785))"
+  },
+  {
+   "check": "ems_trace[0,b]",
+   "pass": true,
+   "detail": "(np.float64(11.352995345376979), np.float64(11.352995345376973))"
+  },
+  {
+   "check": "ems_trace[0,ua]",
+   "pass": true,
+   "detail": "(np.float64(10.741188491550044), np.float64(10.741188491550048))"
+  },
+  {
+   "check": "ems_trace[0,ub]",
+   "pass": true,
+   "detail": "(np.float64(22.225736930590102), np.float64(22.225736930590106))"
+  },
+  {
+   "check": "ems_trace[0,ab]",
+   "pass": true,
+   "detail": "(np.float64(6.9513820516975), np.float64(6.951382051697495))"
+  },
+  {
+   "check": "ems_trace[0,e]",
+   "pass": true,
+   "detail": "(np.float64(4.695483209522092), np.float64(4.695483209522091))"
+  },
+  {
+   "check": "anova3_ss_projectors[0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[1,u]",
+   "pass": true,
+   "detail": "(np.float64(8.643430837069234), np.float64(8.643430837069234))"
+  },
+  {
+   "check": "ems_trace[1,a]",
+   "pass": true,
+   "detail": "(np.float64(17.84829318087607), np.float64(17.848293180876066))"
+  },
+  {
+   "check": "ems_trace[1,b]",
+   "pass": true,
+   "detail": "(np.float64(16.138927784994006), np.float64(16.138927784994))"
+  },
+  {
+   "check": "ems_trace[1,ua]",
+   "pass": true,
+   "detail": "(np.float64(10.042463245818903), np.float64(10.042463245818904))"
+  },
+  {
+   "check": "ems_trace[1,ub]",
+   "pass": true,
+   "detail": "(np.float64(6.137463383366402), np.float64(6.1374633833664))"
+  },
+  {
+   "check": "ems_trace[1,ab]",
+   "pass": true,
+   "detail": "(np.float64(20.966317640078586), np.float64(20.96631764007857))"
+  },
+  {
+   "check": "ems_trace[1,e]",
+   "pass": true,
+   "detail": "(np.float64(7.560919649222853), np.float64(7.560919649222857))"
+  },
+  {
+   "check": "anova3_ss_projectors[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[2,u]",
+   "pass": true,
+   "detail": "(np.float64(15.285127139016925), np.float64(15.285127139016922))"
+  },
+  {
+   "check": "ems_trace[2,a]",
+   "pass": true,
+   "detail": "(np.float64(17.54681884783228), np.float64(17.546818847832284))"
+  },
+  {
+   "check": "ems_trace[2,b]",
+   "pass": true,
+   "detail": "(np.float64(31.52565896278556), np.float64(31.525658962785563))"
+  },
+  {
+   "check": "ems_trace[2,ua]",
+   "pass": true,
+   "detail": "(np.float64(6.116379330193563), np.float64(6.1163793301935705))"
+  },
+  {
+   "check": "ems_trace[2,ub]",
+   "pass": true,
+   "detail": "(np.float64(6.410376064748059), np.float64(6.410376064748053))"
+  },
+  {
+   "check": "ems_trace[2,ab]",
+   "pass": true,
+   "detail": "(np.float64(4.7249647068353475), np.float64(4.724964706835343))"
+  },
+  {
+   "check": "ems_trace[2,e]",
+   "pass": true,
+   "detail": "(np.float64(0.6187103532436692), np.float64(0.6187103532436724))"
+  },
+  {
+   "check": "anova3_ss_projectors[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[3,u]",
+   "pass": true,
+   "detail": "(np.float64(27.336173658764842), np.float64(27.336173658764846))"
+  },
+  {
+   "check": "ems_trace[3,a]",
+   "pass": true,
+   "detail": "(np.float64(56.99908897198338), np.float64(56.99908897198339))"
+  },
+  {
+   "check": "ems_trace[3,b]",
+   "pass": true,
+   "detail": "(np.float64(59.56814736718244), np.float64(59.56814736718244))"
+  },
+  {
+   "check": "ems_trace[3,ua]",
+   "pass": true,
+   "detail": "(np.float64(12.369844096862106), np.float64(12.369844096862112))"
+  },
+  {
+   "check": "ems_trace[3,ub]",
+   "pass": true,
+   "detail": "(np.float64(22.559446931160352), np.float64(22.559446931160334))"
+  },
+  {
+   "check": "ems_trace[3,ab]",
+   "pass": true,
+   "detail": "(np.float64(9.283614923380373), np.float64(9.283614923380359))"
+  },
+  {
+   "check": "ems_trace[3,e]",
+   "pass": true,
+   "detail": "(np.float64(0.3881730488909062), np.float64(0.38817304889091075))"
+  },
+  {
+   "check": "anova3_ss_projectors[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[4,u]",
+   "pass": true,
+   "detail": "(np.float64(39.85710567948054), np.float64(39.85710567948052))"
+  },
+  {
+   "check": "ems_trace[4,a]",
+   "pass": true,
+   "detail": "(np.float64(22.58710956271112), np.float64(22.58710956271112))"
+  },
+  {
+   "check": "ems_trace[4,b]",
+   "pass": true,
+   "detail": "(np.float64(28.959409975917623), np.float64(28.959409975917627))"
+  },
+  {
+   "check": "ems_trace[4,ua]",
+   "pass": true,
+   "detail": "(np.float64(35.15292844622947), np.float64(35.15292844622948))"
+  },
+  {
+   "check": "ems_trace[4,ub]",
+   "pass": true,
+   "detail": "(np.float64(3.1595401019151734), np.float64(3.1595401019151663))"
+  },
+  {
+   "check": "ems_trace[4,ab]",
+   "pass": true,
+   "detail": "(np.float64(6.897419834001448), np.float64(6.897419834001438))"
+  },
+  {
+   "check": "ems_trace[4,e]",
+   "pass": true,
+   "detail": "(np.float64(3.8983077656211416), np.float64(3.8983077656211345))"
+  },
+  {
+   "check": "anova3_ss_projectors[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[5,u]",
+   "pass": true,
+   "detail": "(np.float64(53.16444894337434), np.float64(53.16444894337436))"
+  },
+  {
+   "check": "ems_trace[5,a]",
+   "pass": true,
+   "detail": "(np.float64(51.13290571972797), np.float64(51.13290571972795))"
+  },
+  {
+   "check": "ems_trace[5,b]",
+   "pass": true,
+   "detail": "(np.float64(66.65170134787493), np.float64(66.65170134787492))"
+  },
+  {
+   "check": "ems_trace[5,ua]",
+   "pass": true,
+   "detail": "(np.float64(26.73267336062726), np.float64(26.73267336062726))"
+  },
+  {
+   "check": "ems_trace[5,ub]",
+   "pass": true,
+   "detail": "(np.float64(42.352655390862395), np.float64(42.35265539086238))"
+  },
+  {
+   "check": "ems_trace[5,ab]",
+   "pass": true,
+   "detail": "(np.float64(12.117741372921536), np.float64(12.117741372921525))"
+  },
+  {
+   "check": "ems_trace[5,e]",
+   "pass": true,
+   "detail": "(np.float64(1.5082987415271756), np.float64(1.5082987415271747))"
+  },
+  {
+   "check": "anova3_ss_projectors[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[6,u]",
+   "pass": true,
+   "detail": "(np.float64(11.141522621747555), np.float64(11.141522621747551))"
+  },
+  {
+   "check": "ems_trace[6,a]",
+   "pass": true,
+   "detail": "(np.float64(12.691270113882098), np.float64(12.691270113882098))"
+  },
+  {
+   "check": "ems_trace[6,b]",
+   "pass": true,
+   "detail": "(np.float64(23.996432047567083), np.float64(23.996432047567083))"
+  },
+  {
+   "check": "ems_trace[6,ua]",
+   "pass": true,
+   "detail": "(np.float64(2.112985674035295), np.float64(2.1129856740352984))"
+  },
+  {
+   "check": "ems_trace[6,ub]",
+   "pass": true,
+   "detail": "(np.float64(18.482762493964838), np.float64(18.482762493964827))"
+  },
+  {
+   "check": "ems_trace[6,ab]",
+   "pass": true,
+   "detail": "(np.float64(24.35828990253526), np.float64(24.358289902535255))"
+  },
+  {
+   "check": "ems_trace[6,e]",
+   "pass": true,
+   "detail": "(np.float64(4.199707712507725), np.float64(4.199707712507726))"
+  },
+  {
+   "check": "anova3_ss_projectors[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[7,u]",
+   "pass": true,
+   "detail": "(np.float64(38.110542356660645), np.float64(38.110542356660616))"
+  },
+  {
+   "check": "ems_trace[7,a]",
+   "pass": true,
+   "detail": "(np.float64(14.277630913038728), np.float64(14.277630913038724))"
+  },
+  {
+   "check": "ems_trace[7,b]",
+   "pass": true,
+   "detail": "(np.float64(67.12347289248058), np.float64(67.12347289248055))"
+  },
+  {
+   "check": "ems_trace[7,ua]",
+   "pass": true,
+   "detail": "(np.float64(29.419037660601397), np.float64(29.419037660601397))"
+  },
+  {
+   "check": "ems_trace[7,ub]",
+   "pass": true,
+   "detail": "(np.float64(37.393093887415105), np.float64(37.39309388741509))"
+  },
+  {
+   "check": "ems_trace[7,ab]",
+   "pass": true,
+   "detail": "(np.float64(3.2366732148167223), np.float64(3.2366732148167165))"
+  },
+  {
+   "check": "ems_trace[7,e]",
+   "pass": true,
+   "detail": "(np.float64(2.7657064219074763), np.float64(2.7657064219074776))"
+  },
+  {
+   "check": "anova3_ss_projectors[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[8,u]",
+   "pass": true,
+   "detail": "(np.float64(25.995564237795698), np.float64(25.995564237795694))"
+  },
+  {
+   "check": "ems_trace[8,a]",
+   "pass": true,
+   "detail": "(np.float64(22.467768185879542), np.float64(22.46776818587953))"
+  },
+  {
+   "check": "ems_trace[8,b]",
+   "pass": true,
+   "detail": "(np.float64(36.92600891219706), np.float64(36.92600891219704))"
+  },
+  {
+   "check": "ems_trace[8,ua]",
+   "pass": true,
+   "detail": "(np.float64(16.558484346504546), np.float64(16.558484346504553))"
+  },
+  {
+   "check": "ems_trace[8,ub]",
+   "pass": true,
+   "detail": "(np.float64(2.4509203527730032), np.float64(2.4509203527729935))"
+  },
+  {
+   "check": "ems_trace[8,ab]",
+   "pass": true,
+   "detail": "(np.float64(2.3290932608491426), np.float64(2.3290932608491373))"
+  },
+  {
+   "check": "ems_trace[8,e]",
+   "pass": true,
+   "detail": "(np.float64(3.7247045897734523), np.float64(3.724704589773447))"
+  },
+  {
+   "check": "anova3_ss_projectors[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "ems_trace[9,u]",
+   "pass": true,
+   "detail": "(np.float64(21.530232358139827), np.float64(21.530232358139834))"
+  },
+  {
+   "check": "ems_trace[9,a]",
+   "pass": true,
+   "detail": "(np.float64(25.990913380032527), np.float64(25.990913380032527))"
+  },
+  {
+   "check": "ems_trace[9,b]",
+   "pass": true,
+   "detail": "(np.float64(20.160076270400623), np.float64(20.16007627040062))"
+  },
+  {
+   "check": "ems_trace[9,ua]",
+   "pass": true,
+   "detail": "(np.float64(0.8418111997278461), np.float64(0.8418111997278488))"
+  },
+  {
+   "check": "ems_trace[9,ub]",
+   "pass": true,
+   "detail": "(np.float64(41.76518548140848), np.float64(41.76518548140849))"
+  },
+  {
+   "check": "ems_trace[9,ab]",
+   "pass": true,
+   "detail": "(np.float64(3.617949587797174), np.float64(3.617949587797168))"
+  },
+  {
+   "check": "ems_trace[9,e]",
+   "pass": true,
+   "detail": "(np.float64(0.8422026068165118), np.float64(0.8422026068165102))"
+  },
+  {
+   "check": "anova3_ss_projectors[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova3_ss_total[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reml_stratum_equals_dense_up_to_constant",
+   "pass": true,
+   "detail": "[np.float64(-1.903331244885166), np.float64(-1.9033312448851518), np.float64(-1.9033312448851447), np.float64(-1.9033312448851234), np.float64(-1.9033312448851092), np.float64(-1.9033312448851447)]"
+  },
+  {
+   "check": "reml_gradient_finite_difference",
+   "pass": true,
+   "detail": "(array([   0.2301695 ,    0.39268176,    0.52927136,  -26.09150523,\n          4.68086001,    1.07526513, -100.19504724]), array([   0.23016949,    0.39268176,    0.52927136,  -26.09150523,\n          4.68086   ,    1.07526513, -100.19504724]))"
+  },
+  {
+   "check": "reml_equals_anova_when_positive",
+   "pass": true,
+   "detail": "({'est': {'u': 1.6212299030573158, 'a': 1.080030300950475, 'b': 1.7038744761697653, 'ua': 0.9619595565591533, 'ub': 0.8896721708320203, 'ab': 0.5002376359291999, 'e': 0.4968708168327741}, 'success': True, 'nit': 0, 'message': 'CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL', 'negloglik': 1059.5329959057967}, {'u': 1.6212299030573158, 'a': 1.080030300950475, 'b': 1.7038744761697653, 'ua': 0.9619595565591533, 'ub': 0.8896721708320203, 'ab': 0.5002376359291999, 'e': 0.4968708168327741})"
+  },
+  {
+   "check": "icc_equals_g_n1[0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[0]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "icc_equals_g_n1[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "anova2_ss_total[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "fraction_json_roundtrip_exact",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "float_json_roundtrip_exact",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "smooth_normalized",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

@@ -1,0 +1,161 @@
+{
+  "experiment": "04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026",
+  "protocol_version": 1,
+  "frozen_local_date": "11-13-2026",
+  "frozen_by": "Claude Code, claude-opus-5-5 (desktop app), executing PLAN.md as written; additions beyond PLAN.md are marked added_beyond_plan",
+  "rating_scale": "integer ratings 0..5 (six categories)",
+  "metric_definitions": {
+    "RPS": "normalized individual-rating ranked probability score (1/5) sum_{k=0}^{4} (Q(k) - 1{y<=k})^2; range 0..1; lower is better; averaged over ratings within an artifact, then equally over artifacts",
+    "CE": "-ln q(y) in nats, no implicit floor; infinity is retained",
+    "TVD_population": "0.5 sum_y |q(y) - p(y)| against the known synthetic distribution; range 0..1",
+    "TVD_empirical": "0.5 sum_y |q(y) - p_hat(y)| against an artifact's observed expert-rating frequencies (Phase C only); a different, noisy comparison",
+    "Brier": "sum_y (q(y) - 1{y=r})^2; expected excess reported",
+    "bias": "judge mean minus human mean on the 0..5 scale; positive means lenient",
+    "Erho2": "relative generalizability coefficient v_u / (v_u + v_delta)",
+    "Phi": "absolute dependability coefficient v_u / (v_u + v_Delta)",
+    "undefined": "a coefficient whose denominator is zero is reported as undefined (null), never as 1"
+  },
+  "phase_a": {
+    "human_population": {
+      "form": "p_x = (9/10) Binomial(5, theta_x) + (1/10) Uniform{0..5}; strictly positive; min p_x(y) >= 1/60",
+      "theta": ["1/12", "2/12", "3/12", "4/12", "5/12", "6/12", "7/12", "8/12", "9/12", "10/12", "11/12"],
+      "object_universe": "uniform over the 11 artifacts j = 1..11; population variance uses divisor 11",
+      "relation_to_experiment_01": "binomial family as in 01_conditional_binomial_distribution_identification_start_08Nov2026, mixed with a uniform component so every category has positive probability; 01's frozen files are not modified",
+      "trace_artifact_j": 6
+    },
+    "A1": {
+      "v": [-1, 3, -3, 1, 0, 0],
+      "epsilon": "min_y p_x(y) / 6 (the largest value allowed by PLAN.md)",
+      "rater_counts_for_coefficients": [1, 3]
+    },
+    "A1_max": {
+      "added_beyond_plan": true,
+      "reason": "PLAN.md's epsilon bound guarantees positivity but makes the perturbation small; this shows the largest same-mean, same-variance RPS gap under a declared floor",
+      "floor": "1/100",
+      "objective": "maximize expected RPS excess over q with sum q = 1, mean(q) = mean(p), var(q) = var(p), q(y) >= floor; exact vertex enumeration over all 20 triples of free categories; ties keep the lexicographically first triple"
+    },
+    "A1_finite_sample": {
+      "n_objects_per_panel": 50,
+      "object_sampling": "uniform with replacement from the 11 artifacts; the same object draw is shared by the p-panel and the q-panel within a replication; ratings drawn independently",
+      "n_raters": 3,
+      "replications": 4000,
+      "seed": 4001,
+      "estimator": "balanced two-way ANOVA, raw (negative estimates retained); coefficients for the mean of 3 raters computed from raw estimates",
+      "bootstrap_for_sd_ratio": {"draws": 2000, "seed": 4002, "unit": "replication"}
+    },
+    "A2": {
+      "wrong_subset_j": [9, 10, 11],
+      "wrong_forecast": "for j in the subset, q_j = p_{12-j} (the mirrored low-theta distribution); elsewhere q_j = p_j",
+      "calls": 3,
+      "constant_forecast": "pbar = equal-weight average of the 11 p_x",
+      "offset_population": [[7, 1], [5, 2], [3, 3], [2, 5], [1, 7]],
+      "offset_population_form": "h_x = (0, a/10, (10-a-c)/10, c/10, 0, 0) for (a, c) in offset_population; support {1,2,3}",
+      "offset": 1,
+      "offset_forecast": "g_x(y) = h_x(y - 1); support {2,3,4}; no clipping",
+      "positive_probability_variant": "g_x smoothed as (1 - 6/100) g_x + (6/100) Uniform; declared before measurement",
+      "pooled_judge_rater_fraction": "1/2",
+      "pooled_rater_counts": [1, 2, 4]
+    },
+    "A3": {
+      "temperatures": ["2", "1", "1/2", "1/4", "mode"],
+      "tempered_form": "q_T proportional to p^(1/T); 'mode' is the point mass at argmax p (T -> 0); computed in float64",
+      "sampled_rating_counts": [1, 3],
+      "sampled_histogram_rps_identity": "E RPS(n-call histogram of q) = E RPS(q) + (1/5) sum_k Q(k)(1-Q(k))/n",
+      "shift_family_base": ["1/4", "1/2", "1/4"],
+      "shift_family_form": "p_c(y) = base(y - c + 1) on {c-1, c, c+1}",
+      "narrow_centers": [2, 3],
+      "wide_centers": [1, 2, 3, 4]
+    },
+    "A4": {
+      "configs": {
+        "C1": {"u": "1", "a": "3/5", "b": "1/10", "ua": "3/5", "ub": "1/10", "ab": "1/10", "e": "1/2"},
+        "C2": {"u": "1", "a": "1/10", "b": "3/5", "ua": "1/10", "ub": "3/5", "ab": "1/10", "e": "1/2"}
+      },
+      "facet_levels": [1, 2, 4, 8],
+      "budgets": {"8": [[2, 4], [4, 2], [8, 1], [1, 8]], "16": [[2, 8], [4, 4], [8, 2]]}
+    }
+  },
+  "phase_b": {
+    "scale": "continuous Gaussian scores; no rounding or clipping; no categorical RPS/CE in this phase",
+    "configs": {
+      "C1": {"u": 1.0, "a": 0.6, "b": 0.1, "ua": 0.6, "ub": 0.1, "ab": 0.1, "e": 0.5},
+      "C2": {"u": 1.0, "a": 0.1, "b": 0.6, "ua": 0.1, "ub": 0.6, "ab": 0.1, "e": 0.5}
+    },
+    "grand_mean": 0.0,
+    "calibration": {"n_u": 64, "n_a": 8, "n_b": 8},
+    "replications": 256,
+    "seeds": "0..255; streams np.random.SeedSequence([seed, condition_id, stage])",
+    "evaluation": {
+      "n_objects": 256,
+      "fresh": "new objects from the same object distribution, new facet levels and new residuals for every design in every replication",
+      "designs": [[2, 2], [2, 4], [2, 8], [4, 2], [4, 4], [4, 8], [8, 2], [8, 4], [8, 8]],
+      "absolute_error": "mean over objects of (object mean - universe score)^2; expectation v_Delta",
+      "relative_error": "sum over objects of (d_u - mean d)^2 / (n - 1), d_u = object mean - universe score; expectation v_delta"
+    },
+    "budgets": {"8": [[2, 4], [4, 2]], "16": [[2, 8], [4, 4], [8, 2]], "32": [[4, 8], [8, 4]]},
+    "primary_budget": 16,
+    "targets": {"absolute": "minimize v_Delta (primary)", "relative": "minimize v_delta (secondary)"},
+    "selectors": {
+      "reml": "constrained REML on calibration data (primary)",
+      "anova_trunc": "raw ANOVA with negative estimates set to zero (secondary; labeled)",
+      "oracle": "true components (reference)"
+    },
+    "fixed_baselines_budget_16": {"equal": [4, 4], "more_a": [8, 2], "more_b": [2, 8]},
+    "marginal_variance_rule": "sees only the single-rating marginal variance, which is identical for all designs; it cannot rank designs and is implemented as the equal design [4,4]",
+    "formula_check_tolerance": "|mean observed error - population formula| <= 3.5 Monte Carlo standard errors for each design, error type and configuration (36 checks)",
+    "vulnerabilities": {
+      "V1_correlated_raters": {"config": "C1", "design": [8, 2], "pairs": 4, "rho": [0.5, 1.0],
+        "model": "rater-specific effects A, UA and AB of the second rater in each pair = rho * first + sqrt(1 - rho^2) * independent; residuals independent",
+        "analytic_actual": "v_Delta with v_a, v_ua, v_ab multiplied by (1 + rho)"},
+      "V2_group_heterogeneity": {"config": "C1", "design": [8, 2], "groups": {"L": {"ua": 0.2}, "H": {"ua": 1.0}},
+        "model": "calibration and evaluation objects split equally between two predeclared groups with different object-by-rater interaction variance; pooled mean 0.6 equals C1"},
+      "V3_population_shift": {"calibration_config": "C1", "design_from_calibration": "REML-selected at budget 16 (absolute target)",
+        "shifts": {"S1_restricted_object_range": {"u": 0.25}, "S2_occasion_instability": {"ub": 1.2}}},
+      "V4_dependent_occasions_in_calibration": {"config": "C2", "design": [2, 8], "rho": 0.8,
+        "model": "in calibration only, the object-by-occasion effect is (UB)_ub = sqrt(rho) W_u + sqrt(1 - rho) Z_ub (occasions too close in time); deployment occasions are independent; the universe score excludes W"}
+    },
+    "uncertainty": "Student-t 95% intervals over 256 independent replications for means and paired differences; Wilson 95% interval for proportions; p-val=n/a (no confirmatory test)"
+  },
+  "phase_c": {
+    "source": "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/private/historical_exp06/cached_v1/dataset.json (private, git-ignored; imported read-only)",
+    "upstream_source_commit": "be287d9bb2f7bd35ba6db1b8735c9ba10d00eade (brando90/veribench experiments/100_karpathy_recipe_tc_judge_search_human_train_val_test)",
+    "prior_exposure": "all ratings were seen in earlier work; the test split was previously used for historical evaluation; retrospective analysis only",
+    "primary_set": "historical test split: 30 artifacts, 10 tasks, all expert ratings available (2 or 3 per artifact)",
+    "secondary_set": "all 75 artifacts; train is in-sample for H1/H2 prompt development and val was used for historical selection",
+    "judges": {"H0_sol": "openai/gpt-6-sol-high", "H1_sol": "openai/gpt-6-sol-high", "H2_sol": "openai/gpt-6-sol-high",
+               "H0_opus": "anthropic/claude-opus-5-5 compute_effort max", "H2_opus": "anthropic/claude-opus-5-5 compute_effort max"},
+    "human_g_study": "experts p1 and p2 (each rates every artifact): balanced artifacts x 2 raters ANOVA; secondary: artifacts with all three experts x 3",
+    "judge_g_study": "each judge: balanced artifacts x 3 repeat calls ANOVA (repeat index is the facet)",
+    "judge_forecast": "3-call histogram smoothed with the experiment 02/06 primary floor (1 - 6e) q + e, e = 1e-6",
+    "baseline_forecast": "expert marginal histogram on the historical train split, same floor",
+    "external_metrics": ["RPS (primary)", "CE", "TVD_empirical", "MAE and bias of the 3-call mean vs the expert mean (0..5)", "judge and expert means", "Pearson", "Spearman", "Kendall tau-b", "ICC(A,1) and ICC(C,1) between the judge 3-call mean and the expert mean"],
+    "bootstrap": {"unit": "task", "draws": 10000, "seed": 20261113, "interval": "percentile 95%"},
+    "ranking_comparison": "Kendall tau-b between the judge order by internal 1-call Erho2 and by test RPS (5 judges; descriptive; p-val=n/a); paired task-bootstrap differences between the most repeatable judge and the lowest-RPS judge",
+    "sensitivity": "exclude artifacts flagged ref_ambiguous_in_window or ref_placeholder_at_annotation"
+  },
+  "measurement_contract": [
+    {"id": "A1.moments", "code": "scripts/check_counterexamples.py:a1", "expected": "mean(q_x) - mean(p_x) = 0 and var(q_x) - var(p_x) = 0 exactly for all 11 artifacts; third raw moment differs by 6 epsilon_x"},
+    {"id": "A1.validity", "code": "scripts/check_counterexamples.py:a1", "expected": "q_x sums to 1 exactly, q_x > 0, q_x != p_x"},
+    {"id": "A1.rps_excess", "code": "scripts/check_counterexamples.py:a1", "expected": "exactly (6/5) epsilon_x^2 > 0 per artifact"},
+    {"id": "A1.brier_tvd", "code": "scripts/check_counterexamples.py:a1", "expected": "Brier excess exactly 20 epsilon_x^2; population TVD exactly 4 epsilon_x"},
+    {"id": "A1.ce_excess", "code": "scripts/check_counterexamples.py:a1", "expected": "KL(p_x || q_x) > 0, finite"},
+    {"id": "A1.correlations", "code": "scripts/check_counterexamples.py:a1", "expected": "Pearson, Spearman and Kendall between forecast means and true means tie exactly (both 1)"},
+    {"id": "A1.components", "code": "scripts/check_counterexamples.py:a1", "expected": "population v_u, v_a, v_e, Erho2 and Phi identical for p- and q-panels (exact Fractions)"},
+    {"id": "A1_max.moments_and_gap", "code": "scripts/check_counterexamples.py:a1_max", "expected": "same exact moment equalities; RPS excess larger than A1 for every artifact (prediction, not a theorem)"},
+    {"id": "A1.finite_sample", "code": "scripts/check_counterexamples.py:a1_finite", "expected": "95% intervals of the paired mean difference of each raw ANOVA component estimate cover 0 (estimators are unbiased); no directional prediction for SD ratios or coefficient means"},
+    {"id": "A2.repeatable_wrong", "code": "scripts/check_counterexamples.py:a2", "expected": "deterministic wrong judge: v_e = 0, Erho2 = Phi = 1 exactly, equal to the deterministic oracle; RPS excess and TVD > 0 on j in {9,10,11} and 0 elsewhere; MAE > 0"},
+    {"id": "A2.constant", "code": "scripts/check_counterexamples.py:a2", "expected": "constant deterministic judge: coefficients undefined; constant sampled judge: coefficients 0"},
+    {"id": "A2.offset", "code": "scripts/check_counterexamples.py:a2", "expected": "human and shifted-judge panels have identical components and coefficients; bias exactly +1; RPS excess > 0; CE infinite; smoothed CE finite and above the oracle CE; pooled panel keeps Erho2 and lowers Phi"},
+    {"id": "A3.oracle", "code": "scripts/check_counterexamples.py:a3", "expected": "T = 1 has the lowest mean expected RPS and CE in the tempered family; its expected RPS is positive (irreducible disagreement); the mode point mass has infinite CE"},
+    {"id": "A3.sampled_reliability", "code": "scripts/check_counterexamples.py:a3", "expected": "sampled-score Erho2 increases as T decreases (prediction); mode point mass gives Erho2 = 1"},
+    {"id": "A3.population_dependence", "code": "scripts/check_counterexamples.py:a3", "expected": "oracle expected RPS 3/40 in both shift populations, MAE 0; sampled 1-rating Erho2 = 1/3 (narrow) and 5/7 (wide)"},
+    {"id": "A4.design", "code": "scripts/check_counterexamples.py:a4", "expected": "single-rating marginal variance 3 and v_u = 1 in both configs; at budget 16 C1 prefers [8,2] and C2 prefers [2,8] for both targets"},
+    {"id": "B.formula", "code": "scripts/run_d_study.py", "expected": "all 36 formula checks within 3.5 Monte Carlo standard errors"},
+    {"id": "B.selection", "code": "scripts/run_d_study.py", "expected": "REML selector picks the oracle design at budget 16 (absolute target) in at least 90% of replications in both configs; mean paired observed absolute-error reduction vs the equal design positive with a 95% interval above 0"},
+    {"id": "B.V1", "code": "scripts/run_d_study.py", "expected": "observed error above the naive prediction and consistent with the (1 + rho) analytic value"},
+    {"id": "B.V2", "code": "scripts/run_d_study.py", "expected": "pooled prediction near the group average; group H observed error about 0.1 above group L"},
+    {"id": "B.V3", "code": "scripts/run_d_study.py", "expected": "S1: absolute error unchanged but realized Phi far below the calibration prediction; S2: the calibration-chosen design is no longer the best under the shifted components"},
+    {"id": "B.V4", "code": "scripts/run_d_study.py", "expected": "calibration-estimated Phi exceeds the realized deployment Phi (inflation by dependent occasions)"},
+    {"id": "C.reliability_vs_accuracy", "code": "scripts/run_historical.py", "expected": "judges' 1-call test-retest Erho2 exceeds the 2-expert inter-rater single-rating Erho2 (prediction); no predicted relation between the judge order by reliability and by RPS"}
+  ]
+}

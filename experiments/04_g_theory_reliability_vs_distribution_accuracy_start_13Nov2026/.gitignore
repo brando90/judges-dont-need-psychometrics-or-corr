@@ -1,2 +1,4 @@
 # Published-paper reading copies; the public citation and receipt are in SOURCES.md.
 sources/local/
+# Per-item historical outputs, if any, stay private.
+private/
