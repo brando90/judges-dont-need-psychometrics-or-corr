@@ -8,7 +8,7 @@
 
 **Already done, do not repeat:** experiment 02 (CE-mixture versus Pearson-mixture on cached judge scores, held-out log loss difference −0.26 [−1.46, 0.20]); experiment 04 phase C (reliability versus RPS on the same data).
 
-**New in 06:**
+**New in this plan:**
 1. Per-artifact empirical information gap G from the expert ratings (with a shrinkage or Dirichlet-smoothed P because 2–3 ratings are sparse), then the correlation between G and the held-out RPS (ranked probability score) difference of the CE-trained and the Pearson-trained judge: if the theory is right, tasks with larger G favor CE.
 2. Same split protocol as experiment 02 (task-level 80/20, repeated splits, task-family bootstrap), primary metric RPS, secondary CE, TVD, Spearman, Pearson; Pearson-trained judge and CE-trained judge matched in data, family, and budget.
 3. Label DT or no DT and name harness and model for every run; write the protocol and predictions before measuring (freeze commit), results straight to main.
