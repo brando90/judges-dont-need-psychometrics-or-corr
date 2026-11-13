@@ -32,6 +32,10 @@ One judge family (softmax of a linear map of 13 cosine/sine features of the task
 
 The power-law fits and "tasks needed" counts are fitted to the seed-mean test excess as a function of n. They are not bounds.
 
+## Added figure and crossover (11-13-2026)
+
+[fig_excess_vs_n_without_head.png](fig_excess_vs_n_without_head.png) redraws the learning curves without the Pearson + calibrated head judge, with y-axes that name the metric (held-out test RPS excess; held-out test CE excess = KL(true ‖ judge) in nats). [scripts/plot_without_head_and_crossover.py](scripts/plot_without_head_and_crossover.py) makes it from the saved `results/raw.jsonl`, with no new fits, and prints paired per-seed differences (Pearson-trained minus CE-trained) with 95% bootstrap intervals over seeds. The CE-trained judge is significantly better on both test metrics at every n from 64 training tasks (192 ratings) in scenario A, and from 4 tasks (12 ratings) in scenario B. In scenario A the raw Pearson-trained judge is significantly better on test RPS up to 32 tasks (96 ratings).
+
 ## Uncertainty
 
 95% bootstrap intervals over the 100 seeds. No p-values were computed. This is a toy that works by construction; it is not evidence about real ratings.
