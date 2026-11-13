@@ -64,6 +64,39 @@ out = os.path.join(HERE, "fig_excess_vs_n_without_head.png")
 fig.savefig(out, dpi=130)
 print("wrote", os.path.relpath(out))
 
+# Full figure (all four fits, n -> infinity limits, power-law fit, targets) with metric-named axes.
+# Same content as the frozen fig_excess_vs_n.png, which labels its y-axis only "excess over true distribution".
+pop = json.load(open(os.path.join(HERE, "results", "population.json")))
+summary = json.load(open(os.path.join(HERE, "results", "summary.json")))
+FULL = FITS + ["pearson_head"]
+NAMES_FULL = dict(NAMES, pearson_head="Pearson-trained + calibrated head")
+COL_FULL = dict(COL, pearson_head="tab:orange")
+TARGET = {"rps_excess": 0.01, "ce_excess": 0.05}
+fig, axs = plt.subplots(2, 2, figsize=(11, 8), sharex=True)
+for i, sc in enumerate("AB"):
+    for j, met in enumerate(METRICS):
+        ax = axs[i, j]
+        for fit in FULL:
+            ms = np.array([mean_ci(values(sc, fit, met, n)) for n in NS])
+            ax.plot(NS, ms[:, 0], "o-", color=COL_FULL[fit], label=NAMES_FULL[fit], ms=3)
+            ax.fill_between(NS, ms[:, 1], ms[:, 2], color=COL_FULL[fit], alpha=0.15)
+            ax.axhline(pop[sc][fit][met], color=COL_FULL[fit], ls=":", lw=1)
+        d = summary[f"{sc}/ce/{met}"]
+        xs = np.logspace(np.log10(16), np.log10(2048), 50)
+        ax.plot(xs, d["E"] + d["A"] * xs ** (-d["alpha"]), "k--", lw=1, label="power-law fit to CE-trained")
+        ax.axhline(TARGET[met], color="gray", lw=1)
+        ax.text(NS[0], TARGET[met] * 1.08, f"target {TARGET[met]}", color="gray", fontsize=8)
+        ax.set_xscale("log"); ax.set_yscale("log")
+        ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
+        ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
+        ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
+axs[0, 0].legend(fontsize=7.5, loc="upper right")
+fig.suptitle("Experiment 13 (synthetic toy), all four objectives. Dotted: each fit's limit as n grows. Bands: 95% bootstrap over 100 seeds.", fontsize=10)
+fig.tight_layout()
+out = os.path.join(HERE, "fig_excess_vs_n_with_head_labeled.png")
+fig.savefig(out, dpi=130)
+print("wrote", os.path.relpath(out))
+
 for sc in "AB":
     truth_rps = np.mean([r["ce"]["rps"] - r["ce"]["rps_excess"] for r in rows if r["scenario"] == sc])
     print(f"\nScenario {sc}: test RPS of the true distribution itself (mean over all runs) = {truth_rps:.4f}")
