@@ -87,6 +87,16 @@ for i, sc in enumerate("AB"):
         ax.plot(xs, d["E"] + d["A"] * xs ** (-d["alpha"]), "k--", lw=1, label="power-law fit to CE-trained")
         ax.axhline(TARGET[met], color="gray", lw=1)
         ax.text(NS[0], TARGET[met] * 1.08, f"target {TARGET[met]}", color="gray", fontsize=8)
+        groups = {}
+        for comp, short in (("pearson", "Pearson-trained"), ("pearson_head", "Pearson + head")):
+            better = [mean_ci(values(sc, comp, met, n) - values(sc, "ce", met, n))[1] > 0 for n in NS]
+            start = next((NS[k] for k in range(len(NS)) if all(better[k:])), None)
+            if start is not None:
+                groups.setdefault(start, []).append(short)
+        for k, (start, names) in enumerate(sorted(groups.items())):
+            ax.axvline(start, color="black", ls="--", lw=1)
+            ax.annotate(f"CE-trained better than {' and '.join(names)}\nfrom n = {start} ({3 * start} ratings)", xy=(start, 0.03 + 0.12 * k),
+                        xycoords=("data", "axes fraction"), xytext=(4, 0), textcoords="offset points", fontsize=7, va="bottom")
         ax.set_xscale("log"); ax.set_yscale("log")
         ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
