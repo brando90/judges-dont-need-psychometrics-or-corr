@@ -1,8 +1,8 @@
-# Plan 06: distribution-matching versus correlation on VeriBench (not yet run)
+# Plan (next free experiment number): distribution-matching versus correlation on VeriBench (not yet run)
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/PLAN_06_veribench_comparison.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/PLAN_veribench_comparison.md>
 
-**TLDR:** Action item 2 of the 11-13-2026 Impromptu Call. It needs the private rating dataset (75 artifacts, 25 tasks, 195 expert ratings), which sits on Brando's Mac and in no public repository, so it is a separate run there. Free only: $0 hardware, no paid API.
+**TLDR:** Action item 2 of the 11-13-2026 Impromptu Call. It needs the private rating dataset (75 artifacts, 25 tasks, 195 expert ratings), which sits on Brando's Mac and in no public repository, so it is a separate run there, as the next free experiment number (06 is taken by the rank-objective toy). Free only: $0 hardware, no paid API.
 
 **Question:** on real VeriBench ratings, does a judge trained for distribution matching (CE against the human rating) forecast held-out human ratings better than a correlation-trained judge?
 

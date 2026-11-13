@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md>
 
-**Status, 11-13-2026:** COMPLETE for the derivation and its numerical check. Not archived: the real-data comparison (plan 06) and paper integration are open.
+**Status, 11-13-2026:** COMPLETE for the derivation and its numerical check. Not archived: the real-data comparison (the VeriBench plan) and paper integration are open.
 
 All numbers are exact computations on known distributions (no sampling, no held-out split, no ratings). Source: `results/gap_check.json`, produced by `gap_check.py` (seed 0 for random distributions).
 
