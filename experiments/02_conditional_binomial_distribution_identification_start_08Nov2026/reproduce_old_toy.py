@@ -5,7 +5,7 @@ import hashlib,json,os,subprocess,sys
 for key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):
     os.environ[key]='8'
 root=Path(__file__).resolve().parent
-old=root.parent/'01_synthetic_pearson_vs_kl_squashed_judge_0to5/kl_vs_corr.py'
+old=root.parent/'01_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026_end_07Nov2026/kl_vs_corr.py'
 result=subprocess.run([sys.executable,str(old)],text=True,capture_output=True,check=True)
 (root/'results/old_toy_stdout.txt').write_text(result.stdout)
 expected=['A: noisy faithful      pearson=0.900 spearman=0.900 KL(P_h||P_j)= 0.001 nMSE=0.023',

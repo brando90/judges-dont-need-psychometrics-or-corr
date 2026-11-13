@@ -8,11 +8,11 @@
 
 | Historical identity and current home | Question or change | Relation to the other studies |
 | --- | --- | --- |
-| [06_information_loss_vs_correlation_judge_selection](../03_exp06_ce_vs_pearson_matched_budget/historical_exp06/README.md), retained within [03_exp06_ce_vs_pearson_matched_budget](../03_exp06_ce_vs_pearson_matched_budget/README.md) | Earlier fixed-candidate selection, probability-head fitting, distance comparisons and weighted-loss follow-ups; experiment 03 then compares cross-entropy and Pearson with certified mixture fits. | The complete earlier package was already migrated on 11-09-2026. The redundant source-repository copy is now retired; frozen source snapshots required by experiment 03 remain. |
-| [11_formulation4_train_only_ce_mixture_cv](11_formulation4_train_only_ce_mixture_cv/README.md) | Fit cross-entropy mixtures on training tasks only and evaluate with repeated five-fold splits. | Establishes the train-only baseline preceding experiment 12; it does not compare both training objectives. |
-| [12_formulation2_vs_4_corr_vs_ce_80_20_splits](12_formulation2_vs_4_corr_vs_ce_80_20_splits/README.md) | Compare correlation and cross-entropy training on repeated 80/20 task splits, plus a separate fixed-split agent comparison. | Extends the baseline with objective comparisons on the same five cached judges and historical ratings. |
-| [13_toy_pearson_vs_ce_nonlinear_ratings](13_toy_pearson_vs_ce_nonlinear_ratings/README.md) | Fit flexible judges to nonlinear synthetic rating distributions across training sizes. | A distinct synthetic illustration: unlike experiment 01's marginal-histogram example and experiment 02's fixed-candidate conditional-identification study, it learns a judge. It supplies no human observations or human sample-size guarantee. |
-| [14_open_weight_judge_pool_corr_vs_ce_80_20](14_open_weight_judge_pool_corr_vs_ce_80_20/README.md) | Expand experiment 12's judge pool with open-weight model outputs and a larger-pool Pearson solver. | Reuses the same human ratings. Its old-five-judge condition is a reproduction check; its added judge outputs are a distinct condition, not new human data. |
+| [06_information_loss_vs_correlation_judge_selection](../03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/historical_exp06/README.md), retained within [03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026](../03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/README.md) | Earlier fixed-candidate selection, probability-head fitting, distance comparisons and weighted-loss follow-ups; experiment 03 then compares cross-entropy and Pearson with certified mixture fits. | The complete earlier package was already migrated on 11-09-2026. The redundant source-repository copy is now retired; frozen source snapshots required by experiment 03 remain. |
+| [11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026](11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/README.md) | Fit cross-entropy mixtures on training tasks only and evaluate with repeated five-fold splits. | Establishes the train-only baseline preceding experiment 12; it does not compare both training objectives. |
+| [12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026](12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/README.md) | Compare correlation and cross-entropy training on repeated 80/20 task splits, plus a separate fixed-split agent comparison. | Extends the baseline with objective comparisons on the same five cached judges and historical ratings. |
+| [13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026](13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/README.md) | Fit flexible judges to nonlinear synthetic rating distributions across training sizes. | A distinct synthetic illustration: unlike experiment 01's marginal-histogram example and experiment 02's fixed-candidate conditional-identification study, it learns a judge. It supplies no human observations or human sample-size guarantee. |
+| [14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026](14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/README.md) | Expand experiment 12's judge pool with open-weight model outputs and a larger-pool Pearson solver. | Reuses the same human ratings. Its old-five-judge condition is a reproduction check; its added judge outputs are a distinct condition, not new human data. |
 
 ## Why there were so many similar folders
 
@@ -32,6 +32,20 @@ The [per-file migration manifest](MIGRATION_11-11-2026.json) records source comm
 - Frozen protocols, results, scripts, source hashes and historical README contents are unchanged. Their old paths and document addresses describe the run-time location; use this index and the manifest for current navigation.
 - No untracked or ignored files existed inside the moved public trees. Existing private experiment 06 inputs remain in experiment 03's ignored canonical store; its source-repository compatibility link stays because verified consumers and the prior migration check use it. No individual ratings were added to public Git by this move.
 
+## Folder renames — 11-13-2026
+
+Lifecycle dates were added to folder names ([agents-config Rule 88](https://github.com/brando90/agents-config/blob/main/rules/research.md#trigger-rule-88)); see the [experiments index](../README.md#folder-dates) for the git evidence behind each date. Folders were moved with `git mv`; no file contents inside them changed. Frozen manifests and migration receipts keep the paths recorded when they were written, and `verify_migration.py` maps those recorded paths to the current folders.
+
+| Previous path | Current path |
+| --- | --- |
+| `experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5/` | `experiments/01_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026_end_07Nov2026/` |
+| `experiments/02_conditional_binomial_distribution_identification/` | `experiments/02_conditional_binomial_distribution_identification_start_08Nov2026/` |
+| `experiments/03_exp06_ce_vs_pearson_matched_budget/` | `experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/` |
+| `experiments/archive/11_formulation4_train_only_ce_mixture_cv/` | `experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/` |
+| `experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/` | `experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/` |
+| `experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/` | `experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/` |
+| `experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/` | `experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/` |
+
 ## Verification receipt
 
 The transfer check verifies 195 mapped files: 112 newly copied files and the existing 83-file experiment 06 package. All 194 comparable source files match exactly; the one README navigation addition is retained in the manifest. Python syntax checks cover 68 files and JSON parsing covers 51. The earlier migration verifier also passes its 83 public files, 11 frozen files, six original imports and 1,521 private files. No scientific measurement was rerun.
@@ -44,7 +58,7 @@ From this repository's root:
 
 ```sh
 python3 experiments/archive/verify_migration.py
-python3 experiments/03_exp06_ce_vs_pearson_matched_budget/scripts/verify_migration.py --with-private
+python3 experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/scripts/verify_migration.py --with-private
 ```
 
 Omit `--with-private` on machines without the original private inputs. For source-history and removal verification, add `--source-repo /path/to/trustworthy-theorem-judges --check-source-removed` to the first command. These checks read saved evidence; they do not fit models, regenerate ratings or overwrite results.

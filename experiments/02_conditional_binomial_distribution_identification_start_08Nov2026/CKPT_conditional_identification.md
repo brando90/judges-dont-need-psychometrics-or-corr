@@ -14,7 +14,7 @@ Last updated: 11-08-2026 21:18 PST
 - No blocker. Three-page PDF built with pdfLaTeX/BibTeX; all pages inspected, no clipping or unresolved citations.
 ## Next steps
 - [p 10/10] Parent runs requested multi-provider review on exact handoff revision before main publication.
-- Exact command: python3 experiments/02_conditional_binomial_distribution_identification/verify_results.py
+- Exact command: python3 experiments/02_conditional_binomial_distribution_identification_start_08Nov2026/verify_results.py
 ## Brando to-do
 - None; parent owns multi-provider review and main publication.
 ## Log

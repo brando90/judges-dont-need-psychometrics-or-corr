@@ -11,6 +11,30 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
+# Folder lifecycle dates were added on 11-13-2026 (agents-config Rule 88). The manifest
+# keeps the destination paths recorded at migration time; read files from the current folders.
+RENAMED_11_13_2026 = {
+    'experiments/03_exp06_ce_vs_pearson_matched_budget/':
+        'experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/',
+    'experiments/archive/11_formulation4_train_only_ce_mixture_cv/':
+        'experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/',
+    'experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/':
+        'experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/',
+    'experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings/':
+        'experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/',
+    'experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20/':
+        'experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/',
+}
+
+
+def current_path(recorded):
+    text = recorded.as_posix()
+    for old, new in RENAMED_11_13_2026.items():
+        if text.startswith(old):
+            return Path(new + text[len(old):])
+    return recorded
+
+
 def verify(source_repo=None, check_source_removed=False):
     root = Path(__file__).resolve().parents[2]
     manifest = json.loads((root / 'experiments/archive/MIGRATION_11-11-2026.json').read_text())
@@ -21,7 +45,7 @@ def verify(source_repo=None, check_source_removed=False):
         assert not relative.is_absolute() and '..' not in relative.parts
         assert str(relative) not in seen, relative
         seen.add(str(relative))
-        data = (root / relative).read_bytes()
+        data = (root / current_path(relative)).read_bytes()
         assert sha256(data) == record['destination_sha256'], relative
         if record['preservation'] == 'byte_identical':
             assert sha256(data) == record['source_sha256'], relative

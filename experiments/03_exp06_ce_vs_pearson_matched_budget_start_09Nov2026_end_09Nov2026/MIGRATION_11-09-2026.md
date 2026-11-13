@@ -1,6 +1,6 @@
 # Historical objective experiments: canonical repository migration
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget/MIGRATION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/MIGRATION_11-09-2026.md>
 
 **TLDR:** The working directory and completed CE-versus-Pearson comparison were already in this repository. This migration completes the missing historical experiment package, including prompts, protocols, reports, checkpoints, original images and private reconstruction inputs; it does not rerun or amend a scientific condition.
 
@@ -35,7 +35,7 @@ The former public experiment remains a frozen source copy with a relocation noti
 From the repository root:
 
 ```sh
-python3 experiments/03_exp06_ce_vs_pearson_matched_budget/scripts/verify_migration.py --with-private
+python3 experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/scripts/verify_migration.py --with-private
 ```
 
 Without private access, omit --with-private to verify all public historical files, the repaired comparison's freeze, and its six original source imports. The copied historical Python hierarchy is preserved so the two follow-ups can still resolve their parent scripts. Verification does not authorize a new fit or change any saved experiment result.
