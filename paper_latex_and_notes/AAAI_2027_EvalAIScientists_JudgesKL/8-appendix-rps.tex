@@ -88,6 +88,19 @@ Judge~A predicts the human distribution; Judge~B puts all its mass on 4.
 Both have expected rating 4, so on every such artifact they produce the same expected rating and any correlation with human mean ratings scores them identically.
 Their expected RPS differs: $0.10$ for Judge~A (all irreducible disagreement) and $0.20$ for Judge~B. A uniform forecast over $0,\dots,5$ scores $0.206$.
 
+\paragraph{Why mean-based metrics miss this: the mean is the sum of the survival function.}
+For ratings in $\{0,\dots,5\}$, the expected rating is the sum of the survival function over the thresholds:
+\begin{equation}
+\E_q[R]=\sum_{j=0}^{4}\Pr_q[R>j]=\sum_{j=0}^{4}S_j.
+\label{eq:mean-survival}
+\end{equation}
+Mean squared error between expected ratings depends on a forecast only through this sum.
+Correlation across artifacts is weaker still: it is also unchanged when the sums are shifted or positively rescaled.
+So survival gaps of opposite sign at different thresholds cancel in every mean-based metric.
+RPS squares the gap at each threshold before adding, so they cannot cancel.
+In the example above, Judge~A has $S=(1,1,1,0.5,0.5)$ and Judge~B has $S=(1,1,1,1,0)$.
+Both sum to $4$, so their gaps $(0,0,0,+0.5,-0.5)$ cancel in the mean, while their squares give the excess expected RPS $(0.25+0.25)/5=0.10$.
+
 \paragraph{Why the cumulative form: robustness with few ratings.}
 Each artifact has only two or three human ratings, so its rating histogram leaves at least three of the six bins empty.
 Distances computed bin by bin between the judge's probability mass function and such a histogram are dominated by the empty bins.

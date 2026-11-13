@@ -49,6 +49,20 @@ def main():
     print(f"  forecast = uniform on 0..5:      expected RPS = {expected_rps(np.ones(K) / K, p):.3f}")
     print(f"  both first two forecasts have mean rating {float(p @ GRID):.1f} and {float(point_mass(4) @ GRID):.1f}")
 
+    # The mean is the sum of the survival function: survival gaps can cancel in the mean, not in RPS.
+    surv = lambda f: 1 - np.cumsum(f)[:5]
+    s_true, s_four = surv(p), surv(point_mass(4))
+    print("  survival S_j, j=0..4: human distribution", s_true.tolist(), " all mass on 4", s_four.tolist())
+    print(f"  sums (= mean ratings): {s_true.sum():.1f} and {s_four.sum():.1f};"
+          f" gaps {(s_four - s_true).tolist()} sum to {(s_four - s_true).sum():.1f};"
+          f" squared gaps / 5 = {np.mean((s_four - s_true) ** 2):.2f} = excess expected RPS")
+    worst = 0.0
+    rng_mean = np.random.default_rng(1)
+    for _ in range(1000):
+        f = rng_mean.dirichlet(np.ones(K))
+        worst = max(worst, abs(float(f @ GRID) - surv(f).sum()))
+    print(f"  E[R] = sum_j S_j on 1,000 random forecasts: max absolute error {worst:.1e}")
+
     print("Range: RPS(all mass on 0, r=5) =", rps(point_mass(0), 5))
 
     rng = np.random.default_rng(0)
