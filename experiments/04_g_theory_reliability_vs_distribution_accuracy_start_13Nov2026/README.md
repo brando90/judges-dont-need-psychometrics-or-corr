@@ -4,7 +4,7 @@
 
 **TLDR:** Test whether generalizability-theory reliability coefficients or human-variance matching are sufficient to identify an accurate human-rating judge. Separately test whether variance decomposition improves evaluation-design choices; a counterexample to sufficiency would not refute that use of the theory.
 
-**Status:** COMPLETE — Phases A (exact counterexamples), B (decision-study simulation) and C (retrospective historical ratings) ran on 11-13-2026 under a protocol frozen before measurement. Results: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Not archived: paper integration and the Google companion remain open.
+**Status:** COMPLETE — Phases A (exact counterexamples), B (decision-study simulation) and C (retrospective historical ratings) ran on 11-13-2026 under a protocol frozen before measurement. Results: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Not archived: paper integration remains open. Google companion: [research notes Doc](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit), section "Experiment 04 results".
 
 **Goal:** Find the strongest defensible counterexample to treating aggregate reliability as sufficient evidence of judge trustworthiness, and identify what generalizability theory adds beyond direct predictive evaluation.
 
@@ -64,6 +64,6 @@ CKPT_g_theory_plan.md             Checkpoint and log
 sources/local/, private/          Ignored: paper reading copy; private data (none written)
 ```
 
-Open items: integrate into the AAAI-27 workshop paper if Brando wants it; sync the Google companion. A harder Phase B condition (close configurations, fewer calibration levels) would show how often allocation fails with weak signals; it was not part of this plan.
+Open items: integrate into the AAAI-27 workshop paper if Brando wants it. A harder Phase B condition (close configurations, fewer calibration levels) would show how often allocation fails with weak signals; it was not part of this plan.
 
 **TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Reliability and moment matching are insufficient for human-rating distribution accuracy, while variance-based design allocation works when its assumptions hold. Experiment complete; paper integration open.

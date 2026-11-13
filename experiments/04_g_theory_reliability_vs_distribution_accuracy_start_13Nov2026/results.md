@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md>
 
-**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026. Not archived: paper integration and the Google companion remain open.
+**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026. Not archived: paper integration remains open.
 **Last updated:** 11-13-2026.
 
 Full report: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md). Reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Plan: [PLAN.md](PLAN.md). Frozen protocol and predictions: [protocol.json](protocol.json), hashes in [FREEZE.json](FREEZE.json) (commit `579915a`, before any measurement; two recorded code-only amendments).
@@ -20,6 +20,6 @@ Full report: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accurac
 
 Zero model calls, zero new ratings, $0; local CPU, about 31 s in total. Synthetic results establish counterexamples and in-model behavior, not deployment frequencies.
 
-**Google synchronization:** pending; see [SOURCES.md](SOURCES.md) for the destination. No document write is claimed.
+**Google companion:** synced 11-13-2026. Section "Experiment 04 results: reliability is not distribution accuracy" added before References in [Trustworthy LLM Judges: Research Notes and Experimental Framing](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit); read back and verified (styles, bullets, links).
 
 **TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Experiment complete: reliability and moment matching are insufficient for human-rating distribution accuracy, while variance-component design allocation works when its assumptions hold.

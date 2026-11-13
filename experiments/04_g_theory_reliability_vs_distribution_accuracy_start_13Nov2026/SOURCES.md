@@ -48,7 +48,7 @@ The relative coefficient Eρ² and absolute coefficient Φ are explicitly define
 
 ## Google companion
 
-Pending synchronization destination: the existing [Trustworthy LLM Judges: Research Notes and Experimental Framing](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit), linked from this repository's earlier research synthesis. No Google write or delivery is claimed. The exact pending addition is:
+Synchronization destination (results section added and verified 11-13-2026; the planned-text block below is the historical pending note): the existing [Trustworthy LLM Judges: Research Notes and Experimental Framing](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit), linked from this repository's earlier research synthesis. No Google write or delivery is claimed. The exact pending addition is:
 
 > Experiment 04 — reliability versus human-rating distribution accuracy (planned, 11-13-2026). The supplied introduction by Shavelson, Webb and Rowley (1989) motivates variance decomposition and evaluation-design allocation, not distributional accuracy guarantees. We will test same-moment/different-distribution and repeatable-but-wrong counterexamples, while retaining a positive control where decision-study allocation should work. No experiment has run and no contemporary study has been refuted. Plan: https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/PLAN.md
 
