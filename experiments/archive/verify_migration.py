@@ -15,7 +15,7 @@ def sha256(data):
 # keeps the destination paths recorded at migration time; read files from the current folders.
 RENAMED_11_13_2026 = {
     'experiments/03_exp06_ce_vs_pearson_matched_budget/':
-        'experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/',
+        'experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/',
     'experiments/archive/11_formulation4_train_only_ce_mixture_cv/':
         'experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/',
     'experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits/':

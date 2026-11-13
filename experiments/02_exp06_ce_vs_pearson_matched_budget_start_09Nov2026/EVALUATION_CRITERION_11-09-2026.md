@@ -1,6 +1,6 @@
 # Evaluation criterion and repository ownership — 11-09-2026
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/EVALUATION_CRITERION_11-09-2026.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/EVALUATION_CRITERION_11-09-2026.md>
 
 **TLDR:** The prospective human-rating study uses normalized individual-rating ranked probability score (RPS) as its primary criterion, with cross-entropy (CE) and total variation distance (TVD) secondary. Completed experiment 03 keeps its frozen CE endpoint; neither its definition nor its result changes after this clarification.
 

@@ -1,6 +1,6 @@
 # Fix Pearson fits and rerun experiment 06 with matched budgets
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/ckpt.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/ckpt.md>
 
 **TLDR:** The matched cross-entropy versus Pearson comparison is complete; no scientific rerun remains under that request. This repository now also holds the full historical experiment package and private reconstruction inputs; see CKPT_migration_11-09-2026.md for the completed relocation.
 
@@ -78,11 +78,11 @@ Read this repository's `AGENTS.md` and the current shared instruction index befo
 
 - Migration completed 11-09-2026: the full historical package is now in `historical_exp06/`, with private inputs in `private/historical_exp06/`. [Migration checkpoint](CKPT_migration_11-09-2026.md) records current ownership, verification and compatibility paths. The source locations below describe historical provenance.
 - New canonical working repository: `/Users/brandomiranda/judges-dont-need-psychometrics-or-corr`.
-- New canonical experiment: `experiments/03_exp06_ce_vs_pearson_matched_budget_start_09Nov2026_end_09Nov2026/` in that repository. “Experiment 06” remains the historical sister-repository identifier; local number 03 avoids collisions with existing experiments 01 and 02.
+- New canonical experiment: `experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/` in that repository. “Experiment 06” remains the historical sister-repository identifier; local number 03 avoids collisions with existing experiments 01 and 02.
 - Historical repository: `/Users/brandomiranda/trustworthy-theorem-judges`.
 - Historical experiment root: `experiments/06_information_loss_vs_correlation_judge_selection/` inside that repository.
 - Preserve historical code, results, and their limitations. Copy only required code with source revisions/hashes or reference the historical files; do not overwrite the old condition as if it had converged.
-- This repository already has a completed synthetic conditional-distribution study at `experiments/02_conditional_binomial_distribution_identification_start_08Nov2026/`. Read its report and current paper claims before adding conclusions. It is not the cached human-rating experiment.
+- This repository already has a completed synthetic conditional-distribution study at `experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/`. Read its report and current paper claims before adding conclusions. It is not the cached human-rating experiment.
 - The main paper is `paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`; if results justify changing its text, rebuild the PDF using the current Makefile and preserve separate historical conditions.
 
 ## Read these source files first
