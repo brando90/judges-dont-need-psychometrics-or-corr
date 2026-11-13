@@ -15,5 +15,6 @@ Read `AGENTS.md`, section “Reporting results: name the data, the metric and th
 2. **Metric:** name, one-line definition, range or units, which direction is better, and a reference value for scale. Spell out acronyms at first use; always write “ranked probability score (RPS)”.
 3. **Differences:** subtract the same metric on the same data for two methods. Name methods by how they were trained or chosen (“Pearson-trained judge”), write the order in words and say what a positive value means. Never write a bare “CE minus Pearson”.
 4. **Uncertainty:** interval type, level, resampling unit and number of draws.
+5. **How the judge was chosen:** search space, objective and its data, optimizer or search, start and budget, and whether the optimum is guaranteed; a one-line version goes in every caption showing fitted or selected judges.
 
 Every plot axis label itself names its metric and split, never only the panel title; difference axes state their order. Data plots with numeric axes have gridlines (major, plus faint minor lines on log axes). Frozen result files are not rewritten; each experiment folder has a `HOW_TO_READ_RESULTS.md` instead.

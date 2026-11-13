@@ -36,6 +36,10 @@ The power-law fits and "tasks needed" counts are fitted to the seed-mean test ex
 
 [fig_excess_vs_n_with_head_labeled.png](fig_excess_vs_n_with_head_labeled.png) redraws the frozen `fig_excess_vs_n.png` (whose y-axis says only "excess over true distribution") with every axis naming its metric. [fig_excess_vs_n_without_head.png](fig_excess_vs_n_without_head.png) redraws the learning curves without the Pearson + calibrated head judge, with y-axes that name the metric (held-out test RPS excess; held-out test CE excess = KL(true ‖ judge) in nats). [scripts/plot_without_head_and_crossover.py](scripts/plot_without_head_and_crossover.py) makes it from the saved `results/raw.jsonl`, with no new fits, and prints paired per-seed differences (Pearson-trained minus CE-trained) with 95% bootstrap intervals over seeds. The CE-trained judge is significantly better on both test metrics at every n from 64 training tasks (192 ratings) in scenario A, and from 4 tasks (12 ratings) in scenario B. In scenario A the raw Pearson-trained judge is significantly better on test RPS up to 32 tasks (96 ratings).
 
+## How the judges were fitted
+
+Every judge is fitted by L-BFGS-B with analytic gradients, at most 400 iterations and 600 function evaluations, ridge penalty (1/n)‖W‖², starting from the training rating histogram everywhere plus a tiny seeded perturbation (`toy.fit`, `toy.marginal_W0`). The CE objective is convex in W (multinomial logistic regression), so its result does not depend on the optimizer once converged. The RPS and Pearson objectives are bounded, non-constant functions of W and therefore not convex, so their curves reflect this optimizer, start and budget; the Pearson fit constrains only the mean up to an affine map and leaves the rest of the distribution to the start and the ridge. Convergence within the budget was not recorded.
+
 ## Uncertainty
 
 95% bootstrap intervals over the 100 seeds. No p-values were computed. This is a toy that works by construction; it is not evidence about real ratings.

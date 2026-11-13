@@ -31,6 +31,10 @@ One judge family, q_W(r | x) = softmax(Wᵀφ(x))_r with 13 cosine/sine features
 
 "Objective minus CE-trained" is **the test excess of the judge trained with that objective minus the test excess of the CE-trained judge, on the same seed's tasks.** Positive means the CE-trained judge did better. It never subtracts two different metrics.
 
+## How the judges were fitted
+
+The three new objectives use exactly experiment 13's optimizer (L-BFGS-B, at most 400 iterations and 600 evaluations), ridge (1/n)‖W‖² and starting point, through smooth surrogates with temperature 0.1. They are not convex, so these results reflect this optimizer, start and budget. Convergence within the budget was not recorded.
+
 ## Uncertainty
 
 95% percentile bootstrap intervals over the 100 seeds (10,000 draws). No p-values were computed. This is a toy that works by construction; it is not evidence about real ratings.
