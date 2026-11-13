@@ -1,4 +1,37 @@
 {
+  "amendments": [
+    {
+      "changed_files": [
+        "scripts/check_counterexamples.py"
+      ],
+      "hashes": {
+        "protocol.json": "a80859902c4f308db1b7d0de056aab9f4154c0a4f6e7a9493a72b59294c981f0",
+        "scripts/check_counterexamples.py": "64a1a56ccb95669f00a77c55df4f02ddbdd15047e79d28dc7deb6559ddddddfa",
+        "scripts/gtheory_lib.py": "244695a73be66003cc80cf5676acaaaa4d1754f1f1856efec58dd31fc0478aca",
+        "scripts/run_d_study.py": "04244a786cefa4e57d07d341830fb607f801b53445bf9e9fd53560a5e430658b",
+        "scripts/run_historical.py": "9849b1b1080b261def1e77f77fa660f7f0e10c10c9448be3fdf226a296a197c4",
+        "scripts/test_metrics.py": "1d6ed9a933cbc617726e83b0fda050500c7ed276734b7606020d0fab3cf2673c"
+      },
+      "reason": "Phase A crashed before writing any output: theta=1/2 has two equal modes. 'mode' is declared as the T->0 limit, which splits mass equally over tied modes; implemented exactly that. No configuration or contract expectation changed.",
+      "utc": "2026-11-13T20:01:11Z"
+    },
+    {
+      "changed_files": [
+        "scripts/check_counterexamples.py",
+        "scripts/run_historical.py"
+      ],
+      "hashes": {
+        "protocol.json": "a80859902c4f308db1b7d0de056aab9f4154c0a4f6e7a9493a72b59294c981f0",
+        "scripts/check_counterexamples.py": "64a1a56ccb95669f00a77c55df4f02ddbdd15047e79d28dc7deb6559ddddddfa",
+        "scripts/gtheory_lib.py": "244695a73be66003cc80cf5676acaaaa4d1754f1f1856efec58dd31fc0478aca",
+        "scripts/run_d_study.py": "04244a786cefa4e57d07d341830fb607f801b53445bf9e9fd53560a5e430658b",
+        "scripts/run_historical.py": "706199455df083fb1d2eb7d7145020dfdb480db4e16726c01ebaf0f158f467b5",
+        "scripts/test_metrics.py": "1d6ed9a933cbc617726e83b0fda050500c7ed276734b7606020d0fab3cf2673c"
+      },
+      "reason": "Phase C stopped at its input check before computing anything: the protocol's upstream_source_commit field carries a descriptive suffix; compare the commit hash token only. No analysis choice changed.",
+      "utc": "2026-11-13T20:02:49Z"
+    }
+  ],
   "hashes": {
     "protocol.json": "a80859902c4f308db1b7d0de056aab9f4154c0a4f6e7a9493a72b59294c981f0",
     "scripts/check_counterexamples.py": "5277cc8948637f6ae064357cd202a80920fd38f4e1d4d617bf8c2aec36b94bef",

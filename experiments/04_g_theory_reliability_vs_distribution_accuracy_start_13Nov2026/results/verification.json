@@ -1,0 +1,701 @@
+{
+ "n_checks": 134,
+ "n_fail": 0,
+ "post_hoc_diagnostics": {
+  "A1_finite_sample_v_u_difference_rerun": {
+   "label": "post hoc diagnostic; frozen result unchanged",
+   "replications": 20000,
+   "seed": 4099,
+   "mean_q_minus_p": -0.0014914489795918367,
+   "ci95": [
+    -0.006074898564487231,
+    0.0030920006053035574
+   ]
+  },
+  "B_C1_4x8_absolute_formula_rerun": {
+   "label": "post hoc diagnostic; frozen result unchanged",
+   "replications": 8192,
+   "condition_id": 901,
+   "population": 0.34375,
+   "mean": 0.3432356583815828,
+   "z": -0.19635569865421215,
+   "skewness": 2.768908050042213,
+   "frozen_mean": 0.30459208830369494,
+   "frozen_sample_sd": 0.17260897783498222,
+   "large_sample_sd": 0.2370844820721254,
+   "frozen_z_using_large_sample_sd": -2.642630093985992
+  }
+ },
+ "checks": [
+  {
+   "check": "A1.moments[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.moments[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.rps_excess[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1.tvd[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[3]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[4]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[5]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[6]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[7]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[8]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[9]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[10]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.moments[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.rps_excess[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A1_max.tvd[11]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A4.optimum[C1,absolute]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A4.optimum[C1,relative]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A4.optimum[C2,absolute]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A4.optimum[C2,relative]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "A3.oracle_3call_identity",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,2x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,4x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C1,8x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,2x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,4x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x2_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x2_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x4_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x4_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x8_abs]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.formula_mean[C2,8x8_rel]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.choices_from_saved_estimates[C1]",
+   "pass": true,
+   "detail": "0 mismatches"
+  },
+  {
+   "check": "B.oracle_proportion[C1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.paired_vs_equal[C1]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.choices_from_saved_estimates[C2]",
+   "pass": true,
+   "detail": "0 mismatches"
+  },
+  {
+   "check": "B.oracle_proportion[C2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "B.paired_vs_equal[C2]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.rps[H0_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.mae[H0_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.icc_a1[H0_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.erho2_1[H0_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.rps[H1_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.mae[H1_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.icc_a1[H1_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.erho2_1[H1_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.rps[H2_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.mae[H2_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.icc_a1[H2_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.erho2_1[H2_sol]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.rps[H0_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.mae[H0_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.icc_a1[H0_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.erho2_1[H0_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.rps[H2_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.mae[H2_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.icc_a1[H2_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.erho2_1[H2_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.kendall_tau_from_orders",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

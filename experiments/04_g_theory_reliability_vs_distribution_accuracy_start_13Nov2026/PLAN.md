@@ -4,6 +4,8 @@
 
 **TLDR:** First test whether matching means, variances and reliability coefficients can leave human-rating distributions wrong. Then test generalizability theory on its own evaluation-design objective, including a condition where it should succeed; do not turn a prediction-target mismatch into a claim that the theory is false.
 
+**Executed 11-13-2026:** see [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); the executable protocol is [protocol.json](protocol.json). This plan is kept as written.
+
 **Status:** PROPOSED — NOT RUN, 11-13-2026. Mathematical constructions below are predictions to verify, not measured results or machine-checked proofs. Proposed grids and tolerances are agent choices, not deployment standards. Commit executable definitions, configuration and expected outcomes before measurement; later changes become a new version.
 
 ## 1. Claims and attribution

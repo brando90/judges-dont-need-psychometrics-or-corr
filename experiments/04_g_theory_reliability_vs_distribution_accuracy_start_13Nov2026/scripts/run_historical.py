@@ -150,7 +150,7 @@ def main():
     t0 = time.time()
     raw = SRC.read_bytes()
     data = json.loads(raw)
-    assert data['source_commit'] == CFG['upstream_source_commit']
+    assert data['source_commit'] == CFG['upstream_source_commit'].split()[0]   # amendment 2: hash token only
     rows = data['rows']
     assert len(rows) == 75 and all(len(data['outputs'][j]) == 75 for j in JUDGES)
     assert all(r['ratings_by_expert'][0] is not None and r['ratings_by_expert'][1] is not None for r in rows)

@@ -4,7 +4,7 @@
 
 **TLDR:** Test whether generalizability-theory reliability coefficients or human-variance matching are sufficient to identify an accurate human-rating judge. Separately test whether variance decomposition improves evaluation-design choices; a counterexample to sufficiency would not refute that use of the theory.
 
-**Status:** PLANNED — source reading and experimental design completed on 11-13-2026; no simulations, judge fitting or human-data analysis run. The start date records the beginning of this planning work.
+**Status:** COMPLETE — Phases A (exact counterexamples), B (decision-study simulation) and C (retrospective historical ratings) ran on 11-13-2026 under a protocol frozen before measurement. Results: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Not archived: paper integration and the Google companion remain open.
 
 **Goal:** Find the strongest defensible counterexample to treating aggregate reliability as sufficient evidence of judge trustworthiness, and identify what generalizability theory adds beyond direct predictive evaluation.
 
@@ -33,7 +33,7 @@ Shavelson, Webb and Rowley, **Generalizability Theory**, *American Psychologist*
 
 G and D name studies, not a universal pair of coefficients. No contemporary implementation is being reproduced or evaluated here. The paper itself warns about restricted generalization, dependence, unstable variance estimates and statistically optimized weights that lack conceptual justification. See [SOURCES.md](SOURCES.md) for page-specific evidence and reading scope.
 
-## Planned tests, in priority order
+## Tests, in priority order (all run 11-13-2026)
 
 1. **Same mean and variance, different distributions.** Construct distinct positive categorical forecasts with identical first two conditional moments; test whether second-moment reliability summaries tie while expected proper losses distinguish them.
 2. **Repeatable but wrong.** Test task-dependent deterministic errors and a shared score offset. Distinguish absolute reliability within a measurement system from absolute agreement with an external human target.
@@ -43,18 +43,27 @@ G and D name studies, not a universal pair of coefficients. No contemporary impl
 
 **Decision criterion:** A verified counterexample rejects only the corresponding sufficiency claim. Retain the D-study use case if its design predictions work under their assumptions. Stop a broad “G theory is unnecessary” claim if the results support complementarity instead.
 
+## Result in one paragraph
+
+Matching human means, variances and generalizability coefficients does not identify the human-rating distribution. Exact constructions tie on all of them while ranked probability score (RPS), cross-entropy (CE) and total variation distance (TVD) separate them. A judge that is wrong on 3 of 11 artifacts is perfectly repeatable. In the historical judge data, the most repeatable judge had the worst test RPS. The paper's own claim survives a fair test: variance components picked the best rating design in 256/256 simulated replications and failed only under the violations the paper itself warns about. See [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md) for numbers, intervals and the prediction-versus-observation table.
+
 ## Files and continuation
 
 ```text
-README.md                   Context, scope and planned tests
-PLAN.md                     Definitions, controls, proposed design and verdict rules
-SOURCES.md                  Paper identity, page map and attribution boundaries
-source_manifest.json        Supplied PDF retrieval details and SHA-256 digest
-results.md                  Status; no experimental results yet
-CKPT_g_theory_plan.md        Resumable planning checkpoint
-sources/local/              Ignored published-paper reading copy and extraction
+README.md                         Context, scope and tests
+PLAN.md                           Definitions, controls, design and verdict rules (planning record)
+protocol.json, FREEZE.json        Frozen configuration, predictions and hashes (before measurement)
+RESULTS_reliability_vs_accuracy.md  Generated full report (scripts/make_report.py)
+HOW_TO_READ_RESULTS.md            Data, metrics, differences and uncertainty for every number
+results.md                        Status
+results/                          phase_a/b/c.json, per-replication CSVs, verification, figure
+scripts/                          gtheory_lib, test_metrics, check_counterexamples, run_d_study,
+                                  run_historical, verify_results, make_figure, make_report, freeze
+SOURCES.md, source_manifest.json  Paper identity, page map and attribution boundaries
+CKPT_g_theory_plan.md             Checkpoint and log
+sources/local/, private/          Ignored: paper reading copy; private data (none written)
 ```
 
-Next implementation: follow [PLAN.md](PLAN.md), beginning with the finite-support moment counterexample and independent formula tests. Use local deterministic arithmetic before any larger simulation. Future numerical claims must be generated by scripts in this folder; no numerical outcome is inferred from this plan.
+Open items: integrate into the AAAI-27 workshop paper if Brando wants it; sync the Google companion. A harder Phase B condition (close configurations, fewer calibration levels) would show how often allocation fails with weak signals; it was not part of this plan.
 
-**TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] The experiment tests the limits of reliability as evidence of human-rating accuracy, while giving variance-based evaluation design a fair positive control. Planning is complete; the experimental verdict is pending.
+**TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Reliability and moment matching are insufficient for human-rating distribution accuracy, while variance-based design allocation works when its assumptions hold. Experiment complete; paper integration open.

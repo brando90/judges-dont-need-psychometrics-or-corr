@@ -324,9 +324,11 @@ def a3(P):
 
     def tempered(p, T):
         if T == 'mode':
+            # Amendment 1: the T -> 0 limit of p^(1/T) splits mass equally over tied modes
+            # (theta = 1/2 has p(2) = p(3)); the frozen prediction is left unchanged.
             m = max(p)
-            assert sum(x == m for x in p) == 1, 'mode tie'
-            return [1.0 if x == m else 0.0 for x in p]
+            k = sum(x == m for x in p)
+            return [1.0 / k if x == m else 0.0 for x in p]
         w = [x ** (1.0 / float(Fr(T))) for x in p]
         s = sum(w)
         return [x / s for x in w]
