@@ -1,0 +1,19 @@
+---
+description: Every reported number, table and plot states its data split, metric, difference order and uncertainty.
+alwaysApply: true
+---
+
+# Result clarity
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/result-clarity.mdc>
+
+**TLDR:** A reader must know, without opening code, which data a number was computed on, which metric it is, and what was subtracted from what.
+
+Read `AGENTS.md`, section “Reporting results: name the data, the metric and the comparison.” It holds the same project rule as `CLAUDE.md`. In short:
+
+1. **Data:** say train, validation or held-out test, what was held out and how many, and whether the held-out ratings were seen in earlier work. Label in-sample numbers as in-sample.
+2. **Metric:** name, one-line definition, range or units, which direction is better, and a reference value for scale.
+3. **Differences:** subtract the same metric on the same data for two methods. Name methods by how they were trained or chosen (“Pearson-trained judge”), write the order in words and say what a positive value means. Never write a bare “CE minus Pearson”.
+4. **Uncertainty:** interval type, level, resampling unit and number of draws.
+
+Plot axis titles name the metric, the split and the difference order. Frozen result files are not rewritten; each experiment folder has a `HOW_TO_READ_RESULTS.md` instead.

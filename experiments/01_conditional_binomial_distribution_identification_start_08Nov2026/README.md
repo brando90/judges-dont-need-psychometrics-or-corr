@@ -2,6 +2,8 @@
 
 Controlled synthetic study of conditional rating-distribution identification. See [PROTOCOL.md](PROTOCOL.md) for the fixed procedure and predictions, [RESULTS_conditional_identification.md](RESULTS_conditional_identification.md) for the completed report, [results.md](results.md) for status, and [CKPT_conditional_identification.md](CKPT_conditional_identification.md) for continuation.
 
+**How to read the results:** [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) states which data (train, validation or held-out test), which metric and which comparison every reported number uses.
+
 This experiment remains at its canonical numbered home while the parent completes the requested multi-provider review and integrates the paper. It is separate from theorem-judge experiment06's historical fitting and its completed weighted-probability follow-up.
 
 ```bash

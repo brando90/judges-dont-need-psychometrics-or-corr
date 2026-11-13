@@ -2,6 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md>
 
+**How to read the results:** [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) states which data (train, validation or held-out test), which metric and which comparison every reported number uses.
+
 Diagnose historical experiment 06’s Pearson failure and compare cross-entropy with Pearson within a shared, certified probability-mixture family. The comparison is complete; it does not establish CE superiority.
 
 - [Full results and statistics](RESULTS_comparison.md)

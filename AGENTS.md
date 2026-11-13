@@ -37,6 +37,19 @@ This is a research project. Each experiment lives in its own numbered experiment
 
 Read every setting, definition, number and citation from this repo (experiment READMEs, scripts, run records, the paper) before writing it. Write `unknown` only after a documented search, and never guess. **Never fabricate results or citations.** Every number in the README or paper must be printed by a script in `experiments/`. Planned work stays marked as planned.
 
+## Reporting results: name the data, the metric and the comparison (Brando, 11-13-2026)
+
+Every reported number, table, plot and caption (results files, READMEs, the paper, slides, artifacts and chat) must let a reader answer these questions without opening code:
+
+1. **Which data:** train, validation or held-out test; what was held out (tasks, task families, raters, seeds) and how many; and whether the held-out ratings were seen in earlier work (prior exposure). Label in-sample numbers as in-sample.
+2. **Which metric:** its name, a one-line definition, its range or units, and whether lower or higher is better. Give a reference value (a baseline or typical value) so the size of a difference can be judged.
+3. **What is subtracted:** a difference always subtracts the **same metric on the same data** for two methods; never subtract two different metrics. Name methods by how they were trained or chosen ("Pearson-trained judge", "CE-trained judge"), not by a bare metric name, and write the order in words, for example "test RPS of the Pearson-trained judge minus test RPS of the CE-trained judge; positive means the CE-trained judge is better". Never write a bare "CE minus Pearson".
+4. **Uncertainty:** interval type and level, resampling unit and number of draws.
+
+Plots: the axis title names the metric, the split and the order of any difference; the plot or its caption says which direction is better and gives the scale of the underlying metric. Frozen or archived result files are not rewritten: every experiment folder has a `HOW_TO_READ_RESULTS.md` that answers these questions for its results, and a new experiment adds one when its first results appear. Cursor carries the same rule in `.cursor/rules/result-clarity.mdc`.
+
+**Why:** Brando, 11-13-2026, on a results plot: "it needs to be clear if it's train or held out (unseen) test set ... I don't even know what the horizontal axis means, what is +0.05? What metric? train or test?" and, on a "CE minus Pearson" label, "I don't know what it means to subtract two different metrics."
+
 ## How we choose (learn) a judge: the formulations (Brando, 11-09-2026)
 
 **Any agent that prepares or dispatches the human-rating task packet reads this first and keeps the packet (instructions, rating scale, splits, what the ratings are used for) consistent with it.** Full notes and sources: judge paper Q&A Doc, Part 3 (<https://docs.google.com/document/d/1zB-gYk-zU1wToS_E_carGSRGtUcF1NgZ-jWF5t1SJws/edit>).

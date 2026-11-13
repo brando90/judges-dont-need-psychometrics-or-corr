@@ -2,6 +2,8 @@
 
 **Objective:** show that correlation with human scores can barely separate a faithful judge from one whose score distribution is badly off, while KL(P_human ‖ P_judge) separates them clearly.
 
+**How to read the results:** [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) states which data (train, validation or held-out test), which metric and which comparison every reported number uses.
+
 **Setting:** synthetic data with n=2000 human scores drawn uniformly from {0..5}, seed 0. Judge A = human score + noise in {-1,0,1}, clipped. Judge B = 5 if the human score is ≥3, otherwise 4 (order-preserving, squashed). KL is computed on Laplace-smoothed (alpha=1) marginal histograms. nMSE = mean((h-j)/5)^2.
 
 **Run:** `pip install numpy scipy && python kl_vs_corr.py`
