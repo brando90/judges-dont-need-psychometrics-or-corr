@@ -1,0 +1,44 @@
+already done 0 remaining 4400
+0 4400 5 s
+multiprocessing.pool.RemoteTraceback:
+"""
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/complexity.py", line 96, in run_one
+    choices["valcorr"] = pick(C_GRID, [v[1] for v in vs], False)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/complexity.py", line 73, in pick
+    return max(c for c, s in zip(cs, scores) if abs(s - best) <= 1e-12)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: max() arg is an empty sequence
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/run_sweep.py", line 32, in <module>
+    for i, (sc, n, s, o) in enumerate(pool.imap(cx.run_one, jobs, chunksize=4)):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/pool.py", line 423, in <genexpr>
+    return (item for chunk in result for item in chunk)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/pool.py", line 873, in next
+    raise value
+ValueError: max() arg is an empty sequence
+already done 208 remaining 4192
+0 4192 4 s
+400 4192 67 s
+800 4192 109 s
+1200 4192 155 s
+1600 4192 209 s
+2000 4192 273 s
+2400 4192 352 s
+2800 4192 443 s
+3200 4192 554 s
+3600 4192 714 s
+4000 4192 933 s
+done 1071 s
