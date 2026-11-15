@@ -143,7 +143,7 @@ def main():
     w('')
     w(f'The frozen A1 v_u interval excludes 0 narrowly (prediction mismatch). A post-hoc rerun with {d1["replications"]:,} new '
       f'replications (seed {d1["seed"]}) gives {d1["mean_q_minus_p"]:+.4f} [{d1["ci95"][0]:+.4f}, {d1["ci95"][1]:+.4f}], and the '
-      'sampler reproduces the pmf, so the frozen miss is consistent with sampling variability (the six intervals share panels, '
+      'sampler reproduces the probability mass function (PMF), so the frozen miss is consistent with sampling variability (the six intervals share panels, '
       'so no joint miss rate is computed). The A1_max v_e estimate is about 12% more variable than under p: equal coefficients do not mean equally precise estimates.')
     w('')
     w('### A2: repeatable but wrong; constant judge; shared offset')
@@ -200,7 +200,7 @@ def main():
     # ---------------------------------------------------------------- Phase B
     w('## Phase B — decision-study (D-study) allocation, a fair positive control')
     w('')
-    w('Continuous Gaussian crossed model, known components; 256 replications, each running calibration G study '
+    w('Continuous Gaussian crossed model, known components; 256 replications, each running calibration generalizability study (G study) '
       '(64 objects × 8 raters × 8 occasions) → constrained REML → design choice → evaluation of every design on 256 fresh '
       'objects with fresh raters, occasions and residuals. Absolute error = mean squared deviation of an object\'s observed mean '
       'from its universe score (expectation v_Δ; lower is better); relative error is its object-centered analogue (v_δ).')
@@ -270,7 +270,7 @@ def main():
       'does not adjust for that selection, so it is descriptive.')
     h3, h3a = ct['human_three_expert_secondary'], c['sets']['all75']['human_three_expert_secondary']
     w('')
-    w(f'Secondary three-expert agreement (declared in the protocol, computed during the Mega QA after the other results were seen; '
+    w(f'Secondary three-expert agreement (declared in the protocol, computed during Mega quality assurance (QA) after the other results were seen; '
       f'freeze amendment 3): on the {h3["n_artifacts"]} test artifacts rated by all three experts ({h3["n_tasks"]} tasks), single-rating '
       f'Eρ² {ci(h3["metrics"]["Erho2_1"])} and Φ {ci(h3["metrics"]["Phi_1"])}; on all {h3a["n_artifacts"]} such artifacts ({h3a["n_tasks"]} tasks), '
       f'Eρ² {ci(h3a["metrics"]["Erho2_1"])} and Φ {ci(h3a["metrics"]["Phi_1"])}. These subsets differ from the two-expert sets above; '

@@ -35,7 +35,7 @@ Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>`
 
 | Folder | Distinct question | Status |
 | --- | --- | --- |
-| [04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) | Are moment matching and generalizability-theory reliability sufficient for human-rating distribution accuracy, and when does variance decomposition improve evaluation design? | Active. Complete 11-13-2026: not sufficient (exact counterexamples; most repeatable historical judge had the worst test RPS); design allocation works under its assumptions. [Results](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md). AAAI-27 appendix added 11-14-2026; main-body cross-reference open |
+| [04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) | Are moment matching and generalizability-theory reliability sufficient for human-rating distribution accuracy, and when does variance decomposition improve evaluation design? | Active. Complete 11-13-2026: not sufficient (exact counterexamples; most repeatable historical judge had the worst test ranked probability score (RPS)); design allocation works under its assumptions. [Results](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md). AAAI-27 appendix added 11-14-2026; main-body cross-reference open |
 
 ## Historical human-rating objective comparisons
 
@@ -50,4 +50,4 @@ The [archive guide and migration receipt](archive/README.md) explain what change
 
 [trustworthy-theorem-judges experiment 09](https://github.com/brando90/trustworthy-theorem-judges/blob/main/experiments/09_prepare_packets_and_collect_human_ratings_start_28Sep2026/README.md) owns the current participant task and collection. Its original-rating provenance, practical judge comparison and task/solver/rater size planning stay in that project. This repository owns the general objective-comparison research and links to the authorized shared data rather than creating a competing collection.
 
-**TLDR-end:** [judge objectives: experiments] Separate synthetic distribution evidence, historical human-rating comparisons and the planned reliability study. The reliability study (04) finds reliability insufficient for distribution accuracy while design allocation works under its assumptions; existing evidence and shared-data limitations remain unchanged.
+**TLDR-end:** [judge objectives: experiments] Separate synthetic distribution evidence, historical human-rating comparisons and the reliability study. The reliability study (04) finds reliability insufficient for distribution accuracy while design allocation works under its assumptions; existing evidence and shared-data limitations remain unchanged.

@@ -37,7 +37,7 @@ Analyzing the human and judge panels separately gives the same variance componen
 
 \paragraph{Historical judges.}
 We reuse the historical test split of the section on historical theorem-judge evidence: 30 artifacts, 10 tasks and 78 expert ratings, all with prior exposure.
-For each of the five cached judges we compute the test--retest $E\rho^2$ of one call from its three repeated scores, and the held-out RPS of its three-call histogram with the $10^{-6}$ probability floor.
+For each of the five pre-existing cached judges (none fitted here) we compute the test--retest $E\rho^2$ of one call from its three repeated scores, and the held-out RPS of its three-call histogram with the $10^{-6}$ probability floor.
 The most repeatable judge ($E\rho^2=0.983$) had the highest RPS (0.273), and the judge with the lowest RPS (0.191) had $E\rho^2=0.818$.
 The held-out RPS of the most repeatable judge minus that of the lowest-RPS judge was $+0.082$ [$0.004$, $0.168$], a 95\% percentile interval over 10,000 task-bootstrap draws; positive means the more repeatable judge was worse.
 Both judges were identified on this same historical test split and then held fixed in the bootstrap, as were raters and calls; the interval is descriptive and does not adjust for selecting the pair.
@@ -52,6 +52,6 @@ The chosen design was the true optimal design in all 256 replications of both co
 Its held-out mean squared error around the artifact's universe score (expectation $v_\Delta$) minus that of the equal $4\times 4$ allocation was $-0.107$ [$-0.149$, $-0.065$] and $-0.072$ [$-0.108$, $-0.035$] (true difference $-0.100$, in units where $v_u=1$; negative means lower error for the chosen design; 95\% Student-$t$ intervals over 256 replications).
 One of 36 in-model error checks missed the prespecified 3.5 Monte Carlo standard-error tolerance; a larger post-hoc rerun was consistent with the formula and did not replace the failed check.
 Separate tests examined dependence, task-group heterogeneity and deployment shifts, limitations discussed by the source~\citep{shavelson1989generalizability}.
-With fixed designs, the independence-based prediction understated deployment error for correlated raters, heterogeneous task groups hid subgroup $\Phi$ differences ($0.808$ versus $0.748$) behind one pooled $\Phi$ ($0.777$), and dependent calibration occasions inflated predicted $\Phi$ by $+0.089$ [$0.085$, $0.093$].
+With fixed designs, the independence-based prediction understated deployment error for correlated raters, heterogeneous task groups hid subgroup $\Phi$ differences ($0.808$ versus $0.748$) behind one pooled $\Phi$ ($0.777$), and dependent calibration occasions inflated predicted $\Phi$ above realized deployment $\Phi$ ($0.777$) by $+0.089$ [$0.085$, $0.093$] (predicted minus realized).
 Under deployment shifts, narrowing artifact variance ($v_u$: $1\to 0.25$) left the optimal design ($8\times 2$) and squared error unchanged while lowering $\Phi$ from a predicted $0.775$ to $0.465$, whereas increasing artifact-by-occasion instability ($v_{ub}$: $0.1\to 1.2$) reversed the optimal design from the chosen $8\times 2$ to $4\times 4$ (held-out squared error of $4\times 4$ minus $8\times 2$: $-0.147$ [$-0.198$, $-0.097$]).
 We therefore use proper probability losses to choose a judge and variance components to plan rating effort; neither replaces the other.
