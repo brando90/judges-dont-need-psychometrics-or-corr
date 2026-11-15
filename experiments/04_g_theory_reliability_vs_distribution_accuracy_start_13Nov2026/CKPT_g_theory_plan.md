@@ -30,3 +30,4 @@ Last updated: 11-14-2026 (Mega QA stage 2)
 11-13-2026 -- Emailed verified results (Gmail id 1a1d688dcc090e5f, delivery checked) and synced the Google companion section.
 11-14-2026 -- Added AAAI-27 reliability appendix (`03ada1e`) and ran Mega QA stage 1 (`qa1_carbon`: clarified Phase B prediction-vs-selection wording, fixed `4-proposal.tex` sentence-per-line check, and expanded first-use acronyms in figure/report/guide).
 11-14-2026 -- Mega QA stage 2 (`qa2_codex_vals`, Codex CLI / gpt-6-astra / ultra): reproduced all required checks, preserved frozen outputs, corrected appendix/statistical interpretation and stage 1 mathematical-report errors; see `qa/mega_qa_11-14-2026/qa2_codex_vals.md`.
+11-14-2026 -- Builder, between Mega QA stages 2 and 3: freeze amendment 3 adds the protocol's secondary three-expert analysis and 10,000 all-75 draws (primary test results byte-identical); report generator wording corrected per QA2-F1/F2/F3; verification 140/140.

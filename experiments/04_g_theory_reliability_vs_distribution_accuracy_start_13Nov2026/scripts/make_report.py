@@ -52,15 +52,19 @@ def main():
     w('')
     w(f'**Doc link:** <{DOC}>')
     w('')
+    fc_n0 = sum(len(x) for x in b['formula_checks'].values())
+    fc_ok0 = sum(y['within_tolerance'] for x in b['formula_checks'].values() for y in x.values())
     w('**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: '
-      'exact counterexamples tie on every moment and coefficient while proper losses separate them, and in the historical '
-      'judges the most repeatable judge had the worst held-out ranked probability score (RPS). Variance decomposition did '
-      'its own job well: decision-study allocation chose the best design in every simulated replication, and its error '
-      'predictions or design choices failed only where its stated assumptions were broken. Complementary tools, not substitutes.')
+      'exact counterexamples tie on the mean, the variance and every population reliability coefficient while strictly proper '
+      'losses separate them, and among the historical judges the most repeatable one had the worst held-out ranked probability '
+      'score (RPS), a descriptive comparison on previously exposed ratings. Variance decomposition did its own job well: '
+      'decision-study allocation chose the best design in every simulated replication, its in-model error formulas met the '
+      f'tolerance in {fc_ok0} of {fc_n0} checks, and its predictions or design choices broke under the assumption violations '
+      'tested. Complementary tools, not substitutes.')
     w('')
     w(f'**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026 (Claude Code, `claude-opus-5-5`, desktop app; local CPU; '
       f'zero model calls, zero new human ratings, $0). {n_pass}/{len(contracts)} frozen predictions matched; the '
-      f'{len(contracts) - n_pass} mismatches are explained below (two Monte Carlo chance events, one construction tie). '
+      f'{len(contracts) - n_pass} mismatches are explained below (two consistent with sampling variability in labeled post-hoc diagnostics, one construction tie). '
       f'Formula checks {t["n_checks"] - t["n_fail"]}/{t["n_checks"]}; independent recomputation {v["n_checks"] - v["n_fail"]}/{v["n_checks"]}.')
     w('')
     w('Read [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) first for which data, metric and comparison each number uses. '
@@ -139,8 +143,8 @@ def main():
     w('')
     w(f'The frozen A1 v_u interval excludes 0 narrowly (prediction mismatch). A post-hoc rerun with {d1["replications"]:,} new '
       f'replications (seed {d1["seed"]}) gives {d1["mean_q_minus_p"]:+.4f} [{d1["ci95"][0]:+.4f}, {d1["ci95"][1]:+.4f}], and the '
-      'sampler reproduces the pmf; the frozen miss is a Monte Carlo chance event (6 simultaneous 95% intervals miss at least once '
-      'about 26% of the time). The A1_max v_e estimate is about 12% more variable than under p: equal coefficients do not mean equally precise estimates.')
+      'sampler reproduces the pmf, so the frozen miss is consistent with sampling variability (the six intervals share panels, '
+      'so no joint miss rate is computed). The A1_max v_e estimate is about 12% more variable than under p: equal coefficients do not mean equally precise estimates.')
     w('')
     w('### A2: repeatable but wrong; constant judge; shared offset')
     w('')
@@ -205,9 +209,9 @@ def main():
     fc_ok = sum(y['within_tolerance'] for x in b['formula_checks'].values() for y in x.values())
     d2 = v['post_hoc_diagnostics']['B_C1_4x8_absolute_formula_rerun']
     w(f'**Formula check:** {fc_ok}/{fc_n} observed mean errors within 3.5 Monte Carlo standard errors of the population formula. '
-      f'The miss (C1, 4×8, absolute: observed {f(d2["frozen_mean"], 4)} vs {f(d2["population"], 4)}) is a skewed-error chance event: '
+      f'The miss (C1, 4×8, absolute: observed {f(d2["frozen_mean"], 4)} vs {f(d2["population"], 4)}) is consistent with sampling variability under a skewed error distribution: '
       f'post hoc, {d2["replications"]:,} new replications give {f(d2["mean"], 4)} (z = {d2["z"]:.2f}); absolute error has skewness '
-      f'{d2["skewness"]:.1f}, and the frozen 256-run sample SD ({d2["frozen_sample_sd"]:.3f}) underestimated the true SD ({d2["large_sample_sd"]:.3f}). '
+      f'{d2["skewness"]:.1f}, and the frozen 256-run sample SD ({d2["frozen_sample_sd"]:.3f}) was below the large-sample estimate ({d2["large_sample_sd"]:.3f}). '
       f'REML converged {b["estimates"]["C1"]["reml_converged"]}/256 and {b["estimates"]["C2"]["reml_converged"]}/256; no raw ANOVA estimate was negative, so REML equalled ANOVA.')
     w('')
     w('| Config | Oracle design (16 ratings) | REML chose it | Held-out absolute error: chosen minus equal 4×4 [95% CI] | Chosen minus worst fixed design | Predicted minus true error of chosen |')
@@ -261,7 +265,16 @@ def main():
     w(f'Order by repeatability: {" > ".join(ct["order_by_reliability"])}. Order by test RPS (best first): {" > ".join(ct["order_by_rps"])}. '
       f'Kendall τ-b between the two orders = {ct["kendall_tau_reliability_vs_accuracy"]:.2f} (5 judges; descriptive, p-val=n/a). '
       f'Paired task bootstrap, {ct["most_repeatable_judge"]} minus {ct["lowest_rps_judge"]}: RPS {ci(pr["RPS"])} (positive = the more repeatable judge is worse), '
-      f'Eρ² {ci(pr["Erho2_1"])}, MAE {ci(pr["MAE"], 2)}.')
+      f'Eρ² {ci(pr["Erho2_1"])}, MAE {ci(pr["MAE"], 2)}. '
+      'Both judges were identified as extremes on this same test split; the interval holds raters, calls and the pair fixed and '
+      'does not adjust for that selection, so it is descriptive.')
+    h3, h3a = ct['human_three_expert_secondary'], c['sets']['all75']['human_three_expert_secondary']
+    w('')
+    w(f'Secondary three-expert agreement (declared in the protocol, computed during the Mega QA after the other results were seen; '
+      f'freeze amendment 3): on the {h3["n_artifacts"]} test artifacts rated by all three experts ({h3["n_tasks"]} tasks), single-rating '
+      f'Eρ² {ci(h3["metrics"]["Erho2_1"])} and Φ {ci(h3["metrics"]["Phi_1"])}; on all {h3a["n_artifacts"]} such artifacts ({h3a["n_tasks"]} tasks), '
+      f'Eρ² {ci(h3a["metrics"]["Erho2_1"])} and Φ {ci(h3a["metrics"]["Phi_1"])}. These subsets differ from the two-expert sets above; '
+      f'intervals are 95% percentile over {h3["bootstrap_draws"]:,} task-bootstrap draws of raw ANOVA ratios, which can be negative.')
     se = ct['sensitivity_excluding_flagged']
     a75 = c['sets']['all75']
     w('')
@@ -279,7 +292,7 @@ def main():
     w('')
     w('| ID | Matched? | Observed | Explanation if not |')
     w('| --- | --- | --- | --- |')
-    why = {'A1.finite_sample': 'Monte Carlo chance at 6 simultaneous intervals; post-hoc 20,000-replication rerun covers 0',
+    why = {'A1.finite_sample': 'Consistent with sampling variability: a post-hoc 20,000-replication rerun covers 0 (the six intervals share panels)',
            'A3.sampled_reliability': 'Monotone increase holds; "mode Eρ² = 1" was wrong because Binomial(5, θ) has two modes when 6θ is an integer (5 of 11 artifacts) and the declared T → 0 limit splits them',
            'B.formula': 'Skewed absolute error; post-hoc 8,192-replication rerun z = −0.20'}
     for x in contracts:
@@ -295,6 +308,8 @@ def main():
         w(f'- Amendment {am["utc"]}: {am["reason"]}')
     w('- Added beyond PLAN.md, declared before measurement: A1_max (largest same-moment RPS gap) and the 3-call-histogram RPS column.')
     w('- Post hoc and labeled: the two diagnostic reruns above; they do not replace frozen results.')
+    w('- Completed late (amendment 3, Mega QA finding QA2-F7): the protocol\'s secondary three-expert human analysis and the protocol\'s 10,000 task-bootstrap draws for the all-75 set (the frozen code had used 2,000). Primary test-split results were unchanged; all-75 point estimates were unchanged and only their intervals moved.')
+    w('- Mega QA (11-14-2026, three sequential reviewers) reports: [qa/mega_qa_11-14-2026/](qa/mega_qa_11-14-2026/).')
     w('- Phase A/B are constructed examples: they reject sufficiency claims and show in-model design value; they say nothing about how often these failures occur in deployed judges.')
     w('- Phase C has 5 judges from one solver population, 10 test tasks and previously exposed ratings; judge-to-judge differences other than the paired comparison have overlapping intervals. Raters and calls are held fixed in the task bootstrap.')
     w('- No claim about any unpublished study or contemporary implementation of generalizability theory is made.')

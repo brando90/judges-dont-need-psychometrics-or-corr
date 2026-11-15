@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md>
 
-**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: exact counterexamples tie on every moment and coefficient while proper losses separate them, and in the historical judges the most repeatable judge had the worst held-out ranked probability score (RPS). Variance decomposition did its own job well: decision-study allocation chose the best design in every simulated replication, and its error predictions or design choices failed only where its stated assumptions were broken. Complementary tools, not substitutes.
+**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: exact counterexamples tie on the mean, the variance and every population reliability coefficient while strictly proper losses separate them, and among the historical judges the most repeatable one had the worst held-out ranked probability score (RPS), a descriptive comparison on previously exposed ratings. Variance decomposition did its own job well: decision-study allocation chose the best design in every simulated replication, its in-model error formulas met the tolerance in 35 of 36 checks, and its predictions or design choices broke under the assumption violations tested. Complementary tools, not substitutes.
 
-**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026 (Claude Code, `claude-opus-5-5`, desktop app; local CPU; zero model calls, zero new human ratings, $0). 20/23 frozen predictions matched; the 3 mismatches are explained below (two Monte Carlo chance events, one construction tie). Formula checks 945/945; independent recomputation 134/134.
+**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026 (Claude Code, `claude-opus-5-5`, desktop app; local CPU; zero model calls, zero new human ratings, $0). 20/23 frozen predictions matched; the 3 mismatches are explained below (two consistent with sampling variability in labeled post-hoc diagnostics, one construction tie). Formula checks 945/945; independent recomputation 140/140.
 
 Read [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) first for which data, metric and comparison each number uses. Plan: [PLAN.md](PLAN.md). Frozen configuration and predictions: [protocol.json](protocol.json), hashed in [FREEZE.json](FREEZE.json) before measurement (commit `579915a`).
 
@@ -49,7 +49,7 @@ A1 follows PLAN.md exactly and is a valid but tiny counterexample (ε between 0.
 | v_rater | 0.0003 | -0.0004 [-0.0015, +0.0008] | +0.0001 [-0.0010, +0.0012] | 1.006 [0.943, 1.075] |
 | Eρ² (3 raters) | 0.7648 | -0.0027 [-0.0052, -0.0002] | -0.0003 [-0.0028, +0.0022] | 1.029 [0.992, 1.068] |
 
-The frozen A1 v_u interval excludes 0 narrowly (prediction mismatch). A post-hoc rerun with 20,000 new replications (seed 4099) gives -0.0015 [-0.0061, +0.0031], and the sampler reproduces the pmf; the frozen miss is a Monte Carlo chance event (6 simultaneous 95% intervals miss at least once about 26% of the time). The A1_max v_e estimate is about 12% more variable than under p: equal coefficients do not mean equally precise estimates.
+The frozen A1 v_u interval excludes 0 narrowly (prediction mismatch). A post-hoc rerun with 20,000 new replications (seed 4099) gives -0.0015 [-0.0061, +0.0031], and the sampler reproduces the pmf, so the frozen miss is consistent with sampling variability (the six intervals share panels, so no joint miss rate is computed). The A1_max v_e estimate is about 12% more variable than under p: equal coefficients do not mean equally precise estimates.
 
 ### A2: repeatable but wrong; constant judge; shared offset
 
@@ -86,7 +86,7 @@ a = raters, b = occasions; n_a × n_b ratings per object. Matching the single-ra
 
 Continuous Gaussian crossed model, known components; 256 replications, each running calibration G study (64 objects × 8 raters × 8 occasions) → constrained REML → design choice → evaluation of every design on 256 fresh objects with fresh raters, occasions and residuals. Absolute error = mean squared deviation of an object's observed mean from its universe score (expectation v_Δ; lower is better); relative error is its object-centered analogue (v_δ).
 
-**Formula check:** 35/36 observed mean errors within 3.5 Monte Carlo standard errors of the population formula. The miss (C1, 4×8, absolute: observed 0.3046 vs 0.3438) is a skewed-error chance event: post hoc, 8,192 new replications give 0.3432 (z = -0.20); absolute error has skewness 2.8, and the frozen 256-run sample SD (0.173) underestimated the true SD (0.237). REML converged 256/256 and 256/256; no raw ANOVA estimate was negative, so REML equalled ANOVA.
+**Formula check:** 35/36 observed mean errors within 3.5 Monte Carlo standard errors of the population formula. The miss (C1, 4×8, absolute: observed 0.3046 vs 0.3438) is consistent with sampling variability under a skewed error distribution: post hoc, 8,192 new replications give 0.3432 (z = -0.20); absolute error has skewness 2.8, and the frozen 256-run sample SD (0.173) was below the large-sample estimate (0.237). REML converged 256/256 and 256/256; no raw ANOVA estimate was negative, so REML equalled ANOVA.
 
 | Config | Oracle design (16 ratings) | REML chose it | Held-out absolute error: chosen minus equal 4×4 [95% CI] | Chosen minus worst fixed design | Predicted minus true error of chosen |
 | --- | --- | --- | --- | --- | --- |
@@ -120,7 +120,9 @@ Data: historical VeriBench judge study (upstream commit `be287d9bb2`), imported 
 | Reference: two experts (p1, p2) | inter-rater 0.800 [0.542, 0.880]; Φ 0.790 | — | — | — | — | — | — | — | — | — | Φ 0.79 | Eρ² 0.80 |
 | Reference: constant train-marginal forecast | undefined (constant) | 0 | 0.180 [0.139, 0.223] | 1.80 | 0.662 | — | — | — | — | — | — | — |
 
-Order by repeatability: H0_opus > H2_opus > H2_sol > H1_sol > H0_sol. Order by test RPS (best first): H0_sol > H2_opus > H2_sol > H1_sol > H0_opus. Kendall τ-b between the two orders = -0.40 (5 judges; descriptive, p-val=n/a). Paired task bootstrap, H0_opus minus H0_sol: RPS 0.082 [0.004, 0.168] (positive = the more repeatable judge is worse), Eρ² 0.164 [0.016, 0.349], MAE 0.41 [-0.01, 0.84].
+Order by repeatability: H0_opus > H2_opus > H2_sol > H1_sol > H0_sol. Order by test RPS (best first): H0_sol > H2_opus > H2_sol > H1_sol > H0_opus. Kendall τ-b between the two orders = -0.40 (5 judges; descriptive, p-val=n/a). Paired task bootstrap, H0_opus minus H0_sol: RPS 0.082 [0.004, 0.168] (positive = the more repeatable judge is worse), Eρ² 0.164 [0.016, 0.349], MAE 0.41 [-0.01, 0.84]. Both judges were identified as extremes on this same test split; the interval holds raters, calls and the pair fixed and does not adjust for that selection, so it is descriptive.
+
+Secondary three-expert agreement (declared in the protocol, computed during the Mega QA after the other results were seen; freeze amendment 3): on the 18 test artifacts rated by all three experts (6 tasks), single-rating Eρ² 0.550 [-0.216, 0.824] and Φ 0.524 [-0.162, 0.773]; on all 45 such artifacts (15 tasks), Eρ² 0.639 [0.305, 0.830] and Φ 0.633 [0.297, 0.790]. These subsets differ from the two-expert sets above; intervals are 95% percentile over 10,000 task-bootstrap draws of raw ANOVA ratios, which can be negative.
 
 Every judge's one-call repeatability exceeded the experts' agreement with each other (point estimates, 5/5; the interval excludes 0 for 3/5), yet no judge beat the constant train-marginal forecast on test RPS (point estimates). Test CE of 8.4–10.4 nats (vs 1.80 for the constant forecast) shows the 3-call histograms put almost no probability on ratings the experts gave. Excluding the 12 reference-flagged artifacts (18 left): repeatability order H0_opus > H2_opus > H2_sol > H1_sol > H0_sol; RPS order H2_opus > H2_sol > H1_sol > H0_sol > H0_opus — the most repeatable judge is still last. Secondary all-75 set (train is in-sample for H1/H2 prompt development): H2_opus is both most repeatable and lowest RPS (τ = -0.20), so the inversion is not universal — repeatability simply does not determine accuracy.
 
@@ -136,7 +138,7 @@ Every judge's one-call repeatability exceeded the experts' agreement with each o
 | A1.correlations | yes | `{"oracle": {"pearson": 0.9999999999999998, "spearman": 1.0, "kendall": 1.0}, "perturbed": {"pearson": 0.9999999999999998, "spearman": 1.0, "kendall": 1.0}}` |  |
 | A1.components | yes | `{"v_u": {"exact": "45/32", "float": 1.40625}, "v_e": {"exact": "121/96", "float": 1.2604166666666667}}` |  |
 | A1_max.moments_and_gap | yes | `"exact moments True; larger RPS gap than A1 in 11/11"` |  |
-| A1.finite_sample | **no** | `"5/6 component-difference intervals cover 0"` | Monte Carlo chance at 6 simultaneous intervals; post-hoc 20,000-replication rerun covers 0 |
+| A1.finite_sample | **no** | `"5/6 component-difference intervals cover 0"` | Consistent with sampling variability: a post-hoc 20,000-replication rerun covers 0 (the six intervals share panels) |
 | A2.repeatable_wrong | yes | `{"coefficients_all_1": true, "errors_exactly_on_subset": true, "mae": {"exact": "9/11", "float": 0.8181818181818182}}` |  |
 | A2.constant | yes | `{"deterministic_undefined": true, "sampled_zero": true}` |  |
 | A2.offset | yes | `{"bias": "+1 each", "ce_shifted": Infinity, "ce_smoothed": 2.492795490943334}` |  |
@@ -156,8 +158,11 @@ Every judge's one-call repeatability exceeded the experts' agreement with each o
 
 - Amendment 2026-11-13T20:01:11Z: Phase A crashed before writing any output: theta=1/2 has two equal modes. 'mode' is declared as the T->0 limit, which splits mass equally over tied modes; implemented exactly that. No configuration or contract expectation changed.
 - Amendment 2026-11-13T20:02:49Z: Phase C stopped at its input check before computing anything: the protocol's upstream_source_commit field carries a descriptive suffix; compare the commit hash token only. No analysis choice changed.
+- Amendment 2026-11-15T04:19:06Z: Mega QA finding QA2-F7: implement the protocol's declared secondary three-expert human G study (artifacts rated by all three experts; own task-bootstrap stream so primary results are unchanged) and use the protocol's 10,000 bootstrap draws for the all-75 set (frozen code used 2,000). Analysis added after other results were seen; labeled as such.
 - Added beyond PLAN.md, declared before measurement: A1_max (largest same-moment RPS gap) and the 3-call-histogram RPS column.
 - Post hoc and labeled: the two diagnostic reruns above; they do not replace frozen results.
+- Completed late (amendment 3, Mega QA finding QA2-F7): the protocol's secondary three-expert human analysis and the protocol's 10,000 task-bootstrap draws for the all-75 set (the frozen code had used 2,000). Primary test-split results were unchanged; all-75 point estimates were unchanged and only their intervals moved.
+- Mega QA (11-14-2026, three sequential reviewers) reports: [qa/mega_qa_11-14-2026/](qa/mega_qa_11-14-2026/).
 - Phase A/B are constructed examples: they reject sufficiency claims and show in-model design value; they say nothing about how often these failures occur in deployed judges.
 - Phase C has 5 judges from one solver population, 10 test tasks and previously exposed ratings; judge-to-judge differences other than the paired comparison have overlapping intervals. Raters and calls are held fixed in the task bootstrap.
 - No claim about any unpublished study or contemporary implementation of generalizability theory is made.
@@ -179,9 +184,9 @@ Phase C needs the private, git-ignored experiment 02 dataset; Phases A and B nee
 
 - `results/phase_a.json`: `1c41d2cd571f92ce980c5a5ed7f6b58046bfe1cb9f683418b0a48a2396d06e0e`
 - `results/phase_b.json`: `051269aa972b2e419d735161de09ec97d62b777a0bd7baa0b67b980785cc5644`
-- `results/phase_c.json`: `b17ef8e8cb3dc121d04127672952551f720f1805004f7e142b4b6592c62ceca1`
-- `results/verification.json`: `7260397f3a5e4f38b8790f08a5537f7adb5081eed9bdb45678e3f381b37dc431`
+- `results/phase_c.json`: `1a82c92ba01ab51a2ee9b3aa6fa04af054ad6203c27649efb5a36d5a68896822`
+- `results/verification.json`: `282fd6a176a00dfeb09b15f492d290dd4f945cb6be0af9ca4e3578662b352de4`
 - `results/test_metrics.json`: `76d54b25fd6c641956dd967dc7ba791ee8509b0cafcc535df491d616c212d688`
-- Software: Python 3.11.6, numpy 2.2.6, scipy 1.16.3. Runtimes: A 1.57 s, B 1.18 s, C 27.84 s.
+- Software: Python 3.11.6, numpy 2.2.6, scipy 1.16.3. Runtimes: A 1.57 s, B 1.18 s, C 101.5 s.
 
 **TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Reliability and moment matching are insufficient for human-rating distribution accuracy (exact counterexamples; the most repeatable historical judge had the worst test RPS), while variance-component design allocation works when its assumptions hold. Use proper losses to choose judges and G/D studies to plan rating effort.

@@ -1,5 +1,5 @@
 {
- "n_checks": 134,
+ "n_checks": 140,
  "n_fail": 0,
  "post_hoc_diagnostics": {
   "A1_finite_sample_v_u_difference_rerun": {
@@ -689,6 +689,36 @@
   },
   {
    "check": "C.erho2_1[H2_opus]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_n[test]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_erho2_1[test]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_phi_1[test]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_n[all75]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_erho2_1[all75]",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "C.three_expert_phi_1[all75]",
    "pass": true,
    "detail": ""
   },

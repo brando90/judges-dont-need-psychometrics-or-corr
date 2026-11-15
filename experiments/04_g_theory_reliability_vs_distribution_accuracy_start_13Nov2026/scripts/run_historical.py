@@ -72,7 +72,10 @@ def build(rows, outputs, train_marginal):
            'human_p12': np.array([[r['ratings_by_expert'][0], r['ratings_by_expert'][1]] for r in rows], float),
            'expert_mean': np.array([np.mean(r['ratings']) for r in rows]),
            'n_ratings': np.array([len(r['ratings']) for r in rows]),
-           'flagged': np.array([bool(r['ambiguous']) or not bool(r['ordinary']) for r in rows])}
+           'flagged': np.array([bool(r['ambiguous']) or not bool(r['ordinary']) for r in rows]),
+           # Amendment 3: protocol's secondary human G study uses artifacts rated by all three experts.
+           'has3': np.array([all(x is not None for x in r['ratings_by_expert'][:3]) for r in rows]),
+           'human_p123': np.array([[np.nan if x is None else x for x in r['ratings_by_expert'][:3]] for r in rows], float)}
     q0 = L.smooth(list(train_marginal), EPS)
     art['baseline'] = np.array([per_artifact_metrics(q0, r['ratings']) for r in rows])
     for j in JUDGES:
@@ -116,6 +119,14 @@ def metrics(art, ix):
                   'judge_mean': float(jm.mean()), 'expert_mean': float(hm.mean()),
                   'pearson': pr, 'spearman': sp, 'kendall': kt, 'ICC_A1': icc['ICC_A1'], 'ICC_C1': icc['ICC_C1']}
     return out
+
+
+def three_expert(art, ix):
+    """Amendment 3: secondary inter-rater G study on artifacts rated by all three experts (artifacts x 3 raters)."""
+    est, c1 = coefs(art['human_p123'][ix], 1)
+    _, c3 = coefs(art['human_p123'][ix], 3)
+    return {'v_u': est['u'], 'v_rater': est['a'], 'v_e': est['e'], 'Erho2_1': c1['Erho2'], 'Phi_1': c1['Phi'],
+            'Erho2_3': c3['Erho2'], 'Phi_3': c3['Phi']}
 
 
 def bootstrap(art, ix_set, draws, seed):
@@ -166,7 +177,7 @@ def main():
            'judges': CFG['judges'], 'probability_floor_epsilon': EPS, 'new_model_calls': 0, 'sets': {}}
     for name, ix in sets.items():
         point = metrics(art, ix)
-        samples = bootstrap(art, ix, bc['draws'] if name == 'test' else 2000, bc['seed'])
+        samples = bootstrap(art, ix, bc['draws'], bc['seed'])   # amendment 3: protocol draws for every set (all75 was 2,000)
         res = attach_ci(point, samples)
         rel = {j: point[j]['Erho2_1'] for j in JUDGES}
         rps = {j: point[j]['RPS'] for j in JUDGES}
@@ -180,6 +191,18 @@ def main():
                 paired[k] = {'point': d, **pct([s[most_rel][k] - s[best_rps][k] for s in samples])}
         judge_minus_human = {j: {'point': point[j]['Erho2_1'] - point['human']['Erho2_1'],
                                  **pct([s[j]['Erho2_1'] - s['human']['Erho2_1'] for s in samples])} for j in JUDGES}
+        ix3 = [i for i in ix if art['has3'][i]]
+        tasks3 = sorted({art['task'][i] for i in ix3})
+        by3 = {t: [i for i in ix3 if art['task'][i] == t] for t in tasks3}
+        rng3 = np.random.default_rng(np.random.SeedSequence([bc['seed'], 3]))
+        s3 = []
+        for _ in range(bc['draws']):
+            pick = rng3.integers(0, len(tasks3), len(tasks3))
+            s3.append(three_expert(art, [i for k in pick for i in by3[tasks3[k]]]))
+        p3 = three_expert(art, ix3)
+        human_three = {'n_artifacts': len(ix3), 'n_tasks': len(tasks3), 'bootstrap_draws': bc['draws'],
+                       'bootstrap_seed_sequence': [bc['seed'], 3],
+                       'metrics': {k: {'point': v, **pct([d[k] for d in s3])} for k, v in p3.items()}}
         tasks = sorted({art['task'][i] for i in ix})
         out['sets'][name] = {
             'n_artifacts': len(ix), 'n_tasks': len(tasks), 'n_expert_ratings': int(art['n_ratings'][ix].sum()),
@@ -188,6 +211,7 @@ def main():
             'order_by_reliability': sorted(JUDGES, key=lambda j: -rel[j]), 'order_by_rps': sorted(JUDGES, key=lambda j: rps[j]),
             'kendall_tau_reliability_vs_accuracy': tau, 'most_repeatable_judge': most_rel, 'lowest_rps_judge': best_rps,
             'paired_most_repeatable_minus_lowest_rps': paired, 'judge_minus_human_Erho2_1': judge_minus_human,
+            'human_three_expert_secondary': human_three,
         }
         if name == 'test':
             keep = [i for i in ix if not art['flagged'][i]]

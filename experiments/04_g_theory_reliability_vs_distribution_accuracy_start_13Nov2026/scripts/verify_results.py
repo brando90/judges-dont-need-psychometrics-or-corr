@@ -161,6 +161,18 @@ def verify_c():
         mse = (R ** 2).sum() / ((n - 1) * (k - 1))
         msu = k * ((X.mean(1) - X.mean()) ** 2).sum() / (n - 1)
         check(f'C.erho2_1[{j}]', close((msu - mse) / (msu + (k - 1) * mse), pt[j]['Erho2_1']['point'], 1e-9))
+    # amendment 3 secondary: three-expert single-rating Erho2 and Phi via explicit mean squares
+    for name, sel in (('test', lambda r: r['split'] == 'test'), ('all75', lambda r: True)):
+        X = np.array([r['ratings_by_expert'][:3] for r in rows if sel(r) and all(v is not None for v in r['ratings_by_expert'][:3])], float)
+        n, k = X.shape
+        R = X - X.mean(1, keepdims=True) - X.mean(0, keepdims=True) + X.mean()
+        mse = (R ** 2).sum() / ((n - 1) * (k - 1))
+        msu = k * ((X.mean(1) - X.mean()) ** 2).sum() / (n - 1)
+        msa = n * ((X.mean(0) - X.mean()) ** 2).sum() / (k - 1)
+        h3 = c['sets'][name]['human_three_expert_secondary']
+        check(f'C.three_expert_n[{name}]', h3['n_artifacts'] == n)
+        check(f'C.three_expert_erho2_1[{name}]', close((msu - mse) / (msu + (k - 1) * mse), h3['metrics']['Erho2_1']['point'], 1e-9))
+        check(f'C.three_expert_phi_1[{name}]', close((msu - mse) / (msu + (k - 1) * mse + k * (msa - mse) / n), h3['metrics']['Phi_1']['point'], 1e-9))
     o_rel = c['sets']['test']['order_by_reliability']
     o_rps = c['sets']['test']['order_by_rps']
     tau = stats.kendalltau([-o_rel.index(j) for j in o_rel], [-o_rps.index(j) for j in o_rel])[0]
