@@ -8,36 +8,41 @@
 
 \paragraph{Question.}
 Generalizability theory decomposes rating variance into components for artifacts, raters, occasions and their interactions~\citep{shavelson1989generalizability}.
-For an average of ratings over a chosen design, let $v_u$ be the variance of artifact scores, $v_\delta$ the relative error variance and $v_\Delta\ge v_\delta$ the absolute error variance, which also counts rater and occasion level shifts.
+For an average of ratings over a chosen design, let $v_u$ be the variance of artifact universe scores, $v_\delta$ the relative error variance and $v_\Delta\ge v_\delta$ the absolute error variance, which also counts rater and occasion level shifts.
 The relative and absolute coefficients are
 \begin{equation}
 E\rho^2=\frac{v_u}{v_u+v_\delta},\qquad \Phi=\frac{v_u}{v_u+v_\Delta}.
 \end{equation}
 Both measure how repeatable an averaged score is.
 We ask whether a high coefficient, or a judge whose ratings match the human mean and variance, implies an accurate forecast of the conditional rating distribution.
-The synthetic numbers below are exact expectations, and the protocol and every predicted value were fixed before measurement.
+The next two paragraphs evaluate synthetic population expectations without sampling; the design study below reports Monte Carlo estimates.
+The constructions and predictions were fixed before measurement.
 
 \paragraph{Same moments, different distribution.}
 Take 11 artifacts with human rating distributions $p_x=0.9\,\mathrm{Binomial}(5,\theta_x)+0.1\,\mathrm{Uniform}\{0,\dots,5\}$, with $\theta_x=j/12$ for $j=1,\dots,11$.
 For each $p_x$ we choose, among forecasts with the same mean and variance and every probability at least $0.01$, the one with the largest expected ranked probability score (RPS), by exact enumeration of the vertices of this feasible set.
+RPS lies in $[0,1]$, with lower values better; we weight artifacts equally.
 Ratings drawn independently from either distribution have the same variance components, so $E\rho^2$ and $\Phi$ agree for every number of raters, and the forecast means correlate perfectly with the human means.
 Yet the chosen forecasts are at mean total variation distance (TVD) 0.446 from the human distributions, and their expected RPS is higher by 0.0167; the human distributions themselves score 0.117, the irreducible rater disagreement.
-Matching first and second moments therefore leaves the distribution, and every proper loss that scores it, undetermined.
+Here $\mathrm{TVD}(q,p)=\tfrac12\sum_{r=0}^5|q_r-p_r|$ lies in $[0,1]$, with lower values better and zero for $q=p$.
+Matching first and second moments therefore does not determine the distribution or its expected strictly proper probability losses.
 
 \paragraph{Repeatable but wrong.}
 A judge that always returns the same forecast has no variance between calls, so its coefficients equal 1 whenever its forecast means vary across artifacts.
 A judge that returns the true distribution and a judge that is wrong on 3 of the 11 artifacts therefore both have $E\rho^2=\Phi=1$, while their expected RPS values are 0.117 and 0.228.
-Sharpening a forecast raises the reliability of its sampled ratings while worsening its accuracy.
+Sharpening beyond the true distribution raises the reliability of its sampled ratings while worsening its accuracy in this construction.
 Tempering the true distribution as $q\propto p^{1/T}$ raises the single-rating $E\rho^2$ of ratings sampled from $q$ from 0.527 at $T=1$ to 0.957 as $T\to0$, while expected RPS rises from 0.117 to 0.148.
-A judge whose ratings are the human ratings shifted up by one point has the same variance components, coefficients and mean-based correlations as the humans, yet its bias is $+1$ and its expected RPS rises from 0.074 to 0.161.
+In a separate five-artifact construction, human ratings lie in $\{1,2,3\}$ and judge ratings shift them up by one point without clipping.
+Analyzing the human and judge panels separately gives the same variance components, coefficients and mean-based correlations, yet the judge's bias is $+1$ and its expected RPS rises from 0.074 to 0.161.
 
 \paragraph{Historical judges.}
 We reuse the historical test split of the section on historical theorem-judge evidence: 30 artifacts, 10 tasks and 78 expert ratings, all with prior exposure.
 For each of the five cached judges we compute the test--retest $E\rho^2$ of one call from its three repeated scores, and the held-out RPS of its three-call histogram with the $10^{-6}$ probability floor.
 The most repeatable judge ($E\rho^2=0.983$) had the highest RPS (0.273), and the judge with the lowest RPS (0.191) had $E\rho^2=0.818$.
 The held-out RPS of the most repeatable judge minus that of the lowest-RPS judge was $+0.082$ [$0.004$, $0.168$], a 95\% percentile interval over 10,000 task-bootstrap draws; positive means the more repeatable judge was worse.
+Both judges were identified on this same historical test split and then held fixed in the bootstrap, as were raters and calls; the interval is descriptive and does not adjust for selecting the pair.
 No judge's RPS was below that of a constant forecast equal to the training-split rating histogram (0.180).
-All five judges were more repeatable than two experts agreed with each other ($E\rho^2=0.800$ for one rating).
+All five judges had higher point estimates of repeatability than the two experts' inter-rater agreement ($E\rho^2=0.800$ for one rating).
 
 \paragraph{What generalizability theory does well.}
 Its intended use is planning measurement: choosing how many raters and repeated occasions to average.
@@ -45,7 +50,8 @@ We simulated a crossed artifact $\times$ rater $\times$ occasion Gaussian model 
 In each of 256 replications, a $64\times 8\times 8$ calibration study estimated the variance components by constrained restricted maximum likelihood (which matched closed-form analysis of variance in every replication because no raw estimate was negative), chose the design with the smallest estimated $v_\Delta$ among the three 16-rating allocations ($8\times 2$, $4\times 4$, $2\times 8$), and scored every design on 256 fresh artifacts with fresh raters and occasions.
 The chosen design was the true optimal design in all 256 replications of both configurations.
 Its held-out mean squared error around the artifact's universe score (expectation $v_\Delta$) minus that of the equal $4\times 4$ allocation was $-0.107$ [$-0.149$, $-0.065$] and $-0.072$ [$-0.108$, $-0.035$] (true difference $-0.100$, in units where $v_u=1$; negative means lower error for the chosen design; 95\% Student-$t$ intervals over 256 replications).
-Predictions or design choices failed only when an assumption the theory itself warns about was violated~\citep{shavelson1989generalizability}: correlated raters, heterogeneous task groups, deployment shifts, and dependent calibration occasions.
-With fixed designs, correlated raters understated deployment error, heterogeneous task groups hid subgroup $\Phi$ differences ($0.808$ versus $0.748$) behind one pooled $\Phi$ ($0.777$), and dependent calibration occasions inflated predicted $\Phi$ by $+0.089$ [$0.085$, $0.093$].
+One of 36 in-model error checks missed the prespecified 3.5 Monte Carlo standard-error tolerance; a larger post-hoc rerun was consistent with the formula and did not replace the failed check.
+Separate tests examined dependence, task-group heterogeneity and deployment shifts, limitations discussed by the source~\citep{shavelson1989generalizability}.
+With fixed designs, the independence-based prediction understated deployment error for correlated raters, heterogeneous task groups hid subgroup $\Phi$ differences ($0.808$ versus $0.748$) behind one pooled $\Phi$ ($0.777$), and dependent calibration occasions inflated predicted $\Phi$ by $+0.089$ [$0.085$, $0.093$].
 Under deployment shifts, narrowing artifact variance ($v_u$: $1\to 0.25$) left the optimal design ($8\times 2$) and squared error unchanged while lowering $\Phi$ from a predicted $0.775$ to $0.465$, whereas increasing artifact-by-occasion instability ($v_{ub}$: $0.1\to 1.2$) reversed the optimal design from the chosen $8\times 2$ to $4\times 4$ (held-out squared error of $4\times 4$ minus $8\times 2$: $-0.147$ [$-0.198$, $-0.097$]).
 We therefore use proper probability losses to choose a judge and variance components to plan rating effort; neither replaces the other.

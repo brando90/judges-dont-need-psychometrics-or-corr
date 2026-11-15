@@ -5,7 +5,7 @@
 **TLDR:** All three phases ran on 11-13-2026 under a protocol frozen before measurement. Reliability and moment matching are insufficient for human-rating distribution accuracy; design allocation by variance components works when its assumptions hold. Remaining: optional main-body cross-reference to the 11-14-2026 AAAI-27 reliability appendix.
 
 Created: 11-13-2026 11:38 PST
-Last updated: 11-14-2026 (Mega QA stage 1)
+Last updated: 11-14-2026 (Mega QA stage 2)
 
 ## Goal
 - Test sufficiency of reliability and variance matching for human-rating distribution accuracy, separately from evaluation-design usefulness.
@@ -13,8 +13,8 @@ Last updated: 11-14-2026 (Mega QA stage 1)
 - Planning: Pi / gpt-6-astra, xhigh (source reading, plan).
 - Execution: Claude Code, claude-opus-5-5, desktop app; local CPU, about 31 s; zero model calls, zero new ratings, $0. Freeze commit `579915a`; two code-only amendments recorded in FREEZE.json.
 ## Results
-- 20/23 frozen predictions matched; 3 explained mismatches (two Monte Carlo chance events confirmed by post-hoc reruns, one binomial mode tie). Formula checks 945/945; recomputation 134/134.
-- A1_max: identical moments and coefficients, mean TVD 0.446, RPS excess 0.0167. Phase C test split: most repeatable judge H0_opus (Eρ² 0.983) worst RPS 0.273; paired vs H0_sol +0.082 [0.004, 0.168].
+- 20/23 frozen predictions matched; 3 explained mismatches (two Monte Carlo misses consistent with sampling variability in post-hoc reruns, one binomial mode tie). Formula checks 945/945; recomputation 134/134.
+- A1_max: identical first two conditional moments and population coefficients, mean TVD 0.446, RPS excess 0.0167. Phase C test split: most repeatable judge H0_opus (Eρ² 0.983) worst RPS 0.273; paired vs H0_sol +0.082 [0.004, 0.168].
 - Phase B: REML-guided allocation chose the oracle design 256/256 in both configs; violations V1–V4 behaved as predicted.
 ## Stuck / blocked
 - None. Google companion synced 11-13-2026 (https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit).
@@ -29,3 +29,4 @@ Last updated: 11-14-2026 (Mega QA stage 1)
 11-13-2026 -- Froze protocol and scripts (`579915a`), ran Phases A–C, verified (945 formula, 134 recomputation checks), generated report, figure and reading guide.
 11-13-2026 -- Emailed verified results (Gmail id 1a1d688dcc090e5f, delivery checked) and synced the Google companion section.
 11-14-2026 -- Added AAAI-27 reliability appendix (`03ada1e`) and ran Mega QA stage 1 (`qa1_carbon`: clarified Phase B prediction-vs-selection wording, fixed `4-proposal.tex` sentence-per-line check, and expanded first-use acronyms in figure/report/guide).
+11-14-2026 -- Mega QA stage 2 (`qa2_codex_vals`, Codex CLI / gpt-6-astra / ultra): reproduced all required checks, preserved frozen outputs, corrected appendix/statistical interpretation and stage 1 mathematical-report errors; see `qa/mega_qa_11-14-2026/qa2_codex_vals.md`.
