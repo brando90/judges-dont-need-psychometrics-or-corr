@@ -42,6 +42,10 @@
   Validation: 4-fold cross-validation over the training tasks, pooling out-of-fold predictions; c ∈ {0.01, 0.1, 1, 10, 100}; ties go to the larger c. Test data never enter any choice.
 - **Metrics (held-out test tasks, against the true distribution).** RPS excess and CE excess, KL(true ‖ judge), both lower is better; test Pearson and Spearman between the judge's expected rating and the true mean, higher is better; total variation distance between each judge's test forecasts and the constant forecast.
 
+## Amendment (11-14-2026, before any analysis)
+
+The first launch crashed after 208 rows: with very few training tasks, every candidate ridge can give an undefined validation Pearson correlation (all out-of-fold predictions constant, or identical training-task means). The rule now is that when no candidate has a defined validation correlation, `pearson_valcorr` uses experiment 13's c = 1 and the row records `fallback: true`. The 208 completed rows were unaffected and are kept; the runner resumes the rest.
+
 ## Run
 
 ```bash

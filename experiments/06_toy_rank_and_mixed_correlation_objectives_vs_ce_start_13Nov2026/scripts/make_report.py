@@ -44,6 +44,14 @@ def vals(sc, n, fit, met):
     return np.array([c[s][fit][met] for s in sorted(c)])
 
 
+rng_lines = np.random.default_rng(1)  # separate stream so drawing figure lines never shifts the table intervals
+
+
+def mean_ci_lines(v, draws=10000):
+    boot = v[rng_lines.integers(0, len(v), (draws, len(v)))].mean(1)
+    return v.mean(), np.percentile(boot, 2.5), np.percentile(boot, 97.5)
+
+
 def mean_ci(v, draws=10000):
     boot = v[rng.integers(0, len(v), (draws, len(v)))].mean(1)
     return v.mean(), np.percentile(boot, 2.5), np.percentile(boot, 97.5)
@@ -92,6 +100,30 @@ for i, sc in enumerate("AB"):
             ax.fill_between(NS, ms[:, 1], ms[:, 2], color=COL[fit], alpha=0.12)
         ax.set_xscale("log")
         ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
+        # Data-needed lines on test correlation (paired 95% bootstrap over seeds, CE-trained minus each judge):
+        # dashed black = CE-trained significantly higher at every larger n; dotted gray = that correlation-trained
+        # judge significantly higher at every larger n. Judges sharing an n share a line.
+        ce_from, corr_from = {}, {}
+        for comp, short in (("pearson", "Pearson"), ("spearman", "Spearman"), ("kendall", "Kendall"), ("pearson_spearman", "½P+½S")):
+            d = [mean_ci_lines(np.nan_to_num(vals(sc, n, "ce", met), nan=0.0) - np.nan_to_num(vals(sc, n, comp, met), nan=0.0)) for n in NS]
+            ce_b, co_b = [x[1] > 0 for x in d], [x[2] < 0 for x in d]
+            s1 = next((NS[k] for k in range(len(NS)) if all(ce_b[k:])), None)
+            s2 = next((NS[k] for k in range(len(NS)) if all(co_b[k:])), None)
+            if s1 is not None:
+                ce_from.setdefault(s1, []).append(short)
+            if s2 is not None:
+                corr_from.setdefault(s2, []).append(short)
+        k = 0
+        for start, names in sorted(ce_from.items()):
+            ax.axvline(start, color="black", ls="--", lw=1)
+            ax.annotate(f"CE higher than {', '.join(names)}\nat every n from {start} ({3 * start} ratings)", xy=(start, 0.97 - 0.13 * k),
+                        xycoords=("data", "axes fraction"), xytext=(4, 0), textcoords="offset points", fontsize=7, va="top")
+            k += 1
+        for start, names in sorted(corr_from.items()):
+            ax.axvline(start, color="gray", ls=":", lw=1.5)
+            ax.annotate(f"{', '.join(names)}-trained higher\nat every n from {start} ({3 * start} ratings)", xy=(start, 0.03 + 0.13 * (k - len(ce_from))),
+                        xycoords=("data", "axes fraction"), xytext=(-4, 0), textcoords="offset points", fontsize=7, va="bottom", ha="right")
+            k += 1
         ax.set_title(f"{SCEN[sc]}\n{'Pearson' if met == 'pearson' else 'Spearman'} correlation on 500 fresh test tasks per seed", fontsize=9.5)
         ax.set_ylabel(CORR[met] + " (higher is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)

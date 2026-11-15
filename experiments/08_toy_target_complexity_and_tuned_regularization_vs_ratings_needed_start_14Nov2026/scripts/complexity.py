@@ -68,9 +68,16 @@ def val_scores(Phi, P, kind, c, fold, seed):
 
 
 def pick(cs, scores, lower_better):
-    """Best c; ties (within 1e-12) go to the larger c."""
-    best = min(scores) if lower_better else max(scores)
-    return max(c for c, s in zip(cs, scores) if abs(s - best) <= 1e-12)
+    """Best c among finite scores; ties (within 1e-12) go to the larger c. None if no score is finite.
+
+    Amendment (11-14-2026, found when the first launch crashed, before any analysis): with very few training tasks
+    every candidate can have an undefined validation correlation; the caller then falls back to c = 1 and flags it.
+    """
+    finite = [(c, s) for c, s in zip(cs, scores) if np.isfinite(s)]
+    if not finite:
+        return None
+    best = min(s for _, s in finite) if lower_better else max(s for _, s in finite)
+    return max(c for c, s in finite if abs(s - best) <= 1e-12)
 
 
 def run_one(args):
@@ -95,6 +102,8 @@ def run_one(args):
         if kind == "pearson":
             choices["valcorr"] = pick(C_GRID, [v[1] for v in vs], False)
         for name, c in choices.items():
+            fallback = c is None
+            c = 1.0 if fallback else c
             Wc = W if c == 1.0 else toy.fit(Phi, P, kind, n, W0, c=c)
-            out[f"{kind}_{name}"] = dict(test_metrics(softmax(Phit @ Wc, 1), Pt, xt, Qconst), c=c)
+            out[f"{kind}_{name}"] = dict(test_metrics(softmax(Phit @ Wc, 1), Pt, xt, Qconst), c=c, fallback=fallback)
     return sc, n, seed, out
