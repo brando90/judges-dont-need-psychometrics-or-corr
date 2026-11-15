@@ -1,0 +1,675 @@
+<title>Correlation vs Loss Judges</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout: one narrow research-memo column; a forest plot of held-out test differences is the single visual anchor. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --fg: #1b2230;
+  --muted: #5b6577;
+  --rule: #dde1e8;
+  --accent: #2f5bd3;
+  --corr: #b4690e;   /* correlation-trained (②) */
+  --loss: #0f7c6e;   /* loss-trained (④) */
+  --tie: #6b7280;
+  --chip-bg: #eef1f6;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c; --surface: #181d26; --fg: #e6e9ef; --muted: #9aa3b2; --rule: #2a313d;
+    --accent: #7fa2ff; --corr: #f0a54a; --loss: #3cc4b0; --tie: #9aa3b2; --chip-bg: #222936;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151c; --surface: #181d26; --fg: #e6e9ef; --muted: #9aa3b2; --rule: #2a313d;
+  --accent: #7fa2ff; --corr: #f0a54a; --loss: #3cc4b0; --tie: #9aa3b2; --chip-bg: #222936;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+}
+main { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: 0.005em; }
+h1 { font-size: 2.1rem; line-height: 1.1; font-weight: 700; }
+h2 { font-size: 1.3rem; font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 1.02rem; font-weight: 600; }
+p { margin: 0; max-width: 70ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+header.section { gap: 10px; }
+.lede { font-size: 1.05rem; color: var(--fg); }
+.meta { color: var(--muted); font-size: 0.88rem; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.92em; white-space: nowrap; }
+
+.bottom-line { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+.bottom-line ul { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; }
+
+.legend-notation { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: baseline; }
+.tag { font-family: var(--font-mono); font-size: 0.82rem; padding: 1px 7px; border-radius: 4px; background: var(--chip-bg); white-space: nowrap; }
+.tag.corr { color: var(--corr); }
+.tag.loss { color: var(--loss); }
+.tag.na { color: var(--muted); }
+
+.readout { display: grid; grid-template-columns: 9.5em 1fr; gap: 8px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; font-size: 0.93rem; }
+.readout dt { font-weight: 600; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding-top: 2px; }
+.readout dd { margin: 0; min-width: 0; }
+@media (max-width: 520px) { .readout { grid-template-columns: 1fr; gap: 2px 0; } .readout dd { margin-bottom: 8px; } }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.n { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.verdict { display: inline-block; font-family: var(--font-mono); font-size: 0.74rem; padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.verdict.loss { color: var(--loss); }
+.verdict.corr { color: var(--corr); }
+.verdict.tie { color: var(--tie); }
+
+.chart-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 10px 8px; }
+.chart-wrap svg { display: block; min-width: 760px; width: 100%; height: auto; }
+.chart-note { font-size: 0.85rem; color: var(--muted); }
+
+.two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.two-col > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+ol.asks { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
+ul.plain { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.deadline { color: var(--corr); font-weight: 600; }
+footer { font-size: 0.85rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+.formula { font-family: var(--font-mono); font-size: 0.92rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; overflow-x: auto; white-space: nowrap; line-height: 1.9; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 10px 6px; overflow-x: auto; }
+.figure svg { display: block; min-width: 520px; width: 100%; height: auto; }
+.appendix h3 { margin-top: 6px; }
+ul.reasons { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; }
+div.tex { overflow-x: auto; padding: 6px 0; }
+.tex math { font-size: 1.05em; }
+div.tex math { display: block; }
+</style>
+
+<main>
+  <header class="section">
+    <div class="eyebrow">Meeting brief · 11-13-2026 · repo judges-dont-need-psychometrics-or-corr</div>
+    <h1>Correlation vs loss for training LLM judges</h1>
+    <p class="lede">Should we train or select an LLM judge by its correlation with human ratings, or by a proper loss against the human rating distribution on the 0–5 scale? Here is the evidence so far.</p>
+    <p class="meta"><strong>8-minute walkthrough:</strong> bottom line (1 min) → <a href="#human">held-out human-rating plot</a> (3 min) → <a href="#figures">synthetic figures</a> (2 min) → <a href="#low-data">does correlation win with little data?</a> (1 min) → <a href="#rps-appendix">what RPS is</a> → <a href="#asks">open items</a> (1 min).</p>
+    <p class="meta">Experiments 00–02 and 06–08 are active; 11–14 are archived. Nothing is running. Unless a number is marked otherwise, it is measured on held-out test data that was not used to train or choose the judge.</p>
+  </header>
+
+  <section class="bottom-line" aria-labelledby="bl">
+    <h2 id="bl" style="border:0;padding:0">Bottom line</h2>
+    <ul>
+      <li><strong>In theory, loss wins clearly.</strong> In a synthetic population, correlation cannot tell the true rating distribution from wrong ones with the same mean, but cross-entropy picks the true one (exp 01).</li>
+      <li><strong>On real human ratings, held-out test ranked probability score (RPS) is a tie.</strong> RPS measures how well a judge's predicted distribution over the 0–5 ratings matches each human rating; it ranges from 0 to 1 and lower is better (<a href="#rps-appendix">appendix</a>). With the 5 frontier judges, test RPS of the correlation-trained judge minus test RPS of the loss-trained judge is <span class="num">+0.0056 [−0.0059, +0.0181]</span> (exp 12). For scale, the loss-trained judge's test RPS is 0.136. On held-out data each judge wins on the kind of metric it was trained for: the loss-trained judge has lower test cross-entropy, the correlation-trained judge higher test Spearman.</li>
+      <li><strong>Little data does not rescue correlation, with one exception.</strong> In synthetic tests (exp 08), correlation training beats loss training on held-out accuracy only when the target varies mainly in rater disagreement and its mean says little, and then only up to 96 ratings. Wherever the mean carries the signal, even linearly, loss training wins from 12 ratings (<a href="#low-data">details</a>).</li>
+      <li><strong>The human data are the limit:</strong> 25 tasks, 75 artifacts and 195 expert ratings, all used in earlier studies. With a larger, noisier pool of judges, loss-trained mixtures have clearly lower test RPS (exp 14).</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="setup">
+    <h2 id="setup">Setup and notation</h2>
+    <div class="legend-notation">
+      <span class="tag corr">②</span><span><strong>Correlation-trained judge:</strong> mixture weights over a fixed pool of base judges, or one base judge picked from the pool, chosen on <em>training</em> tasks to maximize Pearson or Spearman between the judge's expected rating and the human mean rating.</span>
+      <span class="tag loss">④</span><span><strong>Loss-trained judge:</strong> the same choice (mixture weights, or one base judge), made on <em>training</em> tasks to minimize cross-entropy against the human ratings.</span>
+      <span class="tag na">③</span><span>Choose by loss on a separate validation split. <em>Not run yet.</em></span>
+    </div>
+    <p>Both kinds of judge are then scored with the <strong>same</strong> metrics on the <strong>same</strong> held-out test tasks. Method names describe how a judge was trained, never the metric it is scored with.</p>
+    <p><strong>What "judge" and "training" mean here.</strong> A <em>base judge</em> is one model with one fixed prompt: the 5 frontier judges are GPT-6 Sol (high effort) and Claude Opus 5.5 (max effort) with prompts H0, H1 or H2, and exp 14 adds 39 open-weight model × prompt judges. Each base judge's three sampled 0–5 scores per artifact form its predicted rating distribution. "Training" only (a) sets the weights of a mixture over these fixed base judges' distributions, or (b) picks the single best base judge from the pool. Picking one base judge is a coarse choice among 5 or 44 model × prompt configurations. <strong>No experiment here searches over or rewrites prompts or harnesses</strong>, for example an agent iteratively improving the judge prompt against correlation versus against a proper loss. The closest is exp 12's fixed-split check, where Claude Code agents chose mixture weights from training data only.</p>
+    <dl class="readout">
+      <dt>RPS</dt><dd>Ranked probability score of the judge's predicted rating distribution against each human rating: (1/5) Σ<sub>k=0..4</sub> (Q(k) − 1{rating ≤ k})², averaged over ratings and artifacts. Range 0 to 1, lower is better. The primary metric. The <a href="#rps-appendix">appendix</a> explains it with examples.</dd>
+      <dt>CE</dt><dd>Cross-entropy (log loss): average −ln q(rating), in nats, lower is better.</dd>
+      <dt>TVD</dt><dd>Total variation distance to each artifact's human rating histogram, 0 to 1, lower is better.</dd>
+      <dt>Intervals</dt><dd>95% bootstrap intervals over tasks (exps 11–14) or task families with refitting (exp 02). No p-values were computed.</dd>
+    </dl>
+  </section>
+
+  <section class="section" id="how-chosen" aria-labelledby="how-chosen-h">
+    <h2 id="how-chosen-h">How each judge was chosen: search space, objective, optimizer</h2>
+    <p>Every result compares judges chosen by different objectives. A plotted curve is a property of the objective <em>and</em> of how the search was done, unless the search provably finds the best judge. So each figure caption also says how its judges were chosen.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Exp (figures)</th><th>What is searched</th><th>Objective, on which data</th><th>Search or optimizer, budget</th><th>Best judge guaranteed?</th></tr></thead>
+        <tbody>
+          <tr><td class="n">01 (Fig 2)</td><td>9 fixed candidate rating distributions</td><td>CE, Brier, RPS, Pearson, Spearman, Kendall or nMSE on 48 validation items (1–3 ratings each)</td><td>Exhaustive: score all 9, keep the best, enumerate ties (tolerance 1e-12)</td><td>Yes (exhaustive)</td></tr>
+          <tr><td class="n">02 (Fig 1)</td><td>Nonnegative weights summing to 1 over 5 base judges' rating histograms</td><td>Train CE vs train Pearson, on 4 of 5 task-family folds</td><td>CE: SLSQP plus bounded Newton refinement, checked by an independent convex suboptimality bound. Pearson: exact cone-projection face enumeration. Matched ceilings (≤ 2,000 evaluations or linear solves)</td><td>Yes: all 50 primary fits passed their certificates; 2 of about 49,000 bootstrap refits failed and were kept</td></tr>
+          <tr><td class="n">11 (table)</td><td>Weights over 5 base judges, or one of them</td><td>Train CE, on 4 of 5 task folds</td><td>Experiment 02's convex CE solver (probability floor 1e-6); single judge by exhaustive search</td><td>Yes: 100 fits, 0 certificate failures</td></tr>
+          <tr><td class="n">12 (Fig 1)</td><td>Weights over 5 base judges, or one of them</td><td>② train Pearson or Spearman; ④ train CE; 20 training tasks per split</td><td>Pearson: exact solver. Spearman: best of 4,000 random weight vectors. CE: SLSQP with a checked certificate. Single judge: exhaustive over 5</td><td>Yes, except the Spearman mixture (random search). 0 certificate failures</td></tr>
+          <tr><td class="n">14 (Fig 1)</td><td>Weights over 5, 39 or 44 base judges, or one of them</td><td>Same as exp 12</td><td>As exp 12; for pools above 8 judges, Pearson by non-negative least squares (matches enumeration to 7e-16)</td><td>Yes, except the Spearman mixture; 4 and 3 certificate failures (open and combined pools), kept</td></tr>
+          <tr><td class="n">13 (Figs 3, 4, A1)</td><td>78 weights W of a softmax judge on 13 features of x (the calibrated head adds 12)</td><td>Train CE, RPS or Pearson (head: CE) on n tasks × 3 ratings</td><td>L-BFGS-B with analytic gradients, ≤ 400 iterations and ≤ 600 evaluations; ridge (1/n)‖W‖²; start: the training rating histogram everywhere plus a tiny seeded perturbation</td><td>CE and the head: convex, so any converged optimizer gives the same judge. RPS and Pearson: not convex, so their results reflect this optimizer, start and budget. Pearson fixes only the mean up to an affine map; the rest is set by the start and the ridge</td></tr>
+          <tr><td class="n">06 (Figs 5, 6)</td><td>Same 78 weights</td><td>Smooth Spearman, Kendall or ½ Pearson + ½ Spearman (temperature 0.1) on exp 13's exact tasks</td><td>Same optimizer, start, ridge and budget as exp 13</td><td>No: not convex, so results reflect this optimizer, start and budget</td></tr>
+          <tr><td class="n">07 (Fig 7)</td><td>Same as exps 13 and 06</td><td>All seven objectives on exp 13's exact tasks (30 seeds, 4–1,024 tasks)</td><td>Three conditions: the original; the original start with 2,000 iterations; the best of 5 starts (chosen by the training objective) with 2,000 iterations each</td><td>Checks the two rows above: held-out conclusions unchanged across conditions</td></tr>
+          <tr><td class="n">08 (Figs 8, 9)</td><td>Same 78 weights, in four target scenarios (A–D)</td><td>CE, RPS or Pearson on n tasks × 3 ratings; ridge c fixed at 1, or chosen from {0.01, 0.1, 1, 10, 100} by 4-fold cross-validation over the training tasks (validation RPS, or validation Pearson for ①)</td><td>As exp 13 (L-BFGS-B, ≤ 400 iterations) for every fit, including the cross-validation fits</td><td>CE: yes for a given c. RPS and Pearson: not convex. Choosing c with few training tasks is noisy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="chart-note">Why RPS and the correlation objectives are not convex in W: each is a bounded function of W, and a bounded function on all of ℝ<sup>d</sup> that is not constant cannot be convex. CE is unbounded and is convex here (it is multinomial logistic regression). Experiment 07 (Figure 7) logged convergence. CE, RPS, Kendall and the calibrated head converge in 97–100% of fits. Pearson-trained fits never converge within 400 iterations from 32 training tasks on, and 91% still hit a 2,000-iteration budget. Best-of-5 starts with a 5× budget improve their training objective, but every held-out test RPS crossover stays the same.</p>
+  </section>
+
+  <section class="section" id="notation" aria-labelledby="notation-h">
+    <h2 id="notation-h">Notation: rating distributions and what each objective can learn</h2>
+    <dl class="readout">
+      <dt>Bin(n, θ)</dt><dd>Binomial: n trials, success probability θ. Pr[R = r] = C(n, r) θ<sup>r</sup> (1 − θ)<sup>n−r</sup>; mean nθ; variance nθ(1 − θ).</dd>
+      <dt>BetaBin(n, α, β)</dt><dd>Beta-binomial: draw θ ~ Beta(α, β), then R ~ Bin(n, θ). With α = μκ and β = (1 − μ)κ: mean nμ, variance nμ(1 − μ)(κ + n)/(κ + 1). κ sets rater disagreement; small κ splits raters toward 0 and 5.</dd>
+      <dt>Cat(p<sub>0</sub>, …, p<sub>5</sub>)</dt><dd>A general distribution over the six ratings: five free probabilities.</dd>
+      <dt>Data</dt><dd>An item's ratings r<sub>1</sub>, …, r<sub>m</sub> are independent draws, with counts n<sub>k</sub> = #{i : r<sub>i</sub> = k}.</dd>
+    </dl>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Experiment</th><th>Human rating model</th><th>Per-item parameters</th><th>Sufficient statistic of the item's ratings</th><th>Mean-based objectives (Pearson, MSE) can learn</th><th>Proper losses (CE, RPS) learn</th></tr></thead>
+        <tbody>
+          <tr><td>01 (synthetic)</td><td>R | t ~ Bin(5, t), t ∈ [0.1, 0.9]. Candidates: q<sub>λ</sub> = (1 − λ)·Bin(5, t) + λ·[(1 − t)δ<sub>0</sub> + tδ<sub>5</sub>], λ ∈ {0, .25, .5, .75, .95}</td><td>t (truth); the candidates add λ</td><td>Σ<sub>i</sub> r<sub>i</sub> (the mean rating). One number suffices because Bin(5, t) is a one-parameter exponential family.</td><td>t only. Every q<sub>λ</sub> has mean 5t but variance 5t(1 − t)(1 + 4λ); λ lives only in the spread, so they tie five ways.</td><td>λ = 0, the true Bin(5, t): chosen 249/256 times with one rating, 256/256 with two or three.</td></tr>
+          <tr><td>13 (synthetic)</td><td>R | x ~ BetaBin(5, μ(x)κ(x), (1 − μ(x))κ(x)), κ(x) = exp(1.5 + 2.2 cos(1.5πx)). A: μ(x) = 0.5 + 0.08x. B: μ(x) = 0.1 + 0.8((x + 1)/2)²</td><td>μ(x) and κ(x): mean and disagreement</td><td>The counts (n<sub>0</sub>, …, n<sub>5</sub>). The mean alone is not sufficient: it carries μ but not κ.</td><td>Pearson: μ(x) up to an increasing affine map. MSE: μ(x). Neither sees κ(x); in scenario A the mean barely moves, so there is little to learn.</td><td>The full q(· | x), so both μ(x) and κ(x)</td></tr>
+          <tr><td>02, 11–14 (real ratings)</td><td>R | x ~ Cat(p<sub>0</sub>(x), …, p<sub>5</sub>(x)), unknown</td><td>Five free probabilities per artifact</td><td>The counts of its 2–3 ratings</td><td>The mean rating only</td><td>The full distribution, within the judge family (mixtures of the fixed base judges)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Judge model in exp 13: q<sub>W</sub>(r | x) = softmax(W<sup>⊤</sup>φ(x))<sub>r</sub>, with φ(x) = 13 cosine and sine features of x and W a 13 × 6 matrix. Every objective fits this same family; only the objective differs.</p>
+    <p><strong>General lesson.</strong> For a one-parameter family such as Bin(n, θ), the mean is a sufficient statistic, so a correct mean gives a correct distribution. Human ratings are not one-parameter. Disagreement (spread, raters split between 0 and 5) is extra information that only the full rating counts carry, and only proper losses use it. Via E[R] = Σ<sub>j</sub> S<sub>j</sub>, mean-based objectives compress those counts to one number per item.</p>
+  </section>
+
+  <section class="section" aria-labelledby="human">
+    <h2 id="human">Held-out test RPS on human ratings: correlation-trained vs loss-trained</h2>
+    <dl class="readout">
+      <dt>Data</dt><dd>Each judge is trained on the human ratings of training tasks, then scored on <strong>held-out test tasks</strong> it never saw during training (exps 12, 14: 1,000 random splits of 20 training and 5 test tasks; exp 02: 5-fold task-family splits, repeated over 5 partitions). These 75 artifacts were used in earlier studies, so this is retrospective, not a fresh test set.</dd>
+      <dt>Plotted</dt><dd>Test RPS of the correlation-trained judge (②) <strong>minus</strong> test RPS of the loss-trained judge (④), both on the same test artifacts. <strong>Both numbers are the same metric, RPS, in the same units</strong>. "Correlation-trained" and "loss-trained" describe how each judge was <em>built</em>, not how it is <em>scored</em>: like two students who studied in different ways taking the same exam. Example, the "Exp 12 · 5 frontier judges" mixture row: judge ② has test RPS 0.1419 and judge ④ has 0.1362, so the difference is about +0.006 (reported +0.0056 before rounding).</dd>
+      <dt>Reading</dt><dd><span class="num">+0.05</span> means the correlation-trained judge's test RPS is 0.05 higher (worse) than the loss-trained judge's; <span class="num">−0.05</span> means 0.05 lower (better). For scale, typical test RPS values are 0.14 to 0.33 (right-hand column), and predicting the training tasks' rating histogram for every artifact gives 0.184.</dd>
+    </dl>
+    <div class="chart-wrap">
+      <svg id="forest" viewBox="0 0 900 430" role="img" aria-label="Forest plot: held-out test RPS of the correlation-trained judge minus that of the loss-trained judge, with 95% intervals and each judge's test RPS"></svg>
+    </div>
+    <p class="chart-note"><strong>Figure 1.</strong> <em>How chosen:</em> weights on the base judges fitted on training tasks by an exact Pearson solver or a certified convex CE solver; single judges by exhaustive search (<a href="#how-chosen">details</a>). Training data per fit: about 156 of the 195 human ratings (20 of 25 tasks; exp 02: 4 of 5 task-family folds). Dots are differences in mean test RPS; bars are 95% intervals. Gray means the interval includes 0 (no difference established). Exp 02 uses 5-fold task-family splits; its report gives CE-trained minus Pearson-trained test RPS; it is shown here as Pearson-trained minus CE-trained to match the other rows.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Exp</th><th>What it tested</th><th>Key held-out test number [95% interval]</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td class="n">02</td><td>CE-trained vs Pearson-trained mixture of the 5 frontier judges, matched budgets, certified optimizers</td><td class="n">Test CE of CE-trained minus test CE of Pearson-trained: −0.260 nats [−1.458, +0.198]</td><td><span class="verdict tie">tie</span> Both have much higher test CE than a constant forecast of the training rating histogram (5.49 and 5.75 vs 1.93 nats).</td></tr>
+          <tr><td class="n">11</td><td>Loss-trained mixture alone, repeated 5-fold cross-validation over tasks</td><td class="n">Test RPS of loss-trained minus test RPS of equal-weight mixture: −0.0129 [−0.0232, −0.0024]</td><td><span class="verdict loss">④ helps</span> Lowest test RPS (0.137), but its test CE is still higher than the constant's (5.43 vs 1.85 nats).</td></tr>
+          <tr><td class="n">12</td><td>Correlation-trained vs loss-trained, 5 frontier judges</td><td class="n">Test RPS of ② minus test RPS of ④: +0.0056 [−0.0059, +0.0181]</td><td><span class="verdict tie">tie on test RPS</span> ④ has lower test CE (by 0.374 nats); ② has higher test Spearman (by 0.063).</td></tr>
+          <tr><td class="n">14</td><td>Same, adding 39 open-weight judges (44 total)</td><td class="n">Test RPS of ② minus ④, mixtures: +0.0405 [+0.0237, +0.0575]</td><td><span class="verdict loss">④ mixture</span> but the <span class="verdict corr">② single judge</span> has lower test RPS (−0.0317). The open judges are weak (median Pearson 0.06, in-sample).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="synth">
+    <h2 id="synth">Synthetic results</h2>
+    <div class="two-col">
+      <div>
+        <h3>Exp 01 · correlation cannot identify the distribution</h3>
+        <p>Known binomial population, nine fixed candidate forecasts. Each criterion chooses a candidate on 48 <em>validation</em> items; the choice is scored exactly against the true distribution on 48 separate <em>test</em> items. Five candidates share the true mean, so Pearson, Spearman, Kendall and mean squared error tie them in all 256 replications.</p>
+        <p>Cross-entropy chooses the true model in 256/256 replications with 2–3 validation ratings per item and 249/256 with one. Test CE of the chosen candidate is <span class="num">1.328</span> nats choosing by CE vs <span class="num">1.995</span> choosing by Pearson with a random tie-break (tied range 1.328–3.348).</p>
+      </div>
+      <div>
+        <h3>Exp 13 · learning a judge on a nonlinear toy</h3>
+        <p>Built to illustrate the argument, so it is not evidence about real ratings. Judges are trained on n sampled training tasks and scored on 500 fresh test tasks against the true distribution. In the large-n limit, the Pearson-trained judge with a calibrated head has the best test correlations (0.97–0.99), yet its test RPS stays about <span class="num">0.006–0.007</span> above the true distribution's. The CE-trained judge's gap keeps shrinking, to <span class="num">0.0007–0.0037</span> at 2,048 training tasks.</p>
+        <p>Below about 30 training tasks (our real scale), the raw Pearson-trained judge's test RPS was as good or better (<span class="num">0.0097 vs 0.0113</span> above the truth at 20 tasks).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="figures" aria-labelledby="figs-h">
+    <h2 id="figs-h">Figures from the synthetic experiments</h2>
+    <h3>Exp 01 · which criterion picks the right rating distribution?</h3>
+    <div class="figure">
+      <svg id="exp01" viewBox="0 0 760 300" role="img" aria-label="Bar chart: held-out test cross-entropy of the candidate chosen by each selection criterion"></svg>
+    </div>
+    <p class="chart-note"><strong>Figure 2.</strong> <em>How chosen:</em> exhaustive search over nine fixed candidates; no optimizer involved. Each criterion chose one of nine fixed candidate forecasts using validation items with one sampled rating each, so 48 validation ratings in total. With 96 or 144 validation ratings (two or three per item), CE, Brier and RPS pick the true model in 256 of 256 replications. Bars show the chosen candidate's test cross-entropy (nats; lower is better), computed exactly against the known true distribution on 48 separate test items and averaged over 256 replications. The dashed line is the true distribution (1.328). The correlations and mean squared error (nMSE) tie five candidates with the same mean in every replication, so their bar is the expected value under a random tie-break.</p>
+
+    <h3>Exp 13 · setup (synthetic toy that works by construction)</h3>
+    <p>Each synthetic task has one feature x. Human ratings on 0–5 follow a beta-binomial whose mean and disagreement both depend on x. Every judge is the same flexible model of x; only the objective used to fit it differs. Each judge is trained on n tasks with 3 ratings each, then scored on 500 fresh test tasks against the true rating distribution.</p>
+    <dl class="readout">
+      <dt>Tasks</dt><dd><span class="tex">x \sim \mathrm{Unif}[-1,1]</span></dd>
+      <dt>Human ratings</dt><dd><div class="tex" data-display="1">R \mid x \sim \mathrm{BetaBin}\big(5,\ \mu(x)\kappa(x),\ (1-\mu(x))\kappa(x)\big),\qquad \mathbb{E}[R\mid x]=5\mu(x),\qquad \mathrm{Var}[R\mid x]=5\mu(x)\big(1-\mu(x)\big)\frac{\kappa(x)+5}{\kappa(x)+1}</div></dd>
+      <dt>Disagreement</dt><dd><span class="tex">\kappa(x)=\exp\big(1.5+2.2\cos(1.5\pi x)\big)\in[0.50,\ 40.4]</span>. Small κ splits raters toward 0 and 5; large κ means raters agree.</dd>
+      <dt>Scenario A: "same mean"</dt><dd><span class="tex">\mu_A(x)=0.5+0.08\,x \ \Rightarrow\ \mathbb{E}[R\mid x]=2.5+0.4\,x\in[2.1,\ 2.9]</span>. The mean moves at most 0.4 rating points from 2.5, while at μ = 0.5 the variance ranges from 1.37 (κ ≈ 40, raters agree) to 4.59 (κ ≈ 0.50, raters split). Almost all differences between tasks are in disagreement, not in the mean.</dd>
+      <dt>Scenario B</dt><dd><span class="tex">\mu_B(x)=0.1+0.8\left(\tfrac{x+1}{2}\right)^2 \ \Rightarrow\ \mathbb{E}[R\mid x]</span> rises monotonically from 0.5 to 4.5, and κ(x) varies as above.</dd>
+      <dt>Training data</dt><dd>n tasks <span class="tex">x_1,\dots,x_n</span>, each with 3 ratings; empirical histogram <span class="tex">\hat p_i(r)=\tfrac13\,\#\{m: r_{im}=r\}</span>, its CDF <span class="tex">\hat P_i(j)</span> and mean <span class="tex">\hat m_i</span>.</dd>
+      <dt>Judge family</dt><dd><div class="tex" data-display="1">q_W(r\mid x)=\mathrm{softmax}\big(W^\top\phi(x)\big)_r,\quad \phi(x)=\big(1,\cos\pi x,\sin\pi x,\dots,\cos 6\pi x,\sin 6\pi x\big)\in\mathbb{R}^{13},\quad W\in\mathbb{R}^{13\times 6},\quad m_W(x)=\textstyle\sum_r r\,q_W(r\mid x)</div></dd>
+      <dt>CE-trained (④)</dt><dd><div class="tex" data-display="1">\min_W\ \frac1n\sum_{i=1}^{n}\sum_{r=0}^{5}\hat p_i(r)\,\big[-\log q_W(r\mid x_i)\big]+\frac1n\|W\|^2</div></dd>
+      <dt>RPS-trained</dt><dd><div class="tex" data-display="1">\min_W\ \frac1n\sum_{i=1}^{n}\frac15\sum_{j=0}^{4}\big(Q_W(j\mid x_i)-\hat P_i(j)\big)^2+\frac1n\|W\|^2</div></dd>
+      <dt>Pearson-trained (②)</dt><dd><div class="tex" data-display="1">\max_W\ \operatorname{corr}_{i=1..n}\big(m_W(x_i),\ \hat m_i\big)-\frac1n\|W\|^2</div>Pearson constrains only the mean <span class="tex">m_W(x)</span>, and only up to an increasing affine map. The rest of the distribution's shape is left to the starting point (the average training rating histogram) and the ridge penalty.</dd>
+      <dt>Pearson + calibrated head</dt><dd>A two-stage "score, then calibrate" judge. Stage 1: train W by Pearson as above, giving one score per task, <span class="tex">s(x)=m_W(x)</span>. Stage 2: standardize it on the training tasks, <span class="tex">z(x)=(s(x)-\bar s)/\mathrm{sd}(s)</span>, and fit a small six-way softmax on that single number, <div class="tex" data-display="1">q_{\text{head}}(r\mid x)=\mathrm{softmax}\big(a_r+b_r\,z(x)\big),\qquad (a,b)\in\mathbb{R}^6\times\mathbb{R}^6\ \text{fitted by CE on the training ratings.}</div>"Calibrated" means the head turns the score into probabilities for each rating that match observed rating frequencies. This mirrors the common practice of building a judge that outputs a scalar score and calibrating it afterward. Because the head sees only one number per task, it cannot recover disagreement that the score does not carry. </dd>
+      <dt>Test metrics</dt><dd>On 500 fresh tasks <span class="tex">x'_t</span> per seed, against the true distribution p: <span class="tex">\text{RPS excess}=\frac1{500}\sum_t\frac15\sum_{j=0}^{4}\big(Q(j\mid x'_t)-P(j\mid x'_t)\big)^2</span> and <span class="tex">\text{CE excess}=\frac1{500}\sum_t \mathrm{KL}\big(p(\cdot\mid x'_t)\,\|\,q(\cdot\mid x'_t)\big)</span>. Both are 0 for a perfect judge. The true distribution itself has test RPS 0.187 in scenario A and 0.136 in scenario B. 100 seeds per n.</dd>
+    </dl>
+
+    <h3>Exp 13 · results: how many ratings until the loss-trained judge wins?</h3>
+    <p><strong>Why the number of ratings is the key quantity.</strong> The expensive part of building a judge is collecting the target labels it is trained and checked against: human ratings here. In formal verification the labels could instead be, for example, formal specification coverage (FSC) verdicts from an AI-guided prover. So every figure that varies the amount of training data marks the n, in tasks and in ratings, from which the loss-trained judge is better.</p>
+    <div class="figure" style="background:#fff"><img src="fig_excess_vs_n_without_head.png" alt="Held-out test RPS excess and cross-entropy excess versus number of training tasks for the CE-trained, RPS-trained and Pearson-trained judges" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 3.</strong> <em>How chosen:</em> every judge fitted by L-BFGS-B (≤ 400 iterations) from the training-histogram start with ridge (1/n)‖W‖². The CE fit is convex; the RPS and Pearson fits are not, so their curves reflect this optimizer, start and budget (<a href="#how-chosen">details</a>). Left column y-axis: held-out test RPS excess over the true distribution. Right column y-axis: held-out test cross-entropy excess, KL(true ‖ judge) in nats. Both use log scales, and lower is better. The x-axis is training tasks n, with 3 ratings each, so 3n training ratings. Bands are 95% bootstrap intervals over 100 seeds; dashed lines mark where the CE-trained judge becomes significantly better at every larger n. The Pearson-plus-calibrated-head judge is omitted here so the small-n region is visible; it is in <a href="#exp13-appendix">Figure A1</a> in the appendix.</p>
+    <p><strong>What the two rows of Figure 3 test.</strong> Neither row is the "linear" or "first-moment" case where correlation should do best.</p>
+    <ul class="plain">
+      <li><strong>Top row (scenario A):</strong> the mean barely changes (2.1–2.9) while disagreement changes about 80-fold. Almost all of the signal is in the second moment, which correlation cannot see. This tests whether there is information beyond the mean.</li>
+      <li><strong>Bottom row (scenario B):</strong> the mean is informative and a nonlinear function of x, and disagreement also varies, which is closer to real human judgments. With enough data, the Pearson-trained judge learns the ordering: test Spearman against the true mean rises from 0.78 at 64 tasks to 0.97 at 2,048. It still loses on distribution metrics, because correlation fixes neither spread nor calibration.</li>
+      <li><strong>Now run (exp 08, <a href="#low-data">below</a>):</strong> controls where only the mean varies, nonlinearly (C) or linearly (D), with constant disagreement. D is correlation's most favorable case.</li>
+    </ul>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Training tasks n (ratings)</th><th>A: CE-trained</th><th>A: Pearson-trained</th><th>A: Pearson − CE [95% CI]</th><th>B: CE-trained</th><th>B: Pearson-trained</th><th>B: Pearson − CE [95% CI]</th></tr></thead>
+        <tbody>
+          <tr><td class="n">4 (12)</td><td class="n">0.0106</td><td class="n">0.0096</td><td class="n">−0.0010 [−0.0013, −0.0006]</td><td class="n">0.0740</td><td class="n">0.0901</td><td class="n">+0.0161 [+0.0145, +0.0178]</td></tr>
+          <tr><td class="n">8 (24)</td><td class="n">0.0116</td><td class="n">0.0096</td><td class="n">−0.0020 [−0.0025, −0.0015]</td><td class="n">0.0616</td><td class="n">0.0897</td><td class="n">+0.0281 [+0.0261, +0.0301]</td></tr>
+          <tr><td class="n">16 (48)</td><td class="n">0.0123</td><td class="n">0.0096</td><td class="n">−0.0027 [−0.0033, −0.0021]</td><td class="n">0.0454</td><td class="n">0.0898</td><td class="n">+0.0444 [+0.0423, +0.0465]</td></tr>
+          <tr><td class="n">32 (96)</td><td class="n">0.0111</td><td class="n">0.0098</td><td class="n">−0.0013 [−0.0018, −0.0007]</td><td class="n">0.0292</td><td class="n">0.0897</td><td class="n">+0.0606 [+0.0590, +0.0620]</td></tr>
+          <tr><td class="n">64 (192)</td><td class="n">0.0085</td><td class="n">0.0102</td><td class="n">+0.0017 [+0.0012, +0.0022]</td><td class="n">0.0156</td><td class="n">0.0902</td><td class="n">+0.0747 [+0.0736, +0.0757]</td></tr>
+          <tr><td class="n">128 (384)</td><td class="n">0.0055</td><td class="n">0.0116</td><td class="n">+0.0061 [+0.0055, +0.0069]</td><td class="n">0.0102</td><td class="n">0.0915</td><td class="n">+0.0813 [+0.0805, +0.0821]</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="chart-note">Held-out test RPS excess (ranked probability score minus the true distribution's; mean over 100 seeds). "Pearson − CE" is the Pearson-trained judge's excess minus the CE-trained judge's, paired by seed, with a 95% bootstrap interval over seeds; positive means the CE-trained judge is better.</p>
+    <p><strong>Answer.</strong> Scenario B (the mean changes with x): the CE-trained judge has lower test RPS from the first point, <strong>4 tasks = 12 ratings</strong>, and the gap grows with n. Scenario A (the mean is nearly constant, only disagreement changes): the raw Pearson-trained judge is slightly but significantly better up to <strong>32 tasks = 96 ratings</strong>. The CE-trained judge is significantly better at every n from <strong>64 tasks = 192 ratings</strong>, on test RPS and on test cross-entropy. Sizes between 32 and 64 were not run. A likely reason for scenario A's small-n result: the Pearson-trained judge starts at the average training histogram and keeps roughly that shape, which is a good guess when the mean barely changes, while the flexible CE-trained judge needs more ratings before it can learn how disagreement varies with x. Printed by <code>scripts/plot_without_head_and_crossover.py</code> in experiment 13.</p>
+    <div class="figure" style="background:#fff"><img src="fig_distributions.png" alt="True human rating distributions versus the cross-entropy-trained and Pearson-trained judges at three task features" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 4.</strong> <em>How chosen:</em> as in Figure 3; the calibrated head is a convex CE fit on the Pearson-trained judge's score. Exp 13, scenario A, 1,024 training tasks, one seed. At three test tasks with similar mean ratings (2.22–2.70), black bars show the true rating distribution, blue the cross-entropy-trained judge and orange the Pearson-trained judge with a calibrated head. The loss-trained judge recovers the shape, including the split between 0 and 5 at x = −0.7. The Pearson-trained judge is nearly flat.</p>
+
+    <h3>Exp 06 · does training on a rank correlation, or a Pearson + Spearman mix, fix it?</h3>
+    <p class="meta"><strong>Complete:</strong> 11 training sizes (4 to 2,048 tasks) × 100 seeds × 2 scenarios.</p>
+    <p>Same judge family, same seeds and the <em>identical</em> training and test tasks as exp 13. Three new training objectives:</p>
+    <ul class="plain">
+      <li><strong>Spearman-trained:</strong> maximizes Spearman between the judge's expected ratings and the training-task mean human ratings.</li>
+      <li><strong>Kendall-trained:</strong> maximizes Kendall's tau between the same two quantities.</li>
+      <li><strong>½ Pearson + ½ Spearman-trained:</strong> maximizes the average of the two correlations.</li>
+    </ul>
+    <p>Rank correlations are not differentiable, so training uses standard smooth versions (temperature 0.1 rating points). Refitting CE on the regenerated data reproduces exp 13's saved numbers to 1e-14.</p>
+    <div class="figure" style="background:#fff"><img src="fig_rank_objectives_vs_n.png" alt="Held-out test RPS and cross-entropy excess versus training tasks for six training objectives" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 5.</strong> <em>How chosen:</em> the same optimizer, start, ridge and budget as Figure 3; the rank objectives are trained through smooth surrogates (temperature 0.1). Only the CE fit is convex, so the correlation-trained curves reflect this optimizer. Left y-axis: held-out test RPS excess over the true distribution. Right y-axis: held-out test cross-entropy excess, KL(true ‖ judge) in nats. Lower is better, on log scales; the x-axis is training tasks n (3 ratings each). Dashed vertical lines mark where the CE-trained judge becomes significantly better, at every larger n, than the named correlation-trained judges (paired 95% bootstrap over seeds).</p>
+    <p><strong>No correlation objective fixes it.</strong></p>
+    <ul class="plain">
+      <li><strong>Scenario B:</strong> the CE-trained judge beats all four correlation-trained judges from <strong>4 tasks (12 ratings)</strong>.</li>
+      <li><strong>Scenario A:</strong> it beats Kendall-trained from 8 tasks (24 ratings) and Pearson-, Spearman- and ½ Pearson + ½ Spearman-trained from 64 tasks (192 ratings), on test RPS.</li>
+      <li><strong>Size of the gap at 2,048 tasks:</strong> the correlation-trained judges' test RPS excess is about 9–26× the CE-trained judge's in scenario B (0.033–0.095 vs 0.0037) and about 35–45× in scenario A (0.025–0.031 vs 0.0007).</li>
+      <li><strong>The mixed objective</strong> behaves like Pearson alone, so the weights barely matter. <strong>Kendall</strong> is the worst objective in scenario A.</li>
+    </ul>
+
+    <div class="figure" style="background:#fff"><img src="fig_rank_objectives_correlations_vs_n.png" alt="Held-out test Pearson and Spearman correlation with the true mean rating versus training tasks for six training objectives" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 6.</strong> <em>How chosen:</em> the same fitted judges as Figure 5. The same six judges, scored by held-out test correlation instead. Left y-axis: test Pearson correlation; right y-axis: test Spearman correlation; both between the judge's expected rating and the true mean rating across 500 fresh test tasks. Higher is better. The x-axis is training tasks n (3 ratings each). Dashed black lines: from that n, the CE-trained judge has significantly higher test correlation than the named judges at every larger n. Dotted gray lines: from that n, the named correlation-trained judges are significantly higher at every larger n (paired 95% bootstrap over seeds).</p>
+    <p><strong>Even on correlation, training on correlation is not better until the data are plentiful.</strong></p>
+    <ul class="plain">
+      <li><strong>Scenario A:</strong> the CE-trained judge has the highest test correlation at every n, significantly higher than every correlation-trained judge from 4–16 tasks (12–48 ratings) on. At 2,048 tasks its test Pearson is 0.89, against 0.75–0.85 for the correlation-trained judges.</li>
+      <li><strong>Scenario B, small n:</strong> the CE-trained judge leads by a wide margin. At 16 tasks (48 ratings) its test Pearson is 0.69, against 0.09–0.12 for the Pearson-, Spearman- and mixed-trained judges.</li>
+      <li><strong>Scenario B, large n:</strong> the correlation-trained judges overtake on their own metric only from 256 tasks (768 ratings; Spearman- and Kendall-trained, on test Spearman) or 512 tasks (1,536 ratings; Pearson- and ½ Pearson + ½ Spearman-trained, on test Pearson). At 2,048 tasks the Spearman-trained judge's test Spearman is 0.982 vs 0.948, yet its test RPS excess is about 17× the CE-trained judge's (0.062 vs 0.0037).</li>
+    </ul>
+    <p>A likely reason for the small-n gap: the CE-trained judge learns from every rating (the full histogram per task), while the correlation-trained judges see one noisy mean per task.</p>
+
+    <h3>Exp 07 · do these results depend on the optimizer?</h3>
+    <p>Experiments 13 and 06 fit each judge once, from one start, with at most 400 iterations, and the correlation objectives are not convex. Experiment 07 refits every objective on the same tasks (30 seeds, 4 to 1,024 training tasks) three ways:</p>
+    <ul class="plain">
+      <li>the original setting;</li>
+      <li>the original start with a 5× budget (2,000 iterations);</li>
+      <li>the best of 5 starts with that budget, chosen by the training objective (test data never used).</li>
+    </ul>
+    <div class="figure" style="background:#fff"><img src="fig_restarts_vs_n.png" alt="Held-out test RPS and cross-entropy excess versus training tasks, original fits and best-of-5 refits, for seven training objectives" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 7.</strong> <em>How chosen:</em> dashed lines with dots show the best of 5 starts (the original plus 4 random), each with 2,000 L-BFGS-B iterations, chosen by the training objective; faint solid lines show the original single start with 400 iterations. Left y-axis: held-out test RPS excess over the true distribution; right y-axis: held-out test CE excess, KL(true ‖ judge) in nats. Lower is better, on log scales; the x-axis is training tasks n (3 ratings each). Bands: 95% bootstrap over 30 seeds. Dashed vertical lines: from that n, the CE-trained judge is significantly better than the named judges at every larger n (best-of-5 condition).</p>
+    <ul class="plain">
+      <li><strong>The correlation fits rarely converge.</strong> Pearson-trained fits never converge within 400 iterations from 32 training tasks on, and 91% still hit a 2,000-iteration budget. ½ Pearson + ½ Spearman behaves the same; Spearman converges in 7–52% from 16 tasks on. CE, RPS, Kendall and the calibrated head converge in 97–100%.</li>
+      <li><strong>Restarts help the training objective, not the held-out result.</strong> Best-of-5 finds a better training correlation in 57–90% of Pearson, Spearman and mixed fits. Yet at 1,024 training tasks the Pearson-trained judge's test RPS excess only moves from 0.0183 to 0.0173 in scenario A (CE-trained: 0.0011), and from 0.0949 to 0.0918 in scenario B (CE-trained: 0.0042).</li>
+      <li><strong>Every crossover on held-out test RPS is unchanged:</strong> 64 tasks (192 ratings) in scenario A for Pearson, Spearman and the mix, and 4 tasks (12 ratings) in scenario B. On held-out test CE, two scenario-A crossovers move by one grid step.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="low-data" aria-labelledby="low-data-h">
+    <h2 id="low-data-h">Does correlation win with little data? (exp 08)</h2>
+    <p><strong>The conjecture (Brando, 11-13-2026).</strong> With little rating data, training a judge on correlation might work better, because it only has to get the first moment (the mean) right. Cross-entropy tries to fit structure the data cannot yet support. If so, the number of ratings a loss-trained judge needs before it wins should grow with the complexity of the target rating distribution.</p>
+    <p><strong>The test.</strong> Experiment 13's toy, with two new targets whose information lies <em>only</em> in the mean, and every objective also given a ridge strength tuned on validation data. Hypotheses and the decision rule were committed before measurement.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>Mean <span class="tex">\mathbb{E}[R\mid x]=5\mu(x)</span></th><th>Disagreement κ(x)</th><th>Where the information is</th></tr></thead>
+        <tbody>
+          <tr><td class="n">A</td><td><span class="tex">\mu=0.5+0.08x</span> (nearly constant)</td><td>varies, <span class="tex">e^{1.5+2.2\cos(1.5\pi x)}</span></td><td>disagreement only</td></tr>
+          <tr><td class="n">B</td><td><span class="tex">\mu=0.1+0.8\left(\tfrac{x+1}{2}\right)^2</span></td><td>varies, as in A</td><td>mean and disagreement</td></tr>
+          <tr><td class="n">C (new)</td><td>as in B</td><td>constant, <span class="tex">e^{1.5}</span></td><td>mean only, nonlinear</td></tr>
+          <tr><td class="n">D (new)</td><td><span class="tex">\mu=0.5+0.35x</span></td><td>constant, <span class="tex">e^{1.5}</span></td><td>mean only, linear: correlation's most favorable case</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Judges, all from exp 13's family and optimizer:</p>
+    <ul class="plain">
+      <li><strong>CE-trained:</strong> ridge fixed (④), or tuned by validation RPS (③).</li>
+      <li><strong>Pearson-trained:</strong> ridge fixed (②), tuned by validation Pearson (①), or tuned by validation RPS.</li>
+      <li><strong>RPS-trained:</strong> ridge tuned by validation RPS.</li>
+      <li><strong>Constant:</strong> the training rating histogram, predicted for every task.</li>
+    </ul>
+    <p>100 seeds; 4 to 2,048 training tasks with 3 ratings each; 500 fresh test tasks per seed scored against the true distribution.</p>
+    <div class="figure" style="background:#fff"><img src="fig_complexity_vs_n.png" alt="Held-out test RPS and cross-entropy excess versus training tasks in four target scenarios for seven judges" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure 8.</strong> <em>How chosen:</em> every judge fitted by L-BFGS-B (≤ 400 iterations) from the training-histogram start. Ridge c is either fixed at 1 or chosen by 4-fold cross-validation over the training tasks; test data never enter. Rows are scenarios A–D. Left y-axis: held-out test RPS excess over the true distribution; right y-axis: held-out test CE excess, KL(true ‖ judge) in nats. Lower is better, on log scales; the x-axis is training tasks n (3 ratings each). Bands: 95% bootstrap over 100 seeds. Dashed line: from that n, the validation-tuned CE judge (③) beats the validation-tuned Pearson judge (①) at every larger n. Dotted line: the same for the fixed-ridge judges (④ vs ②).</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>Pearson-trained (②) significantly better on test RPS at</th><th>CE-trained (④) better than ② at every n from</th><th>Tuned CE (③) better than tuned Pearson (①) from</th></tr></thead>
+        <tbody>
+          <tr><td>A: disagreement only</td><td class="n">4–32 tasks (≤ 96 ratings)</td><td class="n">64 tasks (192 ratings)</td><td class="n">32 tasks (96 ratings)</td></tr>
+          <tr><td>B: mean + disagreement</td><td class="n">never</td><td class="n">4 tasks (12 ratings)</td><td class="n">4 tasks (12 ratings)</td></tr>
+          <tr><td>C: mean only, nonlinear</td><td class="n">never</td><td class="n">4 tasks (12 ratings)</td><td class="n">4 tasks (12 ratings)</td></tr>
+          <tr><td>D: mean only, linear</td><td class="n">never</td><td class="n">4 tasks (12 ratings)</td><td class="n">16 tasks (48 ratings)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="figure" style="background:#fff"><img src="fig_complexity_correlation_vs_n.png" alt="Held-out test Pearson correlation versus training tasks in four target scenarios" style="display:block;width:100%;min-width:400px;max-width:560px;margin:0 auto"></div>
+    <p class="chart-note"><strong>Figure 9.</strong> <em>How chosen:</em> the same fitted judges as Figure 8. The y-axis is held-out test Pearson correlation between the judge's expected rating and the true mean rating (higher is better); the x-axis is training tasks n (3 ratings each). Dashed line: from that n, the CE-trained judge has significantly higher test correlation at every larger n. Dotted line: from that n, the Pearson-trained judge is significantly higher at every larger n.</p>
+    <p><strong>Verdict against the rule fixed before measurement: neither hypothesis holds as stated.</strong></p>
+    <ul class="plain">
+      <li><strong>Correlation's low-data edge appears only in scenario A</strong> (up to 96 ratings), not in C or D, where the conjecture predicted it most clearly. The ratings needed for CE to win are the same 12 in B, C and D.</li>
+      <li><strong>On held-out correlation, the correlation-trained judges overtake only with plenty of data:</strong> from 512 tasks (1,536 ratings) in B and C, and 1,024 (3,072) in D; never in A.</li>
+      <li><strong>Validation tuning is noisy with few tasks.</strong> It moves scenario A's crossover from 64 to 32 tasks, but tuned CE trails fixed-ridge Pearson at 4–16 tasks in A and at 4 tasks in D.</li>
+      <li><strong>The Pearson-trained judge (②) ends up worse than a constant forecast</strong> on test RPS at large n in every scenario: from 128 tasks in A, 8 in B, 16 in C and 256 in D. Its test correlation meanwhile reaches 0.85–0.99.</li>
+    </ul>
+    <p><strong>What this says about the conjecture.</strong> The part that survives: when the target's structure lies in higher moments that too few ratings cannot pin down, and the mean carries little signal, matching the mean while keeping the average spread is the best a learner can do early. Correlation training does exactly that (scenario A). The part that fails: wherever the mean carries information, even linearly, the loss-trained judge learns it at least as fast as the correlation-trained one. So the ratings needed depend on <em>where</em> the target's information lies, not on its complexity alone; scenario B is as complex as A but crosses at 12 ratings. And whatever the data size, correlation stays the wrong primary <em>evaluation</em> metric (next section). Which scenario real human ratings resemble is an open question, and it decides whether correlation training could ever help at small n.</p>
+  </section>
+
+  <section class="section" id="reviewer" aria-labelledby="reviewer-h">
+    <h2 id="reviewer-h">Why test correlation is the wrong primary metric (for reviewer 2)</h2>
+    <ol class="asks">
+      <li><strong>Even on correlation, training on correlation buys little.</strong> With realistic numbers of ratings, the loss-trained judge has equal or higher held-out test correlation (Figure 6). Correlation-trained judges overtake only with many ratings, and then only slightly, while their rating distributions are far worse (Figure 5).</li>
+      <li><strong>Correlation cannot see what matters.</strong> Maximizing Pearson is the same as minimizing squared error between <em>z-scored</em> judge and human ratings. So Pearson is unchanged by any shift or positive rescaling of the predicted ratings, exactly the bias and scale terms of MSE (<a href="#pearson-appendix">derivation</a>), and Spearman by any increasing transform. Both see one number per item, the mean, via E[R] = Σ<sub>j</sub> S<sub>j</sub>. So neither detects miscalibration, bias or rater disagreement. Figure 2: correlation ties five different distributions in every replication. Exp 00: a judge that only ever outputs 4 or 5 still has Pearson 0.877, against 0.900 for a faithful judge.</li>
+      <li><strong>Correlation is not a proper scoring rule.</strong> It does not reward reporting the true rating distribution. Its value also depends on how spread out the test items are, not just on the judge, so it cannot be averaged item by item or compared across test sets.</li>
+      <li><strong>What correlation is still good for.</strong> If the only use is ranking items, Spearman is a reasonable secondary diagnostic. To choose or train a judge that must reproduce human ratings, use a proper loss such as RPS, and report correlations alongside it.</li>
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="limits">
+    <h2 id="limits">Limits to keep in mind</h2>
+    <ul class="plain">
+      <li>All human-rating experiments reuse one small rating set: 25 Python tasks, 19 task families, 2–3 expert ratings per artifact. Repeated splits and extra judges do not add independent human evidence.</li>
+      <li>"Held out" means held out from that fit. The ratings were used in earlier judge selection, so every human result is retrospective. Exps 11, 12 and 14 split by task, not task family, so related tasks can land on both sides.</li>
+      <li>The judges are mixtures of scalar scores, not native probability outputs. Their predicted rating distributions are poorly calibrated: a constant forecast has lower test CE.</li>
+      <li>No p-values: no confirmatory test was declared in advance. Verdicts above use whether the 95% interval excludes 0.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="asks">
+    <h2 id="asks">Open items to discuss</h2>
+    <ol class="asks">
+      <li><strong>Question for Sanmi: prompts or weights?</strong> In practice an LLM judge is a frontier model plus a prompt and harness, usually tuned by hand or by an agent against agreement with humans. Our experiments only test the objective used to fit <em>weights</em> over fixed model × prompt judges, or to pick one of them. Which matters more for a trustworthy judge: the objective used to choose the prompt and harness (correlation vs a proper loss such as RPS), or the objective used to fit weights and calibration on top? Should the next experiment be an agent-driven prompt and harness search run once against correlation and once against RPS, scored on the same held-out human ratings?</li>
+      <li><strong>Paper.</strong> The AAAI-27 workshop position paper (2–4 pages) is due <span class="deadline">11-20-2026, 06:00 UTC</span>. It currently cites exp 01 and older history only; exps 02 and 11–14 still need to be written in.</li>
+      <li><strong>③ vs ④.</strong> Choosing by validation loss vs training on loss alone has never been compared head to head. Is it worth running before the deadline?</li>
+      <li><strong>Fresh human ratings.</strong> Collection with held-out splits by task family, solver and rater runs in trustworthy-theorem-judges experiment 09. That is the path to a non-retrospective test.</li>
+      <li><strong>Framing.</strong> Is the claim "correlation alone does not identify the rating distribution, so use proper losses and keep correlation as a diagnostic", rather than "correlation training loses on held-out data"?</li>
+    </ol>
+  </section>
+
+  <section class="section appendix" id="exp13-appendix" aria-labelledby="exp13-app-h">
+    <h2 id="exp13-app-h">Appendix: experiment 13 with the Pearson + calibrated head judge</h2>
+    <div class="figure" style="background:#fff"><img src="fig_excess_vs_n_with_head_labeled.png" alt="Experiment 13 figure with four training objectives, including the Pearson plus calibrated head judge, with metric-named axes" style="display:block;width:100%;min-width:560px"></div>
+    <p class="chart-note"><strong>Figure A1.</strong> <em>How chosen:</em> as in Figures 3 and 4. Experiment 13 with all four training objectives, redrawn from the saved results so that each axis names its metric. The left y-axis is held-out test RPS excess over the true distribution; the right y-axis is held-out test cross-entropy excess, KL(true ‖ judge) in nats. Lower is better, on log scales; the x-axis is training tasks n (3 ratings each). Orange is the Pearson-trained judge plus a calibrated head (defined in the setup above). It is never better than the CE-trained judge and is far worse at small n; it beats the raw Pearson-trained judge only at large n. Dotted lines are each method's limit as n grows; the black dashed line is a power-law fit to the CE-trained curve.</p>
+  </section>
+
+  <section class="section appendix" id="pearson-appendix" aria-labelledby="pearson-h">
+    <h2 id="pearson-h">Appendix: Pearson correlation written as a squared loss</h2>
+    <p>Let X be the judge's expected rating on a random test artifact, <span class="tex">X=\mathbb{E}_{q}[R]</span>, and Y the human mean rating on the same artifact.</p>
+
+    <h3>A. Population form</h3>
+    <div class="tex" data-display="1">\rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\sigma_X\,\sigma_Y}=\frac{\mathbb{E}[XY]-\mathbb{E}[X]\,\mathbb{E}[Y]}{\sqrt{\operatorname{Var}(X)\,\operatorname{Var}(Y)}}</div>
+    <p>If X and Y are centered (<span class="tex">\mathbb{E}[X]=\mathbb{E}[Y]=0</span>), this simplifies to <span class="tex">\rho_{X,Y}=\mathbb{E}[XY]/\sqrt{\mathbb{E}[X^2]\,\mathbb{E}[Y^2]}</span>.</p>
+
+    <h3>B. Sample form over N held-out test artifacts</h3>
+    <p>Stack the judge's expected ratings and the human mean ratings into vectors <span class="tex">\mathbf{x},\mathbf{y}\in\mathbb{R}^N</span>, center them, and normalize:</p>
+    <div class="tex" data-display="1">\tilde{\mathbf{x}}=\mathbf{x}-\bar{x}\,\mathbf{1},\quad \tilde{\mathbf{y}}=\mathbf{y}-\bar{y}\,\mathbf{1},\qquad r_{\mathbf{x},\mathbf{y}}=\frac{\tilde{\mathbf{x}}^\top\tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|_2\,\|\tilde{\mathbf{y}}\|_2}=\cos\theta=\hat{\mathbf{x}}^\top\hat{\mathbf{y}},\quad \hat{\mathbf{x}}=\frac{\tilde{\mathbf{x}}}{\|\tilde{\mathbf{x}}\|_2},\ \hat{\mathbf{y}}=\frac{\tilde{\mathbf{y}}}{\|\tilde{\mathbf{y}}\|_2}</div>
+    <p>Pearson correlation is the cosine of the angle between the centered vectors.</p>
+
+    <h3>C. Pearson is a squared loss on standardized scores</h3>
+    <p>With z-scores <span class="tex">Z_X=(X-\mu_X)/\sigma_X</span> and <span class="tex">Z_Y=(Y-\mu_Y)/\sigma_Y</span>:</p>
+    <div class="tex" data-display="1">\mathbb{E}\big[(Z_X-Z_Y)^2\big]=2\,(1-\rho_{X,Y}),\qquad \|\hat{\mathbf{x}}-\hat{\mathbf{y}}\|_2^2=2\,(1-r_{\mathbf{x},\mathbf{y}})</div>
+    <p>So <strong>maximizing Pearson is the same as minimizing the mean squared error (MSE) between z-scored judge ratings and z-scored human ratings</strong>. Using <span class="tex">(1-\rho)^2</span> instead gives the same optimum, because it is a decreasing function of ρ.</p>
+
+    <h3>D. What plain MSE keeps and Pearson throws away</h3>
+    <p>With population standard deviations <span class="tex">s_x=\sqrt{\tfrac1N\sum_i(x_i-\bar x)^2}</span> and likewise <span class="tex">s_y</span>, the MSE between raw ratings splits exactly into three parts:</p>
+    <div class="tex" data-display="1">\frac1N\sum_{i=1}^{N}(x_i-y_i)^2=\underbrace{(\bar{x}-\bar{y})^2}_{\text{bias}}+\underbrace{(s_x-s_y)^2}_{\text{scale mismatch}}+\underbrace{2\,s_x s_y\,(1-r_{\mathbf{x},\mathbf{y}})}_{\text{the only part Pearson sees}}</div>
+    <p>Pearson drops the bias and scale terms: any judge <span class="tex">\mathbf{x}'=a\,\mathbf{x}+b\,\mathbf{1}</span> with <span class="tex">a&gt;0</span> has exactly the same r. Example: a judge that predicts <span class="tex">x=0.1+0.08\,y</span>, always between 0.1 and 0.5 on the 0–5 scale, has r = 1.000 but MSE = 6.68 = bias² 4.84 + scale mismatch² 1.84 + 0.</p>
+
+    <h3>E. Both see only the mean</h3>
+    <p>Each entry <span class="tex">x_i=\mathbb{E}_{q_i}[R]=\sum_{j=0}^{4}S_{ij}</span> compresses the judge's whole distribution over the six ratings into one number, and <span class="tex">y_i</span> does the same to the humans' ratings. So even plain MSE identifies only the conditional mean, and Pearson sees less than that. Distributions that share every mean get identical Pearson and MSE (Figure 2). RPS and cross-entropy compare the whole distribution on every artifact.</p>
+    <p class="meta">Every identity above was checked numerically on 1,000 random cases (maximum error 9e-15).</p>
+  </section>
+
+  <section class="section appendix" id="rps-appendix" aria-labelledby="rps-h">
+    <h2 id="rps-h">Appendix: the ranked probability score (RPS)</h2>
+    <p>Ranked probability score (RPS) is a standard scoring rule in weather forecasting, introduced by Epstein (1969), but it is uncommon in machine learning. It scores a predicted probability distribution over <em>ordered</em> categories, such as our 0–5 ratings, against the rating a human actually gave.</p>
+
+    <h3>Definition</h3>
+    <p>For one artifact, the judge outputs probabilities q<sub>0</sub>, …, q<sub>5</sub> over the six ratings. Its cumulative distribution function (CDF) is Q<sub>j</sub> = Pr[rating ≤ j] = q<sub>0</sub> + … + q<sub>j</sub>, and its survival function is S<sub>j</sub> = Pr[rating &gt; j] = 1 − Q<sub>j</sub>. For an observed human rating r:</p>
+    <div class="formula">RPS(q, r) = (1/5) · Σ<sub>j=0..4</sub> ( Q<sub>j</sub> − 1{r ≤ j} )²  =  (1/5) · Σ<sub>j=0..4</sub> ( S<sub>j</sub> − 1{r &gt; j} )²</div>
+    <p>Threshold j = 5 is skipped because Q<sub>5</sub> = 1 for every forecast. Dividing by the five thresholds puts RPS between 0 (all probability on the observed rating) and 1 (all probability on the opposite end of the scale). Over a test set, we average RPS over each artifact's human ratings, then over artifacts.</p>
+
+    <h3>Intuition 1: five yes/no questions</h3>
+    <p>At each threshold j the judge answers "is the rating at most j?" with a probability Q<sub>j</sub>, and the human rating gives the true answer. Each term is the squared error of one yes/no forecast (its Brier score), so RPS is the average squared error over five questions: "at most 0?", "at most 1?", up to "at most 4?". Read with the survival function, the questions become "does the rating exceed j?".</p>
+
+    <h3>Intuition 2: the gap between two staircases</h3>
+    <p>The judge's CDF is a staircase rising from 0 to 1. The observed rating is a single step at r. RPS adds up the squared vertical gaps between them at each threshold. A near miss leaves gaps at few thresholds, a far miss at many.</p>
+    <div class="figure">
+      <svg id="staircase" viewBox="0 0 600 300" role="img" aria-label="Judge cumulative probabilities versus the observed rating's step at r = 4, with the squared gaps that make up the RPS"></svg>
+    </div>
+    <p class="chart-note"><strong>Figure A2.</strong> Example: a human rating r = 4 and a judge forecast q = (0, 0, 0.1, 0.3, 0.4, 0.2) over ratings 0–5. Squared gaps 0 + 0 + 0.01 + 0.16 + 0.04 = 0.21, so RPS = 0.21 / 5 = 0.042.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Forecast, when the human rating is 4</th><th>RPS</th><th>Brier score (6 categories)</th><th>Cross-entropy</th></tr></thead>
+        <tbody>
+          <tr><td>All probability on 4</td><td class="n">0.000</td><td class="n">0.0</td><td class="n">0</td></tr>
+          <tr><td>All probability on 5 (near miss)</td><td class="n">0.200</td><td class="n">2.0</td><td class="n">∞</td></tr>
+          <tr><td>All probability on 0 (far miss)</td><td class="n">0.800</td><td class="n">2.0</td><td class="n">∞</td></tr>
+          <tr><td>Half on 3, half on 5</td><td class="n">0.100</td><td class="n">1.5</td><td class="n">∞</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Lower is better in every column. Cross-entropy is infinite (or set by a probability floor) whenever the observed rating got zero probability, and the Brier score treats ratings as unordered labels. Only RPS scores the near miss as better than the far miss.</p>
+
+    <h3>Intuition 3: distance in rating points</h3>
+    <p>For integer ratings, 5 · RPS(q, r) = E|R − r| − ½ E|R − R′|, where R and R′ are two independent ratings drawn from the judge's forecast. The first term is the expected distance in rating points between a rating sampled from the judge and the human's rating. The second subtracts half the judge's own spread, so spreading probability is not penalized for its own sake. This is the discrete case of the continuous ranked probability score identity (Gneiting &amp; Raftery 2007).</p>
+
+    <h3>Why RPS is proper: it rewards the true distribution</h3>
+    <p>If the human rating is drawn from a distribution p with CDF P, the expected RPS splits into two parts:</p>
+    <div class="formula">E[RPS] = (1/5) Σ<sub>j</sub> ( Q<sub>j</sub> − P<sub>j</sub> )²  +  (1/5) Σ<sub>j</sub> P<sub>j</sub> ( 1 − P<sub>j</sub> )<br>          = judge's error (≥ 0, zero only if q = p)  +  rater disagreement (same for every judge)</div>
+    <p>The second part is the noise floor set by how much raters disagree; no judge can beat it. The first part is zero only when the judge reports exactly the human rating distribution. So a judge gets its best expected score only by predicting the full distribution, including the disagreement. That property is called strict propriety.</p>
+    <p><strong>Example that correlation cannot see.</strong> Raters split evenly between 3 and 5 on an artifact. Judge A predicts that split; Judge B puts all probability on 4. Both have expected rating 4, so their correlation with human mean ratings is identical. Their expected RPS is not: 0.10 for Judge A (all of it rater disagreement) versus 0.20 for Judge B. A uniform forecast over 0–5 scores 0.206.</p>
+    <p><strong>Why mean-based metrics miss this: the mean is the sum of the survival function.</strong> For ratings 0–5, the expected rating equals the sum of the survival probabilities over the five thresholds: E[R] = S<sub>0</sub> + S<sub>1</sub> + S<sub>2</sub> + S<sub>3</sub> + S<sub>4</sub>, where S<sub>j</sub> = Pr[rating &gt; j]. Mean squared error between expected ratings sees a forecast only through this sum. Correlation across artifacts sees even less, because it also ignores any shift or rescaling of the means. So survival gaps of opposite sign at different thresholds cancel in every mean-based metric; RPS squares each threshold's gap before adding, so they cannot. In the example, Judge A has S = (1, 1, 1, 0.5, 0.5) and Judge B has S = (1, 1, 1, 1, 0). Both sum to 4, so the gaps (0, 0, 0, +0.5, −0.5) cancel in the mean, while their squares give the excess expected RPS (0.25 + 0.25) / 5 = 0.10.</p>
+
+    <h3>Why the cumulative form: robustness with few ratings</h3>
+    <p>Each artifact has only two or three human ratings, so its rating histogram has at least three of six bins empty. Distances computed bin by bin against such a histogram are dominated by the empty bins. Kullback–Leibler divergence becomes infinite or is set by a probability floor, and total variation distance (TVD) is biased upward even for the true distribution.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Raters choose 3 (60%) or 5 (40%); one rating per artifact</th><th>Expected TVD to the 1-rating histogram</th><th>Expected one-rating Wasserstein-1</th><th>Expected RPS</th></tr></thead>
+        <tbody>
+          <tr><td>Forecast = the true 60/40 distribution</td><td class="n">0.48</td><td class="n">0.96</td><td class="n">0.096 (best)</td></tr>
+          <tr><td>Forecast = all probability on 3</td><td class="n">0.40 (best)</td><td class="n">0.80 (best)</td><td class="n">0.160</td></tr>
+          <tr><td>Forecast = all probability on 4</td><td class="n">1.00</td><td class="n">1.00</td><td class="n">0.200</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Lower is better. Both plug-in distances reward the overconfident forecast over the truth; only RPS puts the truth first. Even the true distribution's expected TVD to its own histogram is 0.48, 0.288 and 0.23 with 1, 2 and 3 ratings.</p>
+    <p>The cumulative form avoids this. Each Q<sub>j</sub> = Pr[rating ≤ j] pools every rating category at or below j, so every rating informs every threshold and no threshold is ever empty. The empirical CDF at a threshold is an average of 0/1 indicators, so it is an unbiased estimate. Its sampling noise is exactly the rater-disagreement term, which is the same for every judge and cancels when two judges are compared on the same artifacts. Squaring the gaps, rather than taking their absolute values (the Wasserstein-1 column), is what makes the score proper.</p>
+    <p><strong>Connection to the elusive paper.</strong> Schaeffer et al. (2024, arXiv 2406.04391) compared distributions of per-sample score–compute correlations through survival functions (complementary CDFs). Their stated reason was to read off what fraction of samples lies above any threshold. They summarized those distributions with the area under the survival function and with Wasserstein distances, which are also defined through CDFs. RPS applies the same cumulative view to scoring a forecast against observed ratings.</p>
+
+    <h3>RPS as a distance between distributions, and "root RPS"</h3>
+    <p>If the human distribution p were known, the judge's-error term above, (1/5) Σ<sub>j</sub> (Q<sub>j</sub> − P<sub>j</sub>)², would be a squared ℓ<sub>2</sub> distance between the two CDFs. That is the squared Cramér distance (Bellemare et al. 2017), and on the 0–5 integer scale it equals one tenth of the energy distance (Székely &amp; Rizzo 2013). Its square root is a true metric between rating distributions: a principled "root RPS".</p>
+    <p>In practice p is unknown, so we average RPS over observed ratings. The disagreement floor is the same for every judge, so differences in mean RPS between judges are unbiased estimates of differences in their squared Cramér distances to the human distribution. We found no standard metric called "root RPS". Taking the square root of a mean RPS does not change how judges are ranked; taking it per rating before averaging would lose this unbiasedness. Bellemare et al. also show that the Cramér distance, unlike the Wasserstein distance, has unbiased sample gradients, so RPS also works as a training loss.</p>
+
+    <h3>Why RPS is the right primary metric for LLM judges of human ratings</h3>
+    <ul class="reasons">
+      <li><strong>The ratings are ordered.</strong> Missing by one point should cost less than missing by four. RPS does this; cross-entropy and the Brier score do not.</li>
+      <li><strong>It targets the whole rating distribution.</strong> Correlation ignores calibration and spread, and mean squared error only checks the mean. RPS is minimized only by the true distribution.</li>
+      <li><strong>It works with two or three ratings per artifact.</strong> Each observed rating is scored directly through the CDF, so no per-artifact histogram has to be estimated, empty rating categories do not distort the score, and one rating per artifact already gives an unbiased estimate.</li>
+      <li><strong>It is bounded and stable.</strong> RPS stays in [0, 1]. Cross-entropy can be dominated by a single rating that got almost no probability: in archived experiment 11, judge mixtures had higher held-out cross-entropy than a constant forecast (5.43 vs 1.85 nats, driven by a 10<sup>−6</sup> probability floor), while their held-out RPS was lower (0.137 vs 0.183).</li>
+      <li><strong>It is interpretable.</strong> It reads in rating points, and the decomposition separates the judge's error from the rater-disagreement floor.</li>
+    </ul>
+
+    <h3>Limitations</h3>
+    <p>RPS assumes equally spaced ratings (a miss from 0 to 1 costs the same as one from 4 to 5) and weights all thresholds equally. It is less sensitive than cross-entropy to the probability given to rare ratings, which is why cross-entropy stays as a secondary metric. With two or three ratings per artifact the disagreement floor is estimated noisily, so judges should be compared by paired differences on the same artifacts. Some references omit the 1/5 factor, giving values five times ours.</p>
+    <p>Galdran (2023, arXiv 2309.08701) notes two more behaviors. A confident miss is penalized only linearly with distance (a point mass d ratings away scores d/5). RPS can also prefer a symmetric forecast to one with more probability on the observed rating. That paper proposes a squared-absolute variant, but in our numeric check the variant is not proper. For raters spread (0.2, 0.2, 0.2, 0.2, 0.1, 0.1) over 0–5, the concentrated forecast (0, 0, 0.9, 0.1, 0, 0) scores better on the variant (0.498) than the true distribution (0.680), while RPS prefers the truth (0.178 vs 0.246). So we keep RPS.</p>
+    <p class="meta">The same explanation, with equations, is the appendix of the AAAI-27 workshop paper draft (<code>8-appendix-rps.tex</code>). Every example number above is printed by <code>rps_appendix_examples.py</code> in the paper folder.</p>
+  </section>
+
+  <section class="section appendix" id="folders-appendix" aria-labelledby="folders-h">
+    <h2 id="folders-h">Appendix: experiment folders behind this page</h2>
+    <p>All paths are in the repository judges-dont-need-psychometrics-or-corr, under <code>experiments/</code>. Each folder has a <code>HOW_TO_READ_RESULTS.md</code> that states the data split, metric and comparison for every number.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Folder</th><th>Status</th><th>Used on this page for</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/00_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026"><code>00_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026</code></a></td><td>Active</td><td>The squashed-judge example in the reviewer-2 section (Pearson 0.877 vs 0.900).</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/01_conditional_binomial_distribution_identification_start_08Nov2026"><code>01_conditional_binomial_distribution_identification_start_08Nov2026</code></a></td><td>Active</td><td>Figure 2, the notation table and the "exp 01" synthetic results.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026"><code>02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026</code></a></td><td>Active</td><td>Figure 1 (first row) and the human-rating results table.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026"><code>06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026</code></a></td><td>Active (complete)</td><td>Figures 5 and 6: Spearman-, Kendall- and ½ Pearson + ½ Spearman-trained judges.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026"><code>07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026</code></a></td><td>Active (complete)</td><td>Figure 7 and the convergence notes in "How each judge was chosen".</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026"><code>08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026</code></a></td><td>Active (complete)</td><td>Figures 8 and 9 and the "does correlation win with little data?" section.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026"><code>archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026</code></a></td><td>Archived</td><td>Human-rating results table; the "bounded" point in the RPS appendix.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026"><code>archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026</code></a></td><td>Archived</td><td>Figure 1, the human-rating results table and the bottom line.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026"><code>archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026</code></a></td><td>Archived</td><td>Figures 3, 4 and A1, the exp 13 setup and crossover table. Exp 06 reuses its data and judge family.</td></tr>
+          <tr><td><a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026"><code>archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026</code></a></td><td>Archived</td><td>Figure 1 (open-weight and combined pools) and the human-rating results table.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Not used here: <code>04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026</code> and <code>05_cross_entropy_vs_correlation_information_gap_start_13Nov2026</code>, which are separate work in progress. The RPS appendix numbers come from <code>paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/rps_appendix_examples.py</code>.</p>
+  </section>
+
+  <footer>
+    <div>Sources (GitHub): <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/README.md">experiments index</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/RESULTS_conditional_identification.md">exp 01</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/RESULTS_comparison.md">exp 02</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/11_formulation4_train_only_ce_mixture_cv_start_10Nov2026_end_10Nov2026/results.md">exp 11</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/results.md">exp 12</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results.md">exp 13</a> · <a href="https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/results.md">exp 14</a></div>
+    <div>Each experiment folder has a HOW_TO_READ_RESULTS.md that states the data split, metric and comparison for every number. Every number on this page is copied from those result files. Retrospective, CPU-only analyses; $0 inference for the human-rating comparisons except the open-weight scoring in exp 14 (free cluster GPUs).</div>
+  </footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script>
+(function () {
+  // Render TeX as native MathML (no KaTeX stylesheet needed); the raw TeX stays visible if this fails.
+  if (!window.katex) return;
+  document.querySelectorAll(".tex").forEach(function (el) {
+    try { katex.render(el.textContent, el, { output: "mathml", displayMode: el.getAttribute("data-display") === "1", throwOnError: false }); } catch (e) {}
+  });
+})();
+(function () {
+  // d = test RPS of correlation-trained (②) minus test RPS of loss-trained (④); a, b = each judge's mean test RPS.
+  var rows = [
+    { group: "Mixture over judges" },
+    { label: "Exp 02 · 5 frontier judges", d: 0.004555, lo: -0.009965, hi: 0.035602, a: 0.1436, b: 0.1391 },
+    { label: "Exp 12 · 5 frontier judges", d: 0.0056, lo: -0.0059, hi: 0.0181, a: 0.1419, b: 0.1362 },
+    { label: "Exp 14 · 39 open-weight judges", d: 0.0502, lo: 0.0238, hi: 0.0754, a: 0.3274, b: 0.2773 },
+    { label: "Exp 14 · 44 combined judges", d: 0.0405, lo: 0.0237, hi: 0.0575, a: 0.2063, b: 0.1658 },
+    { group: "Best single judge" },
+    { label: "Exp 12 · 5 frontier judges", d: -0.0254, lo: -0.0570, hi: 0.0005, a: 0.1797, b: 0.2051 },
+    { label: "Exp 14 · 39 open-weight judges", d: 0.0529, lo: 0.0137, hi: 0.0911, a: 0.3680, b: 0.3151 },
+    { label: "Exp 14 · 44 combined judges", d: -0.0317, lo: -0.0638, hi: -0.0047, a: 0.1797, b: 0.2114 }
+  ];
+  var svg = document.getElementById("forest");
+  var NS = "http://www.w3.org/2000/svg";
+  var left = 262, right = 660, top = 62, rowH = 31, valX = 690;
+  var xmin = -0.07, xmax = 0.10;
+  function x(v) { return left + (v - xmin) / (xmax - xmin) * (right - left); }
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  }
+  var mono = "var(--font-mono)", body = "var(--font-body)";
+  var bottom = top + rows.length * rowH;
+  // direction labels
+  el("text", { x: x(0) - 8, y: 18, "text-anchor": "end", "font-size": 11.5, fill: "var(--corr)", "font-family": mono }, "← ② had lower test RPS (better)");
+  el("text", { x: x(0) + 8, y: 18, "text-anchor": "start", "font-size": 11.5, fill: "var(--loss)", "font-family": mono }, "④ had lower test RPS (better) →");
+  // value column header
+  el("text", { x: valX, y: 18, "font-size": 11.5, fill: "var(--muted)", "font-family": mono }, "Mean test RPS");
+  el("text", { x: valX, y: 36, "font-size": 11.5, fill: "var(--muted)", "font-family": mono }, "② corr  ·  ④ loss");
+  // grid + ticks
+  [-0.05, 0, 0.05, 0.10].forEach(function (t) {
+    el("line", { x1: x(t), x2: x(t), y1: top - 12, y2: bottom, stroke: t === 0 ? "var(--fg)" : "var(--rule)", "stroke-width": t === 0 ? 1.2 : 1, "stroke-dasharray": t === 0 ? "" : "3 3" });
+    el("text", { x: x(t), y: bottom + 18, "text-anchor": "middle", "font-size": 11.5, fill: "var(--muted)", "font-family": mono }, (t > 0 ? "+" : t < 0 ? "−" : "") + Math.abs(t).toFixed(2));
+  });
+  el("text", { x: (left + right) / 2, y: bottom + 40, "text-anchor": "middle", "font-size": 12.5, "font-weight": 600, fill: "var(--fg)", "font-family": body }, "Test RPS of judge ②  minus  test RPS of judge ④   (one metric, two judges)");
+  el("text", { x: (left + right) / 2, y: bottom + 58, "text-anchor": "middle", "font-size": 11.5, fill: "var(--muted)", "font-family": body }, "Both judges are scored with the same metric, ranked probability score (RPS; 0 to 1, lower is better), on the same held-out test artifacts.");
+  el("text", { x: (left + right) / 2, y: bottom + 75, "text-anchor": "middle", "font-size": 11.5, fill: "var(--muted)", "font-family": body }, "② and ④ only say how each judge was trained: ② by correlation, ④ by cross-entropy · dot = mean difference · bar = 95% interval");
+  rows.forEach(function (r, i) {
+    var y = top + i * rowH + rowH / 2;
+    if (r.group) {
+      el("text", { x: 8, y: y + 4, "font-size": 11, fill: "var(--muted)", "font-family": mono, "letter-spacing": "0.06em" }, r.group.toUpperCase());
+      return;
+    }
+    var color = r.lo > 0 ? "var(--loss)" : r.hi < 0 ? "var(--corr)" : "var(--tie)";
+    el("text", { x: 18, y: y + 4, "font-size": 13, fill: "var(--fg)", "font-family": body }, r.label + (r.note ? " (" + r.note + ")" : ""));
+    el("line", { x1: x(r.lo), x2: x(r.hi), y1: y, y2: y, stroke: color, "stroke-width": 2.2, "stroke-linecap": "round" });
+    el("circle", { cx: x(r.d), cy: y, r: 4.6, fill: color, stroke: "var(--surface)", "stroke-width": 1.5 });
+    el("text", { x: valX, y: y + 4, "font-size": 12.5, fill: "var(--fg)", "font-family": mono }, r.a.toFixed(3) + "  ·  " + r.b.toFixed(3));
+  });
+})();
+(function () {
+  // Exp 01, one validation rating per item: expected test CE (nats) of the chosen candidate.
+  var rows = [["Cross-entropy", 1.331453, "true model chosen 249/256"], ["Brier score", 1.333285, "245/256"], ["RPS", 1.333285, "245/256"],
+              ["Pearson", 1.994927, "5-way tie in 256/256"], ["Spearman", 1.994927, "5-way tie"], ["Kendall", 1.994927, "5-way tie"], ["nMSE", 1.994927, "5-way tie"]];
+  var svg = document.getElementById("exp01"), NS = "http://www.w3.org/2000/svg";
+  function el(tag, a, t) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); if (t != null) e.textContent = t; svg.appendChild(e); return e; }
+  var left = 130, right = 560, top = 14, rowH = 32, xmax = 2.2;
+  function x(v) { return left + v / xmax * (right - left); }
+  var bottom = top + rows.length * rowH;
+  [0, 0.5, 1, 1.5, 2].forEach(function (t) {
+    el("line", { x1: x(t), x2: x(t), y1: top, y2: bottom, stroke: "var(--rule)" });
+    el("text", { x: x(t), y: bottom + 16, "text-anchor": "middle", "font-size": 11, fill: "var(--muted)", "font-family": "var(--font-mono)" }, t.toFixed(1));
+  });
+  rows.forEach(function (r, i) {
+    var y = top + i * rowH, proper = i < 3;
+    el("text", { x: left - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "font-size": 13, fill: "var(--fg)", "font-family": "var(--font-body)" }, r[0]);
+    el("rect", { x: left, y: y + 6, width: x(r[1]) - left, height: rowH - 12, fill: proper ? "var(--loss)" : "var(--corr)", "fill-opacity": 0.8 });
+    el("text", { x: x(r[1]) + 6, y: y + rowH / 2 + 4, "font-size": 11.5, fill: "var(--fg)", "font-family": "var(--font-mono)" }, r[1].toFixed(3) + "  ·  " + r[2]);
+  });
+  el("line", { x1: x(1.328246), x2: x(1.328246), y1: top - 4, y2: bottom, stroke: "var(--fg)", "stroke-dasharray": "4 3" });
+  el("text", { x: (left + right) / 2, y: bottom + 36, "text-anchor": "middle", "font-size": 12, "font-weight": 600, fill: "var(--fg)", "font-family": "var(--font-body)" }, "Held-out test cross-entropy of the chosen candidate (nats, lower is better)");
+})();
+(function () {
+  // Staircase example: human rating r = 4, judge forecast q over ratings 0..5.
+  var q = [0, 0, 0.1, 0.3, 0.4, 0.2], r = 4;
+  var svg = document.getElementById("staircase");
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  }
+  var mono = "var(--font-mono)", body = "var(--font-body)";
+  var left = 70, colW = 84, top = 34, h = 180, base = top + h;
+  function y(v) { return base - v * h; }
+  // y axis
+  [0, 0.5, 1].forEach(function (t) {
+    el("line", { x1: left, x2: left + 6 * colW, y1: y(t), y2: y(t), stroke: "var(--rule)", "stroke-dasharray": t === 0 ? "" : "3 3" });
+    el("text", { x: left - 8, y: y(t) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--muted)", "font-family": mono }, t.toFixed(1));
+  });
+  el("text", { x: 14, y: top + h / 2, "font-size": 11, fill: "var(--muted)", "font-family": body, transform: "rotate(-90 14 " + (top + h / 2) + ")", "text-anchor": "middle" }, "cumulative probability");
+  var Q = 0;
+  for (var j = 0; j < 6; j++) {
+    Q += q[j];
+    var cx = left + j * colW + colW / 2, bw = 40;
+    var obs = r <= j ? 1 : 0;
+    var scored = j < 5;
+    // judge CDF bar
+    el("rect", { x: cx - bw / 2, y: y(Q), width: bw, height: Math.max(0.5, Q * h), fill: "var(--accent)", "fill-opacity": scored ? 0.35 : 0.12, stroke: "var(--accent)", "stroke-width": 1 });
+    // gap shading between bar top and observed step
+    if (scored && Math.abs(Q - obs) > 1e-9) {
+      var yt = y(Math.max(Q, obs)), yb = y(Math.min(Q, obs));
+      el("rect", { x: cx - bw / 2, y: yt, width: bw, height: yb - yt, fill: "var(--corr)", "fill-opacity": 0.35 });
+      el("text", { x: cx, y: yt - 6, "text-anchor": "middle", "font-size": 11, fill: "var(--corr)", "font-family": mono }, "gap² " + Math.pow(Q - obs, 2).toFixed(2));
+    }
+    // observed step segment
+    el("line", { x1: left + j * colW, x2: left + (j + 1) * colW, y1: y(obs), y2: y(obs), stroke: "var(--fg)", "stroke-width": 2.4 });
+    if (j > 0 && obs === 1 && r === j) el("line", { x1: left + j * colW, x2: left + j * colW, y1: y(0), y2: y(1), stroke: "var(--fg)", "stroke-width": 2.4 });
+    el("text", { x: cx, y: base + 18, "text-anchor": "middle", "font-size": 11.5, fill: "var(--fg)", "font-family": mono }, "j = " + j);
+    el("text", { x: cx, y: base + 34, "text-anchor": "middle", "font-size": 10.5, fill: "var(--muted)", "font-family": body }, scored ? "rating ≤ " + j + "?" : "always 1, not scored");
+  }
+  el("rect", { x: left, y: 8, width: 12, height: 10, fill: "var(--accent)", "fill-opacity": 0.35, stroke: "var(--accent)" });
+  el("text", { x: left + 18, y: 17, "font-size": 11, fill: "var(--fg)", "font-family": body }, "judge's Q_j = Pr[rating ≤ j]");
+  el("line", { x1: left + 196, x2: left + 216, y1: 13, y2: 13, stroke: "var(--fg)", "stroke-width": 2.4 });
+  el("text", { x: left + 222, y: 17, "font-size": 11, fill: "var(--fg)", "font-family": body }, "observed 1{4 ≤ j}");
+  el("rect", { x: left + 346, y: 8, width: 12, height: 10, fill: "var(--corr)", "fill-opacity": 0.35 });
+  el("text", { x: left + 364, y: 17, "font-size": 11, fill: "var(--fg)", "font-family": body }, "gap, squared and averaged");
+  el("text", { x: left + 3 * colW, y: base + 58, "text-anchor": "middle", "font-size": 12, "font-weight": 600, fill: "var(--fg)", "font-family": body }, "RPS = (0 + 0 + 0.01 + 0.16 + 0.04) / 5 = 0.042");
+})();
+</script>
