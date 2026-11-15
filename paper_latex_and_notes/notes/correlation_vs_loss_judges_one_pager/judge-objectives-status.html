@@ -289,7 +289,7 @@ div.tex math { display: block; }
     <ul class="plain">
       <li><strong>Scenario B:</strong> the CE-trained judge beats all four correlation-trained judges from <strong>4 tasks (12 ratings)</strong>.</li>
       <li><strong>Scenario A:</strong> it beats Kendall-trained from 8 tasks (24 ratings) and Pearson-, Spearman- and ½ Pearson + ½ Spearman-trained from 64 tasks (192 ratings), on test RPS.</li>
-      <li><strong>Size of the gap at 2,048 tasks:</strong> the correlation-trained judges' test RPS excess is about 9–26× the CE-trained judge's in scenario B (0.033–0.095 vs 0.0037) and about 35–45× in scenario A (0.025–0.031 vs 0.0007).</li>
+      <li><strong>Size of the gap at 2,048 tasks:</strong> the correlation-trained judges' test RPS excess is about 9–26× the CE-trained judge's in scenario B (0.033–0.095 vs 0.0037) and about 37–46× in scenario A (0.025–0.031 vs 0.0007).</li>
       <li><strong>The mixed objective</strong> behaves like Pearson alone, so the weights barely matter. <strong>Kendall</strong> is the worst objective in scenario A.</li>
     </ul>
 
@@ -391,7 +391,7 @@ div.tex math { display: block; }
     <h2 id="asks">Open items to discuss</h2>
     <ol class="asks">
       <li><strong>Question for Sanmi: prompts or weights?</strong> In practice an LLM judge is a frontier model plus a prompt and harness, usually tuned by hand or by an agent against agreement with humans. Our experiments only test the objective used to fit <em>weights</em> over fixed model × prompt judges, or to pick one of them. Which matters more for a trustworthy judge: the objective used to choose the prompt and harness (correlation vs a proper loss such as RPS), or the objective used to fit weights and calibration on top? Should the next experiment be an agent-driven prompt and harness search run once against correlation and once against RPS, scored on the same held-out human ratings?</li>
-      <li><strong>Paper.</strong> The AAAI-27 workshop position paper (2–4 pages) is due <span class="deadline">11-20-2026, 06:00 UTC</span>. It currently cites exp 01 and older history only; exps 02 and 11–14 still need to be written in.</li>
+      <li><strong>Paper.</strong> The AAAI-27 workshop position paper (2–4 pages) is due <span class="deadline">11-20-2026, 06:00 UTC</span>. Updated 11-14-2026: it now has the identification study (exp 01), a new section "Learning a Judge from Sparse Ratings" whose figure shows the ratings needed in four synthetic targets (exps 13, 06, 07, 08), and the matched comparisons on the historical human ratings (exps 02, 12, 14). Four pages of body text; six with references and appendices.</li>
       <li><strong>③ vs ④.</strong> Choosing by validation loss vs training on loss alone has never been compared head to head. Is it worth running before the deadline?</li>
       <li><strong>Fresh human ratings.</strong> Collection with held-out splits by task family, solver and rater runs in trustworthy-theorem-judges experiment 09. That is the path to a non-retrospective test.</li>
       <li><strong>Framing.</strong> Is the claim "correlation alone does not identify the rating distribution, so use proper losses and keep correlation as a diagnostic", rather than "correlation training loses on held-out data"?</li>
