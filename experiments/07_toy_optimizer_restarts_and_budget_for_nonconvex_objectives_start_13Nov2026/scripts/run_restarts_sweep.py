@@ -22,8 +22,16 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "results", "raw.jsonl")
 
 if __name__ == "__main__":
     t0 = time.time()
-    jobs = [(sc, n, s, K, NTEST) for n in NS for sc in "AB" for s in range(SEEDS)]
-    with Pool(PROCS) as pool, open(OUT, "w") as f:
+    # Resumable: keep completed (scenario, n, seed) rows and run only the missing ones (added 11-14-2026 after the
+    # first launch was interrupted at 532 of 540 rows when the session ended; completed rows are unchanged).
+    done = set()
+    if os.path.exists(OUT):
+        for line in open(OUT):
+            r = json.loads(line)
+            done.add((r["scenario"], r["n"], r["seed"]))
+    jobs = [(sc, n, s, K, NTEST) for n in NS for sc in "AB" for s in range(SEEDS) if (sc, n, s) not in done]
+    print("already done", len(done), "remaining", len(jobs), flush=True)
+    with Pool(PROCS) as pool, open(OUT, "a") as f:
         for i, (sc, n, s, o) in enumerate(pool.imap(rs.run_one, jobs, chunksize=1)):
             f.write(json.dumps(dict(scenario=sc, n=n, seed=s, fits=o)) + "\n")
             f.flush()
