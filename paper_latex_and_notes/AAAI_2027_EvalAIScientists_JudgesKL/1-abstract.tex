@@ -12,6 +12,8 @@ A binomial construction gives five candidate distributions with identical condit
 With one synthetic rating per item, cross-entropy selects the true distribution in 249 of 256 replications.
 % CS197 move 5b: diagnostic -- provenance: experiment02/results/selection_rows.csv, all scalar criteria.
 Pearson, Spearman, Kendall and scalar mean squared error retain all five candidates as ties throughout.
+% CS197 move 5d: learning study -- provenance: experiments/08_*/results.md, 06_*/results.md, 07_*/results.md.
+Training a flexible judge on synthetic ratings, cross-entropy beats correlation training on held-out rating distributions from 12 ratings whenever the target's mean is informative; correlation training helps only with few ratings when the target varies mainly in rater disagreement.
 % CS197 move 5c: limitations -- include every tie, preserve contradictory historical evidence.
 We enumerate these ties, reproduce the older marginal-histogram example, and retain inconclusive historical theorem-judge evidence.
 % CS197 move 6: implication (north star) -- narrow supported thesis.

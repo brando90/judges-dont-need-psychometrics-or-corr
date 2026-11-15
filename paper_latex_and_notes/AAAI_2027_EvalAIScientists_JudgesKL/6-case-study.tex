@@ -23,4 +23,16 @@ Two numerical certificate failures were retained without replacement; the interv
 It still does not establish an advantage.
 Our synthetic experiment neither reruns this condition nor replaces its conclusions.
 Fresh human returns were not independently checked from cloud for this report; we do not infer that they are absent.
+% Provenance: experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/RESULTS_comparison.md;
+% experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/results.md;
+% experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/results.md.
+\paragraph{Matched comparisons on the same ratings.}
+A certified matched-budget comparison fitted CE-trained and Pearson-trained mixtures of the same five cached judges.
+Held-out CE of the CE-trained minus the Pearson-trained mixture was $-0.260$ [$-1.458$, $+0.198$], and both had higher held-out CE than a constant training-histogram forecast (5.49 and 5.75 versus 1.93 nats).
+Over 1,000 random splits of 20 training and 5 test tasks, held-out RPS of the Pearson-trained minus the CE-trained mixture was $+0.0056$ [$-0.0059$, $+0.0181$].
+In the same order, held-out CE differed by $+0.374$ [$+0.101$, $+0.693$], favoring CE training, and held-out Spearman by $+0.063$ [$+0.052$, $+0.073$], favoring Pearson training.
+With 39 weaker open-weight judges added, the CE-trained mixture had lower held-out RPS ($+0.0405$ [$+0.0237$, $+0.0575$]), whereas the single judge chosen by Pearson beat the one chosen by CE ($-0.0317$ [$-0.0638$, $-0.0047$]).
+These comparisons reuse the same 195 ratings with prior exposure and add no independent human evidence.
+With about 156 training ratings per fit, they lie in the range where the synthetic crossover of our learning study depends on where the target's information lies.
+
 Natural-output generalization still requires matched probability forecasts, an explicit rater population, stable comparison procedures and appropriately held-out evidence.
