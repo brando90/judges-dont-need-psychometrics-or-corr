@@ -27,7 +27,8 @@ def main():
         if not a.amend:
             raise SystemExit('FREEZE.json exists; pass --amend "reason" to record an amendment')
         old = json.loads(path.read_text())
-        changed = sorted(f for f in FILES if old['hashes'].get(f) != hashes[f])
+        prev = old['amendments'][-1]['hashes'] if old.get('amendments') else old['hashes']
+        changed = sorted(f for f in FILES if prev.get(f) != hashes[f])
         old.setdefault('amendments', []).append({'utc': now, 'reason': a.amend, 'changed_files': changed, 'hashes': hashes})
         path.write_text(json.dumps(old, indent=2, sort_keys=True) + '\n')
         print(json.dumps({'amended': changed}))

@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md>
 
-**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: exact counterexamples tie on every moment and coefficient while proper losses separate them, and in the historical judges the most repeatable judge had the worst held-out ranked probability score (RPS). Variance decomposition did its own job well: decision-study allocation chose the best design in every simulated replication and failed only where its stated assumptions were broken. Complementary tools, not substitutes.
+**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: exact counterexamples tie on every moment and coefficient while proper losses separate them, and in the historical judges the most repeatable judge had the worst held-out ranked probability score (RPS). Variance decomposition did its own job well: decision-study allocation chose the best design in every simulated replication, and its error predictions or design choices failed only where its stated assumptions were broken. Complementary tools, not substitutes.
 
 **Status:** COMPLETE — Phases A, B and C ran on 11-13-2026 (Claude Code, `claude-opus-5-5`, desktop app; local CPU; zero model calls, zero new human ratings, $0). 20/23 frozen predictions matched; the 3 mismatches are explained below (two Monte Carlo chance events, one construction tie). Formula checks 945/945; independent recomputation 134/134.
 
@@ -12,20 +12,20 @@ Read [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) first for which data, metr
 
 | Claim tested (PLAN.md §1) | Verdict | Decisive evidence |
 | --- | --- | --- |
-| Matching the human mean and variance (and every reliability coefficient) identifies the human-rating distribution | **Rejected** (exact counterexample) | A1_max: same mean, variance, components and coefficients for all 11 artifacts, yet mean population TVD 0.446 and expected RPS excess 0.0167 |
+| Matching the human mean and variance (and every reliability coefficient) identifies the human-rating distribution | **Rejected** (exact counterexample) | A1_max: same mean, variance, components and coefficients for all 11 artifacts, yet mean population total variation distance (TVD) 0.446 and expected ranked probability score (RPS) excess 0.0167 |
 | High reliability coefficients certify accurate human scores | **Rejected** | A2: a judge wrong on 3 of 11 artifacts has Eρ² = Φ = 1, identical to the oracle; its expected RPS is 0.228 vs 0.117. Phase C: most repeatable judge H0_opus had the worst test RPS |
 | Maximizing sampled-score reliability optimizes distribution accuracy | **Rejected** | A3: sharpening the true distribution raises one-rating Eρ² from 0.527 to 0.957 while expected RPS rises from 0.1167 to 0.1484 |
 | An aggregate coefficient certifies each task | **Rejected** (as a misuse) | V2: one pooled Φ hides groups whose absolute error differs by 0.095 [0.090, 0.101] |
-| Variance components guide allocation of rating effort (the paper's claim) | **Supported in-model** | REML-based choice matched the oracle design in 256/256 (C1) and 256/256 (C2) replications; paired held-out absolute error vs equal allocation -0.107 [-0.149, -0.065] (C1) |
+| Variance components guide allocation of rating effort (the paper's claim) | **Supported in-model** | Restricted maximum likelihood (REML) choice matched the oracle design in 256/256 (C1) and 256/256 (C2) replications; paired held-out absolute error vs equal allocation -0.107 [-0.149, -0.065] (C1) |
 | Proper losses make psychometric tools unnecessary | **Not supported** | A single-rating variance (identical, 3.0, in both A4 configurations) cannot choose a design; component estimates can. RPS answers a different question |
 
 ![Panel A: synthetic tempered forecasts; panel B: historical judges](results/fig_reliability_vs_rps.png)
 
-*Figure.* **A (synthetic, exact):** forecasts q_T ∝ p^(1/T) of the 11-artifact population; x = relative coefficient Eρ² of one rating sampled from q_T (higher = more repeatable), y = expected RPS against the true distribution p (range 0–1, lower is better; the true distribution scores 0.1167, not 0, because humans disagree). **B (historical, retrospective):** five cached judges on the historical test split (30 artifacts, 10 tasks, 78 expert ratings, all previously exposed); x = one-call test–retest Eρ² over 3 repeat calls, y = held-out RPS of each judge's smoothed 3-call histogram against individual expert ratings (lower is better); bars are 95% percentile intervals over 10,000 task bootstrap draws. Dashed line: a constant forecast equal to the train-split expert histogram (RPS 0.180). Dotted line: single-rating agreement between the two experts who rated every artifact (Eρ² 0.80).
+*Figure.* **A (synthetic, exact):** forecasts q_T ∝ p^(1/T) of the 11-artifact population; x = relative coefficient Eρ² of one rating sampled from q_T (higher = more repeatable), y = expected RPS against the true distribution p (range 0–1, lower is better; the true distribution scores 0.1167, not 0, because humans disagree). **B (historical, retrospective):** five cached judges on the historical test split (30 artifacts, 10 tasks, 78 expert ratings, all previously exposed); x = one-call test–retest Eρ² over 3 repeat calls, y = held-out RPS of each judge's smoothed 3-call histogram against individual expert ratings (lower is better); bars are 95% percentile intervals over 10,000 task bootstrap draws. Dashed line: a constant forecast equal to the train-split expert histogram (RPS 0.180). Dotted line: single-rating agreement between the two experts who rated every artifact (Eρ² 0.80). No judge is fitted here: Panel A evaluates closed-form tempered distributions, and Panel B evaluates five pre-existing cached prompt-by-model judges from experiment 02 (H1/H2 prompts developed on the training split).
 
 ## Phase A — exact counterexamples and controls (synthetic, no sampling unless stated)
 
-Human population: 11 artifacts, p_x = (9/10) Binomial(5, θ_x) + (1/10) Uniform{0..5}, θ_x = j/12. All values are exact rational arithmetic except CE/KL and the tempered family (float64). Every metric is an expectation over the true distribution, equally averaged over artifacts; there is no train/test split because nothing is fitted.
+Human population: 11 artifacts, p_x = (9/10) Binomial(5, θ_x) + (1/10) Uniform{0..5}, θ_x = j/12. All values are exact rational arithmetic except cross-entropy (CE) / Kullback–Leibler divergence (KL) and the tempered family (float64). Every metric is an expectation over the true distribution, equally averaged over artifacts; there is no train/test split because nothing is fitted.
 
 ### A1 / A1_max: same mean and variance, different distribution
 
@@ -34,15 +34,15 @@ Human population: 11 artifacts, p_x = (9/10) Binomial(5, θ_x) + (1/10) Uniform{
 | Mean and variance equal to p | — | exactly, 11/11 | exactly, 11/11 |
 | Population v_u, v_e; Eρ² and Φ (1 and 3 raters) | v_u 45/32, v_e 121/96; Eρ²(1) 135/256 = 0.527 | identical (exact) | identical (exact) |
 | Pearson / Spearman / Kendall of forecast means with true means | 1 / 1 / 1 | 1 / 1 / 1 (tie) | 1 / 1 / 1 (tie) |
-| Expected RPS (lower better) | 0.1167 | excess +1.86e-05 (= (6/5)ε², exact) | excess +0.0167 (per artifact 0.0039–0.0287) |
-| Expected CE excess = KL(p‖q), nats | 0 (CE 1.404) | 1.63e-03 | 0.994 |
-| Population TVD (0–1) | 0 | 0.0148 (= 4ε) | 0.446 |
+| Expected ranked probability score (RPS; lower better) | 0.1167 | excess +1.86e-05 (= (6/5)ε², exact) | excess +0.0167 (per artifact 0.0039–0.0287) |
+| Expected cross-entropy (CE) excess = KL(p‖q), nats | 0 (CE 1.404) | 1.63e-03 | 0.994 |
+| Population total variation distance (TVD, 0–1) | 0 | 0.0148 (= 4ε) | 0.446 |
 
 A1 follows PLAN.md exactly and is a valid but tiny counterexample (ε between 0.0028 and 0.0075). A1_max (declared before measurement as an addition) shows the gap need not be small: with every probability at least 0.01, a forecast can match all first and second moments while differing from the human distribution by TVD up to 0.611. Trace artifact j = 6 (θ = 1/2): p = 43/960, 151/960, 143/480, 143/480, 151/960, 43/960; A1_max q = 1/60, 1/100, 176/225, 1/100, 1/100, 77/450; exact JSON round trip True.
 
-**Finite samples** (4000 replications; 50 objects drawn from the 11 artifacts × 3 raters; raw two-way ANOVA). Population components are equal, so expected estimates are equal; estimator spread can differ because higher moments differ:
+**Finite samples** (4000 replications; 50 objects drawn from the 11 artifacts × 3 raters; raw two-way analysis of variance (ANOVA)). Population components are equal, so expected estimates are equal; estimator spread can differ because higher moments differ:
 
-| Estimate | p-panel mean | A1 q-panel minus p-panel [95% CI] | A1_max q minus p [95% CI] | SD ratio A1_max/p [95% CI] |
+| Estimate | p-panel mean | A1 q-panel minus p-panel [95% confidence interval (CI)] | A1_max q minus p [95% CI] | Standard deviation (SD) ratio A1_max/p [95% CI] |
 | --- | --- | --- | --- | --- |
 | v_u | 1.4160 | -0.0107 [-0.0211, -0.0004] | -0.0027 [-0.0128, +0.0075] | 0.981 [0.952, 1.010] |
 | v_e | 1.2548 | +0.0074 [-0.0018, +0.0167] | +0.0029 [-0.0068, +0.0126] | 1.124 [1.089, 1.162] |
@@ -53,7 +53,7 @@ The frozen A1 v_u interval excludes 0 narrowly (prediction mismatch). A post-hoc
 
 ### A2: repeatable but wrong; constant judge; shared offset
 
-| Judge (vector forecast) | Eρ² = Φ, deterministic output (1 and 3 calls) | Eρ² for 1 / 3 sampled ratings | Expected RPS | TVD | MAE of means (0–5) | Bias (judge − human) | Pearson of means |
+| Judge (vector forecast) | Eρ² = Φ, deterministic output (1 and 3 calls) | Eρ² for 1 / 3 sampled ratings | Expected RPS | TVD | Mean absolute error (MAE) of means (0–5) | Bias (judge − human) | Pearson of means |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Oracle (returns p) | 1.000 | 0.527 / 0.770 | 0.1167 | 0.000 | 0.000 | 0.000 | 1.000 |
 | Repeatable-but-wrong (mirrored on j = 9–11) | 1.000 | 0.369 / 0.637 | 0.2280 | 0.222 | 0.818 | -0.818 | 0.126 |
@@ -110,7 +110,7 @@ The same perfect choice held at 8 and 32 ratings and for the relative target. Th
 
 Data: historical VeriBench judge study (upstream commit `be287d9bb2`), imported privately by experiment 02. **Primary set: historical test split, 30 artifacts, 10 tasks, 78 expert ratings; all ratings previously exposed in earlier work, so this is retrospective, not fresh held-out evidence.** Judges: five cached prompts × models with 3 repeat calls each (no new calls). Judge forecast = smoothed 3-call histogram (ε = 1e-6, the experiment 02 rule). Intervals: 95% percentile, 10,000 task-bootstrap draws (raters and calls fixed).
 
-| Judge (model) | Test–retest Eρ², 1 call | Repeat SD (0–5) | **Test RPS** (lower better) | Test CE (nats) | Test TVD | MAE (0–5) | Bias judge − expert | Pearson | Spearman | Kendall τ-b | ICC(A,1) | ICC(C,1) |
+| Judge (model) | Test–retest Eρ², 1 call | Repeat SD (0–5) | **Test RPS** (lower better) | Test CE (nats) | Test TVD | MAE (0–5) | Bias judge − expert | Pearson | Spearman | Kendall τ-b | Intraclass correlation ICC(A,1) | ICC(C,1) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | H0_sol (openai/gpt-6-sol-high) | 0.818 [0.626, 0.965] | 0.73 | **0.191 [0.140, 0.244]** | 9.13 | 0.672 | 0.95 [0.69, 1.23] | 0.07 [-0.52, 0.63] | 0.66 | 0.59 | 0.47 | 0.67 | 0.66 |
 | H1_sol (openai/gpt-6-sol-high) | 0.830 [0.523, 0.988] | 0.71 | **0.212 [0.148, 0.277]** | 9.12 | 0.667 | 1.09 [0.80, 1.38] | 0.88 [0.41, 1.31] | 0.80 | 0.77 | 0.63 | 0.68 | 0.79 |

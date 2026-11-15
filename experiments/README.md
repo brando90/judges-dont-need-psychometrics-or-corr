@@ -13,7 +13,7 @@ Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>`
 | 00 | 11-07-2026 | Active | Code and first results added together in `f0f1ed6`. |
 | 01 | 11-08-2026 | Active | Procedure frozen in `9139470`; results in `8137f52`. Its `results.md` still marks the multi-provider review and main publication `PENDING`. |
 | 02 | 11-09-2026 | Active | Handoff `be28db0` (10:26 PST); comparison results `8a44e6d` (11:01 PST); paper integration still open. It is a new comparison on cached experiment 06 data, so it uses its own start date, not experiment 06's 11-06-2026 start. |
-| 04 | 11-13-2026 | Active | Plan `cd66258`; protocol frozen before measurement `579915a`; Phases A–C ran the same day (results commit follows). Paper integration open. User-requested identifier 04 is retained; the gap at 03 is intentional. |
+| 04 | 11-13-2026 | Active | Plan `cd66258`; protocol frozen before measurement `579915a`; Phases A–C ran the same day (`a78a626`). AAAI-27 reliability appendix added 11-14-2026 (`03ada1e`); main-body cross-reference open. User-requested identifier 04 is retained; the gap at 03 is intentional. |
 | 05 | 11-13-2026 | Active | Derivation and numerical check of the cross-entropy versus correlation information gap (Impromptu Call action item 1). The VeriBench plan (real VeriBench comparison, action item 2) is written but not run. |
 | 06 | 11-13-2026 | Active | Protocol and objectives committed before measurement (`d46b984`); sweep and results the same day. Kept active for the one-pager and paper integration. |
 | 07 | 11-13-2026 | Active | Protocol committed before measurement (`d9d1c1d`); sweep interrupted at 532 of 540 rows when the session ended, resumed and completed 11-14-2026. Kept active for the one-pager and paper. |
@@ -35,7 +35,7 @@ Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>`
 
 | Folder | Distinct question | Status |
 | --- | --- | --- |
-| [04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) | Are moment matching and generalizability-theory reliability sufficient for human-rating distribution accuracy, and when does variance decomposition improve evaluation design? | Active. Complete 11-13-2026: not sufficient (exact counterexamples; most repeatable historical judge had the worst test RPS); design allocation works under its assumptions. [Results](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md). Paper integration open |
+| [04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) | Are moment matching and generalizability-theory reliability sufficient for human-rating distribution accuracy, and when does variance decomposition improve evaluation design? | Active. Complete 11-13-2026: not sufficient (exact counterexamples; most repeatable historical judge had the worst test RPS); design allocation works under its assumptions. [Results](04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md). AAAI-27 appendix added 11-14-2026; main-body cross-reference open |
 
 ## Historical human-rating objective comparisons
 

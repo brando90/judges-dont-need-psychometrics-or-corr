@@ -55,8 +55,8 @@ def main():
     w('**TLDR:** Reliability coefficients and matched means/variances do not identify the human-rating distribution: '
       'exact counterexamples tie on every moment and coefficient while proper losses separate them, and in the historical '
       'judges the most repeatable judge had the worst held-out ranked probability score (RPS). Variance decomposition did '
-      'its own job well: decision-study allocation chose the best design in every simulated replication and failed only '
-      'where its stated assumptions were broken. Complementary tools, not substitutes.')
+      'its own job well: decision-study allocation chose the best design in every simulated replication, and its error '
+      'predictions or design choices failed only where its stated assumptions were broken. Complementary tools, not substitutes.')
     w('')
     w(f'**Status:** COMPLETE — Phases A, B and C ran on 11-13-2026 (Claude Code, `claude-opus-5-5`, desktop app; local CPU; '
       f'zero model calls, zero new human ratings, $0). {n_pass}/{len(contracts)} frozen predictions matched; the '
@@ -78,11 +78,11 @@ def main():
     w('')
     w('| Claim tested (PLAN.md §1) | Verdict | Decisive evidence |')
     w('| --- | --- | --- |')
-    w(f'| Matching the human mean and variance (and every reliability coefficient) identifies the human-rating distribution | **Rejected** (exact counterexample) | A1_max: same mean, variance, components and coefficients for all 11 artifacts, yet mean population TVD {f(a1m["mean_tvd"])} and expected RPS excess {f(a1m["mean_rps_excess"], 4)} |')
+    w(f'| Matching the human mean and variance (and every reliability coefficient) identifies the human-rating distribution | **Rejected** (exact counterexample) | A1_max: same mean, variance, components and coefficients for all 11 artifacts, yet mean population total variation distance (TVD) {f(a1m["mean_tvd"])} and expected ranked probability score (RPS) excess {f(a1m["mean_rps_excess"], 4)} |')
     w(f'| High reliability coefficients certify accurate human scores | **Rejected** | A2: a judge wrong on 3 of 11 artifacts has Eρ² = Φ = 1, identical to the oracle; its expected RPS is {f(a2["repeatable_wrong"]["mean_expected_rps"])} vs {f(a2["oracle"]["mean_expected_rps"])}. Phase C: most repeatable judge {ct["most_repeatable_judge"]} had the worst test RPS |')
     w(f'| Maximizing sampled-score reliability optimizes distribution accuracy | **Rejected** | A3: sharpening the true distribution raises one-rating Eρ² from {f(a["A3"]["tempered_family"]["1"]["sampled_Erho2"]["1"])} to {f(a["A3"]["tempered_family"]["mode"]["sampled_Erho2"]["1"])} while expected RPS rises from {f(a["A3"]["tempered_family"]["1"]["mean_expected_rps"], 4)} to {f(a["A3"]["tempered_family"]["mode"]["mean_expected_rps"], 4)} |')
     w('| An aggregate coefficient certifies each task | **Rejected** (as a misuse) | V2: one pooled Φ hides groups whose absolute error differs by ' f'{ci(b["vulnerabilities"]["V2_group_heterogeneity"]["paired_obs_H_minus_L"])} |')
-    w(f'| Variance components guide allocation of rating effort (the paper\'s claim) | **Supported in-model** | REML-based choice matched the oracle design in {sel["C1"]["budget16_absolute_reml"]["chose_oracle_design"]["k"]}/256 (C1) and {sel["C2"]["budget16_absolute_reml"]["chose_oracle_design"]["k"]}/256 (C2) replications; paired held-out absolute error vs equal allocation {ci(sel["C1"]["budget16_absolute_reml"]["paired_obs_err_chosen_minus_equal"])} (C1) |')
+    w(f'| Variance components guide allocation of rating effort (the paper\'s claim) | **Supported in-model** | Restricted maximum likelihood (REML) choice matched the oracle design in {sel["C1"]["budget16_absolute_reml"]["chose_oracle_design"]["k"]}/256 (C1) and {sel["C2"]["budget16_absolute_reml"]["chose_oracle_design"]["k"]}/256 (C2) replications; paired held-out absolute error vs equal allocation {ci(sel["C1"]["budget16_absolute_reml"]["paired_obs_err_chosen_minus_equal"])} (C1) |')
     w('| Proper losses make psychometric tools unnecessary | **Not supported** | A single-rating variance (identical, 3.0, in both A4 configurations) cannot choose a design; component estimates can. RPS answers a different question |')
     w('')
     w('![Panel A: synthetic tempered forecasts; panel B: historical judges](results/fig_reliability_vs_rps.png)')
@@ -95,14 +95,16 @@ def main():
       f'y = held-out RPS of each judge\'s smoothed 3-call histogram against individual expert ratings (lower is better); bars '
       f'are 95% percentile intervals over {ct["bootstrap_draws"]:,} task bootstrap draws. Dashed line: a constant forecast equal '
       f'to the train-split expert histogram (RPS {f(m["baseline_train_marginal"]["RPS"])}). Dotted line: single-rating agreement '
-      f'between the two experts who rated every artifact (Eρ² {f(m["human"]["Erho2_1"]["point"], 2)}).')
+      f'between the two experts who rated every artifact (Eρ² {f(m["human"]["Erho2_1"]["point"], 2)}). '
+      f'No judge is fitted here: Panel A evaluates closed-form tempered distributions, and Panel B evaluates five pre-existing '
+      f'cached prompt-by-model judges from experiment 02 (H1/H2 prompts developed on the training split).')
     w('')
 
     # ---------------------------------------------------------------- Phase A
     w('## Phase A — exact counterexamples and controls (synthetic, no sampling unless stated)')
     w('')
     w('Human population: 11 artifacts, p_x = (9/10) Binomial(5, θ_x) + (1/10) Uniform{0..5}, θ_x = j/12. All values are exact '
-      'rational arithmetic except CE/KL and the tempered family (float64). Every metric is an expectation over the true '
+      'rational arithmetic except cross-entropy (CE) / Kullback–Leibler divergence (KL) and the tempered family (float64). Every metric is an expectation over the true '
       'distribution, equally averaged over artifacts; there is no train/test split because nothing is fitted.')
     w('')
     w('### A1 / A1_max: same mean and variance, different distribution')
@@ -112,9 +114,9 @@ def main():
     w(f'| Mean and variance equal to p | — | exactly, 11/11 | exactly, 11/11 |')
     w(f'| Population v_u, v_e; Eρ² and Φ (1 and 3 raters) | v_u {a1s["components_p"]["u"]["exact"]}, v_e {a1s["components_p"]["e"]["exact"]}; Eρ²(1) {a1s["coefficients_p"]["1"]["Erho2"]["exact"]} = {f(a1s["coefficients_p"]["1"]["Erho2"])} | identical (exact) | identical (exact) |')
     w(f'| Pearson / Spearman / Kendall of forecast means with true means | 1 / 1 / 1 | 1 / 1 / 1 (tie) | 1 / 1 / 1 (tie) |')
-    w(f'| Expected RPS (lower better) | {f(a1s["mean_oracle_expected_rps"], 4)} | excess +{sci(a1s["mean_rps_excess"]["float"])} (= (6/5)ε², exact) | excess +{f(a1m["mean_rps_excess"], 4)} (per artifact {f(min(r["rps_excess"]["float"] for r in a["A1_max"]["per_artifact"]), 4)}–{f(max(r["rps_excess"]["float"] for r in a["A1_max"]["per_artifact"]), 4)}) |')
-    w(f'| Expected CE excess = KL(p‖q), nats | 0 (CE {f(a1s["mean_oracle_expected_ce_nats"])}) | {sci(a1s["mean_kl_nats"])} | {f(a1m["mean_kl_nats"])} |')
-    w(f'| Population TVD (0–1) | 0 | {f(a1s["mean_tvd"], 4)} (= 4ε) | {f(a1m["mean_tvd"])} |')
+    w(f'| Expected ranked probability score (RPS; lower better) | {f(a1s["mean_oracle_expected_rps"], 4)} | excess +{sci(a1s["mean_rps_excess"]["float"])} (= (6/5)ε², exact) | excess +{f(a1m["mean_rps_excess"], 4)} (per artifact {f(min(r["rps_excess"]["float"] for r in a["A1_max"]["per_artifact"]), 4)}–{f(max(r["rps_excess"]["float"] for r in a["A1_max"]["per_artifact"]), 4)}) |')
+    w(f'| Expected cross-entropy (CE) excess = KL(p‖q), nats | 0 (CE {f(a1s["mean_oracle_expected_ce_nats"])}) | {sci(a1s["mean_kl_nats"])} | {f(a1m["mean_kl_nats"])} |')
+    w(f'| Population total variation distance (TVD, 0–1) | 0 | {f(a1s["mean_tvd"], 4)} (= 4ε) | {f(a1m["mean_tvd"])} |')
     w('')
     w('A1 follows PLAN.md exactly and is a valid but tiny counterexample (ε between '
       f'{f(min(r["epsilon"]["float"] for r in a["A1"]["per_artifact"]), 4)} and {f(max(r["epsilon"]["float"] for r in a["A1"]["per_artifact"]), 4)}). '
@@ -124,10 +126,10 @@ def main():
       f'A1_max q = {", ".join(a["trace"]["q_A1_max"])}; exact JSON round trip {a["trace"]["serialization_roundtrip_exact"]}.')
     w('')
     fs = a['A1_finite_sample']
-    w(f'**Finite samples** ({fs["replications"]} replications; 50 objects drawn from the 11 artifacts × 3 raters; raw two-way ANOVA). '
+    w(f'**Finite samples** ({fs["replications"]} replications; 50 objects drawn from the 11 artifacts × 3 raters; raw two-way analysis of variance (ANOVA)). '
       'Population components are equal, so expected estimates are equal; estimator spread can differ because higher moments differ:')
     w('')
-    w('| Estimate | p-panel mean | A1 q-panel minus p-panel [95% CI] | A1_max q minus p [95% CI] | SD ratio A1_max/p [95% CI] |')
+    w('| Estimate | p-panel mean | A1 q-panel minus p-panel [95% confidence interval (CI)] | A1_max q minus p [95% CI] | Standard deviation (SD) ratio A1_max/p [95% CI] |')
     w('| --- | --- | --- | --- | --- |')
     for k, lab in (('u', 'v_u'), ('e', 'v_e'), ('a', 'v_rater'), ('Erho2_n3', 'Eρ² (3 raters)')):
         c1, c2 = fs['comparisons']['q_A1'][k], fs['comparisons']['q_A1_max'][k]
@@ -142,7 +144,7 @@ def main():
     w('')
     w('### A2: repeatable but wrong; constant judge; shared offset')
     w('')
-    w('| Judge (vector forecast) | Eρ² = Φ, deterministic output (1 and 3 calls) | Eρ² for 1 / 3 sampled ratings | Expected RPS | TVD | MAE of means (0–5) | Bias (judge − human) | Pearson of means |')
+    w('| Judge (vector forecast) | Eρ² = Φ, deterministic output (1 and 3 calls) | Eρ² for 1 / 3 sampled ratings | Expected RPS | TVD | Mean absolute error (MAE) of means (0–5) | Bias (judge − human) | Pearson of means |')
     w('| --- | --- | --- | --- | --- | --- | --- | --- |')
     for name, lab in (('oracle', 'Oracle (returns p)'), ('repeatable_wrong', 'Repeatable-but-wrong (mirrored on j = 9–11)'), ('constant_marginal', 'Constant marginal')):
         jj = a2[name]
@@ -243,7 +245,7 @@ def main():
       f'prompts × models with 3 repeat calls each (no new calls). Judge forecast = smoothed 3-call histogram (ε = 1e-6, the experiment 02 rule). '
       f'Intervals: 95% percentile, {ct["bootstrap_draws"]:,} task-bootstrap draws (raters and calls fixed).')
     w('')
-    w('| Judge (model) | Test–retest Eρ², 1 call | Repeat SD (0–5) | **Test RPS** (lower better) | Test CE (nats) | Test TVD | MAE (0–5) | Bias judge − expert | Pearson | Spearman | Kendall τ-b | ICC(A,1) | ICC(C,1) |')
+    w('| Judge (model) | Test–retest Eρ², 1 call | Repeat SD (0–5) | **Test RPS** (lower better) | Test CE (nats) | Test TVD | MAE (0–5) | Bias judge − expert | Pearson | Spearman | Kendall τ-b | Intraclass correlation ICC(A,1) | ICC(C,1) |')
     w('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |')
     models = c['judges']
     for j in ('H0_sol', 'H1_sol', 'H2_sol', 'H0_opus', 'H2_opus'):

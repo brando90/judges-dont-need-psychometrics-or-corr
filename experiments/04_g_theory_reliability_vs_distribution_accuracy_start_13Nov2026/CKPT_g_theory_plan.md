@@ -2,10 +2,10 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/CKPT_g_theory_plan.md>
 
-**TLDR:** All three phases ran on 11-13-2026 under a protocol frozen before measurement. Reliability and moment matching are insufficient for human-rating distribution accuracy; design allocation by variance components works when its assumptions hold. Remaining: paper integration.
+**TLDR:** All three phases ran on 11-13-2026 under a protocol frozen before measurement. Reliability and moment matching are insufficient for human-rating distribution accuracy; design allocation by variance components works when its assumptions hold. Remaining: optional main-body cross-reference to the 11-14-2026 AAAI-27 reliability appendix.
 
 Created: 11-13-2026 11:38 PST
-Last updated: 11-13-2026 (execution session)
+Last updated: 11-14-2026 (Mega QA stage 1)
 
 ## Goal
 - Test sufficiency of reliability and variance matching for human-rating distribution accuracy, separately from evaluation-design usefulness.
@@ -19,7 +19,7 @@ Last updated: 11-13-2026 (execution session)
 ## Stuck / blocked
 - None. Google companion synced 11-13-2026 (https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit).
 ## Next steps
-- [p 7/10] Decide whether to add a short reliability-vs-accuracy paragraph to the AAAI-27 workshop paper (its sources: RESULTS_reliability_vs_accuracy.md).
+- [p 7/10] Decide whether to add a main-body cross-reference in the AAAI-27 workshop paper to `9-appendix-reliability.tex` (added 11-14-2026 from `RESULTS_reliability_vs_accuracy.md`).
 - [p 5/10] Harder Phase B condition (close configurations, few calibration levels) to measure allocation error rates with weak signals.
 ## Brando to-do
 - None required.
@@ -28,3 +28,4 @@ Last updated: 11-13-2026 (execution session)
 11-13-2026 11:38 PST -- Created the public-theory plan, source page map and status record; excluded unpublished material and preserved all existing results. Experimental execution remains pending.
 11-13-2026 -- Froze protocol and scripts (`579915a`), ran Phases A–C, verified (945 formula, 134 recomputation checks), generated report, figure and reading guide.
 11-13-2026 -- Emailed verified results (Gmail id 1a1d688dcc090e5f, delivery checked) and synced the Google companion section.
+11-14-2026 -- Added AAAI-27 reliability appendix (`03ada1e`) and ran Mega QA stage 1 (`qa1_carbon`: clarified Phase B prediction-vs-selection wording, fixed `4-proposal.tex` sentence-per-line check, and expanded first-use acronyms in figure/report/guide).

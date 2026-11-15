@@ -4,7 +4,7 @@
 
 **TLDR:** Test whether generalizability-theory reliability coefficients or human-variance matching are sufficient to identify an accurate human-rating judge. Separately test whether variance decomposition improves evaluation-design choices; a counterexample to sufficiency would not refute that use of the theory.
 
-**Status:** COMPLETE — Phases A (exact counterexamples), B (decision-study simulation) and C (retrospective historical ratings) ran on 11-13-2026 under a protocol frozen before measurement. Results: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Not archived: paper integration remains open. Google companion: [research notes Doc](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit), section "Experiment 04 results".
+**Status:** COMPLETE — Phases A (exact counterexamples), B (decision-study simulation) and C (retrospective historical ratings) ran on 11-13-2026 under a protocol frozen before measurement. Results: [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md); reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Not archived: reliability appendix added to the AAAI-27 workshop paper on 11-14-2026 (`9-appendix-reliability.tex`); main-body cross-reference remains optional. Google companion: [research notes Doc](https://docs.google.com/document/d/1WI-raRtTBnQETjkyMzg23PdhgDLgn33A9kQY1EU0zyE/edit), section "Experiment 04 results".
 
 **Goal:** Find the strongest defensible counterexample to treating aggregate reliability as sufficient evidence of judge trustworthiness, and identify what generalizability theory adds beyond direct predictive evaluation.
 
@@ -45,7 +45,7 @@ G and D name studies, not a universal pair of coefficients. No contemporary impl
 
 ## Result in one paragraph
 
-Matching human means, variances and generalizability coefficients does not identify the human-rating distribution. Exact constructions tie on all of them while ranked probability score (RPS), cross-entropy (CE) and total variation distance (TVD) separate them. A judge that is wrong on 3 of 11 artifacts is perfectly repeatable. In the historical judge data, the most repeatable judge had the worst test RPS. The paper's own claim survives a fair test: variance components picked the best rating design in 256/256 simulated replications and failed only under the violations the paper itself warns about. See [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md) for numbers, intervals and the prediction-versus-observation table.
+Matching human means, variances and generalizability coefficients does not identify the human-rating distribution. Exact constructions tie on all of them while ranked probability score (RPS), cross-entropy (CE) and total variation distance (TVD) separate them. A judge that is wrong on 3 of 11 artifacts is perfectly repeatable. In the historical judge data, the most repeatable judge had the worst test RPS. The paper's own claim survives a fair test: variance components picked the best rating design in 256/256 simulated replications, and decision-study predictions or design choices failed only under the violations the paper itself warns about. See [RESULTS_reliability_vs_accuracy.md](RESULTS_reliability_vs_accuracy.md) for numbers, intervals and the prediction-versus-observation table.
 
 ## Files and continuation
 
@@ -64,6 +64,6 @@ CKPT_g_theory_plan.md             Checkpoint and log
 sources/local/, private/          Ignored: paper reading copy; private data (none written)
 ```
 
-Open items: integrate into the AAAI-27 workshop paper if Brando wants it. A harder Phase B condition (close configurations, fewer calibration levels) would show how often allocation fails with weak signals; it was not part of this plan.
+Open items: decide whether to add a main-body cross-reference in the AAAI-27 workshop paper to the new reliability appendix (`9-appendix-reliability.tex`, added 11-14-2026). A harder Phase B condition (close configurations, fewer calibration levels) would show how often allocation fails with weak signals; it was not part of this plan.
 
-**TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Reliability and moment matching are insufficient for human-rating distribution accuracy, while variance-based design allocation works when its assumptions hold. Experiment complete; paper integration open.
+**TLDR-end:** [judge objectives: 04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026] Reliability and moment matching are insufficient for human-rating distribution accuracy, while variance-based design allocation works when its assumptions hold. Experiment complete; AAAI-27 appendix added 11-14-2026.

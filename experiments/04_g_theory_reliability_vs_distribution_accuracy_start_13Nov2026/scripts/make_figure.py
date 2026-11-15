@@ -49,7 +49,7 @@ def main():
     ax1.set_ylim(0.11, 0.152)
     ax1.set_title('A. Synthetic: sharper forecasts are more repeatable\nbut predict the human distribution worse', loc='left')
     ax1.set_xlabel('Reliability of one sampled rating, relative coefficient Eρ²\n(synthetic population, exact; higher = more repeatable)')
-    ax1.set_ylabel('Expected RPS against the true rating distribution\n(synthetic, exact; lower = better)')
+    ax1.set_ylabel('Expected ranked probability score (RPS)\nvs true distribution (exact, 0–1; lower = better)')
 
     m = c['sets']['test']['metrics']
     judges = [('H0_sol', SOL, 'o'), ('H1_sol', SOL, 'o'), ('H2_sol', SOL, 'o'), ('H0_opus', OPUS, 's'), ('H2_opus', OPUS, 's')]
@@ -73,9 +73,9 @@ def main():
     ax2.legend(loc='upper left', frameon=False, fontsize=8)
     ax2.set_xlim(0.5, 1.01)
     ax2.set_ylim(0.11, 0.39)
-    ax2.set_title('B. Historical judges: the most repeatable judge\nhad the worst held-out RPS', loc='left')
+    ax2.set_title('B. Historical 3-call histograms: most repeatable\njudge had worst ranked probability score (RPS)', loc='left')
     ax2.set_xlabel('Judge test–retest reliability Eρ² for one call\n(historical test split: 30 artifacts, 10 tasks; previously exposed)')
-    ax2.set_ylabel('Held-out test RPS of the 3-call histogram vs expert ratings\n(lower = better; bars: 95% task bootstrap)')
+    ax2.set_ylabel('Held-out test ranked probability score (RPS), 0–1\n(lower = better; 95% task bootstrap, 10,000 draws)')
     fig.tight_layout()
     out = RES / 'fig_reliability_vs_rps.png'
     fig.savefig(out, dpi=160, facecolor=SURFACE)
