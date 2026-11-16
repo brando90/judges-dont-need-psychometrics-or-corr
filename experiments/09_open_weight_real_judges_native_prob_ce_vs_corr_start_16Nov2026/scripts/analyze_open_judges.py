@@ -150,17 +150,21 @@ def family_bootstrap_and_signflip(
     lo, hi = np.percentile(bs, [2.5, 97.5])
 
     # Paired two-sided cluster sign-flip test on family-level totals (exact if m_active <= 19 -> 2^19 = 524,288!)
-    obs_abs = abs(float(fam_sums_a.sum()))
     if m_active <= 19:
         bits = ((np.arange(1 << m_active, dtype=np.uint32)[:, None] >> np.arange(m_active, dtype=np.uint32)) & 1)
         signs = 2.0 * bits - 1.0
         perm_totals = np.abs(signs @ fam_sums_a)
-        pval = float(np.mean(perm_totals >= obs_abs - 1e-15))
+        obs_exact = float(perm_totals[-1])
+        tol = max(1e-15, 1e-12 * obs_exact)
+        pval = float(np.mean(perm_totals >= obs_exact - tol))
+        assert pval >= 2.0 / (1 << m_active), f"Impossible exact sign-flip p-value: {pval}"
         test_name = f"exact_2^{m_active}_task_family_sign_flip"
     else:
+        obs_abs = abs(float(fam_sums_a.sum()))
         signs = rng.choice([-1.0, 1.0], size=(20000, m_active))
         perm_totals = np.abs(signs @ fam_sums_a)
-        pval = float((1 + np.sum(perm_totals >= obs_abs - 1e-15)) / 20001)
+        tol = max(1e-15, 1e-12 * obs_abs)
+        pval = float((1 + np.sum(perm_totals >= obs_abs - tol)) / 20001)
         test_name = "mc_20000_task_family_sign_flip"
 
     return {
@@ -522,7 +526,7 @@ def compute_human_ceiling_and_info_gap(rows: list[dict]) -> dict:
 
 
 def generate_grouped_splits(fam_idx: np.ndarray, n_fams: int = 19, n_train_fams: int = 15, n_splits: int = 200, seed: int = 20261116) -> list[tuple[np.ndarray, np.ndarray]]:
-    """Generate 200 stratified/grouped task-family splits where every split holds out (19 - n_train_fams) test families."""
+    """Generate grouped task-family splits holding out min(4, n_fams - n_train_fams) test families per split."""
     rng = np.random.default_rng(seed + 1000 * n_train_fams)
     n_test_fams = min(4, n_fams - n_train_fams)
     splits = []
@@ -1361,6 +1365,7 @@ def main() -> None:
             "info_gap_G_correlation_with_rps_advantage": {
                 "pearson_G_vs_rps_diff": float(np.corrcoef(info_gap_g, diff_mix_rps)[0, 1]),
                 "spearman_G_vs_rps_diff": float(spearmanr(info_gap_g, diff_mix_rps).statistic),
+                "kendall_G_vs_rps_diff": float(kendalltau(info_gap_g, diff_mix_rps, variant="b").statistic),
             },
         }
     }

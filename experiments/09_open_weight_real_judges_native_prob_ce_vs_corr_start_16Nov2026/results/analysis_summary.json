@@ -1661,7 +1661,7 @@
             7.93177358573742
           ],
           "excludes_zero": true,
-          "p_val": 3.814697265625e-06,
+          "p_val": 7.62939453125e-06,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -1697,7 +1697,7 @@
             1.521368142149991
           ],
           "excludes_zero": false,
-          "p_val": 0.21829605102539062,
+          "p_val": 0.21830368041992188,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -1757,7 +1757,7 @@
             0.16640953416449175
           ],
           "excludes_zero": true,
-          "p_val": 0.0264129638671875,
+          "p_val": 0.026416778564453125,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -2389,7 +2389,7 @@
             2.3593301499476116
           ],
           "excludes_zero": true,
-          "p_val": 0.000431060791015625,
+          "p_val": 0.00043487548828125,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -2533,7 +2533,7 @@
             1.446303083815979
           ],
           "excludes_zero": true,
-          "p_val": 3.814697265625e-06,
+          "p_val": 7.62939453125e-06,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -2973,7 +2973,7 @@
             0.42379428820977466
           ],
           "excludes_zero": true,
-          "p_val": 0.02930450439453125,
+          "p_val": 0.029308319091796875,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -3117,7 +3117,7 @@
             0.2625583931140995
           ],
           "excludes_zero": false,
-          "p_val": 0.8668441772460938,
+          "p_val": 0.8668479919433594,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -3189,7 +3189,7 @@
             1.5914567986184571
           ],
           "excludes_zero": true,
-          "p_val": 0.08637619018554688,
+          "p_val": 0.0863800048828125,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -3333,7 +3333,7 @@
             0.33853139981427405
           ],
           "excludes_zero": false,
-          "p_val": 0.8634605407714844,
+          "p_val": 0.86346435546875,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -3730,7 +3730,7 @@
               0.4194684527794125
             ],
             "excludes_zero": true,
-            "p_val": 0.032459259033203125,
+            "p_val": 0.03246307373046875,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -3910,7 +3910,7 @@
               0.3124707784057305
             ],
             "excludes_zero": false,
-            "p_val": 0.8732681274414062,
+            "p_val": 0.8732719421386719,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4386,7 +4386,7 @@
               0.974635357962682
             ],
             "excludes_zero": true,
-            "p_val": 0.049503326416015625,
+            "p_val": 0.049518585205078125,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4422,7 +4422,7 @@
               0.5353599544230506
             ],
             "excludes_zero": true,
-            "p_val": 0.026676177978515625,
+            "p_val": 0.026691436767578125,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4458,7 +4458,7 @@
               0.7437769045557002
             ],
             "excludes_zero": false,
-            "p_val": 0.4363441467285156,
+            "p_val": 0.436370849609375,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4494,7 +4494,7 @@
               1.1532827246392203
             ],
             "excludes_zero": true,
-            "p_val": 0.012271881103515625,
+            "p_val": 0.012294769287109375,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4530,7 +4530,7 @@
               0.22399570863841642
             ],
             "excludes_zero": true,
-            "p_val": 0.053287506103515625,
+            "p_val": 0.05329132080078125,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4590,7 +4590,7 @@
               0.3852337021786663
             ],
             "excludes_zero": true,
-            "p_val": 0.00180816650390625,
+            "p_val": 0.001811981201171875,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -4746,7 +4746,7 @@
               0.6367950051990433
             ],
             "excludes_zero": true,
-            "p_val": 0.036838531494140625,
+            "p_val": 0.03684234619140625,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5078,7 +5078,7 @@
               0.9302747902186413
             ],
             "excludes_zero": true,
-            "p_val": 0.00048828125,
+            "p_val": 0.000606536865234375,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5114,7 +5114,7 @@
               0.9038202096742334
             ],
             "excludes_zero": true,
-            "p_val": 0.00048828125,
+            "p_val": 0.000640869140625,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5150,7 +5150,7 @@
               1.2958315109092162
             ],
             "excludes_zero": true,
-            "p_val": 0.003421783447265625,
+            "p_val": 0.003536224365234375,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5186,7 +5186,7 @@
               2.35818874201184
             ],
             "excludes_zero": true,
-            "p_val": 0.000492095947265625,
+            "p_val": 0.000629425048828125,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5222,7 +5222,7 @@
               2.127613276709189
             ],
             "excludes_zero": true,
-            "p_val": 0.000492095947265625,
+            "p_val": 0.000606536865234375,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5366,7 +5366,7 @@
               8.173586643832145
             ],
             "excludes_zero": true,
-            "p_val": 6.103515625e-05,
+            "p_val": 6.4849853515625e-05,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5438,7 +5438,7 @@
               0.6360176555859228
             ],
             "excludes_zero": true,
-            "p_val": 0.00370025634765625,
+            "p_val": 0.003704071044921875,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5938,7 +5938,7 @@
               0.2279885362101797
             ],
             "excludes_zero": true,
-            "p_val": 0.013641357421875,
+            "p_val": 0.013645172119140625,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -5986,7 +5986,7 @@
               2.8459998841167313
             ],
             "excludes_zero": true,
-            "p_val": 0.001384735107421875,
+            "p_val": 0.0013885498046875,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -6642,7 +6642,7 @@
               0.3600571162290055
             ],
             "excludes_zero": false,
-            "p_val": 0.6587104797363281,
+            "p_val": 0.6587142944335938,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -7190,7 +7190,7 @@
               2.744126825330244
             ],
             "excludes_zero": true,
-            "p_val": 5.340576171875e-05,
+            "p_val": 5.7220458984375e-05,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -7883,7 +7883,7 @@
             0.6210790509981746
           ],
           "excludes_zero": true,
-          "p_val": 0.026096343994140625,
+          "p_val": 0.02610015869140625,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -7919,7 +7919,7 @@
             1.4721597794936423
           ],
           "excludes_zero": true,
-          "p_val": 0.00028228759765625,
+          "p_val": 0.000286102294921875,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -7955,7 +7955,7 @@
             4.273677795849131
           ],
           "excludes_zero": true,
-          "p_val": 0.001667022705078125,
+          "p_val": 0.00167083740234375,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -8099,7 +8099,7 @@
             2.2648870649876685
           ],
           "excludes_zero": true,
-          "p_val": 0.001438140869140625,
+          "p_val": 0.00144195556640625,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -8527,7 +8527,7 @@
             0.13291444184603585
           ],
           "excludes_zero": true,
-          "p_val": 0.0024871826171875,
+          "p_val": 0.002490997314453125,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -8575,7 +8575,7 @@
             4.088843163787727
           ],
           "excludes_zero": true,
-          "p_val": 1.1444091796875e-05,
+          "p_val": 1.52587890625e-05,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -8647,7 +8647,7 @@
             5.870086908300409
           ],
           "excludes_zero": true,
-          "p_val": 3.814697265625e-06,
+          "p_val": 7.62939453125e-06,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -9533,7 +9533,7 @@
             0.17421178589963415
           ],
           "excludes_zero": true,
-          "p_val": 0.00965118408203125,
+          "p_val": 0.009654998779296875,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -9701,7 +9701,7 @@
             1.9252921645925776
           ],
           "excludes_zero": true,
-          "p_val": 1.9073486328125e-05,
+          "p_val": 2.288818359375e-05,
           "test": "exact_2^19_task_family_sign_flip",
           "n_families": 19,
           "n_artifacts": 75
@@ -10282,7 +10282,7 @@
               4.352884725824338
             ],
             "excludes_zero": true,
-            "p_val": 9.5367431640625e-05,
+            "p_val": 9.918212890625e-05,
             "test": "exact_2^19_task_family_sign_flip",
             "n_families": 19,
             "n_artifacts": 75
@@ -12129,7 +12129,7 @@
             0.08708106042092337
           ],
           "excludes_zero": true,
-          "p_val": 0.0,
+          "p_val": 0.0001220703125,
           "test": "exact_2^14_task_family_sign_flip",
           "n_families": 14,
           "n_artifacts": 60
@@ -12141,7 +12141,7 @@
             0.5362924474547707
           ],
           "excludes_zero": true,
-          "p_val": 0.01611328125,
+          "p_val": 0.0162353515625,
           "test": "exact_2^14_task_family_sign_flip",
           "n_families": 14,
           "n_artifacts": 60
@@ -12176,7 +12176,8 @@
       },
       "info_gap_G_correlation_with_rps_advantage": {
         "pearson_G_vs_rps_diff": 0.1983997729590561,
-        "spearman_G_vs_rps_diff": 0.13602271769093996
+        "spearman_G_vs_rps_diff": 0.13602271769093996,
+        "kendall_G_vs_rps_diff": 0.11940880403482891
       }
     },
     "lora_q3_4b": {

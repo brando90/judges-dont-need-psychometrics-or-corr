@@ -100,7 +100,8 @@ def main() -> None:
 
     freeze = json.loads((EXPT_DIR / "FREEZE.json").read_text(encoding="utf-8"))
     effective_files = dict(freeze["bound_files_sha256"])
-    effective_files.update(freeze.get("qa_amendment_1", {}).get("effective_files_sha256", {}))
+    for amend_key in sorted(k for k in freeze if k.startswith("qa_amendment")):
+        effective_files.update(freeze[amend_key].get("effective_files_sha256", {}))
     for rel, expected_sha in effective_files.items():
         actual_sha = hashlib.sha256((EXPT_DIR / rel).read_bytes()).hexdigest()
         assert actual_sha == expected_sha, f"FREEZE digest mismatch: {rel}"

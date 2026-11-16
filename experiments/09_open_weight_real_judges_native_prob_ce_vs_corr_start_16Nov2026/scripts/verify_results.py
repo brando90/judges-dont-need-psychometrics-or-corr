@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import re
+import subprocess
 from pathlib import Path
 
 EXPT_DIR = Path(__file__).resolve().parents[1]
@@ -49,11 +50,24 @@ def main() -> None:
     # 1. Privacy, freeze-digest, and secret scan over all public tracked/candidate files in Experiment 09
     freeze = json.loads((EXPT_DIR / "FREEZE.json").read_text(encoding="utf-8"))
     eff_files = dict(freeze.get("execution_amendment_1", {}).get("effective_files", freeze["files"]))
-    eff_files.update(freeze.get("qa_amendment_1", {}).get("effective_files_sha256", {}))
+    for amend_key in sorted(k for k in freeze if k.startswith("qa_amendment")):
+        eff_files.update(freeze[amend_key].get("effective_files_sha256", {}))
     for rel_f, exp_sha in eff_files.items():
         actual_sha = hashlib.sha256((EXPT_DIR / rel_f).read_bytes()).hexdigest()
         assert actual_sha == exp_sha, f"FREEZE digest mismatch on {rel_f}: {actual_sha} != {exp_sha}"
         checks_passed += 1
+
+    git_files = subprocess.run(
+        ["git", "-C", str(EXPT_DIR.parents[1]), "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", str(EXPT_DIR)],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.split("\0")
+    for rel_p in filter(None, git_files):
+        p_parts = Path(rel_p).parts
+        assert "private" not in p_parts, f"PRIVACY VIOLATION: public private/ file: {rel_p}"
+        assert not (rel_p.endswith(".jsonl") and "raw_mercury2" in p_parts), f"Unignored raw JSONL: {rel_p}"
+    checks_passed += 1
 
     for p in sorted(EXPT_DIR.rglob("*")):
         if not p.is_file() or "private" in p.parts or "__pycache__" in p.parts or p.suffix in (".png", ".pdf"):
@@ -89,6 +103,26 @@ def main() -> None:
 
     # 3. Independent metric reconstruction against summary JSON (when private dataset.json is locally available)
     summary = json.loads((EXPT_DIR / "results/analysis_summary.json").read_text(encoding="utf-8"))
+
+    def _walk_summary_invariants(node: object) -> int:
+        cnt_inv = 0
+        if isinstance(node, dict):
+            if "cert_fails" in node and isinstance(node["cert_fails"], dict):
+                assert all(v == 0 for v in node["cert_fails"].values()), f"Non-zero cert_fails: {node['cert_fails']}"
+                cnt_inv += 1
+            if "p_val" in node and "n_families" in node and node.get("p_val") is not None:
+                nf = int(node["n_families"])
+                min_pv = (2.0 / (1 << nf)) if nf <= 19 else (1.0 / 20001)
+                assert float(node["p_val"]) >= min_pv - 1e-12, f"Impossible sign-flip p_val: {node}"
+                cnt_inv += 1
+            for val in node.values():
+                cnt_inv += _walk_summary_invariants(val)
+        elif isinstance(node, list):
+            for item in node:
+                cnt_inv += _walk_summary_invariants(item)
+        return cnt_inv
+
+    checks_passed += _walk_summary_invariants(summary)
     if DATASET_PATH.exists():
         ds_bytes = DATASET_PATH.read_bytes()
         ds_sha = hashlib.sha256(ds_bytes).hexdigest()

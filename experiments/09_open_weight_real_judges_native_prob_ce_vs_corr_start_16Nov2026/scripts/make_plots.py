@@ -72,7 +72,7 @@ def plot_fig1_forest(summary: dict, fig_dir: Path) -> None:
     )
     rows.append(
         (
-            "ii.b · 2x2 Prompt + Harness both CE (④) vs both Corr (②)",
+            "ii.b · 2x2 Prompt + Harness both Corr (②) vs both CE (④)",
             summary["ii_b_harness_optimization"]["prompt_x_harness_2x2_factorial"]["contrasts"]["rps_both_ce_vs_both_corr"],
             summary["ii_b_harness_optimization"]["prompt_x_harness_2x2_factorial"]["contrasts"]["ce_both_ce_vs_both_corr"],
         )
@@ -227,7 +227,8 @@ def plot_fig3_learning_curves(summary: dict, fig_dir: Path) -> None:
     ax3.set_ylabel("Held-out test Pearson correlation\nwith human mean rating (higher is better)")
     ax3.set_title("Held-Out Test Pearson Correlation vs Training Ratings")
     ax3.grid(True, which="major", linestyle=":", alpha=0.7)
-    ax3.legend(loc="lower right", fontsize=7.4)
+    handles, labels = ax1.get_legend_handles_labels()
+    ax3.legend(handles, labels, loc="lower right", fontsize=7.2)
 
     fig.tight_layout()
     fig.savefig(fig_dir / "fig3_real_judge_learning_curves_vs_n.png", bbox_inches="tight")

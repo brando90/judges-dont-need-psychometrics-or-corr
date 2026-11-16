@@ -119,10 +119,11 @@ def plot_fig1_master_forest(ana: dict[str, Any], p3: dict[str, Any]) -> None:
         color = "#0f7c6e" if lo > 0 else ("#b4690e" if hi < 0 else "#5b6577")
         ax.plot([lo, hi], [yp, yp], color=color, linewidth=2.4, solid_capstyle="round", zorder=3)
         ax.scatter([est], [yp], color=color, s=52, zorder=4, edgecolors="white", linewidths=0.9)
+        lhs_tag, rhs_tag = ("2-stage", "CE") if "Pearson+CE head" in label else ("Corr", "Loss")
         ax.text(
-            max(hi, est) + 0.003,
+            max(hi, est, 0.0) + 0.005,
             yp,
-            f"{est:+.4f}  (Corr {rps_corr:.3f} vs Loss {rps_loss:.3f})",
+            f"{est:+.4f}  ({lhs_tag} {rps_corr:.3f} vs {rhs_tag} {rps_loss:.3f})",
             va="center",
             ha="left",
             fontsize=8.3,
@@ -284,7 +285,7 @@ def plot_fig3_learning_curve(ana: dict[str, Any]) -> None:
     ax2.legend(loc="best", fontsize=7.6)
 
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "fig3_learning_curve_vs_ratings.png")
+    fig.savefig(FIGURES_DIR / "fig3_learning_curve_vs_ratings.png", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -326,11 +327,11 @@ def plot_fig4_prompts_and_harnesses(p3: dict[str, Any], ana: dict[str, Any]) -> 
     # Panel B: 2x2 / 3x5 Prompt Track x Harness Architecture on Held-Out Test Families (30 items, 5 families)
     pph = ana["harnesses_and_2x2_interaction"]["per_prompt_harnesses"]
     h_cols = [
-        ("H1_single_gpt61", "H1 Single-Call"),
-        ("H2_ast_gpt61", "H2 AST Scaffold"),
-        ("H3_twostep_gpt61", "H3 Two-Step Audit"),
-        ("SEL_CORR", "① Corr-Opt Harness"),
-        ("SEL_LOSS", "③ Loss-Opt Harness"),
+        ("H1_single_gpt61", "H1 Single\n(gpt-6.1-sol)"),
+        ("H2_ast_gpt61", "H2 AST\n(gpt-5.4-mini)"),
+        ("H3_twostep_gpt61", "H3 Two-Step\n(gpt-5.4-mini)"),
+        ("SEL_CORR", "① Corr-Opt\nHarness"),
+        ("SEL_LOSS", "③ Loss-Opt\nHarness"),
     ]
     p_groups = [
         ("P0_untuned", "Untuned P0 Prompt", "#6b7280"),
@@ -353,7 +354,7 @@ def plot_fig4_prompts_and_harnesses(p3: dict[str, Any], ana: dict[str, Any]) -> 
             ax2.text(b.get_x() + b.get_width() / 2, v + 0.002, f"{v:.3f}", ha="center", va="bottom", fontsize=6.8, rotation=90)
 
     ax2.set_xticks(x_base)
-    ax2.set_xticklabels([x[1] for x in h_cols], fontsize=8.3, rotation=14, ha="right")
+    ax2.set_xticklabels([x[1] for x in h_cols], fontsize=8.0)
     ax2.set_ylim(0, max(0.22, ax2.get_ylim()[1] * 1.16))
     ax2.set_ylabel("Held-out test ranked probability score (RPS; 0 to 1, lower is better)", fontsize=9.1)
     ax2.set_title("B. iii.a Prompt Objective x iii.b Harness Architecture (Held-Out Test)", fontsize=9.8, fontweight="bold")
@@ -361,7 +362,7 @@ def plot_fig4_prompts_and_harnesses(p3: dict[str, Any], ana: dict[str, Any]) -> 
     ax2.legend(loc="upper right", fontsize=8.0)
 
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "fig4_prompts_x_harnesses_2x2_and_trajectories.png")
+    fig.savefig(FIGURES_DIR / "fig4_prompts_x_harnesses_2x2_and_trajectories.png", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -391,11 +392,11 @@ def plot_fig5_mse_and_disagreement(ana: dict[str, Any]) -> None:
     ax1.barh(y1, u_tr, left=b_sq + s_sq, color="#2f5bd3", alpha=0.82, label="2 s_x s_y (1 − r) (correlation part)")
     ax1.set_yticks(y1)
     ax1.set_yticklabels([lbl for _, lbl in m_list], fontsize=8.6)
-    ax1.set_xlim(0.0, float(np.max(b_sq + s_sq + u_tr)) * 1.34)
+    ax1.set_xlim(0.0, float(np.max(b_sq + s_sq + u_tr)) * 1.58)
     ax1.set_xlabel("Held-out test mean squared error (MSE) on 0–5 rating scale (rating²; lower is better)", fontsize=8.9)
     ax1.set_title("A. Exact MSE Decomposition: What Pearson Ignores", fontsize=9.8, fontweight="bold")
     ax1.grid(True, which="major", axis="x", alpha=0.4)
-    ax1.legend(loc="lower right", fontsize=7.6)
+    ax1.legend(loc="upper right", fontsize=7.6)
 
     st_rows = [
         ("unanimous_raters_sd_eq_0", "Unanimous\n(SD = 0, n=13)"),
@@ -420,14 +421,16 @@ def plot_fig5_mse_and_disagreement(ana: dict[str, Any]) -> None:
     ax2.set_xticklabels([lbl for _, lbl in st_rows], fontsize=8.0)
     ax2.set_ylim(min(-0.02, min(los) - 0.01), max(his) + 0.02)
     ax2.set_ylabel(
-        "Held-out test ranked probability score (RPS):\nPearson-trained minus cross-entropy-trained judge (> 0 favors cross-entropy)",
-        fontsize=9.0,
+        "Held-out test ranked probability score (RPS)\n"
+        "difference: Pearson-trained minus CE-trained\n"
+        "judge (> 0 favors cross-entropy, CE)",
+        fontsize=8.6,
     )
     ax2.set_title("B. Where Proper Loss Wins: Stratified Held-Out RPS Gain", fontsize=9.8, fontweight="bold")
     ax2.grid(True, which="major", alpha=0.4)
 
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "fig5_mse_decomposition_and_info_gap.png")
+    fig.savefig(FIGURES_DIR / "fig5_mse_decomposition_and_info_gap.png", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -491,11 +494,11 @@ def build_reports_and_draft() -> None:
 
     # Build canonical RESULTS_frontier_ce_vs_corr.md
     lines = [
-        "# Experiment 10 Results — Frontier AI Judges: Native Probabilities, Prompt Optimization (`iii.a`), and Harness Optimization (`iii.b`)",
+        "# Experiment 10 Results — Frontier Artificial Intelligence (AI) Judges: Native Probabilities, Prompt Optimization (`iii.a`), and Harness Optimization (`iii.b`)",
         "",
         "**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md>",
         "",
-        f"**TLDR:** Across 7 real frontier large language models (LLMs) in 2 families (OpenAI GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.4 mini; Mistral Codestral 25.08; `${led['settled_actual_usd']:.2f}` total spend of `$18.00` cap; no differential testing (no DT)) evaluated on held-out VeriBench task families (75 artifacts, 19 task families, 195 expert ratings), **the native 6-category pool has lower cross-entropy (CE) than the historical scalar pool (`5.49` nats), at `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats** (beating the `{cv_nat['methods']['constant_marginal']['ce']:.3f}`-nat constant baseline), and **the fitted proper-loss judges have lower held-out losses than the fitted correlation judges on continuous probability mixtures and feature heads** (`Native-15` simplex mixture `test ranked probability score (RPS) of Pearson-trained minus CE-trained = {fmt_ci(d_nat_mix['estimate'], d_nat_mix['lo'], d_nat_mix['hi'], d_nat_mix['p_two_sided'])}`; 48-parameter head `{fmt_ci(d_m3_rps['estimate'], d_m3_rps['lo'], d_m3_rps['hi'], d_m3_rps['p_two_sided'])}`, with positive sampled mean differences from **{crossover_desc}**; these feature-head intervals describe conditional split Monte Carlo variability, not population uncertainty), whereas **discrete single-prompt (`iii.a`) and single-harness (`iii.b`) selection on a 5-family held-out split are uncertain**: validation-selected `iii.a` prompt search favors proper loss directionally (`{fmt_ci(d_p3_val['estimate'], d_p3_val['lo'], d_p3_val['hi'], d_p3_val['p_two_sided'])}`, while the train-selected correlation prompt has lower test RPS than the train-selected CE prompt: `{fmt_ci(d_p3_tr['estimate'], d_p3_tr['lo'], d_p3_tr['hi'], d_p3_tr['p_two_sided'])}`), `H3` two-step obligation auditing cuts held-out RPS from `0.177` to `0.114–0.117`, and the `2x2` discrete pipeline contrast has an interval including zero (`{fmt_ci(d_joint['estimate'], d_joint['lo'], d_joint['hi'], d_joint['p_two_sided'])}`).",
+        f"**TLDR:** Across 7 real frontier large language models (LLMs) in 2 families (OpenAI GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.4 mini; Mistral Codestral 25.08; `${led['settled_actual_usd']:.2f}` total spend of `$18.00` cap; no differential testing (no DT)) evaluated on held-out VeriBench task families (75 artifacts, 19 task families, 195 expert ratings), **the native 6-category pool has lower cross-entropy (CE) than the historical scalar pool (`5.49` nats), at `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats** (beating the `{cv_nat['methods']['constant_marginal']['ce']:.3f}`-nat constant baseline), and **the fitted proper-loss judges have lower held-out losses than the fitted correlation judges on continuous probability mixtures and feature heads** (`Native-15` simplex mixture `test ranked probability score (RPS) of Pearson-trained minus CE-trained = {fmt_ci(d_nat_mix['estimate'], d_nat_mix['lo'], d_nat_mix['hi'], d_nat_mix['p_two_sided'])}`; 48-parameter head `{fmt_ci(d_m3_rps['estimate'], d_m3_rps['lo'], d_m3_rps['hi'], d_m3_rps['p_two_sided'])}`, with positive sampled mean differences from **{crossover_desc}**; these feature-head intervals describe conditional split Monte Carlo variability, not population uncertainty), whereas **discrete single-prompt (`iii.a`) and single-harness (`iii.b`) selection on a 5-family held-out split are uncertain**: validation-selected `iii.a` prompt search favors proper loss directionally (`{fmt_ci(d_p3_val['estimate'], d_p3_val['lo'], d_p3_val['hi'], d_p3_val['p_two_sided'])}`, while the train-selected correlation prompt has lower test RPS than the train-selected CE prompt: `{fmt_ci(d_p3_tr['estimate'], d_p3_tr['lo'], d_p3_tr['hi'], d_p3_tr['p_two_sided'])}`), on matched `gpt-5.4-mini` `H3` two-step obligation auditing lowers held-out RPS relative to `H1` (`0.181 -> 0.160` at `P0`, `0.183 -> 0.114` at `①`, and `0.141 -> 0.117` at `③`), and the `2x2` discrete pipeline contrast has an interval including zero (`{fmt_ci(d_joint['estimate'], d_joint['lo'], d_joint['hi'], d_joint['p_two_sided'])}`).",
         "",
         "**Interpretation:** Historical scalar and native-probability pools differ in models and prompts as well as probability representation; their comparison does not isolate representation. **Uncertainty:** Feature-head learning-curve bands resample 250 overlapping split averages on fixed data and measure conditional Monte Carlo variability only; their population p-values are not available. Other intervals resample task families. Reported bootstrap sign-tail fractions are descriptive, not calibrated null-test p-values. No multiplicity correction was applied. The actual feature-head tuning used three inner folds and c in {0.1, 1, 10}, differing from the pre-run five-fold/five-value grid.",
         "",
@@ -512,7 +515,7 @@ def build_reports_and_draft() -> None:
         "",
         "![Master forest plot of held-out test RPS differences](figures/fig1_frontier_pools_and_axes_forest.png)",
         "",
-        "*Figure 1 caption (how chosen):* Every row plots held-out test ranked probability score (RPS; range `0` to `1`, lower is better) of the correlation-trained/selected judge minus held-out test RPS of the proper-loss-trained/selected judge on identical held-out task families (`> 0` favors proper loss; bars = `95%` task-family cluster-bootstrap intervals over `10,000` draws, except the two 250-split feature-head rows, whose `10,000`-draw intervals resample overlapping split averages and measure only conditional split Monte Carlo variability). Simplex `CE` and `RPS` mixtures use certified convex SLSQP + Newton polishing (`Frank-Wolfe gap <= 1e-8`); simplex `Pearson` uses exact cone/non-negative least squares (NNLS); 48-parameter softmax feature heads use L-BFGS-B (`400` iterations, checked against best-of-5 starts x `2,000` iterations); `iii.a` uses 4-iteration x 2-candidate `gpt-6.1-sol` blind prompt search; `iii.b` searches harnesses `H1`–`H4` plus 2-parameter convex calibration.",
+        "*Figure 1 caption (how chosen):* Every row plots held-out test ranked probability score (RPS; range `0` to `1`, lower is better) of the correlation-trained/selected judge minus held-out test RPS of the proper-loss-trained/selected judge on identical held-out task families (`> 0` favors proper loss; bars = `95%` task-family cluster-bootstrap intervals over `10,000` draws, except the two 250-split feature-head rows, whose `10,000`-draw intervals resample overlapping split averages and measure only conditional split Monte Carlo variability). Simplex `CE` and `RPS` mixtures use certified convex sequential least-squares programming (SLSQP) + Newton polishing (`Frank-Wolfe gap <= 1e-8`); simplex `Pearson` uses exact cone/non-negative least squares (NNLS); 48-parameter softmax feature heads use L-BFGS-B (`400` iterations, checked against best-of-5 starts x `2,000` iterations); `iii.a` uses 4-iteration x 2-candidate `gpt-6.1-sol` blind prompt search; `iii.b` searches harnesses `H1`–`H4` plus 2-parameter convex calibration.",
         "",
         "## 2. Phase 1: Expect-then-verify measurement contract & Karpathy sanity checks",
         "",
@@ -633,14 +636,14 @@ def build_reports_and_draft() -> None:
         "",
         "*Figure 5 caption (how chosen):* Zero-initialized 48-weight feature heads use training-objective L-BFGS-B (400 iterations), with no global guarantee for non-convex objectives. Panel B uses train-only cross-entropy (CE) versus Pearson heads over the same grouped cross-validation folds. Panel A decomposes held-out test mean squared error (`MSE` on the `0–5` scale, `250` splits at `15` training families) into `bias^2 + scale_mismatch^2 + 2 s_x s_y (1 - r)` (verified to `< 1e-12`). Panel B stratifies out-of-fold held-out `RPS` differences (`Pearson-trained minus CE-trained`, `5x5` grouped family CV) by empirical human rater disagreement (`SD = 0` vs `SD > 0`) and task type (`ordinary` vs `True`-placeholder), with `95%` task-family bootstrap intervals (`10,000` draws; ranked probability score, RPS, ranges from 0 to 1; positive differences favor CE).",
         "",
-        f"- **Exact MSE decomposition (`n_fam = 15`):** `Pearson`-trained (`②`) has `MSE = {lc15['methods']['m3_pearson_f2']['mse_0_5']:.4f}` (`bias = {lc15['methods']['m3_pearson_f2']['bias_0_5']:+.3f}` [judge `{lc15['methods']['m3_pearson_f2']['judge_mean_0_5']:.3f}` vs human `{lc15['methods']['m3_pearson_f2']['human_mean_0_5']:.3f}`], `bias^2 = {lc15['methods']['m3_pearson_f2']['bias_sq_0_5']:.4f}`, `scale_mismatch^2 = {lc15['methods']['m3_pearson_f2']['scale_sq_0_5']:.4f}`, correlation term `{lc15['methods']['m3_pearson_f2']['unexplained_corr_term_0_5']:.4f}`), versus `CE`-trained (`④`) `MSE = {lc15['methods']['m3_ce_f4']['mse_0_5']:.4f}` (`bias = {lc15['methods']['m3_ce_f4']['bias_0_5']:+.3f}`, `bias^2 = {lc15['methods']['m3_ce_f4']['bias_sq_0_5']:.4f}`, `scale_mismatch^2 = {lc15['methods']['m3_ce_f4']['scale_sq_0_5']:.4f}`, correlation term `{lc15['methods']['m3_ce_f4']['unexplained_corr_term_0_5']:.4f}`).",
+        f"- **Exact MSE decomposition (`n_fam = 15`, per-split components averaged over 250 splits):** `Pearson`-trained (`②`) has `MSE = {lc15['methods']['m3_pearson_f2']['mse_0_5']:.4f}` (mean signed `bias = {lc15['methods']['m3_pearson_f2']['bias_0_5']:+.3f}` [judge `{lc15['methods']['m3_pearson_f2']['judge_mean_0_5']:.3f}` vs human `{lc15['methods']['m3_pearson_f2']['human_mean_0_5']:.3f}`], mean per-split `bias^2 = {lc15['methods']['m3_pearson_f2']['bias_sq_0_5']:.4f}`, `scale_mismatch^2 = {lc15['methods']['m3_pearson_f2']['scale_sq_0_5']:.4f}`, correlation term `{lc15['methods']['m3_pearson_f2']['unexplained_corr_term_0_5']:.4f}`), versus `CE`-trained (`④`) `MSE = {lc15['methods']['m3_ce_f4']['mse_0_5']:.4f}` (mean signed `bias = {lc15['methods']['m3_ce_f4']['bias_0_5']:+.3f}`, mean per-split `bias^2 = {lc15['methods']['m3_ce_f4']['bias_sq_0_5']:.4f}`, `scale_mismatch^2 = {lc15['methods']['m3_ce_f4']['scale_sq_0_5']:.4f}`, correlation term `{lc15['methods']['m3_ce_f4']['unexplained_corr_term_0_5']:.4f}`).",
         f"- **Rater disagreement & information-gap `G_i` (`Exp 05` hypothesis):** On the `62` artifacts with positive human rater disagreement (`SD > 0`), `test RPS of Pearson-trained minus CE-trained` is `{fmt_ci(strata['strata']['rater_disagreement_sd_gt_0']['pearson_minus_ce_rps']['estimate'], strata['strata']['rater_disagreement_sd_gt_0']['pearson_minus_ce_rps']['lo'], strata['strata']['rater_disagreement_sd_gt_0']['pearson_minus_ce_rps']['hi'], strata['strata']['rater_disagreement_sd_gt_0']['pearson_minus_ce_rps']['p_two_sided'])}`, versus `{fmt_ci(strata['strata']['unanimous_raters_sd_eq_0']['pearson_minus_ce_rps']['estimate'], strata['strata']['unanimous_raters_sd_eq_0']['pearson_minus_ce_rps']['lo'], strata['strata']['unanimous_raters_sd_eq_0']['pearson_minus_ce_rps']['hi'], strata['strata']['unanimous_raters_sd_eq_0']['pearson_minus_ce_rps']['p_two_sided'])}` on unanimous (`SD = 0`, `n=13`) artifacts. Across all 75 artifacts, correlation between Jeffreys-smoothed information gap `G_i` and `(RPS_Pearson - RPS_CE)` is Pearson `r = {fmt_ci(strata['info_gap_G_correlation_with_rps_gain']['pearson_r']['estimate'], strata['info_gap_G_correlation_with_rps_gain']['pearson_r']['lo'], strata['info_gap_G_correlation_with_rps_gain']['pearson_r']['hi'], strata['info_gap_G_correlation_with_rps_gain']['pearson_r']['p_two_sided'])}` and Spearman `rho = {fmt_ci(strata['info_gap_G_correlation_with_rps_gain']['spearman_rho']['estimate'], strata['info_gap_G_correlation_with_rps_gain']['spearman_rho']['lo'], strata['info_gap_G_correlation_with_rps_gain']['spearman_rho']['hi'], strata['info_gap_G_correlation_with_rps_gain']['spearman_rho']['p_two_sided'])}`.",
         "",
         "## 5. Axis `iii.a` Blind Prompt Search, Axis `iii.b` Harness Search, and `2x2` Interaction (Sanmi's Question)",
         "",
         "![Blind prompt search trajectory and 2x2 prompt x harness interaction](figures/fig4_prompts_x_harnesses_2x2_and_trajectories.png)",
         "",
-        "*Figure 4 caption (how chosen):* Locked grouped 3-way split of the 19 task families (`9` train = 27 artifacts, 69 ratings; `5` validation = 18 artifacts, 45 ratings; `5` held-out test = 30 artifacts, 81 ratings). Panel A runs two blind 4-iteration x 2-candidate prompt-search loops with `gpt-6.1-sol` proposing and `gpt-5.4-mini` judging (`<= 420` words, zero validation/test exposure during proposal). Panel B crosses the selected prompts (`P0_untuned`, `① Corr-selected`, `③ Loss-selected`) with frontier harnesses `H1_single_call`, `H2_ast_obligation_harness`, `H3_two_step_decompose_aggregate`, and learned `H4` ensemble/calibration harnesses.",
+        "*Figure 4 caption (how chosen):* Locked grouped 3-way split of the 19 task families (`9` train = 27 artifacts, 69 ratings; `5` validation = 18 artifacts, 45 ratings; `5` held-out test = 30 artifacts, 81 ratings). Panel A runs two blind 4-iteration x 2-candidate prompt-search loops with `gpt-6.1-sol` proposing and `gpt-5.4-mini` judging (`<= 420` words, zero validation/test exposure during proposal). Panel B crosses the selected prompts (`P0_untuned`, `① Corr-selected`, `③ Loss-selected`) with `H1` (`gpt-6.1-sol`), `H2_ast_obligation_harness` (`gpt-5.4-mini`), `H3_two_step_decompose_aggregate` (`gpt-5.4-mini`), and validation-selected harnesses across `H1`–`H4` (comparing `H1` to `H2`/`H3` in Panel B changes both harness and model; Table 4 below shows matched `H1(mini)` alongside `H1(6.1Sol)`).",
         "",
         "### Table 3: Axis `iii.a` — Prompts vs Post-Hoc Calibration Weights on Held-Out Test Families (`n=30` items, `5` families)",
         "",
@@ -672,9 +675,16 @@ def build_reports_and_draft() -> None:
         TABLE_NOTE,
         "",
         "```text",
-        "Prompt Axis (iii.a) \\ Harness Axis (iii.b) | H1(mini) | H1(6.1Sol) | H2 AST | H3 2-Step | H4 Equal | ① Corr-Opt Harness | ③ Loss-Opt Harness",
-        "-------------------------------------------+----------+------------+--------+-----------+----------+--------------------+-------------------",
+        "Prompt Axis (iii.a) \\ Harness Axis (iii.b) | H1(mini) | H1(6.1Sol) | H2 AST(mini) | H3 2Step(mini) | H4 Equal | ① Corr-Opt Harness      | ③ Loss-Opt Harness",
+        "-------------------------------------------+----------+------------+--------------+----------------+----------+-------------------------+------------------------",
     ]
+    chosen_display = {
+        "H4_crossfamily_equal": "H4_equal",
+        "H2_ast_gpt61": "H2_ast(mini)",
+        "H1_single_gpt61": "H1(6.1Sol)",
+        "H1_single_gpt54mini": "H1(mini)",
+        "H3_twostep_gpt61": "H3(mini)",
+    }
     pph = h2x2["per_prompt_harnesses"]
     for pk, plbl in (
         ("P0_untuned", "Untuned P0_human_mirror"),
@@ -685,16 +695,19 @@ def build_reports_and_draft() -> None:
         hs = pph[pk]["selected_harnesses"]
         c_ch = hs["F1_val_pearson_selected"]
         l_ch = hs["F3_val_rps_selected"]
+        c_lbl = chosen_display.get(c_ch["chosen"], c_ch["chosen"][:14])
+        l_lbl = chosen_display.get(l_ch["chosen"], l_ch["chosen"][:14])
         lines.append(
-            f"{plbl:42s} | {ht['H1_single_gpt54mini']['rps']:8.4f} | {ht['H1_single_gpt61']['rps']:10.4f} | {ht['H2_ast_gpt61']['rps']:6.4f} | "
-            f"{ht['H3_twostep_gpt61']['rps']:9.4f} | {ht['H4_crossfamily_equal']['rps']:8.4f} | "
-            f"{c_ch['heldout_test']['rps']:6.4f} ({c_ch['chosen'][:10]:10s}) | {l_ch['heldout_test']['rps']:6.4f} ({l_ch['chosen'][:10]:10s})"
+            f"{plbl:42s} | {ht['H1_single_gpt54mini']['rps']:8.4f} | {ht['H1_single_gpt61']['rps']:10.4f} | {ht['H2_ast_gpt61']['rps']:12.4f} | "
+            f"{ht['H3_twostep_gpt61']['rps']:14.4f} | {ht['H4_crossfamily_equal']['rps']:8.4f} | "
+            f"{c_ch['heldout_test']['rps']:6.4f} ({c_lbl:14s}) | {l_ch['heldout_test']['rps']:6.4f} ({l_lbl:14s})"
         )
+    d_p3_val_61 = h2x2["interaction_contrasts"]["prompt_only_at_H1__P_corr_minus_P_ce"]["a_minus_b_rps"]
     lines += [
         "```",
         "",
         "**Headline `2x2` contrasts on the 30 held-out test artifacts (`5` held-out task families, `10,000` family bootstrap draws):**",
-        f"- **Prompt objective effect at fixed single-call harness `H1` (`① Corr prompt minus ③ Loss prompt`):** RPS `{fmt_ci(d_p3_val['estimate'], d_p3_val['lo'], d_p3_val['hi'], d_p3_val['p_two_sided'])}`; train-selected `② minus ④`: `{fmt_ci(d_p3_tr['estimate'], d_p3_tr['lo'], d_p3_tr['hi'], d_p3_tr['p_two_sided'])}`.",
+        f"- **Prompt objective effect at fixed single-call harness `H1` (`① Corr prompt minus ③ Loss prompt`):** on `H1(gpt-5.4-mini)` RPS `{fmt_ci(d_p3_val['estimate'], d_p3_val['lo'], d_p3_val['hi'], d_p3_val['p_two_sided'])}` (train-selected `② minus ④`: `{fmt_ci(d_p3_tr['estimate'], d_p3_tr['lo'], d_p3_tr['hi'], d_p3_tr['p_two_sided'])}`); on `H1(gpt-6.1-sol)` RPS `{fmt_ci(d_p3_val_61['estimate'], d_p3_val_61['lo'], d_p3_val_61['hi'], d_p3_val_61['p_two_sided'])}`.",
         f"- **Harness objective effect at fixed untuned prompt `P0` (`① Corr harness minus ③ Loss harness`):** RPS `{fmt_ci(d_h_only['estimate'], d_h_only['lo'], d_h_only['hi'], d_h_only['p_two_sided'])}`.",
         f"- **Joint `2x2` end-to-end pipeline (`[Prompt ① + Harness ①] minus [Prompt ③ + Harness ③]`):** RPS `{fmt_ci(d_joint['estimate'], d_joint['lo'], d_joint['hi'], d_joint['p_two_sided'])}`, CE `{fmt_ci(h2x2['interaction_contrasts']['joint_2x2_val__PromptCorr_HarnessCorr_minus_PromptCE_HarnessLoss']['a_minus_b_ce']['estimate'], h2x2['interaction_contrasts']['joint_2x2_val__PromptCorr_HarnessCorr_minus_PromptCE_HarnessLoss']['a_minus_b_ce']['lo'], h2x2['interaction_contrasts']['joint_2x2_val__PromptCorr_HarnessCorr_minus_PromptCE_HarnessLoss']['a_minus_b_ce']['hi'], h2x2['interaction_contrasts']['joint_2x2_val__PromptCorr_HarnessCorr_minus_PromptCE_HarnessLoss']['a_minus_b_ce']['p_two_sided'])}` nats.",
         f"- **Unmatched ensemble comparison (`H4_discrete_3vote_scalar` vs `H4_crossfamily_equal` at `P0`):** The five-forecast probability average (Sol, mini, Codestral, plus the H2 and H3 harness forecasts) has held-out test `CE` of `{pph['P0_untuned']['heldout_test_by_harness']['H4_crossfamily_equal']['ce']:.3f}` nats, versus `{pph['P0_untuned']['heldout_test_by_harness']['H4_discrete_3vote_scalar']['ce']:.3f}` nats for three argmax votes from Sol, mini, and Codestral only. Different ensemble membership and aggregation both change, so this descriptive comparison does not isolate the effect of discrete votes.",
@@ -714,7 +727,7 @@ def build_reports_and_draft() -> None:
             f"{ins['rps']:13.4f} | {ins['ce']:12.4f} | {ins['spearman']:+8.4f} | {ins['icc_A1']:+8.4f} | {ins['bias_0_5']:+8.3f}"
         )
     lines += ["```", "", "## 7. Forecast failures retained in evaluation", "", missingness_note, "",
-              "Counts refer to 30 held-out artifacts in five task families. Component counts overlap with direct fallbacks and are not additional observations.", "",
+              "Counts refer to 30 held-out artifacts in five task families. Component counts overlap with direct fallbacks and are not additional observations. Legacy harness keys `H2_ast_gpt61__*` and `H3_twostep_gpt61__*` executed `gpt-5.4-mini`, and `*_mistral35__*` executed `codestral-2508`.", "",
               "| Configuration | Uniform fallbacks / scheduled test artifacts | Scaffold fallbacks | Upstream/component fallbacks | Unresolved provenance |",
               "|---|---:|---:|---:|---:|"]
     for source, obj in (("Prompt", p3), ("Harness", p4)):
@@ -726,16 +739,16 @@ def build_reports_and_draft() -> None:
         "## 8. Exact API spend & deviations check",
         "",
         f"- **Total settled API spend:** **`${led['settled_actual_usd']:.4f}`** (`<= $18.00` hard cap; `{led['total_settled_calls']}` settled API calls across `koyejolab-openai-bm` and `mistral` ONLY).",
-        "- **Documented wire/quota amendment ([PROTOCOL_AMENDMENT_01.md](PROTOCOL_AMENDMENT_01.md)):** Recorded during Phase 2 at `$0.00` wasted spend before any held-out analysis: (1) OpenAI `/v1/chat/completions` requires `top_logprobs <= 5` on `gpt-5.4-mini` (adjusted from `20` to `5`); (2) the Mistral key is a Codestral-scoped key whose `api.mistral.ai` route sets `x-ratelimit-limit-req-minute: 0` on `mistral-medium-3.5` and `magistral-medium-latest`, whereas `https://codestral.mistral.ai/v1/chat/completions` serves `codestral-2508` at full concurrency (`75/75` across `P0/P1/P2` and `H1/H2`); the three zero-RPM slots were filled with already-approved `gpt-6.1-terra` (`P0`, `P2`) and `gpt-5.6-terra` (`P0`), preserving 15 zero-exposure frontier judges across 7 models in 2 families.",
+        "- **Documented wire/quota & harness-key deviations ([PROTOCOL_AMENDMENT_01.md](PROTOCOL_AMENDMENT_01.md)):** Recorded during Phase 2 at `$0.00` wasted spend before any held-out analysis: (1) OpenAI `/v1/chat/completions` requires `top_logprobs <= 5` on `gpt-5.4-mini` (adjusted from `20` to `5`); (2) the Mistral key is a Codestral-scoped key whose `api.mistral.ai` route sets `x-ratelimit-limit-req-minute: 0` on `mistral-medium-3.5` and `magistral-medium-latest`, whereas `https://codestral.mistral.ai/v1/chat/completions` serves `codestral-2508` at full concurrency (`75/75` across `P0/P1/P2` and `H1/H2`); the three zero-RPM slots were filled with already-approved `gpt-6.1-terra` (`P0`, `P2`) and `gpt-5.6-terra` (`P0`), preserving 15 zero-exposure frontier judges across 7 models in 2 families; (3) in Phase 4 (`phase4_arm_c_harnesses.json`), `H2` and `H3` ran on `gpt-5.4-mini` (retaining legacy JSON keys `H2_ast_gpt61__*` and `H3_twostep_gpt61__*`, and omitting the optional `gpt-6.1-sol` Step-2 aggregator run to stay within the `$18.00` cap), while `codestral-2508` ran under legacy keys `H1_single_mistral35__*` and `H2_ast_mistral35__P0_untuned`.",
         "",
-        f"**TLDR-end:** [judges-corr: experiment 10 report] The native 6-category frontier pool has lower CE than the historical 3-sample scalar pool (`5.49` -> `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats), proper-loss-trained (`CE`/`RPS`, Formulations ③/④) mixtures and feature heads have lower measured losses than the corresponding correlation-trained (`①`/`②`) fits; the feature-head intervals quantify split Monte Carlo variability and establish no population rating threshold, while discrete 5-family prompt/harness search remains uncertain and the tested `H3` two-step harness has lower observed losses (`${led['settled_actual_usd']:.2f}` total spend).",
+        f"**TLDR-end:** [judges-corr: experiment 10 report] The native 6-category frontier pool has lower CE than the historical 3-sample scalar pool (`5.49` -> `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats), proper-loss-trained (`CE`/`RPS`, Formulations ③/④) mixtures and feature heads have lower measured losses than the corresponding correlation-trained (`①`/`②`) fits; the feature-head intervals quantify split Monte Carlo variability and establish no population rating threshold, while discrete 5-family prompt/harness search remains uncertain and on matched `gpt-5.4-mini` the tested `H3` two-step harness has lower observed losses than `H1` (`${led['settled_actual_usd']:.2f}` total spend).",
     ]
     (EXPT_DIR / "RESULTS_frontier_ce_vs_corr.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     # Update live results.md (end-only TLDR-end, no opening TLDR!)
     now_pst = pst_now_str()
     res_md = [
-        "# Experiment 10 Live Results — Frontier AI Judges: Native Probabilities, Prompt Optimization (`iii.a`), and Harness Optimization (`iii.b`)",
+        "# Experiment 10 Live Results — Frontier Artificial Intelligence (AI) Judges: Native Probabilities, Prompt Optimization (`iii.a`), and Harness Optimization (`iii.b`)",
         "",
         "**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md>",
         "",
@@ -751,26 +764,27 @@ def build_reports_and_draft() -> None:
         "",
         "| Phase | Description | Status | Spend (USD) | Headline held-out / sanity result |",
         "|---|---|---|---:|---|",
-        f"| 0 | Pre-registration freeze (`PROTOCOL.md`, `FREEZE.json`) | DONE | $0.00 | Committed at `aa09730` prior to paid runs; `Exp 02` parity verified to `< 1e-6` |",
+        f"| 0 | Pre-registration freeze (`PROTOCOL.md`, `FREEZE.json`) | DONE | $0.00 | Frozen in `FREEZE.json` (pre-run worktree `aa09730`, integrated in `a346d5c`); `Exp 02` parity verified to `< 1e-6` |",
         f"| 1 | Karpathy sanity controls & `k=3` repeat SD (`gpt-6.1-sol`) | DONE | ${led['by_phase_usd'].get('phase1_sanity', 0.0):.2f} | Label-in-prompt `r = {p1['label_in_prompt_reproduction']['pearson']:.4f}`, `oracle` `{p1['smoke_controls_gpt61_sol']['oracle']['ordinary_mean_expected_0_1']:.3f}` vs `blank` `{p1['smoke_controls_gpt61_sol']['blank']['ordinary_mean_expected_0_1']:.3f}`, repeat SD `{p1['repeat_stability_k3_15items']['mean_expected_score_repeat_sd_0_1']:.4f}` |",
         f"| 2 | Multi-family native-prob & logprob pool (7 OpenAI/Mistral models) | DONE | ${led['by_phase_usd'].get('phase2_pool', 0.0) + led['by_phase_usd'].get('phase2_pool_repair', 0.0):.2f} | Native-15 `5x5` CV held-out `CE = {cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats (vs `5.491` scalar & `{cv_nat['methods']['constant_marginal']['ce']:.3f}` constant); feature-head `② minus ④` RPS `{fmt_ci(d_m3_rps['estimate'], d_m3_rps['lo'], d_m3_rps['hi'], d_m3_rps['p_two_sided'])}` |",
         f"| 3 | Axis `iii.a`: Blind 4x2 prompt search (`Track_Corr` vs `Track_CE`) | DONE | ${sum(v for k, v in led['by_phase_usd'].items() if k.startswith('phase3')):.2f} | Held-out test RPS `① Corr-selected minus ③ Loss-selected = {fmt_ci(d_p3_val['estimate'], d_p3_val['lo'], d_p3_val['hi'], d_p3_val['p_two_sided'])}` |",
         f"| 4 | Axis `iii.b`: Frontier harnesses (`H1`–`H4`) & `2x2` interaction | DONE | ${sum(v for k, v in led['by_phase_usd'].items() if k.startswith('phase4')):.2f} | Joint `2x2` `[Prompt ① + Harness ①] minus [Prompt ③ + Harness ③]` test RPS `{fmt_ci(d_joint['estimate'], d_joint['lo'], d_joint['hi'], d_joint['p_two_sided'])}` |",
         f"| 5 | Grouped `250`-split learning curves, figures & `verify_results.py` | DONE | $0.00 | Positive sampled mean differences from **{crossover_desc}** (no population threshold); total spend **`${led['settled_actual_usd']:.2f}` / `$18.00`** |",
         "",
-        f"**TLDR-end:** [judges-corr: experiment 10 live results] Completed all 5 phases across 7 OpenAI and Mistral frontier models (`${led['settled_actual_usd']:.2f}` spent): the native-probability pool has lower CE than the historical scalar pool (`5.49` -> `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats), proper-loss fits have lower measured loss on continuous mixtures (`+0.0775` RPS) and feature heads (`+0.0250` RPS; conditional split variability only), and `H3` two-step obligation harnesses reach `0.1136` held-out RPS (`2x2` discrete pipeline contrast `-0.0060`, `bootstrap-tail=0.8738; p-val=n/a`).",
+        f"**TLDR-end:** [judges-corr: experiment 10 live results] Completed all 5 phases across 7 OpenAI and Mistral frontier models (`${led['settled_actual_usd']:.2f}` spent): the native-probability pool has lower CE than the historical scalar pool (`5.49` -> `{cv_nat['methods']['mix_ce_f4']['ce']:.3f}` nats), proper-loss fits have lower measured loss on continuous mixtures (`+0.0775` RPS) and feature heads (`+0.0250` RPS; conditional split variability only), and on matched `gpt-5.4-mini` `H3` two-step obligation harnesses reach `0.1136–0.1174` held-out RPS (`2x2` discrete pipeline contrast `-0.0060`, `bootstrap-tail=0.8738; p-val=n/a`).",
     ]
     (EXPT_DIR / "results.md").write_text("\n".join(res_md) + "\n", encoding="utf-8")
 
     # Write draft paper section writing.tex (% Status: DRAFT)
+    crossover_tex = crossover_desc.replace("~", "about ")
     tex = [
         "% Status: DRAFT — do not \\input{} into paper_latex_and_notes/ until approved",
         "% Provenance: experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md",
-        "\\subsection{Frontier AI Judges: Native Probabilities, Prompt Search, and Harness Search}",
+        "\\subsection{Frontier Artificial Intelligence (AI) Judges: Native Probabilities, Prompt Search, and Harness Search}",
         "Earlier real-rating mixtures over three sampled scalar votes suffered severe cross-entropy penalties ($5.49$~nats vs.\\ $1.93$~nats for a constant training-histogram forecast) because empty sample bins triggered probability-floor penalties.",
         f"The native-probability pool of 15 configurations of seven OpenAI and Mistral frontier models has five-fold task-family cross-entropy of ${cv_nat['methods']['mix_ce_f4']['ce']:.3f}$~nats (${cv_nat['methods']['mix_ce_valrps_f3']['ce']:.3f}$~nats with validation ranked probability score (RPS) shrinkage) and lowers held-out test RPS over Pearson-trained mixtures by ${d_nat_mix['estimate']:+.4f}$ $[{d_nat_mix['lo']:+.4f}, {d_nat_mix['hi']:+.4f}]$.",
-        f"Across 250 grouped task-family splits, fitting a 48-parameter softmax head by cross-entropy achieves lower held-out test RPS than Pearson training by ${d_m3_rps['estimate']:+.4f}$ $[{d_m3_rps['lo']:+.4f}, {d_m3_rps['hi']:+.4f}]$, with positive sampled mean differences from {crossover_desc} onward. The displayed 95\\% intervals resample overlapping split averages and quantify conditional Monte Carlo variability, not population uncertainty or a rating threshold.",
-        f"In discrete single-prompt (\\texttt{{gpt-6.1-sol}} proposer; \\texttt{{gpt-5.4-mini}} evaluator) and four-architecture harness ($H_1$--$H_4$) selection on a five-family test split, validation-selected proper-loss prompts improve raw held-out RPS directionally (${d_p3_val['estimate']:+.4f}$ $[{d_p3_val['lo']:+.4f}, {d_p3_val['hi']:+.4f}]$) while two-step obligation auditing ($H_3$) lowers held-out RPS to $0.114$--$0.117$ across prompt tracks (joint discrete contrast ${d_joint['estimate']:+.4f}$ $[{d_joint['lo']:+.4f}, {d_joint['hi']:+.4f}]$).",
+        f"Across 250 grouped task-family splits, fitting a 48-parameter softmax head by cross-entropy achieves lower held-out test RPS than Pearson training by ${d_m3_rps['estimate']:+.4f}$ $[{d_m3_rps['lo']:+.4f}, {d_m3_rps['hi']:+.4f}]$, with positive sampled mean differences from {crossover_tex} onward. The displayed 95\\% intervals resample overlapping split averages and quantify conditional Monte Carlo variability, not population uncertainty or a rating threshold.",
+        f"In discrete single-prompt (\\texttt{{gpt-6.1-sol}} proposer; \\texttt{{gpt-5.4-mini}} evaluator) and four-architecture harness ($H_1$--$H_4$) selection on a five-family test split, validation-selected proper-loss prompts improve raw held-out RPS directionally (${d_p3_val['estimate']:+.4f}$ $[{d_p3_val['lo']:+.4f}, {d_p3_val['hi']:+.4f}]$) while on matched \\texttt{{gpt-5.4-mini}} two-step obligation auditing ($H_3$) lowers held-out RPS from $0.181$/$0.183$/$0.141$ on $H_1$ to $0.160$/$0.114$/$0.117$ across prompt tracks (joint discrete contrast ${d_joint['estimate']:+.4f}$ $[{d_joint['lo']:+.4f}, {d_joint['hi']:+.4f}]$).",
     ]
     tex.append("Saved metrics include parsing failures replaced by uniform forecasts (7/30 held-out artifacts for the selected cross-entropy prompt) and harness scaffold fallbacks. Historical and native pools differ in models and prompts, so their comparison does not isolate probability representation. Reference-file byte identity with the original human-delivered inputs remains unverified.")
     (EXPT_DIR / "writing.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")

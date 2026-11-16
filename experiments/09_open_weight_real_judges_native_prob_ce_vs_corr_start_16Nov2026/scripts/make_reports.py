@@ -52,9 +52,9 @@ def build_how_to_read(s: dict) -> str:
 {provenance_note()}
 
 - **Evaluation dataset:** `{sc['n_artifacts']}` Lean 4 candidate formalization artifacts across `{sc['n_tasks']}` Python tasks grouped into `{sc['n_task_families']}` task families, rated by qualified Lean experts (`{sc['n_expert_ratings']}` individual integer ratings on `0..5`, `{sc['n_ordinary_artifacts']}` ordinary non-placeholder artifacts and `{sc['n_placeholder_artifacts']}` `True`-placeholder-reference artifacts; `{sc['n_split_rater_artifacts']}` artifacts have non-zero expert disagreement (standard deviation, SD) `SD > 0` and `{sc['n_unanimous_rater_artifacts']}` have unanimous expert ratings `SD = 0`).
-- **Held-out splits:** Every reported score (except the one explicitly labeled in-sample single-judge reference table) is measured strictly on **held-out test task families** never seen during training, prompt proposal, harness selection, LoRA backpropagation, or hyperparameter selection:
-  - **Pool / prompt / harness evaluations:** `200` stratified grouped splits holding out `4` of the `19` task families (`~16` test artifacts) and fitting on the remaining `15` task families (`~59` training artifacts; inner `3`-family validation split for formulations ① and ③). Hidden-state head learning curves use `120` grouped splits per training size `n_fam in {{3, 5, 7, 9, 12, 15}}`; the other `19 - n_fam` families are held out.
-  - **End-to-end PyTorch low-rank adaptation (LoRA) weight training (`ii.c`):** `5`-fold grouped task-family cross-validation (`11–12` inner-train families, `4` inner-validation families, `4` or `3` outer held-out test families per fold; every one of the `75` artifacts is scored strictly out-of-fold once).
+- **Held-out splits:** Every reported score (except the one explicitly labeled in-sample single-judge reference table) is measured strictly on **held-out test task families** never seen during training, prompt proposal, harness selection, low-rank adaptation (LoRA) backpropagation, or hyperparameter selection:
+  - **Pool / prompt / harness evaluations:** `200` stratified grouped splits holding out `4` of the `19` task families (`~16` test artifacts) and fitting on the remaining `15` task families (`~59` training artifacts; inner `3`-family validation split for formulations ① and ③). Hidden-state head learning curves use `120` grouped splits per training size `n_fam in {{3, 5, 7, 9, 12, 15}}`, holding out `4` test families per split (with the remaining `15 - n_fam` families unused when `n_fam < 15`).
+  - **End-to-end PyTorch LoRA weight training (`ii.c`):** `5`-fold grouped task-family cross-validation (`11–12` inner-train families, `4` inner-validation families, `4` or `3` outer held-out test families per fold; every one of the `75` artifacts is scored strictly out-of-fold once).
   - **Blind automated meta-prompt search (`ii.a` on `Qwen3-30B-A3B`):** `3`-fold grouped task-family cross-validation (`9–10` inner-train families, `4` inner-validation families, `6–7` untouched outer held-out test families; every artifact scored out-of-fold once).
 - **Prior exposure disclosure:** These `75` artifacts and `195` expert ratings come from the historical VeriBench cache (`dataset.json` SHA-256 `b3a05699...`) inspected in earlier studies (`experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/`, `archive/11, 12, 14`). Unlike historical `H1`/`H2` prompts, all new prompts (`P0` and blind meta-prompts) and LoRA weights here were constructed without accessing test-split human ratings, but the dataset itself remains retrospective.
 
@@ -82,7 +82,7 @@ Every difference subtracts **the exact same metric on the exact same held-out te
 
 ## 5. How each judge was chosen (search space, optimizer, certificates)
 
-- **Simplex mixtures (`ii.a`, `ii.b`, `ii.c`):** Non-negative weights summing to `1`. CE uses convex SLSQP + active-face Newton refinement with checked Frank-Wolfe duality gap `<= 1e-8` (global optimum guaranteed). RPS uses convex quadratic SLSQP on the simplex with duality gap `<= 1e-7` (global optimum guaranteed). Pearson uses exact non-negative least-squares (NNLS) cone projection (global optimum guaranteed). Spearman uses best of `1,500` Dirichlet draws + simplex vertices (approximate).
+- **Simplex mixtures (`ii.a`, `ii.b`, `ii.c`):** Non-negative weights summing to `1`. CE uses convex sequential least-squares programming (SLSQP) + active-face Newton refinement with checked Frank-Wolfe duality gap `<= 1e-8` (global optimum guaranteed). RPS uses convex quadratic SLSQP on the simplex with duality gap `<= 1e-7` (global optimum guaranteed). Pearson uses exact non-negative least-squares (NNLS) cone projection (global optimum guaranteed). Spearman uses best of `1,500` Dirichlet draws + simplex vertices (approximate).
 - **Blind meta-prompt search (`ii.a`):** `Qwen3-30B-A3B` proposes `2` candidate rubric addenda per round for `2` rounds (`5` candidates total including `P0`), guided strictly by inner-train correlation vs inner-train CE/RPS; selected by inner-train (`②`/`④`) or inner-validation (`①`/`③`). Non-exhaustive prompt space.
 - **End-to-end PyTorch LoRA weight training (`ii.c`):** `28` LoRA projection adapters (`rank=8, alpha=16`) across the top `4` transformer blocks + `6`-logit rating head (`1.85M` trainable parameters in `Qwen3-4B`, `2.91M` in `Qwen2.5-Coder-7B`), initialized to reproduce the unadapted layer-streamed digit-logit path (`epoch 0` max difference `< 3e-7`; this is not an independent full-model forward equivalence check), optimized by full-batch `AdamW` (`lr=2e-4, weight_decay=0.01`, `8` epochs on 5-fold CV and `6` epochs on learning curves; non-convex in transformer weights).
 - **Hidden-state neural softmax heads (`ii.c`):** Leak-free training-fold `5` principal-component (PC) Gram features + base score/entropy + intercept (`8 x 6 = 48` weights), fitted by `L-BFGS-B` (`400` iterations single start, checked against best-of-`5` random starts × `2,000` iterations). CE is convex in head weights; RPS and correlation surrogates (`tau=0.1`) are non-convex.
@@ -297,11 +297,11 @@ def build_full_report(s: dict, ts: str) -> str:
         "## 4. Sub-Experiment `ii.c`: Real Neural Weight Updates (End-to-End PyTorch LoRA Backpropagation + Neural Heads)",
         "",
     ]
-    for mk, lrec in lora.items():
+    for lora_sec_idx, (mk, lrec) in enumerate(lora.items(), start=1):
         lm = lrec["methods"]
         lc_c = lrec["contrasts"]
         lines += [
-            f"### 4.1 End-to-End PyTorch Transformer LoRA Fine-Tuning: `{mk}` (`{lrec['n_trainable_params']:,}` Trainable Params, `5`-Fold Grouped Task-Family CV)",
+            f"### 4.{lora_sec_idx} End-to-End PyTorch Transformer LoRA Fine-Tuning: `{mk}` (`{lrec['n_trainable_params']:,}` Trainable Params, `5`-Fold Grouped Task-Family CV)",
             "",
             TABLE_NOTE,
         "",
@@ -338,13 +338,13 @@ def build_full_report(s: dict, ts: str) -> str:
 
     if lc:
         lines += [
-            "### 4.2 Real-Judge Learning Curves Across Training Rating Counts (`Qwen3-4B` Hidden-State + Logit Heads, `120` Grouped Splits per Size)",
+            f"### 4.{len(lora) + 1} Real-Judge Learning Curves Across Training Rating Counts (`Qwen3-4B` Hidden-State + Logit Heads, `120` Grouped Splits per Size)",
             "",
             TABLE_NOTE,
         "",
         "```text",
-            "Train Fams (~Ratings) | ④ CE RPS | ④ RPS RPS | ② Pearson RPS | Pearson+Head RPS | ② Spearman RPS | Constant RPS | ② Pearson − ④ CE RPS [95% CI]",
-            "----------------------+----------+-----------+---------------+------------------+----------------+--------------+---------------------------------------",
+            "Train Fams (~Ratings) | ④ CE RPS | ④ RPS RPS | ② Pearson RPS | Pearson+Head RPS | ② Spearman RPS | Constant RPS | ② Pearson-Head minus ④ CE-Head RPS [95% CI]",
+            "----------------------+----------+-----------+---------------+------------------+----------------+--------------+--------------------------------------------",
         ]
         for nf_k in sorted(lc.keys(), key=int):
             row_l = lc[nf_k]
@@ -372,8 +372,8 @@ def build_full_report(s: dict, ts: str) -> str:
         "",
         "## 5. WHEN Is Cross-Entropy Better Than Correlation? Observed Comparisons & Stratified Diagnostics",
         "",
-        f"1. **Training-size regime (`3` to `15` task families, `~31` to `~155` expert ratings on `48`-weight hidden-state heads):** Point estimates favor `④ CE` over `② Pearson` at all six training sizes (`0.1688` vs `0.1761` at `3` families / `~30.8` ratings, `p-val = 0.1549`), reaching statistical significance from **`5` task families (`~52.1` ratings, `+0.0221`, `p-val = 0.0313`)** through **`15` task families (`~155.3` ratings, `0.1335` vs `0.1761`, `+0.0426 [+0.0105, +0.0822]`, `p-val = 0.0226`)** These are unadjusted, size-specific comparisons on this retrospective dataset; they do not establish a universal rating threshold. Experiment 10 reports conditional split variability and is not an independent confirmation of a population threshold.",
-        f"2. **High rater disagreement (`SD > 0`) vs unanimous agreement (`SD = 0`):** On split-rater artifacts (`{w_lp['split_raters_SD_gt_0']['n_artifacts']}` artifacts, `SD > 0`), `Pearson − CE` mixture held-out test RPS excludes zero (`{fmt_ci(w_lp['split_raters_SD_gt_0']['rps_corr_minus_ce'], 4)}`), whereas on unanimous-rater artifacts (`{w_lp['unanimous_raters_SD_eq_0']['n_artifacts']}` artifacts, `SD = 0`) the interval spans zero (`{fmt_ci(w_lp['unanimous_raters_SD_eq_0']['rps_corr_minus_ce'], 4)}`). Correlation between per-artifact smoothed information gap `G_i` and `(RPS_Pearson − RPS_CE)` is Pearson `{w_lp['info_gap_G_correlation_with_rps_advantage']['pearson_G_vs_rps_diff']:+.3f}` (Spearman `{w_lp['info_gap_G_correlation_with_rps_advantage']['spearman_G_vs_rps_diff']:+.3f}`).",
+        f"1. **Training-size regime (`3` to `15` task families, `~31` to `~155` expert ratings on `48`-weight hidden-state heads):** Point estimates favor `④ CE` over `② Pearson` at all six training sizes (`0.1688` vs `0.1761` at `3` families / `~30.8` ratings, `p-val = 0.1549`), reaching statistical significance from **`5` task families (`~52.1` ratings, `+0.0221`, `p-val = 0.0313`)** through **`15` task families (`~155.3` ratings, `0.1335` vs `0.1761`, `+0.0426 [+0.0105, +0.0822]`, `p-val = 0.0226`)**. These are unadjusted, size-specific comparisons on this retrospective dataset; they do not establish a universal rating threshold. Experiment 10 reports conditional split variability and is not an independent confirmation of a population threshold.",
+        f"2. **High rater disagreement (`SD > 0`) vs unanimous agreement (`SD = 0`):** On split-rater artifacts (`{w_lp['split_raters_SD_gt_0']['n_artifacts']}` artifacts, `SD > 0`), the Pearson-trained minus CE-trained mixture held-out test RPS excludes zero (`{fmt_ci(w_lp['split_raters_SD_gt_0']['rps_corr_minus_ce'], 4)}`), whereas on unanimous-rater artifacts (`{w_lp['unanimous_raters_SD_eq_0']['n_artifacts']}` artifacts, `SD = 0`) the interval spans zero (`{fmt_ci(w_lp['unanimous_raters_SD_eq_0']['rps_corr_minus_ce'], 4)}`). Correlation between per-artifact smoothed information gap `G_i` and `(RPS_Pearson − RPS_CE)` is Pearson `{w_lp['info_gap_G_correlation_with_rps_advantage']['pearson_G_vs_rps_diff']:+.3f}`, Spearman `{w_lp['info_gap_G_correlation_with_rps_advantage']['spearman_G_vs_rps_diff']:+.3f}`, and Kendall tau-b `{w_lp['info_gap_G_correlation_with_rps_advantage']['kendall_G_vs_rps_diff']:+.3f}`.",
         f"3. **Ordinary vs `True`-placeholder tasks:** The CE advantage is driven by ordinary specification tasks (`{w_lp['ordinary_non_placeholder_tasks']['n_artifacts']}` artifacts: `{fmt_ci(w_lp['ordinary_non_placeholder_tasks']['rps_corr_minus_ce'], 4)}`), whereas on the `{w_lp['placeholder_reference_tasks']['n_artifacts']}` `True`-placeholder-reference security items raw `T=1.0` logprob Pearson slightly leads (`{fmt_ci(w_lp['placeholder_reference_tasks']['rps_corr_minus_ce'], 4)}`).",
         "4. **Parameter-capacity comparison:** On these fitted judges, the `48`-weight cross-entropy (CE) head has lower held-out ranked probability score (RPS) than the Pearson-trained head (`0.1335` vs `0.1761`). Both CE-trained low-rank adaptation (LoRA) models improve on the corresponding Pearson-trained LoRA model. Adding a CE calibration head to Pearson-trained LoRA lowers RPS relative to validation-selected CE-LoRA on Qwen3-4B (`0.1412` vs `0.1997`; paired interval excludes zero), while the Qwen2.5-Coder-7B interval includes zero (`0.1560` vs `0.1859`). Different features, training procedures, and splits prevent attributing these comparisons solely to parameter capacity, overfitting, or RLHF.",
         "",
@@ -429,8 +429,8 @@ def build_live_results_md(s: dict, ts: str) -> str:
 | Phase | Description | Status | Notes |
 | --- | --- | --- | --- |
 | Phase 0 | Protocol freeze (`FREEZE.json`), byte-exact input SHA-256 verification (`75` items, `19` families), tokenizer 6-digit bijection | DONE | Committed before GPU execution (`2997834`) |
-| Phase 1 | `10`-model open-weight vLLM inference (`ii.a` prompts `P0..P5` + blind meta-prompt search; `ii.b` harnesses `H1..H6`; `25` Karpathy controls; `k=3` repeats) + `ii.c` PyTorch LoRA weight fine-tuning (`Qwen3-4B` & `Qwen2.5-Coder-7B`) on `mercury2` (`$0.00`) | DONE | All GPUs released and verified clean via `nvidia-smi` |
-| Phase 2 | Certified `19`-task-family evaluation: formulations ①–④, learning curves (`3–15` families), `5`-restart non-convex check, MSE & information-gap stratification | DONE | Saved in `results/analysis_summary.json` and `results/open_weight_forecasts.json` |
+| Phase 1 | `10`-model open-weight vLLM inference (`ii.a` prompts `P0..P5` + blind meta-prompt search; `ii.b` harnesses `H1..H6`; `25` Karpathy controls; `k=3` repeats) + `ii.c` PyTorch low-rank adaptation (LoRA) weight fine-tuning (`Qwen3-4B` & `Qwen2.5-Coder-7B`) on `mercury2` (`$0.00`) | DONE | All GPUs released and verified clean via `nvidia-smi` |
+| Phase 2 | Certified `19`-task-family evaluation: formulations ①–④, learning curves (`3–15` families), `5`-restart non-convex check, mean squared error (MSE) & information-gap stratification | DONE | Saved in `results/analysis_summary.json` and `results/open_weight_forecasts.json` |
 | Phase 3 | Figures (`figures/*.png`), [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md), [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md), and `verify_results.py` | DONE | Full report in [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md) |
 
 ## Headline Held-Out Test Results (`75` Artifacts, `19` Task Families, `195` Ratings, No Differential Testing)

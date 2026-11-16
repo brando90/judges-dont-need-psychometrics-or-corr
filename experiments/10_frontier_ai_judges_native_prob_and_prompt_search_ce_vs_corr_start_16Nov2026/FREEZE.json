@@ -92,5 +92,35 @@
       "scripts/recover_forecast_status.py": "f574a7d7b7ddab11b22b395a81d4d0dfdb9ce8b3213fca2af9da2cd0ca43cca1"
     },
     "review_receipt": "../09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/full_base_review_11-16-2026/REVIEW.md"
+  },
+  "qa_amendment_2": {
+    "recorded_utc": "2026-11-16T22:47:20+00:00",
+    "review_base": "233d5047d20da8591b4609ab52242ceed8717152",
+    "stage": "Mega QA Stage 2 (qa2_carbon, Gemini 4 Carbon High); post-run local correctness review, zero provider API calls made.",
+    "reason": [
+      "Disclose Phase-4 legacy harness JSON key -> actual executed model mapping (H2_ast_gpt61 and H3_twostep_gpt61 ran gpt-5.4-mini; *_mistral35 ran codestral-2508) and compare matched gpt-5.4-mini H1 vs H3 numbers in reports, figures, and draft.",
+      "Document pre-run worktree freeze provenance for commit aa09730 alongside committed FREEZE.json.",
+      "Expand first-use acronyms in README.md and HOW_TO_READ_RESULTS.md, fix clipped/overlapping labels in fig1 and fig5, and fold sequential qa_amendment* digests in verify_results.py."
+    ],
+    "changes_in_this_review": {
+      "README.md": {
+        "before_sha256": "aa41df18e7a3aed48c11bf100e035059487778cd85297062472797e115630665",
+        "after_sha256": "7dbceccf9594183f5b00060e03fe629a91523334f37f21d5592f0fbf28e01b81"
+      },
+      "HOW_TO_READ_RESULTS.md": {
+        "before_sha256": "78f26744e5d54e8d289dbb68e98c30e01eab364a7443c4f00e202b7abc08f116",
+        "after_sha256": "1fbed560e6ab5c13b521b7a50d21d032b9b12979c993786b9297a2f5ef847e93"
+      },
+      "scripts/verify_results.py": {
+        "before_sha256": "7dee121c1ddfd7c83b07daa674781072df61a1f7628dcf083e4554c9fd1720ff",
+        "after_sha256": "a6363b9a375a955398739b2191a89ec31288283dbc41d2533fe191b0dfa9a3bd"
+      }
+    },
+    "effective_files_sha256": {
+      "README.md": "7dbceccf9594183f5b00060e03fe629a91523334f37f21d5592f0fbf28e01b81",
+      "HOW_TO_READ_RESULTS.md": "1fbed560e6ab5c13b521b7a50d21d032b9b12979c993786b9297a2f5ef847e93",
+      "scripts/verify_results.py": "a6363b9a375a955398739b2191a89ec31288283dbc41d2533fe191b0dfa9a3bd"
+    },
+    "review_receipt": "../09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa2_carbon.md"
   }
 }

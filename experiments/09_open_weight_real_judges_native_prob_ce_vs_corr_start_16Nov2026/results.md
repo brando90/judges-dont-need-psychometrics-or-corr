@@ -2,8 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md>
 
-**Status:** COMPLETE (verified `11-16-2026 14:12 PST`)
-**Last updated:** `11-16-2026 14:12 PST`
+**Status:** COMPLETE (verified `11-16-2026 14:44 PST`)
+**Last updated:** `11-16-2026 14:44 PST`
 
 **Input provenance and prior exposure:** 60/75 reference files differ from the hashes recorded in the annotation manifest; Python and candidate files match. The saved evidence does not resolve stale reference metadata versus changed reference bytes, so byte identity with the human-delivered reference files is unverified. The fixed P2 prompt includes historical expert-mean and leniency summaries that were not estimated within each training split; P2-containing pools are retrospectively informed, not zero-exposure evaluations. Family separation applies to fitting and selection. Digit-logprob extraction imputes absent digits below the observed top-20 tail and can report success with fewer than six observed digits; saved receipts do not identify the exact incidence. These are probability estimates, not guaranteed complete six-digit softmax probabilities.
 
@@ -12,8 +12,8 @@
 | Phase | Description | Status | Notes |
 | --- | --- | --- | --- |
 | Phase 0 | Protocol freeze (`FREEZE.json`), byte-exact input SHA-256 verification (`75` items, `19` families), tokenizer 6-digit bijection | DONE | Committed before GPU execution (`2997834`) |
-| Phase 1 | `10`-model open-weight vLLM inference (`ii.a` prompts `P0..P5` + blind meta-prompt search; `ii.b` harnesses `H1..H6`; `25` Karpathy controls; `k=3` repeats) + `ii.c` PyTorch LoRA weight fine-tuning (`Qwen3-4B` & `Qwen2.5-Coder-7B`) on `mercury2` (`$0.00`) | DONE | All GPUs released and verified clean via `nvidia-smi` |
-| Phase 2 | Certified `19`-task-family evaluation: formulations ①–④, learning curves (`3–15` families), `5`-restart non-convex check, MSE & information-gap stratification | DONE | Saved in `results/analysis_summary.json` and `results/open_weight_forecasts.json` |
+| Phase 1 | `10`-model open-weight vLLM inference (`ii.a` prompts `P0..P5` + blind meta-prompt search; `ii.b` harnesses `H1..H6`; `25` Karpathy controls; `k=3` repeats) + `ii.c` PyTorch low-rank adaptation (LoRA) weight fine-tuning (`Qwen3-4B` & `Qwen2.5-Coder-7B`) on `mercury2` (`$0.00`) | DONE | All GPUs released and verified clean via `nvidia-smi` |
+| Phase 2 | Certified `19`-task-family evaluation: formulations ①–④, learning curves (`3–15` families), `5`-restart non-convex check, mean squared error (MSE) & information-gap stratification | DONE | Saved in `results/analysis_summary.json` and `results/open_weight_forecasts.json` |
 | Phase 3 | Figures (`figures/*.png`), [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md), [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md), and `verify_results.py` | DONE | Full report in [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md) |
 
 ## Headline Held-Out Test Results (`75` Artifacts, `19` Task Families, `195` Ratings, No Differential Testing)
