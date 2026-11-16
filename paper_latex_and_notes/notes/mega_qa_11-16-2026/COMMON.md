@@ -2,13 +2,13 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/notes/mega_qa_11-16-2026/COMMON.md>
 
-**TLDR:** Brando requested a Mega QA on 11-16-2026 ("mega qa, go"). Three sequential reviewers (Codex, then Claude, then a fresh Codex) check the work one Claude Code session did from 11-13-2026 to 11-14-2026: the paper's new learning-study section, RPS appendix and edits; synthetic experiments 06, 07 and 08; a new experiment 13 plot script; the one-page results summary; and the result-clarity rules. Each stage fixes what it can prove wrong, verifies, and writes a report plus a marker.
+**TLDR:** Brando requested a Mega QA on 11-16-2026 ("mega qa, go"). Three sequential reviewers (Codex, then Gemini Carbon in place of Claude, then a fresh Codex) check the work one Claude Code session did from 11-13-2026 to 11-14-2026: the paper's new learning-study section, RPS appendix and edits; synthetic experiments 06, 07 and 08; a new experiment 13 plot script; the one-page results summary; and the result-clarity rules. Each stage fixes what it can prove wrong, verifies, and writes a report plus a marker.
 
 ## Roles and checkout
 
 - Builder and coordinator: Claude Code, `claude-opus-5-5` (desktop app session). The builder commits, republishes the one-page summary and lands on `main` after the chain.
 - Stage 1 `qa1_codex`: Codex CLI, `gpt-6-astra`, reasoning effort `ultra`, full access.
-- Stage 2 `qa2_claude`: Claude Code CLI, `claude-fable-5-1`, effort `max`, full access, fresh context (the builder's model family).
+- Stage 2 `qa2_carbon`: Antigravity CLI, `gemini-4-carbon-high`, effort `high`, full access, fresh context. Substitute for the planned `qa2_claude` (Claude Code, `claude-fable-5-1`, `max`): at launch on 11-16-2026 the personal Claude account had reached its Fable limit (resets 11:00 PM PST) and the Stanford Claude login had expired, so the third and last invocation of this stage goes to a verified strongest model from another company, as in the 11-14-2026 Mega QA.
 - Stage 3 `qa3_codex`: Codex CLI, `gpt-6-astra`, `ultra`, a fresh context.
 - Work only in the owned checkout `/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116` (detached HEAD at `233d504`, which is `origin/main` on 11-16-2026). You are the only writer during your stage.
 - Do not commit, push, send email, publish, launch other agents or reviews, or touch the main checkout `/Users/brandomiranda/judges-dont-need-psychometrics-or-corr` (other agents work there). Leave your edits uncommitted; the builder commits each finished stage locally, so `git log 233d504..HEAD` shows one commit per stage.

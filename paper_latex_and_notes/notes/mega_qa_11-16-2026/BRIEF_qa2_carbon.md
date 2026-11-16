@@ -1,8 +1,8 @@
-# Stage 2 brief: qa2_claude
+# Stage 2 brief: qa2_carbon
 
-**TLDR:** You are the second reviewer, from the builder's model family, in a fresh context. Read `COMMON.md` (binding), review independently first, then reconcile stage 1's findings and fixes and the builder's reconciliation; fix, verify, and write `qa2_claude.md` plus the marker `qa2_claude.json`.
+**TLDR:** You are the second reviewer, from a third model family, in a fresh context. Read `COMMON.md` (binding), review independently first, then reconcile stage 1's findings and fixes and the builder's reconciliation; fix, verify, and write `qa2_carbon.md` plus the marker `qa2_carbon.json`.
 
-- Start by stating your actual model, effort and account (`CLAUDE_CONFIG_DIR`, default `~/.claude`).
+- Start by stating your actual model, effort, client and account.
 - Read `COMMON.md`, then inspect the in-scope work independently (`git diff af810f5..HEAD -- <scope paths>` and the files) before reading stage 1's report `qa1_codex.md`, its marker `/Users/brandomiranda/.local/state/judges/mega-qa-1116/qa1_codex.json`, and the builder's `BUILDER_RECONCILIATION_qa1.md` in this folder.
 - Stage 1's fixes and the builder's follow-up are commit `beed30a` (`git show beed30a`). Check every stage 1 finding and every builder decision: agree, disagree with evidence, or extend; confirm each fix is correct and broke nothing.
 - New since COMMON.md was written: the post-hoc check `experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/check_ce_gradient.py` and its output `results/ce_gradient_check.json` (rerun: `python3 <that script> 8`, about 3 minutes). Review its logic: does it really reproduce each saved fit's data, start, ridge and budget, and does it measure what the reconciliation claims?
