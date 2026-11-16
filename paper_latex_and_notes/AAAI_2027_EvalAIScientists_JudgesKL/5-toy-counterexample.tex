@@ -33,7 +33,7 @@ $q_{.95}$ & 3.348 & 1.188 & .181 & .038 \\
 Reversed conditional & 4.215 & 1.113 & .384 & .282 \\
 \bottomrule
 \end{tabular}
-\caption{\textbf{Identical mean predictions can have different distributional losses.} Exact expectations on the fixed synthetic test grid; CE uses nats and nMSE normalizes ratings by five.
+\caption{\textbf{Identical mean predictions can have different distributional losses.} Exact expectations on the fixed synthetic test grid; CE uses nats and normalized mean squared error (nMSE) divides ratings by five.
 These deterministic expectations need no sampling interval.}
 \label{tab:population}
 \end{table}
@@ -55,7 +55,7 @@ These are losses of individual selected forecasts, not of an averaged distributi
 
 % Provenance: experiments/02_conditional_binomial_distribution_identification/results/analytic_controls.json and population_metrics.csv.
 The reversed conditional has identical marginal probabilities but conditional KL 2.887 nats.
-The five mixtures have zero normalized mean bias, mean 0.5, and normalized individual-rating MAE 0.157.
+The five mixtures have zero normalized mean bias, mean 0.5, and normalized individual-rating mean absolute error 0.157.
 Their correlations with the population conditional mean are all one, but Pearson correlation with a future individual rating is 0.786.
 Population-mean agreement is therefore distinct from agreement with noisy individual ratings.
 

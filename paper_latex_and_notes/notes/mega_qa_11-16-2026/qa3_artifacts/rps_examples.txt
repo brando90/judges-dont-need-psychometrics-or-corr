@@ -1,0 +1,30 @@
+Single human rating r = 4:
+  all mass on 4          RPS=0.000  Brier=0.0  q(4)=1.0
+  all mass on 5          RPS=0.200  Brier=2.0  q(4)=0.0
+  all mass on 0          RPS=0.800  Brier=2.0  q(4)=0.0
+  half on 3, half on 5   RPS=0.100  Brier=1.5  q(4)=0.0
+Staircase example, r = 4, q = [0.0, 0.0, 0.1, 0.3, 0.4, 0.2]
+  Q_j = [0.0, 0.0, 0.1, 0.4, 0.8]  squared gaps = [0.0, 0.0, 0.01, 0.16, 0.04]  RPS = 0.042
+Raters split 50/50 between 3 and 5:
+  forecast = human distribution:  expected RPS = 0.10
+  forecast = all mass on 4 (mean): expected RPS = 0.20
+  forecast = uniform on 0..5:      expected RPS = 0.206
+  both first two forecasts have mean rating 4.0 and 4.0
+  survival S_j, j=0..4: human distribution [1.0, 1.0, 1.0, 0.5, 0.5]  all mass on 4 [1.0, 1.0, 1.0, 1.0, 0.0]
+  sums (= mean ratings): 4.0 and 4.0; gaps [0.0, 0.0, 0.0, 0.5, -0.5] sum to 0.0; squared gaps / 5 = 0.10 = excess expected RPS
+  E[R] = sum_j S_j on 1,000 random forecasts: max absolute error 1.8e-15
+Range: RPS(all mass on 0, r=5) = 1.0
+Identity checks on 2,000 random forecasts: max absolute error 1.8e-15
+Excess RPS = mean squared CDF gap = energy distance / 10: max absolute error 2.2e-15
+CDF sampling check, 1 independent ratings: variance 0.240; expected empirical threshold floor 0.000; expected individual RPS 0.096
+CDF sampling check, 2 independent ratings: variance 0.120; expected empirical threshold floor 0.120; expected individual RPS 0.096
+CDF sampling check, 3 independent ratings: variance 0.080; expected empirical threshold floor 0.160; expected individual RPS 0.096
+Raters choose 3 w.p. 0.6 and 5 w.p. 0.4:
+  truth's expected TVD to its own 1/2/3-rating histogram: [np.float64(0.48), np.float64(0.288), np.float64(0.23)]
+  truth          one-rating TVD=0.48  one-rating W1=0.96  expected RPS=0.096
+  all mass on 3  one-rating TVD=0.40  one-rating W1=0.80  expected RPS=0.160
+  all mass on 4  one-rating TVD=1.00  one-rating W1=1.00  expected RPS=0.200
+Raters spread (0.2, 0.2, 0.2, 0.2, 0.1, 0.1); forecast (0, 0, 0.9, 0.1, 0, 0):
+  squared-absolute RPS: truth 0.680, concentrated forecast 0.498
+  RPS:                  truth 0.178, concentrated forecast 0.246
+Point mass d ratings away from r = 4, RPS: [0.0, 0.2, 0.4, 0.6, 0.8]

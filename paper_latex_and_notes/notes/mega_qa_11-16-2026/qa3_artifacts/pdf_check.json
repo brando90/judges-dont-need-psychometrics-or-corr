@@ -1,0 +1,36 @@
+{
+  "pages": 8,
+  "conclusion_pages": [
+    4
+  ],
+  "references_pages": [
+    5
+  ],
+  "latex_errors": [],
+  "undefined_lines": [],
+  "overfull_lines": [],
+  "metadata": {
+    "format": "PDF 1.5",
+    "title": "",
+    "author": "",
+    "subject": "",
+    "keywords": "",
+    "creator": "TeX",
+    "producer": "pdfTeX-1.40.26",
+    "creationDate": "D:20261116115324-08'00'",
+    "modDate": "D:20261116115324-08'00'",
+    "trapped": "",
+    "encryption": null
+  },
+  "identity_matches": [],
+  "page_text_char_counts": [
+    4629,
+    5424,
+    5719,
+    6383,
+    4716,
+    5932,
+    6026,
+    3302
+  ]
+}

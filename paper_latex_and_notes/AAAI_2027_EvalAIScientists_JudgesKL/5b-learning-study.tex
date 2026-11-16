@@ -21,13 +21,12 @@ Constant concentration does not imply constant rating variance, which also depen
 The judge is a softmax over the six ratings of a linear map of 13 cosine and sine features of $x$.
 It is trained on $n$ tasks with three ratings each by CE, by RPS, or by Pearson correlation between its expected rating and each task's mean rating.
 In A and B we also train with smooth surrogates of Spearman and Kendall correlation and an equal Pearson--Spearman mix.
-Every fixed-ridge fit, whatever its objective, uses penalty $\frac{1}{n}\|W\|^2$ and L-BFGS-B with at most 400 iterations and 600 evaluations, initialized from the log training histogram plus seeded Gaussian weight noise of standard deviation $0.01$.
+Every fixed-ridge fit, whatever its objective, uses penalty $\frac{1}{n}\|W\|^2$ and the limited-memory quasi-Newton method L-BFGS-B with at most 400 iterations and 600 evaluations, initialized from the log training histogram plus seeded Gaussian weight noise of standard deviation $0.01$.
 We also select $c\in\{0.01,0.1,1,10,100\}$ for penalty $\frac{c}{n}\|W\|^2$ by pooled four-fold validation RPS within the training tasks; Pearson fits additionally use validation correlation.
-Ties favor larger $c$; undefined validation correlations fall back to $c=1$.
 Each judge is scored on 500 fresh tasks against the true distribution, with 100 seeds per size and paired 95\% percentile bootstrap intervals over seeds (10,000 draws).
-These are pointwise intervals, not simultaneous guarantees across training sizes; A and B reuse earlier synthetic tasks, but test tasks never enter fitting or ridge selection.
+Intervals are pointwise, and test tasks never enter fitting or ridge selection.
 Procedures and predictions were committed before measurement.
-A review found that the inherited CE code floors probabilities in its value but not its gradient; refitting every CE-trained judge with an exact gradient changed none of the numbers reported here.
+The inherited CE code has an inconsistent gradient when probabilities are clipped; exact-CE refits preserved every number reported here.
 
 \begin{figure}[t]
 \centering
@@ -35,7 +34,7 @@ A review found that the inherited CE code floors probabilities in its value but 
 \caption{\textbf{Ratings needed before proper-loss training wins.} Held-out test ranked probability score (RPS) excess, the mean squared cumulative-probability gap to truth ($[0,1]$; zero is optimal; log scale; lower is better) against training ratings, for judges trained by CE or by Pearson correlation and for a constant training-histogram forecast, in four synthetic targets.
 Dotted lines mark the size from which the CE-trained judge is significantly better at every larger tested size (paired 95\% percentile bootstrap over 100 seeds, 10,000 draws).
 The 78-weight softmax judges minimize train CE or negative train Pearson plus $\frac{1}{n}\|W\|^2$, using L-BFGS-B (400 iterations, 600 evaluations) from the perturbed training histogram.
-CE fitting is convex and every exact-gradient CE refit converged; Pearson fitting is non-convex and has no global-optimum guarantee.}
+Unclipped CE fitting is convex and every exact-gradient CE refit converged; Pearson fitting is non-convex and has no global-optimum guarantee.}
 \label{fig:ratings}
 \end{figure}
 

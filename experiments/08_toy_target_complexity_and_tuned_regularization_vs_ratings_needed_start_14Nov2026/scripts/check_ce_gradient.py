@@ -20,7 +20,7 @@ Parts (all rows of each saved grid):
   exp13  experiment 13's full run_one (CE, RPS, Pearson and the calibrated CE head on the Pearson score) and its
          dense-grid references for CE and the head, each run with the exact and with the frozen CE on this machine.
          The saved experiment 13 rows came from another machine, where the non-convex Pearson fits (and the head on
-         their score) differ at about the 1e-3 level, so the CE effect is measured as exact versus frozen here; the
+         their score) can differ substantially, so the CE effect is measured as exact versus frozen here; the
          exact CE fits are also compared with the saved rows.
   exp07  experiment 07's CE fits (400/600 and 2,000/4,000 budgets) and the calibrated head under its three conditions.
 Also counted along the exact-CE trajectories: objective evaluations in which any category probability fell below 1e-6
@@ -133,7 +133,7 @@ def with_frozen_ce(fn, *a):
 
 def exp13_row(args):
     """Experiment 13's run_one with the exact CE and, on this machine, with the frozen CE. Its saved rows came from
-    another machine, where the non-convex Pearson fits (and so the head on their score) differ at the 1e-3 level;
+    another machine, where the non-convex Pearson fits (and so the head on their score) can differ substantially;
     the frozen-versus-exact comparison on one machine isolates the effect of the CE gradient."""
     sc, n, seed = args
     reset()

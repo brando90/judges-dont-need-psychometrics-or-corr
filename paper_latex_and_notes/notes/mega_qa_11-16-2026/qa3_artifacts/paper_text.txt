@@ -1,0 +1,1035 @@
+Correlation Alone Does Not Identify a Judge’s
+Conditional Rating Distribution
+Anonymous submission
+Abstract
+A judge can predict the correct mean rating while assigning the
+wrong conditional distribution to every input. Correlation be-
+tween scalar judge and human scores cannot distinguish such
+forecasts. We argue for evaluating the conditional rating dis-
+tribution with proper probability losses, alongside scalar asso-
+ciation and agreement diagnostics. A binomial construction
+gives five candidate distributions with identical conditional
+means and distinct expected cross-entropy, Brier score and
+ranked probability score. With one synthetic rating per item,
+cross-entropy selects the true distribution in 249 of 256 repli-
+cations. Pearson, Spearman, Kendall and scalar mean squared
+error retain all five candidates as ties throughout. Training a
+flexible judge on synthetic ratings, cross-entropy beats cor-
+relation training on held-out rating distributions from 12 rat-
+ings in three targets with informative means; in the fourth
+target, correlation training helps with few ratings when vari-
+ation lies mainly in rater disagreement. We enumerate these
+ties, reproduce the older marginal-histogram example, and re-
+tain inconclusive historical theorem-judge evidence. The re-
+sult supports distribution-aware evaluation without implying
+human generalization, universal finite-sample superiority, or
+that psychometric methods are unnecessary.
+Introduction
+A scalar agreement statistic does not determine whether a
+judge predicts how human ratings vary across inputs. G-
+Eval evaluates text judges using correlation with human
+judgments (Liu et al. 2023). MT-Bench and Chatbot Arena
+also study agreement with human preferences and document
+judge biases (Zheng et al. 2023). These comparisons answer
+useful questions, but do not by themselves identify a condi-
+tional rating distribution.
+We take the distribution as the target when the evalua-
+tion requires probabilities for each possible rating. Proper
+scoring rules provide an established framework for this tar-
+get (Gneiting and Raftery 2007). Our contributions are a
+controlled identification study that makes the information
+discarded by scalar criteria explicit, and a synthetic learning
+study that measures how many ratings proper-loss training
+This is an anonymized submission for review purposes only. Dis-
+tribution, citation, or public sharing of this manuscript is strictly
+prohibited. Copyright and publication details will appear in the
+final version if accepted.
+needs to beat correlation training. We do not claim a new
+proper scoring rule.
+The study separates three questions: population identifica-
+tion, selection with sparse ratings, and agreement of scalar
+means. It compares the same candidates and splits under
+probability-loss and correlation selection. A separate per-
+mutation control shows why matching aggregate histograms
+cannot establish correct item conditioning.
+We make the following contributions:
+1. We construct conditional distributions that share their
+means but differ under proper probability losses.
+2. We evaluate selection using one, two and three synthetic
+ratings per item, reporting every tied minimizer and com-
+mon test metric.
+3. We train a flexible judge by proper losses and Pearson
+correlation on four synthetic targets, additionally testing
+smooth Spearman and Kendall objectives on two targets,
+and measure the tested sizes from which proper-loss train-
+ing is better on held-out data.
+4. We preserve historical null findings and identify the limits
+of transferring this synthetic result to human-rated judges.
+What Scalar Criteria Identify
+Let p(r | x) be the distribution of a specified rating popula-
+tion and let a judge report q(r | x). Write µq(x) = P
+r rq(r |
+x). Pearson correlation measures linear association between
+scalar summaries; Spearman and Kendall measure ordering
+with their respective tie conventions. A strictly increasing
+transformation preserves ranks, but compression into two
+bins generally introduces ties and can change rank correla-
+tion. None of these statistics identifies the full conditional
+distribution when different forecasts share µq.
+Squared error also has a narrower target. For any scalar
+prediction a(x),
+E[(a −R)2 | x] = (a −E[R | x])2
+(1)
++ Var(R | x).
+(2)
+It identifies the conditional mean under finite second mo-
+ments, not an arbitrary conditional distribution. Scaling a
+bounded rating to [0, 1] changes the units, not that identifica-
+tion property.
+These limitations do not establish that every psychomet-
+ric method is unnecessary. Construct validity concerns the
+
+
+interpretation supported by a body of evidence, rather than
+a single agreement coefficient (Cronbach and Meehl 1955).
+Choosing whose judgments to model and whether the rating
+task measures the intended construct remain necessary even
+with a proper probability loss.
+Evaluate Conditional Probability Forecasts
+For ratings r ∈{0, . . . , 5} and input x = (y, y∗), consider
+min
+θ
+Ex
+
+DKL(p(· | x) ∥qθ(· | x))
+
+.
+(3)
+The target p is a population distribution, not a sparse empir-
+ical histogram. Cross-entropy (CE), Ex,R[−log qθ(R | x)],
+differs from Eq. 3 by an entropy term independent of θ. One
+observed rating per item supplies a valid conditional log-loss
+observation. It does not require marginal pooling and does
+not identify an unconstrained distribution at that item without
+shared structure or further assumptions.
+We also evaluate the Brier score and ranked probability
+score (RPS), using the loss orientation of proper scoring
+rules (Gneiting and Raftery 2007):
+LBrier(q, r) =
+5
+X
+j=0
+(qj −1{r = j})2,
+(4)
+LRPS(q, r) = 1
+5
+4
+X
+j=0
+(Qj −1{r ≤j})2,
+(5)
+where Qj = Pj
+k=0 qk. The appendix on the ranked probabil-
+ity score explains RPS in detail: intuition, propriety and why
+it suits ordinal human ratings. Their expected excess losses
+over the oracle are P
+j(qj −pj)2 and 1
+5
+P4
+j=0(Qj −Pj)2.
+These vanish only when the categorical distributions agree.
+CE has excess loss DKL(p∥q), assuming forecast support
+covers the population support.
+Empirical evaluation averages losses over observed rat-
+ings, including with one rating per input. A histogram of
+two or three ratings remains a noisy estimate, and pooling
+marginal histograms discards the input–rating association.
+Probability fitting also does not remove finite-sample selec-
+tion error, model misspecification, or optimization failure.
+We retain Pearson, Spearman and Kendall as diagnostics,
+with normalized scalar error and signed bias when score
+levels matter.
+Controlled Conditional Identification
+Our new experiment uses p(r | t) = Binomial(5, t) for a
+fixed symmetric grid inside [0.1, 0.9]. Define
+qλ(r | t) = (1 −λ)p(r | t) + λ[(1 −t)δ0 + tδ5].
+(6)
+For λ ∈{0, .25, .5, .75, .95}, every forecast has mean 5t.
+Consequently all five receive identical scalar correlations and
+squared errors on every realized rating dataset. Their condi-
+tional distributions differ whenever λ > 0. The excess proper
+losses are strictly positive; Brier and RPS excess losses scale
+as λ2.
+We use twelve symmetric parameter-band families, hold-
+ing out six/three/three families for train/validation/test, with
+Candidate
+CE
+Brier
+RPS
+nMSE
+q0
+1.328
+.699
+.104
+.038
+q.25
+1.446
+.733
+.109
+.038
+q.50
+1.689
+.835
+.125
+.038
+q.75
+2.164
+1.004
+.152
+.038
+q.95
+3.348
+1.188
+.181
+.038
+Reversed conditional
+4.215
+1.113
+.384
+.282
+Table 1: Identical mean predictions can have different dis-
+tributional losses. Exact expectations on the fixed synthetic
+test grid; CE uses nats and nMSE normalizes ratings by five.
+These deterministic expectations need no sampling interval.
+96/48/48 items respectively. The nine-candidate pool adds
+p(r | 1 −t), constant binomial and uniform forecasts, and a
+Laplace-smoothed train-rating constant. Only the final con-
+stant is fitted; every criterion selects from the same nine
+candidates using validation ratings. The reversed conditional
+preserves each split’s aggregate histogram exactly by sym-
+metry.
+We generate 256 independent rating replications, each pro-
+viding three ratings per item, and compare their one-, two-
+and three-rating prefixes. The procedure and source hashes
+were committed before measurement. All 768 conditions and
+5,376 selections completed without missing selections. With
+one rating, CE selects the oracle in 249/256 replications, and
+Brier and RPS each select it in 245/256. Their mean exact test
+CE values are 1.331 [1.329, 1.334] and 1.333 [1.330, 1.336],
+respectively. Intervals are 95% Student-t Monte Carlo inter-
+vals across independent rating replications on fixed items; no
+hypothesis test was specified. All three proper losses select
+the oracle in 256/256 two-rating and three-rating replica-
+tions, which does not prove zero selection error beyond these
+replications.
+Pearson, Spearman, Kendall and nMSE retain all five mix-
+ture candidates in every replication. We enumerate the full
+tie set with tolerance 10−12 rather than select by array order.
+Their exact test CE spans 1.328–3.348; uniform tie-breaking
+has expected CE 1.995. A tie policy that always picks the
+oracle attains CE 1.328, so superiority is not independent of
+tie policy. These are losses of individual selected forecasts,
+not of an averaged distribution.
+The reversed conditional has identical marginal proba-
+bilities but conditional KL 2.887 nats. The five mixtures
+have zero normalized mean bias, mean 0.5, and normalized
+individual-rating MAE 0.157. Their correlations with the
+population conditional mean are all one, but Pearson corre-
+lation with a future individual rating is 0.786. Population-
+mean agreement is therefore distinct from agreement with
+noisy individual ratings.
+Historical
+toy.
+We
+reproduced
+the
+original
+seed-0
+marginal-histogram example without modifying its code
+or frozen output. Its noisy and two-bin judges have
+Pearson 0.900/0.877, Spearman 0.900/0.878, marginal KL
+0.001/3.420, and nMSE 0.023/0.216. It is a single-seed
+marginal illustration, not conditional judge selection; the
+two-bin transform introduces ties.
+
+
+Learning a Judge from Sparse Ratings
+The identification study above selects among fixed candi-
+dates. We now train a flexible judge and ask how many ratings
+proper-loss training needs before it beats correlation training
+on held-out data.
+Setup.
+Each synthetic task has a feature x ∼Unif[−1, 1]
+and ratings R | x ∼BetaBin
+ 5, µ(x)κ(x), (1−µ(x))κ(x)
+
+with mean 5µ(x); at a fixed mean, smaller concentration κ
+means greater rating variance. Four targets place their in-
+formation differently. (A) The mean is nearly constant, µ =
+0.5 + 0.08x, while concentration κ(x) = e1.5+2.2 cos(1.5πx)
+varies about 80-fold. (B) The mean is nonlinear, µ =
+0.1 + 0.8
+  x+1
+2
+2, with the same varying concentration. (C)
+B’s mean with constant κ = e1.5. Constant concentration
+does not imply constant rating variance, which also depends
+on µ. (D) A linear mean, µ = 0.5 + 0.35x, with constant
+κ = e1.5; this tests an informative linear mean. The judge is
+a softmax over the six ratings of a linear map of 13 cosine
+and sine features of x. It is trained on n tasks with three
+ratings each by CE, by RPS, or by Pearson correlation be-
+tween its expected rating and each task’s mean rating. In A
+and B we also train with smooth surrogates of Spearman and
+Kendall correlation and an equal Pearson–Spearman mix.
+Every fixed-ridge fit, whatever its objective, uses penalty
+1
+n∥W∥2 and L-BFGS-B with at most 400 iterations and 600
+evaluations, initialized from the log training histogram plus
+seeded Gaussian weight noise of standard deviation 0.01. We
+also select c ∈{0.01, 0.1, 1, 10, 100} for penalty c
+n∥W∥2 by
+pooled four-fold validation RPS within the training tasks;
+Pearson fits additionally use validation correlation. Ties fa-
+vor larger c; undefined validation correlations fall back to
+c = 1. Each judge is scored on 500 fresh tasks against the
+true distribution, with 100 seeds per size and paired 95% per-
+centile bootstrap intervals over seeds (10,000 draws). These
+are pointwise intervals, not simultaneous guarantees across
+training sizes; A and B reuse earlier synthetic tasks, but test
+tasks never enter fitting or ridge selection. Procedures and
+predictions were committed before measurement. The inher-
+ited CE code has an inconsistent gradient when probabilities
+are clipped; exact-CE refits preserved every number reported
+here.
+Results.
+In the three targets with an informative mean (B,
+C and D, including the linear case), the CE-trained judge has
+significantly lower held-out RPS than the Pearson-trained
+judge at every tested size from 12 ratings (Figure 1). Cor-
+relation training wins only in A, where the mean is nearly
+constant: up to 96 ratings, with CE better from 192. Rank and
+mixed correlation training also remain worse than CE train-
+ing at large sizes. At 2,048 tasks, all four correlation-trained
+judges have held-out RPS excess 8.8–25.5 times the CE-
+trained judge’s in B; in A the ratios are 36.5–45.8. At large
+sizes the Pearson-trained judge’s held-out RPS is worse than
+the constant forecast’s in every target, while its correlation
+with the true mean reaches 0.85–0.99. Even on correlation,
+the CE-trained judge’s held-out correlation with the true
+mean is never significantly lower until the Pearson-trained
+judge overtakes, from 1,536 ratings in B and C and 3,072 in
+10
+3
+10
+2
+Held-out test ranked
+probability score (RPS)
+excess over truth
+CE better from
+192 ratings
+A: disagreement varies,
+mean nearly constant
+10
+2
+10
+1
+CE better from
+12 ratings
+B: mean and
+disagreement vary
+101
+102
+103
+Training ratings
+(3 per task)
+10
+2
+10
+1
+Held-out test ranked
+probability score (RPS)
+excess over truth
+CE better from
+12 ratings
+C: mean varies (nonlinear),
+constant concentration
+101
+102
+103
+Training ratings
+(3 per task)
+10
+2
+CE better from
+12 ratings
+D: mean varies (linear),
+constant concentration
+CE-trained
+Pearson-trained
+constant
+Figure 1: Ratings needed before proper-loss training wins.
+Held-out test ranked probability score (RPS) excess, the
+mean squared cumulative-probability gap to truth ([0, 1];
+zero is optimal; log scale; lower is better) against training
+ratings, for judges trained by CE or by Pearson correlation
+and for a constant training-histogram forecast, in four syn-
+thetic targets. Dotted lines mark the size from which the
+CE-trained judge is significantly better at every larger tested
+size (paired 95% percentile bootstrap over 100 seeds, 10,000
+draws). The 78-weight softmax judges minimize train CE
+or negative train Pearson plus
+1
+n∥W∥2, using L-BFGS-B
+(400 iterations, 600 evaluations) from the perturbed training
+histogram. Unclipped CE fitting is convex and every exact-
+gradient CE refit converged; Pearson fitting is non-convex
+and has no global-optimum guarantee.
+D, and never in A.
+We checked the optimizer and the ridge. First, the correla-
+tion objectives are not convex, and many of their fits stop at
+the iteration limit: none of the 360 Pearson fits at 32–1,024
+tasks in the optimizer check converged within 400 iterations.
+Raising the limits to 2,000 iterations and 4,000 evaluations
+and selecting the best of five starts by the penalized training
+objective (30 seeds, up to 1,024 tasks) left every held-out
+RPS crossover unchanged. This checks budget and initial-
+ization sensitivity within L-BFGS-B; it does not establish
+optimizer independence. Second, with ridge strengths cho-
+sen on validation data (by RPS for CE, by correlation for
+Pearson), the crossover moved to 96 ratings in A and 48 in
+D and stayed at 12 in the other two targets. With 16 or fewer
+training tasks the chosen ridge varied widely across seeds,
+and the tuned CE-trained judge was significantly worse than
+the fixed-ridge Pearson-trained judge at 12–48 ratings in A
+and at 12 in D.
+
+
+Interpretation.
+Among these four targets, fixed-ridge
+Pearson training helps at small sample sizes only in A,
+where the mean carries little signal. The results are consis-
+tent with regularization helping when few ratings constrain
+the distribution poorly; they do not identify the best possible
+small-sample strategy. In B, C and D, fixed-ridge CE training
+achieves lower test RPS from the smallest tested size. The
+contrast between A and B suggests that where the informa-
+tion lies matters, beyond varying concentration alone. These
+results use one input feature and one judge family; which
+regime human ratings occupy is open.
+Historical Theorem-Judge Evidence
+The companion repository reports a retrospective compari-
+son on 75 artifacts, 25 tasks, 19 families and 195 expert rat-
+ings (Anonymous 2026a). We import only public aggregates
+and preserve their limitations. Across five seeded five-fold
+family partitions (25 outer folds reusing those 75 artifacts),
+cached-histogram CE selection had held-out CE 8.868 ver-
+sus 8.098 for Spearman selection. The difference was +0.770
+[−0.895, 1.317], using a 95% family-bootstrap interval that
+repeats selection. On the original historical split (15 vali-
+dation artifacts selecting over 30 test artifacts, 10 tasks and
+78 ratings), CE selection had test CE 9.133 versus 8.710
+(+0.423). Those historical ratings, test outcomes and can-
+didate prompts had prior exposure, and neither denominator
+establishes a CE advantage.
+A separate fitted-head comparison favored CE fitting by
+−0.370 [−0.690, −0.080] in test CE, conditional on fit-
+ted heads. However, 215/225 Pearson fits failed to converge,
+including 24/25 final refits. This limits any objective-level
+interpretation of the comparison. Neither the Wasserstein
+nor the kernel-distance follow-up resolved an advantage over
+Spearman selection. All intervals are descriptive; no confir-
+matory hypothesis test was specified.
+The
+separately
+completed
+weighted-probability
+and
+stable-Pearson follow-up resolved the earlier numerical com-
+parator issue (Anonymous 2026b). All 50 primary fits passed
+checks and all 900 secondary fits converged. Its weighted-
+loss difference was −0.010409 [−0.061911, +0.005933],
+with both mixtures refitted in 998/1,000 valid family-
+bootstrap draws. Two numerical certificate failures were re-
+tained without replacement; the interval conditions on suc-
+cessful draws. It still does not establish an advantage. Our
+synthetic experiment neither reruns this condition nor re-
+places its conclusions. Fresh human returns were not inde-
+pendently checked from cloud for this report; we do not infer
+that they are absent.
+Matched comparisons on the same ratings.
+A certified
+matched-budget comparison fitted CE-trained and Pearson-
+trained mixtures of the same five cached judges across five
+five-fold task-family partitions. Its 95% percentile interval re-
+fits both mixtures in 1,000 family-bootstrap draws, condition-
+ing on the 998 draws that passed numerical certificates. Held-
+out CE of the CE-trained minus the Pearson-trained mixture
+was −0.260 [−1.458, +0.198], and both had higher held-out
+CE than a constant training-histogram forecast (5.49 and 5.75
+versus 1.93 nats). Over 1,000 random splits of 20 training
+and 5 test tasks, held-out RPS of the Pearson-trained minus
+the CE-trained mixture was +0.0056 [−0.0059, +0.0181].
+In the same order, held-out CE differed by +0.374 [+0.101,
++0.693], favoring CE training, and held-out Spearman by
++0.063 [+0.052, +0.073], favoring Pearson training. With
+39 weaker open-weight judges added, the CE-trained mix-
+ture had lower held-out RPS (+0.0405 [+0.0237, +0.0575]),
+whereas the single judge chosen by Pearson beat the one
+chosen by CE (−0.0317 [−0.0638, −0.0047]). The random-
+split comparisons use 95% percentile intervals from 10,000
+task-bootstrap draws over 25 tasks, conditional on saved fits;
+overlapping splits are not independent replications. These
+comparisons reuse the same 195 ratings with prior exposure
+and add no independent human evidence. With about 156
+training ratings per fit, they lie in the range where the syn-
+thetic crossover of our learning study depends on where the
+target’s information lies.
+Natural-output generalization still requires matched prob-
+ability forecasts, an explicit rater population, stable compar-
+ison procedures and appropriately held-out evidence.
+Scope and Limitations
+The construction deliberately includes the oracle and changes
+distribution shape without changing the mean. It demon-
+strates nonidentification by scalar summaries, not the preva-
+lence of this failure among natural judges. The family split
+holds out synthetic parameter bands; it is not evidence of
+transfer across real tasks, solvers, raters or model families.
+Independent binomial ratings omit rater heterogeneity and
+dependence. The study trains no language model and uses
+no new provider calls.
+One observed rating can score a conditional forecast, but
+learning a flexible conditional distribution requires data and
+shared structure. In our learning study that requirement was
+small when the target’s mean was informative (12 ratings) and
+larger when its information lay mainly in rater disagreement
+(192 ratings). The learning study uses one input feature, three
+ratings per task and one judge family, and its correlation-
+trained results reflect a non-convex optimizer, although the
+tested restarts and larger budget did not change the RPS
+crossovers. Neither a high correlation nor low finite-sample
+proper loss establishes that an entire human population has
+been learned. When only a conditional mean or ranking is
+required, scalar objectives may be appropriate for that nar-
+rower target. When the distribution is required, report proper
+probability losses and keep association, absolute error and
+bias as complementary diagnostics.
+Conclusion
+Correlation alone does not identify a judge’s conditional rat-
+ing distribution. Proper probability losses identify that tar-
+get in the population under their assumptions; sparse data
+and optimization still determine empirical selection quality.
+In synthetic learning experiments, proper-loss training beat
+correlation training on held-out distributions from 12 rat-
+ings in the three tested targets with informative means. Our
+controlled studies support this distinction while preserving
+inconclusive historical evidence.
+
+
+References
+Anonymous. 2026a. Retrospective Cached-Judge Compari-
+son. Anonymized aggregate report; provenance withheld for
+double-blind review.
+Anonymous.
+2026b.
+Weighted
+Training
+Follow-up.
+Anonymized aggregate report; provenance withheld for
+double-blind review.
+Bellemare, M. G.; Danihelka, I.; Dabney, W.; Mohamed,
+S.; Lakshminarayanan, B.; Hoyer, S.; and Munos, R. 2017.
+The Cramer Distance as a Solution to Biased Wasserstein
+Gradients. arXiv:1705.10743.
+Cronbach, L. J.; and Meehl, P. E. 1955. Construct Validity in
+Psychological Tests. Psychological Bulletin, 52(4): 281–302.
+Epstein, E. S. 1969. A Scoring System for Probability Fore-
+casts of Ranked Categories. Journal of Applied Meteorology,
+8(6): 985–987.
+Galdran, A. 2023.
+Performance Metrics for Probabilistic
+Ordinal Classifiers. arXiv:2309.08701.
+Gneiting, T.; and Raftery, A. E. 2007. Strictly Proper Scoring
+Rules, Prediction, and Estimation. Journal of the American
+Statistical Association, 102(477): 359–378.
+Liu, Y.; Iter, D.; Xu, Y.; Wang, S.; Xu, R.; and Zhu, C. 2023.
+G-Eval: NLG Evaluation using GPT-4 with Better Human
+Alignment. In Proceedings of the 2023 Conference on Em-
+pirical Methods in Natural Language Processing (EMNLP).
+Matheson, J. E.; and Winkler, R. L. 1976. Scoring Rules for
+Continuous Probability Distributions. Management Science,
+22(10): 1087–1096.
+Schaeffer, R.; et al. 2024. Why Has Predicting Downstream
+Capabilities of Frontier AI Models with Scale Remained
+Elusive? arXiv:2406.04391.
+Shavelson, R. J.; Webb, N. M.; and Rowley, G. L. 1989. Gen-
+eralizability Theory. American Psychologist, 44(6): 922–
+932.
+Székely, G. J.; and Rizzo, M. L. 2013. Energy Statistics: A
+Class of Statistics Based on Distances. Journal of Statistical
+Planning and Inference, 143(8): 1249–1272.
+Zheng, L.; Chiang, W.-L.; Sheng, Y.; Zhuang, S.; Wu, Z.;
+Zhuang, Y.; Lin, Z.; Li, Z.; Li, D.; Xing, E. P.; Zhang, H.;
+Gonzalez, J. E.; and Stoica, I. 2023. Judging LLM-as-a-Judge
+with MT-Bench and Chatbot Arena. In Advances in Neural
+Information Processing Systems (Datasets and Benchmarks
+Track).
+The Ranked Probability Score (RPS)
+Setting.
+A human rating is an ordered category r ∈
+{0, 1, . . . , 5}. For an artifact, a judge outputs a forecast dis-
+tribution q = (q0, . . . , q5) over ratings. Its cumulative distri-
+bution function (CDF) and survival function are
+Qj
+def
+= Pr
+q [R ≤j] =
+j
+X
+k=0
+qk,
+(7)
+Sj
+def
+= Pr
+q [R > j] = 1 −Qj,
+(8)
+for thresholds j = 0, . . . , 4. The last threshold is omitted
+because Q5 = 1 for every forecast.
+Definition.
+The ranked probability score (RPS) (Epstein
+1969) compares the judge’s CDF with the step function of
+the observed rating:
+LRPS(q, r)
+def
+= 1
+5
+4
+X
+j=0
+ Qj −1{r ≤j}
+2
+(9)
+= 1
+5
+4
+X
+j=0
+ Sj −1{r > j}
+2.
+(10)
+We use it as a loss: lower is better. Dividing by the five
+thresholds puts it in [0, 1]. It is 0 only when q puts all its
+mass on r, and 1 when q puts all its mass on the opposite
+end of the scale (for example q0 = 1 when r = 5). Some
+references omit the factor 1/5; their values are five times
+ours.
+Empirical RPS.
+For N artifacts xi with ni human ratings
+ri1, . . . , rini each, we average over ratings and then artifacts:
+d
+RPS = 1
+N
+N
+X
+i=1
+1
+ni
+ni
+X
+m=1
+LRPS(qi, rim).
+(11)
+Writing ˆPij for the empirical CDF of artifact i’s ratings, the
+inner average equals 1
+5
+P
+j[(Qij −ˆPij)2 + ˆPij(1 −ˆPij)].
+One rating per artifact already gives an unbiased estimate of
+the judge’s expected score; no per-artifact histogram has to
+be estimated.
+Intuition 1: five yes/no questions.
+At each threshold j the
+judge answers “is the rating at most j?” with probability Qj,
+and the human rating supplies the answer. Each summand
+in Eq. 9 is the Brier score of one such binary forecast, so
+RPS is the average Brier score over the five threshold ques-
+tions. Equivalently (Eq. 10), the judge forecasts the survival
+function: the chance that the rating exceeds each threshold.
+Intuition 2: distance between staircases.
+The judge’s
+CDF is a staircase that rises from 0 to 1; the observed rating
+is a single step at r. RPS sums the squared vertical gaps be-
+tween the two at each threshold. A near miss leaves gaps at
+few thresholds and a far miss at many. Table 2 shows this for
+one human rating r = 4. Cross-entropy (CE) is infinite (or
+set by a probability floor) for every forecast with q4 = 0, and
+the Brier score over the six categories, P
+k(qk−1{r = k})2,
+is 2 for every point mass away from 4. Only RPS gives the
+near miss a better (lower) score than the far miss.
+Forecast for r = 4
+RPS
+Brier
+CE
+all mass on 4
+0.000
+0.0
+0
+all mass on 5
+0.200
+2.0
+∞
+all mass on 0
+0.800
+2.0
+∞
+half on 3, half on 5
+0.100
+1.5
+∞
+Table 2: Scores of four forecasts against one human rating
+r = 4 (lower is better).
+
+
+Intuition 3: rating points.
+For integer ratings, RPS has an
+absolute-error form, the discrete case of the identity for the
+continuous ranked probability score (Matheson and Winkler
+1976; Gneiting and Raftery 2007):
+5 LRPS(q, r) = Eq|R −r| −1
+2Eq|R −R′|,
+(12)
+where R and R′ are independent draws from q. The first term
+is the expected distance, in rating points, between a rating
+sampled from the judge and the human rating. The second
+term subtracts half the judge’s own spread, so a judge is not
+penalized merely for spreading its probability.
+Why RPS is proper.
+Let the human rating be drawn from
+p with CDF P. Then
+ER∼p
+
+LRPS(q, R)
+
+= 1
+5
+4
+X
+j=0
+(Qj −Pj)2
+|
+{z
+}
+excess: judge’s error
++ 1
+5
+4
+X
+j=0
+Pj(1 −Pj)
+|
+{z
+}
+rater disagreement
+.
+(13)
+The second term does not depend on q: it is the irreducible
+disagreement among raters. The first term is nonnegative and
+is zero only when Q = P, that is, q = p. So RPS is strictly
+proper (Gneiting and Raftery 2007): a judge minimizes its
+expected RPS only by reporting the full human rating distri-
+bution, including how much raters disagree.
+Example: disagreement that correlation cannot see.
+Suppose raters split evenly between ratings 3 and 5 on an
+artifact. Judge A predicts the human distribution; Judge B
+puts all its mass on 4. Both have expected rating 4, so re-
+placing one forecast by the other cannot change a correlation
+computed from expected ratings across a panel of artifacts.
+If all expected ratings are constant, the correlation is unde-
+fined for both judges. Judge A has expected RPS 0.10 (all
+irreducible disagreement), whereas Judge B has 0.20. A uni-
+form forecast over 0, . . . , 5 scores 0.206.
+Why mean-based metrics miss this: the mean is the sum
+of the survival function.
+For ratings in {0, . . . , 5}, the
+expected rating is the sum of the survival function over the
+thresholds:
+Eq[R] =
+4
+X
+j=0
+Pr
+q [R > j] =
+4
+X
+j=0
+Sj.
+(14)
+Mean squared error between expected ratings depends on
+a forecast only through this sum. Correlation across arti-
+facts is weaker still: it is also unchanged when the sums are
+shifted or positively rescaled. So survival gaps of opposite
+sign at different thresholds cancel in every mean-based met-
+ric. RPS squares the gap at each threshold before adding,
+so they cannot cancel. In the example above, Judge A has
+S = (1, 1, 1, 0.5, 0.5) and Judge B has S = (1, 1, 1, 1, 0).
+Both sum to 4, so their gaps (0, 0, 0, +0.5, −0.5) cancel in
+the mean, while their squares give the excess expected RPS
+(0.25 + 0.25)/5 = 0.10.
+Why the cumulative form: robustness with few ratings.
+Each artifact has only two or three human ratings, so its
+rating histogram leaves at least three of the six bins empty.
+For a forecast assigning positive mass to an unobserved cat-
+egory, the Kullback–Leibler (KL) divergence DKL(q∥ˆp) is
+infinite unless the empirical histogram is smoothed. The re-
+verse direction, DKL(ˆp∥q), is finite when q is positive on
+observed ratings and differs from empirical CE only by a
+judge-independent entropy term. Empty empirical bins there-
+fore do not invalidate individual-rating CE or the categorical
+Brier score. Total variation distance (TVD) is biased upward
+even for the true distribution. Suppose raters choose 3 with
+probability 0.6 and 5 with probability 0.4. The true distri-
+bution’s expected TVD to its own histogram of 1, 2 or 3
+ratings is 0.48, 0.288 and 0.23. With one rating per artifact,
+a forecast that puts all its mass on 3 scores better (0.40) than
+the truth (0.48), so plug-in TVD rewards overconfidence.
+Scoring each rating by the absolute gap between CDFs, the
+one-rating Wasserstein-1 distance, has the same flaw (0.80
+for the point mass vs 0.96 for the truth) because it is min-
+imized by a point mass at the median. RPS ranks the truth
+first (0.096 vs 0.160).
+RPS avoids this improper plug-in comparison by scoring
+each observed rating. Every rating supplies a binary answer
+at every threshold, even when an empirical CDF equals zero
+or one. With ni independent ratings, ˆPij is unbiased for Pij
+and has variance Pij(1 −Pij)/ni. Averaging the individual-
+rating scores gives the full disagreement term in Eq. 13, in-
+dependently of ni. That term cancels in expected differences
+between judges; observed paired differences still have sam-
+pling noise. Squaring the gaps makes the score proper, while
+the cumulative representation makes it sensitive to rating or-
+der. A related cumulative view appears in Schaeffer et al.
+(2024), who compared distributions of per-sample score–
+compute correlations through survival functions (comple-
+mentary CDFs). Those read off the fraction of samples above
+any threshold, and the authors summarized them with the area
+under the survival function and with Wasserstein distances,
+which are also defined through CDFs.
+RPS as a distance between distributions, and “root RPS”.
+If the human distribution p were known, the excess term in
+Eq. 13, 1
+5
+P
+j(Qj −Pj)2, would be a squared ℓ2 distance
+between the two CDFs. It is one fifth of
+R
+(Q(t) −P(t))2 dt,
+the Cramér distance as defined by Bellemare et al. (2017).
+On this integer scale it equals one tenth of the energy distance
+2E|X −Y |−E|X −X′|−E|Y −Y ′|, for independent draws
+from q and p (Székely and Rizzo 2013). Its square root is a
+true metric between rating distributions, a principled “root
+RPS”. In practice p is unknown, so we estimate the expected
+RPS from observed ratings. With only one rating per artifact
+and no further assumptions, the excess and disagreement
+floor cannot be estimated separately, but the floor is the same
+for every judge. Differences in mean RPS between two judges
+are therefore unbiased estimates of differences in their inte-
+grated squared CDF gaps to the human distributions, scaled
+by 1
+5. Here “root RPS” refers to the square root of the excess,
+not of the observed individual-rating loss. Taking the square
+root of a mean RPS does not change how judges are ranked,
+
+
+but taking it per rating before averaging would lose this un-
+biasedness. Bellemare et al. (2017) also show that, unlike
+the Wasserstein distance, the Cramér distance has unbiased
+sample gradients, which makes RPS usable as a training loss
+as well as an evaluation metric.
+Why RPS suits judges of ordinal human ratings.
+• Order matters. Ratings are ordered; RPS charges more
+for larger misses. CE and the categorical Brier score treat
+ratings as unordered labels.
+• It targets the whole distribution. Being strictly proper,
+RPS is minimized only by the true conditional rating
+distribution. Correlation ignores calibration and spread,
+and mean squared error identifies only the conditional
+mean.
+• It works with sparse ratings. Each observed rating is
+scored directly through the CDF, so artifacts with one to
+three ratings contribute without estimating a histogram,
+and empty rating categories do not distort the score.
+• It is bounded. RPS lies in [0, 1] and cannot be dominated
+by one rating that received near-zero probability. CE can:
+in our retrospective human-rating analysis (archived ex-
+periment 11), judge mixtures had higher held-out CE than
+a constant forecast of the training ratings (5.43 vs 1.85
+nats), driven by the 10−6 probability floor, while their
+held-out RPS was lower (0.137 vs 0.183).
+• It is interpretable. The absolute-error form is in rating
+points, and Eq. 13 separates the judge’s error from the
+noise floor set by rater disagreement.
+Limitations.
+RPS assumes equally spaced ratings: a miss
+from 0 to 1 costs the same as a miss from 4 to 5. It weights
+all thresholds equally. It is less sensitive than CE to the
+probability given to rare ratings, which is why we keep
+CE as a secondary metric. With ni > 1 independent rat-
+ings,
+ni
+ni−1 ˆPij(1 −ˆPij) is an unbiased but noisy estimate of
+threshold disagreement. Comparisons between judges should
+use paired differences on the same artifacts. Galdran (2023)
+notes two further behaviors. First, the penalty for a confi-
+dent miss grows only linearly with distance: a point mass d
+ratings away from r scores d/5. Second, RPS can prefer a
+symmetric forecast to one with more probability on the ob-
+served rating. That work proposes a squared-absolute variant,
+1
+5
+ P
+j|Qj−1{r ≤j}|
+2. In our numeric check this variant is
+not proper. For raters distributed (0.2, 0.2, 0.2, 0.2, 0.1, 0.1)
+over ratings 0, . . . , 5, the forecast (0, 0, 0.9, 0.1, 0, 0) has a
+lower expected variant score (0.498) than the true distribu-
+tion (0.680), whereas RPS prefers the truth (0.178 vs 0.246).
+We therefore keep RPS.
+Reliability Coefficients Do Not Identify the
+Rating Distribution
+Question.
+Generalizability theory decomposes rating vari-
+ance into components for artifacts, raters, occasions and their
+interactions (Shavelson, Webb, and Rowley 1989). For an av-
+erage of ratings over a chosen design, let vu be the variance
+of artifact universe scores, vδ the relative error variance and
+v∆≥vδ the absolute error variance, which also counts rater
+and occasion level shifts. The relative and absolute coeffi-
+cients are
+Eρ2 =
+vu
+vu + vδ
+,
+Φ =
+vu
+vu + v∆
+.
+(15)
+Both measure how repeatable an averaged score is. We ask
+whether a high coefficient, or a judge whose ratings match
+the human mean and variance, implies an accurate forecast
+of the conditional rating distribution. The next two para-
+graphs evaluate synthetic population expectations without
+sampling; the design study below reports Monte Carlo esti-
+mates. The constructions and predictions were fixed before
+measurement.
+Same moments, different distribution.
+Take 11 artifacts
+with human rating distributions px = 0.9 Binomial(5, θx)+
+0.1 Uniform{0, . . . , 5}, with θx = j/12 for j = 1, . . . , 11.
+For each px we choose, among forecasts with the same mean
+and variance and every probability at least 0.01, the one with
+the largest expected ranked probability score (RPS), by exact
+enumeration of the vertices of this feasible set. RPS lies in
+[0, 1], with lower values better; we weight artifacts equally.
+Ratings drawn independently from either distribution have
+the same variance components, so Eρ2 and Φ agree for every
+number of raters, and the forecast means correlate perfectly
+with the human means. Yet the chosen forecasts are at mean
+total variation distance (TVD) 0.446 from the human dis-
+tributions, and their expected RPS is higher by 0.0167; the
+human distributions themselves score 0.117, the irreducible
+rater disagreement. Here TVD(q, p) = 1
+2
+P5
+r=0 |qr−pr| lies
+in [0, 1], with lower values better and zero for q = p. Match-
+ing first and second moments therefore does not determine
+the distribution or its expected strictly proper probability
+losses.
+Repeatable but wrong.
+A judge that always returns the
+same forecast has no variance between calls, so its coeffi-
+cients equal 1 whenever its forecast means vary across arti-
+facts. A judge that returns the true distribution and a judge
+that is wrong on 3 of the 11 artifacts therefore both have
+Eρ2 = Φ = 1, while their expected RPS values are 0.117
+and 0.228. Sharpening beyond the true distribution raises the
+reliability of its sampled ratings while worsening its accu-
+racy in this construction. Tempering the true distribution as
+q ∝p1/T raises the single-rating Eρ2 of ratings sampled
+from q from 0.527 at T = 1 to 0.957 as T →0, while
+expected RPS rises from 0.117 to 0.148. In a separate five-
+artifact construction, human ratings lie in {1, 2, 3} and judge
+ratings shift them up by one point without clipping. Analyz-
+ing the human and judge panels separately gives the same
+variance components, coefficients and mean-based correla-
+tions, yet the judge’s bias is +1 and its expected RPS rises
+from 0.074 to 0.161.
+Historical judges.
+We reuse the historical test split of the
+section on historical theorem-judge evidence: 30 artifacts,
+10 tasks and 78 expert ratings, all with prior exposure. For
+each of the five pre-existing cached judges (none fitted here)
+we compute the test–retest Eρ2 of one call from its three
+
+
+repeated scores, and the held-out RPS of its three-call his-
+togram with the 10−6 probability floor. The most repeatable
+judge (Eρ2 = 0.983) had the highest RPS (0.273), and the
+judge with the lowest RPS (0.191) had Eρ2 = 0.818. The
+held-out RPS of the most repeatable judge minus that of the
+lowest-RPS judge was +0.082 [0.004, 0.168], a 95% per-
+centile interval over 10,000 task-bootstrap draws; positive
+means the more repeatable judge was worse. Both judges
+were identified on this same historical test split and then held
+fixed in the bootstrap, as were raters and calls; the interval
+is descriptive and does not adjust for selecting the pair. No
+judge’s RPS was below that of a constant forecast equal to
+the training-split rating histogram (0.180). All five judges had
+higher point estimates of repeatability than the two experts’
+inter-rater agreement (Eρ2 = 0.800 for one rating).
+What generalizability theory does well.
+Its intended use
+is planning measurement: choosing how many raters and
+repeated occasions to average. We simulated a crossed ar-
+tifact × rater × occasion Gaussian model in two configu-
+rations with equal total variance (3.0) but opposite optimal
+designs (8 × 2 versus 2 × 8). In each of 256 replications, a
+64 × 8 × 8 calibration study estimated the variance compo-
+nents by constrained restricted maximum likelihood (which
+matched closed-form analysis of variance in every replication
+because no raw estimate was negative), chose the design with
+the smallest estimated v∆among the three 16-rating alloca-
+tions (8 × 2, 4 × 4, 2 × 8), and scored every design on 256
+fresh artifacts with fresh raters and occasions. The chosen
+design was the true optimal design in all 256 replications of
+both configurations. Its held-out mean squared error around
+the artifact’s universe score (expectation v∆) minus that of
+the equal 4 × 4 allocation was −0.107 [−0.149, −0.065]
+and −0.072 [−0.108, −0.035] (true difference −0.100, in
+units where vu = 1; negative means lower error for the cho-
+sen design; 95% Student-t intervals over 256 replications).
+One of 36 in-model error checks missed the prespecified
+3.5 Monte Carlo standard-error tolerance; a larger post-hoc
+rerun was consistent with the formula and did not replace
+the failed check. Separate tests examined dependence, task-
+group heterogeneity and deployment shifts, limitations dis-
+cussed by the source (Shavelson, Webb, and Rowley 1989).
+With fixed designs, the independence-based prediction un-
+derstated deployment error for correlated raters, heteroge-
+neous task groups hid subgroup Φ differences (0.808 versus
+0.748) behind one pooled Φ (0.777), and dependent calibra-
+tion occasions inflated predicted Φ above realized deploy-
+ment Φ (0.777) by +0.089 [0.085, 0.093] (predicted minus
+realized). Under deployment shifts, narrowing artifact vari-
+ance (vu: 1 →0.25) left the optimal design (8 × 2) and
+squared error unchanged while lowering Φ from a predicted
+0.775 to 0.465, whereas increasing artifact-by-occasion in-
+stability (vub: 0.1 →1.2) reversed the optimal design from
+the chosen 8 × 2 to 4 × 4 (held-out squared error of 4 × 4
+minus 8 × 2: −0.147 [−0.198, −0.097]). We therefore use
+proper probability losses to choose a judge and variance
+components to plan rating effort; neither replaces the other.

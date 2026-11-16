@@ -141,7 +141,7 @@ for fname, keys in (("fig_complexity_vs_n.png", list(METRICS)), ("fig_complexity
         footer = (
             "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||².\n"
             "c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\n"
-            "CE is convex and exact-gradient CE refits match (reading guide); other objectives have\n"
+            "Exact CE is convex; refits preserve printed means (reading guide); other objectives have\n"
             "no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.\n"
             "Undefined correlation counts as 0: C, n=4 has 99 defined seeds and 1 undefined per\n"
             "Pearson variant; constant omitted."
@@ -149,7 +149,7 @@ for fname, keys in (("fig_complexity_vs_n.png", list(METRICS)), ("fig_complexity
         fig.text(0.5, 0.006, footer, ha="center", va="bottom", fontsize=6.5)
         fig.tight_layout(rect=(0, 0.075, 1, 0.95))
     else:
-        fig.text(0.5, 0.025, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
+        fig.text(0.5, 0.025, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nExact CE is convex; refits preserve printed means (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
         fig.tight_layout(rect=(0, 0.07, 1, 0.96))
     fig.savefig(os.path.join(HERE, fname), dpi=120)
 
@@ -170,6 +170,6 @@ for sc in SC:
     start = next((NS[k] for k in range(len(NS)) if all(w[1] > 0 for w in worse[k:])), None)
     m, lo, hi = worse[-1]
     L.append(f"| {SCEN[sc]} | {fmt(start)} | {m:+.4f} [{lo:+.4f}, {hi:+.4f}] |")
-L.insert(0,'# Generated results: experiment 08\n\nSynthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 100 seeds per scenario and size. Earlier A/B tasks are reused. Undefined test correlations count as zero: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; raw missingness is preserved.\n\nRanked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).\n\nSame 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.\n\nUncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.\n\n')
+L.insert(0,'# Generated results: experiment 08\n\nSynthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 100 seeds per scenario and size. Earlier A/B tasks are reused. Undefined test correlations count as zero: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; raw missingness is preserved.\n\nRanked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).\n\nSame 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). Exact CE is convex; refits preserve printed means and crossovers, but one ridge share changes (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.\n\nUncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.\n\n')
 open(os.path.join(HERE, "results", "tables.md"), "w").write("\n".join(L) + "\n")
 print("\n".join(L))

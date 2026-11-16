@@ -1,0 +1,12 @@
+{"experiment": "06", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.05, "compared_fields": 24, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "06", "scenario": "B", "n": 1024, "seed": 17, "seconds": 16.82, "compared_fields": 24, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "07", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.26, "compared_fields": 221, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "07", "scenario": "B", "n": 512, "seed": 17, "seconds": 95.53, "compared_fields": 221, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "08", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.52, "compared_fields": 42, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": ["/ce_valrps/fallback", "/rps_valrps/fallback", "/pearson_valrps/fallback", "/pearson_valcorr/fallback"], "nonfinite_mismatches": []}
+Traceback (most recent call last):
+  File "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/notes/mega_qa_11-16-2026/qa3_artifacts/check_numerics.py", line 65, in <module>
+    assert not missing and not nan_mismatch
+AssertionError
+{"experiment": "08", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.39, "compared_fields": 42, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": ["/ce_valrps/fallback", "/rps_valrps/fallback", "/pearson_valrps/fallback", "/pearson_valcorr/fallback"], "nonfinite_mismatches": []}
+{"experiment": "08", "scenario": "D", "n": 2048, "seed": 17, "seconds": 3.56, "compared_fields": 46, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+Numeric checks complete

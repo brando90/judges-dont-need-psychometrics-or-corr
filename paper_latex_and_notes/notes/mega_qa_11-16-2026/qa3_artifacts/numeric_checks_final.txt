@@ -1,0 +1,7 @@
+{"experiment": "06", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.05, "compared_fields": 24, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "06", "scenario": "B", "n": 1024, "seed": 17, "seconds": 14.1, "compared_fields": 24, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "07", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.23, "compared_fields": 221, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "07", "scenario": "B", "n": 512, "seed": 17, "seconds": 60.34, "compared_fields": 221, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+{"experiment": "08", "scenario": "A", "n": 4, "seed": 11, "seconds": 0.32, "compared_fields": 42, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": ["/ce_valrps/fallback", "/rps_valrps/fallback", "/pearson_valrps/fallback", "/pearson_valcorr/fallback"], "nonfinite_mismatches": []}
+{"experiment": "08", "scenario": "D", "n": 2048, "seed": 17, "seconds": 4.22, "compared_fields": 46, "max_abs_difference": 0.0, "differences_over_1e-9": {}, "new_fields": [], "nonfinite_mismatches": []}
+Numeric checks complete

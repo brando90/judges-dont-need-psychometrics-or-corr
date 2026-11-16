@@ -1,0 +1,48 @@
+{
+  "viewport": {
+    "width": 1100,
+    "height": 1000
+  },
+  "horizontal_overflow": false,
+  "page_errors": [],
+  "tex_count": 45,
+  "rendered_math": 45,
+  "katex_errors": [],
+  "images": [
+    {
+      "src": "fig_excess_vs_n_without_head.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_distributions.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_rank_objectives_vs_n.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_rank_objectives_correlations_vs_n.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_restarts_vs_n.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_complexity_vs_n.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_complexity_correlation_vs_n.png",
+      "loaded": true
+    },
+    {
+      "src": "fig_excess_vs_n_with_head_labeled.png",
+      "loaded": true
+    }
+  ],
+  "mobile_horizontal_overflow": false,
+  "mobile_scroll_width": 390,
+  "mobile_overflow_candidates": []
+}

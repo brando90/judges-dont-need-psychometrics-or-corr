@@ -1,0 +1,58 @@
+{
+  "stage": "qa2_carbon",
+  "status": "complete",
+  "model": "Gemini 4 Carbon (High)",
+  "model_id": "gemini-4-carbon-high",
+  "effort": "high",
+  "account": "/Users/brandomiranda/.gemini/antigravity-cli (default local Antigravity CLI profile, useG1Credits=false)",
+  "harness": "Antigravity CLI (agy 1.5.9)",
+  "started_at": "2026-11-16T18:59:25Z",
+  "finished_at": "2026-11-16T19:39:30Z",
+  "findings_by_severity": {
+    "critical": 0,
+    "major": 1,
+    "minor": 5,
+    "nit": 0
+  },
+  "open_critical": 0,
+  "open_major": 0,
+  "open_minor": 1,
+  "fixes_applied": 5,
+  "files_changed": [
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/fig_complexity_correlation_vs_n.png",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results.md",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/check_ce_gradient.py",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_report.py",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/HOW_TO_READ_RESULTS.md",
+    "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf",
+    "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/8-appendix-rps.tex",
+    "paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html",
+    "paper_latex_and_notes/notes/mega_qa_11-16-2026/qa2_carbon.md"
+  ],
+  "verification": {
+    "cd paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL && make && grep -c '^!' _build/00_main_aaai_2027.log; grep -i 'undefined' _build/00_main_aaai_2027.log; pdfinfo 00_main_aaai_2027.pdf | grep Pages; cd -": "PASS: make exit 0; 0 '!' errors; 0 undefined citations/references; 0 overfull boxes (5 benign underfull warnings); Pages: 8; Conclusion ends on page 4 and References start on page 5.",
+    "python3 ~/agents-config/scripts/latex_sentence_lines.py --check paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/*.tex": "PASS: exit 0 across all paper .tex files.",
+    "python3 paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/rps_appendix_examples.py": "PASS: exit 0; all appendix examples, survival-sum, discrete CRPS, Cramer/energy, finite-sample CDF variance and Galdran/TVD/W1 counterexamples verified.",
+    "python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_paper_figure.py": "PASS: exit 0; fig_ratings_needed.pdf byte-identical; crossovers 192 / 12 / 12 / 12 ratings and 2,048-task ratios 36.5-45.8x (A) and 8.8-25.5x (B) match paper.",
+    "python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_report.py > /dev/null": "PASS: exit 0; fig_complexity_correlation_vs_n.png updated with unclipped 6-line footer; fig_complexity_vs_n.png and results/tables.md byte-identical.",
+    "python3 experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/make_report.py > /dev/null": "PASS: exit 0; fig_restarts_vs_n.png and results/tables.md byte-identical.",
+    "python3 experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/make_report.py > /dev/null": "PASS: exit 0; both PNG figures and results/tables.md byte-identical.",
+    "python3 experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/plot_without_head_and_crossover.py": "PASS: exit 0; both permitted PNG figures byte-identical; crossovers 192 (A) and 12 (B) match.",
+    "python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/check_ce_gradient.py 8": "PASS: exit 0 (193s); 95,291/95,291 E08 exact-CE fits converged; 0/423 non-mode reported quantities change across all 424 checked make_report.py items (C/256 ridge mode 69% -> 68%).",
+    "python3 experiments/archive/verify_migration.py": "PASS: exit 0; 195 preserved files (194 byte-identical + 1 navigation notice), 68 Python files, 51 JSON files.",
+    "independent numeric & HTML checks": "PASS: 11 sampled run_one cells across E06/E07/E08 match raw.jsonl to 0.0; all 6 objective gradients match central finite differences (<= 5.37e-10 away from 1e-6 floor); headless Chrome renders 45/45 KaTeX blocks and loads 8/8 images with 0 errors.",
+    "cmp -s AGENTS.md CLAUDE.md": "PASS: exit 0 (byte-identical).",
+    "git status --short; git diff --stat; git diff --check": "PASS: 10 modified in-scope files plus qa2_carbon.md uncommitted; zero whitespace errors."
+  },
+  "verdict": "FIXED",
+  "prose_verdict": "accept with minor open issues",
+  "structural": "IMPROVED",
+  "report": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/notes/mega_qa_11-16-2026/qa2_carbon.md",
+  "report_sha256": "f3c7683e14ecc693a267cb3eb189df5ba2b76329a97a1b3c8d5253fac092a3d8",
+  "open_findings": [
+    "QA2-F6 (incorporating QA1-F11): confirm workshop position-paper appendix eligibility (4-page body / 8-page PDF), uncited read-only Appendix 9 status, and strip % Provenance comments if .tex sources are ever submitted."
+  ],
+  "summary": "Independently verified all sampled experiment cells, objective gradients, paper/HTML claims, and the exact-CE refit across all 424 report quantities; fixed one major figure-clipping regression from commit beed30a and four minor diagnostic/clarity issues, leaving only minor submission appendix/packaging policy items open for Brando."
+}

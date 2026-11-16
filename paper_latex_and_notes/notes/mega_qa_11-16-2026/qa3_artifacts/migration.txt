@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "preserved_files": 195,
+  "byte_identical_source_files": 194,
+  "navigation_notice_only": 1,
+  "newly_transferred_files": 112,
+  "python_syntax_files": 68,
+  "parsed_json_files": 51,
+  "source_git_verified": false,
+  "source_trees_removed": false,
+  "scientific_runs_started": 0
+}

@@ -4,7 +4,7 @@ Synthetic data: n training tasks with three sampled ratings each; 500 held-out t
 
 Ranked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).
 
-Same 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.
+Same 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). Exact CE is convex; refits preserve printed means and crossovers, but one ridge share changes (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.
 
 Uncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.
 

@@ -1,0 +1,38 @@
+[
+  {
+    "scenario": "A",
+    "n": 4,
+    "seed": 11,
+    "centered_mean_norm": 0.0013073542006117765,
+    "max_abs_weight_gradient_discrepancy": 3.6905280743830906e-07,
+    "code_gradient_norm": 0.0010111303524668993,
+    "true_gradient_norm": 0.0010114112887660304
+  },
+  {
+    "scenario": "B",
+    "n": 512,
+    "seed": 17,
+    "centered_mean_norm": 0.14430786179575594,
+    "max_abs_weight_gradient_discrepancy": 1.9386983685087955e-10,
+    "code_gradient_norm": 0.03278652573963059,
+    "true_gradient_norm": 0.03278652581537246
+  },
+  {
+    "scenario": "A",
+    "n": 2048,
+    "seed": 17,
+    "centered_mean_norm": 0.5246501506138314,
+    "max_abs_weight_gradient_discrepancy": 1.1627364869537526e-11,
+    "code_gradient_norm": 0.02888709009000495,
+    "true_gradient_norm": 0.028887090090060966
+  },
+  {
+    "scenario": "D",
+    "n": 2048,
+    "seed": 17,
+    "centered_mean_norm": 0.5700704027354073,
+    "max_abs_weight_gradient_discrepancy": 1.8907996696126972e-11,
+    "code_gradient_norm": 0.07397960595705565,
+    "true_gradient_norm": 0.07397960594746625
+  }
+]

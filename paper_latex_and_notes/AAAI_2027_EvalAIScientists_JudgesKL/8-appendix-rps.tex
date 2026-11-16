@@ -129,7 +129,7 @@ Those read off the fraction of samples above any threshold, and the authors summ
 
 \paragraph{RPS as a distance between distributions, and ``root RPS''.}
 If the human distribution $p$ were known, the excess term in Eq.~\ref{eq:rps-decomposition}, $\frac{1}{5}\sum_j(Q_j-P_j)^2$, would be a squared $\ell_2$ distance between the two CDFs.
-It is one fifth of $\int (Q(t)-P(t))^2\,dt$, the square of the Cramér distance of \citet{bellemare2017cramer}.
+It is one fifth of $\int (Q(t)-P(t))^2\,dt$, the Cramér distance as defined by \citet{bellemare2017cramer}.
 On this integer scale it equals one tenth of the energy distance $2\E|X-Y|-\E|X-X^{\prime}|-\E|Y-Y^{\prime}|$, for independent draws from $q$ and $p$~\citep{szekely2013energy}.
 Its square root is a true metric between rating distributions, a principled ``root RPS''.
 In practice $p$ is unknown, so we estimate the expected RPS from observed ratings.

@@ -1,0 +1,93 @@
+{
+  "gradient_max_abs_errors": {
+    "ce": 4.312869575362477e-10,
+    "rps": 6.073492403446679e-11,
+    "pearson": 2.682136873710661e-10,
+    "spearman": 2.1641112513126615e-10,
+    "kendall": 3.1603676620139964e-10,
+    "pearson_spearman": 2.5734289005319155e-10
+  },
+  "rps_identity_trials": 1000,
+  "rps_identity_max_abs_error": 1.7763568394002505e-15,
+  "selection_tests": "pass",
+  "cells": [
+    {
+      "experiment": "06",
+      "scenario": "A",
+      "n": 4,
+      "seed": 11,
+      "seconds": 0.05,
+      "compared_fields": 24,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [],
+      "nonfinite_mismatches": []
+    },
+    {
+      "experiment": "06",
+      "scenario": "B",
+      "n": 1024,
+      "seed": 17,
+      "seconds": 14.1,
+      "compared_fields": 24,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [],
+      "nonfinite_mismatches": []
+    },
+    {
+      "experiment": "07",
+      "scenario": "A",
+      "n": 4,
+      "seed": 11,
+      "seconds": 0.23,
+      "compared_fields": 221,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [],
+      "nonfinite_mismatches": []
+    },
+    {
+      "experiment": "07",
+      "scenario": "B",
+      "n": 512,
+      "seed": 17,
+      "seconds": 60.34,
+      "compared_fields": 221,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [],
+      "nonfinite_mismatches": []
+    },
+    {
+      "experiment": "08",
+      "scenario": "A",
+      "n": 4,
+      "seed": 11,
+      "seconds": 0.32,
+      "compared_fields": 42,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [
+        "/ce_valrps/fallback",
+        "/rps_valrps/fallback",
+        "/pearson_valrps/fallback",
+        "/pearson_valcorr/fallback"
+      ],
+      "nonfinite_mismatches": []
+    },
+    {
+      "experiment": "08",
+      "scenario": "D",
+      "n": 2048,
+      "seed": 17,
+      "seconds": 4.22,
+      "compared_fields": 46,
+      "max_abs_difference": 0.0,
+      "differences_over_1e-9": {},
+      "new_fields": [],
+      "nonfinite_mismatches": []
+    }
+  ],
+  "complete": true
+}

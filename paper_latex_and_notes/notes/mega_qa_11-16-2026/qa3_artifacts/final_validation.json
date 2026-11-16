@@ -1,0 +1,10 @@
+{
+  "report_local_links": "all resolve",
+  "numeric_cells": "6/6 exact shared numeric fields",
+  "html": "45/45 math; 8/8 images; no page overflow",
+  "pdf": "8 pages; conclusion 4; references 5",
+  "frozen_audit": "passed",
+  "report_sha256": "e39b623bc9da760d5c91df195fa87309d7c7499d9498338f3eef9df9fef3c425",
+  "diff_check": "pass",
+  "sentence_lines_all_tex": "pass"
+}

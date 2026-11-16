@@ -1,0 +1,172 @@
+{
+  "fig_rank_objectives_vs_n.png": {
+    "canvas": [
+      1100.0,
+      900.0
+    ],
+    "figure_text": [
+      {
+        "text": "Experiment 06 (synthetic toy, same tasks as experiment 13): six training objectives, one judge family. Bands: 95% bootstrap over 100 seeds.",
+        "bbox": [
+          77.25,
+          869.0,
+          945.5,
+          13.0
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||\u00b2. c = 1; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.",
+        "bbox": [
+          146.0,
+          8.8,
+          808.0,
+          22.1
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "legend",
+        "bbox": [
+          285.35416666666663,
+          828.40625,
+          529.2916666666667,
+          34.53819444444446
+        ],
+        "outside_canvas": false
+      }
+    ]
+  },
+  "fig_rank_objectives_correlations_vs_n.png": {
+    "canvas": [
+      1100.0,
+      900.0
+    ],
+    "figure_text": [
+      {
+        "text": "Experiment 06: the same six judges as the RPS/CE figure, scored instead by test correlation with the true mean rating. Bands: 95% bootstrap over 100 seeds.",
+        "bbox": [
+          21.5625,
+          869.0,
+          1056.875,
+          13.0
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||\u00b2. c = 1; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.",
+        "bbox": [
+          146.0,
+          8.8,
+          808.0,
+          22.1
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "legend",
+        "bbox": [
+          285.35416666666663,
+          828.40625,
+          529.2916666666667,
+          34.53819444444446
+        ],
+        "outside_canvas": false
+      }
+    ]
+  },
+  "fig_restarts_vs_n.png": {
+    "canvas": [
+      1100.0,
+      900.0
+    ],
+    "figure_text": [
+      {
+        "text": "Experiment 07: dashed = larger budget and best of 5 (CE: one start); faint solid = original. Bands: 95% bootstrap over 30 seeds.",
+        "bbox": [
+          119.3125,
+          869.0,
+          861.375,
+          13.0
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||\u00b2. Original: 400/600; long: 2,000/4,000 iterations/evaluations; starts chosen by train objective.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.",
+        "bbox": [
+          118.0,
+          8.8,
+          864.0,
+          22.1
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "legend",
+        "bbox": [
+          189.24999999999994,
+          828.40625,
+          721.5,
+          34.53819444444446
+        ],
+        "outside_canvas": false
+      }
+    ]
+  },
+  "fig_complexity_vs_n.png": {
+    "canvas": [
+      1160.0,
+      1500.0
+    ],
+    "figure_text": [
+      {
+        "text": "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||\u00b2. c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nExact CE is convex; refits preserve printed means (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.",
+        "bbox": [
+          172.1875,
+          35.5,
+          815.625,
+          22.1
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "legend",
+        "bbox": [
+          41.125000000000114,
+          1452.140625,
+          1077.75,
+          34.80381944444434
+        ],
+        "outside_canvas": false
+      }
+    ]
+  },
+  "fig_complexity_correlation_vs_n.png": {
+    "canvas": [
+      600.0,
+      1500.0
+    ],
+    "figure_text": [
+      {
+        "text": "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||\u00b2.\nc = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nExact CE is convex; refits preserve printed means (reading guide); other objectives have\nno global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.\nUndefined correlation counts as 0: C, n=4 has 99 defined seeds and 1 undefined per\nPearson variant; constant omitted.",
+        "bbox": [
+          98.4375,
+          9.0,
+          403.125,
+          61.0
+        ],
+        "outside_canvas": false
+      },
+      {
+        "text": "legend",
+        "bbox": [
+          9.270833333333314,
+          1436.2256944444443,
+          581.4583333333333,
+          50.71875
+        ],
+        "outside_canvas": false
+      }
+    ]
+  }
+}

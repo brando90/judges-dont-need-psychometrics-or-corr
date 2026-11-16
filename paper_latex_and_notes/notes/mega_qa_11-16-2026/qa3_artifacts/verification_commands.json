@@ -1,0 +1,102 @@
+{
+  "rps_examples": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/rps_appendix_examples.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 0.45
+  },
+  "report06": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/make_report.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 7.18,
+    "tables_byte_identical": true
+  },
+  "report07": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/make_report.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 3.16,
+    "tables_byte_identical": true
+  },
+  "report08": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_report.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 11.25
+  },
+  "plot13": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/plot_without_head_and_crossover.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 5.16
+  },
+  "paper_figure": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_paper_figure.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 2.57
+  },
+  "migration": {
+    "command": [
+      "python3",
+      "experiments/archive/verify_migration.py"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 0.18
+  },
+  "paper_build": {
+    "command": [
+      "make"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL",
+    "exit_code": 0,
+    "seconds": 2.71
+  },
+  "sentence_lines": {
+    "command": [
+      "python3",
+      "/Users/brandomiranda/agents-config/scripts/latex_sentence_lines.py",
+      "--check",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/1-abstract.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/2-introduction.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/5b-learning-study.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/7-discussion.tex",
+      "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/8-appendix-rps.tex"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 0.04
+  },
+  "diff_check": {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/mega-qa-1116",
+    "exit_code": 0,
+    "seconds": 0.06
+  }
+}

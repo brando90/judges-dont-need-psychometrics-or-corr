@@ -22,7 +22,7 @@
 | H2: the CE-trained judge's held-out test correlation is never significantly lower | Fails at large n: lower than ② from 512 tasks in B and C and from 1,024 in D; never in A |
 | H2: validation-tuned CE (③) is never significantly worse on test RPS than ① or ② | Fails at the smallest sizes: worse than ② at 4–16 tasks in A and at 4 tasks in D, and worse than ① at 4 tasks in A |
 
-**QA check, 11-16-2026:** experiment 13's CE code floors probabilities at 1e-6 in the loss value but not in its gradient. Refitting every CE fit with an exact CE changed no reported cell mean, crossover or hypothesis check; one chosen-ridge share in results/tables.md would move from 69% to 68% (C, 256 tasks) (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [results/ce_gradient_check.json](results/ce_gradient_check.json)). Saved measurements are unchanged.
+**QA check, 11-16-2026:** experiment 13's CE code clips and renormalizes probabilities at 1e-6 but returns an inconsistent gradient when clipping is active. Refitting every CE fit with an exact CE changed no reported cell mean, crossover or hypothesis check; one chosen-ridge share in results/tables.md would move from 69% to 68% (C, 256 tasks) (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [results/ce_gradient_check.json](results/ce_gradient_check.json)). Saved measurements are unchanged.
 
 ## Main results
 

@@ -9,13 +9,13 @@
 | Phase | Status |
 | --- | --- |
 | Protocol committed before measurement (`d9d1c1d`) | DONE |
-| Reproduction check | DONE: experiment 06 exactly; experiment 13's CE and RPS fits to about 1e-17; experiment 13's Pearson fits differ slightly across machines (README) |
+| Reproduction check | DONE: experiment 06 exactly; experiment 13's CE and RPS fits to about 1e-17; experiment 13's Pearson fits differ across machines (README) |
 | Sweep: 2 scenarios × 9 training sizes × 30 seeds × 7 objectives × 3 conditions | DONE |
 | Report | DONE |
 
 CE uses the original start only at the longer budget, and each calibrated head is a single CE refit on its chosen Pearson score. Five starts apply to the other objectives.
 
-**QA check, 11-16-2026:** experiment 13's CE code floors probabilities at 1e-6 in the loss value but not in its gradient. Refitting every CE fit with an exact CE changed no number reported here (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json](../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json)). Saved measurements are unchanged.
+**QA check, 11-16-2026:** experiment 13's CE code clips and renormalizes probabilities at 1e-6 but returns an inconsistent gradient when clipping is active. Refitting every CE fit with an exact CE changed no number reported here (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json](../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json)). Saved measurements are unchanged.
 
 ## Main results (held-out test tasks, against the true distribution; 30 seeds)
 

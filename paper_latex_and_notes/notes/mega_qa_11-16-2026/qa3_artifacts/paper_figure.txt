@@ -1,0 +1,7 @@
+wrote paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/figures/fig_ratings_needed.pdf
+Exp 08, scenario A: CE-trained significantly better than Pearson-trained at every larger size from 64 tasks = 192 ratings
+Exp 08, scenario B: CE-trained significantly better than Pearson-trained at every larger size from 4 tasks = 12 ratings
+Exp 08, scenario C: CE-trained significantly better than Pearson-trained at every larger size from 4 tasks = 12 ratings
+Exp 08, scenario D: CE-trained significantly better than Pearson-trained at every larger size from 4 tasks = 12 ratings
+Exp 06, scenario A, 2,048 tasks: CE-trained test RPS excess 0.00068; correlation-trained pearson 0.0251 (36.7x), spearman 0.0289 (42.3x), kendall 0.0313 (45.8x), pearson_spearman 0.0249 (36.5x); ratio range 36.5-45.8x
+Exp 06, scenario B, 2,048 tasks: CE-trained test RPS excess 0.00373; correlation-trained pearson 0.0951 (25.5x), spearman 0.0623 (16.7x), kendall 0.0330 (8.8x), pearson_spearman 0.0851 (22.8x); ratio range 8.8-25.5x

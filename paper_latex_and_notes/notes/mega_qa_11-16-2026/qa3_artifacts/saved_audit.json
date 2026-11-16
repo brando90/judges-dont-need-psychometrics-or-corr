@@ -1,0 +1,127 @@
+{
+  "06": {
+    "rows": 2200,
+    "unique_complete_grid": true,
+    "nonfinite_fields": {},
+    "unchanged_numeric_table_rows": 156
+  },
+  "07": {
+    "rows": 540,
+    "unique_complete_grid": true,
+    "nonfinite_fields": {},
+    "unchanged_numeric_table_rows": 104
+  },
+  "08": {
+    "rows": 4400,
+    "unique_complete_grid": true,
+    "nonfinite_fields": {
+      "/fits/constant/pearson": 4400,
+      "/fits/constant/spearman": 4400,
+      "/fits/pearson_fixed/pearson": 1,
+      "/fits/pearson_fixed/spearman": 1,
+      "/fits/pearson_valrps/pearson": 1,
+      "/fits/pearson_valrps/spearman": 1,
+      "/fits/pearson_valcorr/pearson": 1,
+      "/fits/pearson_valcorr/spearman": 1
+    },
+    "unchanged_numeric_table_rows": 194
+  },
+  "13": {
+    "rows": 2200,
+    "unique_complete_grid": true,
+    "nonfinite_fields": {}
+  },
+  "restart_selection": {
+    "all_saved_best_starts_match_training_minimum": true,
+    "pearson_n_ge32_fits": 360,
+    "orig_converged": 0,
+    "long_hit_budget": 326
+  },
+  "fallback_rows": [
+    [
+      "C",
+      4,
+      9
+    ]
+  ],
+  "pre_amendment_rows_without_fallback_field": 208,
+  "shared_ce08_vs_ce13_max_absolute_difference": 5.9653532114012364e-12,
+  "html_forest_rows_verified": 7,
+  "selection01": {
+    "1": {
+      "ce": {
+        "true_model_selection_count": 249,
+        "mean_test_ce": 1.3314530025074014
+      },
+      "rps": {
+        "true_model_selection_count": 245,
+        "mean_test_ce": 1.3332854983080387
+      }
+    },
+    "2": {
+      "ce": {
+        "true_model_selection_count": 256,
+        "mean_test_ce": 1.3282461348562862
+      },
+      "rps": {
+        "true_model_selection_count": 256,
+        "mean_test_ce": 1.3282461348562862
+      }
+    },
+    "3": {
+      "ce": {
+        "true_model_selection_count": 256,
+        "mean_test_ce": 1.3282461348562862
+      },
+      "rps": {
+        "true_model_selection_count": 256,
+        "mean_test_ce": 1.3282461348562862
+      }
+    }
+  },
+  "ce_diagnostic": {
+    "quantities": 424,
+    "changed_quantities": {
+      "tuned_ce_ridge_mode": {
+        "C/256": {
+          "saved": "0.01 (69%)",
+          "exact_ce": "0.01 (68%)"
+        }
+      }
+    },
+    "exact_fits": 95291,
+    "converged": 95291
+  },
+  "frozen_files_unchanged": [
+    "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/README.md",
+    "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results/raw.jsonl",
+    "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results/run_log.txt",
+    "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/run_rank_sweep.py",
+    "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/rank_objectives.py",
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/README.md",
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results/raw.jsonl",
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results/run_log.txt",
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/restarts.py",
+    "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/run_restarts_sweep.py",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/README.md",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/raw.jsonl",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/run_log.txt",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/complexity.py",
+    "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/run_sweep.py",
+    "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/9-appendix-reliability.tex",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/README.md",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/agent_log.md",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/fig_distributions.png",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/fig_excess_vs_n.png",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results.md",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results/population.json",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results/raw.jsonl",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results/report_log.txt",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results/run_transcript.txt",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/results/summary.json",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/make_report.py",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/run_sweep.py",
+    "experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/toy.py"
+  ],
+  "AGENTS_CLAUDE_identical": true
+}

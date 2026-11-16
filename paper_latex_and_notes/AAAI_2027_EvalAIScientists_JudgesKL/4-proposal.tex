@@ -1,7 +1,7 @@
 % !TEX root = 00_main_aaai_2027.tex
 \section{Evaluate Conditional Probability Forecasts}
 \label{sec:proposal}
-For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, consider
+For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, consider minimizing the expected Kullback--Leibler (KL) divergence
 \begin{equation}
 \min_\theta\ \mathbb{E}_{x}\big[\KL(p(\cdot\mid x)\,\|\,q_\theta(\cdot\mid x))\big].
 \label{eq:kl}
