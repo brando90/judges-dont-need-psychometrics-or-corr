@@ -156,7 +156,7 @@ def plot_fig2_lora_and_mse(summary: dict, fig_dir: Path) -> None:
     colors = ["#6b7280" if "base" in k else ("#b4690e" if ("pearson" in k or "spearman" in k) and "head" not in k else ("#d97706" if "head" in k else "#0f7c6e")) for k, _ in present]
     bars = ax1.bar(x, rps_vals, color=colors, width=0.62, edgecolor="#1b2230", linewidth=0.6)
     const_rps = summary["representation_bridge"]["exp09_logprob_6prob_pool"]["methods"]["constant"]["rps"]
-    ax1.axhline(const_rps, color="#dc2626", ls="--", lw=1.2, label=f"Constant train-marginal baseline ({const_rps:.3f})")
+    ax1.axhline(const_rps, color="#dc2626", ls="--", lw=1.2, label=f"Constant reference: separate 200-split pool ({const_rps:.3f})")
     for b, v in zip(bars, rps_vals):
         ax1.text(b.get_x() + b.get_width() / 2, v + 0.004, f"{v:.3f}", ha="center", va="bottom", fontsize=7.8)
     ax1.set_xticks(x)
@@ -176,7 +176,7 @@ def plot_fig2_lora_and_mse(summary: dict, fig_dir: Path) -> None:
     ax2.set_xticks(x)
     ax2.set_xticklabels([lbl for _, lbl in present], rotation=18, ha="right")
     ax2.set_ylabel("Held-out test mean squared error (MSE on 0–5 scale;\nlower is better, exact 3-part decomposition)")
-    ax2.set_title(f"Why Correlation Weight Training Fails: Held-Out Test MSE Decomposition ({mk})")
+    ax2.set_title(f"Held-Out Test MSE Decomposition ({mk})")
     ax2.legend(loc="upper right", fontsize=7.6)
     ax2.grid(True, axis="y", which="major", linestyle=":", alpha=0.65)
 
@@ -289,7 +289,7 @@ def plot_fig4_when_and_2x2(summary: dict, fig_dir: Path) -> None:
     ax2.set_xlabel("Judge Harness & Calibration Selection Objective (on training task families)")
     ax2.set_ylabel("Judge Prompt Selection Objective (on training task families)")
     ax2.set_title("Held-Out Test RPS & CE: 2x2 Prompt × Harness Optimization")
-    fig.colorbar(im, ax=ax2, fraction=0.046, pad=0.04, label="Held-out test RPS (lower is better)")
+    fig.colorbar(im, ax=ax2, fraction=0.046, pad=0.04, label="Held-out test ranked probability score (RPS; lower is better)")
 
     fig.tight_layout()
     fig.savefig(fig_dir / "fig4_when_ce_wins_disagreement_and_prompts_vs_harnesses.png", bbox_inches="tight")

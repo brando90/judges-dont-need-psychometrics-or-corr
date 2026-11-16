@@ -23,7 +23,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.optimize import minimize, nnls
-from scipy.special import expit, softmax
+from scipy.special import expit, logsumexp, softmax
 from scipy.stats import kendalltau, rankdata, spearmanr
 
 EXPT_DIR = Path(__file__).resolve().parents[1]
@@ -485,12 +485,15 @@ def compute_human_ceiling_and_info_gap(rows: list[dict]) -> dict:
         # Max-entropy distribution on {0..5} with mean mu_sm: q_me(r) propto exp(lambda * r)
         def me_obj(lmb: np.ndarray) -> float:
             z = float(lmb[0]) * GRID_5
-            z -= z.max()
-            return float(np.log(np.sum(np.exp(z))) - float(lmb[0]) * mu_sm)
+            return float(logsumexp(z) - float(lmb[0]) * mu_sm)
 
-        opt_me = minimize(me_obj, [0.0], method="BFGS")
+        def me_grad(lmb: np.ndarray) -> np.ndarray:
+            return np.array([softmax(float(lmb[0]) * GRID_5) @ GRID_5 - mu_sm])
+
+        opt_me = minimize(me_obj, [0.0], method="BFGS", jac=me_grad, options={"gtol": 1e-10})
         z_me = float(opt_me.x[0]) * GRID_5
         q_me = softmax(z_me)
+        assert abs(float(q_me @ GRID_5) - mu_sm) < 1e-7, "Maximum-entropy forecast must match the smoothed rating mean"
         # Information gap G_i = KL(p_sm || q_maxent_with_same_mean): excess non-mean distributional structure!
         info_gap_g[i] = float(np.sum(p_sm * (np.log(p_sm) - np.log(np.clip(q_me, 1e-12, None)))))
 

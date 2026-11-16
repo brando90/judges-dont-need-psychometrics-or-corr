@@ -20,6 +20,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 EXPT_DIR = Path(__file__).resolve().parents[1]
 REPO_DIR = EXPT_DIR.parents[1]
@@ -179,6 +180,31 @@ def sanitize_for_public(obj: Any, path: str = "root") -> Any:
     return obj
 
 
+def summarize_forecast_missingness(
+    records: list[dict[str, Any]], rows: list[dict[str, Any]],
+    train_families: set[str], validation_families: set[str],
+) -> dict[str, Any]:
+    """Summarize retained forecast failures by the declared split, without exposing ratings."""
+    by_id = {r["item"]: r for r in rows}
+    out = {}
+    for split in ("all", "train", "validation", "heldout_test"):
+        sub = []
+        for rec in records:
+            family = by_id[rec["item"]]["family"]
+            actual = "train" if family in train_families else "validation" if family in validation_families else "heldout_test"
+            if split == "all" or split == actual:
+                sub.append(rec)
+        out[split] = {
+            "scheduled": len(sub),
+            "uniform_fallbacks": sum(r.get("fallback_uniform_used") is True for r in sub),
+            "scaffold_fallbacks": sum(r.get("fallback_scaffold_used") is True for r in sub),
+            "upstream_or_component_fallbacks": sum(r.get("upstream_fallback_used") is True or r.get("component_fallback_used") is True for r in sub),
+            "provenance_unavailable": sum(r["status"] == "PROVENANCE_UNAVAILABLE" for r in sub),
+        }
+    return out
+
+
+
 def write_public_json(path: Path, obj: Any) -> None:
     clean = sanitize_for_public(obj)
     path = Path(path)
@@ -282,9 +308,11 @@ def ledger_summary() -> dict[str, Any]:
         return _ledger_totals_unlocked()
 
 
-def worst_case_usd(model: str, prompt_chars: int, max_output_tokens: int) -> float:
+def worst_case_usd(model: str, prompt_bytes: int, max_output_tokens: int) -> float:
     spec = MODEL_CATALOG[model]
-    est_in_tokens = max(64, int(math.ceil(prompt_chars / 3.2)) + 128)
+    # One token per UTF-8 byte plus message framing is a conservative bound;
+    # characters/3.2 is only an average estimate and cannot enforce a hard cap.
+    est_in_tokens = max(64, prompt_bytes + 1024)
     return (est_in_tokens * spec["in_per_m"] + max_output_tokens * spec["out_per_m"]) / 1e6
 
 
@@ -408,9 +436,10 @@ def call_llm(
         if cached.get("status") == "OK":
             return {**cached, "from_local_cache": True}
 
-    worst = worst_case_usd(model, len(system) + len(user), max_output_tokens)
+    worst = worst_case_usd(model, len(system.encode("utf-8")) + len(user.encode("utf-8")), max(32, max_output_tokens))
+    invocation_id = uuid4().hex
     for attempt in range(1, 4):
-        call_id = f"{phase}:{model}:{req_fingerprint[:16]}:a{attempt}"
+        call_id = f"{phase}:{model}:{req_fingerprint[:16]}:{invocation_id}:a{attempt}"
         if not _reserve_call(call_id, phase, model, worst):
             return {
                 "status": "BUDGET_CAP_REACHED",
@@ -574,7 +603,10 @@ def call_logprobs_6cat(
     cache_key: str | None = None,
     timeout_sec: int = 120,
 ) -> dict[str, Any]:
-    """Elicit exact single-token next-token logprobs over rating digits '0'..'5' on Chat Completions."""
+    """Estimate digit probabilities by renormalizing observed top-five token logprobs.
+
+    Unobserved digits receive zero mass; this is not the complete six-digit distribution.
+    """
     spec = MODEL_CATALOG[model]
     provider = spec["provider"]
     if provider != "koyejolab-openai-bm":
@@ -592,9 +624,10 @@ def call_logprobs_6cat(
         if cached.get("status") == "OK":
             return {**cached, "from_local_cache": True}
 
-    worst = worst_case_usd(model, len(system) + len(user), 16)
+    worst = worst_case_usd(model, len(system.encode("utf-8")) + len(user.encode("utf-8")), 16)
+    invocation_id = uuid4().hex
     for attempt in range(1, 4):
-        call_id = f"{phase}:{model}:lp:{req_fingerprint[:16]}:a{attempt}"
+        call_id = f"{phase}:{model}:lp:{req_fingerprint[:16]}:{invocation_id}:a{attempt}"
         if not _reserve_call(call_id, phase, model, worst):
             return {"status": "BUDGET_CAP_REACHED", "model": model, "probabilities": None, "usage": {}}
         t0 = time.monotonic()

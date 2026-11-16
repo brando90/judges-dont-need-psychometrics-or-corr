@@ -2,26 +2,34 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md>
 
-**TLDR:** Across 7 real frontier large language models (LLMs) in 2 families (OpenAI GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.4 mini; Mistral Codestral 25.08; `$17.85` total spend of `$18.00` cap; no differential testing (no DT)) evaluated on held-out VeriBench task families (75 artifacts, 19 task families, 195 expert ratings), **eliciting native 6-category probabilities repairs the historical `5.49`-nat cross-entropy (CE) failure down to `1.416` nats** (beating the `1.928`-nat constant baseline), and **proper-loss optimization decisively beats correlation optimization on continuous probability mixtures and feature heads** (`Native-15` simplex mixture `test ranked probability score (RPS) of Pearson-trained minus CE-trained = +0.0775 [+0.0437, +0.1135] p-val=0.0000`; 48-parameter head `+0.0250 [+0.0238, +0.0262] p-val=0.0000`, crossing over from **5 training task families (~51.7 human ratings)**), whereas **discrete single-prompt (`iii.a`) and single-harness (`iii.b`) selection on a 5-family held-out split are noisier and architecture-dominated**: validation-selected `iii.a` prompt search favors proper loss directionally (`+0.0418 [-0.0200, +0.1813] p-val=0.2526`, while train-only `④` overfits `-0.0744 [-0.2173, -0.0192] p-val=0.0004`), `H3` two-step obligation auditing cuts held-out RPS from `0.177` to `0.114–0.117`, and the `2x2` discrete pipeline contrast is statistically indistinguishable from zero (`-0.0060 [-0.0493, +0.0613] p-val=0.8738`).
+**TLDR:** Across 7 real frontier large language models (LLMs) in 2 families (OpenAI GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, GPT-5.6 Sol, GPT-5.6 Terra, GPT-5.4 mini; Mistral Codestral 25.08; `$17.85` total spend of `$18.00` cap; no differential testing (no DT)) evaluated on held-out VeriBench task families (75 artifacts, 19 task families, 195 expert ratings), **the native 6-category pool has lower cross-entropy (CE) than the historical scalar pool (`5.49` nats), at `1.416` nats** (beating the `1.928`-nat constant baseline), and **the fitted proper-loss judges have lower held-out losses than the fitted correlation judges on continuous probability mixtures and feature heads** (`Native-15` simplex mixture `test ranked probability score (RPS) of Pearson-trained minus CE-trained = +0.0775 [+0.0437, +0.1135] bootstrap-tail=0; p-val=n/a`; 48-parameter head `+0.0250 [+0.0238, +0.0262] p-val=n/a`, with positive sampled mean differences from **5 training task families (~51.7 human ratings)**; these feature-head intervals describe conditional split Monte Carlo variability, not population uncertainty), whereas **discrete single-prompt (`iii.a`) and single-harness (`iii.b`) selection on a 5-family held-out split are uncertain**: validation-selected `iii.a` prompt search favors proper loss directionally (`+0.0418 [-0.0200, +0.1813] bootstrap-tail=0.2526; p-val=n/a`, while the train-selected correlation prompt has lower test RPS than the train-selected CE prompt: `-0.0744 [-0.2173, -0.0192] bootstrap-tail=0.0004; p-val=n/a`), `H3` two-step obligation auditing cuts held-out RPS from `0.177` to `0.114–0.117`, and the `2x2` discrete pipeline contrast has an interval including zero (`-0.0060 [-0.0493, +0.0613] bootstrap-tail=0.8738; p-val=n/a`).
+
+**Interpretation:** Historical scalar and native-probability pools differ in models and prompts as well as probability representation; their comparison does not isolate representation. **Uncertainty:** Feature-head learning-curve bands resample 250 overlapping split averages on fixed data and measure conditional Monte Carlo variability only; their population p-values are not available. Other intervals resample task families. Reported bootstrap sign-tail fractions are descriptive, not calibrated null-test p-values. No multiplicity correction was applied. The actual feature-head tuning used three inner folds and c in {0.1, 1, 10}, differing from the pre-run five-fold/five-value grid.
+
+**Reference provenance:** Only 15/75 on-disk reference files match the hashes recorded in annotation metadata; all candidate and Python files match. The saved evidence does not distinguish stale reference metadata from changed reference bytes, so byte identity with the human-delivered reference files is unverified.
+
+**Failure handling:** Saved losses include uniform forecasts substituted after unsuccessful parsing. `ce_iter2_c1`: 11/75 overall, including 7/30 held-out test artifacts. Harness results also include uniform or upstream scaffold fallbacks. These measure the complete pipeline with fallback behavior, not successful model responses alone. Status metadata was recovered from exact local cached requests without new calls; the failure table below retains every scheduled entry.
 
 ## 1. Taxonomy across the three-experiment program & data scope
 
 - **`i. Synthetic / toy / simulated`** (`00_synthetic_pearson_vs_kl_squashed_judge_0to5_start_07Nov2026`, `01_conditional_binomial_distribution_identification_start_08Nov2026`, `06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026`, `07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026`, `08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026`, and `archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026`): Fixed candidate distributions or 78 linear-basis softmax weights on beta-binomial synthetic targets; **zero prompt or harness changes**.
 - **`ii. Real judges — open weights`** (`09_...`): Evaluates `ii.a` prompt optimization, `ii.b` harness optimization, and `ii.c` low-rank adaptation (LoRA) weight updates.
-- **`iii. Real judges — frontier AI judges`** (this folder, `10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026`): Evaluates **native 6-category probability elicitation** (plus exact token logprobs), **`iii.a` blind agentic prompt optimization**, **`iii.b` judge harness optimization (`H1`–`H4`)**, and their **`2x2` interaction**.
+- **`iii. Real judges — frontier AI judges`** (this folder, `10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026`): Evaluates **native 6-category probability elicitation** (plus truncated top-five token-logprob estimates: unavailable digits receive zero probability before flooring), **`iii.a` blind agentic prompt optimization**, **`iii.b` judge harness optimization (`H1`–`H4`)**, and their **`2x2` interaction**.
 - **Data & exposure disclosure:** 75 Lean 4 candidate artifacts across 25 Python tasks grouped into **19 task families** with **195 expert human ratings** (`62/75` artifacts have positive inter-rater standard deviation (SD) `> 0`; `60` ordinary artifacts and `15` `True`-placeholder security artifacts). All splits hold out **entire task families**. The 15 new frontier pool judges and blind searches never inspect held-out test families during proposal or fitting, but the 75-artifact rating dataset was used in earlier repository studies (`02`, `11`, `12`, `14`), so human-rating conclusions remain **retrospective at the dataset level**. Read [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) for full metric and subtraction definitions.
 
 ![Master forest plot of held-out test RPS differences](figures/fig1_frontier_pools_and_axes_forest.png)
 
-*Figure 1 caption (how chosen):* Every row plots held-out test ranked probability score (RPS; range `0` to `1`, lower is better) of the correlation-trained/selected judge minus held-out test RPS of the proper-loss-trained/selected judge on identical held-out task families (`> 0` favors proper loss; bars = `95%` task-family cluster-bootstrap intervals over `10,000` draws). Simplex `CE` and `RPS` mixtures use certified convex SLSQP + Newton polishing (`Frank-Wolfe gap <= 1e-8`); simplex `Pearson` uses exact cone/non-negative least squares (NNLS); 48-parameter softmax feature heads use L-BFGS-B (`400` iterations, checked against best-of-5 starts x `2,000` iterations); `iii.a` uses 4-iteration x 2-candidate `gpt-6.1-sol` blind prompt search; `iii.b` searches harnesses `H1`–`H4` plus 2-parameter convex calibration.
+*Figure 1 caption (how chosen):* Every row plots held-out test ranked probability score (RPS; range `0` to `1`, lower is better) of the correlation-trained/selected judge minus held-out test RPS of the proper-loss-trained/selected judge on identical held-out task families (`> 0` favors proper loss; bars = `95%` task-family cluster-bootstrap intervals over `10,000` draws, except the two 250-split feature-head rows, whose `10,000`-draw intervals resample overlapping split averages and measure only conditional split Monte Carlo variability). Simplex `CE` and `RPS` mixtures use certified convex SLSQP + Newton polishing (`Frank-Wolfe gap <= 1e-8`); simplex `Pearson` uses exact cone/non-negative least squares (NNLS); 48-parameter softmax feature heads use L-BFGS-B (`400` iterations, checked against best-of-5 starts x `2,000` iterations); `iii.a` uses 4-iteration x 2-candidate `gpt-6.1-sol` blind prompt search; `iii.b` searches harnesses `H1`–`H4` plus 2-parameter convex calibration.
 
 ## 2. Phase 1: Expect-then-verify measurement contract & Karpathy sanity checks
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 | Check / baseline (`gpt-6.1-sol` smoke & offline pool) | Predicted before run (`PROTOCOL.md`) | Observed | Match? |
 |---|---|---|---|
 | Byte-level input hash check (`candidate` / `python`) | `75/75` exact SHA-256 match | `75/75` candidate, `75/75` python (`15/75` ref match `items.jsonl`; all 75 on-disk refs hashed) | **Yes** |
-| Leave-one-rater-out (LORO) human ceiling (75 items) | Spearman `0.75–0.83`, `ICC(A,1)` `0.72–0.82`, RPS floor `0.048–0.058` | Spearman `0.7642`, `ICC(A,1)` `0.7589`, RPS floor `0.0455` (`0.0550` on `SD>0`) | **Yes** |
-| Theorem-count ratio dumb baseline (all 75 / 60 ordinary) | Spearman `~0.50–0.58` | All 75: `0.6014`; Ordinary 60: `0.3024` | **Yes** (comment-stripped public theorem extractor slightly cleaner than raw regex) |
+| Leave-one-rater-out (LORO) human ceiling (75 items) | Spearman `0.75–0.83`, `ICC(A,1)` `0.72–0.82`, RPS floor `0.048–0.058` | Spearman `0.7642`, `ICC(A,1)` `0.7589`, RPS floor `0.0455` (`0.0550` on `SD>0`) | **Partial** (all-artifact RPS floor is below the predicted range) |
+| Theorem-count ratio dumb baseline (all 75 / 60 ordinary) | Spearman `~0.50–0.58` | All 75: `0.6014`; Ordinary 60: `0.3024` | **No** (observed values are outside the stated prediction range) |
 | Label-in-prompt reproduction (15 smoke artifacts) | Pearson `>= 0.98`, TVD `<= 0.05` | Pearson `1.0000`, Spearman `1.0000`, TVD `0.0000` | **Yes** |
 | Positive control: `oracle` (4 ordinary smoke tasks) | `E[R]/5 >= 0.80` (`>= 4.0/5`) | `E[R]/5 = 1.0000` (`5.00/5`) | **Yes** |
 | Negative controls: `blank` / `vacuous` / `shuffled` (ordinary) | `<= 0.15` / `<= 0.20` / `<= 0.25` | `blank = 0.0000`, `vacuous = 0.0000`, `shuffled = 0.0000` | **Yes** |
@@ -31,9 +39,11 @@
 
 ![Native probabilities vs 3-sample scalar judges](figures/fig2_native_vs_scalar_ce_and_rps.png)
 
-*Figure 2 caption (how chosen):* Panel A evaluates `02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026`'s exact 5-partition x 5-fold grouped task-family cross-validation (`25` outer folds; certified convex `CE` and exact cone/NNLS `Pearson` simplex solvers). Panel B evaluates all 7 training objectives on the 48-parameter softmax feature head over the 15-judge native-probability frontier pool across `250` grouped task-family splits (`15` train / `4` held-out test families; L-BFGS-B `400` iterations, ridge `(c/n)||W||^2`).
+*Figure 2 caption (how chosen):* Panel A evaluates `02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026`'s exact 5-partition x 5-fold grouped task-family cross-validation (`25` outer folds; certified convex `CE` and exact cone/NNLS `Pearson` simplex solvers). Panel B evaluates all 7 training objectives on the 48-parameter softmax feature head over the 15-judge native-probability frontier pool across `250` grouped task-family splits (`15` train / `4` held-out test families; L-BFGS-B `400` iterations, ridge `(c/n)||W||^2`; zero start). Panel B bars are 95% conditional split Monte Carlo intervals (10,000 resamples of overlapping split averages), not task-family population intervals.
 
 ### Table 1: Grouped 5x5 task-family cross-validation — Historical 5 scalar judges vs Native-15 frontier pool
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 ```text
 Pool & Method (how trained/selected)              | Held-out RPS [95% CI]      | Held-out CE (nats) [95% CI] | TVD    | Pearson | Spearman | Bias(0-5)
@@ -72,11 +82,13 @@ Combined-20 Pool: ② Best single judge (train r)   | 0.1848 [0.1397,0.2263]    
 ```
 
 **Key takeaways on the multi-family pool:**
-1. **Why historical CE failed (`5.49` nats vs `1.416` nats):** Reproducing `02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026` on the 5 historical 3-sample scalar judges gives held-out `CE = 5.491441` nats (`Pearson`-trained `5.751842` nats), losing badly to the `1.9280`-nat constant baseline because 3 integer votes leave at least 3 of 6 bins at exact `0` (`1e-6` floor penalty `13.8` nats per miss). Switching to native 6-category probability vectors across our 15 OpenAI + Mistral judges drops held-out test `CE` to **`1.4156` nats** (`③ Val-RPS-tuned CE mixture`: **`1.4160` nats**; Combined-20 pool: **`1.3885` nats** and **`0.1091` RPS**), beating the constant baseline (`1.9280` nats) and cutting held-out test `CE` vs the `Pearson`-trained mixture by `+0.5555 [+0.4152, +0.6963] p-val=0.0000` nats!
-2. **Both simplex mixtures AND flexible feature heads win decisively under proper losses on heterogeneous multi-family pools:** Because our 15-judge pool includes overconfident base judges (`codestral-2508` with `+2.0` rating bias and sharp probability mass) alongside calibrated OpenAI models, `Pearson` simplex fitting assigns positive weight to overconfident judges whose means correlate on training tasks, suffering `bias = +1.129` rating points and losing on held-out test `RPS` (`test RPS of ② Pearson mixture minus ④ CE mixture = +0.0775 [+0.0437, +0.1135] p-val=0.0000`). On the 48-parameter softmax feature head (`M3`, `250` grouped splits), `Pearson`, `Spearman`, `Kendall`, and `1/2 Pearson + 1/2 Spearman` shrink expected-score spread under ridge regularization (`s_x -> 0`, reproducing `Exp 02`'s variance-collapse mechanism!) and lose decisively (`② Pearson minus ④ CE = +0.0250 [+0.0238, +0.0262] p-val=0.0000`; `① Val-Pearson minus ③ Val-RPS CE = +0.0534 [+0.0500, +0.0568] p-val=0.0000`).
-3. **Formulation ③ (validation RPS tuning) beats ④ (fixed train-only proper loss) when capacity is flexible (`Open Item 3`):** On the 15-judge simplex mixture (`5x5` CV), `test RPS of ④ train-CE minus ③ val-RPS-shrunk CE` is `+0.0001 [-0.0003, +0.0005] p-val=0.5636` (a tie because convex simplex weights already self-regularize), whereas on the 48-parameter feature head (`250` splits, `n_fam=15`), tuning ridge `c` by inner-CV validation RPS (`③`) improves held-out test `RPS` from `0.1569` (`④`, `c=1`) down to **`0.1290`** (`④ minus ③ = +0.0280 [+0.0254, +0.0304] p-val=0.0000`), directly supporting Brando's conjecture (a) that Formulation ③ outperforms Formulation ④ when hyperparameters govern model flexibility!
+1. **Why historical CE failed (`5.49` nats vs `1.416` nats):** Reproducing `02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026` on the 5 historical 3-sample scalar judges gives held-out `CE = 5.491441` nats (`Pearson`-trained `5.751842` nats), losing badly to the `1.9280`-nat constant baseline because 3 integer votes leave at least 3 of 6 bins at exact `0` (`1e-6` floor penalty `13.8` nats per miss). Switching to native 6-category probability vectors across our 15 OpenAI + Mistral judges drops held-out test `CE` to **`1.4156` nats** (`③ Val-RPS-tuned CE mixture`: **`1.4160` nats**; Combined-20 pool: **`1.3885` nats** and **`0.1091` RPS**), beating the constant baseline (`1.9280` nats) and cutting held-out test `CE` vs the `Pearson`-trained mixture by `+0.5555 [+0.4152, +0.6963] bootstrap-tail=0; p-val=n/a` nats!
+2. **Measured simplex-mixture and feature-head comparisons on this retrospective pool:** Because our 15-judge pool includes overconfident base judges (`codestral-2508` with `+2.0` rating bias and sharp probability mass) alongside calibrated OpenAI models, `Pearson` simplex fitting assigns positive weight to overconfident judges whose means correlate on training tasks, suffering `bias = +1.129` rating points and losing on held-out test `RPS` (`test RPS of ② Pearson mixture minus ④ CE mixture = +0.0775 [+0.0437, +0.1135] bootstrap-tail=0; p-val=n/a`). On the 48-parameter softmax feature head (`M3`, `250` grouped splits), `Pearson`, `Spearman`, `Kendall`, and `1/2 Pearson + 1/2 Spearman` fits have small expected-score spread under this optimizer and ridge regularization and have higher sampled mean test RPS (`② Pearson minus ④ CE = +0.0250 [+0.0238, +0.0262] p-val=n/a`; `① Val-Pearson minus ③ Val-RPS CE = +0.0534 [+0.0500, +0.0568] p-val=n/a`).
+3. **Validation tuning versus fixed regularization (`Open Item 3`):** On the 15-judge simplex mixture (`5x5` CV), `test RPS of ④ train-CE minus ③ val-RPS-shrunk CE` is `+0.0001 [-0.0003, +0.0005] bootstrap-tail=0.5636; p-val=n/a` (an interval including zero; the mechanism is not identified), whereas on the 48-parameter feature head (`250` splits, `n_fam=15`), tuning ridge `c in {0.1, 1, 10}` by three-fold inner cross-validation RPS (`③`) improves held-out test `RPS` from `0.1569` (`④`, `c=1`) down to **`0.1290`** (`④ minus ③ = +0.0280 [+0.0254, +0.0304] p-val=n/a`). This is a conditional comparison on the fixed dataset and sampled splits; it does not establish population superiority of formulation ③.
 
 ### Table 2: Optimizer sensitivity check (`Exp 07` on real frontier covariates — 50 grouped splits)
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 ```text
 Objective            | Conv% (1x400) | Conv% (5x2000) | Test RPS (1x400) | Test RPS (5x2000) | Test CE (1x400) | Test CE (5x2000)
@@ -93,33 +105,37 @@ Kendall (②)          |        100.0% |         100.0% |           0.1854 |    
 
 ![Real-data learning curve vs training human ratings](figures/fig3_learning_curve_vs_ratings.png)
 
-*Figure 3 caption (how chosen):* Across `250` stratified grouped splits of the 19 task families (`4` held-out test families fixed per split; nested subsets of `3, 5, 7, 9, 12, 15` training families), 48-parameter softmax feature heads (`W in R^{8x6}`) are fitted by L-BFGS-B (`<= 400` iterations, ridge `(c/n)||W||^2`). `CE` and the calibration head are convex; `RPS`, `Pearson`, and `Spearman` are non-convex (checked in Table 2).
+*Figure 3 caption (how chosen):* Across `250` stratified grouped splits of the 19 task families (`4` held-out test families fixed per split; nested subsets of `3, 5, 7, 9, 12, 15` training families), 48-parameter softmax feature heads (`W in R^{8x6}`) are fitted by L-BFGS-B (`<= 400` iterations, ridge `(c/n)||W||^2`). Cross-entropy (CE) and the calibration head are convex; ranked probability score (RPS), Pearson, and Spearman are non-convex. Fits start at zero; the restart check in Table 2 does not certify non-convex global optima. The 95% bands resample the 250 overlapping split averages (10,000 draws), measuring conditional split Monte Carlo variability, not uncertainty over new task families. Actual inner selection uses three folds and ridge c in {0.1, 1, 10}, a deviation from the frozen five-fold/five-value grid.
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 ```text
 Train Families (Mean Ratings) | ④ CE RPS  | ③ Val-CE RPS | ② Pearson RPS | Pearson+Head RPS | ② Pearson minus ④ CE RPS [95% CI] p-val
 ------------------------------+-----------+--------------+---------------+------------------+------------------------------------------
- 3 families (~ 31.4 ratings)  |    0.1848 |       0.1883 |        0.1814 |           0.2303 | -0.0034 [-0.0058, -0.0012] p-val=0.0026
- 5 families (~ 51.7 ratings)  |    0.1771 |       0.1735 |        0.1815 |           0.1873 | +0.0044 [+0.0026, +0.0062] p-val=0.0000
- 7 families (~ 71.2 ratings)  |    0.1716 |       0.1562 |        0.1815 |           0.1618 | +0.0099 [+0.0083, +0.0115] p-val=0.0000
- 9 families (~ 92.3 ratings)  |    0.1669 |       0.1471 |        0.1816 |           0.1511 | +0.0146 [+0.0132, +0.0161] p-val=0.0000
-12 families (~124.1 ratings)  |    0.1616 |       0.1354 |        0.1819 |           0.1392 | +0.0202 [+0.0189, +0.0216] p-val=0.0000
-15 families (~154.4 ratings)  |    0.1569 |       0.1290 |        0.1819 |           0.1301 | +0.0250 [+0.0238, +0.0262] p-val=0.0000
+ 3 families (~ 31.4 ratings)  |    0.1848 |       0.1883 |        0.1814 |           0.2303 | -0.0034 [-0.0058, -0.0012] p-val=n/a
+ 5 families (~ 51.7 ratings)  |    0.1771 |       0.1735 |        0.1815 |           0.1873 | +0.0044 [+0.0026, +0.0062] p-val=n/a
+ 7 families (~ 71.2 ratings)  |    0.1716 |       0.1562 |        0.1815 |           0.1618 | +0.0099 [+0.0083, +0.0115] p-val=n/a
+ 9 families (~ 92.3 ratings)  |    0.1669 |       0.1471 |        0.1816 |           0.1511 | +0.0146 [+0.0132, +0.0161] p-val=n/a
+12 families (~124.1 ratings)  |    0.1616 |       0.1354 |        0.1819 |           0.1392 | +0.0202 [+0.0189, +0.0216] p-val=n/a
+15 families (~154.4 ratings)  |    0.1569 |       0.1290 |        0.1819 |           0.1301 | +0.0250 [+0.0238, +0.0262] p-val=n/a
 ```
 
 ![MSE decomposition and rater disagreement stratification](figures/fig5_mse_decomposition_and_info_gap.png)
 
-*Figure 5 caption (how chosen):* Panel A decomposes held-out test mean squared error (`MSE` on the `0–5` scale, `250` splits at `15` training families) into `bias^2 + scale_mismatch^2 + 2 s_x s_y (1 - r)` (verified to `< 1e-12`). Panel B stratifies out-of-fold held-out `RPS` differences (`Pearson-trained minus CE-trained`, `5x5` grouped family CV) by empirical human rater disagreement (`SD = 0` vs `SD > 0`) and task type (`ordinary` vs `True`-placeholder), with `95%` task-family bootstrap intervals.
+*Figure 5 caption (how chosen):* Zero-initialized 48-weight feature heads use training-objective L-BFGS-B (400 iterations), with no global guarantee for non-convex objectives. Panel B uses train-only cross-entropy (CE) versus Pearson heads over the same grouped cross-validation folds. Panel A decomposes held-out test mean squared error (`MSE` on the `0–5` scale, `250` splits at `15` training families) into `bias^2 + scale_mismatch^2 + 2 s_x s_y (1 - r)` (verified to `< 1e-12`). Panel B stratifies out-of-fold held-out `RPS` differences (`Pearson-trained minus CE-trained`, `5x5` grouped family CV) by empirical human rater disagreement (`SD = 0` vs `SD > 0`) and task type (`ordinary` vs `True`-placeholder), with `95%` task-family bootstrap intervals (`10,000` draws; ranked probability score, RPS, ranges from 0 to 1; positive differences favor CE).
 
 - **Exact MSE decomposition (`n_fam = 15`):** `Pearson`-trained (`②`) has `MSE = 2.2520` (`bias = -0.009` [judge `2.527` vs human `2.536`], `bias^2 = 0.1303`, `scale_mismatch^2 = 2.1216`, correlation term `0.0001`), versus `CE`-trained (`④`) `MSE = 1.7505` (`bias = +0.138`, `bias^2 = 0.2088`, `scale_mismatch^2 = 1.3162`, correlation term `0.2255`).
-- **Rater disagreement & information-gap `G_i` (`Exp 05` hypothesis):** On the `62` artifacts with positive human rater disagreement (`SD > 0`), `test RPS of Pearson-trained minus CE-trained` is `+0.0093 [-0.0001, +0.0213] p-val=0.0526`, versus `+0.0448 [+0.0160, +0.0710] p-val=0.0020` on unanimous (`SD = 0`, `n=13`) artifacts. Across all 75 artifacts, correlation between Jeffreys-smoothed information gap `G_i` and `(RPS_Pearson - RPS_CE)` is Pearson `r = +0.5425 [+0.2634, +0.7176] p-val=0.0022` and Spearman `rho = +0.4687 [+0.0518, +0.7878] p-val=0.0302`.
+- **Rater disagreement & information-gap `G_i` (`Exp 05` hypothesis):** On the `62` artifacts with positive human rater disagreement (`SD > 0`), `test RPS of Pearson-trained minus CE-trained` is `+0.0093 [-0.0001, +0.0213] bootstrap-tail=0.0526; p-val=n/a`, versus `+0.0448 [+0.0160, +0.0710] bootstrap-tail=0.002; p-val=n/a` on unanimous (`SD = 0`, `n=13`) artifacts. Across all 75 artifacts, correlation between Jeffreys-smoothed information gap `G_i` and `(RPS_Pearson - RPS_CE)` is Pearson `r = +0.5425 [+0.2634, +0.7176] bootstrap-tail=0.0022; p-val=n/a` and Spearman `rho = +0.4687 [+0.0518, +0.7878] bootstrap-tail=0.0302; p-val=n/a`.
 
 ## 5. Axis `iii.a` Blind Prompt Search, Axis `iii.b` Harness Search, and `2x2` Interaction (Sanmi's Question)
 
 ![Blind prompt search trajectory and 2x2 prompt x harness interaction](figures/fig4_prompts_x_harnesses_2x2_and_trajectories.png)
 
-*Figure 4 caption (how chosen):* Locked grouped 3-way split of the 19 task families (`9` train = 27 artifacts, 69 ratings; `5` validation = 18 artifacts, 45 ratings; `5` held-out test = 30 artifacts, 81 ratings). Panel A runs two blind 4-iteration x 2-candidate prompt-search loops on `gpt-6.1-sol` (`<= 420` words, zero validation/test exposure during proposal). Panel B crosses the selected prompts (`P0_untuned`, `① Corr-selected`, `③ Loss-selected`) with frontier harnesses `H1_single_call`, `H2_ast_obligation_harness`, `H3_two_step_decompose_aggregate`, and learned `H4` ensemble/calibration harnesses.
+*Figure 4 caption (how chosen):* Locked grouped 3-way split of the 19 task families (`9` train = 27 artifacts, 69 ratings; `5` validation = 18 artifacts, 45 ratings; `5` held-out test = 30 artifacts, 81 ratings). Panel A runs two blind 4-iteration x 2-candidate prompt-search loops with `gpt-6.1-sol` proposing and `gpt-5.4-mini` judging (`<= 420` words, zero validation/test exposure during proposal). Panel B crosses the selected prompts (`P0_untuned`, `① Corr-selected`, `③ Loss-selected`) with frontier harnesses `H1_single_call`, `H2_ast_obligation_harness`, `H3_two_step_decompose_aggregate`, and learned `H4` ensemble/calibration harnesses.
 
 ### Table 3: Axis `iii.a` — Prompts vs Post-Hoc Calibration Weights on Held-Out Test Families (`n=30` items, `5` families)
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 ```text
 Prompt Track & Selection            | Raw Test RPS | +Corr Calib RPS | +CE Calib RPS | Raw Test CE | +CE Calib CE | Raw Spearman | Raw Bias(0-5)
@@ -133,6 +149,8 @@ Untuned P0 (human mirror)           |       0.1812 |          0.2518 |        0.
 
 ### Table 4: Axis `iii.b` & `2x2` Interaction (`Prompt Search Objective x Harness Optimization Objective`, Held-Out Test)
 
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
+
 ```text
 Prompt Axis (iii.a) \ Harness Axis (iii.b) | H1(mini) | H1(6.1Sol) | H2 AST | H3 2-Step | H4 Equal | ① Corr-Opt Harness | ③ Loss-Opt Harness
 -------------------------------------------+----------+------------+--------+-----------+----------+--------------------+-------------------
@@ -142,12 +160,14 @@ Untuned P0_human_mirror                    |   0.1812 |     0.1771 | 0.1764 |   
 ```
 
 **Headline `2x2` contrasts on the 30 held-out test artifacts (`5` held-out task families, `10,000` family bootstrap draws):**
-- **Prompt objective effect at fixed single-call harness `H1` (`① Corr prompt minus ③ Loss prompt`):** RPS `+0.0418 [-0.0200, +0.1813] p-val=0.2526`; train-selected `② minus ④`: `-0.0744 [-0.2173, -0.0192] p-val=0.0004`.
-- **Harness objective effect at fixed untuned prompt `P0` (`① Corr harness minus ③ Loss harness`):** RPS `+0.0000 [+0.0000, +0.0000] p-val=1.0000`.
-- **Joint `2x2` end-to-end pipeline (`[Prompt ① + Harness ①] minus [Prompt ③ + Harness ③]`):** RPS `-0.0060 [-0.0493, +0.0613] p-val=0.8738`, CE `-0.0630 [-0.2889, +0.5170] p-val=0.7742` nats.
-- **Discrete 3-vote scalar harness penalty (`H4_discrete_3vote_scalar` vs `H4_crossfamily_equal` at `P0`):** Collapsing probability forecasts into 3 discrete argmax votes spikes held-out test `CE` from `1.671` nats back up to `6.591` nats, directly confirming on controlled identical models that discrete vote aggregation destroys distributional calibration.
+- **Prompt objective effect at fixed single-call harness `H1` (`① Corr prompt minus ③ Loss prompt`):** RPS `+0.0418 [-0.0200, +0.1813] bootstrap-tail=0.2526; p-val=n/a`; train-selected `② minus ④`: `-0.0744 [-0.2173, -0.0192] bootstrap-tail=0.0004; p-val=n/a`.
+- **Harness objective effect at fixed untuned prompt `P0` (`① Corr harness minus ③ Loss harness`):** RPS `+0.0000 [+0.0000, +0.0000] bootstrap-tail=1; p-val=n/a`.
+- **Joint `2x2` end-to-end pipeline (`[Prompt ① + Harness ①] minus [Prompt ③ + Harness ③]`):** RPS `-0.0060 [-0.0493, +0.0613] bootstrap-tail=0.8738; p-val=n/a`, CE `-0.0630 [-0.2889, +0.5170] bootstrap-tail=0.7742; p-val=n/a` nats.
+- **Unmatched ensemble comparison (`H4_discrete_3vote_scalar` vs `H4_crossfamily_equal` at `P0`):** The five-forecast probability average (Sol, mini, Codestral, plus the H2 and H3 harness forecasts) has held-out test `CE` of `1.671` nats, versus `6.591` nats for three argmax votes from Sol, mini, and Codestral only. Different ensemble membership and aggregation both change, so this descriptive comparison does not isolate the effect of discrete votes.
 
 ## 6. Per-judge pool reference table (`in-sample` across all 75 artifacts — descriptive only)
+
+Table notation: ranked probability score (RPS; cumulative-probability squared error, 0–1), cross-entropy (CE; negative log-probability, nats), total variation distance (TVD; half the histogram L1 distance, 0–1), and mean squared error (MSE; rating squared) are lower-is-better. CI denotes a confidence interval, CV cross-validation, ICC intraclass correlation, SD standard deviation, and AST abstract syntax tree. Bias is judge minus human mean on 0–5; correlations range from −1 to 1. Each difference compares the same held-out metric, correlation-trained/selected minus proper-loss-trained/selected, unless explicitly stated otherwise.
 
 ```text
 Judge ID                 | Family   | Mode     | Clean | In-Sample RPS | In-Sample CE | Spearman | ICC(A,1) | Bias(0-5)
@@ -174,9 +194,47 @@ H2_opus                  | Historic | scalar_3 | 75/75 |        0.1793 |       8
 H2_sol                   | Historic | scalar_3 | 75/75 |        0.1997 |       8.4323 |  +0.6648 |  +0.6401 |   +0.613
 ```
 
-## 7. Exact API spend & deviations check
+## 7. Forecast failures retained in evaluation
+
+**Failure handling:** Saved losses include uniform forecasts substituted after unsuccessful parsing. `ce_iter2_c1`: 11/75 overall, including 7/30 held-out test artifacts. Harness results also include uniform or upstream scaffold fallbacks. These measure the complete pipeline with fallback behavior, not successful model responses alone. Status metadata was recovered from exact local cached requests without new calls; the failure table below retains every scheduled entry.
+
+Counts refer to 30 held-out artifacts in five task families. Component counts overlap with direct fallbacks and are not additional observations.
+
+| Configuration | Uniform fallbacks / scheduled test artifacts | Scaffold fallbacks | Upstream/component fallbacks | Unresolved provenance |
+|---|---:|---:|---:|---:|
+| Prompt `iter0_P0` | 0/30 | 0 | 0 | 0 |
+| Prompt `corr_iter1_c1` | 0/30 | 0 | 0 | 0 |
+| Prompt `corr_iter2_c1` | 0/30 | 0 | 0 | 0 |
+| Prompt `ce_iter2_c1` | 7/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt54mini__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt54mini__P_corr_val` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt54mini__P_corr_tr` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt54mini__P_ce_val` | 7/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt54mini__P_ce_tr` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt61__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt61__P_corr_val` | 2/30 | 0 | 0 | 0 |
+| Harness `H1_single_gpt61__P_ce_val` | 6/30 | 0 | 0 | 0 |
+| Harness `H1_single_mistral35__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_mistral35__P_corr_val` | 0/30 | 0 | 0 | 0 |
+| Harness `H1_single_mistral35__P_ce_val` | 0/30 | 0 | 0 | 0 |
+| Harness `H2_ast_gpt61__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H2_ast_gpt61__P_corr_val` | 0/30 | 0 | 0 | 0 |
+| Harness `H2_ast_gpt61__P_ce_val` | 2/30 | 0 | 0 | 0 |
+| Harness `H2_ast_mistral35__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H3_twostep_gpt61__P0_untuned` | 0/30 | 0 | 2 | 0 |
+| Harness `H3_twostep_gpt61__P_corr_val` | 2/30 | 0 | 2 | 0 |
+| Harness `H3_twostep_gpt61__P_ce_val` | 2/30 | 0 | 2 | 0 |
+| Harness `H3_step1_audits` | 0/30 | 2 | 0 | 0 |
+| Harness `H4_crossfamily_equal__P0_untuned` | 0/30 | 0 | 2 | 0 |
+| Harness `H4_discrete_3vote_scalar__P0_untuned` | 0/30 | 0 | 0 | 0 |
+| Harness `H4_crossfamily_equal__P_corr_val` | 0/30 | 0 | 5 | 0 |
+| Harness `H4_discrete_3vote_scalar__P_corr_val` | 0/30 | 0 | 2 | 0 |
+| Harness `H4_crossfamily_equal__P_ce_val` | 0/30 | 0 | 14 | 0 |
+| Harness `H4_discrete_3vote_scalar__P_ce_val` | 0/30 | 0 | 11 | 0 |
+
+## 8. Exact API spend & deviations check
 
 - **Total settled API spend:** **`$17.8511`** (`<= $18.00` hard cap; `4389` settled API calls across `koyejolab-openai-bm` and `mistral` ONLY).
 - **Documented wire/quota amendment ([PROTOCOL_AMENDMENT_01.md](PROTOCOL_AMENDMENT_01.md)):** Recorded during Phase 2 at `$0.00` wasted spend before any held-out analysis: (1) OpenAI `/v1/chat/completions` requires `top_logprobs <= 5` on `gpt-5.4-mini` (adjusted from `20` to `5`); (2) the Mistral key is a Codestral-scoped key whose `api.mistral.ai` route sets `x-ratelimit-limit-req-minute: 0` on `mistral-medium-3.5` and `magistral-medium-latest`, whereas `https://codestral.mistral.ai/v1/chat/completions` serves `codestral-2508` at full concurrency (`75/75` across `P0/P1/P2` and `H1/H2`); the three zero-RPM slots were filled with already-approved `gpt-6.1-terra` (`P0`, `P2`) and `gpt-5.6-terra` (`P0`), preserving 15 zero-exposure frontier judges across 7 models in 2 families.
 
-**TLDR-end:** [judges-corr: experiment 10 report] Native 6-category frontier probabilities repair the historical 3-sample scalar CE failure (`5.49` -> `1.416` nats), proper-loss optimization (`CE`/`RPS`, Formulations ③/④) decisively beats correlation optimization (`①`/`②`) on continuous mixtures and feature heads from ~52 ratings upward, while discrete 5-family prompt/harness search is high-variance and dominated by `H3` two-step obligation harness gains (`$17.85` total spend).
+**TLDR-end:** [judges-corr: experiment 10 report] The native 6-category frontier pool has lower CE than the historical 3-sample scalar pool (`5.49` -> `1.416` nats), proper-loss-trained (`CE`/`RPS`, Formulations ③/④) mixtures and feature heads have lower measured losses than the corresponding correlation-trained (`①`/`②`) fits; the feature-head intervals quantify split Monte Carlo variability and establish no population rating threshold, while discrete 5-family prompt/harness search remains uncertain and the tested `H3` two-step harness has lower observed losses (`$17.85` total spend).

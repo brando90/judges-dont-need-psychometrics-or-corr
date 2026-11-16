@@ -27,10 +27,12 @@ from common import (
     call_llm,
     ledger_summary,
     load_private_dataset_and_inputs,
+    summarize_forecast_missingness,
     utc_now_iso,
     write_public_json,
 )
 from metrics_and_solvers import rating_histogram, summarize_panel
+from run_arm_b_prompt_search import LOCKED_TRAIN_FAMILIES, LOCKED_VAL_FAMILIES
 from prompts import (
     build_ast_obligation_scaffold,
     extract_json_objects,
@@ -42,8 +44,18 @@ from prompts import (
 )
 
 
+def _record_status(sink: dict[str, Any] | None, item: str, response: dict[str, Any], ok: bool, *, uniform: bool = True) -> None:
+    if sink is not None:
+        sink[item] = {
+            "item": item,
+            "status": "OK" if ok else (response.get("status") if response.get("status") != "OK" else "PARSE_ERROR"),
+            "fallback_uniform_used": bool(not ok and uniform),
+            "fallback_scaffold_used": bool(not ok and not uniform),
+        }
+
+
 def run_h1_single(
-    rows: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str, max_tok: int = 450
+    rows: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str, max_tok: int = 450, status_sink: dict[str, Any] | None = None
 ) -> list[list[float]]:
     def _one(r: dict[str, Any]) -> list[float]:
         sys_p, usr_p = render_single_call_prompt(
@@ -66,6 +78,7 @@ def run_h1_single(
             repeat_slot=1,
         )
         parsed = parse_probability_response(resp.get("text", ""))
+        _record_status(status_sink, r["item"], resp, parsed["ok"])
         return [round(float(x), 8) for x in (parsed["probabilities"] if parsed["ok"] else [1.0 / 6.0] * 6)]
 
     with ThreadPoolExecutor(max_workers=10) as pool:
@@ -73,7 +86,7 @@ def run_h1_single(
 
 
 def run_h2_ast_harness(
-    rows: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str
+    rows: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str, status_sink: dict[str, Any] | None = None
 ) -> list[list[float]]:
     def _one(r: dict[str, Any]) -> list[float]:
         ast_sc = build_ast_obligation_scaffold(r["py_text"], r["ref_text"], r["cand_text"])
@@ -110,15 +123,15 @@ def run_h2_ast_harness(
                 repeat_slot=99,
             )
             parsed2 = parse_probability_response(resp2.get("text", ""))
-            if parsed2["ok"]:
-                parsed = parsed2
+            resp, parsed = resp2, parsed2
+        _record_status(status_sink, r["item"], resp, parsed["ok"])
         return [round(float(x), 8) for x in (parsed["probabilities"] if parsed["ok"] else [1.0 / 6.0] * 6)]
 
     with ThreadPoolExecutor(max_workers=10) as pool:
         return list(pool.map(_one, rows))
 
 
-def run_h3_step1_audits(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def run_h3_step1_audits(rows: list[dict[str, Any]], status_sink: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     def _one(r: dict[str, Any]) -> dict[str, Any]:
         sys_p, usr_p = render_h3_step1_audit(
             r["py_file_name"], r["py_text"], r["gold_file_name"], r["ref_text"], r["candidate_file"], r["cand_text"]
@@ -136,7 +149,9 @@ def run_h3_step1_audits(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         objs = extract_json_objects(resp.get("text", ""))
         for obj in reversed(objs):
             if "obligations" in obj or "overall_gap_summary" in obj:
+                _record_status(status_sink, r["item"], resp, True, uniform=False)
                 return obj
+        _record_status(status_sink, r["item"], resp, False, uniform=False)
         ast_sc = build_ast_obligation_scaffold(r["py_text"], r["ref_text"], r["cand_text"])
         return {
             "is_placeholder_gold": ast_sc["is_placeholder_gold_reference"],
@@ -151,7 +166,7 @@ def run_h3_step1_audits(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def run_h3_step2_agg(
-    rows: list[dict[str, Any]], step1_audits: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str
+    rows: list[dict[str, Any]], step1_audits: list[dict[str, Any]], model: str, effort: str | None, rubric_text: str, tag: str, status_sink: dict[str, Any] | None = None
 ) -> list[list[float]]:
     def _one(idx: int) -> list[float]:
         r = rows[idx]
@@ -169,6 +184,7 @@ def run_h3_step2_agg(
             repeat_slot=1,
         )
         parsed = parse_probability_response(resp.get("text", ""))
+        _record_status(status_sink, r["item"], resp, parsed["ok"])
         return [round(float(x), 8) for x in (parsed["probabilities"] if parsed["ok"] else [1.0 / 6.0] * 6)]
 
     with ThreadPoolExecutor(max_workers=12) as pool:
@@ -200,6 +216,14 @@ def main() -> None:
     }
 
     harness_forecasts: dict[str, list[list[float]]] = {}
+    harness_status: dict[str, list[dict[str, Any]]] = {}
+
+    def recorded(fn, key: str, *args, **kwargs):
+        sink: dict[str, Any] = {}
+        result = fn(*args, **kwargs, status_sink=sink)
+        harness_status[key] = [sink[r["item"]] for r in rows]
+        return result
+
 
     # 1. H1_single_call across OpenAI (gpt-5.4-mini + gpt-6.1-sol) and Mistral (codestral-2508)
     harness_forecasts["H1_single_gpt54mini__P0_untuned"] = phase3_res["finalist_full75_forecasts"]["iter0_P0"]
@@ -216,7 +240,7 @@ def main() -> None:
         harness_forecasts[f"H1_single_gpt61__{pkey}"] = (
             harness_forecasts["H1_single_gpt61__P0_untuned"]
             if prompt_variants[pkey] == prompt_variants["P0_untuned"]
-            else run_h1_single(rows, "gpt-6.1-sol", "low", prompt_variants[pkey], f"gpt61_{pkey}", max_tok=260)
+            else recorded(run_h1_single, f"H1_single_gpt61__{pkey}", rows, "gpt-6.1-sol", "low", prompt_variants[pkey], f"gpt61_{pkey}", max_tok=260)
         )
 
     harness_forecasts["H1_single_mistral35__P0_untuned"] = [
@@ -226,7 +250,7 @@ def main() -> None:
         harness_forecasts[f"H1_single_mistral35__{pkey}"] = (
             harness_forecasts["H1_single_mistral35__P0_untuned"]
             if prompt_variants[pkey] == prompt_variants["P0_untuned"]
-            else run_h1_single(rows, "codestral-2508", None, prompt_variants[pkey], f"codestral_{pkey}", max_tok=350)
+            else recorded(run_h1_single, f"H1_single_mistral35__{pkey}", rows, "codestral-2508", None, prompt_variants[pkey], f"codestral_{pkey}", max_tok=350)
         )
 
     # 2. H2_ast_obligation_harness (gpt-5.4-mini across P0, P_corr_val, P_ce_val + codestral-2508 on P0)
@@ -243,18 +267,38 @@ def main() -> None:
         harness_forecasts[f"H2_ast_gpt61__{pkey}"] = (
             already
             if already is not None
-            else run_h2_ast_harness(rows, "gpt-5.4-mini", "low", prompt_variants[pkey], pkey)
+            else recorded(run_h2_ast_harness, f"H2_ast_gpt61__{pkey}", rows, "gpt-5.4-mini", "low", prompt_variants[pkey], pkey)
         )
-    harness_forecasts["H2_ast_mistral35__P0_untuned"] = run_h2_ast_harness(
+    harness_forecasts["H2_ast_mistral35__P0_untuned"] = recorded(run_h2_ast_harness, "H2_ast_mistral35__P0_untuned",
         rows, "codestral-2508", None, prompt_variants["P0_untuned"], "codestral_P0"
     )
 
     # 3. H3_two_step_decompose_aggregate (Step 1 obligation audit -> Step 2 calibrated aggregator)
-    step1_audits = run_h3_step1_audits(rows)
+    step1_audits = recorded(run_h3_step1_audits, "H3_step1_audits", rows)
     for pkey in ("P0_untuned", "P_corr_val", "P_ce_val"):
-        harness_forecasts[f"H3_twostep_gpt61__{pkey}"] = run_h3_step2_agg(
+        harness_forecasts[f"H3_twostep_gpt61__{pkey}"] = recorded(run_h3_step2_agg, f"H3_twostep_gpt61__{pkey}",
             rows, step1_audits, "gpt-5.4-mini", "low", prompt_variants[pkey], f"mini_{pkey}"
         )
+
+    # Preserve provenance for reused forecasts and upstream audit fallbacks.
+    phase3_status = phase3_res["finalist_forecast_status"]
+    for pkey, cid in {"P0_untuned": "iter0_P0", "P_corr_val": cid_corr_val, "P_corr_tr": cid_corr_tr, "P_ce_val": cid_ce_val, "P_ce_tr": cid_ce_tr}.items():
+        harness_status[f"H1_single_gpt54mini__{pkey}"] = phase3_status[cid]
+    for prefix, jid in (("H1_single_gpt61", "gpt61_sol__P0"), ("H1_single_mistral35", "codestral_2508__P0")):
+        harness_status[f"{prefix}__P0_untuned"] = [
+            {k: rec[k] for k in ("item", "status", "fallback_uniform_used")}
+            for rec in phase2_fc["native_prob_forecasts"][jid]
+        ]
+        for pkey in ("P_corr_val", "P_ce_val"):
+            if prompt_variants[pkey] == prompt_variants["P0_untuned"]:
+                harness_status[f"{prefix}__{pkey}"] = harness_status[f"{prefix}__P0_untuned"]
+    for pkey in ("P0_untuned", "P_corr_val", "P_ce_val"):
+        key = f"H2_ast_gpt61__{pkey}"
+        if key not in harness_status:
+            other = next(k for k in ("P0_untuned", "P_corr_val", "P_ce_val") if f"H2_ast_gpt61__{k}" in harness_status and prompt_variants[k] == prompt_variants[pkey])
+            harness_status[key] = harness_status[f"H2_ast_gpt61__{other}"]
+        for idx, rec in enumerate(harness_status[f"H3_twostep_gpt61__{pkey}"]):
+            rec["upstream_fallback_used"] = harness_status["H3_step1_audits"][idx]["fallback_scaffold_used"]
 
     # 4. H4_multi_family_ensemble_calibration_harness (OpenAI gpt-6.1-sol + OpenAI gpt-5.4-mini + Mistral codestral-2508 + H2 + H3)
     for pkey in ("P0_untuned", "P_corr_val", "P_ce_val"):
@@ -273,6 +317,17 @@ def main() -> None:
         harness_forecasts[f"H4_discrete_3vote_scalar__{pkey}"] = [
             [round(float(v), 8) for v in rq] for rq in scalar_3vote
         ]
+
+    for pkey in ("P0_untuned", "P_corr_val", "P_ce_val"):
+        for output, members in (
+            ("H4_crossfamily_equal", ("H1_single_gpt61", "H1_single_gpt54mini", "H1_single_mistral35", "H2_ast_gpt61", "H3_twostep_gpt61")),
+            ("H4_discrete_3vote_scalar", ("H1_single_gpt61", "H1_single_gpt54mini", "H1_single_mistral35")),
+        ):
+            harness_status[f"{output}__{pkey}"] = [
+                {"item": r["item"], "status": "DERIVED", "fallback_uniform_used": False,
+                 "component_fallback_used": any(harness_status[f"{member}__{pkey}"][i].get("fallback_uniform_used", False) or harness_status[f"{member}__{pkey}"][i].get("upstream_fallback_used", False) for member in members)}
+                for i, r in enumerate(rows)
+            ]
 
     in_sample_diag = {
         hkey: summarize_panel(p_emp, np.array(q_list), eps=PROBABILITY_FLOOR)
@@ -298,6 +353,8 @@ def main() -> None:
                 {"item": rows[i]["item"], "task": rows[i]["task"], "audit": step1_audits[i]} for i in range(len(rows))
             ],
             "harness_forecasts": harness_forecasts,
+            "harness_forecast_status": harness_status,
+            "forecast_missingness_summary": {key: summarize_forecast_missingness(recs, rows, LOCKED_TRAIN_FAMILIES, LOCKED_VAL_FAMILIES) for key, recs in harness_status.items()},
             "in_sample_diagnostics_all75": in_sample_diag,
             "ledger_after_phase4": ledger_summary(),
         },

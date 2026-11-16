@@ -22,8 +22,11 @@ SECRET_PAT = re.compile(r"(sk-[A-Za-z0-9_\-]{20,}|AIza[0-9A-Za-z_\-]{25,}|ghp_[A
 
 
 def independent_rps_ce_tvd(q: list[list[float]], ratings_per_item: list[list[int]], floor: float = 1e-6) -> tuple[float, float, float]:
+    assert q and len(q) == len(ratings_per_item), "Forecast/rating shape mismatch"
     rps_l, ce_l, tvd_l = [], [], []
     for qi, rats in zip(q, ratings_per_item):
+        assert len(qi) == 6 and all(math.isfinite(x) and x >= 0 for x in qi), "Invalid probability row"
+        assert rats and all(0 <= r <= 5 for r in rats), "Invalid rating row"
         qf = [max(float(x), floor) for x in qi]
         s = math.fsum(qf)
         qf = [x / s for x in qf]
@@ -45,7 +48,8 @@ def main() -> None:
 
     # 1. Privacy, freeze-digest, and secret scan over all public tracked/candidate files in Experiment 09
     freeze = json.loads((EXPT_DIR / "FREEZE.json").read_text(encoding="utf-8"))
-    eff_files = freeze.get("execution_amendment_1", {}).get("effective_files", freeze["files"])
+    eff_files = dict(freeze.get("execution_amendment_1", {}).get("effective_files", freeze["files"]))
+    eff_files.update(freeze.get("qa_amendment_1", {}).get("effective_files_sha256", {}))
     for rel_f, exp_sha in eff_files.items():
         actual_sha = hashlib.sha256((EXPT_DIR / rel_f).read_bytes()).hexdigest()
         assert actual_sha == exp_sha, f"FREEZE digest mismatch on {rel_f}: {actual_sha} != {exp_sha}"
@@ -79,7 +83,8 @@ def main() -> None:
         for arm, mat in oof_dict.items():
             assert len(mat) == 75
             for row in mat:
-                assert len(row) == 6 and abs(sum(row) - 1.0) < 1e-4
+                assert len(row) == 6 and all(math.isfinite(x) and x >= 0 for x in row)
+                assert abs(sum(row) - 1.0) < 1e-4
             checks_passed += 1
 
     # 3. Independent metric reconstruction against summary JSON (when private dataset.json is locally available)

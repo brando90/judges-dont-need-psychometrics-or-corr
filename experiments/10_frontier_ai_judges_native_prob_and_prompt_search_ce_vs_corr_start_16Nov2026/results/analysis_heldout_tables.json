@@ -2523,43 +2523,50 @@
             "estimate": -0.003426,
             "lo": -0.005764,
             "hi": -0.00117,
-            "p_two_sided": 0.0026
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0026
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": -0.057899,
             "lo": -0.075739,
             "hi": -0.041081,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": -0.006381,
             "lo": -0.009852,
             "hi": -0.003191,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": 0.045522,
             "lo": 0.035111,
             "hi": 0.056401,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.063138,
             "lo": 0.054299,
             "hi": 0.07246,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.059688,
             "lo": 0.051052,
             "hi": 0.06891,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": -0.003433,
             "lo": -0.005572,
             "hi": -0.001334,
-            "p_two_sided": 0.001
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.001
           }
         }
       },
@@ -2807,43 +2814,50 @@
             "estimate": 0.004396,
             "lo": 0.002569,
             "hi": 0.006197,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": 0.001088,
             "lo": -0.014132,
             "hi": 0.016266,
-            "p_two_sided": 0.8762
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.8762
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": 0.009138,
             "lo": 0.006069,
             "hi": 0.012276,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": 0.010198,
             "lo": 0.0035,
             "hi": 0.016897,
-            "p_two_sided": 0.0016
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0016
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.075005,
             "lo": 0.067768,
             "hi": 0.082249,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.071226,
             "lo": 0.063939,
             "hi": 0.078547,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": 0.003637,
             "lo": 0.001276,
             "hi": 0.006134,
-            "p_two_sided": 0.0028
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0028
           }
         }
       },
@@ -3091,43 +3105,50 @@
             "estimate": 0.009919,
             "lo": 0.008277,
             "hi": 0.011539,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": 0.040628,
             "lo": 0.026658,
             "hi": 0.053944,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": 0.026539,
             "lo": 0.022821,
             "hi": 0.03032,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": -0.009786,
             "lo": -0.015139,
             "hi": -0.004324,
-            "p_two_sided": 0.0006
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0006
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.074777,
             "lo": 0.068252,
             "hi": 0.081655,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.071086,
             "lo": 0.06458,
             "hi": 0.077824,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": 0.01533,
             "lo": 0.012483,
             "hi": 0.0183,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           }
         }
       },
@@ -3375,43 +3396,50 @@
             "estimate": 0.014644,
             "lo": 0.013193,
             "hi": 0.016061,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": 0.080855,
             "lo": 0.068804,
             "hi": 0.092485,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": 0.035379,
             "lo": 0.031609,
             "hi": 0.039172,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": -0.015892,
             "lo": -0.020473,
             "hi": -0.011306,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.080148,
             "lo": 0.07355,
             "hi": 0.087092,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.077411,
             "lo": 0.070898,
             "hi": 0.084367,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": 0.019818,
             "lo": 0.016696,
             "hi": 0.022965,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           }
         }
       },
@@ -3659,43 +3687,50 @@
             "estimate": 0.020238,
             "lo": 0.018929,
             "hi": 0.021579,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": 0.125355,
             "lo": 0.113631,
             "hi": 0.136985,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": 0.04739,
             "lo": 0.04376,
             "hi": 0.051094,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": -0.022417,
             "lo": -0.025994,
             "hi": -0.018617,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.079494,
             "lo": 0.074164,
             "hi": 0.084853,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.077125,
             "lo": 0.071757,
             "hi": 0.082526,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": 0.026242,
             "lo": 0.023408,
             "hi": 0.029033,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           }
         }
       },
@@ -3943,43 +3978,50 @@
             "estimate": 0.024981,
             "lo": 0.02375,
             "hi": 0.026197,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_f2_minus_m3_ce_f4_ce": {
             "estimate": 0.161197,
             "lo": 0.149988,
             "hi": 0.17191,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_valcorr_f1_minus_m3_ce_valrps_f3_rps": {
             "estimate": 0.053401,
             "lo": 0.049966,
             "hi": 0.056779,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_pearson_head_minus_m3_ce_f4_rps": {
             "estimate": -0.026792,
             "lo": -0.02986,
             "hi": -0.023732,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_ce_f4_rps": {
             "estimate": 0.082304,
             "lo": 0.077348,
             "hi": 0.087279,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m2_mix_pearson_f2_minus_m2_mix_rps_f4_rps": {
             "estimate": 0.079917,
             "lo": 0.074737,
             "hi": 0.085043,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           },
           "m3_ce_f4_minus_m3_ce_valrps_f3_rps_4vs3": {
             "estimate": 0.027952,
             "lo": 0.025378,
             "hi": 0.030415,
-            "p_two_sided": 0.0
+            "p_two_sided": null,
+            "bootstrap_tail_fraction": 0.0
           }
         }
       }
@@ -4039,6 +4081,15 @@
         "test_ce_1start_400iter": 1.788878,
         "test_ce_5starts_2000iter": 1.789071
       }
+    },
+    "learning_curve_uncertainty": {
+      "interval_type": "95% conditional split Monte Carlo percentile interval",
+      "resampling_unit": "seeded split summary, conditional on the fixed 19 task families",
+      "draws": 10000,
+      "scope": "Split randomization variability only; overlapping splits are not independent new task families.",
+      "limitation": "These intervals do not quantify population uncertainty or establish a training-size crossover.",
+      "p_value": null,
+      "bootstrap_tail_fraction_definition": "Twice the smaller uncentered bootstrap sign fraction; descriptive, not a null-test p-value."
     }
   },
   "harnesses_and_2x2_interaction": {

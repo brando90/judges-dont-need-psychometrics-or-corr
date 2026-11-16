@@ -25,6 +25,7 @@ from common import (
     call_llm,
     ledger_summary,
     load_private_dataset_and_inputs,
+    summarize_forecast_missingness,
     utc_now_iso,
     write_public_json,
 )
@@ -77,11 +78,11 @@ LOCKED_TEST_FAMILIES = {
 
 def eval_rubric_on_indices(
     rubric_text: str, rows: list[dict[str, Any]], indices: np.ndarray, phase_tag: str
-) -> tuple[np.ndarray, list[str]]:
+) -> tuple[np.ndarray, list[str], list[dict[str, Any]]]:
     """Evaluate a rubric on gpt-5.4-mini (effort=low) for specified row indices; returns (len(indices), 6) probs and rationales."""
     sub_rows = [rows[int(i)] for i in indices]
 
-    def _one(r: dict[str, Any]) -> tuple[list[float], str]:
+    def _one(r: dict[str, Any]) -> tuple[list[float], str, dict[str, Any]]:
         sys_p, usr_p = render_single_call_prompt(
             py_name=r["py_file_name"],
             py_text=r["py_text"],
@@ -114,17 +115,17 @@ def eval_rubric_on_indices(
                 repeat_slot=99,
             )
             parsed2 = parse_probability_response(resp2.get("text", ""))
-            if parsed2["ok"]:
-                parsed = parsed2
+            resp, parsed = resp2, parsed2
+        status = {"item": r["item"], "status": "OK" if parsed["ok"] else (resp.get("status") if resp.get("status") != "OK" else "PARSE_ERROR"), "fallback_uniform_used": not parsed["ok"]}
         if parsed["ok"]:
-            return parsed["probabilities"], parsed["rationale"]
-        return [1.0 / 6.0] * 6, ""
+            return parsed["probabilities"], parsed["rationale"], status
+        return [1.0 / 6.0] * 6, "", status
 
     with ThreadPoolExecutor(max_workers=12) as pool:
         res = list(pool.map(_one, sub_rows))
     q_mat = np.array([x[0] for x in res], dtype=float)
     rats = [x[1] for x in res]
-    return q_mat, rats
+    return q_mat, rats, [x[2] for x in res]
 
 
 def build_corr_feedback_items(
@@ -226,7 +227,7 @@ def main() -> None:
 
     # Iteration 0: untuned P0_human_mirror (0 extra API calls — cached from Phase 2 gpt61_sol__P0!)
     p0_text = enforce_rubric_word_cap(get_base_rubric_text("P0_human_mirror"))
-    q_p0_all, rats_p0_all = eval_rubric_on_indices(p0_text, rows, np.arange(len(rows)), "phase3_iter0")
+    q_p0_all, rats_p0_all, status_p0_all = eval_rubric_on_indices(p0_text, rows, np.arange(len(rows)), "phase3_iter0")
     pan_p0_tr = summarize_panel(p_all, q_p0_all, tr_idx)
     pan_p0_va = summarize_panel(p_all, q_p0_all, va_idx)
     pan_p0_te = summarize_panel(p_all, q_p0_all, te_idx)
@@ -244,6 +245,8 @@ def main() -> None:
                 "diagnosis": "Untuned verbatim human rater instructions",
                 "q_tr": q_p0_all[tr_idx],
                 "q_va": q_p0_all[va_idx],
+                "status_tr": [status_p0_all[int(i)] for i in tr_idx],
+                "status_va": [status_p0_all[int(i)] for i in va_idx],
                 "rats_tr": [rats_p0_all[int(i)] for i in tr_idx],
                 "train_metrics": pan_p0_tr,
                 "val_metrics": pan_p0_va,
@@ -257,6 +260,8 @@ def main() -> None:
                 "diagnosis": "Untuned verbatim human rater instructions",
                 "q_tr": q_p0_all[tr_idx],
                 "q_va": q_p0_all[va_idx],
+                "status_tr": [status_p0_all[int(i)] for i in tr_idx],
+                "status_va": [status_p0_all[int(i)] for i in va_idx],
                 "rats_tr": [rats_p0_all[int(i)] for i in tr_idx],
                 "train_metrics": pan_p0_tr,
                 "val_metrics": pan_p0_va,
@@ -313,7 +318,7 @@ def main() -> None:
             for c_idx, rub in enumerate((r1, r2), start=1):
                 cid = f"{track_name}_iter{it}_c{c_idx}"
                 # Evaluate on train + val (45 items); proposer NEVER sees val_metrics!
-                q_tv, rats_tv = eval_rubric_on_indices(rub, rows, tr_va_idx, f"phase3_eval_{track_name}")
+                q_tv, rats_tv, status_tv = eval_rubric_on_indices(rub, rows, tr_va_idx, f"phase3_eval_{track_name}")
                 q_tr_c = q_tv[: len(tr_idx)]
                 q_va_c = q_tv[len(tr_idx) :]
                 rats_tr_c = rats_tv[: len(tr_idx)]
@@ -326,6 +331,8 @@ def main() -> None:
                     "diagnosis": diag,
                     "q_tr": q_tr_c,
                     "q_va": q_va_c,
+                    "status_tr": status_tv[:len(tr_idx)],
+                    "status_va": status_tv[len(tr_idx):],
                     "rats_tr": rats_tr_c,
                     "train_metrics": m_tr,
                     "val_metrics": m_va,
@@ -366,15 +373,18 @@ def main() -> None:
 
     # Evaluate all unique selected finalists across ALL 75 artifacts (only the 30 test items aren't cached yet!)
     full75_by_cand_id: dict[str, np.ndarray] = {"iter0_P0": q_p0_all}
+    status75_by_cand_id = {"iter0_P0": status_p0_all}
     for label, cand in selected_map.items():
         cid = cand["cand_id"]
         if cid not in full75_by_cand_id:
-            q_te, _ = eval_rubric_on_indices(cand["rubric"], rows, te_idx, "phase3_heldout_test")
+            q_te, _, status_te = eval_rubric_on_indices(cand["rubric"], rows, te_idx, "phase3_heldout_test")
             q_full = np.zeros((len(rows), 6), dtype=float)
             q_full[tr_idx] = cand["q_tr"]
             q_full[va_idx] = cand["q_va"]
             q_full[te_idx] = q_te
             full75_by_cand_id[cid] = q_full
+            by_item = {x["item"]: x for x in cand["status_tr"] + cand["status_va"] + status_te}
+            status75_by_cand_id[cid] = [by_item[r["item"]] for r in rows]
 
     # 2x3 Factorial "Prompts vs Post-Hoc Calibration Weights" Decomposition on the 30 Held-Out Test Artifacts!
     test_fams = [rows[int(i)]["family"] for i in te_idx]
@@ -459,6 +469,8 @@ def main() -> None:
                 "rubric_text": c["rubric"],
                 "train_metrics": c["train_metrics"],
                 "val_metrics": c["val_metrics"],
+                "train_forecast_status": c["status_tr"],
+                "validation_forecast_status": c["status_va"],
             }
             for c in c_list
         ]
@@ -489,6 +501,8 @@ def main() -> None:
                 cid: [[round(float(v), 8) for v in row_q] for row_q in q_mat]
                 for cid, q_mat in full75_by_cand_id.items()
             },
+            "finalist_forecast_status": status75_by_cand_id,
+            "forecast_missingness_summary": {cid: summarize_forecast_missingness(recs, rows, LOCKED_TRAIN_FAMILIES, LOCKED_VAL_FAMILIES) for cid, recs in status75_by_cand_id.items()},
             "ledger_after_phase3": ledger_summary(),
         },
     )

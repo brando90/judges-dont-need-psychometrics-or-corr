@@ -27,5 +27,70 @@
     "scripts/run_arm_c_harnesses.py": "046e6d2fadc6e282991fbbc9c9657281d770da62853118816c9082d328312384",
     "scripts/run_phase0_and_sanity.py": "a9a7f33accc65a3814af3be7a9a2717163cea7cbf433eee3e8ec2f2f49dc7f7a",
     "scripts/verify_results.py": "c33a7962594f1a59ee40b11c6cc8848d1c31e3c77a0d0c521d97721e4459623f"
+  },
+  "qa_amendment_1": {
+    "recorded_utc": "2026-11-16T22:18:08.578347+00:00",
+    "review_base": "233d5047d20da8591b4609ab52242ceed8717152",
+    "stage": "Post-run QA amendment. Original bound_files_sha256 entries remain unchanged; these are current reproducible source hashes, not a claim about pre-run execution.",
+    "pre_review_files_differing_from_original_freeze": {
+      "README.md": "00368dc8ac6fef6732c8a096c72c271d9c3e76837ca3df3bfc0e46322497ddd0",
+      "scripts/analyze_all.py": "6bd7e562f8093b989c1d95554c8e7fbe74314deeee3f041c21a9777b0fe81442",
+      "scripts/common.py": "7ede044280b35befbbb7b9477fd1334500dbd333cc3d809d809e73f5bc8c85a5",
+      "scripts/run_arm_a_pool.py": "73f3f74b67a59886e79db9f98c5a1fb5a21eb4b3bb698f45c632db99a627e38f",
+      "scripts/run_arm_b_prompt_search.py": "0a82d52ffe32abb11726507186fdd736dbf1a1b7c2aabb1172626b34ad5eefb4",
+      "scripts/run_arm_c_harnesses.py": "ab7ab2baee317c7dc3673a0c3a1dbe58370a27622059818db272ce247c3601c5",
+      "scripts/run_phase0_and_sanity.py": "e1ee1aec3cc9c35a192ebf35b419d95472f61b496a1d393107962303669719e5"
+    },
+    "pre_review_context": "PROTOCOL_AMENDMENT_01.md records provider/model/budget remedies. The working-tree sources also implement a three-fold, three-value feature-head grid instead of the original five-fold/five-value plan; current reports disclose that deviation. Hashes here record the inspected state rather than retroactively certifying the original execution.",
+    "changes_in_this_review": {
+      "README.md": {
+        "before_sha256": "00368dc8ac6fef6732c8a096c72c271d9c3e76837ca3df3bfc0e46322497ddd0",
+        "after_sha256": "aa41df18e7a3aed48c11bf100e035059487778cd85297062472797e115630665"
+      },
+      "HOW_TO_READ_RESULTS.md": {
+        "before_sha256": "af1b41bc7da7eb74a06812440151420a26f11259cc51e1d2b038f0c347db5c86",
+        "after_sha256": "78f26744e5d54e8d289dbb68e98c30e01eab364a7443c4f00e202b7abc08f116"
+      },
+      "scripts/analyze_all.py": {
+        "before_sha256": "6bd7e562f8093b989c1d95554c8e7fbe74314deeee3f041c21a9777b0fe81442",
+        "after_sha256": "3f04713511748b583d0aa8f96d1392c8d6eece52d8dc1b2c6b45c8bc2a474db7"
+      },
+      "scripts/common.py": {
+        "before_sha256": "7ede044280b35befbbb7b9477fd1334500dbd333cc3d809d809e73f5bc8c85a5",
+        "after_sha256": "db8631e55defd1cdf5b57d045f8b893f272b2a8a70b95f7fca13e9e03b0f5192"
+      },
+      "scripts/run_arm_b_prompt_search.py": {
+        "before_sha256": "0a82d52ffe32abb11726507186fdd736dbf1a1b7c2aabb1172626b34ad5eefb4",
+        "after_sha256": "95739541faf117722f3cd371cbafee3f141a86d3552803b4c17b881cafdd78c5"
+      },
+      "scripts/run_arm_c_harnesses.py": {
+        "before_sha256": "ab7ab2baee317c7dc3673a0c3a1dbe58370a27622059818db272ce247c3601c5",
+        "after_sha256": "b337953514397ec86676030159ff032c481477e2e55bbeabfcd704c5d8dd38dc"
+      },
+      "scripts/verify_results.py": {
+        "before_sha256": "c33a7962594f1a59ee40b11c6cc8848d1c31e3c77a0d0c521d97721e4459623f",
+        "after_sha256": "7dee121c1ddfd7c83b07daa674781072df61a1f7628dcf083e4554c9fd1720ff"
+      }
+    },
+    "reason": [
+      "Label overlapping-split intervals as conditional Monte Carlo variability rather than population inference.",
+      "Correct current README/reading-guide methodology, reference-hash parity limitations, probability truncation and forecast-fallback disclosures.",
+      "Repair prospective spend reservation identity and conservative byte-based accounting; no provider calls were made.",
+      "Preserve per-item forecast failure provenance in runtime exporters and recover omitted status from exact local cache fingerprints; saved forecasts and losses unchanged.",
+      "Enforce effective freeze digests, accepted optimizer certificate counts, valid forecasts and failure-status integrity in verification."
+    ],
+    "effective_files_sha256": {
+      "README.md": "aa41df18e7a3aed48c11bf100e035059487778cd85297062472797e115630665",
+      "HOW_TO_READ_RESULTS.md": "78f26744e5d54e8d289dbb68e98c30e01eab364a7443c4f00e202b7abc08f116",
+      "scripts/analyze_all.py": "3f04713511748b583d0aa8f96d1392c8d6eece52d8dc1b2c6b45c8bc2a474db7",
+      "scripts/common.py": "db8631e55defd1cdf5b57d045f8b893f272b2a8a70b95f7fca13e9e03b0f5192",
+      "scripts/run_arm_a_pool.py": "73f3f74b67a59886e79db9f98c5a1fb5a21eb4b3bb698f45c632db99a627e38f",
+      "scripts/run_arm_b_prompt_search.py": "95739541faf117722f3cd371cbafee3f141a86d3552803b4c17b881cafdd78c5",
+      "scripts/run_arm_c_harnesses.py": "b337953514397ec86676030159ff032c481477e2e55bbeabfcd704c5d8dd38dc",
+      "scripts/run_phase0_and_sanity.py": "e1ee1aec3cc9c35a192ebf35b419d95472f61b496a1d393107962303669719e5",
+      "scripts/verify_results.py": "7dee121c1ddfd7c83b07daa674781072df61a1f7628dcf083e4554c9fd1720ff",
+      "scripts/recover_forecast_status.py": "f574a7d7b7ddab11b22b395a81d4d0dfdb9ce8b3213fca2af9da2cd0ca43cca1"
+    },
+    "review_receipt": "../09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/full_base_review_11-16-2026/REVIEW.md"
   }
 }

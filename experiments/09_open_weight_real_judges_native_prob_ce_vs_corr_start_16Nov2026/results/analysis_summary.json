@@ -12175,8 +12175,8 @@
         }
       },
       "info_gap_G_correlation_with_rps_advantage": {
-        "pearson_G_vs_rps_diff": 0.660333078206563,
-        "spearman_G_vs_rps_diff": 0.36424778226617804
+        "pearson_G_vs_rps_diff": 0.1983997729590561,
+        "spearman_G_vs_rps_diff": 0.13602271769093996
       }
     },
     "lora_q3_4b": {
@@ -12252,7 +12252,7 @@
         "n_families": 5,
         "n_artifacts": 15
       },
-      "spearman_G_vs_lora_head_rps_diff": 0.3693140069880078
+      "spearman_G_vs_lora_head_rps_diff": 0.4174840113667621
     }
   }
 }

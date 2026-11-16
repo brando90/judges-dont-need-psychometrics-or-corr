@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import math
 import re
 import subprocess
@@ -58,6 +59,8 @@ REQUIRED_FILES = (
 def independent_rps_ce_tvd(ratings_list: list[list[int]], q_mat: np.ndarray, eps: float = PROBABILITY_FLOOR) -> dict[str, float]:
     """Completely independent pure-Python reference implementation (does NOT import metrics_and_solvers!)."""
     n = len(ratings_list)
+    assert n > 0 and np.shape(q_mat) == (n, 6), "Forecast/rating shape mismatch"
+    assert np.isfinite(q_mat).all() and (q_mat >= 0).all(), "Invalid forecast probabilities"
     rps_sum = ce_sum = tvd_sum = 0.0
     j_means, h_means = [], []
     for i, rts in enumerate(ratings_list):
@@ -81,8 +84,8 @@ def independent_rps_ce_tvd(ratings_list: list[list[int]], q_mat: np.ndarray, eps
     bias_sq = float((jx.mean() - hy.mean()) ** 2)
     scale_sq = float((jx.std(ddof=0) - hy.std(ddof=0)) ** 2)
     dx, dy = jx - jx.mean(), hy - hy.mean()
-    r = float((dx @ dy) / math.sqrt(float((dx @ dx) * (dy @ dy))))
-    unexpl = 2.0 * float(jx.std(ddof=0) * hy.std(ddof=0)) * (1.0 - r)
+    # Covariance form remains defined when either forecast or human means are constant.
+    unexpl = 2.0 * (float(jx.std(ddof=0) * hy.std(ddof=0)) - float(np.mean(dx * dy)))
     return {
         "rps": rps_sum / n,
         "ce": ce_sum / n,
@@ -95,6 +98,14 @@ def independent_rps_ce_tvd(ratings_list: list[list[int]], q_mat: np.ndarray, eps
 def main() -> None:
     checks: dict[str, object] = {}
 
+    freeze = json.loads((EXPT_DIR / "FREEZE.json").read_text(encoding="utf-8"))
+    effective_files = dict(freeze["bound_files_sha256"])
+    effective_files.update(freeze.get("qa_amendment_1", {}).get("effective_files_sha256", {}))
+    for rel, expected_sha in effective_files.items():
+        actual_sha = hashlib.sha256((EXPT_DIR / rel).read_bytes()).hexdigest()
+        assert actual_sha == expected_sha, f"FREEZE digest mismatch: {rel}"
+    checks["freeze_files_verified"] = len(effective_files)
+
     # 1. Required files & non-empty PNG figures
     missing = [rel for rel in REQUIRED_FILES if not (EXPT_DIR / rel).is_file() or (EXPT_DIR / rel).stat().st_size == 0]
     pngs = sorted(p.name for p in FIGURES_DIR.glob("*.png") if p.stat().st_size > 1024)
@@ -105,24 +116,20 @@ def main() -> None:
 
     # 2. Git-tracked & untracked public file scan (ensure private/ is gitignored and zero secrets/private keys leak)
     git_files = subprocess.run(
-        ["git", "-C", str(EXPT_DIR.parents[1]), "status", "--porcelain", "--untracked-files=all", str(EXPT_DIR)],
+        ["git", "-C", str(EXPT_DIR.parents[1]), "ls-files", "--cached", "--others", "--exclude-standard", "-z", "--", str(EXPT_DIR)],
         check=True,
         capture_output=True,
         text=True,
-    ).stdout.splitlines()
-    tracked_or_visible = []
-    for line in git_files:
-        rel_p = line[3:].strip()
-        if "private/" in rel_p:
-            raise AssertionError(f"PRIVACY VIOLATION: file under private/ visible to git status: {rel_p}")
-        tracked_or_visible.append(rel_p)
+    ).stdout.split("\0")
+    for rel_p in filter(None, git_files):
+        assert "private" not in Path(rel_p).parts, f"PRIVACY VIOLATION: public private/ file: {rel_p}"
 
     # Scan all public files in EXPT_DIR (excluding private/)
     secret_hits = []
     forbidden_json_hits = []
     # Also load actual key strings transiently to verify literal substring absence!
-    k1 = (Path.home() / "keys/openai_bm_key_koyejolab.txt").read_text(encoding="utf-8").strip()
-    k2 = (Path.home() / "keys/mistral_api_key.txt").read_text(encoding="utf-8").strip()
+    key_paths = (Path.home() / "keys/openai_bm_key_koyejolab.txt", Path.home() / "keys/mistral_api_key.txt")
+    literal_keys = [p.read_text(encoding="utf-8").strip() for p in key_paths if p.is_file()]
 
     for p in EXPT_DIR.rglob("*"):
         if not p.is_file() or p.is_relative_to(EXPT_DIR / "private") or "__pycache__" in p.parts:
@@ -130,7 +137,7 @@ def main() -> None:
         if p.suffix in (".png", ".pdf", ".pyc"):
             continue
         txt = p.read_text(encoding="utf-8", errors="replace")
-        if (k1 and k1 in txt) or (k2 and k2 in txt):
+        if any(k and k in txt for k in literal_keys):
             secret_hits.append(f"LITERAL_KEY_IN_{p.relative_to(EXPT_DIR)}")
         if p.name != "verify_results.py" and p.name != "common.py":
             m = SECRET_REGEX.search(txt)
@@ -157,6 +164,7 @@ def main() -> None:
     # 3. Spend ledger & provider scope check
     led = ledger_summary()
     assert led["settled_actual_usd"] <= HARD_CAP_USD, f"Spend exceeded cap: {led['settled_actual_usd']}"
+    assert led["effective_committed_usd"] <= HARD_CAP_USD, "Committed spend exceeded cap"
     for m_id, m_rec in led["by_model"].items():
         assert m_rec["provider"] in ("koyejolab-openai-bm", "mistral"), f"Out-of-scope provider: {m_rec['provider']}"
     checks["settled_actual_usd"] = led["settled_actual_usd"]
@@ -166,6 +174,28 @@ def main() -> None:
     data = load_private_dataset_and_inputs()
     assert data["dataset_sha256"] == DATASET_SHA256
     ratings_list = [r["_private_ratings"] for r in data["rows"]]
+
+    # Every saved finalist/harness forecast retains failure provenance in item order.
+    item_order = [r["item"] for r in data["rows"]]
+    verified_status_vectors = 0
+    for filename, forecast_key, status_key in (
+        ("phase3_arm_b_blind_prompt_search.json", "finalist_full75_forecasts", "finalist_forecast_status"),
+        ("phase4_arm_c_harnesses.json", "harness_forecasts", "harness_forecast_status"),
+    ):
+        saved_phase = json.loads((RESULTS_DIR / filename).read_text(encoding="utf-8"))
+        for name, values in saved_phase[forecast_key].items():
+            q = np.asarray(values, dtype=float)
+            assert q.shape == (len(item_order), 6) and np.isfinite(q).all() and (q >= 0).all(), f"Invalid forecast: {name}"
+            assert np.allclose(q.sum(axis=1), 1.0, atol=1e-6), f"Non-unit forecast: {name}"
+            records = saved_phase[status_key][name]
+            assert [r["item"] for r in records] == item_order, f"Status ordering mismatch: {name}"
+            assert all(r["status"] != "PROVENANCE_UNAVAILABLE" for r in records), f"Unresolved status: {name}"
+            for row, rec in zip(q, records):
+                assert isinstance(rec["fallback_uniform_used"], bool), f"Missing fallback flag: {name}"
+                if rec["fallback_uniform_used"]:
+                    assert np.allclose(row, 1 / 6, atol=1e-8), f"Fallback forecast mismatch: {name}"
+            verified_status_vectors += 1
+    checks["forecast_status_vectors_verified"] = verified_status_vectors
 
     fc = json.loads((RESULTS_DIR / "judge_forecasts.json").read_text(encoding="utf-8"))
     in_samp = json.loads((RESULTS_DIR / "phase2_pool_in_sample_summary.json").read_text(encoding="utf-8"))
@@ -198,7 +228,11 @@ def main() -> None:
     checks["exp02_historical_parity_max_abs_diff"] = max(
         exp02_ce_diff, exp02_pr_diff, exp02_rps_ce_diff, exp02_rps_pr_diff
     )
-    checks["simplex_certificates"] = ana["exp02_5x5_grouped_cv"]["certificates"]
+    certificates = ana["exp02_5x5_grouped_cv"]["certificates"]
+    for objective in ("ce", "rps", "pearson"):
+        assert certificates[f"{objective}_total"] > 0, f"No {objective} fits verified"
+        assert certificates[f"{objective}_certified"] == certificates[f"{objective}_total"], f"Uncertified {objective} fit"
+    checks["simplex_certificates"] = certificates
     checks["verification_passed"] = True
     checks["verified_utc"] = utc_now_iso()
 

@@ -55,6 +55,15 @@ EXP02_HIST_ORDER = ("H0_sol", "H0_opus", "H1_sol", "H2_sol", "H2_opus")
 SHRINKAGE_GRID = (0.0, 0.05, 0.15, 0.30, 0.50, 0.75, 1.0)
 RIDGE_GRID = (0.01, 0.1, 1.0, 10.0, 100.0)
 LEARNING_CURVE_NFAM = (3, 5, 7, 9, 12, 15)
+LEARNING_CURVE_UNCERTAINTY = {
+    "interval_type": "95% conditional split Monte Carlo percentile interval",
+    "resampling_unit": "seeded split summary, conditional on the fixed 19 task families",
+    "draws": 10000,
+    "scope": "Split randomization variability only; overlapping splits are not independent new task families.",
+    "limitation": "These intervals do not quantify population uncertainty or establish a training-size crossover.",
+    "p_value": None,
+    "bootstrap_tail_fraction_definition": "Twice the smaller uncentered bootstrap sign fraction; descriptive, not a null-test p-value.",
+}
 
 
 def exp02_partitions(rows: list[dict[str, Any]], seeds: tuple[int, ...] = EXP02_SEEDS) -> list[np.ndarray]:
@@ -321,7 +330,8 @@ def evaluate_250_splits_and_learning_curve(
     lc_records: dict[int, dict[str, Any]] = {}
 
     for nf in LEARNING_CURVE_NFAM:
-        # Store per-split test metrics so we can pair by split AND compute family-bootstrap / split-bootstrap intervals
+        # Store paired split summaries. Their bootstrap measures split randomization
+        # variability conditional on these same 19 families, not population uncertainty.
         split_metrics: dict[str, list[dict[str, float]]] = {m: [] for m in lc_methods}
         train_rating_counts = []
 
@@ -386,7 +396,9 @@ def evaluate_250_splits_and_learning_curve(
             const_pmf = smooth_probs(p_emp[tr].mean(axis=0), PROBABILITY_FLOOR)
             split_metrics["constant_marginal"].append(summarize_panel(p_emp[te], np.tile(const_pmf, (len(te), 1)), eps=0.0))
 
-        # Aggregate across the 250 splits + paired bootstrap over splits
+        # Aggregate across the 250 splits + paired bootstrap over split summaries.
+        # This differs from the protocol's task-family bootstrap; do not use these
+        # conditional bands to claim a population advantage or sample-size boundary.
         rng_b = np.random.default_rng(20261116 + nf)
         boot_idx = rng_b.integers(0, len(splits), size=(10000, len(splits)))
 
@@ -418,7 +430,7 @@ def evaluate_250_splits_and_learning_curve(
                 "human_mean_0_5": round(float(np.mean([x["human_mean_0_5"] for x in split_metrics[mname]])), 6),
             }
 
-        def _paired_lc_diff(mc: str, ml: str, met: str = "rps") -> dict[str, float]:
+        def _paired_lc_diff(mc: str, ml: str, met: str = "rps") -> dict[str, Any]:
             d = np.array([x[met] for x in split_metrics[mc]]) - np.array([x[met] for x in split_metrics[ml]])
             db = d[boot_idx].mean(axis=1)
             ple = float(np.mean(db <= 0.0))
@@ -427,7 +439,8 @@ def evaluate_250_splits_and_learning_curve(
                 "estimate": round(float(d.mean()), 6),
                 "lo": round(float(np.quantile(db, 0.025)), 6),
                 "hi": round(float(np.quantile(db, 0.975)), 6),
-                "p_two_sided": round(min(1.0, 2.0 * min(ple, pge)), 6),
+                "p_two_sided": None,
+                "bootstrap_tail_fraction": round(min(1.0, 2.0 * min(ple, pge)), 6),
             }
 
         lc_records[nf] = {
@@ -482,7 +495,11 @@ def evaluate_250_splits_and_learning_curve(
             "test_ce_5starts_2000iter": round(float(np.mean(ce_5)), 6),
         }
 
-    return {"learning_curve": lc_records, "optimizer_restart_check_50splits": restart_check}
+    return {
+        "learning_curve_uncertainty": LEARNING_CURVE_UNCERTAINTY,
+        "learning_curve": lc_records,
+        "optimizer_restart_check_50splits": restart_check,
+    }
 
 
 def evaluate_harnesses_and_2x2_interaction(
