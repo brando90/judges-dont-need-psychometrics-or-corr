@@ -61,6 +61,7 @@ def main():
     for _ in range(1000):
         f = rng_mean.dirichlet(np.ones(K))
         worst = max(worst, abs(float(f @ GRID) - surv(f).sum()))
+    assert worst < 1e-12
     print(f"  E[R] = sum_j S_j on 1,000 random forecasts: max absolute error {worst:.1e}")
 
     print("Range: RPS(all mass on 0, r=5) =", rps(point_mass(0), 5))
@@ -74,6 +75,7 @@ def main():
         Q, P = np.cumsum(q)[:5], np.cumsum(p)[:5]
         decomposition = np.mean((Q - P) ** 2 + P * (1 - P))
         worst = max(worst, abs(5 * rps(q, r) - abs_form), abs(expected_rps(q, p) - decomposition))
+    assert worst < 1e-12
     print(f"Identity checks on 2,000 random forecasts: max absolute error {worst:.1e}")
 
     # Excess expected RPS = mean squared CDF gap = energy distance / 10 on the integer scale.
@@ -84,7 +86,26 @@ def main():
         d = np.abs(GRID[:, None] - GRID[None, :])
         energy = 2 * (np.outer(q, p) * d).sum() - (np.outer(q, q) * d).sum() - (np.outer(p, p) * d).sum()
         worst = max(worst, abs(excess - np.mean((np.cumsum(q)[:5] - np.cumsum(p)[:5]) ** 2)), abs(10 * excess - energy))
+    assert worst < 1e-12
     print(f"Excess RPS = mean squared CDF gap = energy distance / 10: max absolute error {worst:.1e}")
+
+    # Exact finite-sample check: empirical-CDF variance is P(1-P)/m,
+    # while the expected average individual-rating RPS retains the full floor.
+    from itertools import product
+    p_pair = np.array([0, 0, 0, 0.6, 0, 0.4])
+    for m in (1, 2, 3):
+        cdf_var = empirical_floor = direct_score = 0.0
+        for values in product((3, 5), repeat=m):
+            prob = float(np.prod([p_pair[r] for r in values]))
+            phat = sum(r <= 3 for r in values) / m
+            cdf_var += prob * (phat - 0.6) ** 2
+            empirical_floor += prob * phat * (1 - phat)
+            direct_score += prob * np.mean([rps(p_pair, r) for r in values])
+        assert abs(cdf_var - 0.24 / m) < 1e-12
+        assert abs(empirical_floor - (1 - 1 / m) * 0.24) < 1e-12
+        assert abs(direct_score - expected_rps(p_pair, p_pair)) < 1e-12
+        print(f"CDF sampling check, {m} independent ratings: variance {cdf_var:.3f}; "
+              f"expected empirical threshold floor {empirical_floor:.3f}; expected individual RPS {direct_score:.3f}")
 
     # Sparse ratings: plug-in distances to a few-rating histogram reward overconfidence.
     p = np.array([0, 0, 0, 0.6, 0, 0.4])

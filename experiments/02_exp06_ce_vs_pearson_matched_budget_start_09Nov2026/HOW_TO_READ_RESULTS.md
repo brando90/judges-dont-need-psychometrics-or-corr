@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md>
 
-**TLDR:** Every main number in [RESULTS_comparison.md](RESULTS_comparison.md) is measured on held-out test artifacts that were not used to fit that judge. "CE" and "Pearson" in a column or row name say how a judge was **trained**; both judges are then scored with the **same** metric on the **same** test artifacts.
+**TLDR:** Every main number in [RESULTS_comparison.md](RESULTS_comparison.md) is measured on held-out test artifacts that were not used to fit that judge. "Cross-entropy (CE)" and "Pearson" in a column or row name say how a judge was **trained**; both judges are then scored with the **same** metric on the **same** test artifacts.
 
 ## What is compared
 
@@ -30,9 +30,9 @@ The [historical failure diagnosis](RESULTS_comparison.md#historical-failure-diag
 | --- | --- | --- | --- |
 | CE (primary) | Mean over observed human ratings of −ln q(rating) | 0 to ∞, in nats | Lower |
 | Ranked probability score (RPS) | Mean over observed human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
-| TVD | 0.5 Σ_r abs(q(r) − p̂(r)), with p̂ the artifact's human rating histogram | 0 to 1 | Lower |
+| Total variation distance (TVD) | 0.5 Σ_r abs(q(r) − p̂(r)), with p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 | Pearson / Spearman / Kendall | Correlation between the judge's expected rating and the human mean rating across test artifacts | −1 to 1 | Higher |
-| MSE / MAE / bias | Judge's expected rating vs human mean rating, on a 0–1 scale; bias is judge minus human | — | Lower (bias: closer to 0) |
+| Mean squared error (MSE) / mean absolute error (MAE) / bias | Judge's expected rating vs human mean rating, on a 0–1 scale; bias is judge minus human | — | Lower (bias: closer to 0) |
 
 For scale on test RPS: CE-trained 0.139, Pearson-trained 0.144, constant 0.187.
 
@@ -41,6 +41,10 @@ For scale on test RPS: CE-trained 0.139, Pearson-trained 0.144, constant 0.187.
 The column "CE − Pearson" means: **the row's metric for the CE-trained judge minus the same metric for the Pearson-trained judge**, both on the held-out test artifacts. It never subtracts two different metrics.
 
 Example: the main result, test CE of the CE-trained judge minus test CE of the Pearson-trained judge = −0.260 nats [−1.458, +0.198]. Negative means the CE-trained judge had lower (better) test CE; the interval includes 0, so no difference is established. On test RPS the same subtraction gives −0.0046 [−0.0356, +0.0100].
+
+## How the judge is fitted
+
+Cross-entropy (CE) mixture fitting uses sequential least squares programming (SLSQP) from one uniform weight vector, at most 1,000 iterations and 2,000 function/gradient evaluations, with bounded Newton polishing on the chosen face. The objective is convex; a simplex Frank–Wolfe gap at most 1e-8 certifies the numerical optimum to that tolerance. Pearson fitting enumerates the nonempty faces of the five-candidate cone (at most 31), with no random starts, and checks a cone-projection certificate at tolerance 1e-8. It includes a best-vertex rule when all correlations are nonpositive. This is a global objective guarantee within the mixture family, not a guarantee of good held-out distribution scores. Sources: [CE solver](scripts/ce_mixture.py) and [Pearson solver](scripts/historical/mixture_models.py). Both use training artifacts only.
 
 ## Uncertainty
 

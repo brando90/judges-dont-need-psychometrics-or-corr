@@ -1,3 +1,14 @@
+# Generated results: experiment 08
+
+Synthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 100 seeds per scenario and size. Earlier A/B tasks are reused. Undefined test correlations count as zero: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; raw missingness is preserved.
+
+Ranked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).
+
+Same 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.
+
+Uncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.
+
+
 Cells with all 100 seeds in every scenario: n = [4, 8, 16, 20, 32, 64, 128, 256, 512, 1024, 2048].
 
 
@@ -147,7 +158,7 @@ Chosen ridge c (most common value; share of seeds), and Pearson (①) fallbacks 
 | 1024 | 0.01 (86%) | 0.01 (94%) | 0.01 (100%) | 0.01 (98%) | 0 |
 | 2048 | 0.01 (100%) | 0.01 (100%) | 0.01 (95%) | 0.01 (78%) | 0 |
 
-## Scenario C: nonlinear mean, constant disagreement
+## Scenario C: nonlinear mean, constant concentration κ
 
 Held-out test RPS excess (mean over 100 seeds):
 
@@ -220,7 +231,7 @@ Chosen ridge c (most common value; share of seeds), and Pearson (①) fallbacks 
 | 1024 | 0.01 (100%) | 0.01 (100%) | 0.01 (98%) | 0.01 (99%) | 0 |
 | 2048 | 0.01 (100%) | 0.01 (100%) | 0.01 (95%) | 0.01 (90%) | 0 |
 
-## Scenario D: linear mean, constant disagreement
+## Scenario D: linear mean, constant concentration κ
 
 Held-out test RPS excess (mean over 100 seeds):
 
@@ -292,3 +303,14 @@ Chosen ridge c (most common value; share of seeds), and Pearson (①) fallbacks 
 | 512 | 0.01 (82%) | 0.1 (52%) | 0.01 (96%) | 100 (38%) | 0 |
 | 1024 | 0.01 (100%) | 0.01 (84%) | 0.01 (98%) | 0.01 (65%) | 0 |
 | 2048 | 0.01 (100%) | 0.01 (100%) | 0.01 (92%) | 0.01 (54%) | 0 |
+
+## The Pearson-trained judge (②) versus the constant forecast (added 11-16-2026)
+
+Held-out test RPS excess of the Pearson-trained judge (②, ridge 1) minus that of the constant training-histogram forecast, per seed (positive means ② is worse); paired 95% percentile bootstrap over 100 seeds, 10,000 draws, separate random stream.
+
+| Scenario | smallest n from which ② is significantly worse at every larger n | mean difference at n = 2048 [95% CI] |
+|---|---|---|
+| A: mean nearly constant, disagreement varies | 128 tasks (384 ratings) | +0.0157 [+0.0128, +0.0189] |
+| B: nonlinear mean, disagreement varies | 8 tasks (24 ratings) | +0.0281 [+0.0262, +0.0303] |
+| C: nonlinear mean, constant concentration κ | 16 tasks (48 ratings) | +0.0252 [+0.0237, +0.0268] |
+| D: linear mean, constant concentration κ | 256 tasks (768 ratings) | +0.0074 [+0.0063, +0.0087] |

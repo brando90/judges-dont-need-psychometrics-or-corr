@@ -3,7 +3,7 @@
 Writes paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/figures/fig_ratings_needed.pdf from experiment 08's
 saved results, and prints the numbers the paper's learning-study section quotes that no other report prints:
   * experiment 08 crossovers (CE-trained vs Pearson-trained, fixed ridge) in training ratings, per scenario;
-  * experiment 06 ratios of held-out test RPS excess at 2,048 tasks (correlation-trained / CE-trained),
+  * experiment 06 ratios of held-out test ranked probability score (RPS) excess at 2,048 tasks (correlation-trained / CE-trained),
     using experiment 13's saved CE and Pearson fits and experiment 06's rank-objective fits on the same tasks.
 Run from the repository root:
   python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_paper_figure.py
@@ -47,13 +47,13 @@ def crossover(sc):
 
 
 TITLE = {"A": "A: disagreement varies,\nmean nearly constant", "B": "B: mean and\ndisagreement vary",
-         "C": "C: mean varies (nonlinear),\nconstant disagreement", "D": "D: mean varies (linear),\nconstant disagreement"}
+         "C": "C: mean varies (nonlinear),\nconstant concentration", "D": "D: mean varies (linear),\nconstant concentration"}
 plt.rcParams.update({"font.size": 6.5, "axes.titlesize": 6.5, "axes.labelsize": 6.5, "legend.fontsize": 6.2})
 fig, axs = plt.subplots(2, 2, figsize=(3.35, 3.3), sharex=True)
 for ax, sc in zip(axs.ravel(), "ABCD"):
     x = 3 * np.array(NS)
     for j, col, ls, lab in (("ce_fixed", "tab:blue", "-", "CE-trained"), ("pearson_fixed", "tab:red", "-", "Pearson-trained"),
-                            ("constant", "0.5", "--", "constant (training histogram)")):
+                            ("constant", "0.5", "--", "constant")):
         m = np.array([ci(vals(sc, n, j)) for n in NS])
         ax.plot(x, m[:, 0], ls, color=col, lw=1.1, marker="o", ms=1.8, label=lab)
         ax.fill_between(x, m[:, 1], m[:, 2], color=col, alpha=0.15, lw=0)
@@ -65,14 +65,14 @@ for ax, sc in zip(axs.ravel(), "ABCD"):
     ax.grid(True, which="major", alpha=0.4, lw=0.5); ax.grid(True, which="minor", ls=":", alpha=0.2, lw=0.4)
     ax.set_title(TITLE[sc], pad=2)
 for ax in axs[:, 0]:
-    ax.set_ylabel("held-out test RPS excess")
+    ax.set_ylabel("Held-out test ranked\nprobability score (RPS)\nexcess over truth", fontsize=5.7)
 for ax in axs[1]:
-    ax.set_xlabel("training ratings (3 per task)")
+    ax.set_xlabel("Training ratings\n(3 per task)", fontsize=6.0)
 h, l = axs[0, 0].get_legend_handles_labels()
 fig.legend(h, l, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.0), handlelength=1.6, columnspacing=0.8)
 fig.tight_layout(rect=(0, 0, 1, 0.94), pad=0.3, h_pad=0.4, w_pad=0.4)
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
-fig.savefig(OUT)
+fig.savefig(OUT, metadata={"CreationDate": None})  # byte-reproducible PDF
 print("wrote", os.path.relpath(OUT, ROOT))
 for sc in "ABCD":
     s = crossover(sc)

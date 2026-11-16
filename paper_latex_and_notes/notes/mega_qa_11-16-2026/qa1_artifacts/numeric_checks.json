@@ -1,0 +1,186 @@
+{
+  "environment": {
+    "python": "3.11.6",
+    "numpy": "2.2.6",
+    "scipy": "1.16.3"
+  },
+  "ordinary_gradient_max_absolute_error": {
+    "ce": 7.140241176095685e-11,
+    "rps": 8.211896440624145e-12,
+    "pearson": 3.310751325868999e-11,
+    "spearman": 4.38296898774837e-11,
+    "kendall": 8.031308951217397e-11,
+    "pearson_spearman": 3.856823194148262e-11
+  },
+  "clipped_ce_gradient_counterexample": {
+    "loss": 13.815511557963752,
+    "reported_gradient": [
+      0.23412142313131346,
+      -0.999999000001,
+      0.031684889111235154,
+      0.6364080101508205,
+      0.0861284583078104,
+      0.011656219299820305
+    ],
+    "finite_difference": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_error": 0.999999000001
+  },
+  "raw_rows": {
+    "06": 2200,
+    "07": 540,
+    "08": 4400,
+    "13": 2200
+  },
+  "reproduce_06_A_4_0": {
+    "seconds": 0.02,
+    "max_differences": [],
+    "clipping": {
+      "calls": 10,
+      "clipped_calls": 0,
+      "minimum_probability": 0.04544530458899836
+    },
+    "fallback": null
+  },
+  "reproduce_06_B_2048_0": {
+    "seconds": 42.42,
+    "max_differences": [],
+    "clipping": {
+      "calls": 34,
+      "clipped_calls": 0,
+      "minimum_probability": 0.0017239247418053662
+    },
+    "fallback": null
+  },
+  "reproduce_07_A_4_0": {
+    "seconds": 0.18,
+    "max_differences": [],
+    "clipping": {
+      "calls": 38,
+      "clipped_calls": 0,
+      "minimum_probability": 0.04544530458899836
+    },
+    "fallback": null
+  },
+  "reproduce_07_B_1024_0": {
+    "seconds": 158.85,
+    "max_differences": [],
+    "clipping": {
+      "calls": 129,
+      "clipped_calls": 0,
+      "minimum_probability": 0.0012914844292079915
+    },
+    "fallback": null
+  },
+  "reproduce_08_C_4_9": {
+    "seconds": 0.03,
+    "max_differences": [],
+    "clipping": {
+      "calls": 291,
+      "clipped_calls": 1,
+      "minimum_probability": 3.136071708858948e-07
+    },
+    "fallback": true
+  },
+  "reproduce_08_D_2048_0": {
+    "seconds": 3.94,
+    "max_differences": [],
+    "clipping": {
+      "calls": 700,
+      "clipped_calls": 0,
+      "minimum_probability": 0.0008409074374694369
+    },
+    "fallback": false
+  },
+  "exp06_prediction_A_spearman_rps_excess": {
+    "mean": 0.0038341921157474474,
+    "paired_percentile95": [
+      0.000689653416440869,
+      0.00661173307336214
+    ]
+  },
+  "exp06_prediction_A_spearman_ce_excess": {
+    "mean": 0.20673575898710386,
+    "paired_percentile95": [
+      0.16449056648135332,
+      0.24819025208861645
+    ]
+  },
+  "exp06_prediction_A_kendall_rps_excess": {
+    "mean": 0.00624099819229147,
+    "paired_percentile95": [
+      0.0029619486746719995,
+      0.008958977911855587
+    ]
+  },
+  "exp06_prediction_A_kendall_ce_excess": {
+    "mean": 0.10300909693665776,
+    "paired_percentile95": [
+      0.061016733610551106,
+      0.14300240786606253
+    ]
+  },
+  "exp06_prediction_A_pearson_spearman_rps_excess": {
+    "mean": -0.00016086447202284435,
+    "paired_percentile95": [
+      -0.0021621658859897514,
+      0.00200211475642592
+    ]
+  },
+  "exp06_prediction_A_pearson_spearman_ce_excess": {
+    "mean": 0.0016251433676044624,
+    "paired_percentile95": [
+      -0.02869577792065588,
+      0.032934380585902215
+    ]
+  },
+  "exp06_prediction_B_spearman_rps_excess": {
+    "mean": -0.03281609550034409,
+    "paired_percentile95": [
+      -0.035590322857676146,
+      -0.030250457961453047
+    ]
+  },
+  "exp06_prediction_B_spearman_ce_excess": {
+    "mean": -0.09753877529648715,
+    "paired_percentile95": [
+      -0.12191111950047688,
+      -0.07236205977535866
+    ]
+  },
+  "exp06_prediction_B_kendall_rps_excess": {
+    "mean": -0.06208663053721909,
+    "paired_percentile95": [
+      -0.06416705198075238,
+      -0.060070643380138254
+    ]
+  },
+  "exp06_prediction_B_kendall_ce_excess": {
+    "mean": -0.2723597114659905,
+    "paired_percentile95": [
+      -0.2926365619144445,
+      -0.25171568490356216
+    ]
+  },
+  "exp06_prediction_B_pearson_spearman_rps_excess": {
+    "mean": -0.010046853318367778,
+    "paired_percentile95": [
+      -0.012215303337659897,
+      -0.007954352005761176
+    ]
+  },
+  "exp06_prediction_B_pearson_spearman_ce_excess": {
+    "mean": -0.003801506311935541,
+    "paired_percentile95": [
+      -0.02080595002636009,
+      0.012452320008256577
+    ]
+  },
+  "complete": true
+}

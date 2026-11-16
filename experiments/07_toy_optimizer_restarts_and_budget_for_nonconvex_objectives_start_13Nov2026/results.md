@@ -4,7 +4,7 @@
 
 **Status, 11-14-2026:** sweep complete (540 rows; the first launch stopped at 532 when the session ended and the runner resumed the last 8, scenario B at n = 1,024, seeds 22–29). Kept active because the one-pager and paper depend on it.
 
-**TLDR:** The experiment 13 and 06 conclusions do not depend on the optimizer. Best-of-5 starts with a 5× budget find a better training objective in 57–90% of the Pearson, Spearman and ½ Pearson + ½ Spearman fits, yet held-out test RPS and cross-entropy (CE) barely change, and every crossover on held-out test RPS against the CE-trained judge is unchanged. The Pearson-type objectives are hard to optimize: their original fits almost never converged within 400 iterations, and most still hit the 2,000-iteration budget. Synthetic toy; not evidence about real ratings.
+**TLDR:** The held-out ranked probability score (RPS) crossovers from experiments 13 and 06 survive the tested L-BFGS-B budgets and starts. Best-of-five starts with 2,000 iterations and 4,000 evaluations per start find a better training objective in 57–90% of the Pearson, Spearman and ½ Pearson + ½ Spearman fits, yet held-out test RPS and cross-entropy (CE) barely change, and every crossover on held-out test RPS against the CE-trained judge is unchanged. The Pearson-type objectives are hard to optimize: their original fits almost never converged within 400 iterations, and most still hit the 2,000-iteration budget. Synthetic toy; not evidence about real ratings.
 
 | Phase | Status |
 | --- | --- |
@@ -13,10 +13,14 @@
 | Sweep: 2 scenarios × 9 training sizes × 30 seeds × 7 objectives × 3 conditions | DONE |
 | Report | DONE |
 
+CE uses the original start only at the longer budget, and each calibrated head is a single CE refit on its chosen Pearson score. Five starts apply to the other objectives.
+
+**QA check, 11-16-2026:** experiment 13's CE code floors probabilities at 1e-6 in the loss value but not in its gradient. Refitting every CE fit with an exact CE changed no number reported here (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json](../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json)). Saved measurements are unchanged.
+
 ## Main results (held-out test tasks, against the true distribution; 30 seeds)
 
 - **Convergence of the original fits** (400 iterations): CE, RPS, Kendall and the calibrated head converge in 97–100% of fits. Pearson-trained converges in 0% of fits from 32 training tasks on (all hit the budget); ½ Pearson + ½ Spearman in 0–3%; Spearman in 7–52% from 16 tasks on. With 2,000 iterations, 91% of Pearson fits with n ≥ 32 still hit the budget.
-- **Restarts improve the training objective, not the held-out result.** At 1,024 training tasks, test RPS excess of the Pearson-trained judge goes from 0.0183 (original) to 0.0173 (best of 5, 5× budget) in scenario A, against 0.0011 for the CE-trained judge; in scenario B from 0.0949 to 0.0918, against 0.0042.
+- **Restarts improve the training objective while RPS crossovers stay unchanged.** At 1,024 training tasks, test RPS excess of the Pearson-trained judge goes from 0.0183 (original) to 0.0173 (best of five, larger budget) in scenario A, against 0.0011 for the CE-trained judge; in scenario B from 0.0949 to 0.0918, against 0.0042.
 - **Crossovers on held-out test RPS** (smallest number of training tasks from which the CE-trained judge is significantly better at every larger size; 3 ratings per task) are identical under the original and best-of-5 conditions: scenario A, 64 tasks (192 ratings) for Pearson, Spearman and ½ Pearson + ½ Spearman, 16 for Kendall, 4 for Pearson + calibrated head; scenario B, 4 tasks (12 ratings) for all. On held-out test CE, two scenario-A crossovers move by one grid step (Spearman 32 → 64 tasks, Kendall 32 → 16).
 - **The calibrated head is sensitive to which Pearson judge it is built on**: choosing the Pearson judge with the best training correlation sometimes gives a worse head (scenario A, 32 tasks: test RPS excess 0.086 → 0.121).
 
@@ -24,4 +28,4 @@ The prediction in the README holds: no correlation-trained judge becomes competi
 
 Full tables: [results/tables.md](results/tables.md). Figure: [fig_restarts_vs_n.png](fig_restarts_vs_n.png). Reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Regenerate with `python3 experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/make_report.py`.
 
-**TLDR-end:** [judge objectives: experiment 07] A 5× optimizer budget and best-of-5 restarts improve the correlation objectives' training fit but leave every held-out test RPS crossover unchanged, so experiments 13 and 06 do not hinge on the optimizer.
+**TLDR-end:** [judge objectives: experiment 07] A larger optimizer budget and best-of-five restarts improve the correlation objectives' training fit but leave every held-out test RPS crossover unchanged, within the tested L-BFGS-B budgets and starts; global optimization remains unresolved.

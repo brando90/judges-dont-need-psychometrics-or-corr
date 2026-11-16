@@ -11,41 +11,52 @@ The identification study above selects among fixed candidates.
 We now train a flexible judge and ask how many ratings proper-loss training needs before it beats correlation training on held-out data.
 
 \paragraph{Setup.}
-Each synthetic task has a feature $x\sim\mathrm{Unif}[-1,1]$ and ratings $R\mid x\sim\mathrm{BetaBin}\big(5,\mu(x)\kappa(x),(1-\mu(x))\kappa(x)\big)$ with mean $5\mu(x)$; a smaller $\kappa$ means more rater disagreement.
+Each synthetic task has a feature $x\sim\mathrm{Unif}[-1,1]$ and ratings $R\mid x\sim\mathrm{BetaBin}\big(5,\mu(x)\kappa(x),(1-\mu(x))\kappa(x)\big)$ with mean $5\mu(x)$; at a fixed mean, smaller concentration $\kappa$ means greater rating variance.
 Four targets place their information differently.
-(A) The mean is nearly constant, $\mu=0.5+0.08x$, while disagreement $\kappa(x)=e^{1.5+2.2\cos(1.5\pi x)}$ varies about 80-fold.
-(B) The mean is nonlinear, $\mu=0.1+0.8\big(\tfrac{x+1}{2}\big)^2$, with the same varying disagreement.
+(A) The mean is nearly constant, $\mu=0.5+0.08x$, while concentration $\kappa(x)=e^{1.5+2.2\cos(1.5\pi x)}$ varies about 80-fold.
+(B) The mean is nonlinear, $\mu=0.1+0.8\big(\tfrac{x+1}{2}\big)^2$, with the same varying concentration.
 (C) B's mean with constant $\kappa=e^{1.5}$.
-(D) A linear mean, $\mu=0.5+0.35x$, with constant $\kappa=e^{1.5}$; this is the case most favorable to correlation.
+Constant concentration does not imply constant rating variance, which also depends on $\mu$.
+(D) A linear mean, $\mu=0.5+0.35x$, with constant $\kappa=e^{1.5}$; this tests an informative linear mean.
 The judge is a softmax over the six ratings of a linear map of 13 cosine and sine features of $x$.
 It is trained on $n$ tasks with three ratings each by CE, by RPS, or by Pearson correlation between its expected rating and each task's mean rating.
 In A and B we also train with smooth surrogates of Spearman and Kendall correlation and an equal Pearson--Spearman mix.
-All fits use the ridge penalty $\frac{1}{n}\|W\|^2$ and L-BFGS-B started at the training rating histogram; we also tune the ridge strength by four-fold cross-validation over the training tasks.
-Each judge is scored on 500 fresh tasks against the true distribution, with 100 seeds per size and paired 95\% bootstrap intervals over seeds.
+Every fixed-ridge fit, whatever its objective, uses penalty $\frac{1}{n}\|W\|^2$ and L-BFGS-B with at most 400 iterations and 600 evaluations, initialized from the log training histogram plus seeded Gaussian weight noise of standard deviation $0.01$.
+We also select $c\in\{0.01,0.1,1,10,100\}$ for penalty $\frac{c}{n}\|W\|^2$ by pooled four-fold validation RPS within the training tasks; Pearson fits additionally use validation correlation.
+Ties favor larger $c$; undefined validation correlations fall back to $c=1$.
+Each judge is scored on 500 fresh tasks against the true distribution, with 100 seeds per size and paired 95\% percentile bootstrap intervals over seeds (10,000 draws).
+These are pointwise intervals, not simultaneous guarantees across training sizes; A and B reuse earlier synthetic tasks, but test tasks never enter fitting or ridge selection.
 Procedures and predictions were committed before measurement.
+A review found that the inherited CE code floors probabilities in its value but not its gradient; refitting every CE-trained judge with an exact gradient changed none of the numbers reported here.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_ratings_needed.pdf}
-\caption{\textbf{Ratings needed before proper-loss training wins.} Held-out test RPS excess over the true distribution (log scale; lower is better) against training ratings, for judges trained by CE or by Pearson correlation and for a constant training-histogram forecast, in four synthetic targets. Dotted lines mark the size from which the CE-trained judge is significantly better at every larger size (paired 95\% bootstrap over 100 seeds). Judges are fitted by L-BFGS-B with ridge $\frac{1}{n}\|W\|^2$; CE is convex in $W$, Pearson is not.}
+\caption{\textbf{Ratings needed before proper-loss training wins.} Held-out test ranked probability score (RPS) excess, the mean squared cumulative-probability gap to truth ($[0,1]$; zero is optimal; log scale; lower is better) against training ratings, for judges trained by CE or by Pearson correlation and for a constant training-histogram forecast, in four synthetic targets.
+Dotted lines mark the size from which the CE-trained judge is significantly better at every larger tested size (paired 95\% percentile bootstrap over 100 seeds, 10,000 draws).
+The 78-weight softmax judges minimize train CE or negative train Pearson plus $\frac{1}{n}\|W\|^2$, using L-BFGS-B (400 iterations, 600 evaluations) from the perturbed training histogram.
+CE fitting is convex and every exact-gradient CE refit converged; Pearson fitting is non-convex and has no global-optimum guarantee.}
 \label{fig:ratings}
 \end{figure}
 
 \paragraph{Results.}
-Wherever the mean carries information (B, C and D, including the linear case), the CE-trained judge has significantly lower held-out RPS than the Pearson-trained judge at every size from 12 ratings (Figure~\ref{fig:ratings}).
+In the three targets with an informative mean (B, C and D, including the linear case), the CE-trained judge has significantly lower held-out RPS than the Pearson-trained judge at every tested size from 12 ratings (Figure~\ref{fig:ratings}).
 Correlation training wins only in A, where the mean is nearly constant: up to 96 ratings, with CE better from 192.
-Rank and mixed correlation objectives do no better; at 2,048 tasks their held-out RPS excess is 9--26 times the CE-trained judge's in B and 37--46 times in A.
+Rank and mixed correlation training also remain worse than CE training at large sizes.
+At 2,048 tasks, all four correlation-trained judges have held-out RPS excess 8.8--25.5 times the CE-trained judge's in B; in A the ratios are 36.5--45.8.
 At large sizes the Pearson-trained judge's held-out RPS is worse than the constant forecast's in every target, while its correlation with the true mean reaches 0.85--0.99.
 Even on correlation, the CE-trained judge's held-out correlation with the true mean is never significantly lower until the Pearson-trained judge overtakes, from 1,536 ratings in B and C and 3,072 in D, and never in A.
 
-Two checks support these results.
-First, the correlation objectives are not convex, and their fits rarely converge: no Pearson fit with 32 or more tasks converged within 400 iterations.
-Refitting with five times the budget and the best of five starts (30 seeds, up to 1,024 tasks) usually improved the training correlation but left every held-out RPS crossover unchanged.
-Second, tuning the ridge on validation data moved A's crossover to 96 ratings, but the choice was noisy with 16 or fewer training tasks.
+We checked the optimizer and the ridge.
+First, the correlation objectives are not convex, and many of their fits stop at the iteration limit: none of the 360 Pearson fits at 32--1,024 tasks in the optimizer check converged within 400 iterations.
+Raising the limits to 2,000 iterations and 4,000 evaluations and selecting the best of five starts by the penalized training objective (30 seeds, up to 1,024 tasks) left every held-out RPS crossover unchanged.
+This checks budget and initialization sensitivity within L-BFGS-B; it does not establish optimizer independence.
+Second, with ridge strengths chosen on validation data (by RPS for CE, by correlation for Pearson), the crossover moved to 96 ratings in A and 48 in D and stayed at 12 in the other two targets.
+With 16 or fewer training tasks the chosen ridge varied widely across seeds, and the tuned CE-trained judge was significantly worse than the fixed-ridge Pearson-trained judge at 12--48 ratings in A and at 12 in D.
 
 \paragraph{Interpretation.}
-Correlation training helps at small sample sizes only when the target's structure lies in higher moments that few ratings cannot pin down and its mean carries little signal.
-Matching the mean while keeping the average spread is then the best early strategy.
-Where the mean is informative, the loss-trained judge learns it at least as fast.
-The ratings needed therefore depend on where the target's information lies, not on its complexity alone: B is as complex as A but needs 12 ratings.
+Among these four targets, fixed-ridge Pearson training helps at small sample sizes only in A, where the mean carries little signal.
+The results are consistent with regularization helping when few ratings constrain the distribution poorly; they do not identify the best possible small-sample strategy.
+In B, C and D, fixed-ridge CE training achieves lower test RPS from the smallest tested size.
+The contrast between A and B suggests that where the information lies matters, beyond varying concentration alone.
 These results use one input feature and one judge family; which regime human ratings occupy is open.

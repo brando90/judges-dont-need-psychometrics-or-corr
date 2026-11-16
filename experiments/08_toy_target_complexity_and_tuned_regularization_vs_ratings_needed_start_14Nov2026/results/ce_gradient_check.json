@@ -1,0 +1,393 @@
+{
+ "what": "Post-hoc check (added 11-16-2026, Mega QA finding QA1-F1): does the inconsistent cross-entropy (CE) gradient in\nexperiment 13's frozen objective code change any saved result of experiments 07, 08 or 13?",
+ "exact_ce": "value -sum p log softmax(z) via log-sum-exp; gradient softmax(z) - p",
+ "metric_tolerance": 1e-09,
+ "exp08": {
+  "ce_fixed": {
+   "rows": 4400,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 1.0579731535287351e-13,
+    "ce_excess": 6.194489365896061e-13,
+    "pearson": 5.967254468330907e-12,
+    "spearman": 0.0,
+    "tvd_from_constant": 7.412404023909858e-13
+   }
+  },
+  "ce_valrps": {
+   "rows": 4400,
+   "rows_with_a_metric_difference_above_1e-9": 338,
+   "selection_changes": 1,
+   "max_abs_difference": {
+    "rps_excess": 0.00022999981575327856,
+    "ce_excess": 0.007009129891413467,
+    "pearson": 0.0022094806589944005,
+    "spearman": 0.00459813039252166,
+    "tvd_from_constant": 0.0048007210076970175
+   }
+  },
+  "exact_ce_fits": 95291,
+  "exact_ce_fits_scipy_converged": 95291,
+  "exact_ce_evaluations": 2692104,
+  "evaluations_with_an_observed_rating_below_1e-6": 3,
+  "rows_with_such_an_evaluation": 3,
+  "ce_valrps_rows_that_moved": {
+   "by_chosen_ridge": {
+    "0.01": 337,
+    "0.1": 1,
+    "1": 0,
+    "10": 0,
+    "100": 0
+   },
+   "by_training_tasks": {
+    "4": 8,
+    "8": 2,
+    "20": 2,
+    "64": 6,
+    "128": 38,
+    "256": 85,
+    "512": 99,
+    "1024": 59,
+    "2048": 39
+   },
+   "ridge_changes": [
+    {
+     "scenario": "C",
+     "n": 256,
+     "seed": 7,
+     "saved_c": 0.01,
+     "exact_c": 0.1
+    }
+   ],
+   "largest_test_rps_excess_change": 0.00022999981575327856
+  },
+  "reported_quantities_that_change": {
+   "cell_means": {},
+   "crossovers": {},
+   "tuned_ce_significantly_worse_at": {},
+   "tuned_ce_ridge_mode": {
+    "C/256": {
+     "saved": "0.01 (69%)",
+     "exact_ce": "0.01 (68%)"
+    }
+   }
+  },
+  "reported_quantities_compared": {
+   "cell_means": 88,
+   "crossovers": 20,
+   "tuned_ce_significantly_worse_at": 12,
+   "tuned_ce_ridge_mode": 44
+  },
+  "crossovers_in_tasks": {
+   "A/ce_fixed_vs_pearson_fixed": 64,
+   "A/ce_valrps_vs_pearson_valcorr": 32,
+   "A/ce_valrps_vs_pearson_fixed": 64,
+   "A/ce_valrps_vs_pearson_valrps": 20,
+   "A/ce_valrps_vs_constant": 4,
+   "B/ce_fixed_vs_pearson_fixed": 4,
+   "B/ce_valrps_vs_pearson_valcorr": 4,
+   "B/ce_valrps_vs_pearson_fixed": 4,
+   "B/ce_valrps_vs_pearson_valrps": 4,
+   "B/ce_valrps_vs_constant": 4,
+   "C/ce_fixed_vs_pearson_fixed": 4,
+   "C/ce_valrps_vs_pearson_valcorr": 4,
+   "C/ce_valrps_vs_pearson_fixed": 4,
+   "C/ce_valrps_vs_pearson_valrps": 4,
+   "C/ce_valrps_vs_constant": 4,
+   "D/ce_fixed_vs_pearson_fixed": 4,
+   "D/ce_valrps_vs_pearson_valcorr": 16,
+   "D/ce_valrps_vs_pearson_fixed": 16,
+   "D/ce_valrps_vs_pearson_valrps": 16,
+   "D/ce_valrps_vs_constant": 4
+  }
+ },
+ "exp13": {
+  "ce_exact_vs_saved": {
+   "rows": 2200,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps": 1.058875209736243e-13,
+    "rps_excess": 1.0577649867116179e-13,
+    "ce": 6.188383139260623e-13,
+    "ce_excess": 6.191713808334498e-13,
+    "tvd": 3.9324099532223045e-13,
+    "pearson": 3.0627722580334193e-12,
+    "spearman": 0.0
+   }
+  },
+  "exact_vs_frozen_ce_same_machine": {
+   "ce": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 1.0577649867116179e-13,
+     "rps_excess": 1.0579731535287351e-13,
+     "ce": 6.192824031359123e-13,
+     "ce_excess": 6.194489365896061e-13,
+     "tvd": 3.9335201762469296e-13,
+     "pearson": 5.967254468330907e-12,
+     "spearman": 0.0
+    }
+   },
+   "rps": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 0.0,
+     "rps_excess": 0.0,
+     "ce": 0.0,
+     "ce_excess": 0.0,
+     "tvd": 0.0,
+     "pearson": 0.0,
+     "spearman": 0.0
+    }
+   },
+   "pearson": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 0.0,
+     "rps_excess": 0.0,
+     "ce": 0.0,
+     "ce_excess": 0.0,
+     "tvd": 0.0,
+     "pearson": 0.0,
+     "spearman": 0.0
+    }
+   },
+   "pearson_head": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 2.858824288409778e-14,
+     "rps_excess": 2.86090595658095e-14,
+     "ce": 8.149037000748649e-14,
+     "ce_excess": 8.171241461241152e-14,
+     "tvd": 1.308397834520747e-13,
+     "pearson": 3.0520030946945553e-13,
+     "spearman": 0.0
+    }
+   }
+  },
+  "evaluations_with_an_observed_rating_below_1e-6": 0,
+  "note_on_saved_pearson_rows": "Not a CE effect: rerunning the frozen code on this machine reproduces the saved CE and RPS fits, but the non-convex Pearson fits (and the head fitted on their score) differ from the saved rows, which were computed on another machine; see the max differences below and experiment 07's README.",
+  "frozen_rerun_vs_saved_rows": {
+   "ce": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 4.1022740759899534e-14,
+     "rps_excess": 4.1012332419043673e-14,
+     "ce": 3.3795188869589765e-13,
+     "ce_excess": 3.380073998471289e-13,
+     "tvd": 3.5265540487827707e-13,
+     "pearson": 5.9653532114012364e-12,
+     "spearman": 0.0
+    }
+   },
+   "rps": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 0,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 1.304512053934559e-15,
+     "rps_excess": 1.2260158166466084e-15,
+     "ce": 8.43769498715119e-15,
+     "ce_excess": 8.788109129298505e-15,
+     "tvd": 8.701372955499664e-15,
+     "pearson": 1.6586731987899839e-13,
+     "spearman": 0.0
+    }
+   },
+   "pearson": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 2198,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 0.008200917736238822,
+     "rps_excess": 0.008200917736238766,
+     "ce": 0.07417716002932195,
+     "ce_excess": 0.07417716002932184,
+     "tvd": 0.01876170040823838,
+     "pearson": 1.0763149550557771,
+     "spearman": 0.8918841755367021
+    }
+   },
+   "pearson_head": {
+    "rows": 2200,
+    "rows_with_a_metric_difference_above_1e-9": 2198,
+    "selection_changes": 0,
+    "max_abs_difference": {
+     "rps": 0.40036416847345313,
+     "rps_excess": 0.400364168473453,
+     "ce": 10.010197520931065,
+     "ce_excess": 10.010197520931063,
+     "tvd": 0.5920918751994765,
+     "pearson": 0.8652757300171046,
+     "spearman": 0.8530083143015218
+    }
+   }
+  },
+  "dense_grid_reference": {
+   "A/ce": {
+    "exact_vs_frozen_same_machine": {
+     "rps": 2.7755575615628914e-17,
+     "rps_excess": 0.0,
+     "ce": 0.0,
+     "ce_excess": 2.6020852139652106e-18,
+     "tvd": 3.469446951953614e-18,
+     "pearson": 1.1102230246251565e-16,
+     "spearman": 0.0
+    },
+    "exact_vs_saved": {
+     "rps": 0.0,
+     "rps_excess": 1.2414114874959026e-17,
+     "ce": 0.0,
+     "ce_excess": 1.0213184464813452e-16,
+     "tvd": 1.7520707107365752e-16,
+     "pearson": 2.55351295663786e-15,
+     "spearman": 0.0
+    },
+    "exact_rps_excess": 0.00027755488970059695,
+    "saved_rps_excess": 0.00027755488970060936
+   },
+   "A/pearson_head": {
+    "exact_vs_frozen_same_machine": {
+     "rps": 0.0,
+     "rps_excess": 8.673617379884035e-19,
+     "ce": 0.0,
+     "ce_excess": 0.0,
+     "tvd": 2.7755575615628914e-17,
+     "pearson": 2.220446049250313e-16,
+     "spearman": 0.0
+    },
+    "exact_vs_saved": {
+     "rps": 1.7975696542382735e-07,
+     "rps_excess": 1.7975696544811348e-07,
+     "ce": 5.17182543902095e-07,
+     "ce_excess": 5.171825439159727e-07,
+     "tvd": 1.0617863699380337e-06,
+     "pearson": 2.8667386014702423e-05,
+     "spearman": 4.3482752717705075e-05
+    },
+    "exact_rps_excess": 0.007184402650822294,
+    "saved_rps_excess": 0.007184582407787742
+   },
+   "B/ce": {
+    "exact_vs_frozen_same_machine": {
+     "rps": 0.0,
+     "rps_excess": 1.1709383462843448e-17,
+     "ce": 0.0,
+     "ce_excess": 0.0,
+     "tvd": 2.220446049250313e-16,
+     "pearson": 0.0,
+     "spearman": 0.0
+    },
+    "exact_vs_saved": {
+     "rps": 1.3877787807814457e-15,
+     "rps_excess": 1.3287981825982342e-15,
+     "ce": 4.440892098500626e-16,
+     "ce_excess": 1.214306433183765e-16,
+     "tvd": 2.030320356283255e-14,
+     "pearson": 1.021405182655144e-14,
+     "spearman": 0.0
+    },
+    "exact_rps_excess": 0.0034665592802813477,
+    "saved_rps_excess": 0.003466559280280019
+   },
+   "B/pearson_head": {
+    "exact_vs_frozen_same_machine": {
+     "rps": 0.0,
+     "rps_excess": 1.734723475976807e-18,
+     "ce": 0.0,
+     "ce_excess": 1.3877787807814457e-17,
+     "tvd": 2.7755575615628914e-17,
+     "pearson": 2.220446049250313e-16,
+     "spearman": 9.59522406396296e-06
+    },
+    "exact_vs_saved": {
+     "rps": 4.524760260332661e-06,
+     "rps_excess": 4.524760260207761e-06,
+     "ce": 1.1696851279774378e-05,
+     "ce_excess": 1.1696851280121323e-05,
+     "tvd": 3.0189777961708852e-06,
+     "pearson": 3.332543123657494e-05,
+     "spearman": 2.8328763798213252e-05
+    },
+    "exact_rps_excess": 0.005724165007108594,
+    "saved_rps_excess": 0.005719640246848386
+   }
+  }
+ },
+ "exp07": {
+  "ce/orig": {
+   "rows": 540,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 1.0579731535287351e-13,
+    "ce_excess": 6.194489365896061e-13,
+    "pearson": 5.967254468330907e-12,
+    "spearman": 0.0
+   },
+   "success_flag_changes": 0
+  },
+  "ce/long": {
+   "rows": 540,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 1.0579731535287351e-13,
+    "ce_excess": 6.194489365896061e-13,
+    "pearson": 5.967254468330907e-12,
+    "spearman": 0.0
+   },
+   "success_flag_changes": 0
+  },
+  "pearson_head/orig": {
+   "rows": 540,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 2.86090595658095e-14,
+    "ce_excess": 8.171241461241152e-14,
+    "pearson": 4.4797499043625066e-14,
+    "spearman": 0.0
+   },
+   "success_flag_changes": 0
+  },
+  "pearson_head/long": {
+   "rows": 540,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 3.5839387013680835e-15,
+    "ce_excess": 3.672062653947705e-14,
+    "pearson": 3.164135620181696e-14,
+    "spearman": 0.0
+   },
+   "success_flag_changes": 0
+  },
+  "pearson_head/best": {
+   "rows": 540,
+   "rows_with_a_metric_difference_above_1e-9": 0,
+   "selection_changes": 0,
+   "max_abs_difference": {
+    "rps_excess": 7.353492814665685e-15,
+    "ce_excess": 3.634592626866606e-14,
+    "pearson": 2.942091015256665e-14,
+    "spearman": 0.0
+   },
+   "success_flag_changes": 0
+  },
+  "evaluations_with_an_observed_rating_below_1e-6": 0
+ },
+ "runtime_seconds": 161
+}

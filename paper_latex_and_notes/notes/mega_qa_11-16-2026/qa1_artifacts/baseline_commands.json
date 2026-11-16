@@ -1,0 +1,50 @@
+[
+  {
+    "command": "python3 paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/rps_appendix_examples.py",
+    "exit_code": 0,
+    "seconds": 0.43,
+    "log": "baseline_00.log"
+  },
+  {
+    "command": "python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_paper_figure.py",
+    "exit_code": 0,
+    "seconds": 2.53,
+    "log": "baseline_01.log"
+  },
+  {
+    "command": "python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/make_report.py",
+    "exit_code": 0,
+    "seconds": 10.18,
+    "log": "baseline_02.log"
+  },
+  {
+    "command": "python3 experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/make_report.py",
+    "exit_code": 0,
+    "seconds": 2.93,
+    "log": "baseline_03.log"
+  },
+  {
+    "command": "python3 experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/make_report.py",
+    "exit_code": 0,
+    "seconds": 6.67,
+    "log": "baseline_04.log"
+  },
+  {
+    "command": "python3 experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/scripts/plot_without_head_and_crossover.py",
+    "exit_code": 0,
+    "seconds": 3.95,
+    "log": "baseline_05.log"
+  },
+  {
+    "command": "python3 experiments/archive/verify_migration.py",
+    "exit_code": 0,
+    "seconds": 0.18,
+    "log": "baseline_06.log"
+  },
+  {
+    "command": "make -C paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL",
+    "exit_code": 0,
+    "seconds": 2.9,
+    "log": "baseline_07.log"
+  }
+]

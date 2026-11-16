@@ -30,10 +30,18 @@ One judge family (softmax over the 6 ratings of a linear map of 13 cosine/sine f
 
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
-| RPS excess | Judge's RPS minus the true distribution's RPS = mean over 5 thresholds of (Q(k) − P(k))² | 0 (perfect) upward | Lower |
-| CE excess | KL(true ‖ judge), natural log | 0 upward, nats | Lower |
+| RPS excess | Judge's RPS minus the true distribution's RPS = mean over 5 thresholds of (Q(k) − P(k))² | 0 to 1 (0 is perfect) | Lower |
+| CE excess | Kullback–Leibler divergence KL(true ‖ judge), natural log | 0 upward, nats | Lower |
 | Test Pearson | Correlation between the judge's expected rating and the true mean rating across test tasks; undefined (constant judge) counted as 0 | −1 to 1 | Higher |
 | Distance from constant | Mean total variation distance between the judge's test forecasts and the constant forecast | 0 to 1 | Descriptive |
+
+The original report counts undefined test correlations as zero; that is a reporting convention, not a defined Pearson value. The raw file retains these undefined values: all 4,400 constant-forecast rows, plus one row (C, n = 4, seed 9) for each of the three Pearson-trained variants. Thus that cell has 99 defined correlations and one substituted zero per Pearson variant; all distribution-loss values remain defined. The constant is omitted from the correlation plot.
+
+## How the judges were fitted
+
+Each fit uses at most 400 L-BFGS-B iterations and 600 function evaluations, starting from the log training histogram (bins floored at 0.001) plus seeded Gaussian weight noise with standard deviation 0.01. The penalty is (c/n)‖W‖². Four-fold cross-validation pools predictions from all held-out training folds; ties within 1e-12 choose the larger c. When every validation correlation is undefined, c = 1 is used and the row is flagged (one row: C, n = 4, seed 9). No global-optimum certificate was recorded.
+
+The scenario descriptions use κ as a concentration parameter. Fixed κ in C and D still allows rating variance 5μ(1−μ)(κ+5)/(κ+1) to change with μ. A has a small nonzero mean trend, not literally “disagreement only”.
 
 ## How to read a difference
 
@@ -41,6 +49,12 @@ One judge family (softmax over the 6 ratings of a linear map of 13 cosine/sine f
 
 ## Uncertainty
 
-95% percentile bootstrap intervals over the 100 seeds (10,000 draws). No p-values were computed. Synthetic toy that works by construction; not evidence about real ratings.
+95% percentile bootstrap intervals over the 100 seeds (10,000 draws). No p-values were computed. Evidence is limited to the stated synthetic family; it does not establish performance on real ratings.
+
+## Numerical QA note (11-16-2026)
+
+The inherited `experiments/archive/13_*/scripts/toy.py::ce_loss_grad` clips and renormalizes probabilities before evaluating CE, but returns a gradient that is inconsistent when clipping is active. This is a real implementation defect, not a failure of CE propriety. A bounded check encountered it in experiment 08's validation search (C, n = 4, seed 9, c = 0.1); replacing it in memory with stable log-softmax CE left that row's selected metrics unchanged to numerical precision. Resolved 11-16-2026: refitting every CE fit of experiments 07, 08 and 13 with an exact CE (log-sum-exp value, exact gradient, no floor) changed no reported number. Every fixed-ridge CE fit and every calibrated head agrees to within 1e-9. In experiment 08, 338 of the 4,400 validation-tuned CE judges (337 of them at the weakest ridge, c = 0.01, where the floor flattens the objective) move by at most 0.00023 in test RPS excess, and one ridge choice changes (C, n = 256, seed 7: 0.01 to 0.1); no cell mean at the printed precision, crossover or hypothesis check changes, and one chosen-ridge share moves from 69% to 68%. All 95,291 exact-CE refits of experiment 08 converged (scipy's flag). Measurement sources and saved rows are unchanged. Evidence: [results/ce_gradient_check.json](results/ce_gradient_check.json), from [scripts/check_ce_gradient.py](scripts/check_ce_gradient.py). See the [stage-1 report](../../paper_latex_and_notes/notes/mega_qa_11-16-2026/qa1_codex.md).
+
+The bootstrap intervals are pointwise and crossovers range only over the tested training sizes, not every possible sample size. They do not provide simultaneous 95% coverage across all comparisons. Scenarios A and B reuse earlier synthetic tasks; test tasks are excluded from each fit and validation selection.
 
 **TLDR-end:** [judge objectives: experiment 08] Same tasks for every judge; names say how each judge was trained and tuned; all scores are test scores against the true distribution.

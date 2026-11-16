@@ -23,7 +23,7 @@ NAMES = {"ce": "CE-trained (④)", "rps": "RPS-trained", "pearson": "Pearson-tra
          "spearman": "Spearman-trained", "kendall": "Kendall-trained", "pearson_spearman": "½ Pearson + ½ Spearman-trained"}
 COL = {"ce": "tab:blue", "rps": "tab:green", "pearson": "tab:red", "pearson_head": "tab:orange", "spearman": "tab:purple",
        "kendall": "tab:brown", "pearson_spearman": "tab:pink"}
-METRICS = {"rps_excess": "Held-out test RPS excess\nover the true distribution", "ce_excess": "Held-out test CE excess = KL(true ‖ judge)\nover the true distribution (nats)"}
+METRICS = {"rps_excess": "Held-out test ranked probability\nscore (RPS) excess over truth", "ce_excess": "Held-out test cross-entropy (CE) excess\n= Kullback–Leibler divergence\n(true ‖ judge), nats"}
 SCEN = {"A": "Scenario A: mean nearly constant, spread varies", "B": "Scenario B: mean is a monotone nonlinear function"}
 rng = np.random.default_rng(0)
 
@@ -115,12 +115,14 @@ for i, sc in enumerate("AB"):
             ax.annotate(f"CE beats {', '.join(names)}\nfrom n = {start} ({3 * start} ratings)", xy=(start, 0.03 + 0.12 * q),
                         xycoords=("data", "axes fraction"), xytext=(4, 0), textcoords="offset points", fontsize=7, va="bottom")
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
-        ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
+        ax.set_ylabel(METRICS[met] + "\n(lower is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
 h, l = axs[0, 0].get_legend_handles_labels()
 fig.legend(h, l, loc="upper center", ncol=4, fontsize=8, bbox_to_anchor=(0.5, 0.965))
-fig.suptitle("Experiment 07: dashed with dots = best of 5 starts with 5× budget; faint solid = original single start and budget. Bands: 95% bootstrap over 30 seeds.", fontsize=9.5)
-fig.tight_layout(rect=(0, 0, 1, 0.91))
+fig.suptitle("Experiment 07: dashed = larger budget and best of 5 (CE: one start); faint solid = original. Bands: 95% bootstrap over 30 seeds.", fontsize=9.5)
+fig.text(0.5, 0.012, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². Original: 400/600; long: 2,000/4,000 iterations/evaluations; starts chosen by train objective.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
+fig.tight_layout(rect=(0, 0.07, 1, 0.91))
 fig.savefig(os.path.join(HERE, "fig_restarts_vs_n.png"), dpi=130)
+L.insert(0, '# Generated results: experiment 07\n\nSynthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 30 seeds per scenario and size. Earlier A/B tasks are reused.\n\nRanked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).\n\nSame 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Long condition: 2,000 iterations / 4,000 evaluations. Best condition: minimum penalized training objective over five starts; CE uses one long start, and the head is refitted once on the selected Pearson score.\n\nUncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.\n\n')
 open(os.path.join(HERE, "results", "tables.md"), "w").write("\n".join(L) + "\n")
 print("\n".join(L))

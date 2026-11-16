@@ -1,3 +1,14 @@
+# Generated results: experiment 07
+
+Synthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 30 seeds per scenario and size. Earlier A/B tasks are reused.
+
+Ranked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).
+
+Same 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Long condition: 2,000 iterations / 4,000 evaluations. Best condition: minimum penalized training objective over five starts; CE uses one long start, and the head is refitted once on the selected Pearson score.
+
+Uncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.
+
+
 Cells with all 30 seeds: n = [4, 8, 16, 32, 64, 128, 256, 512, 1024].
 
 ## Convergence of the original fits (400 iterations, 600 evaluations): % of fits where scipy reports success / % that hit the budget

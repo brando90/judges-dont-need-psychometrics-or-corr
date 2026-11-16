@@ -25,10 +25,12 @@ One judge family (softmax of a linear map of 13 cosine/sine features of the task
 
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
-| RPS excess | Judge's RPS minus the true distribution's RPS = mean over 5 thresholds of (Q(k) − P(k))², Q judge and P true cumulative probabilities | 0 (perfect) upward | Lower |
+| RPS excess | Judge's RPS minus the true distribution's RPS = mean over 5 thresholds of (Q(k) − P(k))², Q judge and P true cumulative probabilities | 0 to 1 (0 is perfect) | Lower |
 | CE excess | KL(true ‖ judge), natural log | 0 (perfect) upward, nats | Lower |
 | TVD | 0.5 Σ_r abs(q(r) − p(r)) against the true distribution | 0 to 1 | Lower |
 | Spearman / Pearson | Correlation between the judge's expected rating and the **true** mean rating across test tasks | −1 to 1 | Higher |
+
+The saved “n to infinity” rows and dotted lines are fitted and scored on the same 4,000-point grid of true distributions with near-zero ridge. They are in-sample numerical references, not held-out evaluations or proved limits.
 
 The power-law fits and "tasks needed" counts are fitted to the seed-mean test excess as a function of n. They are not bounds.
 
@@ -38,10 +40,10 @@ The power-law fits and "tasks needed" counts are fitted to the seed-mean test ex
 
 ## How the judges were fitted
 
-Every judge is fitted by L-BFGS-B with analytic gradients, at most 400 iterations and 600 function evaluations, ridge penalty (1/n)‖W‖², starting from the training rating histogram everywhere plus a tiny seeded perturbation (`toy.fit`, `toy.marginal_W0`). The CE objective is convex in W (multinomial logistic regression), so its result does not depend on the optimizer once converged. The RPS and Pearson objectives are bounded, non-constant functions of W and therefore not convex, so their curves reflect this optimizer, start and budget; the Pearson fit constrains only the mean up to an affine map and leaves the rest of the distribution to the start and the ridge. Convergence within the budget was not recorded.
+Every judge is fitted by L-BFGS-B with analytic gradients, at most 400 iterations and 600 function evaluations, ridge penalty (1/n)‖W‖², starting from the training rating histogram everywhere plus a tiny seeded perturbation (`toy.fit`, `toy.marginal_W0`). Softmax CE plus ridge is convex in W. The frozen implementation floors probabilities at 1e-6 in the loss value but not in its gradient; on 11-16-2026 an exact-gradient refit of every CE fit, calibrated head and dense-grid CE reference, run on one machine against the frozen code, changed nothing by more than 1e-9, and the exact-gradient CE fits all converged (evidence: [ce_gradient_check.json](../../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json)). The unpenalized RPS and Pearson objectives are bounded and nonconstant; this proves non-convexity before ridge, not after adding the unbounded penalty. The penalized fits have no global-optimum certificate, so their curves reflect this optimizer, start and budget; the Pearson fit constrains only the mean up to an affine map and leaves the rest of the distribution to the start and the ridge. Convergence within the budget was not recorded.
 
 ## Uncertainty
 
-95% bootstrap intervals over the 100 seeds. No p-values were computed. This is a toy that works by construction; it is not evidence about real ratings.
+The frozen report uses 2,000 draws for score intervals and 300 for power-law parameter intervals. The added plot script uses 10,000 draws for 95% percentile bootstrap intervals over the 100 seeds. No p-values were computed. This is a toy that works by construction; it is not evidence about real ratings.
 
 **TLDR-end:** [judge objectives: experiment 13] Every number is a test-task score against the true distribution; fit names say how each judge was trained.

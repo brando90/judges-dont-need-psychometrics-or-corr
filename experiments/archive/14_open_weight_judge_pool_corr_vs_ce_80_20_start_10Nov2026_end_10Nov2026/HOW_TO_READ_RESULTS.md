@@ -25,7 +25,7 @@ Splits group whole tasks, not task families. **Prior exposure:** the 75 artifact
 
 ## Metrics and differences
 
-Metrics are defined exactly as in experiment 12: ranked probability score (RPS; main; 0 to 1, lower is better), CE (nats, lower is better), TVD (0 to 1, lower is better), Spearman and Pearson (−1 to 1, higher is better).
+Metrics are defined exactly as in experiment 12: ranked probability score (RPS; main; 0 to 1, lower is better), cross-entropy (CE; mean −ln q of an individual rating, 0 upward in nats, lower is better), total variation distance (TVD; half the absolute probability differences from the empirical histogram, 0 to 1, lower is better), Spearman and Pearson (−1 to 1, higher is better).
 
 "② minus ④" is **the column's test metric for the ② judge minus the same test metric for the ④ judge.** For RPS, CE and TVD, positive means the ④ (loss-trained) judge did better; for correlations, positive means the ② judge did better.
 
@@ -39,8 +39,12 @@ Test RPS of each chooser, for scale:
 
 Example: on the combined pool, test RPS of the ② mixture minus test RPS of the ④ mixture = +0.0405 [+0.0237, +0.0575], so the loss-trained mixture had lower (better) test RPS.
 
+## How the judge is chosen
+
+Cross-entropy (CE) mixture fitting uses sequential least squares programming (SLSQP) from one uniform weight vector, at most 1,000 iterations and 2,000 function/gradient evaluations, with bounded Newton polishing on the chosen face. The objective is convex; a simplex Frank–Wolfe gap at most 1e-8 certifies the numerical optimum to that tolerance. Pearson fitting uses nonnegative least squares on the centered prediction cone, with a cap of 50 times the number of nonconstant candidate columns and a checked certificate at tolerance 1e-8; it is a convex projection, with a best-vertex rule for nonpositive correlations. Single-judge selection exhaustively compares the pool. Spearman selection compares all vertices, equal weights and 4,000 seeded Dirichlet(1,…,1) candidates and guarantees only the best sampled candidate. All objectives use training artifacts only. See [run_pool.py](scripts/run_pool.py), [Pearson solver](scripts/nnls_pearson.py) and [CE solver](scripts/vendor_exp03/ce_mixture.py).
+
 ## Uncertainty
 
-95% percentile intervals from 10,000 bootstrap draws over the 25 tasks. No p-values were computed.
+95% percentile intervals from 10,000 bootstrap draws over the 25 tasks, conditional on the already fitted predictions (no refitting inside the bootstrap). No p-values were computed.
 
 **TLDR-end:** [judge objectives: experiment 14] Comparison tables are held-out test scores with experiment 12's sign convention; the per-judge table is in-sample.

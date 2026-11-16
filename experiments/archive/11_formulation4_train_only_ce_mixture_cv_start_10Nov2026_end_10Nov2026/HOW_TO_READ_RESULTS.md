@@ -6,7 +6,7 @@
 
 ## What is compared
 
-- **④ CE-trained mixture:** weights over the five cached judges chosen to minimize cross-entropy against the human ratings of the training folds.
+- **④ cross-entropy (CE)-trained mixture:** weights over the five cached judges chosen to minimize cross-entropy against the human ratings of the training folds.
 - **Comparators:** the constant (training-fold human rating histogram for every artifact), the equal-weight mixture, and the single judge with the lowest training CE.
 
 There is no correlation-trained judge in this experiment.
@@ -27,7 +27,7 @@ There is no correlation-trained judge in this experiment.
 | --- | --- | --- | --- |
 | CE (primary here) | Mean over human ratings of −ln q(rating), probability floor 1e-6 | 0 to ∞, nats | Lower |
 | Ranked probability score (RPS) | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})² | 0 to 1 | Lower |
-| TVD | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
+| Total variation distance (TVD) | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 
 ## How to read a difference
 
@@ -35,8 +35,12 @@ There is no correlation-trained judge in this experiment.
 
 Example: test RPS of the ④ mixture minus test RPS of the equal-weight mixture = −0.0129 [−0.0232, −0.0024]; the ④ judge's test RPS (0.1367) is lower than the equal-weight mixture's (0.1496).
 
+## How the judge is fitted
+
+Cross-entropy (CE) mixture fitting uses sequential least squares programming (SLSQP) from one uniform weight vector, at most 1,000 iterations and 2,000 function/gradient evaluations, with bounded Newton polishing on the chosen face. The objective is convex; a simplex Frank–Wolfe gap at most 1e-8 certifies the numerical optimum to that tolerance. The best-single baseline exhaustively compares five candidates on training CE. No validation or test objective chooses these weights. Source: [vendored solver](scripts/vendor_exp03/ce_mixture.py).
+
 ## Uncertainty
 
-95% percentile intervals from 10,000 bootstrap draws over the 25 tasks. No p-values were computed.
+95% percentile intervals from 10,000 bootstrap draws over the 25 tasks, conditional on the already fitted predictions (no refitting inside the bootstrap). No p-values were computed.
 
 **TLDR-end:** [judge objectives: experiment 11] Every score is out-of-fold on held-out tasks; differences subtract one test metric between the CE-trained mixture and a comparator.

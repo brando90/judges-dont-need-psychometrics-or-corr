@@ -1,0 +1,48 @@
+{
+  "clipping_trace": [
+    {
+      "kind": "ce",
+      "n": 3,
+      "c": 0.1,
+      "clipped_calls": [
+        {
+          "min_q": 3.136071708858948e-07,
+          "observed_clipped_mass": 0.3333333333333333
+        }
+      ],
+      "final_min_q": 0.020506462911613052
+    }
+  ],
+  "stable_ce_counterfactual": {
+    "constant": {},
+    "ce_fixed": {
+      "ce_excess": [
+        0.23982314133056148,
+        0.23982314133056154
+      ]
+    },
+    "ce_valrps": {
+      "rps_excess": [
+        0.06628612995520763,
+        0.06628612995520697
+      ],
+      "ce_excess": [
+        0.46040371941033925,
+        0.46040371941033287
+      ],
+      "pearson": [
+        0.49644595847941525,
+        0.49644595847942036
+      ],
+      "tvd_from_constant": [
+        0.2421960744197946,
+        0.242196074419796
+      ]
+    },
+    "rps_fixed": {},
+    "rps_valrps": {},
+    "pearson_fixed": {},
+    "pearson_valrps": {},
+    "pearson_valcorr": {}
+  }
+}

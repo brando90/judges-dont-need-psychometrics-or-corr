@@ -20,18 +20,22 @@ Seven selection criteria: cross-entropy (CE), Brier score, ranked probability sc
 ## The two kinds of tables
 
 - **"Exact population test metrics":** each candidate's exact expected metric on the test items. No sampling and no selection are involved.
-- **"Selection with sparse ratings":** "Oracle in selected set /256" counts how often the chosen set contains the true distribution. "Expected test CE" is the exact test CE of the chosen candidate, with ties broken uniformly at random, averaged over the 256 draws.
+- **"Selection with sparse ratings":** "Oracle in selected set /256" counts how often the chosen set contains the true distribution. "Expected test CE" is the exact test CE of the chosen candidate, uniformly averaged over tied best candidates (no tie winner is sampled), averaged over the 256 draws.
 
 ## Metrics (test items, against the true distribution)
 
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
 | CE | Expected −ln q(rating) under the true distribution | 0 to ∞, nats | Lower |
-| KL | CE minus the true distribution's entropy | 0 upward, nats | Lower |
+| Kullback–Leibler divergence (KL) | CE minus the true distribution's entropy | 0 upward, nats | Lower |
 | Brier | Σ over the six ratings of (q(r) − 1{rating = r})², expected under the truth | 0 to 2 | Lower |
 | RPS | Expected (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})² | 0 to 1 | Lower |
-| nMSE / MAE | Forecast mean vs a future individual rating, on a 0–1 scale | 0 upward | Lower |
+| nMSE / mean absolute error (MAE) | Mean squared / absolute error of the forecast mean against a future individual rating, after dividing rating differences by 5 | 0 to 1 | Lower |
 | Pearson / Spearman / Kendall | Correlation with the exact conditional mean (or a future rating, where stated) | −1 to 1 | Higher |
+
+## How a judge is chosen
+
+Selection exhaustively evaluates all nine candidates on each validation set; it guarantees the best candidate within that finite set for the stated criterion. It does not optimize over all possible conditional distributions. Tied sets are retained and their test metrics averaged uniformly. The empirical constant alone is fitted, by the training histogram; there is no iterative optimizer or initialization.
 
 ## Uncertainty
 

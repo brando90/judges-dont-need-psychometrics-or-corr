@@ -1,0 +1,19 @@
+{
+  "stage": "qa1_codex",
+  "report_sha256": "a242d124a96269104247c49202c572ec44a98e9b91e003d6d78e9896c7a456c6",
+  "tracked_files_changed": 43,
+  "local_report_links": "PASS",
+  "scope": "PASS",
+  "required_commands": "8/8 exit 0",
+  "numeric_table_rows_preserved": {
+    "06": 156,
+    "07": 104,
+    "08": 188
+  },
+  "paper_pages": 8,
+  "body_pages": 4,
+  "open_major": 1,
+  "open_minor": 1,
+  "fixed_findings": 10,
+  "verdict": "FAIL"
+}

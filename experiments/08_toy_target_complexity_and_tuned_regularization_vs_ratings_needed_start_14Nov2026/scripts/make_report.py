@@ -21,14 +21,14 @@ for line in open(os.path.join(HERE, "results", "raw.jsonl")):
 SC = "ABCD"
 NS = sorted({n for (_, n) in cells if all(len(cells.get((s, n), {})) == 100 for s in SC)})
 SCEN = {"A": "A: mean nearly constant, disagreement varies", "B": "B: nonlinear mean, disagreement varies",
-        "C": "C: nonlinear mean, constant disagreement", "D": "D: linear mean, constant disagreement"}
+        "C": "C: nonlinear mean, constant concentration κ", "D": "D: linear mean, constant concentration κ"}
 JUDGES = ["constant", "ce_fixed", "ce_valrps", "rps_valrps", "pearson_fixed", "pearson_valcorr", "pearson_valrps"]
 NAMES = {"constant": "constant (training histogram)", "ce_fixed": "CE-trained, ridge 1 (④)", "ce_valrps": "CE-trained, ridge by validation RPS (③)",
          "rps_valrps": "RPS-trained, ridge by validation RPS", "pearson_fixed": "Pearson-trained, ridge 1 (②)",
          "pearson_valcorr": "Pearson-trained, ridge by validation Pearson (①)", "pearson_valrps": "Pearson-trained, ridge by validation RPS"}
 STYLE = {"constant": ("gray", "-"), "ce_fixed": ("tab:blue", "-"), "ce_valrps": ("tab:blue", "--"), "rps_valrps": ("tab:green", "--"),
          "pearson_fixed": ("tab:red", "-"), "pearson_valcorr": ("tab:red", "--"), "pearson_valrps": ("tab:red", ":")}
-METRICS = {"rps_excess": "Held-out test RPS excess\nover the true distribution", "ce_excess": "Held-out test CE excess = KL(true ‖ judge)\nover the true distribution (nats)"}
+METRICS = {"rps_excess": "Held-out test ranked probability\nscore (RPS) excess over truth", "ce_excess": "Held-out test cross-entropy (CE) excess\n= Kullback–Leibler divergence\n(true ‖ judge), nats"}
 rng = np.random.default_rng(0)
 
 
@@ -116,7 +116,7 @@ for fname, keys in (("fig_complexity_vs_n.png", list(METRICS)), ("fig_complexity
                         lab = "③ beats ①" if a == "ce_valrps" else "④ beats ②"
                         ax.annotate(f"{lab} from n = {s}\n({3 * s} ratings)", xy=(s, 0.03 + 0.13 * q), xycoords=("data", "axes fraction"),
                                     xytext=(4, 0), textcoords="offset points", fontsize=7, va="bottom")
-                ax.set_ylabel(METRICS[key] + " (lower is better)", fontsize=8.5)
+                ax.set_ylabel(METRICS[key] + "\n(lower is better)", fontsize=8.5)
             else:
                 # Data-needed lines on test correlation: dashed = the CE-trained judge significantly higher at every larger n;
                 # dotted = the Pearson-trained judge significantly higher at every larger n (paired 95% bootstrap over seeds).
@@ -131,13 +131,35 @@ for fname, keys in (("fig_complexity_vs_n.png", list(METRICS)), ("fig_complexity
                             ax.annotate(f"{txt} at every n\nfrom {s} ({3 * s} ratings)", xy=(s, yfrac + 0.13 * q), xycoords=("data", "axes fraction"),
                                         xytext=(xo, 0), textcoords="offset points", fontsize=7, va="bottom", ha=ha)
                     q += 1
-                ax.set_ylabel("Held-out test Pearson correlation\n(judge's expected rating vs true mean) (higher is better)", fontsize=8.5)
+                ax.set_ylabel("Held-out test Pearson correlation\n(judge's expected rating vs true mean)\n(higher is better)", fontsize=8.5)
             ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
             ax.set_title(f"Scenario {SCEN[sc]}", fontsize=9.5)
             ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
     h, l = axs[0, 0].get_legend_handles_labels()
     fig.legend(h, l, loc="upper center", ncol=2 if len(keys) == 1 else 4, fontsize=8, bbox_to_anchor=(0.5, 0.995))
-    fig.tight_layout(rect=(0, 0, 1, 0.95 if len(keys) == 1 else 0.96))
+    fig.text(0.5, 0.025, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
+    if keys == ["pearson"]:
+        fig.text(0.5, 0.006, "Undefined correlation counts as 0: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; constant omitted.", ha="center", fontsize=6.5)
+    fig.tight_layout(rect=(0, 0.07, 1, 0.95 if len(keys) == 1 else 0.96))
     fig.savefig(os.path.join(HERE, fname), dpi=120)
+
+# Added 11-16-2026 (Mega QA): prints the "Pearson-trained judge worse than the constant forecast" numbers quoted in
+# results.md. A separate bootstrap stream keeps every number above unchanged.
+rng_constant = np.random.default_rng(1)
+L.append("\n## The Pearson-trained judge (②) versus the constant forecast (added 11-16-2026)\n")
+L.append("Held-out test RPS excess of the Pearson-trained judge (②, ridge 1) minus that of the constant training-histogram forecast, "
+         "per seed (positive means ② is worse); paired 95% percentile bootstrap over 100 seeds, 10,000 draws, separate random stream.\n")
+L.append("| Scenario | smallest n from which ② is significantly worse at every larger n | mean difference at n = 2048 [95% CI] |")
+L.append("|---|---|---|")
+for sc in SC:
+    worse = []
+    for n in NS:
+        d = vals(sc, n, "pearson_fixed", "rps_excess") - vals(sc, n, "constant", "rps_excess")
+        b = d[rng_constant.integers(0, len(d), (10000, len(d)))].mean(1)
+        worse.append((d.mean(), np.percentile(b, 2.5), np.percentile(b, 97.5)))
+    start = next((NS[k] for k in range(len(NS)) if all(w[1] > 0 for w in worse[k:])), None)
+    m, lo, hi = worse[-1]
+    L.append(f"| {SCEN[sc]} | {fmt(start)} | {m:+.4f} [{lo:+.4f}, {hi:+.4f}] |")
+L.insert(0,'# Generated results: experiment 08\n\nSynthetic data: n training tasks with three sampled ratings each; 500 held-out test tasks per seed, scored against the true distribution. 100 seeds per scenario and size. Earlier A/B tasks are reused. Undefined test correlations count as zero: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; raw missingness is preserved.\n\nRanked probability score (RPS) excess is the mean squared cumulative-probability gap to truth (0 to 1; zero optimal). Cross-entropy (CE) excess is Kullback–Leibler divergence KL(true || judge), in nats (0 upward; zero optimal). Both are lower-is-better. Pearson and Spearman compare expected ratings with the true mean on test tasks (−1 to 1; higher is better).\n\nSame 78-weight softmax family; train objectives and (c/n)||W||^2 ridge. L-BFGS-B: 400 iterations / 600 evaluations; log-histogram start plus Gaussian weight noise (sd 0.01). CE is convex, and exact-gradient refits reproduce the CE fits (HOW_TO_READ_RESULTS.md); the other objectives have no global-optimum certificate. Ridge c is 1 or selected from {0.01, 0.1, 1, 10, 100} by pooled four-fold training-task validation; test tasks do not enter selection.\n\nUncertainty: paired 95% percentile bootstrap over seeds, 10,000 draws; no p-values. Intervals are pointwise. Crossovers refer to every larger tested size, not an unobserved sample size or a simultaneous-coverage guarantee.\n\n')
 open(os.path.join(HERE, "results", "tables.md"), "w").write("\n".join(L) + "\n")
 print("\n".join(L))

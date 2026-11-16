@@ -67,7 +67,7 @@ python3 experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/script
 
 Omit `--with-private` on machines without the original private inputs. For source-history and removal verification, add `--source-repo /path/to/trustworthy-theorem-judges --check-source-removed` to the first command. These checks read saved evidence; they do not fit models, regenerate ratings or overwrite results.
 
-Current importer consumers use experiment 03's canonical `historical_exp06/scripts/import_cached.py`; trustworthy-theorem-judges experiment 07 accepts `JUDGE_OBJECTIVES_REPO` for a non-sibling checkout. Commit-pinned citations to earlier source revisions remain valid and are deliberately unchanged.
+Current importer consumers use experiment 02's canonical `historical_exp06/scripts/import_cached.py`; trustworthy-theorem-judges experiment 07 accepts `JUDGE_OBJECTIVES_REPO` for a non-sibling checkout. Commit-pinned citations to earlier source revisions remain valid and are deliberately unchanged.
 
 For numerical reproduction, follow the original experiment's protocol and preserve its inputs, seeds and dependencies. Experiments 11, 12 and 14 contain recorded scratch/remote paths in dataset builders, agent-selection scripts and model launchers; those predate this migration. They are retained as frozen execution evidence, not advertised as portable entry points. Reconstruct their recorded environment from the source revision or supply an explicitly versioned adapter and verify input equivalence before a new run. Experiment 14's documented dataset builder is now in the adjacent experiment 12 directory. Report scripts for 14 expect that experiment as their working directory. No scientific run was launched by this consolidation.
 

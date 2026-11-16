@@ -1,0 +1,127 @@
+{
+  "06": {
+    "rows": 2200,
+    "complete_unique_grid": true,
+    "nonfinite_fields_retained": {},
+    "frozen_files_unchanged": [
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results/raw.jsonl",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results/run_log.txt",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/README.md",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/run_rank_sweep.py",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/rank_objectives.py"
+    ],
+    "numeric_table_rows_identical_to_baseline": 156
+  },
+  "07": {
+    "rows": 540,
+    "complete_unique_grid": true,
+    "nonfinite_fields_retained": {},
+    "frozen_files_unchanged": [
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results/raw.jsonl",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results/run_log.txt",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/README.md",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/restarts.py",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/scripts/run_restarts_sweep.py"
+    ],
+    "numeric_table_rows_identical_to_baseline": 104
+  },
+  "08": {
+    "rows": 4400,
+    "complete_unique_grid": true,
+    "nonfinite_fields_retained": {
+      ".fits.constant.pearson": 4400,
+      ".fits.constant.spearman": 4400,
+      ".fits.pearson_fixed.pearson": 1,
+      ".fits.pearson_fixed.spearman": 1,
+      ".fits.pearson_valrps.pearson": 1,
+      ".fits.pearson_valrps.spearman": 1,
+      ".fits.pearson_valcorr.pearson": 1,
+      ".fits.pearson_valcorr.spearman": 1
+    },
+    "frozen_files_unchanged": [
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/raw.jsonl",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/run_log.txt",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/README.md",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/complexity.py",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/run_sweep.py"
+    ],
+    "numeric_table_rows_identical_to_baseline": 188
+  },
+  "pearson_convergence": {
+    "orig_n_ge32_success": 0,
+    "denominator": 360,
+    "long_budget_hit": 326
+  },
+  "restart_training_selection_verified": true,
+  "fallback_rows": [
+    {
+      "scenario": "C",
+      "n": 4,
+      "seed": 9
+    }
+  ],
+  "AGENTS_CLAUDE_identical": true,
+  "tex_errors_undefined_overfull": [],
+  "underfull_count": 4,
+  "pages": 8,
+  "references_pages": [
+    4
+  ],
+  "pdf_identifying_hits": [],
+  "source_identifying_hits": [],
+  "sentence_line_checks": {
+    "00_main_aaai_2027.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "1-abstract.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "2-introduction.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "3-problem.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "4-proposal.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "5-toy-counterexample.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "5b-learning-study.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "6-case-study.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "7-discussion.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "8-appendix-rps.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "9-appendix-reliability.tex": {
+      "returncode": 0,
+      "output": ""
+    },
+    "math_commands.tex": {
+      "returncode": 0,
+      "output": ""
+    }
+  },
+  "git_diff_check": {
+    "returncode": 0,
+    "output": ""
+  },
+  "verification_kind": "deterministic Python/numerical checks and model reading; no Lean; no external reviewer dispatch"
+}

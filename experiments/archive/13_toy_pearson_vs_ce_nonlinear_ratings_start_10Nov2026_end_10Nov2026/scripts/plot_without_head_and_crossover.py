@@ -23,7 +23,7 @@ NS = sorted({r["n"] for r in rows})
 FITS = ["ce", "rps", "pearson"]
 NAMES = {"ce": "CE-trained (④)", "rps": "RPS-trained", "pearson": "Pearson-trained (②)"}
 COL = {"ce": "tab:blue", "rps": "tab:green", "pearson": "tab:red"}
-METRICS = {"rps_excess": "Held-out test RPS excess\nover the true distribution", "ce_excess": "Held-out test CE excess = KL(true ‖ judge)\nover the true distribution (nats)"}
+METRICS = {"rps_excess": "Held-out test ranked probability\nscore (RPS) excess over truth", "ce_excess": "Held-out test cross-entropy (CE) excess\n= Kullback–Leibler divergence\n(true ‖ judge), nats"}
 SCEN = {"A": "Scenario A: mean nearly constant, spread varies", "B": "Scenario B: mean is a monotone nonlinear function"}
 rng = np.random.default_rng(0)
 
@@ -56,11 +56,12 @@ for i, sc in enumerate("AB"):
         ax.set_xscale("log"); ax.set_yscale("log")
         ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
-        ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
+        ax.set_ylabel(METRICS[met] + "\n(lower is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
 axs[0, 0].legend(fontsize=8, loc="lower left")
 fig.suptitle("Experiment 13 (synthetic toy): same judge family, three training objectives. Bands: 95% bootstrap over 100 seeds.", fontsize=10)
-fig.tight_layout()
+fig.text(0.5, 0.012, "Train: 78-weight softmax, ridge (1/n)||W||²; L-BFGS-B (400 iterations / 600 evaluations), perturbed log-histogram start.\nCE is convex (exact-gradient refits match); other objectives have no global certificate. Bands: 95% percentile bootstrap, 10,000 seed draws.", ha="center", fontsize=7)
+fig.tight_layout(rect=(0, 0.07, 1, 0.95))
 out = os.path.join(HERE, "fig_excess_vs_n_without_head.png")
 fig.savefig(out, dpi=130)
 print("wrote", os.path.relpath(out))
@@ -100,11 +101,12 @@ for i, sc in enumerate("AB"):
         ax.set_xscale("log"); ax.set_yscale("log")
         ax.grid(True, which="major", alpha=0.4); ax.grid(True, which="minor", ls=":", alpha=0.2)
         ax.set_title(f"{SCEN[sc]}\n{'RPS' if met == 'rps_excess' else 'cross-entropy (CE)'} on 500 fresh test tasks per seed", fontsize=9.5)
-        ax.set_ylabel(METRICS[met] + " (lower is better)", fontsize=8.5)
+        ax.set_ylabel(METRICS[met] + "\n(lower is better)", fontsize=8.5)
         ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
 axs[0, 0].legend(fontsize=7.5, loc="upper right")
-fig.suptitle("Experiment 13 (synthetic toy), all four objectives. Dotted: each fit's limit as n grows. Bands: 95% bootstrap over 100 seeds.", fontsize=10)
-fig.tight_layout()
+fig.suptitle("Experiment 13 (synthetic toy), all four objectives. Dotted: dense-grid fitted reference (not a proven limit). Bands: 95% bootstrap over 100 seeds.", fontsize=10)
+fig.text(0.5, 0.012, "Train: 78-weight softmax, ridge (1/n)||W||²; L-BFGS-B (400 iterations / 600 evaluations), perturbed log-histogram start.\nCE is convex (exact-gradient refits match); other objectives have no global certificate. Bands: 95% percentile bootstrap, 10,000 seed draws.", ha="center", fontsize=7)
+fig.tight_layout(rect=(0, 0.07, 1, 0.95))
 out = os.path.join(HERE, "fig_excess_vs_n_with_head_labeled.png")
 fig.savefig(out, dpi=130)
 print("wrote", os.path.relpath(out))

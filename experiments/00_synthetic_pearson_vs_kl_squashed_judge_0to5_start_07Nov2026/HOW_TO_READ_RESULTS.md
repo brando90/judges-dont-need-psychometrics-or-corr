@@ -18,8 +18,8 @@ All 2,000 synthetic human scores (uniform on 0–5, seed 0) and the two judges' 
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
 | Pearson / Spearman | Correlation between human score and judge score across the 2,000 items | −1 to 1 | Higher |
-| KL | KL(human ‖ judge) between the two score histograms, Laplace-smoothed (alpha = 1), natural log. Ignores which item each score came from. | 0 upward, nats | Lower |
-| nMSE | Mean of ((human − judge)/5)² over items | 0 to 1 | Lower |
+| Kullback–Leibler divergence (KL) | KL(human ‖ judge) between the two score histograms, Laplace-smoothed (alpha = 1), natural log. Ignores which item each score came from. | 0 upward, nats | Lower |
+| Normalized mean squared error (nMSE) | Mean of ((human − judge)/5)² over items | 0 to 1 | Lower |
 
 There are no differences between methods, no intervals and a single seed.
 

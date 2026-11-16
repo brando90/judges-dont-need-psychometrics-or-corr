@@ -4,7 +4,7 @@
 
 **Status, 11-13-2026:** sweep complete; kept active because the Sanmi one-pager and the paper's synthetic section depend on it.
 
-**TLDR:** Training the judge on a rank correlation (Spearman or Kendall) or on ½ Pearson + ½ Spearman does not fix what Pearson training misses. On held-out test RPS and cross-entropy, the cross-entropy (CE)-trained judge beats all four correlation-trained judges from 4 training tasks (12 ratings) in scenario B, and from 64 tasks (192 ratings; 8 for Kendall) in scenario A. Even on held-out test correlation, CE training is as good or better until data are plentiful. Synthetic toy; not evidence about real ratings.
+**TLDR:** Training the judge on a rank correlation (Spearman or Kendall) or on ½ Pearson + ½ Spearman does not fix what Pearson training misses. On held-out test ranked probability score (RPS) and cross-entropy, the cross-entropy (CE)-trained judge beats all four correlation-trained judges from 4 training tasks (12 ratings) in scenario B, and from 64 tasks (192 ratings) in scenario A. Even on held-out test correlation, CE training is as good or better until data are plentiful. Synthetic toy; not evidence about real ratings.
 
 | Phase | Status |
 | --- | --- |
@@ -12,6 +12,8 @@
 | Gradient checks; data reproduction of experiment 13 | DONE: CE refit matches experiment 13's saved test RPS excess to 7.6e-15 in all 22 (scenario, n) cells |
 | Sweep: 2 scenarios × 11 training sizes × 100 seeds × 3 objectives | DONE: 2,200 runs, 3,355 s on 9 local CPU processes, $0 |
 | Figures and tables | DONE |
+
+**QA check, 11-16-2026:** experiment 13's CE code floors probabilities at 1e-6 in the loss value but not in its gradient. Refitting every CE fit with an exact CE changed no number reported here (details in [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md); evidence in [../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json](../08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/ce_gradient_check.json)). Saved measurements are unchanged.
 
 ## Main results (held-out test tasks, against the true distribution)
 
@@ -30,6 +32,6 @@ Held-out test correlation with the true mean rating ([fig_rank_objectives_correl
 
 Full tables: [results/tables.md](results/tables.md). Figures: [fig_rank_objectives_vs_n.png](fig_rank_objectives_vs_n.png), [fig_rank_objectives_correlations_vs_n.png](fig_rank_objectives_correlations_vs_n.png). Reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md). Regenerate with `python3 experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/scripts/make_report.py`.
 
-The prediction in the README holds: no correlation objective matches the CE-trained judge at large n.
+The prediction in the README holds only in part. No correlation objective matches the CE-trained judge at large n, but the stronger prediction that every new objective would have excess losses at least as large as Pearson fails: in scenario B at 2,048 tasks, Spearman, Kendall and the mix all have lower mean test RPS excess than Pearson (0.0623, 0.0330 and 0.0851 versus 0.0951). This does not make them competitive with CE training (0.0037).
 
 **TLDR-end:** [judge objectives: experiment 06] Rank and mixed correlation training lose to CE training on held-out distribution metrics from 12–192 ratings, and match or trail it on held-out correlation until data are plentiful.

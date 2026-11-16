@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/HOW_TO_READ_RESULTS.md>
 
-**TLDR:** All scores in [results.md](results.md) are measured on held-out test tasks that were not used to choose or fit the judge. "②" and "④" name how a judge was **chosen**: ② by correlation, ④ by cross-entropy, both on training tasks only. Both are then scored with the **same** metric on the **same** test tasks. (This guide was added on 11-13-2026; `results.md` is a frozen copy and is unchanged.)
+**TLDR:** All scores in [results.md](results.md) are measured on held-out test tasks that were not used to choose or fit the judge. "②" and "④" name how a judge was **chosen**: ② by correlation, ④ by cross-entropy (CE), both on training tasks only. Both are then scored with the **same** metric on the **same** test tasks. (This guide was added on 11-13-2026; `results.md` is a frozen copy and is unchanged.)
 
 ## What is compared
 
@@ -27,7 +27,7 @@
 | --- | --- | --- | --- |
 | Ranked probability score (RPS, main) | Mean over each artifact's human ratings of (1/5) Σ_{k=0}^{4} (Q(k) − 1{rating ≤ k})², with Q the judge's cumulative probabilities | 0 to 1 | Lower |
 | CE | Mean over human ratings of −ln q(rating), probability floor 1e-6 | 0 to ∞, nats | Lower |
-| TVD | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
+| Total variation distance (TVD) | 0.5 Σ_r abs(q(r) − p̂(r)), p̂ the artifact's human rating histogram | 0 to 1 | Lower |
 | Spearman / Pearson | Correlation between the judge's expected rating and the human mean rating across one split's 15 test artifacts | −1 to 1 | Higher |
 
 For scale on test RPS: ④ mixture 0.136, ② Pearson mixture 0.142, equal-weight mixture 0.150, constant 0.184.
@@ -38,8 +38,12 @@ For scale on test RPS: ④ mixture 0.136, ② Pearson mixture 0.142, equal-weigh
 
 Example: test RPS of the ② Pearson mixture minus test RPS of the ④ CE mixture = +0.0056 [−0.0059, +0.0181]. The ② judge's test RPS is 0.0056 higher on average, but the interval includes 0: no difference is established.
 
+## How the judge is chosen
+
+Cross-entropy (CE) mixture fitting uses sequential least squares programming (SLSQP) from one uniform weight vector, at most 1,000 iterations and 2,000 function/gradient evaluations, with bounded Newton polishing on the chosen face. The objective is convex; a simplex Frank–Wolfe gap at most 1e-8 certifies the numerical optimum to that tolerance. Pearson fitting enumerates the nonempty faces of the five-candidate cone (at most 31), with no random starts, and checks a cone-projection certificate at tolerance 1e-8. It includes a best-vertex rule when all correlations are nonpositive. This is a global objective guarantee within the mixture family, not a guarantee of good held-out distribution scores. Single-judge selection exhaustively compares the five candidates on the training objective. Spearman mixture selection compares the five vertices, equal weights and 4,000 seeded Dirichlet(1,…,1) candidates on training Spearman; it guarantees only the best of those 4,006 candidates. See [run_exp12.py](scripts/run_exp12.py) and the [vendored solver](scripts/vendor_exp03/ce_mixture.py).
+
 ## Uncertainty
 
-95% percentile intervals from 10,000 bootstrap draws over the 25 tasks. Correlations are computed per split and attributed to that split's test tasks before resampling. No p-values were computed.
+95% percentile intervals from 10,000 bootstrap draws over the 25 tasks, conditional on the already fitted predictions (no refitting inside the bootstrap). Correlations are computed per split and attributed to that split's test tasks before resampling. No p-values were computed.
 
 **TLDR-end:** [judge objectives: experiment 12] Every score is a held-out test score; "② minus ④" subtracts one test metric between the correlation-chosen and the loss-chosen judge.
