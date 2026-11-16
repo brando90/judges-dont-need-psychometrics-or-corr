@@ -1,0 +1,12 @@
+{
+  "frozen_at": "2026-11-16T10:58:00-08:00",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "files": {
+    "README.md": "678ba197e9d79cb9094f6128e8c36435739d915eb98200ad7810b911a363608a",
+    "PROTOCOL.md": "8247fc725a83bebfbfd5d7d6f314b7041d8579ae2eb5e4107a6859047e373265",
+    "scripts/build_prompts.py": "9e94e75747b6a1c06483aa936f981a0995b2b86b8e83e968f86ae25fa7e14053",
+    "scripts/run_mercury2_open_judges.py": "af0aeaabb144a3a600573e2293929fff59839861cd5fb83522d3fafba4b63534",
+    "scripts/train_mercury2_lora_judges.py": "f4fb7c296981cc6f03f3f2b3eb9213c77363bf2f7b29ddb8dd8396febd0a822d",
+    "results/input_manifest.json": "3a947779cf676b42f7990faa81f0874422a728261663eccbb6a5192f1467079c"
+  }
+}

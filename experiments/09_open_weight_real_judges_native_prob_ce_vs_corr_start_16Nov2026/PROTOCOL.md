@@ -1,0 +1,62 @@
+# Pre-Registered Protocol: Open-Weight Real Judges — Prompt Optimization (`ii.a`), Harness Optimization (`ii.b`), and Real LLM Weight Training (`ii.c`)
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/PROTOCOL.md>
+
+**TLDR:** Pre-registers the hypotheses, expect-then-verify measurement contract, Karpathy judge sanity checks, `mercury2` 10-GPU allocation plan, and grouped 19-task-family evaluation procedures for `ii.a` prompt optimization, `ii.b` harness optimization, and `ii.c` real PyTorch LoRA weight training before measurement.
+
+## 1. Hypotheses and Decision Rules Across `ii.a`, `ii.b`, and `ii.c` (Frozen 11-16-2026)
+
+1. **`ii.a` Prompt Optimization Hypothesis:** Optimizing or selecting prompts on training/validation task families by proper loss (CE / RPS, formulations ④ and ③) yields lower held-out test ranked probability score (RPS, primary) and held-out test cross-entropy (CE, secondary) than optimizing or selecting prompts by correlation (Pearson / Spearman, formulations ② and ①), because correlation-optimized prompts reward rank separation even when the judge assigns overconfident extreme probabilities (`4–5`) to partial coverage.
+2. **`ii.b` Harness Optimization Hypothesis:** Across six judge harness architectures (`H1` verbal JSON, `H2` conditional digit logprobs, `H3` programmatic Lean AST obligation scaffold, `H4` two-call theorem-by-theorem critic+aggregator, `H5` deliberative thinking trace, `H6` multi-sample + temperature/prior calibrated harness), correlation-based harness selection ignores probability sharpness and calibration bias, whereas proper-loss harness optimization selects calibrated logprob/decomposed harnesses that beat the `~1.85`–`1.93`-nat constant marginal CE baseline that defeated all three-sample scalar mixtures in archived `experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/`.
+3. **`ii.c` Real LLM Weight Training Hypothesis:** When fine-tuning identical low-rank adaptation (LoRA) transformer weights + six-category rating logits inside `Qwen3-4B-Instruct-2507` and `Qwen2.5-Coder-7B-Instruct` via exact full-batch gradient descent on training task families:
+   - **(c1)** Direct `CE`-trained and `RPS`-trained LLM weights achieve strictly lower held-out test RPS and test CE than `Pearson`-trained and `smooth-Spearman`-trained LLM weights (which are invariant to affine shifts/scales of expected ratings and collapse/distort category spread).
+   - **(c2)** Two-stage `Pearson-trained LLM + post-hoc calibrated CE head` recovers first-moment bias and scale mismatch (`MSE = bias^2 + scale_mismatch^2 + 2 s_x s_y (1 - r)`), testing whether end-to-end `CE`-trained LLM weights additionally capture conditional rater disagreement (`G_i > 0`) on real tasks or tie once scalar calibration is repaired.
+   - **(c3) Training-size crossover (`n_fam` training task families):** On real open-weight representations, proper-loss weight training beats raw correlation weight training from the smallest training split (`n_fam = 3`–`4` task families, `~30–50` human ratings) because real human task means vary substantially across tasks (`0.0` to `5.0`, matching synthetic Scenarios B–D rather than spread-only Scenario A).
+
+**Primary decision contrast (all three sub-studies):** Held-out **test RPS of the correlation-optimized judge minus held-out test RPS of the CE-optimized judge** on identical held-out task families (`positive` favors CE), with `10,000`-draw percentile bootstrap `95%` intervals over the `19` task families and paired two-sided task-family sign-flip permutation `p-val` against zero difference. Secondary metrics: test CE (floor `1e-6` plus unfloored check where strictly positive), total variation distance (TVD), six-category Brier score, normalized root mean squared error (nRMSE), mean absolute error (MAE), signed bias (judge minus human, `0–5` and `0–1` scales, positive = lenient), Pearson, Spearman, and Kendall tau-b.
+
+## 2. Expect-Then-Verify Measurement Contract (`ml-research-practice.md`)
+
+| Metric / Check | Code Path | Oracle (Gold vs Gold) | Intended Competent Judge | Literal Compliance | Degenerate: Blank / Vacuous (`True`) / Shuffled | Baselines (Constant Marginal / Theorem-Count) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Expected rating `E[R]` (`0–5`) | `analyze_open_judges.py` | `>= 4.2` on ordinary tasks | Tracks human mean (`2.63`), `Pearson >= 0.45` on best open model/harness | Valid six-probability JSON summing to `1.0` | Blank `< 1.2`, Vacuous `< 1.8`, Shuffled `< 2.0` | Constant `2.63`; Theorem-count `Spearman ~0.54` |
+| Label-in-prompt reproduction | `run_mercury2_open_judges.py` | `Pearson >= 0.98`, modal match `= 5/5` | n/a (pipeline check) | Reproduces synthetic target rating `r in {0,1,2,4,5}` | n/a | Catches parser or digit-token ID bugs |
+| Held-out test RPS (`[0, 1]`, lower better) | `analyze_open_judges.py` | n/a | `0.12 – 0.18` under CE/RPS training | Valid in `[0, 1]` | `> 0.25` for constant `0` or `5` | Constant marginal `~0.184 – 0.187` |
+| Held-out test CE (`nats`, lower better) | `analyze_open_judges.py` | n/a | `1.50 – 1.90` nats (vs `3.39 – 10.54` in archived Exp 14) | Finite `>= 0` | `> 4.0` nats if overconfident on wrong bin | Constant marginal `~1.85 – 1.93` nats |
+| LoRA gradient check (`ii.c`) | `train_mercury2_lora_judges.py` | Analytic two-pass batch Pearson/Spearman LoRA gradient matches exact full-graph autograd to `< 1e-5` relative error | Training loss / negative correlation decreases monotonically on training fold | Exact `bfloat16`/`float32` accumulation | Zero-variance guard (`1e-8`) prevents `NaN` | Untrained base LLM (`epoch 0`) logged as starting reference |
+
+## 3. `mercury2` 10-GPU Allocation Plan (Trigger Rules 9 & 80)
+
+All 10 `NVIDIA RTX A4000` (`16 GB`) GPUs on `mercury2.stanford.edu` were verified `0%` utilized (`15,985 MiB` free each) before launch. Explicit `CUDA_VISIBLE_DEVICES` per detached `tmux` worker:
+- **Slot A (`CUDA_VISIBLE_DEVICES=0,1`, port `18810`, `exp09-ow-slotA`):** `q3_30b_a3b` (`Qwen3-30B-A3B-Instruct-2507-AWQ-4bit`: runs `P0..P5` prompts, `H1..H4` harnesses, `25` Karpathy controls, `k=3` repeat stability, AND the `ii.a` blind iterative meta-prompt optimization loop for Track Corr vs Track CE!), `q25_14b_awq`, `ds_r1_qwen_7b` (`H5` reasoning harness).
+- **Slot B (`CUDA_VISIBLE_DEVICES=2,3`, port `18811`, `exp09-ow-slotB`):** `q3_4b_2507`, `llama31_8b`, `hermes3_8b`, `olmo3_7b` (`P0..P2` + `H1..H3` harnesses + controls).
+- **Slot C (`CUDA_VISIBLE_DEVICES=4,5,6,7`, port `18812`, `exp09-ow-slotC`):** `q3_14b_think` (`H5` thinking harness), `q3_14b_nothink`, `q25c_14b` (`P0..P5` prompts + `H1..H4` harnesses + controls + `k=3` repeats).
+- **Slot D (`CUDA_VISIBLE_DEVICES=8,9`, PyTorch `bfloat16` Trainer, `exp09-ow-slotD`):** `ii.c` end-to-end PyTorch LoRA (`r=8, alpha=16` on top 6 transformer layers `q_proj, v_proj` + 6-logit rating projection) fine-tuning of `Qwen3-4B-Instruct-2507` and `Qwen2.5-Coder-7B-Instruct` across `5` grouped task-family folds (`19` families) + learning-curve subsets (`n_fam in {4, 8, 12, 15}`) + hidden-state extraction for `200`-split × `5`-restart neural head sweeps!
+
+Estimated wall time: `15–28` minutes across the 4 parallel slots. Cost: `$0.00`. All processes cleaned up and verified via `nvidia-smi` upon completion.
+
+## 4. Detailed Design of Sub-Experiments `ii.a`, `ii.b`, and `ii.c`
+
+### `ii.a` Prompt Optimization
+1. **Fixed Zero-Leakage Candidate Pool (`P0..P5`):** Evaluate all 6 prompt designs across the core multi-scale models (`q3_30b_a3b`, `q25c_14b`, and `P0..P2` across all 10 models). Compare selecting prompts on training task families (`②` vs `④`) and inner validation task families (`①` vs `③`) over `200` grouped `15/4` task-family splits and `5`-fold grouped task-family CV.
+2. **Automated Blind Iterative Meta-Prompt Search (`Qwen3-30B-A3B`, `5`-fold outer task-family CV):** Within each outer fold (`~15` train/val task families, `~4` untouched test task families; partitioned into `11` inner-train + `4` inner-val families), run `3` refinement rounds (`2` candidate prompts generated per round = `6` generated prompts + `P0` seed = `7` candidates per track):
+   - **Correlation Meta-Optimizer:** Sees ONLY inner-train expected scores vs human means, Pearson/Spearman correlations, and top rank-order error items (with standardized residuals, hiding absolute score offsets and rating spreads); selects best prompt by inner-train Pearson (`②`) and inner-val Pearson (`①`).
+   - **Proper-Loss (CE) Meta-Optimizer:** Sees ONLY inner-train individual-rating CE/RPS losses, signed bias, and top log-loss error items (highlighting overconfident misses and rater disagreement); selects best prompt by inner-train CE (`④`) and inner-val RPS/CE (`③`).
+
+### `ii.b` Harness Optimization
+Compare six distinct judge harness architectures across identical base models (`q3_30b_a3b`, `q25c_14b`, `q3_14b`):
+1. `H1_single_verbal`: Single-call JSON six-probability vector `q_verbal`.
+2. `H2_single_logprob`: Rubric rationale followed by exact teacher-forced conditional digit-token softmax `q_logprob` (`logit_bias = +100.0` on single-token `"0".."5"`).
+3. `H3_ast_obligation_scaffold`: Python/Lean AST obligation pre-extractor injecting structured theorem/lemma/example counts, signatures, `sorry` counts, and placeholder flags before LLM scoring.
+4. `H4_two_call_critic_aggregator`: Call 1 audits each gold theorem (`COVERED / PARTIAL / RESTATEMENT / MISSING`); Call 2 produces `q_verbal` and `q_logprob` purely from the structured theorem audit.
+5. `H5_deliberative_thinking`: Extended reasoning trace (`Qwen3-14B` thinking ON vs OFF; `DeepSeek-R1-Distill-Qwen-7B`) before conditional digit logprob extraction.
+6. `H6_calibrated_ensemble`: Multi-sample (`k=3`) + temperature-scaled (`T in {0.5, 0.75, 1.0, 1.5, 2.0, 3.0}`) and prior-smoothed (`alpha in {0.001, 0.01, 0.05, 0.15}`) harness configuration search under Correlation (`①`/`②`) vs Proper Loss (`③`/`④`).
+
+### `ii.c` Real LLM Weight Updates (Fine-Tuning)
+1. **End-to-End Transformer LoRA + Rating-Head Fine-Tuning (`Qwen3-4B-Instruct-2507` & `Qwen2.5-Coder-7B-Instruct`):**
+   - Architecture: Base LLM in `bfloat16`, pure-PyTorch `LoRALinear` (`rank=8, alpha=16, dropout=0.0`) injected into `q_proj` and `v_proj` of the final `6` transformer blocks plus a `float32` 6-logit rating projection initialized at the base model's digit-token (`"0".."5"`) `lm_head` rows! Thus at `step = 0` (`B = 0`), the trainable model reproduces the exact pretrained LLM's native digit-token logprob distribution!
+   - Exact two-pass full-batch gradient step (`lr = 2e-4`, `weight_decay = 0.01`, `16` full-batch epochs per fold; inner validation task-family checkpoint selection at epochs `{0, 2, 4, 8, 12, 16}` for Formulations ① and ③, final epoch `16` for train-only Formulations ② and ④).
+   - Objectives trained from identical random seed & `step=0` initialization: `CE`, `RPS`, `Pearson`, `Smooth Spearman (tau=0.1)`, and `Pearson + post-hoc calibrated CE head`.
+2. **Hidden-State Neural Head Sweep (`200` splits × `6` training sizes `n_fam in {3, 5, 7, 9, 12, 15}` × `5` restarts):** Fits `PCA(8) + intercept -> 6-logit softmax` (`54` weights) across all `7` objectives (`CE`, `RPS`, `Pearson`, `Spearman`, `Kendall`, `1/2 Pearson + 1/2 Spearman`, `Pearson + CE head`) with single-start (`400` iters) vs best-of-5 starts (`2,000` iters).
+
+**TLDR-end:** [judges-corr: 09 protocol] Pre-registers `ii.a` prompt optimization, `ii.b` harness optimization, and `ii.c` end-to-end PyTorch LoRA LLM weight training across 19 task families before measurement.
