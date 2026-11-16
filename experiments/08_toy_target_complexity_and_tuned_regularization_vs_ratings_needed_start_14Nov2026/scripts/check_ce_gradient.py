@@ -1,9 +1,10 @@
 """Post-hoc check (added 11-16-2026, Mega QA finding QA1-F1): does the inconsistent cross-entropy (CE) gradient in
 experiment 13's frozen objective code change any saved result of experiments 07, 08 or 13?
 
-The defect: experiment 13's `toy.ce_loss_grad` clips the softmax probabilities at 1e-6 and renormalizes them before
-taking the loss value, but returns (clipped probabilities - target histogram) as the gradient. Whenever a rating
-observed in training gets probability below 1e-6, the value is flat in that logit while the gradient is not.
+The defect: experiment 13's `toy.ce_loss_grad` clips all six softmax probabilities at 1e-6 and renormalizes them before
+taking the loss value, but returns (renormalized clipped probabilities - target histogram) as the gradient. Whenever any
+category probability (observed or unobserved) falls below 1e-6, renormalization shifts the loss value on observed bins
+and the returned gradient (~+1e-6 on a clipped unobserved bin, or Q-P on an observed bin) disagrees with the value's derivative.
 
 The check: swap in an exact CE in memory -- value -sum_r p_r log softmax(z)_r computed with log-sum-exp, no floor,
 and its exact gradient softmax(z) - p (the CE objective is then smooth and convex in the weights) -- and refit every
@@ -22,8 +23,9 @@ Parts (all rows of each saved grid):
          their score) differ at about the 1e-3 level, so the CE effect is measured as exact versus frozen here; the
          exact CE fits are also compared with the saved rows.
   exp07  experiment 07's CE fits (400/600 and 2,000/4,000 budgets) and the calibrated head under its three conditions.
-Also counted along the exact-CE trajectories: objective evaluations in which some training rating that was observed
-received probability below 1e-6, i.e. where the frozen code's value and gradient would disagree.
+Also counted along the exact-CE trajectories: objective evaluations in which any category probability fell below 1e-6
+(where the frozen code clips, renormalizes and produces a value/gradient mismatch), and the subset where that category
+was observed in training.
 
 Run from the repository root (about 15 minutes with 8 processes on a 10-core laptop):
   python3 experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/scripts/check_ce_gradient.py [processes]
@@ -55,7 +57,7 @@ toy = cx.toy
 assert restarts.toy is toy
 FROZEN_CE = toy.ce_loss_grad
 FLOOR = toy.FLOOR
-STATS = {"evals": 0, "observed_below_floor": 0, "fits": 0, "converged": 0}
+STATS = {"evals": 0, "any_below_floor": 0, "observed_below_floor": 0, "fits": 0, "converged": 0}
 
 
 def exact_ce_loss_grad(Z, P):
@@ -64,6 +66,7 @@ def exact_ce_loss_grad(Z, P):
     logQ = Zs - np.log(np.exp(Zs).sum(1, keepdims=True))
     Q = np.exp(logQ)
     STATS["evals"] += 1
+    STATS["any_below_floor"] += int(np.any(Q < FLOOR))
     STATS["observed_below_floor"] += int(np.any((P > 0) & (Q < FLOOR)))
     return -(P * logQ).sum(1), Q - P
 
@@ -204,43 +207,79 @@ def summarize(pairs, fits, keys):
     return s
 
 
-def boot_lower(v, rng, draws=10000):
+def boot_ci(v, rng, draws=10000):
     b = v[rng.integers(0, len(v), (draws, len(v)))].mean(1)
-    return np.percentile(b, 2.5)
+    return v.mean(), np.percentile(b, 2.5), np.percentile(b, 97.5)
 
 
 PAIRS = [("ce_fixed", "pearson_fixed"), ("ce_valrps", "pearson_valcorr"), ("ce_valrps", "pearson_fixed"),
-         ("ce_valrps", "pearson_valrps"), ("ce_valrps", "constant")]
+         ("ce_valrps", "pearson_valrps"), ("ce_valrps", "constant"), ("pearson_fixed", "constant")]
+JUDGES = ["constant", "ce_fixed", "ce_valrps", "rps_valrps", "pearson_fixed", "pearson_valcorr", "pearson_valrps"]
 
 
 def reported(rows, ns):
-    """The make_report.py quantities that involve a CE-trained judge, from one set of rows: cell means of test RPS
-    excess at 4 decimals (as printed), crossovers, the sizes where the validation-tuned CE judge is significantly
-    worse, and the most common chosen ridge with its share of seeds. Bootstrap draws restart at seed 0 for each
-    quantity, so saved and exact rows are compared with identical draws."""
+    """Every table and figure-annotation quantity in make_report.py that involves a CE-trained judge, computed with
+    make_report.py's exact sequential np.random.default_rng(0) bootstrap stream so saved and exact rows are compared
+    under the exact report RNG trajectory."""
     cells = {}
     for r in rows:
         cells.setdefault((r["scenario"], r["n"]), []).append(r)
     for v in cells.values():
         v.sort(key=lambda r: r["seed"])
+    rng = np.random.default_rng(0)
 
-    def diff(sc, n, a, b):
-        return np.array([r["fits"][a]["rps_excess"] - r["fits"][b]["rps_excess"] for r in cells[(sc, n)]])
+    def vals(sc, n, j, key):
+        return np.array([r["fits"][j][key] for r in cells[(sc, n)]], dtype=float)
 
-    out = {"cell_means": {}, "crossovers": {}, "tuned_ce_significantly_worse_at": {}, "tuned_ce_ridge_mode": {}}
+    def diff_ci(sc, n, a, b, key):
+        x, y = vals(sc, n, a, key), vals(sc, n, b, key)
+        if key in ("pearson", "spearman"):
+            x, y = np.nan_to_num(x, nan=0.0), np.nan_to_num(y, nan=0.0)
+        return boot_ci(x - y, rng)
+
+    out = {
+        "cell_means": {}, "ce_excess_cell_means": {}, "pearson_cell_means": {}, "tvd_from_constant_cell_means": {},
+        "crossovers": {}, "tuned_ce_significantly_worse_at": {}, "h1_pearson_better_at": {},
+        "h2_ce_lower_test_pearson_at": {}, "tuned_ce_ridge_mode": {},
+        "figure_ce_excess_crossovers": {}, "figure_test_pearson_crossovers": {},
+    }
     for sc in "ABCD":
         for n in ns:
             for fit in ("ce_fixed", "ce_valrps"):
-                out["cell_means"][f"{sc}/{n}/{fit}"] = f"{np.mean([r['fits'][fit]['rps_excess'] for r in cells[(sc, n)]]):.4f}"
+                out["cell_means"][f"{sc}/{n}/{fit}"] = f"{vals(sc, n, fit, 'rps_excess').mean():.4f}"
+                out["ce_excess_cell_means"][f"{sc}/{n}/{fit}"] = f"{vals(sc, n, fit, 'ce_excess').mean():.4f}"
+                out["pearson_cell_means"][f"{sc}/{n}/{fit}"] = f"{np.nan_to_num(vals(sc, n, fit, 'pearson'), nan=0.0).mean():.3f}"
             cs, counts = np.unique([r["fits"]["ce_valrps"]["c"] for r in cells[(sc, n)]], return_counts=True)
             out["tuned_ce_ridge_mode"][f"{sc}/{n}"] = f"{cs[counts.argmax()]:g} ({counts.max()}%)"
+        for n in ns[:6]:
+            for fit in ("ce_fixed", "ce_valrps"):
+                out["tvd_from_constant_cell_means"][f"{sc}/{n}/{fit}"] = f"{vals(sc, n, fit, 'tvd_from_constant').mean():.3f}"
         for a, b in PAIRS:
-            rng = np.random.default_rng(0)
-            better = [boot_lower(diff(sc, n, b, a), rng) > 0 for n in ns]
-            out["crossovers"][f"{sc}/{a}_vs_{b}"] = next((ns[k] for k in range(len(ns)) if all(better[k:])), None)
+            better = [diff_ci(sc, n, b, a, "rps_excess")[1] > 0 for n in ns]
+            if a.startswith("ce_"):
+                out["crossovers"][f"{sc}/{a}_vs_{b}"] = next((ns[k] for k in range(len(ns)) if all(better[k:])), None)
         for b in ("pearson_fixed", "pearson_valcorr", "pearson_valrps"):
-            rng = np.random.default_rng(0)
-            out["tuned_ce_significantly_worse_at"][f"{sc}/vs_{b}"] = [n for n in ns if boot_lower(diff(sc, n, "ce_valrps", b), rng) > 0]
+            out["tuned_ce_significantly_worse_at"][f"{sc}/vs_{b}"] = [n for n in ns if diff_ci(sc, n, "ce_valrps", b, "rps_excess")[1] > 0]
+        out["h1_pearson_better_at"][sc] = [n for n in ns if diff_ci(sc, n, "ce_fixed", "pearson_fixed", "rps_excess")[1] > 0]
+        for b in ("pearson_fixed", "pearson_valcorr"):
+            out["h2_ce_lower_test_pearson_at"][f"{sc}/vs_{b}"] = [n for n in ns if diff_ci(sc, n, "ce_fixed", b, "pearson")[2] < 0]
+    for keys in (["rps_excess", "ce_excess"], ["pearson"]):
+        for sc in "ABCD":
+            for key in keys:
+                for jd in JUDGES:
+                    if key == "pearson" and jd == "constant":
+                        continue
+                    _ = [boot_ci(np.nan_to_num(vals(sc, n, jd, key), nan=0.0), rng) for n in ns]
+                if key != "pearson":
+                    for a, b in (("ce_valrps", "pearson_valcorr"), ("ce_fixed", "pearson_fixed")):
+                        better = [diff_ci(sc, n, b, a, key)[1] > 0 for n in ns]
+                        if key == "ce_excess":
+                            out["figure_ce_excess_crossovers"][f"{sc}/{a}_vs_{b}"] = next((ns[k] for k in range(len(ns)) if all(better[k:])), None)
+                else:
+                    for a, b in (("ce_fixed", "pearson_fixed"), ("ce_valrps", "pearson_valcorr")):
+                        d = [diff_ci(sc, n, a, b, "pearson") for n in ns]
+                        out["figure_test_pearson_crossovers"][f"{sc}/{a}_gt_{b}"] = next((ns[k] for k in range(len(ns)) if all(x[1] > 0 for x in d[k:])), None)
+                        out["figure_test_pearson_crossovers"][f"{sc}/{b}_gt_{a}"] = next((ns[k] for k in range(len(ns)) if all(x[2] < 0 for x in d[k:])), None)
     return out
 
 
@@ -263,6 +302,8 @@ def main():
     part["exact_ce_fits"] = sum(st["fits"] for *_, st in res)
     part["exact_ce_fits_scipy_converged"] = sum(st["converged"] for *_, st in res)
     part["exact_ce_evaluations"] = sum(st["evals"] for *_, st in res)
+    part["evaluations_with_any_category_below_1e-6"] = sum(st["any_below_floor"] for *_, st in res)
+    part["rows_with_any_category_below_1e-6"] = sum(st["any_below_floor"] > 0 for *_, st in res)
     part["evaluations_with_an_observed_rating_below_1e-6"] = sum(st["observed_below_floor"] for *_, st in res)
     part["rows_with_such_an_evaluation"] = sum(st["observed_below_floor"] > 0 for *_, st in res)
     tuned = [(r, new08[(r["scenario"], r["n"], r["seed"])]["ce_valrps"]) for r in rows08]
@@ -292,6 +333,8 @@ def main():
         [(r, new13[(r["scenario"], r["n"], r["seed"])]["exact"]) for r in rows13], ["ce"], keys13)["ce"]}
     part["exact_vs_frozen_ce_same_machine"] = summarize(
         [(o["frozen"], o["exact"]) for o in new13.values()], ["ce", "rps", "pearson", "pearson_head"], keys13)
+    part["evaluations_with_any_category_below_1e-6"] = sum(st["any_below_floor"] for *_, st in res)
+    part["rows_with_any_category_below_1e-6"] = sum(st["any_below_floor"] > 0 for *_, st in res)
     part["evaluations_with_an_observed_rating_below_1e-6"] = sum(st["observed_below_floor"] for *_, st in res)
     part["note_on_saved_pearson_rows"] = (
         "Not a CE effect: rerunning the frozen code on this machine reproduces the saved CE and RPS fits, but the "
@@ -322,11 +365,14 @@ def main():
             s = summarize(pairs, ["x"], ("rps_excess", "ce_excess", "pearson", "spearman"))["x"]
             s["success_flag_changes"] = sum(a["x"]["success"] != b["x"]["success"] for a, b in pairs)
             part[f"{fit}/{cond}"] = s
+    part["evaluations_with_any_category_below_1e-6"] = sum(st["any_below_floor"] for *_, st in res)
+    part["rows_with_any_category_below_1e-6"] = sum(st["any_below_floor"] > 0 for *_, st in res)
     part["evaluations_with_an_observed_rating_below_1e-6"] = sum(st["observed_below_floor"] for *_, st in res)
     report["exp07"] = part
     report["runtime_seconds"] = round(time.time() - t0)
     out = os.path.join(E08, "results", "ce_gradient_check.json")
-    json.dump(report, open(out, "w"), indent=1, default=float)
+    with open(out, "w") as fh:
+        fh.write(json.dumps(report, indent=1, default=float) + "\n")
     print(json.dumps(report, indent=1, default=float))
 
 

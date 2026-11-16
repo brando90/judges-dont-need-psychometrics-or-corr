@@ -108,7 +108,7 @@ Both sum to $4$, so their gaps $(0,0,0,+0.5,-0.5)$ cancel in the mean, while the
 
 \paragraph{Why the cumulative form: robustness with few ratings.}
 Each artifact has only two or three human ratings, so its rating histogram leaves at least three of the six bins empty.
-For a forecast assigning positive mass to an unobserved category, $\KL(q\|\hat p)$ is infinite unless the empirical histogram is smoothed.
+For a forecast assigning positive mass to an unobserved category, the Kullback--Leibler (KL) divergence $\KL(q\|\hat p)$ is infinite unless the empirical histogram is smoothed.
 The reverse direction, $\KL(\hat p\|q)$, is finite when $q$ is positive on observed ratings and differs from empirical CE only by a judge-independent entropy term.
 Empty empirical bins therefore do not invalidate individual-rating CE or the categorical Brier score.
 Total variation distance (TVD) is biased upward even for the true distribution.

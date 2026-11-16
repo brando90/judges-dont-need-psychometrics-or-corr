@@ -26,8 +26,8 @@ One judge family (softmax of a linear map of 13 cosine/sine features of the task
 | Metric | Definition | Range | Better |
 | --- | --- | --- | --- |
 | RPS excess | Judge's RPS minus the true distribution's RPS = mean over 5 thresholds of (Q(k) − P(k))², Q judge and P true cumulative probabilities | 0 to 1 (0 is perfect) | Lower |
-| CE excess | KL(true ‖ judge), natural log | 0 (perfect) upward, nats | Lower |
-| TVD | 0.5 Σ_r abs(q(r) − p(r)) against the true distribution | 0 to 1 | Lower |
+| CE excess | Kullback–Leibler divergence KL(true ‖ judge), natural log | 0 (perfect) upward, nats | Lower |
+| Total variation distance (TVD) | 0.5 Σ_r abs(q(r) − p(r)) against the true distribution | 0 to 1 | Lower |
 | Spearman / Pearson | Correlation between the judge's expected rating and the **true** mean rating across test tasks | −1 to 1 | Higher |
 
 The saved “n to infinity” rows and dotted lines are fitted and scored on the same 4,000-point grid of true distributions with near-zero ridge. They are in-sample numerical references, not held-out evaluations or proved limits.

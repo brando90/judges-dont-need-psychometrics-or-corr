@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/HOW_TO_READ_RESULTS.md>
 
-**TLDR:** Non-convex objectives are refitted three ways; the CE reference uses one start at two budgets, on experiment 13's exact training tasks and scored on the same 500 fresh test tasks per seed against the **true** rating distribution. The three ways differ only in the optimizer's starting point and budget; the choice among starts uses the **training** objective, never test data.
+**TLDR:** Non-convex objectives are refitted three ways; the cross-entropy (CE) reference uses one start at two budgets, on experiment 13's exact training tasks and scored on the same 500 fresh test tasks per seed against the **true** rating distribution. The three ways differ only in the optimizer's starting point and budget; the choice among starts uses the **training** objective, never test data.
 
 ## What is compared
 

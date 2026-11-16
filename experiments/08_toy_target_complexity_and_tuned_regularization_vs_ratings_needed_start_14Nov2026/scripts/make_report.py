@@ -137,10 +137,20 @@ for fname, keys in (("fig_complexity_vs_n.png", list(METRICS)), ("fig_complexity
             ax.set_xlabel("training tasks n (3 ratings each, so 3n training ratings)", fontsize=8.5)
     h, l = axs[0, 0].get_legend_handles_labels()
     fig.legend(h, l, loc="upper center", ncol=2 if len(keys) == 1 else 4, fontsize=8, bbox_to_anchor=(0.5, 0.995))
-    fig.text(0.5, 0.025, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
     if keys == ["pearson"]:
-        fig.text(0.5, 0.006, "Undefined correlation counts as 0: C, n=4 has 99 defined seeds and 1 undefined per Pearson variant; constant omitted.", ha="center", fontsize=6.5)
-    fig.tight_layout(rect=(0, 0.07, 1, 0.95 if len(keys) == 1 else 0.96))
+        footer = (
+            "Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||².\n"
+            "c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\n"
+            "CE is convex and exact-gradient CE refits match (reading guide); other objectives have\n"
+            "no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.\n"
+            "Undefined correlation counts as 0: C, n=4 has 99 defined seeds and 1 undefined per\n"
+            "Pearson variant; constant omitted."
+        )
+        fig.text(0.5, 0.006, footer, ha="center", va="bottom", fontsize=6.5)
+        fig.tight_layout(rect=(0, 0.075, 1, 0.95))
+    else:
+        fig.text(0.5, 0.025, 'Train: 78-weight softmax, L-BFGS-B, perturbed log-histogram start, ridge (c/n)||W||². c = 1 or four-fold validation-selected; 400 iterations / 600 evaluations per fit.\nCE is convex and exact-gradient CE refits match (reading guide); other objectives have no global certificate. Intervals: 95% percentile bootstrap, 10,000 seed draws.', ha="center", fontsize=7)
+        fig.tight_layout(rect=(0, 0.07, 1, 0.96))
     fig.savefig(os.path.join(HERE, fname), dpi=120)
 
 # Added 11-16-2026 (Mega QA): prints the "Pearson-trained judge worse than the constant forecast" numbers quoted in

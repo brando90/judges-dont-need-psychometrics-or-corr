@@ -30,6 +30,8 @@
   "exact_ce_fits": 95291,
   "exact_ce_fits_scipy_converged": 95291,
   "exact_ce_evaluations": 2692104,
+  "evaluations_with_any_category_below_1e-6": 285141,
+  "rows_with_any_category_below_1e-6": 1907,
   "evaluations_with_an_observed_rating_below_1e-6": 3,
   "rows_with_such_an_evaluation": 3,
   "ce_valrps_rows_that_moved": {
@@ -64,20 +66,34 @@
   },
   "reported_quantities_that_change": {
    "cell_means": {},
+   "ce_excess_cell_means": {},
+   "pearson_cell_means": {},
+   "tvd_from_constant_cell_means": {},
    "crossovers": {},
    "tuned_ce_significantly_worse_at": {},
+   "h1_pearson_better_at": {},
+   "h2_ce_lower_test_pearson_at": {},
    "tuned_ce_ridge_mode": {
     "C/256": {
      "saved": "0.01 (69%)",
      "exact_ce": "0.01 (68%)"
     }
-   }
+   },
+   "figure_ce_excess_crossovers": {},
+   "figure_test_pearson_crossovers": {}
   },
   "reported_quantities_compared": {
    "cell_means": 88,
+   "ce_excess_cell_means": 88,
+   "pearson_cell_means": 88,
+   "tvd_from_constant_cell_means": 48,
    "crossovers": 20,
    "tuned_ce_significantly_worse_at": 12,
-   "tuned_ce_ridge_mode": 44
+   "h1_pearson_better_at": 4,
+   "h2_ce_lower_test_pearson_at": 8,
+   "tuned_ce_ridge_mode": 44,
+   "figure_ce_excess_crossovers": 8,
+   "figure_test_pearson_crossovers": 16
   },
   "crossovers_in_tasks": {
    "A/ce_fixed_vs_pearson_fixed": 64,
@@ -175,6 +191,8 @@
     }
    }
   },
+  "evaluations_with_any_category_below_1e-6": 0,
+  "rows_with_any_category_below_1e-6": 0,
   "evaluations_with_an_observed_rating_below_1e-6": 0,
   "note_on_saved_pearson_rows": "Not a CE effect: rerunning the frozen code on this machine reproduces the saved CE and RPS fits, but the non-convex Pearson fits (and the head fitted on their score) differ from the saved rows, which were computed on another machine; see the max differences below and experiment 07's README.",
   "frozen_rerun_vs_saved_rows": {
@@ -387,7 +405,9 @@
    },
    "success_flag_changes": 0
   },
+  "evaluations_with_any_category_below_1e-6": 0,
+  "rows_with_any_category_below_1e-6": 0,
   "evaluations_with_an_observed_rating_below_1e-6": 0
  },
- "runtime_seconds": 161
+ "runtime_seconds": 193
 }

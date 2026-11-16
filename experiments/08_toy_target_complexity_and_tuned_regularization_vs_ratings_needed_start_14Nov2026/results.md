@@ -10,7 +10,7 @@
 | --- | --- |
 | Protocol and hypotheses committed before measurement (`4e2a8aa`) | DONE |
 | Amendment: fallback when validation correlation is undefined (`094edde`) | DONE: fallback used in 1 of 4,400 rows (scenario C, 4 training tasks, seed 9); the 208 rows written before the amendment completed without needing it |
-| Reproduction of experiment 13's data (scenarios A, B) | DONE: CE and RPS fits match to about 1e-17 |
+| Reproduction of experiment 13's data (scenarios A, B) | DONE: CE and ranked probability score (RPS) fits match to about 1e-17 |
 | Sweep and report | DONE |
 
 ## Verdicts (paired by seed, 95% bootstrap intervals over 100 seeds)
