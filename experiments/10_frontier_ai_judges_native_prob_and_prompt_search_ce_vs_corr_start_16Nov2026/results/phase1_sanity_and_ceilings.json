@@ -1,0 +1,154 @@
+{
+  "created_utc": "2026-11-16T19:15:17.676373+00:00",
+  "hash_audit_summary": {
+    "total_artifacts": 75,
+    "candidate_exact_sha256_matches": 75,
+    "python_exact_sha256_matches": 75,
+    "reference_disk_matches_items_jsonl_sha256": 15,
+    "note": "All 75 candidate_lean and 75 python_source files match items.jsonl SHA-256 75/75; on-disk inputs/references/annotation/*.lean are hashed directly so Exp 09 and Exp 10 score identical reference bytes to exp 100/12/14."
+  },
+  "offline_baselines_and_ceiling": {
+    "leave_one_expert_out": {
+      "mean_spearman": 0.764187,
+      "mean_pearson": 0.778589,
+      "mean_kendall": 0.671277,
+      "mean_icc_A1": 0.758884,
+      "per_anonymous_slot": {
+        "expert_slot_1": {
+          "n_items": 75,
+          "spearman": 0.87786,
+          "pearson": 0.873147,
+          "kendall": 0.777765,
+          "icc_A1": 0.848434
+        },
+        "expert_slot_2": {
+          "n_items": 75,
+          "spearman": 0.871776,
+          "pearson": 0.869725,
+          "kendall": 0.769883,
+          "icc_A1": 0.832265
+        },
+        "expert_slot_3": {
+          "n_items": 45,
+          "spearman": 0.542925,
+          "pearson": 0.592895,
+          "kendall": 0.466184,
+          "icc_A1": 0.595954
+        }
+      }
+    },
+    "rater_disagreement_summary": {
+      "total_artifacts": 75,
+      "artifacts_with_positive_sd": 62,
+      "artifacts_with_unanimous_sd_zero": 13,
+      "ordinary_artifacts": 60,
+      "placeholder_artifacts": 15,
+      "mean_empirical_rps_disagreement_floor_all75": 0.045481,
+      "mean_empirical_rps_disagreement_floor_sd_pos": 0.055018
+    },
+    "dumb_baselines": {
+      "theorem_count_ratio_capped": {
+        "all_75": {
+          "spearman": 0.601406,
+          "pearson": 0.673642,
+          "kendall": 0.472409
+        },
+        "ordinary_60": {
+          "spearman": 0.302383,
+          "pearson": 0.327073,
+          "kendall": 0.222134
+        }
+      },
+      "raw_candidate_theorem_count": {
+        "all_75_spearman": 0.238754,
+        "ordinary_60_spearman": 0.34919
+      }
+    }
+  },
+  "smoke_controls_gpt61_sol": {
+    "oracle": {
+      "n_scheduled": 5,
+      "n_parsed_ok": 5,
+      "ordinary_n": 4,
+      "ordinary_mean_expected_0_1": 1.0,
+      "ordinary_mean_expected_0_5": 5.0,
+      "ordinary_rps_vs_ideal": 0.0,
+      "all_mean_expected_0_1": 1.0
+    },
+    "vacuous": {
+      "n_scheduled": 4,
+      "n_parsed_ok": 4,
+      "ordinary_n": 4,
+      "ordinary_mean_expected_0_1": 0.0,
+      "ordinary_mean_expected_0_5": 0.0,
+      "ordinary_rps_vs_ideal": 0.0,
+      "all_mean_expected_0_1": 0.0
+    },
+    "blank": {
+      "n_scheduled": 5,
+      "n_parsed_ok": 5,
+      "ordinary_n": 4,
+      "ordinary_mean_expected_0_1": 0.0,
+      "ordinary_mean_expected_0_5": 0.0,
+      "ordinary_rps_vs_ideal": 0.0,
+      "all_mean_expected_0_1": 0.0
+    },
+    "shuffled": {
+      "n_scheduled": 5,
+      "n_parsed_ok": 5,
+      "ordinary_n": 4,
+      "ordinary_mean_expected_0_1": 0.0,
+      "ordinary_mean_expected_0_5": 0.0,
+      "ordinary_rps_vs_ideal": 0.0,
+      "all_mean_expected_0_1": 0.124
+    }
+  },
+  "label_in_prompt_reproduction": {
+    "n_scheduled": 15,
+    "n_parsed_ok": 15,
+    "pearson": 1.0,
+    "spearman": 1.0,
+    "tvd": 1.8e-05,
+    "rps": 0.034074,
+    "ce": 0.481883
+  },
+  "repeat_stability_k3_15items": {
+    "items_scheduled": 15,
+    "items_with_all_3_repeats": 15,
+    "mean_expected_score_repeat_sd_0_1": 0.017836,
+    "mean_expected_score_repeat_sd_0_5": 0.089178,
+    "p90_expected_score_repeat_sd_0_1": 0.033281,
+    "mean_per_bin_prob_repeat_sd": 0.023686,
+    "test_retest_icc_1_1": 0.995746
+  },
+  "smoke_gate_evaluation": {
+    "total_calls": 79,
+    "valid_parse_rate": 1.0,
+    "min_oracle_minus_degenerate_0_1": 1.0,
+    "all_smoke_gates_passed": true
+  },
+  "ledger_after_phase1": {
+    "hard_cap_usd": 18.0,
+    "effective_committed_usd": 0.49883,
+    "settled_actual_usd": 0.49883,
+    "remaining_usd": 17.50117,
+    "total_reserved_calls": 79,
+    "total_settled_calls": 79,
+    "by_phase_usd": {
+      "phase1_sanity": 0.49883
+    },
+    "by_model": {
+      "gpt-6.1-sol": {
+        "provider": "koyejolab-openai-bm",
+        "calls_reserved": 79,
+        "calls_settled_ok": 79,
+        "calls_failed": 0,
+        "input_tokens": 319850,
+        "cached_tokens": 115363,
+        "output_tokens": 7832,
+        "reasoning_tokens": 3018,
+        "actual_usd": 0.49883
+      }
+    }
+  }
+}

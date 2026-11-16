@@ -1,0 +1,27 @@
+{
+  "missing_required_files": [],
+  "figures_found": [
+    "fig1_frontier_pools_and_axes_forest.png",
+    "fig2_native_vs_scalar_ce_and_rps.png",
+    "fig3_learning_curve_vs_ratings.png",
+    "fig4_prompts_x_harnesses_2x2_and_trajectories.png",
+    "fig5_mse_decomposition_and_info_gap.png"
+  ],
+  "secret_hits": 0,
+  "forbidden_public_json_keys": 0,
+  "settled_actual_usd": 17.851074,
+  "hard_cap_usd": 18.0,
+  "max_independent_metric_discrepancy": 4.97586372327774e-07,
+  "max_mse_identity_error": 5.329070518200751e-15,
+  "exp02_historical_parity_max_abs_diff": 0.0,
+  "simplex_certificates": {
+    "ce_total": 75,
+    "ce_certified": 75,
+    "rps_total": 75,
+    "rps_certified": 75,
+    "pearson_total": 75,
+    "pearson_certified": 75
+  },
+  "verification_passed": true,
+  "verified_utc": "2026-11-16T22:01:11.056626+00:00"
+}

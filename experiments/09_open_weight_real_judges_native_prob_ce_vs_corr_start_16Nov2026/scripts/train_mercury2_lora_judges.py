@@ -56,7 +56,7 @@ class LoRALinear(nn.Module):
         self.reset_lora(seed=0)
 
     def reset_lora(self, seed: int = 0) -> None:
-        g = torch.Generator(device="cpu").manual_seed(seed)
+        g = torch.Generator(device=self.lora_A.device).manual_seed(seed)
         nn.init.normal_(self.lora_A, mean=0.0, std=0.02, generator=g)
         nn.init.zeros_(self.lora_B)
 
@@ -306,9 +306,9 @@ def run_one_model(
     out_dir: Path,
     top_k_blocks: int = 4,
     rank: int = 8,
-    max_seq_len: int = 3584,
+    max_seq_len: int = 2560,
     lr: float = 2e-4,
-    n_epochs: int = 12,
+    n_epochs: int = 8,
 ) -> None:
     t0 = time.time()
     grad_check = verify_two_pass_chain_rule()
@@ -382,7 +382,8 @@ def run_one_model(
             layer_gpu.cpu()
             torch.cuda.empty_cache()
 
-        cached_prefix_h = [t.pin_memory() for t in cur_hs]
+        # Keep all 75 prefix tensors directly in GPU VRAM (~0.6-0.8 GiB total) for zero PCIe transfer overhead!
+        cached_prefix_h = [t.to(device) for t in cur_hs]
 
         # Run top blocks once on GPU to record exact base hidden vectors & base logits
         top_layers = nn.ModuleList([full_model.model.layers[i] for i in range(split_layer, n_layers)]).to(device)
@@ -424,7 +425,7 @@ def run_one_model(
     # Save exact Gram matrix G = H @ H.T (75 x 75 floats = 45 KB!) so local per-fold training-only PCA/ridge is 100% exact & leak-free!
     gram_75 = (h_mat @ h_mat.T).tolist()
 
-    ckpt_grid = {0, 2, 4, 8, 12}
+    ckpt_grid = {0, 2, 4, 6, 8}
     objectives = ["ce", "rps", "pearson", "spearman"]
     folds_records = []
 
@@ -489,13 +490,13 @@ def run_one_model(
             for obj in ("ce", "rps", "pearson"):
                 judge.reset_trainable(seed=55000 + 100 * n_fam + f_id)
                 _, te_s = train_epochs(
-                    judge, cached_prefix_h, p_all, sub_tr, obj, 10, lr, 0.01, device, eval_idx=out_te, checkpoint_epochs={10}
+                    judge, cached_prefix_h, p_all, sub_tr, obj, 6, lr, 0.01, device, eval_idx=out_te, checkpoint_epochs={6}
                 )
-                row_lc["q_test"][obj] = te_s[10].tolist()
+                row_lc["q_test"][obj] = te_s[6].tolist()
                 if obj == "pearson":
                     q_tr_f = predict_probs(judge, cached_prefix_h, sub_tr, device)
                     row_lc["q_test"]["pearson_plus_ce_head"] = fit_posthoc_ce_head_on_score(
-                        q_tr_f @ GRID_NP, p_all[sub_tr], te_s[10] @ GRID_NP
+                        q_tr_f @ GRID_NP, p_all[sub_tr], te_s[6] @ GRID_NP
                     ).tolist()
             lc_records.append(row_lc)
         print(f"[{model_key}] LoRA learning curve n_fam={n_fam} complete across 5 folds.", flush=True)

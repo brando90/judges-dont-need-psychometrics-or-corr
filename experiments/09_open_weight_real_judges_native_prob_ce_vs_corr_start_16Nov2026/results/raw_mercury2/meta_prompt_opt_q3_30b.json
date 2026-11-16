@@ -1,0 +1,3538 @@
+{
+  "model": "q3_30b_a3b",
+  "folds": [
+    {
+      "fold": 0,
+      "test_families": [
+        "18_MyFibonacci",
+        "33_MyMinimum",
+        "5_unsafeFormatString_safe",
+        "humaneval_13__gcd",
+        "humaneval_3_below_zero",
+        "humaneval_8_sum_product"
+      ],
+      "val_families": [
+        "0_unsafeCopy_safe",
+        "13_MyUppercase",
+        "1_MyAdd",
+        "1_unsafeMultiply_safe"
+      ],
+      "train_families": [
+        "43_replace_spaces",
+        "4_json_decoder",
+        "4_unsafeCounter_safe",
+        "9_pathTraversal_safe",
+        "binary_search_family",
+        "heap_family",
+        "humaneval_31_is_prime",
+        "humaneval_47_median",
+        "sorting_family"
+      ],
+      "test_indices": [
+        9,
+        10,
+        11,
+        24,
+        25,
+        26,
+        39,
+        40,
+        41,
+        51,
+        52,
+        53,
+        57,
+        58,
+        59,
+        63,
+        64,
+        65
+      ],
+      "tracks": {
+        "corr": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.1932626126835967,
+                "ce": 2.7892896242486303,
+                "pearson": 0.3420610740570774,
+                "spearman": 0.36916599619941687,
+                "bias_0_5": 0.9655518400079821,
+                "judge_mean": 3.6322185066746475
+              },
+              "val_metrics": {
+                "rps": 0.21579156833592664,
+                "ce": 2.451201402966143,
+                "pearson": 0.9679221192900069,
+                "spearman": 0.8479444660216053,
+                "bias_0_5": 1.2291603666837665,
+                "judge_mean": 4.020827033350432
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Prioritize explicit coverage of all formal correctness theorems, including preconditions, postconditions, and invariants, as primary indicators of specification completeness.\nDistinguish strong responses by verifying that all test cases\u2014basic, edge, and complex\u2014are explicitly addressed with valid proof or example instantiation.\nDowngrade responses that restate implementation details or loop invariants without connecting them to formal specification requirements.\nAssign lowest scores to outputs that only repeat code or provide placeholder comments without any specification-aligned reasoning or verification.\nRequire clear, unambiguous mapping between each agent-provided theorem or example and a corresponding gold specification requirement.\nPenalize omissions of key edge cases or non-trivial inputs even if core functionality is covered.\nRank higher responses that demonstrate reasoning about correctness across multiple input types, not just successful execution on a few examples.",
+              "train_metrics": {
+                "rps": 0.2205370275593113,
+                "ce": 3.7130844760297963,
+                "pearson": 0.26875326440682895,
+                "spearman": 0.2814925047343263,
+                "bias_0_5": 1.1606617644575554,
+                "judge_mean": 3.827328431124221
+              },
+              "val_metrics": {
+                "rps": 0.25399947933732964,
+                "ce": 4.325106355399665,
+                "pearson": 0.9127656950583605,
+                "spearman": 0.8653715528767408,
+                "bias_0_5": 1.3749922500202496,
+                "judge_mean": 4.166658916686916
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Score highest when the agent proves or verifies all formal properties (correctness, sorting invariants, edge case behavior) for every major input category.\nRequire explicit mention and validation of both positive and negative test cases, including boundary and degenerate inputs, to demonstrate comprehensive coverage.\nDowngrade responses that describe implementation logic without linking it to formal specification assertions or proof obligations.\nReject outputs that substitute code snippets or comments for formal reasoning, especially when no verification of correctness is provided.\nReward responses that identify and address gaps between the agent's output and the gold specification, even if partial coverage is present.\nPrioritize responses that use precise mathematical or logical statements to assert correctness, rather than vague or qualitative claims.\nEnsure relative ordering reflects that full specification alignment (including edge cases and formal proofs) is significantly more valuable than implementation restatement or placeholder content.",
+              "train_metrics": {
+                "rps": 0.2103587466251231,
+                "ce": 3.3903940748270758,
+                "pearson": 0.17052978751741527,
+                "spearman": 0.22175896740889883,
+                "bias_0_5": 1.0299957600097087,
+                "judge_mean": 3.6966624266763737
+              },
+              "val_metrics": {
+                "rps": 0.2292914263361353,
+                "ce": 2.9277173614544885,
+                "pearson": 0.8384382493627809,
+                "spearman": 0.8356625910571955,
+                "bias_0_5": 1.1874934833499167,
+                "judge_mean": 3.979160150016583
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Score higher for comprehensive theorem coverage: explicitly verify all key correctness, postcondition, and edge-case theorems are proven or demonstrated.\nPenalize superficial or repetitive reasoning: avoid points for restating implementation details without linking to formal properties or correctness guarantees.\nPrioritize logical completeness: award points only when the agent demonstrates reasoning that connects input, output, and formal specifications across all test scenarios.\nDistinguish between placeholder and actual proof: treat unverified claims or incomplete proofs as lower than partial but valid reasoning with clear gaps.",
+              "train_metrics": {
+                "rps": 0.18503221849014256,
+                "ce": 2.5633147765996274,
+                "pearson": 0.15348308807359257,
+                "spearman": 0.19351171166841633,
+                "bias_0_5": 0.8162200755600755,
+                "judge_mean": 3.482886742226741
+              },
+              "val_metrics": {
+                "rps": 0.21850000933499966,
+                "ce": 2.0917691996342165,
+                "pearson": 0.8116288221752085,
+                "spearman": 0.8241980699733176,
+                "bias_0_5": 0.9916619166785162,
+                "judge_mean": 3.783328583345183
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Reward explicit verification of all specified properties: require demonstration that the solution satisfies correctness, edge cases, and test invariants as defined in the problem.\nDowngrade responses that restate code without formal justification: implementation details alone do not constitute coverage unless tied to formal properties.\nValue structured reasoning: prefer step-by-step justification linking inputs, outputs, and formal theorems over narrative summaries or code dumps.\nDifferentiate partial progress from full coverage: assign higher scores to responses that correctly address multiple key properties, even if not all are proven.",
+              "train_metrics": {
+                "rps": 0.1935514643875013,
+                "ce": 2.8440720794278973,
+                "pearson": 0.2717719167140623,
+                "spearman": 0.2918460801801863,
+                "bias_0_5": 0.9277742933415645,
+                "judge_mean": 3.59444096000823
+              },
+              "val_metrics": {
+                "rps": 0.2270830946694715,
+                "ce": 2.914871554802092,
+                "pearson": 0.9738998308164547,
+                "spearman": 0.8459861647143959,
+                "bias_0_5": 1.2666597916842914,
+                "judge_mean": 4.058326458350957
+              }
+            }
+          ],
+          "selected_train_id": "cand_0_seed_P0",
+          "selected_val_id": "cand_r2_1",
+          "test_forecasts_by_id": {
+            "cand_0_seed_P0": [
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ]
+            ],
+            "cand_r2_1": [
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ]
+            ]
+          }
+        },
+        "ce": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.1932626126835967,
+                "ce": 2.7892896242486303,
+                "pearson": 0.3420610740570774,
+                "spearman": 0.36916599619941687,
+                "bias_0_5": 0.9655518400079821,
+                "judge_mean": 3.6322185066746475
+              },
+              "val_metrics": {
+                "rps": 0.21579156833592664,
+                "ce": 2.451201402966143,
+                "pearson": 0.9679221192900069,
+                "spearman": 0.8479444660216053,
+                "bias_0_5": 1.2291603666837665,
+                "judge_mean": 4.020827033350432
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Assign ratings 0\u20135 based on precise alignment with gold theorems, where 5 requires full coverage of all specified correctness, edge-case, and test-theorem assertions.\nDistribute probability mass across ratings 0\u20135 only when coverage is incomplete; never assign 1.0 to any single rating if any gold theorem is unverified or ambiguous.\nPenalize responses that restate implementation details (e.g., loop invariants, variable assignments) without proving or referencing formal theorems.\nReject overconfident forecasts: if the agent misses any key theorem, the probability of rating 5 must be \u22640.3; if only partial theorems are covered, no rating >3 should exceed 0.4.\nEnsure the mean forecast is within \u00b10.5 of the human median rating; enforce calibration by penalizing forecasts with mean >4.0 when human median \u22643.5.\nRequire explicit mention of each gold theorem\u2019s verification status (e.g., 'correctness_thm verified', 'edge_case_1 missing') to justify probability distribution.\nDisqualify any forecast with zero probability on ratings 2\u20134 when partial coverage is present; maintain non-zero mass on all plausible ratings to reflect uncertainty.",
+              "train_metrics": {
+                "rps": 0.2875540883946614,
+                "ce": 6.186584276629743,
+                "pearson": 0.5713738515234119,
+                "spearman": 0.428622783296551,
+                "bias_0_5": 1.657768237807935,
+                "judge_mean": 4.324434904474601
+              },
+              "val_metrics": {
+                "rps": 0.37833141734612047,
+                "ce": 7.642332247839566,
+                "pearson": 0.3828232136898322,
+                "spearman": 0.3514158087358725,
+                "bias_0_5": 1.9083215083747078,
+                "judge_mean": 4.699988175041374
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Score based strictly on formal theorem coverage: 5 only if all gold theorems (correctness, edge cases, test equivalence) are explicitly verified or implied.\nFor partial coverage, distribute probability across multiple ratings with decreasing mass toward extremes; avoid assigning >0.5 to any single rating unless full coverage is confirmed.\nReject responses that rephrase implementation logic (e.g., 'the loop maintains sorted order') without linking to a formal theorem or proof.\nEnforce calibration: if human median is \u22643, the forecast mean must not exceed 3.5; if human median \u22654, forecast mean must not exceed 4.2 to correct leniency bias.\nRequire at least 0.1 probability mass on each rating in {1,2,3,4} when coverage is partial, to reflect uncertainty and prevent overconfidence.\nFlag and penalize forecasts where the probability of rating 5 exceeds 0.4 when any gold theorem is unverified or ambiguous.\nUse a penalty term in loss function that increases with the squared difference between forecast mean and human median, minimizing signed leniency bias.",
+              "train_metrics": {
+                "rps": 0.21635493867039146,
+                "ce": 3.7330793845540002,
+                "pearson": 0.2564175066308055,
+                "spearman": 0.31585919634023113,
+                "bias_0_5": 1.1511056222346576,
+                "judge_mean": 3.8177722889013226
+              },
+              "val_metrics": {
+                "rps": 0.28949908800702817,
+                "ce": 5.309699318380213,
+                "pearson": 0.5906785461409003,
+                "spearman": 0.508649768315173,
+                "bias_0_5": 1.4833245083643083,
+                "judge_mean": 4.274991175030974
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Assign ratings 0\u20135 based on precise alignment with gold theorems: 5 for full coverage, 4 for minor omissions, 3 for partial coverage with key gaps, 2 for significant gaps, 1 for minimal coverage, 0 for no relevant coverage.\nCalibrate probability forecasts to reflect uncertainty: assign non-zero probability to all ratings within 1\u20132 steps of the expected coverage level, avoiding extreme probabilities (e.g., 0.0 or 1.0) unless coverage is unambiguously complete or absent.\nPenalize restatements of implementation code as theorems: if the agent rephrases a function body or loop as a theorem, assign 0.0 probability to rating 5 and reduce confidence in higher ratings.\nReject overconfident forecasts: if the agent claims full coverage but omits key edge cases or correctness proofs, assign low probability to rating 5 and increase mass on 3 or lower.\nEnforce strict consistency: if a gold theorem is not explicitly stated or implied by the agent\u2019s output, do not assign probability >0.1 to rating 5.\nAdjust for leniency: if the agent\u2019s output matches human-annotated coverage but the judge assigns higher ratings, reduce forecast confidence in 5 and increase mass on 4.\nRequire explicit reasoning: justify each rating with reference to specific gold theorems; omitting such references invalidates high-confidence forecasts.",
+              "train_metrics": {
+                "rps": 0.2800147785933859,
+                "ce": 5.956281644501931,
+                "pearson": 0.43258405120408683,
+                "spearman": 0.34119223931084075,
+                "bias_0_5": 1.541684054156554,
+                "judge_mean": 4.208350720823221
+              },
+              "val_metrics": {
+                "rps": 0.36216499334369695,
+                "ce": 7.169549879297915,
+                "pearson": 0.4345214014571006,
+                "spearman": 0.2965014219124624,
+                "bias_0_5": 1.7999890667005998,
+                "judge_mean": 4.591655733367266
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Rate coverage strictly on theorem completeness: 5 only if all gold theorems (correctness, edge cases, invariants) are explicitly stated or logically implied.\nDistribute probability mass across 2\u20134 ratings when coverage is partial: avoid 0.0 or 1.0 probabilities; use uniform or decreasing mass toward the most plausible rating.\nDownweight rating 5 for code restatements: if the agent rewrites implementation as a theorem without proof or logical derivation, assign \u22640.2 probability to rating 5.\nEnforce calibration: if the agent omits a key theorem, assign \u22640.1 probability to rating 5 and \u22650.2 to rating 3 or lower.\nCorrect leniency bias: if human rating is 4.0 but judge assigns mean 4.6+, reduce confidence in 5 and increase mass on 4 and 3.\nRequire traceable justification: each rating must cite at least one gold theorem not covered, or explain why a key theorem is implied.\nPenalize overconfidence: log-loss increases sharply if forecast assigns >0.8 to a single rating when multiple ratings are plausible.",
+              "train_metrics": {
+                "rps": 0.17878840296679238,
+                "ce": 3.0534515913257336,
+                "pearson": 0.6215162521452547,
+                "spearman": 0.48784471456228923,
+                "bias_0_5": 0.9833277000157714,
+                "judge_mean": 3.6499943666824377
+              },
+              "val_metrics": {
+                "rps": 0.275499148006932,
+                "ce": 8.96508928732647,
+                "pearson": 0.6650466927696773,
+                "spearman": 0.4585051384561603,
+                "bias_0_5": 1.1499923833630838,
+                "judge_mean": 3.94165905002975
+              }
+            }
+          ],
+          "selected_train_id": "cand_0_seed_P0",
+          "selected_val_id": "cand_0_seed_P0",
+          "test_forecasts_by_id": {
+            "cand_0_seed_P0": [
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "test_families": [
+        "13_MyUppercase",
+        "1_MyAdd",
+        "1_unsafeMultiply_safe",
+        "43_replace_spaces",
+        "humaneval_31_is_prime",
+        "sorting_family"
+      ],
+      "val_families": [
+        "0_unsafeCopy_safe",
+        "18_MyFibonacci",
+        "33_MyMinimum",
+        "4_json_decoder"
+      ],
+      "train_families": [
+        "4_unsafeCounter_safe",
+        "5_unsafeFormatString_safe",
+        "9_pathTraversal_safe",
+        "binary_search_family",
+        "heap_family",
+        "humaneval_13__gcd",
+        "humaneval_3_below_zero",
+        "humaneval_47_median",
+        "humaneval_8_sum_product"
+      ],
+      "test_indices": [
+        6,
+        7,
+        8,
+        12,
+        13,
+        14,
+        18,
+        19,
+        20,
+        30,
+        31,
+        32,
+        48,
+        49,
+        50,
+        54,
+        55,
+        56,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "tracks": {
+        "corr": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.19325422437291684,
+                "ce": 3.2303282745041346,
+                "pearson": 0.09751644543013302,
+                "spearman": 0.17588595526362838,
+                "bias_0_5": 0.6819406666754054,
+                "judge_mean": 3.6541628888976274
+              },
+              "val_metrics": {
+                "rps": 0.30274907433859294,
+                "ce": 4.6973711423180555,
+                "pearson": 0.34584150794962787,
+                "spearman": 0.20770352982682072,
+                "bias_0_5": 1.74999435001635,
+                "judge_mean": 3.916661016683016
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Prioritize explicit coverage of all formal properties and edge cases specified in the gold solution, including empty, singleton, and duplicate inputs, with direct verification in the agent's specification.\nAssign higher scores to responses that include both preconditions and postconditions explicitly stated and verified across all testable cases, especially those involving boundary conditions.\nDeduct points for responses that restate the implementation without formalizing properties, even if correct, as they fail to demonstrate specification-level reasoning.\nAward full credit only when all key theorems and invariants from the gold solution are logically implied or directly stated in the agent's specification, with no gaps in coverage.\nDisfavor responses that mention 'correct' behavior without referencing formal properties or test cases, as they lack measurable specification rigor.",
+              "train_metrics": {
+                "rps": 0.21285111352354535,
+                "ce": 3.643972170170181,
+                "pearson": 0.2287447129946353,
+                "spearman": 0.3066537067548434,
+                "bias_0_5": 0.9944381361292525,
+                "judge_mean": 3.966660358351475
+              },
+              "val_metrics": {
+                "rps": 0.25211048022618865,
+                "ce": 3.641689995159808,
+                "pearson": 0.4909209639085579,
+                "spearman": 0.34324929841520974,
+                "bias_0_5": 1.4916618916803914,
+                "judge_mean": 3.6583285583470584
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Score higher for responses that explicitly formalize and verify all required properties, including edge cases and invariants, using logical assertions or theorem-like statements.\nPenalize responses that merely restate the implementation or return values without linking them to formal properties or testable conditions.\nRequire demonstration of coverage for all critical test scenarios, including empty, singleton, and edge-case inputs, with explicit mention of correctness in each.\nDistinguish between partial and complete coverage by evaluating whether all key theorems and invariants are either proven or logically implied in the specification.\nPrefer responses that structure their reasoning around formal properties and test case alignment, rather than relying on vague or implementation-focused language.",
+              "train_metrics": {
+                "rps": 0.1624767323348281,
+                "ce": 1.9463834301101268,
+                "pearson": 0.45046877691387327,
+                "spearman": 0.5872728836554967,
+                "bias_0_5": 0.6069412777850777,
+                "judge_mean": 3.5791635000073003
+              },
+              "val_metrics": {
+                "rps": 0.2840825926708163,
+                "ce": 3.754854983075335,
+                "pearson": 0.4622036187657346,
+                "spearman": 0.3399910732352309,
+                "bias_0_5": 1.6916613166809162,
+                "judge_mean": 3.8583279833475825
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Prioritize explicit formalization of all required correctness properties as logically structured assertions or proven theorems, with clear linkage to input domains and edge cases.\nScore higher for responses that verify each critical test scenario\u2014including empty, singleton, and boundary inputs\u2014via formalized invariants or theorem-like claims.\nPenalize reliance on implementation description or return value repetition without connecting them to verifiable properties or testable conditions.\nDistinguish partial from complete coverage by requiring either full proof or unambiguous logical implication of all key theorems and invariants.\nPrefer structured reasoning that maps test cases to formal properties, with explicit acknowledgment of correctness for each scenario.\nDowngrade responses that use vague or descriptive language (e.g., 'this works' or 'it should be correct') in lieu of formal verification.\nAward higher scores to responses where all formal properties are explicitly stated, tested, and aligned with the specification\u2019s intended behavior.",
+              "train_metrics": {
+                "rps": 0.19778086216964363,
+                "ce": 3.0850486173929927,
+                "pearson": 0.2669137602186104,
+                "spearman": 0.28870733568015455,
+                "bias_0_5": 0.8286067166776304,
+                "judge_mean": 3.8008289388998526
+              },
+              "val_metrics": {
+                "rps": 0.2381801913359487,
+                "ce": 3.4568531705945458,
+                "pearson": 0.7563390087334507,
+                "spearman": 0.6606918092715971,
+                "bias_0_5": 1.4958291583446581,
+                "judge_mean": 3.662495825011325
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Require all critical properties\u2014especially invariants, edge cases, and boundary behaviors\u2014to be expressed as formal assertions or provable statements.\nScore higher for responses that explicitly verify correctness across all test scenarios, including degenerate and non-trivial inputs, via logical or theorem-like validation.\nDowngrade responses that restate implementation behavior without linking it to formal properties or testable conditions.\nDistinguish complete from partial coverage by evaluating whether all essential theorems are either proven or logically entailed in the specification.\nPrefer responses that organize reasoning around formal property coverage, with clear mapping between test cases and verified assertions.\nPenalize placeholder reasoning or generic claims (e.g., 'this should be correct') that lack formal grounding or test alignment.\nReward responses that demonstrate full alignment between test cases, formal properties, and logical verification, even if proofs are concise.",
+              "train_metrics": {
+                "rps": 0.19612452233708755,
+                "ce": 3.258464609174236,
+                "pearson": 0.34201303155522983,
+                "spearman": 0.3973694665442345,
+                "bias_0_5": 0.9124944889038274,
+                "judge_mean": 3.8847167111260483
+              },
+              "val_metrics": {
+                "rps": 0.2945825130048207,
+                "ce": 4.784873676854829,
+                "pearson": 0.4791647704755624,
+                "spearman": 0.3691779986073168,
+                "bias_0_5": 1.6999945500157498,
+                "judge_mean": 3.8666612166824166
+              }
+            }
+          ],
+          "selected_train_id": "cand_r1_1",
+          "selected_val_id": "cand_r2_0",
+          "test_forecasts_by_id": {
+            "cand_r1_1": [
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ]
+            ],
+            "cand_r2_0": [
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.2,
+                0.64
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1,
+                0.1
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.3,
+                0.54
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.2,
+                0.64
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ]
+            ],
+            "cand_0_seed_P0": [
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ]
+            ]
+          }
+        },
+        "ce": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.19325422437291684,
+                "ce": 3.2303282745041346,
+                "pearson": 0.09751644543013302,
+                "spearman": 0.17588595526362838,
+                "bias_0_5": 0.6819406666754054,
+                "judge_mean": 3.6541628888976274
+              },
+              "val_metrics": {
+                "rps": 0.30274907433859294,
+                "ce": 4.6973711423180555,
+                "pearson": 0.34584150794962787,
+                "spearman": 0.20770352982682072,
+                "bias_0_5": 1.74999435001635,
+                "judge_mean": 3.916661016683016
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Assign ratings based strictly on theorem coverage relative to gold: 5 for full coverage, 4 for near-complete (missing \u22641 minor theorem), 3 for partial (missing \u22652 key theorems), 2 for fragmented (only edge cases), 1 for minimal (no core theorems), 0 for none.\nCalibrate probability forecasts using Platt scaling: map model confidence to uniform prior over plausible ratings (e.g., 3\u20135 if partial coverage), ensuring non-zero mass across all plausible ratings and zero mass on implausible ones.\nPenalize explicit restatements of implementation details (e.g., 'the function returns the sum and product of the list') as non-semantic repetition; such content does not contribute to theorem coverage and reduces signal-to-noise.\nReject overconfident forecasts: if the agent fails to mention a key theorem, do not assign >0.3 probability to rating 5; if coverage is partial, avoid assigning >0.4 to 5 or >0.3 to 4.\nEnforce symmetry: if the agent proves a theorem via a different method than the gold, still credit it\u2014only reject if the theorem is unproven or misstated.\nRequire explicit mention of key properties: e.g., for sum/product, state that empty list returns (0,1); for median, state behavior on odd/even length and duplicates.\nDisregard implementation details (e.g., 'uses foldr') unless they imply a theorem; focus on logical correctness and completeness of assertions.",
+              "train_metrics": {
+                "rps": 0.24846177008219364,
+                "ce": 5.140352107055044,
+                "pearson": 0.5686176808809377,
+                "spearman": 0.39075797640852844,
+                "bias_0_5": 1.4027679639181523,
+                "judge_mean": 4.374990186140375
+              },
+              "val_metrics": {
+                "rps": 0.3781648190106816,
+                "ce": 9.230211949248,
+                "pearson": 0.43830178820350935,
+                "spearman": 0.5390427316282681,
+                "bias_0_5": 2.091657475028941,
+                "judge_mean": 4.258324141695608
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Rate strictly on completeness of formal theorem coverage: 5 if all gold theorems are proven, 4 if all but one minor theorem are covered, 3 if \u22652 key theorems are missing, 2 if only edge cases are addressed, 1 if only one theorem is correct, 0 if none.\nUse Bayesian calibration: assign probability distributions over ratings that reflect uncertainty\u2014e.g., 30% to 4, 40% to 3, 30% to 2\u2014if coverage is partial but not complete; never assign >0.5 to a rating unless \u226580% of key theorems are covered.\nReject any response that restates implementation logic (e.g., 'the function iterates through the list and accumulates') as irrelevant unless it implies a formal property; such content adds no value to theorem verification.\nEnsure non-zero probability mass across all plausible ratings when coverage is ambiguous\u2014e.g., assign at least 0.1 to 3, 4, and 5 if partial coverage is present.\nDisregard redundant or tautological assertions (e.g., 'the function returns the correct sum') unless they are tied to a formal theorem; only credit claims that are logically verifiable.\nFlag overconfident forecasts: if the agent omits a key theorem, do not assign >0.2 to rating 5; if coverage is partial, avoid assigning >0.4 to 5 or >0.3 to 4.\nPrioritize formal correctness: a correct but incomplete proof of a key theorem earns 3, not 4; a correct proof of a minor theorem earns 2, not 3.",
+              "train_metrics": {
+                "rps": 0.25183203300988,
+                "ce": 5.822559021055416,
+                "pearson": 0.45613962182279255,
+                "spearman": 0.12872691521583743,
+                "bias_0_5": 1.280546033366472,
+                "judge_mean": 4.252768255588694
+              },
+              "val_metrics": {
+                "rps": 0.28999868600947454,
+                "ce": 6.651807580143115,
+                "pearson": 0.48317174958439946,
+                "spearman": 0.39138808266632663,
+                "bias_0_5": 1.5999927750292249,
+                "judge_mean": 3.766659441695891
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Assign rating 5 only if the agent's specification fully and correctly implements all required theorems, including edge cases and invariants, with no restatements of the problem or redundant assertions.\nAssign rating 0 only if the agent's specification fails to address the core function or contains critical logical errors, with no valid coverage of required properties.\nDistribute probability mass across ratings 1\u20134 only when partial coverage exists: assign non-zero probability to ratings reflecting the proportion of correctly verified theorems and edge cases, with higher mass on the most accurate plausible rating.\nPenalize explicit restatements of the problem statement or test cases as 'proofs'\u2014such specifications must be rejected with low probability on rating 5 and non-zero mass on lower ratings.\nCalibrate forecasts to avoid extreme probabilities (e.g., 0.0 or 0.7) unless coverage is near-complete or near-zero; use uniform or softmax-based smoothing over plausible ratings when uncertainty is high.\nEnsure the expected rating (mean of forecast) aligns with human consensus: if human rating is 3, the forecast must not average above 3.5 or below 2.5 without justification.\nFor tasks with ambiguous or incomplete coverage, assign non-zero probability to multiple adjacent ratings (e.g., 2\u20134) to reflect uncertainty, avoiding overconfident single-point forecasts.",
+              "train_metrics": {
+                "rps": 0.34399758468649194,
+                "ce": 9.523079285843849,
+                "pearson": 0.32610033725751414,
+                "spearman": 0.1855426128318878,
+                "bias_0_5": 1.7166539917243357,
+                "judge_mean": 4.688876213946556
+              },
+              "val_metrics": {
+                "rps": 0.4566638183537743,
+                "ce": 9.739990453509838,
+                "pearson": 0.43219438699291096,
+                "spearman": 0.48805168214487743,
+                "bias_0_5": 2.433321350052383,
+                "judge_mean": 4.599988016719049
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Rate 5 only when all required theorems are proven, edge cases are handled correctly, and the specification avoids restating the problem or test cases as assertions.\nRate 0 if the agent fails to satisfy the primary function or contains logical contradictions, with no valid coverage of required properties.\nFor partial coverage, distribute probability mass across adjacent ratings (e.g., 2\u20134) using a softmax with temperature 1.0 to reflect uncertainty, ensuring non-zero mass on all plausible ratings.\nReject restatements of test cases or problem statements as 'proofs'\u2014such content must be assigned low probability on rating 5 and non-zero mass on ratings \u22643.\nCalibrate forecasts to minimize log-loss: avoid assigning 0.0 or 1.0 to any rating unless coverage is near-complete or near-zero; use Laplace smoothing (\u03b5=0.01) for rare cases.\nBias correction: if human rating is 3, the forecast mean must not exceed 3.2 or fall below 2.8 without evidence of partial coverage; enforce mean-target alignment via post-hoc calibration.\nRequire that uncertainty be reflected in the forecast: if coverage is ambiguous, the variance of the rating distribution must be >0.3, penalizing overconfident single-rating predictions.",
+              "train_metrics": {
+                "rps": 0.22205351851851854,
+                "ce": 2.146664026509577,
+                "pearson": 0.4234583554711726,
+                "spearman": 0.26604599939587736,
+                "bias_0_5": 1.1680555555555556,
+                "judge_mean": 4.140277777777778
+              },
+              "val_metrics": {
+                "rps": 0.3755,
+                "ce": 3.076255092746477,
+                "pearson": 0.4297372576534503,
+                "spearman": 0.3412433466209609,
+                "bias_0_5": 2.096666666666667,
+                "judge_mean": 4.263333333333334
+              }
+            }
+          ],
+          "selected_train_id": "cand_r2_1",
+          "selected_val_id": "cand_r1_1",
+          "test_forecasts_by_id": {
+            "cand_r2_1": [
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.05,
+                0.15,
+                0.35,
+                0.42
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.2,
+                0.64
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.04,
+                0.05,
+                0.85
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.04,
+                0.05,
+                0.85
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.2,
+                0.64
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.05,
+                0.15,
+                0.3,
+                0.25,
+                0.15,
+                0.1
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.04,
+                0.05,
+                0.85
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.3,
+                0.49
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.04,
+                0.05,
+                0.85
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.3,
+                0.49
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.05,
+                0.15,
+                0.35,
+                0.42
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.15,
+                0.35,
+                0.44
+              ]
+            ],
+            "cand_r1_1": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.9,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.9,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.9,
+                0.0
+              ],
+              [
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1,
+                0.1
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.3,
+                0.4,
+                0.2,
+                0.0
+              ],
+              [
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1,
+                0.1
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.9,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.3,
+                0.4,
+                0.1
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.4,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ]
+            ],
+            "cand_0_seed_P0": [
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "test_families": [
+        "0_unsafeCopy_safe",
+        "4_json_decoder",
+        "4_unsafeCounter_safe",
+        "9_pathTraversal_safe",
+        "binary_search_family",
+        "heap_family",
+        "humaneval_47_median"
+      ],
+      "val_families": [
+        "13_MyUppercase",
+        "18_MyFibonacci",
+        "1_MyAdd",
+        "1_unsafeMultiply_safe"
+      ],
+      "train_families": [
+        "33_MyMinimum",
+        "43_replace_spaces",
+        "5_unsafeFormatString_safe",
+        "humaneval_13__gcd",
+        "humaneval_31_is_prime",
+        "humaneval_3_below_zero",
+        "humaneval_8_sum_product",
+        "sorting_family"
+      ],
+      "test_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        27,
+        28,
+        29,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        60,
+        61,
+        62
+      ],
+      "tracks": {
+        "corr": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.20419665361779465,
+                "ce": 2.8018526939882924,
+                "pearson": 0.09309326120467881,
+                "spearman": 0.10092855774335772,
+                "bias_0_5": 1.0075732575808576,
+                "judge_mean": 3.5075732575808574
+              },
+              "val_metrics": {
+                "rps": 0.28141632133472816,
+                "ce": 3.7388193238719007,
+                "pearson": 0.6325735163501547,
+                "spearman": 0.18691158276087563,
+                "bias_0_5": 1.5749961250074251,
+                "judge_mean": 3.6583294583407575
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Prioritize explicit coverage of all specified preconditions and postconditions in the task description, with deductions for missing or incorrectly stated invariants.\nAward higher scores for specifications that include verifiable edge cases and non-trivial examples, especially those involving boundary values or degenerate inputs.\nDistinguish between implementation-restatement (rephrasing the problem without new insight) and genuine specification depth (e.g., defining behavior for empty, singleton, or nested structures).\nPenalize placeholder or incomplete logic (e.g., 'assume input is valid' or 'return default value') unless explicitly justified by task constraints.\nScore higher for specifications that generalize beyond the provided examples, demonstrating reasoning about structure and invariance.\nRequire that all key theorems or correctness claims be explicitly stated or logically derivable from the specification.\nUse consistent scoring across tasks: strong specifications must demonstrate both completeness and precision, not just syntactic correctness.",
+              "train_metrics": {
+                "rps": 0.273407966107497,
+                "ce": 5.7300074298056,
+                "pearson": 0.2835505846333912,
+                "spearman": 0.17042797666350837,
+                "bias_0_5": 1.5469629878989513,
+                "judge_mean": 4.046962987898952
+              },
+              "val_metrics": {
+                "rps": 0.3492905780053215,
+                "ce": 6.596267369960846,
+                "pearson": 0.6013617527869969,
+                "spearman": 0.5374575101093257,
+                "bias_0_5": 1.9958264583509582,
+                "judge_mean": 4.079159791684291
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Assign higher scores to specifications that fully encode the task\u2019s intended behavior, including all required input/output mappings and edge cases.\nDistinguish partial coverage (e.g., missing edge cases or incorrect handling of empty inputs) from complete and correct specification of all key invariants.\nDowngrade responses that restate the problem in different words without adding formal or behavioral constraints, even if syntactically correct.\nReward explicit handling of degenerate or boundary inputs, such as empty structures, single elements, or extreme values.\nScore higher for specifications that include testable assertions or logical implications that validate correctness across all expected inputs.\nRequire that all gold theorems be either directly stated or logically entailed by the specification, with no gaps in reasoning.\nUse relative ordering: strong > partial > implementation-restatement > placeholder, based on completeness, precision, and logical depth.",
+              "train_metrics": {
+                "rps": 0.2951502174616335,
+                "ce": 6.572633348161558,
+                "pearson": 0.012669027957917873,
+                "spearman": -0.02170011364837548,
+                "bias_0_5": 1.5848415394143391,
+                "judge_mean": 4.08484153941434
+              },
+              "val_metrics": {
+                "rps": 0.3858735315071496,
+                "ce": 7.59740526455001,
+                "pearson": 0.5499273684540379,
+                "spearman": 0.6427783947316542,
+                "bias_0_5": 2.1458250500218417,
+                "judge_mean": 4.229158383355173
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Prioritize explicit, formal declaration of all task-critical invariants and correctness properties, requiring logical derivability of key theorems from the specification without relying on implicit assumptions.\nAward higher scores for specifications that include non-trivial, verifiable edge cases (e.g., empty, singleton, or extreme inputs) with explicit behavioral guarantees, penalizing generic or untested assertions.\nDistinguish genuine specification depth by requiring structural reasoning\u2014e.g., defining behavior for nested or recursive cases\u2014over rephrasing of input-output examples.\nPenalize any use of placeholder logic (e.g., 'assume valid input', 'return default') unless explicitly justified by task constraints or proven to be safe under all conditions.\nScore higher for specifications that generalize beyond provided examples, demonstrating reasoning about invariance, symmetry, or closure under operations.\nRequire that all correctness claims be either explicitly stated or logically entailed by the specification; ambiguous or non-derivable assertions reduce score.\nEnforce consistent evaluation: strong specifications must demonstrate both completeness and precision, with deductions for omissions even if syntactically correct.",
+              "train_metrics": {
+                "rps": 0.25366576776231503,
+                "ce": 4.876238407182119,
+                "pearson": 0.08066616508975435,
+                "spearman": 0.02020813402881051,
+                "bias_0_5": 1.3909034848629152,
+                "judge_mean": 3.890903484862915
+              },
+              "val_metrics": {
+                "rps": 0.3044993396697282,
+                "ce": 4.665459456114276,
+                "pearson": 0.8377036441661243,
+                "spearman": 0.7813983916059349,
+                "bias_0_5": 1.8416606916797917,
+                "judge_mean": 3.924994025013124
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Score higher for specifications that explicitly state and derive all key correctness properties (e.g., invariance, boundary behavior, and structural preservation) from first principles.\nDistinguish strong from weak specifications by requiring verifiable edge cases\u2014especially degenerate or extreme inputs\u2014with guaranteed behavior, not just examples.\nReject implementation-restatement: specifications must go beyond rephrasing the problem; they must define behavior for abstract or recursive structures with formal guarantees.\nPenalize assumptions of input validity or default returns unless formally justified by task constraints or proven safety under all inputs.\nReward generalization: specifications that infer behavior beyond examples through structural or algebraic reasoning (e.g., symmetry, closure, or induction) receive higher scores.\nAll correctness claims must be either explicitly stated or logically derivable; ambiguity or non-entailment reduces score significantly.\nEnforce strict consistency: strong specifications must be both complete and precise, with no tolerance for missing invariants or unverified edge cases.",
+              "train_metrics": {
+                "rps": 0.22638320493256053,
+                "ce": 3.9388166786494394,
+                "pearson": 0.01176860935198365,
+                "spearman": 0.0186871372859691,
+                "bias_0_5": 1.1151478060700062,
+                "judge_mean": 3.6151478060700057
+              },
+              "val_metrics": {
+                "rps": 0.2973327820027794,
+                "ce": 4.23627848471624,
+                "pearson": 0.7445758882896216,
+                "spearman": 0.5993362829826863,
+                "bias_0_5": 1.7499947000122997,
+                "judge_mean": 3.833328033345632
+              }
+            }
+          ],
+          "selected_train_id": "cand_r1_0",
+          "selected_val_id": "cand_r2_0",
+          "test_forecasts_by_id": {
+            "cand_r1_0": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.15,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1
+              ],
+              [
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1
+              ]
+            ],
+            "cand_r2_0": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.01,
+                0.02,
+                0.03,
+                0.1,
+                0.2,
+                0.64
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1
+              ]
+            ],
+            "cand_0_seed_P0": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.25,
+                0.3,
+                0.15
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.3,
+                0.3,
+                0.1
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.2
+              ],
+              [
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.1
+              ]
+            ]
+          }
+        },
+        "ce": {
+          "candidates": [
+            {
+              "id": "cand_0_seed_P0",
+              "addendum": "",
+              "train_metrics": {
+                "rps": 0.20419665361779465,
+                "ce": 2.8018526939882924,
+                "pearson": 0.09309326120467881,
+                "spearman": 0.10092855774335772,
+                "bias_0_5": 1.0075732575808576,
+                "judge_mean": 3.5075732575808574
+              },
+              "val_metrics": {
+                "rps": 0.28141632133472816,
+                "ce": 3.7388193238719007,
+                "pearson": 0.6325735163501547,
+                "spearman": 0.18691158276087563,
+                "bias_0_5": 1.5749961250074251,
+                "judge_mean": 3.6583294583407575
+              }
+            },
+            {
+              "id": "cand_r1_0",
+              "addendum": "Assign rating 5 only if all gold theorems are explicitly or logically entailed by the agent's specification, with no unverified assumptions.\nAssign rating 0 only if the agent's specification fails to mention or imply any key theorem, including basic edge cases.\nFor partial coverage, distribute probability mass across ratings 1\u20134 based on the proportion of gold theorems correctly addressed, with higher uncertainty for ambiguous or incomplete reasoning.\nExplicitly penalize responses that restate the problem or implementation details without demonstrating theorem coverage or logical inference.\nEnsure all forecasts include non-zero probability on at least two adjacent ratings when coverage is incomplete, avoiding extreme confidence (e.g., 0.0 or 1.0) on single ratings.\nReject overconfident predictions: if the agent misses more than one key theorem, do not assign probability >0.3 to rating 5.\nCalibrate forecasts so that mean predicted rating aligns with human consensus; avoid systematic overestimation (leniency bias).",
+              "train_metrics": {
+                "rps": 0.4230476226065005,
+                "ce": 9.83421095874192,
+                "pearson": -0.06170993365063975,
+                "spearman": -0.16573139555643612,
+                "bias_0_5": 2.2181694424765817,
+                "judge_mean": 4.718169442476581
+              },
+              "val_metrics": {
+                "rps": 0.4954969640214543,
+                "ce": 8.8566445504302,
+                "pearson": 0.14402350155044874,
+                "spearman": -0.03699888656549706,
+                "bias_0_5": 2.5749875333879997,
+                "judge_mean": 4.658320866721334
+              }
+            },
+            {
+              "id": "cand_r1_1",
+              "addendum": "Rate 5 only when all gold theorems are fully and correctly implied by the specification, with no reliance on unverified assumptions or implementation details.\nRate 0 only when the specification omits all key theorems and fails to address fundamental cases, including edge conditions.\nFor partial coverage, distribute probability mass across 2\u20134 adjacent ratings, with peak probability at the median of covered theorems and decreasing mass toward extremes.\nPenalize responses that repeat the task description or implementation logic without demonstrating theorem-level reasoning or coverage.\nEnforce non-zero probability on at least three plausible ratings when coverage is incomplete, preventing overconfident single-rating forecasts.\nAvoid leniency: if the agent misses more than 20% of key theorems, do not assign >0.2 probability to rating 5.\nUse calibration targets: forecast mean should be within \u00b10.1 of human mean rating; adjust confidence to minimize log-loss and RPS.",
+              "train_metrics": {
+                "rps": 0.35656352114540746,
+                "ce": 8.01859955177677,
+                "pearson": 0.2816233191728113,
+                "spearman": 0.1541060216418406,
+                "bias_0_5": 2.01514059700956,
+                "judge_mean": 4.515140597009561
+              },
+              "val_metrics": {
+                "rps": 0.3219987956734928,
+                "ce": 6.4799016437280015,
+                "pearson": 0.5667779087908689,
+                "spearman": 0.6673515773856128,
+                "bias_0_5": 1.8666591750231583,
+                "judge_mean": 3.949992508356491
+              }
+            },
+            {
+              "id": "cand_r2_0",
+              "addendum": "Assign ratings based strictly on theorem coverage completeness: 5 for full coverage, 4 for near-complete (\u226590%), 3 for partial (50\u201389%), 2 for minimal (10\u201349%), 1 for negligible (<10%), 0 for none.\nCalibrate confidence probabilities using isotonic regression on validation set: ensure predicted probabilities reflect true coverage proportions across all rating bins.\nReject overconfident forecasts: if the agent's spec matches all gold theorems, assign probability 1.0 to rating 5 only; otherwise, distribute mass across multiple bins with non-zero support.\nPenalize restatements of implementation details: if the agent's spec rephrases the problem without adding new coverage, reduce confidence in higher ratings even if syntax matches.\nFor partial coverage, maintain non-zero probability mass across adjacent bins (e.g., 3 and 4 if coverage is ~70%), avoiding degenerate distributions.\nEnforce symmetry: if a task has ambiguous coverage, assign equal probability to adjacent ratings (e.g., 2.5 and 3.5) to reflect uncertainty.\nDisregard implementation-specific phrasing: focus solely on logical coverage of required theorems, not on how they are expressed.",
+              "train_metrics": {
+                "rps": 0.3427051055879593,
+                "ce": 8.903095829845796,
+                "pearson": 0.20040018724680597,
+                "spearman": 0.02332915847761285,
+                "bias_0_5": 1.8939291818547574,
+                "judge_mean": 4.393929181854757
+              },
+              "val_metrics": {
+                "rps": 0.45499770901305214,
+                "ce": 9.941376931416524,
+                "pearson": 0.5827384060882,
+                "spearman": 0.5932411105019098,
+                "bias_0_5": 2.366656341702041,
+                "judge_mean": 4.449989675035374
+              }
+            },
+            {
+              "id": "cand_r2_1",
+              "addendum": "Use coverage-based binning: rate 5 only if all gold theorems are logically implied; rate 4 if \u226590% coverage with no critical gaps; rate 3 if 50\u201389% with minor omissions.\nApply Platt scaling to output probabilities: map raw model scores to calibrated probabilities using a sigmoid function trained on validation data.\nDistribute uncertainty across neighboring bins for partial coverage: e.g., 30% to 3, 50% to 4, 20% to 5 if coverage is ~75%, never concentrate mass on a single rating.\nFlag and downweight responses that restate the problem without extending coverage: if the agent merely rewrites the prompt, assign \u226420% probability to rating 5.\nEnforce non-degenerate distributions: always assign positive probability to at least two adjacent ratings when coverage is ambiguous or partial.\nBias correction: adjust all forecasts to remove systematic leniency; apply a learned offset to shift mean rating toward human consensus.\nReject zero-probability claims for plausible ratings: if coverage is not zero, assign at least 5% probability to the most likely rating bin.",
+              "train_metrics": {
+                "rps": 0.34122534766802237,
+                "ce": 8.940660842222432,
+                "pearson": -0.12030102512756652,
+                "spearman": -0.13632289823368726,
+                "bias_0_5": 1.8015051091232694,
+                "judge_mean": 4.301505109123269
+              },
+              "val_metrics": {
+                "rps": 0.42262331650777235,
+                "ce": 9.291090537781315,
+                "pearson": 0.2147195675291697,
+                "spearman": 0.268454506034985,
+                "bias_0_5": 2.0958246833562577,
+                "judge_mean": 4.179158016689592
+              }
+            }
+          ],
+          "selected_train_id": "cand_0_seed_P0",
+          "selected_val_id": "cand_0_seed_P0",
+          "test_forecasts_by_id": {
+            "cand_0_seed_P0": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.2,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.0,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.3
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.05,
+                0.1,
+                0.15,
+                0.2,
+                0.3,
+                0.2
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.3,
+                0.6
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.1,
+                0.2,
+                0.7
+              ],
+              [
+                0.05,
+                0.1,
+                0.1,
+                0.2,
+                0.3,
+                0.25
+              ]
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

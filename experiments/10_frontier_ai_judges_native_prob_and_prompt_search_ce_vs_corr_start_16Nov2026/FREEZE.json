@@ -1,0 +1,31 @@
+{
+  "frozen_utc": "2026-11-16T19:09:28.325768+00:00",
+  "frozen_pst": "11-16-2026 11:09 PST",
+  "experiment": "10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026",
+  "dataset_sha256": "b3a05699a26d3ffd9f28e793178811219885df78319b3aa57f9d393c68724ba0",
+  "hard_cap_usd": 18.0,
+  "probability_floor": 1e-06,
+  "primary_endpoint": "Held-out test ranked probability score (RPS): test RPS of correlation-trained/selected judge minus test RPS of proper-loss-trained/selected judge (positive favors proper loss)",
+  "axes": [
+    "iii.a_prompt_optimization",
+    "iii.b_harness_optimization",
+    "2x2_prompt_x_harness_interaction",
+    "multi_family_native_prob_pool"
+  ],
+  "api_spend_at_freeze_usd": 0.0,
+  "bound_files_sha256": {
+    "PROTOCOL.md": "1e59845ee3b2e1c94da12bf3cb4497d2c10c265848b0047665cde2e7b8f172f2",
+    "README.md": "f40e78b6d65a8e445cd2d90e4bb71b875844d16cbf241bed12880a98c68b22c0",
+    "HOW_TO_READ_RESULTS.md": "af1b41bc7da7eb74a06812440151420a26f11259cc51e1d2b038f0c347db5c86",
+    "cc.md": "520f6e3395616f95d047a87b7d76f06f2b971354008c2516e0982e83c4719f29",
+    "scripts/analyze_all.py": "1b0fbcfb9ae80204cf2246270c92145bdb41c8096e56873e9d18fb4dbb943ee6",
+    "scripts/common.py": "4f65143151b7719ee7fd2145cb9f79ed18a9965c9cc36224a4b71189a07c0aa1",
+    "scripts/metrics_and_solvers.py": "c3c895a71c70d8cebae26c97a942f18b862805f48be568f06f42afa8dc4d6912",
+    "scripts/prompts.py": "e3b56668549adb097c29a8cba6b49a70e35d57699ec85e2bfe605cefab92980c",
+    "scripts/run_arm_a_pool.py": "a1c31967ee278eb823fe3163a17e2bdb8b7759cabda0059346f501851beda887",
+    "scripts/run_arm_b_prompt_search.py": "d652bf098acad5baf793e5ceb80da0eae93fda41d4327f5911c35196871999ff",
+    "scripts/run_arm_c_harnesses.py": "046e6d2fadc6e282991fbbc9c9657281d770da62853118816c9082d328312384",
+    "scripts/run_phase0_and_sanity.py": "a9a7f33accc65a3814af3be7a9a2717163cea7cbf433eee3e8ec2f2f49dc7f7a",
+    "scripts/verify_results.py": "c33a7962594f1a59ee40b11c6cc8848d1c31e3c77a0d0c521d97721e4459623f"
+  }
+}

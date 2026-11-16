@@ -2,16 +2,31 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md>
 
-**Status:** RUNNING (started 11-16-2026 10:35 PST)
-**Last updated:** 11-16-2026 10:35 PST
+**Status:** COMPLETE (verified `11-16-2026 14:01 PST`)
+**Last updated:** `11-16-2026 14:01 PST`
 
 ## Phase Table
 
 | Phase | Description | Status | Notes |
 | --- | --- | --- | --- |
-| Phase 0 | Protocol freeze, byte-exact input SHA-256 verification (`75` items, `19` families), tokenizer 6-digit bijection check | DONE | All 10 models verified 1-to-1 single-token `0..5`; `dataset.json` SHA-256 `b3a05699...` verified |
-| Phase 1 | Karpathy sanity controls (`oracle`, `vacuous`, `blank`, `shuffled`, `label_in_prompt`) + `10`-model × `3`-prompt native-probability (`q_logprob`, `q_verbal`) vLLM inference on `mercury2` (`$0` free GPUs) | IN PROGRESS | Launching across GPUs `0..7` on `mercury2.stanford.edu` |
-| Phase 2 | Certified task-family evaluation: formulations ①–④, all 6 objectives + `Pearson + calibrated CE head`, 5-restart optimizer check, training-size learning curves, MSE & information-gap stratification, Prompts-vs-Weights 2×2 | PENDING | Runs after Phase 1 outputs transfer back |
-| Phase 3 | Plots, `HOW_TO_READ_RESULTS.md`, `RESULTS_open_weight_ce_vs_corr.md`, deterministic `verify_results.py`, and 3-stage Mega QA | PENDING | Runs after Phase 2 |
+| Phase 0 | Protocol freeze (`FREEZE.json`), byte-exact input SHA-256 verification (`75` items, `19` families), tokenizer 6-digit bijection | DONE | Committed before GPU execution (`2997834`) |
+| Phase 1 | `10`-model open-weight vLLM inference (`ii.a` prompts `P0..P5` + blind meta-prompt search; `ii.b` harnesses `H1..H6`; `25` Karpathy controls; `k=3` repeats) + `ii.c` PyTorch LoRA weight fine-tuning (`Qwen3-4B` & `Qwen2.5-Coder-7B`) on `mercury2` (`$0.00`) | DONE | All GPUs released and verified clean via `nvidia-smi` |
+| Phase 2 | Certified `19`-task-family evaluation: formulations ①–④, learning curves (`3–15` families), `5`-restart non-convex check, MSE & information-gap stratification | DONE | Saved in `results/analysis_summary.json` and `results/open_weight_forecasts.json` |
+| Phase 3 | Figures (`figures/*.png`), [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md), [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md), and `verify_results.py` | DONE | Full report in [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md) |
 
-**TLDR-end:** [judges-corr: 09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026] Protocol frozen and input/tokenizer checks passed; launching 10-model open-weight native-probability inference on `mercury2`.
+## Headline Held-Out Test Results (`75` Artifacts, `19` Task Families, `195` Ratings, No DT)
+
+| Optimization Mechanism | Proper-Loss Judge Test RPS / CE | Correlation Judge Test RPS / CE | Correlation minus CE Test RPS `[95% Family CI]` (`>0` favors CE) |
+| --- | --- | --- | --- |
+| Representation Bridge: Verbal 6-Prob Mixture (`②` vs `④`) | `0.1431` / `1.629` | `0.1848` / `1.804` | `+0.0417 [+0.0194, +0.0666] p-val=0.0034 (exact_2^19_task_family_sign_flip)` |
+| Representation Bridge: Digit-Logprob Mixture (`②` vs `④`) | `0.1712` / `2.273` | `0.2250` / `2.533` | `+0.0538 [+0.0340, +0.0709] p-val=0.0005 (exact_2^19_task_family_sign_flip)` |
+| `ii.a` Candidate Prompt Pool (`P0..P5` Verbal `②` vs `④` Mix) | `0.1761` / `1.753` | `0.2311` / `2.117` | `+0.0550 [+0.0047, +0.1032] p-val=0.0574 (exact_2^19_task_family_sign_flip)` |
+| `ii.b` Judge Harness Optimization (`H1–H6` Pool `②` vs `④`) | `0.1325` / `1.606` | `0.1836` / `1.978` | `+0.0511 [+0.0222, +0.0833] p-val=0.0053 (exact_2^19_task_family_sign_flip)` |
+| `ii.c` PyTorch LoRA (`Qwen3-4B, 1.85M params`, `②` Train Pearson vs `④` Train CE) | `0.2007` / `2.084` | `0.3351` / `7.546` | `+0.1344 [+0.0495, +0.2220] p-val=0.0091 (exact_2^19_task_family_sign_flip)` |
+| `ii.c` PyTorch LoRA (`Qwen3-4B, 1.85M params`, `①` Val-Corr Pearson vs `③` Val-RPS CE) | `0.1997` / `2.180` | `0.3597` / `5.216` | `+0.1599 [+0.0870, +0.2273] p-val=0.0018 (exact_2^19_task_family_sign_flip)` |
+| `ii.c` PyTorch LoRA (`Qwen2.5-Coder-7B, 2.91M params`, `②` Train Pearson vs `④` Train CE) | `0.1927` / `2.026` | `0.4015` / `4.801` | `+0.2088 [+0.0957, +0.3037] p-val=0.0049 (exact_2^19_task_family_sign_flip)` |
+| `ii.c` PyTorch LoRA (`Qwen2.5-Coder-7B, 2.91M params`, `①` Val-Corr Pearson vs `③` Val-RPS CE) | `0.1859` / `1.950` | `0.3761` / `3.623` | `+0.1903 [+0.0886, +0.2757] p-val=0.0049 (exact_2^19_task_family_sign_flip)` |
+
+Full tables, `Qwen2.5-Coder-7B` LoRA results, blind meta-prompt optimization (`Qwen3-30B-A3B`), `2×2` Prompt × Harness factorial, MSE decomposition, and learning curves: [RESULTS_open_weight_ce_vs_corr.md](RESULTS_open_weight_ce_vs_corr.md).
+
+**TLDR-end:** [judges-corr: 09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026] Complete across `ii.a` prompt optimization, `ii.b` harness optimization, and `ii.c` PyTorch LoRA LLM weight training on `mercury2`: native six-category probabilities beat the constant marginal CE baseline, and proper-loss training beats correlation training across prompt mixtures, harness pools, `48`-weight heads, and LoRA weight updates (`3`-fold discrete meta-prompt search `-0.0261` RPS, `p-val=0.2778`).

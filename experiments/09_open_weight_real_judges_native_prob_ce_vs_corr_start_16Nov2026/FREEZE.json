@@ -8,5 +8,17 @@
     "scripts/run_mercury2_open_judges.py": "af0aeaabb144a3a600573e2293929fff59839861cd5fb83522d3fafba4b63534",
     "scripts/train_mercury2_lora_judges.py": "f4fb7c296981cc6f03f3f2b3eb9213c77363bf2f7b29ddb8dd8396febd0a822d",
     "results/input_manifest.json": "3a947779cf676b42f7990faa81f0874422a728261663eccbb6a5192f1467079c"
+  },
+  "execution_amendment_1": {
+    "recorded_at": "2026-11-16T12:16:00-08:00",
+    "reason": "Pre-evaluation execution bugfixes documented in PROTOCOL.md: Step-2 trailing space + top_logprobs=20 + 720s startup timeout in run_mercury2_open_judges.py; CUDA generator + VRAM-resident cached prefix + n_epochs=8 in train_mercury2_lora_judges.py; exact grid counts documented in PROTOCOL.md.",
+    "effective_files": {
+      "README.md": "678ba197e9d79cb9094f6128e8c36435739d915eb98200ad7810b911a363608a",
+      "PROTOCOL.md": "9e42b844cbfda3cb7264ae7e6c8caef9e2384c5ab0b10de00579a7d8d63c16f9",
+      "scripts/build_prompts.py": "9e94e75747b6a1c06483aa936f981a0995b2b86b8e83e968f86ae25fa7e14053",
+      "scripts/run_mercury2_open_judges.py": "d6ecd5426981a7f9c7336e7cfea37a196ebd7edc0227e4d0bb3f0984f4014e33",
+      "scripts/train_mercury2_lora_judges.py": "1259d9cdf6cad7c1544badf63e5f56f826eeae0c615e55323b726a78f76de25a",
+      "results/input_manifest.json": "3a947779cf676b42f7990faa81f0874422a728261663eccbb6a5192f1467079c"
+    }
   }
 }

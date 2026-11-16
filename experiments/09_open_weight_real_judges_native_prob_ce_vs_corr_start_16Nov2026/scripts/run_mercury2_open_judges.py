@@ -215,7 +215,7 @@ def score_one_cell(
     if not rationale_clean and raw_text:
         tail = re.sub(r"<think>.*?</think>", "", raw_text, flags=re.DOTALL).strip()[-350:]
         rationale_clean = re.sub(r'[\r\n"\\]+', " ", tail).strip()
-    assistant_prefix = json.dumps({"rationale": rationale_clean})[:-1] + ', "final_score_0_5":'
+    assistant_prefix = json.dumps({"rationale": rationale_clean})[:-1] + ', "final_score_0_5": '
 
     logit_bias = {str(tid): 100.0 for tid in digit_ids.values()}
     msgs2 = msgs + [{"role": "assistant", "content": assistant_prefix}]
@@ -227,7 +227,7 @@ def score_one_cell(
         "max_tokens": 1,
         "temperature": 0.0,
         "logprobs": True,
-        "top_logprobs": 6,
+        "top_logprobs": 20,
         "logit_bias": logit_bias,
     }
     if mode in ("qwen3_nothink", "qwen3_think"):
@@ -245,15 +245,20 @@ def score_one_cell(
                 tok_str = entry["token"].strip()
                 if tok_str in ("0", "1", "2", "3", "4", "5") and tok_str not in lp_by_digit:
                     lp_by_digit[tok_str] = float(entry["logprob"])
-            if len(lp_by_digit) == 6:
-                max_lp = max(lp_by_digit.values())
-                exps = [math.exp(lp_by_digit[str(d)] - max_lp) for d in range(6)]
+            if len(lp_by_digit) >= 1:
+                min_seen = min(lp_by_digit.values())
+                # Any digit outside top-20 has strictly smaller logprob than rank-20 token
+                rank20_lp = min(float(entry["logprob"]) for entry in tlp) if tlp else (min_seen - 10.0)
+                tail_lp = min(min_seen, rank20_lp) - 2.0
+                full_lps = [lp_by_digit.get(str(d), tail_lp) for d in range(6)]
+                max_lp = max(full_lps)
+                exps = [math.exp(lp - max_lp) for lp in full_lps]
                 s_exp = sum(exps)
                 q_logprob = [v / s_exp for v in exps]
-                raw_digit_logprobs = [lp_by_digit[str(d)] for d in range(6)]
+                raw_digit_logprobs = full_lps
                 err2 = None
                 break
-            err2 = f"incomplete_digits:{list(lp_by_digit.keys())}"
+            err2 = f"no_digits_in_top20:{[e['token'] for e in tlp[:5]]}"
         except Exception as exc:
             err2 = repr(exc)
             time.sleep(1)
@@ -442,21 +447,27 @@ def run_blind_meta_prompt_opt(
 
                 proposals = []
                 try:
-                    rm = post_json(
-                        port,
-                        {
-                            "model": model_key,
-                            "messages": [{"role": "user", "content": meta_prompt}],
-                            "temperature": 0.4,
-                            "max_tokens": 700,
-                        },
-                        timeout=300,
-                    )
+                    prop_payload = {
+                        "model": model_key,
+                        "messages": [{"role": "user", "content": meta_prompt}],
+                        "temperature": 0.4,
+                        "max_tokens": 900,
+                    }
+                    if "q3_" in model_key or "qwen3" in model_key:
+                        prop_payload["chat_template_kwargs"] = {"enable_thinking": False}
+                    rm = post_json(port, prop_payload, timeout=300)
                     objs = extract_json_objects(rm["choices"][0]["message"].get("content") or "")
                     if objs:
                         for k_ab in ("candidate_A", "candidate_B"):
-                            if isinstance(objs[-1].get(k_ab), str) and len(objs[-1][k_ab].strip()) > 20:
-                                proposals.append(objs[-1][k_ab].strip())
+                            v_ab = objs[-1].get(k_ab)
+                            if isinstance(v_ab, list):
+                                v_ab = "\n".join(str(x) for x in v_ab if str(x).strip())
+                            elif isinstance(v_ab, dict):
+                                v_ab = "\n".join(f"- {k}: {v}" for k, v in v_ab.items())
+                            if isinstance(v_ab, str) and len(v_ab.strip()) > 20:
+                                proposals.append(v_ab.strip())
+                    else:
+                        print(f"[meta_prompt_opt] unparsed proposal content: {(rm['choices'][0]['message'].get('content') or '')[:200]!r}", flush=True)
                 except Exception as exc:
                     print(f"[meta_prompt_opt] proposal err: {exc!r}", flush=True)
 
@@ -582,7 +593,7 @@ def main() -> None:
         proc = subprocess.Popen(cmd, env=env, stdout=serve_log, stderr=subprocess.STDOUT, start_new_session=True)
         try:
             ready = False
-            for _ in range(90):
+            for _ in range(240):
                 if proc.poll() is not None:
                     break
                 try:

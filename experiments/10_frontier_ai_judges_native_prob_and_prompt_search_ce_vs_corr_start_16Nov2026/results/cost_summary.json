@@ -1,0 +1,132 @@
+{
+  "hard_cap_usd": 18.0,
+  "effective_committed_usd": 17.851074,
+  "settled_actual_usd": 17.851074,
+  "remaining_usd": 0.148926,
+  "total_reserved_calls": 4389,
+  "total_settled_calls": 4389,
+  "by_phase_usd": {
+    "diag": 4.3e-05,
+    "phase1_sanity": 0.49883,
+    "phase2_pool": 10.827408,
+    "phase2_pool_repair": 0.041727,
+    "phase3_eval_ce": 1.34006,
+    "phase3_eval_corr": 1.082147,
+    "phase3_heldout_test": 0.423418,
+    "phase3_propose_ce": 0.065708,
+    "phase3_propose_corr": 0.061352,
+    "phase4_h1_codestral_P_ce_val": 0.055262,
+    "phase4_h1_codestral_P_corr_val": 0.053649,
+    "phase4_h1_gpt61_P_ce_val": 0.804288,
+    "phase4_h1_gpt61_P_corr_val": 0.763268,
+    "phase4_h2_P0_untuned": 0.360056,
+    "phase4_h2_P_ce_val": 0.382566,
+    "phase4_h2_P_corr_val": 0.276086,
+    "phase4_h2_codestral_P0": 0.06075,
+    "phase4_h3_step1": 0.41371,
+    "phase4_h3_step2_mini_P0_untuned": 0.100397,
+    "phase4_h3_step2_mini_P_ce_val": 0.138091,
+    "phase4_h3_step2_mini_P_corr_val": 0.102256
+  },
+  "by_model": {
+    "codestral-2508": {
+      "provider": "mistral",
+      "calls_reserved": 744,
+      "calls_settled_ok": 451,
+      "calls_failed": 293,
+      "input_tokens": 2120456,
+      "cached_tokens": 899840,
+      "output_tokens": 26271,
+      "reasoning_tokens": 0,
+      "actual_usd": 0.416824
+    },
+    "gpt-5.4-mini": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 1917,
+      "calls_settled_ok": 1916,
+      "calls_failed": 1,
+      "input_tokens": 7326551,
+      "cached_tokens": 3857664,
+      "output_tokens": 601737,
+      "reasoning_tokens": 492200,
+      "actual_usd": 5.598807
+    },
+    "gpt-5.6-sol": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 75,
+      "calls_settled_ok": 75,
+      "calls_failed": 0,
+      "input_tokens": 326084,
+      "cached_tokens": 0,
+      "output_tokens": 4830,
+      "reasoning_tokens": 0,
+      "actual_usd": 1.400936
+    },
+    "gpt-5.6-terra": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 75,
+      "calls_settled_ok": 75,
+      "calls_failed": 0,
+      "input_tokens": 326084,
+      "cached_tokens": 0,
+      "output_tokens": 4749,
+      "reasoning_tokens": 0,
+      "actual_usd": 0.709156
+    },
+    "gpt-6-astra": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 75,
+      "calls_settled_ok": 75,
+      "calls_failed": 0,
+      "input_tokens": 326084,
+      "cached_tokens": 0,
+      "output_tokens": 8281,
+      "reasoning_tokens": 3606,
+      "actual_usd": 3.67489
+    },
+    "gpt-6.1-sol": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 447,
+      "calls_settled_ok": 447,
+      "calls_failed": 0,
+      "input_tokens": 1958140,
+      "cached_tokens": 115363,
+      "output_tokens": 68357,
+      "reasoning_tokens": 32536,
+      "actual_usd": 4.38066
+    },
+    "gpt-6.1-terra": {
+      "provider": "koyejolab-openai-bm",
+      "calls_reserved": 153,
+      "calls_settled_ok": 153,
+      "calls_failed": 0,
+      "input_tokens": 691299,
+      "cached_tokens": 9872,
+      "output_tokens": 30596,
+      "reasoning_tokens": 21293,
+      "actual_usd": 1.669801
+    },
+    "magistral-medium-latest": {
+      "provider": "mistral",
+      "calls_reserved": 225,
+      "calls_settled_ok": 0,
+      "calls_failed": 225,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "actual_usd": 0.0
+    },
+    "mistral-medium-3.5": {
+      "provider": "mistral",
+      "calls_reserved": 678,
+      "calls_settled_ok": 0,
+      "calls_failed": 678,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "actual_usd": 0.0
+    }
+  }
+}

@@ -1,1 +1,4 @@
 private/
+results/raw_mercury2/*.jsonl
+results/raw_mercury2/*.log
+results/raw_mercury2/*.done
