@@ -2,10 +2,10 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md>
 
-**Status:** COMPLETE (verified `11-16-2026 14:44 PST`)
-**Last updated:** `11-16-2026 14:44 PST`
+**Status:** COMPLETE (verified `11-16-2026 15:00 PST`)
+**Last updated:** `11-16-2026 15:00 PST`
 
-**Input provenance and prior exposure:** 60/75 reference files differ from the hashes recorded in the annotation manifest; Python and candidate files match. The saved evidence does not resolve stale reference metadata versus changed reference bytes, so byte identity with the human-delivered reference files is unverified. The fixed P2 prompt includes historical expert-mean and leniency summaries that were not estimated within each training split; P2-containing pools are retrospectively informed, not zero-exposure evaluations. Family separation applies to fitting and selection. Digit-logprob extraction imputes absent digits below the observed top-20 tail and can report success with fewer than six observed digits; saved receipts do not identify the exact incidence. These are probability estimates, not guaranteed complete six-digit softmax probabilities.
+**Input provenance and prior exposure:** 60/75 reference files differ from the hashes recorded in the annotation manifest; Python and candidate files match. The saved evidence does not resolve stale reference metadata versus changed reference bytes, so byte identity with the human-delivered reference files is unverified. The fixed P2 prompt includes historical expert-mean and leniency summaries that were not estimated within each training split; P2-containing pools are retrospectively informed, not zero-exposure evaluations. Family separation applies to fitting and selection. Digit-logprob extraction imputes absent digits below the observed top-20 tail and can report success with fewer than six observed digits; saved receipts do not identify the exact incidence. These are probability estimates, not guaranteed complete six-digit softmax probabilities. The legacy abstract syntax tree (AST) scaffold is a regex declaration summary, without Lean elaboration. Its saved literal-True heuristic incorrectly marked all 15 placeholder artifacts (5 tasks) as non-placeholder because their propositions use aliases. A post-run source fix now emits undetermined; saved prompts and forecasts retain the original flags.
 
 ## Phase Table
 

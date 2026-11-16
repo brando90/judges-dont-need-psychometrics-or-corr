@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Metrics, MSE decomposition, information-gap diagnostics, certified convex/cone simplex solvers,
+"""Metrics, MSE decomposition, rater-disagreement diagnostics, certified convex/cone simplex solvers,
 smooth rank-correlation optimizers, 2-parameter convex calibration head, and 48-parameter feature head
 with 1-start vs 5-restart verification for Experiment 10."""
 from __future__ import annotations
@@ -181,11 +181,14 @@ def summarize_panel(
 
 
 def artifact_disagreement_diagnostics(ratings_list: list[list[int]]) -> dict[str, np.ndarray]:
-    """Compute per-artifact empirical SD, RPS disagreement floor, and Jeffreys-smoothed information gap G_i."""
+    """Compute empirical SD and empirical/Jeffreys-smoothed RPS disagreement floors.
+
+    The legacy smoothed_info_gap_G key stores D_i, not the same-mean
+    Kullback-Leibler information gap used in Experiments 05 and 09."""
     n = len(ratings_list)
     emp_sd = np.zeros(n)
     emp_rps_floor = np.zeros(n)
-    info_gap_g = np.zeros(n)
+    smoothed_rps_floor = np.zeros(n)
     for i, rts in enumerate(ratings_list):
         arr = np.asarray(rts, dtype=float)
         emp_sd[i] = float(arr.std(ddof=0))
@@ -193,15 +196,16 @@ def artifact_disagreement_diagnostics(ratings_list: list[list[int]]) -> dict[str
         fp = np.cumsum(p)[:5]
         emp_rps_floor[i] = float(np.mean(fp * (1.0 - fp)))
         # Jeffreys Dirichlet(0.5) smoothed distribution p_tilde:
-        # G_i = RPS disagreement floor of p_tilde (captures multi-modality / spread beyond a point mass)
+        # D_i = mean_k F_tilde(k)(1-F_tilde(k)); range [0, 0.25].
+        # This measures smoothed ordinal spread, not departure from a same-mean distribution.
         counts = np.bincount(np.asarray(rts, dtype=int), minlength=6).astype(float)
         p_tilde = (counts + 0.5) / (len(rts) + 3.0)
         f_tilde = np.cumsum(p_tilde)[:5]
-        info_gap_g[i] = float(np.mean(f_tilde * (1.0 - f_tilde)))
+        smoothed_rps_floor[i] = float(np.mean(f_tilde * (1.0 - f_tilde)))
     return {
         "empirical_sd_0_5": emp_sd,
         "empirical_rps_floor": emp_rps_floor,
-        "smoothed_info_gap_G": info_gap_g,
+        "smoothed_info_gap_G": smoothed_rps_floor,  # Legacy key retained for saved-result compatibility.
     }
 
 

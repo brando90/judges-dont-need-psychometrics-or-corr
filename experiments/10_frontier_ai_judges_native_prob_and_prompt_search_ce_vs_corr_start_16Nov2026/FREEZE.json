@@ -122,5 +122,28 @@
       "scripts/verify_results.py": "a6363b9a375a955398739b2191a89ec31288283dbc41d2533fe191b0dfa9a3bd"
     },
     "review_receipt": "../09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa2_carbon.md"
+  },
+  "qa_amendment_3": {
+    "recorded_utc": "2026-11-16T22:59:02.334680+00:00",
+    "review_base": "233d5047d20da8591b4609ab52242ceed8717152",
+    "stage": "Mega QA Stage 3, clean-eyes Codex review; local deterministic checks only.",
+    "reason": [
+      "Correct remaining inference, metric-definition, reference-scale, initialization/search-space and aggregation descriptions; saved numerical evidence is unchanged.",
+      "Experiment 09 prospective scaffold emits undetermined instead of an unsupported semantic placeholder Boolean; historical prompt manifests and forecasts are preserved.",
+      "Experiment 10 preserves legacy diagnostic JSON keys and values while defining the implemented smoothed RPS disagreement floor, rather than claiming the same-mean information gap."
+    ],
+    "before_sha256": {
+      "README.md": "7dbceccf9594183f5b00060e03fe629a91523334f37f21d5592f0fbf28e01b81",
+      "HOW_TO_READ_RESULTS.md": "1fbed560e6ab5c13b521b7a50d21d032b9b12979c993786b9297a2f5ef847e93",
+      "scripts/analyze_all.py": "3f04713511748b583d0aa8f96d1392c8d6eece52d8dc1b2c6b45c8bc2a474db7",
+      "scripts/metrics_and_solvers.py": "c3c895a71c70d8cebae26c97a942f18b862805f48be568f06f42afa8dc4d6912"
+    },
+    "effective_files_sha256": {
+      "README.md": "629ae09bd0ba0e787694b26fcb35c9fd9469d72c848158ed000a61181c25c4fc",
+      "HOW_TO_READ_RESULTS.md": "52eddff249290b658b242b4ab421af4fb12de64bc03081dfc4310d4d6339100f",
+      "scripts/analyze_all.py": "dde9cb4941931d93c79480ecd85b36ecd3efb67155d3c4deb634c184a7719acf",
+      "scripts/metrics_and_solvers.py": "328ccd54ee93eab4f722464c40a7f76944ca2cd444c7e800919aeb165fa6fc92"
+    },
+    "review_receipt": "../09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md"
   }
 }

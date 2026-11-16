@@ -91,12 +91,13 @@ def extract_lean_ast_summary(ref_text: str, cand_text: str) -> str:
     cand_defs = decls(cand_text, ("def", "abbrev", "structure"))
     cand_ex = len(re.findall(r"^\s*example\b", strip_lean_comments(cand_text), flags=re.M))
     cand_sorry = len(re.findall(r"\bsorry\b", strip_lean_comments(cand_text)))
-    gold_true_only = len(gold_thms) == 0 or all(": True" in t or ": True :=" in ref_text for t in gold_thms)
+    # Declaration regexes do not resolve Lean proposition aliases (e.g. Pre/Post).
+    # Do not infer semantic vacuity from a literal True occurrence or missing declarations.
     ratio = 1.0 if len(gold_thms) == 0 else min(1.0, len(cand_thms) / max(1, len(gold_thms)))
 
     lines = [
         "<lean_ast_scaffold>",
-        f"- Gold theorem/lemma count: {len(gold_thms)} | Gold def count: {len(gold_defs)} | Gold True-placeholder-only heuristic: {gold_true_only}",
+        f"- Gold theorem/lemma count: {len(gold_thms)} | Gold def count: {len(gold_defs)} | Gold True-placeholder-only status: undetermined (declaration extraction does not resolve propositions)",
         f"- Candidate theorem/lemma count: {len(cand_thms)} | Candidate def count: {len(cand_defs)} | Candidate `example` count: {cand_ex} | Candidate `sorry` count: {cand_sorry}",
         f"- Syntactic candidate/gold theorem-count ratio (clipped to [0,1]): {ratio:.3f}",
         "- Gold theorem signatures:",

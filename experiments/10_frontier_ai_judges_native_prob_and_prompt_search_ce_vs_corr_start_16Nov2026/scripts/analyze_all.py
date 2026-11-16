@@ -11,7 +11,7 @@
 3. Training-size learning curve (n_fam in {3, 5, 7, 9, 12, 15} training task families) on matched held-out test splits.
 4. Axis iii.b Frontier Judge Harness Optimization (H1..H4) + 2x2 Interaction (Prompt Search Objective x Harness Objective)
    both on the locked 9/5/5 blind split AND across the 250 grouped splits for zero-exposure P0 harnesses.
-5. Exact MSE Bias + Scale + Correlation decomposition & per-artifact Information-Gap G_i / SD>0 / Ordinary-vs-Placeholder stratification.
+5. Exact MSE Bias + Scale + Correlation decomposition & per-artifact smoothed RPS disagreement floor D_i / SD>0 / Ordinary-vs-Placeholder stratification.
 """
 from __future__ import annotations
 
@@ -676,7 +676,7 @@ def evaluate_disagreement_and_strata(
     rps_pearson_per_item: np.ndarray,
     rps_ce_per_item: np.ndarray,
 ) -> dict[str, Any]:
-    """Stratified held-out RPS analysis (SD > 0 vs SD == 0; Ordinary vs Placeholder) and Info-Gap G_i correlation (Exp 05)."""
+    """Stratified held-out RPS analysis (SD > 0 vs SD == 0; Ordinary vs Placeholder) and smoothed RPS disagreement-floor D_i correlation (not Exp 05's information gap)."""
     disag = artifact_disagreement_diagnostics([r["_private_ratings"] for r in rows])
     sd_pos = disag["empirical_sd_0_5"] > 0
     ord_mask = np.array([r["ordinary"] for r in rows], dtype=bool)
@@ -684,6 +684,7 @@ def evaluate_disagreement_and_strata(
     uniq_fams = sorted(set(families.tolist()))
 
     diff_rps = rps_pearson_per_item - rps_ce_per_item  # positive => CE-trained better!
+    # Legacy keys are preserved; this is D_i = mean F_tilde(1-F_tilde), not information gap G_i.
     g_vec = disag["smoothed_info_gap_G"]
 
     def _stratum_summary(mask: np.ndarray) -> dict[str, Any]:
@@ -736,7 +737,7 @@ def evaluate_disagreement_and_strata(
         "info_gap_G_correlation_with_rps_gain": {
             "pearson_r": {"estimate": round(corr_g_r, 6), **ci_g_r},
             "spearman_rho": {"estimate": round(corr_g_sp, 6), **ci_g_sp},
-            # Safe public aggregate bins (3 terciles of G_i — never individual private ratings!)
+            # Safe public aggregate bins (3 terciles of D_i — never individual private ratings!)
             "tercile_means": [
                 {
                     "tercile": t_idx + 1,
@@ -787,7 +788,7 @@ def main() -> None:
     phase4_data = json.loads((RESULTS_DIR / "phase4_arm_c_harnesses.json").read_text(encoding="utf-8"))
     harness_2x2 = evaluate_harnesses_and_2x2_interaction(rows, p_emp, phase4_data)
 
-    print("Running Rater-Disagreement / Info-Gap G_i & Strata Diagnostics...")
+    print("Running Rater-Disagreement / Smoothed RPS Floor D_i & Strata Diagnostics...")
     # Evaluate Disagreement strata on the 15-judge native frontier pool (M3 feature head across Exp-02 5x5 OOF predictions)
     parts = exp02_partitions(rows, EXP02_SEEDS)
     Phi_nat = build_pool_features(q_native)

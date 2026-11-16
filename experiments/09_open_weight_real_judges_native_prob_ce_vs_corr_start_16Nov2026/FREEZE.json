@@ -46,5 +46,24 @@
       "README.md": "b803801139e193019fb370ffccec279a24f0e6311ea184a440e26e12a0ba0ce7"
     },
     "review_receipt": "qa/mega_qa_11-16-2026/qa2_carbon.md"
+  },
+  "qa_amendment_3": {
+    "recorded_utc": "2026-11-16T22:59:02.332600+00:00",
+    "review_base": "233d5047d20da8591b4609ab52242ceed8717152",
+    "stage": "Mega QA Stage 3, clean-eyes Codex review; local deterministic checks only.",
+    "reason": [
+      "Correct remaining inference, metric-definition, reference-scale, initialization/search-space and aggregation descriptions; saved numerical evidence is unchanged.",
+      "Experiment 09 prospective scaffold emits undetermined instead of an unsupported semantic placeholder Boolean; historical prompt manifests and forecasts are preserved.",
+      "Experiment 10 preserves legacy diagnostic JSON keys and values while defining the implemented smoothed RPS disagreement floor, rather than claiming the same-mean information gap."
+    ],
+    "before_sha256": {
+      "README.md": "b803801139e193019fb370ffccec279a24f0e6311ea184a440e26e12a0ba0ce7",
+      "scripts/build_prompts.py": "9e94e75747b6a1c06483aa936f981a0995b2b86b8e83e968f86ae25fa7e14053"
+    },
+    "effective_files_sha256": {
+      "README.md": "fc35c3290eb72d12c08d2eb145e148470446bc1fef8c10a20b7a7abd1658e3c0",
+      "scripts/build_prompts.py": "a9338506a902d1a68d95c816c1b31b6f8ccd53b053991ea5db5ab20883ed08c8"
+    },
+    "review_receipt": "qa/mega_qa_11-16-2026/qa3_codex_vals.md"
   }
 }

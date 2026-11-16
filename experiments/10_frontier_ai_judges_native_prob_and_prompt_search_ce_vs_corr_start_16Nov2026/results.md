@@ -2,8 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md>
 
-**Status:** COMPLETE (verified 11-16-2026 14:45 PST)
-**Last updated:** 11-16-2026 14:45 PST
+**Status:** COMPLETE (verified 11-16-2026 15:00 PST)
+**Last updated:** 11-16-2026 15:00 PST
 
 **Failure handling:** Saved losses include uniform forecasts substituted after unsuccessful parsing. `ce_iter2_c1`: 11/75 overall, including 7/30 held-out test artifacts. Harness results also include uniform or upstream scaffold fallbacks. These measure the complete pipeline with fallback behavior, not successful model responses alone. Status metadata was recovered from exact local cached requests without new calls; the failure table below retains every scheduled entry.
 **Canonical report:** [RESULTS_frontier_ce_vs_corr.md](RESULTS_frontier_ce_vs_corr.md) · [Protocol](PROTOCOL.md) · [Reading guide](HOW_TO_READ_RESULTS.md) · [Checkpoint](CKPT_frontier_ce_vs_corr.md)

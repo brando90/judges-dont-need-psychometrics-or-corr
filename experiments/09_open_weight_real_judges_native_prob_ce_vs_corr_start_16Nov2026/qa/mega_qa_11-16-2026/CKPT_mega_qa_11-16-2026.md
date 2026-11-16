@@ -2,27 +2,23 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/CKPT_mega_qa_11-16-2026.md>
 
-**TLDR:** Brando Miranda requested a 3-stage sequential multi-model Mega QA ("At the end do a mega qa... with a different model of course!") on 11-16-2026 covering Experiment 09 (`ii.a` prompt optimization, `ii.b` harness optimization, `ii.c` PyTorch low-rank adaptation (LoRA) transformer weight updates on open-weight judges) and Experiment 10 (`iii.a` blind prompt optimization and `iii.b` frontier harness optimization on frontier artificial intelligence (AI) judges) plus `experiments/README.md`. Nothing lands on `origin/main` until Stage 3 accepts and deterministic verifiers pass.
+**TLDR:** Completed the 3-stage sequential cross-company Mega QA chain (`OpenAI Codex gpt-6-astra ultra` -> `Gemini 4 Carbon High` -> fresh `OpenAI Codex gpt-6-astra ultra`) on 11-16-2026 covering Experiment 09, Experiment 10, and `experiments/README.md` from base `233d5047d20da8591b4609ab52242ceed8717152`. Final verdict: **ACCEPT (`CRITICAL_ISSUES: 0`)**; ready to land on `origin/main`.
 
 Created: 11-16-2026 12:51 PST
-Last updated: 11-16-2026 12:51 PST
+Last updated: 11-16-2026 15:04 PST
 
 ## State
-- **Coordinator / builder:** Antigravity `Gemini 4 Carbon (High)` (parent session `7fa0b312-b867-45d4-b095-82ed9c135b7b` + subagent `4b9ddc42-4d76-48d9-abc4-15e7b8f53abc` for Experiment 10). Sole email notifier: parent coordinator (`RUN START` sent 11-16-2026; `RUN DONE` pending after landing).
-- **Isolated integration worktree:** `/Users/brandomiranda/.worktrees/judges-dont-need-psychometrics-or-corr/exp09-open-weight-1116`
+- **Coordinator / builder:** Antigravity `Gemini 4 Carbon (High)` (parent `7fa0b312-b867-45d4-b095-82ed9c135b7b` + Exp 10 subagent `4b9ddc42-4d76-48d9-abc4-15e7b8f53abc`).
 - **Original base commit (`QA_BASE`):** `233d5047d20da8591b4609ab52242ceed8717152`
-- **Owned paths (`QA_PATHS`):**
-  - `experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026`
-  - `experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026`
-  - `experiments/README.md`
-- **Stages (sequential, each reviewing the improved tree from `QA_BASE`):**
-  - **Stage 1 (`qa1_codex_vals.md`):** PENDING — OpenAI Codex CLI (`gpt-6-astra`, `ultra`, `CODEX_HOME=~/.codex-vals`).
-  - **Stage 2 (`qa2_*.md`):** PENDING — Anthropic Claude CLI (`claude-fable-5-1` / `claude-opus-5-5`, `max`) or builder review (`Gemini 4 Carbon (High)`) per `~/agents-config/workflows/qa-correctness.md`.
-  - **Stage 3 (`qa3_codex_vals.md`):** PENDING — Fresh-context OpenAI Codex CLI (`gpt-6-astra`, `ultra`, `CODEX_HOME=~/.codex-vals`).
+- **Stages:**
+  - **Stage 1 (`qa1_codex_vals.md` + `../full_base_review_11-16-2026/REVIEW.md`):** COMPLETE (`c20517c`) — OpenAI Codex CLI `v0.169.0`, `gpt-6-astra`, `ultra` (`CODEX_HOME=~/.codex-vals`), `0` critical, `13` major fixed.
+  - **Stage 2 (`qa2_carbon.md`):** COMPLETE (`9546ab0`) — Fresh Antigravity `Gemini 4 Carbon (High)` subagent `24c24eed`, `0` critical, `4` major fixed (`916` checks passing).
+  - **Stage 3 (`qa3_codex_vals.md`):** COMPLETE — Fresh OpenAI Codex CLI `v0.169.0`, `gpt-6-astra`, `ultra` (`CODEX_HOME=~/.codex-vals`, session `01a1e68f`), `0` critical, `6` major fixed (`917` checks passing in Exp 09; `14` freeze hashes & `28` status matrices passing in Exp 10).
 
-## Next steps
-1. Collect final `lora_weight_training_q3_4b_2507.json`, `lora_weight_training_q25c_7b.json`, and `meta_prompt_opt_q3_30b.json` from `mercury2`, verify all `mercury2` GPUs are released (`0%`), and run Experiment 09's `analyze_open_judges.py`, `make_plots.py`, `make_reports.py`, and `verify_results.py`.
-2. Commit pre-QA state in the isolated integration worktree and run Stage 1 -> Stage 2 -> Stage 3 sequentially, verifying deterministically after every stage.
-3. Rebase/fast-forward onto `origin/main`, push, clean up worktrees, log to `~/agent-sync/coding/log.md`, and send `[RUN DONE]` email.
+## Log
+- 11-16-2026 14:01 PST -- Pre-QA snapshot committed (`a346d5c`); Stage 1 Codex `gpt-6-astra` `ultra` launched.
+- 11-16-2026 14:20 PST -- Stage 1 finished (`FIXED`, 13 fixes); verified and committed (`c20517c`). Attempted `claude-fable-5-1` (`~/.claude-su` expired; `~/.claude` Fable limit until 23:00 PST); dispatched fresh `Gemini 4 Carbon (High)` for middle builder-review Stage 2 per `qa-correctness.md`.
+- 11-16-2026 14:51 PST -- Stage 2 finished (`FIXED`, 4 fixes); verified and committed (`9546ab0`); launched fresh Stage 3 Codex `gpt-6-astra` `ultra`.
+- 11-16-2026 15:04 PST -- Stage 3 finished (`FIXED`, 6 fixes, `0` critical); builder verification passed across both experiments; landing on `origin/main`.
 
-**TLDR-end:** [judges-corr: mega QA 11-16-2026 checkpoint] Tracks the 3-stage cross-company Mega QA chain for Experiments 09 and 10 prior to landing on `main`.
+**TLDR-end:** [judges-corr: mega QA 11-16-2026 checkpoint] All 3 Mega QA stages complete and verified (`0` critical issues); ready for landing on `origin/main`.
