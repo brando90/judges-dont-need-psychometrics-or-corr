@@ -1,40 +1,24 @@
 % !TEX root = 00_main_aaai_2027.tex
-\section{Historical Theorem-Judge Evidence}
+\section{Theorem-Judge Evidence on Human Ratings}
 \label{sec:case}
-The companion repository reports a retrospective comparison on 75 artifacts, 25 tasks, 19 families and 195 expert ratings~\citep{companion2026}.
-We import only public aggregates and preserve their limitations.
-% Provenance: experiment02/results/public_ttj_evidence.json; TTJ 5aef572d30048e6ce574b39d91877c14ab9b3ad7, experiment06/RESULTS.md.
-Across five seeded five-fold family partitions (25 outer folds reusing those 75 artifacts), cached-histogram CE selection had held-out CE 8.868 versus 8.098 for Spearman selection.
-The difference was $+0.770$ [$-0.895$, $1.317$], using a 95\% family-bootstrap interval that repeats selection.
-On the original historical split (15 validation artifacts selecting over 30 test artifacts, 10 tasks and 78 ratings), CE selection had test CE 9.133 versus 8.710 ($+0.423$).
-Those historical ratings, test outcomes and candidate prompts had prior exposure, and neither denominator establishes a CE advantage.
+The companion repository reports retrospective comparisons on 75 artifacts, 25 tasks, 19 families and 195 previously exposed expert ratings~\citep{companion2026}.
+% Provenance: experiment02/results/public_ttj_evidence.json; TTJ 5aef572d... experiment06/RESULTS.md; TTJ ea5d8423... training_followup_11-08-2026/RESULTS_training.md;
+% experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/RESULTS_comparison.md; archive/12 & 14.
+Across five five-fold family partitions (25 outer folds) with cached three-call histograms, CE selection had held-out CE 8.868 versus 8.098 for Spearman ($+0.770$ [$-0.895$, $1.317$], 95\% family bootstrap); the original 15/30 split (10 tasks, 78 ratings) gave 9.133 versus 8.710 ($+0.423$).
+An earlier fitted-head comparison gave $-0.370$ [$-0.690$, $-0.080$] test CE, but 215/225 Pearson fits (24/25 final refits) failed to converge, and Wasserstein and kernel follow-ups were unresolved.
+The weighted follow-up~\citep{companionweighted2026} resolved numerical convergence (50 primary and 900 secondary fits converged), yet its weighted-loss difference remained inconclusive ($-0.010409$ [$-0.061911$, $+0.005933$], 998/1,000 certified draws).
 
-A separate fitted-head comparison favored CE fitting by $-0.370$ [$-0.690$, $-0.080$] in test CE, conditional on fitted heads.
-However, 215/225 Pearson fits failed to converge, including 24/25 final refits.
-This limits any objective-level interpretation of the comparison.
-Neither the Wasserstein nor the kernel-distance follow-up resolved an advantage over Spearman selection.
-All intervals are descriptive; no confirmatory hypothesis test was specified.
+\paragraph{Three-call scalar comparisons.}
+A certified five-judge matched-budget comparison over those five five-fold family partitions gave CE-minus-Pearson mixture held-out CE $-0.260$ [$-1.458$, $+0.198$] (998/1,000 certified draws), with both exceeding the training-histogram constant (5.49 and 5.75 versus 1.93 nats) because three discrete votes leave empty bins at the $10^{-6}$ probability floor.
+Across 1,000 overlapping 20/5 random task splits (10,000 task-bootstrap draws, conditional on saved fits), Pearson-minus-CE mixture held-out differences were $+0.0056$ [$-0.0059$, $+0.0181$] RPS, $+0.374$ [$+0.101$, $+0.693$] CE, and $+0.063$ [$+0.052$, $+0.073$] Spearman; adding 39 weaker open-weight scalar judges yielded $+0.0405$ [$+0.0237$, $+0.0575$] mixture RPS versus $-0.0317$ [$-0.0638$, $-0.0047$] for single-judge selection.
 
-% Provenance: TTJ ea5d84238f6f27bf24ddc0359409921a2e55c459, training_followup_11-08-2026/RESULTS_training.md.
-The separately completed weighted-probability and stable-Pearson follow-up resolved the earlier numerical comparator issue~\citep{companionweighted2026}.
-All 50 primary fits passed checks and all 900 secondary fits converged.
-Its weighted-loss difference was $-0.010409$ [$-0.061911$, $+0.005933$], with both mixtures refitted in 998/1,000 valid family-bootstrap draws.
-Two numerical certificate failures were retained without replacement; the interval conditions on successful draws.
-It still does not establish an advantage.
-Our synthetic experiment neither reruns this condition nor replaces its conclusions.
-Fresh human returns were not independently checked from cloud for this report; we do not infer that they are absent.
-% Provenance: experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/RESULTS_comparison.md;
-% experiments/archive/12_formulation2_vs_4_corr_vs_ce_80_20_splits_start_10Nov2026_end_10Nov2026/results.md;
-% experiments/archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/results.md.
-\paragraph{Matched comparisons on the same ratings.}
-A certified matched-budget comparison fitted CE-trained and Pearson-trained mixtures of the same five cached judges across five five-fold task-family partitions.
-Its 95\% percentile interval refits both mixtures in 1,000 family-bootstrap draws, conditioning on the 998 draws that passed numerical certificates.
-Held-out CE of the CE-trained minus the Pearson-trained mixture was $-0.260$ [$-1.458$, $+0.198$], and both had higher held-out CE than a constant training-histogram forecast (5.49 and 5.75 versus 1.93 nats).
-Over 1,000 random splits of 20 training and 5 test tasks, held-out RPS of the Pearson-trained minus the CE-trained mixture was $+0.0056$ [$-0.0059$, $+0.0181$].
-In the same order, held-out CE differed by $+0.374$ [$+0.101$, $+0.693$], favoring CE training, and held-out Spearman by $+0.063$ [$+0.052$, $+0.073$], favoring Pearson training.
-With 39 weaker open-weight judges added, the CE-trained mixture had lower held-out RPS ($+0.0405$ [$+0.0237$, $+0.0575$]), whereas the single judge chosen by Pearson beat the one chosen by CE ($-0.0317$ [$-0.0638$, $-0.0047$]).
-The random-split comparisons use 95\% percentile intervals from 10,000 task-bootstrap draws over 25 tasks, conditional on saved fits; overlapping splits are not independent replications.
-These comparisons reuse the same 195 ratings with prior exposure and add no independent human evidence.
-With about 156 training ratings per fit, they lie in the range where the synthetic crossover of our learning study depends on where the target's information lies.
-
-Natural-output generalization still requires matched probability forecasts, an explicit rater population, stable comparison procedures and appropriately held-out evidence.
+% Provenance: experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results/analysis_summary.json;
+% experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results/analysis_heldout_tables.json and phase3_arm_b_blind_prompt_search.json.
+\paragraph{Native-probability open-weight and frontier judges.}
+We evaluated native six-category probability elicitation, prompts, harnesses, and weight updates on the same 75 retrospective artifacts (60/75 on-disk reference hashes differ from annotation metadata, and one rubric template uses historical training summaries).
+Across ten open-weight models (200 grouped 15/4 family splits, 95\% family-bootstrap intervals), verbal probability mixtures lower held-out CE from 3.48 to 1.63 nats (constant 1.89) and beat Pearson mixtures by $+0.0417$ [$+0.0194$, $+0.0666$] RPS; across 59 harnesses, CE mixtures reach 1.61 nats (0.133 RPS; RPS mixture 0.131) and beat Pearson mixtures (0.184) by $+0.0511$ [$+0.0222$, $+0.0833$] RPS.
+In five-fold family cross-validation, end-to-end LoRA training by CE beats Pearson LoRA on held-out RPS for a 4B model ($+0.1344$ [$+0.0495$, $+0.2220$]) and a 7B coder model ($+0.2088$ [$+0.0957$, $+0.3037$]), while fitting a 12-parameter CE calibration head on Pearson-trained 4B features reaches 0.141 RPS (1.59 nats).
+Across 15 native-probability configurations of seven frontier models from two commercial providers ($5\times 5$ family partitions), CE mixtures reach 1.42 nats (constant 1.93) and lower held-out RPS over Pearson mixtures by $+0.0775$ [$+0.0437$, $+0.1135$] (0.114 vs 0.191), while single-judge train selection favors CE (0.125) and RPS (0.136) over Pearson (0.143, or 0.185 pooled with scalar judges).
+Softmax 48-weight heads favor CE from five training families ($\approx 52$ ratings) in both studies ($+0.0426$ [$+0.0105$, $+0.0822$] across 120 open-weight splits at 15 families; $+0.0250$ [$+0.0238$, $+0.0262$] conditional split-Monte-Carlo interval across 250 frontier splits).
+By contrast, uncalibrated single-prompt and single-harness selection across three-to-five validation families stays noisy ($-0.0261$ [$-0.0643$, $+0.0138$] open-weight meta-prompt search; $+0.0418$ [$-0.0200$, $+0.1813$] validation frontier prompts, $-0.0744$ train-selected, and $-0.0060$ [$-0.0493$, $+0.0613$] joint prompt-by-harness, retaining 7/30 uniform fallbacks), whereas two-step obligation auditing lowers matched single-model RPS from 0.141--0.183 to 0.114--0.160.
+Pools differ across models and prompts, leaving zero-exposure human validation open.

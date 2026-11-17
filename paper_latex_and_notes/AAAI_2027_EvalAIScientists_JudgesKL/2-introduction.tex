@@ -7,17 +7,12 @@ These comparisons answer useful questions, but do not by themselves identify a c
 
 We take the distribution as the target when the evaluation requires probabilities for each possible rating.
 Proper scoring rules provide an established framework for this target~\citep{gneiting2007strictly}.
-Our contributions are a controlled identification study that makes the information discarded by scalar criteria explicit, and a synthetic learning study that measures how many ratings proper-loss training needs to beat correlation training.
+We contribute a controlled identification study making discarded distributional information explicit, a synthetic learning-curve study, and retrospective open-weight and frontier human-rating tests.
 We do not claim a new proper scoring rule.
-
-The study separates three questions: population identification, selection with sparse ratings, and agreement of scalar means.
-It compares the same candidates and splits under probability-loss and correlation selection.
-A separate permutation control shows why matching aggregate histograms cannot establish correct item conditioning.
 
 We make the following contributions:
 \begin{enumerate}
-\item We construct conditional distributions that share their means but differ under proper probability losses.
-\item We evaluate selection using one, two and three synthetic ratings per item, reporting every tied minimizer and common test metric.
-\item We train a flexible judge by proper losses and Pearson correlation on four synthetic targets, additionally testing smooth Spearman and Kendall objectives on two targets, and measure the tested sizes from which proper-loss training is better on held-out data.
-\item We preserve historical null findings and identify the limits of transferring this synthetic result to human-rated judges.
+\item We construct conditional distributions sharing their means yet separated by proper losses, and evaluate sparse selection with full tie accounting and a marginal-permutation control.
+\item We train a flexible judge by proper losses and Pearson correlation on four synthetic targets (plus smooth Spearman and Kendall objectives on two targets), measuring when proper-loss training beats correlation training on held-out data.
+\item We preserve inconclusive three-call historical human-rating findings and test ten open-weight and seven frontier language-model judges across prompt, harness, and weight optimization on the same retrospective human ratings.
 \end{enumerate}

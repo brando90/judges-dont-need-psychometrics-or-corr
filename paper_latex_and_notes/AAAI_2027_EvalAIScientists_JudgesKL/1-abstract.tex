@@ -7,15 +7,15 @@ Correlation between scalar judge and human scores cannot distinguish such foreca
 % CS197 move 3: contribution (bit flip) -- identify the desired target explicitly.
 We argue for evaluating the conditional rating distribution with proper probability losses, alongside scalar association and agreement diagnostics.
 % CS197 move 4: instantiation (bit flip instantiation) -- controlled synthetic identification, not natural-human validation.
-A binomial construction gives five candidate distributions with identical conditional means and distinct expected cross-entropy, Brier score and ranked probability score.
+A binomial construction gives five candidate distributions with identical conditional means and distinct expected cross-entropy, Brier score and ranked probability score (RPS).
 % CS197 move 5a: evaluation -- provenance: experiment02/results/summary.json, m=1 ce.
 With one synthetic rating per item, cross-entropy selects the true distribution in 249 of 256 replications.
 % CS197 move 5b: diagnostic -- provenance: experiment02/results/selection_rows.csv, all scalar criteria.
 Pearson, Spearman, Kendall and scalar mean squared error retain all five candidates as ties throughout.
 % CS197 move 5d: learning study -- provenance: experiments/08_*/results.md, 06_*/results.md, 07_*/results.md.
 Training a flexible judge on synthetic ratings, cross-entropy beats correlation training on held-out rating distributions from 12 ratings in three targets with informative means; in the fourth target, correlation training helps with few ratings when variation lies mainly in rater disagreement.
-% CS197 move 5c: limitations -- include every tie, preserve contradictory historical evidence.
-We enumerate these ties, reproduce the older marginal-histogram example, and retain inconclusive historical theorem-judge evidence.
+% CS197 move 5c: limitations -- include every tie, preserve contradictory historical evidence & retrospective native-prob LLM results.
+We enumerate these ties, preserve inconclusive three-call historical theorem-judge evidence under empty-bin floors, and evaluate native six-category probability, prompt, harness, and low-rank adaptation (LoRA) judges across ten open-weight and seven frontier models on the same retrospective human ratings: proper-loss mixtures, calibration heads, and LoRA weights improve held-out RPS over correlation fits, while coarse discrete single-prompt selection stays noisy.
 % CS197 move 6: implication (north star) -- narrow supported thesis.
-The result supports distribution-aware evaluation without implying human generalization, universal finite-sample superiority, or that psychometric methods are unnecessary.
+The result supports distribution-aware evaluation without implying zero-exposure human generalization, universal finite-sample superiority, or that psychometric methods are unnecessary.
 \end{abstract}

@@ -2,11 +2,11 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/README.md>
 
-**TLDR:** Source of the "Correlation vs Loss Judges" meeting page published at <https://claude.ai/artifact/Rg2hYLxYMGJAte7jcV7kKV> (Version 24, 11-16-2026), kept here so the page can be rebuilt if the published copy or a session's scratch files are lost.
+**TLDR:** Source of the "Correlation vs Loss Judges" meeting page published at <https://claude.ai/artifact/Rg2hYLxYMGJAte7jcV7kKV> (updated to Version 25 on 11-17-2026), kept here so the page can be rebuilt if the published copy or a session's scratch files are lost.
 
-- Version 24 (11-16-2026) includes the Mega QA corrections and the regenerated figures ([reports](../mega_qa_11-16-2026/)). When republishing, copy the image files from the experiment folders listed below.
+- Version 25 (11-17-2026) integrates Sanmi Koyejo's 11-16 feedback (`../2026-11-16_sanmi_feedback_corr_vs_ce.md`), open-weight `09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026`, frontier `10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026`, generalizability theory `04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026`, RPS-selected arms, score-then-calibrate baselines, Lin (1989) concordance / intraclass correlation (ICC) context, and the narrow framing; Version 24 (11-16-2026) included the Mega QA corrections ([../mega_qa_11-16-2026/](../mega_qa_11-16-2026/)). When republishing, copy the image files from the experiment folders listed below.
 - [judge-objectives-status.html](judge-objectives-status.html) is the page body; the publishing service wraps it in a standard HTML skeleton.
-- Its images are published next to it under these names, copied from the experiment folders: `fig_excess_vs_n_without_head.png`, `fig_excess_vs_n_with_head_labeled.png` and `fig_distributions.png` (archive/13), `fig_rank_objectives_vs_n.png` and `fig_rank_objectives_correlations_vs_n.png` (06), `fig_restarts_vs_n.png` (07), `fig_complexity_vs_n.png` and `fig_complexity_correlation_vs_n.png` (08).
+- Its 10 images are published next to it under these names, copied from the experiment folders: `fig_excess_vs_n_without_head.png`, `fig_excess_vs_n_with_head_labeled.png` and `fig_distributions.png` (archive/13), `fig_rank_objectives_vs_n.png` and `fig_rank_objectives_correlations_vs_n.png` (06), `fig_restarts_vs_n.png` (07), `fig_complexity_vs_n.png` and `fig_complexity_correlation_vs_n.png` (08), `fig2_lora_weight_training_and_mse_decomp.png` (`09/figures/`), and `fig1_frontier_pools_and_axes_forest.png` (`10/figures/`).
 - Every number on the page comes from those experiments' result files; the page's last appendix lists which folder feeds which figure.
 
 **TLDR-end:** [judge objectives: one-pager] Rebuildable source for the meeting page and the map from its images to the experiment folders.

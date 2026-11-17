@@ -54,8 +54,5 @@ Second, with ridge strengths chosen on validation data (by RPS for CE, by correl
 With 16 or fewer training tasks the chosen ridge varied widely across seeds, and the tuned CE-trained judge was significantly worse than the fixed-ridge Pearson-trained judge at 12--48 ratings in A and at 12 in D.
 
 \paragraph{Interpretation.}
-Among these four targets, fixed-ridge Pearson training helps at small sample sizes only in A, where the mean carries little signal.
-The results are consistent with regularization helping when few ratings constrain the distribution poorly; they do not identify the best possible small-sample strategy.
-In B, C and D, fixed-ridge CE training achieves lower test RPS from the smallest tested size.
-The contrast between A and B suggests that where the information lies matters, beyond varying concentration alone.
-These results use one input feature and one judge family; which regime human ratings occupy is open.
+Among these four targets, fixed-ridge Pearson training helps at small sample sizes only in A, where the mean carries little signal, consistent with regularization stabilizing poorly constrained distributions when disagreement dominates.
+In B, C and D, fixed-ridge CE training achieves lower test RPS from 12 ratings, showing that where information lies matters beyond concentration alone; these fits use one feature and one judge family, leaving human-rating generalization open.
