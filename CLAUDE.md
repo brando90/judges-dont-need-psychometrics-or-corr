@@ -80,9 +80,9 @@ The supported thesis is that correlation alone does not identify a desired condi
 - `paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`: paper dir. Main file `00_main_aaai_2027.tex`, sections `1-*.tex` … `7-*.tex`, bib `00_main.bib`, macros `math_commands.tex`, and the AAAI-27 kit `aaai2027.sty`/`.bst`. Notes go in `paper_latex_and_notes/notes/`.
 - `src/` (create when needed): shared code and judge prompts.
 
-## Paper (agents-config Rule 35)
+## Paper (agents-config Rules 35 & 89)
 
-Venue: AAAI-27 workshop "Effective and Efficient Evaluation for AI Scientists" (<https://eval-ai-scientists.github.io/aaai27/>). It is a position paper of 2–4 pages excluding references, in the AAAI-27 two-column kit, anonymized, submitted through OpenReview, due 11-20-2026 06:00 UTC. The bundled AAAI-27 style requires pdfTeX, so Tectonic is incompatible. Build with `cd paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL && make` (pdfLaTeX and BibTeX; or `make latexmk` when available). Aux files go to the gitignored `_build/`. Commit the rebuilt `00_main_aaai_2027.pdf` in the same commit as any semantic `.tex`/`.bib` change.
+Venue: AAAI-27 workshop "Effective and Efficient Evaluation for AI Scientists" (<https://eval-ai-scientists.github.io/aaai27/>). It is a position paper of 2–4 main body pages excluding references, in the AAAI-27 two-column kit, anonymized, submitted through OpenReview, due 11-20-2026 06:00 UTC. Per Trigger Rule 89, keep main-body conclusions on Page 4, keep the appendices (`8-*`, `9-*`, `9b-*`) roughly `1.5x` the main body (`~5.5–6.0` pages) with no forward `\ref` into supplementary labels, and place overflow tables/details in `10-supplementary.tex` after `\appendix` behind `\ifsupplementary`. The bundled AAAI-27 style requires pdfTeX, so Tectonic is incompatible. Build both `00_main_aaai_2027.pdf` (venue submission, no supplementary) and `00_main_arxiv.pdf` (arXiv edition via `00_main_arxiv.tex`, with supplementary) with `cd paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL && make` (pdfLaTeX and BibTeX). Aux files go to the gitignored `_build/`. Commit both rebuilt PDFs (`00_main_aaai_2027.pdf` and `00_main_arxiv.pdf`) in the same commit as any semantic `.tex`/`.bib` change.
 
 ## Experiments
 

@@ -3,9 +3,9 @@
 The synthetic construction deliberately includes the oracle and varies distribution shape without changing the mean; it demonstrates scalar nonidentification rather than natural-judge prevalence, omits rater dependence, and holds out parameter bands rather than real task transfer.
 The language-model prompt, harness and LoRA comparisons add real probability forecasts, yet all reuse one retrospective 75-artifact human dataset with prior exposure and unverified reference hashes.
 
-In the synthetic learning study, proper-loss training overtook correlation training from 12 ratings on three targets with informative means and from 192 ratings when variation lay mainly in disagreement (non-convex correlation optima remain optimizer- and budget-dependent).
-Neither high correlation nor low finite-sample proper loss establishes population identification or separates rater severity from item ambiguity with 2--3 raters.
-Use scalar objectives when only mean ranking is required; when outputs serve as ratings or distributions, report proper probability losses alongside association, error and bias diagnostics.
+Proper-loss training beat correlation from 12 ratings on informative-mean targets and 192 ratings under dispersion shifts (subject to non-convex optimizer budgets).
+With 2--3 raters per item, rater severity and item ambiguity remain confounded; if spread is mostly rater error, the expected universe score is the target.
+Optimize scalar correlation only for mean ranking; when outputs serve as ratings or distributions, report proper losses alongside association, error and bias.
 
 \section{Conclusion}
 Correlation alone does not identify a judge's conditional rating distribution.

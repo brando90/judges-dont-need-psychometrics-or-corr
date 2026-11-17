@@ -1,4 +1,4 @@
-Sanmi Koyejo's feedback on Brando's corr vs CE judge brief, pasted by Brando from Slack on 2026-11-16 (saved unchanged below).
+Sanmi Koyejo's feedback on Brando's corr vs CE judge brief, pasted by Brando from Slack on 2026-11-16 (saved unchanged below; numbered 1–5 Slack screenshot saved at [sanmi_feedback_11-16-2026_slack.jpg](sanmi_feedback_11-16-2026_slack.jpg)).
 
 Brando — 9:47 AM
 Ran out of time to curate perfectly, but it was curated quite a bit. My corr vs CE simulated results https://claude.ai/artifact/Rg2hYLxYMGJAte7jcV7kKV all feedback is welcome (and likely needed so I can put it in my defense! I really like this idea)!

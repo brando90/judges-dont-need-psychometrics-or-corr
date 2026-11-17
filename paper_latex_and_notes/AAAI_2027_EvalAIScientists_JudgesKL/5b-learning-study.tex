@@ -41,10 +41,9 @@ Unclipped CE fitting is convex and every exact-gradient CE refit converged; Pear
 \paragraph{Results.}
 In the three targets with an informative mean (B, C and D, including the linear case), the CE-trained judge has significantly lower held-out RPS than the Pearson-trained judge at every tested size from 12 ratings (Figure~\ref{fig:ratings}).
 Correlation training wins only in A, where the mean is nearly constant: up to 96 ratings, with CE better from 192.
-Rank and mixed correlation training also remain worse than CE training at large sizes.
-At 2,048 tasks, all four correlation-trained judges have held-out RPS excess 8.8--25.5 times the CE-trained judge's in B; in A the ratios are 36.5--45.8.
-At large sizes the Pearson-trained judge's held-out RPS is worse than the constant forecast's in every target, while its correlation with the true mean reaches 0.85--0.99.
-Even on correlation, the CE-trained judge's held-out correlation with the true mean is never significantly lower until the Pearson-trained judge overtakes, from 1,536 ratings in B and C and 3,072 in D, and never in A.
+Rank and mixed correlation training also stay worse than CE at large sizes, and at 2,048 tasks raw Pearson RPS excess against truth (0.025, 0.095, 0.089, 0.052 across A--D; oracle RPS 0.187 in A, 0.136 in B) exceeds even the constant forecast (0.010, 0.067, 0.064, 0.045) and CE (0.0007, 0.0037, 0.0032, 0.0028) despite reaching correlations 0.85--0.99.
+A two-stage score-then-calibrate baseline (Pearson + 12-parameter CE head, Appendix~\ref{app:concordance}) closes much of that large-$n$ gap (0.0088 in A and 0.0080 in B at 1,024 tasks), yet spikes at $n \le 32$ (0.086--0.248) where weak regularization lets Stage 2 overfit Stage-1 scores even though zero slope nests the constant histogram.
+Even on correlation, the CE-trained judge's held-out correlation with the true mean is never significantly lower until Pearson training overtakes, from 1,536 ratings in B and C and 3,072 in D, and never in A.
 
 We checked the optimizer and the ridge.
 First, the correlation objectives are not convex, and many of their fits stop at the iteration limit: none of the 360 Pearson fits at 32--1,024 tasks in the optimizer check converged within 400 iterations.
@@ -54,5 +53,5 @@ Second, with ridge strengths chosen on validation data (by RPS for CE, by correl
 With 16 or fewer training tasks the chosen ridge varied widely across seeds, and the tuned CE-trained judge was significantly worse than the fixed-ridge Pearson-trained judge at 12--48 ratings in A and at 12 in D.
 
 \paragraph{Interpretation.}
-Among these four targets, fixed-ridge Pearson training helps at small sample sizes only in A, where the mean carries little signal, consistent with regularization stabilizing poorly constrained distributions when disagreement dominates.
-In B, C and D, fixed-ridge CE training achieves lower test RPS from 12 ratings, showing that where information lies matters beyond concentration alone; these fits use one feature and one judge family, leaving human-rating generalization open.
+Among these targets, fixed-ridge Pearson helps at small $n$ only in A where the mean barely moves, arguing against directly fitting 78 flexible softmax weights to a scale-free correlation objective with weak shared regularization.
+In B, C and D, CE beats Pearson from 12 ratings, showing that where signal lies matters beyond spread alone; human generalization remains open.

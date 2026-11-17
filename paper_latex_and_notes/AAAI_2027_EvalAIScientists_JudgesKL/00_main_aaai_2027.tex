@@ -61,6 +61,12 @@
 % \pagestyle -- This command may not be used
 \usepackage{amsmath,amssymb}
 \input{math_commands}
+\newif\ifsupplementary
+\ifdefined\withsupplementary
+  \supplementarytrue
+\else
+  \supplementaryfalse
+\fi
 
 \title{Correlation Alone Does Not Identify a Judge's\\ Conditional Rating Distribution}
 \author{Anonymous Submission}
@@ -79,6 +85,11 @@
 \bibliography{00_main}
 
 \appendix
+\setcounter{secnumdepth}{2}
 \input{8-appendix-rps}
 \input{9-appendix-reliability}
+\input{9b-appendix-concordance-and-calibration}
+\ifsupplementary
+\input{10-supplementary}
+\fi
 \end{document}
