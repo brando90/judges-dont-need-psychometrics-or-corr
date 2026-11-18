@@ -26,6 +26,9 @@ A natural remediation for scalar Pearson training is two-stage calibration: fit 
 Because $b = 0$ recovers the marginal histogram baseline, one might expect this head never to underperform a constant predictor at small $n$.
 In synthetic studies reusing a shared $(1/n)\|W\|^2$ ridge in Stage 2 without separate head regularization, however, Stage~1 overfits small samples ($n \le 32$), producing standardized scores $z(x)$ that drive Stage~2 predictions toward extreme categories ($0.0861$--$0.1626$ ranked probability score (RPS) excess in Scenario~A and $0.0914$--$0.2483$ in Scenario~B).
 Once regularized properly or given larger $n$, the head closes most of the scale gap ($0.0088$ vs.\ CE $0.0011$ in Scenario~A and $0.0080$ vs.\ CE $0.0042$ in Scenario~B at $n=1{,}024$), yet still cannot recover conditional spread variations orthogonal to $s(x)$.
+A dedicated follow-up (Experiment~11) confirms that four-fold cross-fitting of Stage-1 scores paired with validation-selected Stage-2 slope regularization $c_b \in \{0.01, \dots, 10^8\}$ cuts the naive $n \le 32$ calibration spike over constant from $+0.1040$--$+0.1470$ down to $+0.0145$--$+0.0387$ (vanishing by $n=32$: $-0.0004$ to $+0.0006$ across Scenarios~A--D).
+Directly training all 78 softmax weights via mean squared error (MSE) also fixes Pearson's scale drift ($0.0076$--$0.0118$ RPS excess at $n=2{,}048$), yet still underperforms validation-tuned CE ($0.0007$--$0.0036$) because MSE constrains only the conditional mean.
+Moreover, whereas properly regularized 12-parameter Stage-2 CE heads slightly edge out unconstrained 78-weight CE when concentration $\kappa$ is constant ($0.0015$--$0.0022$ vs.\ $0.0027$--$0.0029$ RPS excess in Scenarios~C and~D at $n=2{,}048$), they remain bounded well above CE whenever disagreement $\kappa(x)$ varies ($0.0078$--$0.0079$ vs.\ $0.0007$ in Scenario~A; $0.0071$--$0.0074$ vs.\ $0.0036$ in Scenario~B).
 
 \begin{figure}[t]
 \centering

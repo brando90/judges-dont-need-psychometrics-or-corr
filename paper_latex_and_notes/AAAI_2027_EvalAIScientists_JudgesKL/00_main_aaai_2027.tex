@@ -67,6 +67,13 @@
 \else
   \supplementaryfalse
 \fi
+\newif\ifappendices
+\ifdefined\withoutappendices
+  \appendicesfalse
+\else
+  \appendicestrue
+\fi
+\newcommand{\appref}[2]{\ifappendices Appendix~\ref{#1}\else #2\fi}
 
 \title{Correlation Alone Does Not Identify a Judge's\\ Conditional Rating Distribution}
 \author{Anonymous Submission}
@@ -84,6 +91,7 @@
 \input{7-discussion}
 \bibliography{00_main}
 
+\ifappendices
 \appendix
 \setcounter{secnumdepth}{2}
 \input{8-appendix-rps}
@@ -91,5 +99,5 @@
 \input{9b-appendix-concordance-and-calibration}
 \ifsupplementary
 \input{10-supplementary}
-\fi
+\fi \fi
 \end{document}

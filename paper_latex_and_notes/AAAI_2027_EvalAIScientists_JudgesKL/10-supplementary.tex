@@ -2,6 +2,7 @@
 % Provenance: Exp 01, Exp 06, Exp 08, Exp 09, and Exp 10.
 % One sentence per line (Trigger Rule 13); strictly anonymized.
 
+\FloatBarrier
 \clearpage
 \setcounter{section}{0}
 \renewcommand{\thesection}{S\arabic{section}}
@@ -23,7 +24,7 @@ In the two-point population counterexample with bimodal symmetric task uncertain
 Table~\ref{tab:supp-exp01} contrasts these scalar metrics against strictly proper distributional scoring rules and reports 256-task single-rating selection recovery.
 Cross-entropy (CE) identifies the true distribution in $249/256$ draws (mean held-out CE $1.331$ nats, $95\%$ CI $[1.329, 1.334]$), while Brier score and ranked probability score (RPS) recover it in $245/256$ draws ($1.333$ nats, $95\%$ CI $[1.330, 1.336]$), compared with $1.995$ nats under uniform correlation tie-breaking.
 
-\begin{table}[t]
+\begin{table}[htb]
 \centering
 \caption{Experiment~01 population scoring rules across ambiguity perturbations $q_\epsilon$ sharing identical mean rating and identical nMSE ($0.038$), plus sign-reversed control (lower is better).}
 \label{tab:supp-exp01}
@@ -81,6 +82,43 @@ Scenario B, $n=1{,}024$ ($3{,}072$) & $0.0043$ & $0.0051$ & $0.0928$ & $0.0632$ 
 Scenario B, $n=2{,}048$ RPS Excess & $0.0037$ & $0.0038$ & $0.0951$ & $0.0623$ & $0.0330$ & $0.0851$ \\
 Scenario B, $n=2{,}048$ CE Excess & $0.0222$ & $0.0372$ & $0.5957$ & $0.4981$ & $0.3233$ & $0.5919$ \\
 Scenario B, $n=2{,}048$ Spearman & $0.948$ & --- & $0.973$ & $0.982$ & $0.981$ & $0.977$ \\
+\hline
+\end{tabular}
+\end{table*}
+
+\subsection{MSE-Trained and Regularized Calibrated-Head Baselines (Experiment 11)}
+Experiment~11 evaluates four-fold cross-fitted Stage-2 calibration heads with tuned slope regularization $c_b \in \{0.01, \dots, 10^8\}$ (\texttt{Pearson + tuned head}, \texttt{MSE + tuned head}) and direct 78-weight mean squared error (\texttt{MSE}) training across all four synthetic scenarios~A--D and 100 seeds.
+Figure~\ref{fig:supp-exp11} and Table~\ref{tab:supp-exp11} compare held-out test RPS (both relative to truth and raw), CE excess, and paired differences relative to the constant baseline and validation-tuned CE (\textcircled{3}).
+Cross-fitting and slope regularization eliminate the small-$n$ calibration spike by $n=32$ ($+0.0006, -0.0004, -0.0004, -0.0002$ vs.\ constant across A--D), and MSE training fixes Pearson's arbitrary affine scaling.
+When conditional spread $\kappa(x)$ varies (Scenarios~A and~B), validation-tuned CE beats all 1D score-calibrated and MSE baselines at every sample size ($n \ge 4$); when $\kappa$ is constant (Scenarios~C and~D), low-variance 12-parameter Stage-2 CE calibration heads match or slightly edge out 78-weight CE at $n=2{,}048$ while still depending on proper-loss CE optimization in Stage~2.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_mse_and_tuned_head_vs_n.png}
+\caption{Experiment~11 held-out test RPS excess (left) and CE excess (right) across Scenarios~A--D comparing exact CE (\textcircled{3}), naive and cross-fitted slope-tuned calibrated heads, and direct 78-weight MSE judges (100 seeds, 500 test tasks/seed; 0 optimal, lower is better).}
+\label{fig:supp-exp11}
+\end{figure}
+
+\begin{table*}[t]
+\centering
+\caption{Experiment~11 held-out test RPS excess over truth (and raw RPS vs.\ constant at $n=2{,}048$; 100 seeds, 500 test tasks/seed; 0 optimal, lower is better; paired difference vs.\ \textcircled{3} Val-CE positive means Val-CE is better).}
+\label{tab:supp-exp11}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lccccccc@{}}
+\hline
+Scenario & Size $n$ & Constant & \textcircled{3} Val-CE & Pearson+Naive & Pearson+Tuned & MSE Val-RPS & MSE+Tuned \\
+\hline
+A (true $0.187$) & $8$ / $32$ & $0.0185$ / $0.0119$ & $0.0141$ / $0.0096$ & $0.1362$ / $0.0904$ & $0.0245$ / $0.0125$ & $0.0172$ / $0.0106$ & $0.0283$ / $0.0131$ \\
+A (raw / ex) & $2{,}048$ & $0.1965$ ($0.0096$) & $0.1876$ ($0.0007$) & $0.1949$ ($0.0080$) & $0.1948$ ($0.0079$) & $0.1945$ ($0.0076$) & $0.1947$ ($0.0078$) \\
+B (true $0.136$) & $8$ / $32$ & $0.0803$ / $0.0705$ & $0.0706$ / $0.0304$ & $0.1844$ / $0.0986$ & $0.0967$ / $0.0702$ & $0.0706$ / $0.0345$ & $0.0770$ / $0.0364$ \\
+B (raw / ex) & $2{,}048$ & $0.2033$ ($0.0670$) & $0.1400$ ($0.0036$) & $0.1436$ ($0.0073$) & $0.1437$ ($0.0074$) & $0.1481$ ($0.0118$) & $0.1434$ ($0.0071$) \\
+C (true $0.127$) & $8$ / $32$ & $0.0788$ / $0.0674$ & $0.0669$ / $0.0322$ & $0.1717$ / $0.0843$ & $0.0914$ / $0.0670$ & $0.0642$ / $0.0317$ & $0.0776$ / $0.0284$ \\
+C (raw / ex) & $2{,}048$ & $0.1910$ ($0.0640$) & $0.1299$ ($0.0029$) & $0.1292$ ($0.0022$) & $0.1292$ ($0.0022$) & $0.1386$ ($0.0116$) & $0.1289$ ($0.0019$) \\
+D (true $0.146$) & $8$ / $32$ & $0.0563$ / $0.0480$ & $0.0458$ / $0.0238$ & $0.1661$ / $0.0781$ & $0.0701$ / $0.0478$ & $0.0451$ / $0.0256$ & $0.0571$ / $0.0236$ \\
+D (raw / ex) & $2{,}048$ & $0.1914$ ($0.0449$) & $0.1492$ ($0.0027$) & $0.1483$ ($0.0017$) & $0.1483$ ($0.0018$) & $0.1569$ ($0.0104$) & $0.1480$ ($0.0015$) \\
+\hline
+\multicolumn{8}{@{}p{0.94\textwidth}@{}}{At $n=2{,}048$, Pearson+Tuned minus Val-CE [95\% CI]: A $+0.0072$ $[+0.0071,+0.0073]$, B $+0.0037$ $[+0.0036,+0.0038]$, C $-0.0007$ $[-0.0008,-0.0006]$, D $-0.0009$ $[-0.0010,-0.0008]$. MSE Val-RPS minus Val-CE: $+0.0069$ to $+0.0087$ (all CIs $> 0$).} \\
 \hline
 \end{tabular}
 \end{table*}
