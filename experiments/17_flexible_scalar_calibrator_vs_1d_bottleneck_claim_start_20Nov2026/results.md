@@ -1,0 +1,152 @@
+# Experiment 17 results: flexible scalar calibrator versus the "one-dimensional bottleneck" wording
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md>
+
+**TLDR:** Giving the Stage-2 head a flexible (nonlinear) shape changes the picture. With the true mean rating as the score, the flexible head matches or beats end-to-end cross-entropy (CE) training in all four scenarios at n >= 512, so a single number is NOT a representational bottleneck in these toys. With a score learned by Pearson training, the flexible head closes the gap to CE at n >= 1024 in scenarios B, C and D but not in scenario A (+0.0052 RPS at n = 2,048). So the remaining gap is the quality of the learned score (a correlation-trained score carries almost no information about spread when the mean barely moves, scenario A), not the one-dimensional shape. Synthetic data, prospective (pre-registered in commit `aaf3f06` before the sweep), $0, CPU only.
+
+Run: 11-20-2026 22:46 to 23:12 on skampere1 (shared CPU host), 16 processes, 4,400 cells (4 scenarios x 11 sample sizes x 100 seeds, same seeds as experiment 11), 1,508 s, plain Python and numpy 2.2.6 and scipy 1.17.1, no language model. Raw cells: `results/raw.jsonl.gz` (sha256 of the unzipped file `ecd3789f6d32ea84ceeeef6c94182d4e000399263b9f98ef36dfd31629dc819a`). Tables below are `results/summary.md`, made by `scripts/analyze.py`. RPS = ranked probability score; "excess" = test RPS minus the true distribution's own RPS (smaller is better). Paired gaps are means over the 100 seeds with a plus-or-minus 2 standard-error range over seeds; the 500 test tasks per cell are fresh each time.
+
+Scenario facts needed to read the tables (checked on the generator): in all four scenarios the input is one number x and the true mean rating is a strictly monotone function of x (A: 2.1 to 2.9; B, C: 0.5 to 4.5; D: 0.75 to 4.25), so the true mean carries all the information in x. Spread is not monotone in x in A, B and C (A: SD 1.45 at the ends, 1.17 in the middle).
+
+## Pre-registered predictions, scored
+1. Oracle score, flexible head within 0.002 RPS of end-to-end CE at n >= 512 in all scenarios, and better than the affine head on at least one: **holds** (flexible minus CE tuned is -0.0004 to -0.0039 at n >= 512, so it is better, not just close; flexible minus affine is -0.0070 in A and -0.0053 in B at n = 2,048).
+2. Learned Pearson score, flexible head does not close the gap to end-to-end CE at n >= 512 on the scenario with the largest experiment-11 gap (A): **holds for A** (+0.0062 at n = 1,024, +0.0052 at n = 2,048), **fails for B, C and D**, where the flexible head is already below CE at n = 1,024 (B -0.0002, C -0.0002, D -0.0004) and further below at n = 2,048.
+3. At n <= 32 the flexible head is no better than the affine tuned head: **fails**. With the Pearson score at n = 32 it is better in B (-0.0034), C (-0.0049) and D (-0.0026) and worse in A (+0.0010); with the oracle score it is better in A and B and worse in C and D (+0.0028, +0.0031).
+4. Reading rule: keep the "one-dimensional bottleneck" wording only if prediction 2 holds with the oracle as control. **Not met as a general statement**: the oracle control says one number loses nothing here, and prediction 2 holds only in scenario A.
+
+## Reading
+- Version 27's "1D bottleneck" explanation of the experiment-11 gap is not supported by this toy. Supported wording: a score trained to track the mean (Pearson or MSE) can leave out information about spread, and a simple (affine) head after it cannot restore it; a flexible head restores part of it (scenarios B to D, fully at n >= 1,024), and not all of it when the mean barely moves (A).
+- The toy cannot say anything about a bottleneck from a many-dimensional judge to one number: here x is already one number and the true mean is a one-to-one function of it. That test needs a toy with a several-dimensional input.
+- Small n: the flexible head's extra freedom helps in some cells and hurts in others at n <= 32 (see the tables), so no blanket statement.
+- Nothing here changes the human-rating results; this is synthetic.
+
+## Scenario A: mean test RPS excess over truth (smaller is better; seed SE in the paired table)
+
+| n | constant | ce_fixed | ce_valrps | pearson_fixed | pearson_head_tuned | pearson_head_flex | mse_head_tuned | mse_head_flex | truemean_head_affine | truemean_head_flex |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.0267 | 0.0106 | 0.0140 | 0.0096 | 0.0424 | 0.0407 | 0.0445 | 0.0442 | 0.0355 | 0.0367 |
+| 8 | 0.0185 | 0.0116 | 0.0141 | 0.0096 | 0.0237 | 0.0249 | 0.0283 | 0.0306 | 0.0223 | 0.0235 |
+| 16 | 0.0147 | 0.0123 | 0.0117 | 0.0096 | 0.0162 | 0.0162 | 0.0178 | 0.0199 | 0.0154 | 0.0155 |
+| 20 | 0.0125 | 0.0113 | 0.0104 | 0.0097 | 0.0135 | 0.0142 | 0.0150 | 0.0159 | 0.0133 | 0.0130 |
+| 32 | 0.0119 | 0.0111 | 0.0096 | 0.0098 | 0.0125 | 0.0135 | 0.0131 | 0.0132 | 0.0117 | 0.0096 |
+| 64 | 0.0107 | 0.0085 | 0.0078 | 0.0102 | 0.0109 | 0.0112 | 0.0111 | 0.0117 | 0.0098 | 0.0060 |
+| 128 | 0.0101 | 0.0055 | 0.0055 | 0.0116 | 0.0102 | 0.0102 | 0.0101 | 0.0101 | 0.0086 | 0.0034 |
+| 256 | 0.0098 | 0.0032 | 0.0035 | 0.0130 | 0.0096 | 0.0094 | 0.0093 | 0.0088 | 0.0079 | 0.0018 |
+| 512 | 0.0097 | 0.0018 | 0.0019 | 0.0155 | 0.0090 | 0.0084 | 0.0087 | 0.0079 | 0.0075 | 0.0009 |
+| 1024 | 0.0096 | 0.0011 | 0.0011 | 0.0195 | 0.0083 | 0.0073 | 0.0081 | 0.0067 | 0.0073 | 0.0005 |
+| 2048 | 0.0096 | 0.0007 | 0.0007 | 0.0251 | 0.0079 | 0.0059 | 0.0078 | 0.0053 | 0.0072 | 0.0003 |
+
+## Scenario B: mean test RPS excess over truth (smaller is better; seed SE in the paired table)
+
+| n | constant | ce_fixed | ce_valrps | pearson_fixed | pearson_head_tuned | pearson_head_flex | mse_head_tuned | mse_head_flex | truemean_head_affine | truemean_head_flex |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.0923 | 0.0740 | 0.0829 | 0.0901 | 0.1275 | 0.1297 | 0.1063 | 0.1098 | 0.0535 | 0.0563 |
+| 8 | 0.0803 | 0.0616 | 0.0706 | 0.0897 | 0.0999 | 0.0948 | 0.0770 | 0.0830 | 0.0322 | 0.0339 |
+| 16 | 0.0733 | 0.0454 | 0.0519 | 0.0898 | 0.0772 | 0.0768 | 0.0572 | 0.0611 | 0.0153 | 0.0160 |
+| 20 | 0.0727 | 0.0399 | 0.0455 | 0.0897 | 0.0737 | 0.0764 | 0.0499 | 0.0542 | 0.0127 | 0.0129 |
+| 32 | 0.0705 | 0.0292 | 0.0304 | 0.0897 | 0.0716 | 0.0682 | 0.0364 | 0.0380 | 0.0098 | 0.0081 |
+| 64 | 0.0682 | 0.0156 | 0.0160 | 0.0902 | 0.0448 | 0.0353 | 0.0205 | 0.0204 | 0.0077 | 0.0048 |
+| 128 | 0.0678 | 0.0102 | 0.0099 | 0.0915 | 0.0189 | 0.0172 | 0.0145 | 0.0125 | 0.0068 | 0.0025 |
+| 256 | 0.0671 | 0.0068 | 0.0064 | 0.0917 | 0.0125 | 0.0100 | 0.0112 | 0.0080 | 0.0062 | 0.0016 |
+| 512 | 0.0671 | 0.0052 | 0.0049 | 0.0918 | 0.0098 | 0.0061 | 0.0090 | 0.0050 | 0.0059 | 0.0009 |
+| 1024 | 0.0671 | 0.0043 | 0.0041 | 0.0928 | 0.0083 | 0.0040 | 0.0078 | 0.0032 | 0.0057 | 0.0006 |
+| 2048 | 0.0670 | 0.0037 | 0.0036 | 0.0951 | 0.0074 | 0.0026 | 0.0071 | 0.0022 | 0.0057 | 0.0004 |
+
+## Scenario C: mean test RPS excess over truth (smaller is better; seed SE in the paired table)
+
+| n | constant | ce_fixed | ce_valrps | pearson_fixed | pearson_head_tuned | pearson_head_flex | mse_head_tuned | mse_head_flex | truemean_head_affine | truemean_head_flex |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.0877 | 0.0682 | 0.0776 | 0.0829 | 0.1184 | 0.0999 | 0.1093 | 0.1139 | 0.0471 | 0.0501 |
+| 8 | 0.0788 | 0.0572 | 0.0669 | 0.0824 | 0.0951 | 0.0867 | 0.0776 | 0.0822 | 0.0203 | 0.0276 |
+| 16 | 0.0689 | 0.0434 | 0.0482 | 0.0824 | 0.0741 | 0.0743 | 0.0482 | 0.0526 | 0.0087 | 0.0129 |
+| 20 | 0.0685 | 0.0394 | 0.0434 | 0.0824 | 0.0708 | 0.0725 | 0.0409 | 0.0457 | 0.0078 | 0.0118 |
+| 32 | 0.0674 | 0.0290 | 0.0322 | 0.0827 | 0.0669 | 0.0620 | 0.0284 | 0.0330 | 0.0041 | 0.0069 |
+| 64 | 0.0644 | 0.0163 | 0.0156 | 0.0825 | 0.0349 | 0.0283 | 0.0134 | 0.0159 | 0.0020 | 0.0035 |
+| 128 | 0.0643 | 0.0097 | 0.0085 | 0.0838 | 0.0112 | 0.0116 | 0.0078 | 0.0089 | 0.0012 | 0.0019 |
+| 256 | 0.0640 | 0.0065 | 0.0054 | 0.0842 | 0.0062 | 0.0068 | 0.0053 | 0.0057 | 0.0008 | 0.0010 |
+| 512 | 0.0639 | 0.0044 | 0.0037 | 0.0824 | 0.0041 | 0.0043 | 0.0034 | 0.0036 | 0.0005 | 0.0005 |
+| 1024 | 0.0631 | 0.0034 | 0.0030 | 0.0844 | 0.0028 | 0.0028 | 0.0024 | 0.0023 | 0.0004 | 0.0003 |
+| 2048 | 0.0640 | 0.0032 | 0.0029 | 0.0893 | 0.0022 | 0.0020 | 0.0019 | 0.0018 | 0.0004 | 0.0002 |
+
+## Scenario D: mean test RPS excess over truth (smaller is better; seed SE in the paired table)
+
+| n | constant | ce_fixed | ce_valrps | pearson_fixed | pearson_head_tuned | pearson_head_flex | mse_head_tuned | mse_head_flex | truemean_head_affine | truemean_head_flex |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 0.0654 | 0.0410 | 0.0481 | 0.0452 | 0.0815 | 0.0779 | 0.0732 | 0.0756 | 0.0426 | 0.0442 |
+| 8 | 0.0563 | 0.0372 | 0.0458 | 0.0453 | 0.0684 | 0.0634 | 0.0571 | 0.0650 | 0.0215 | 0.0286 |
+| 16 | 0.0517 | 0.0307 | 0.0367 | 0.0450 | 0.0542 | 0.0563 | 0.0421 | 0.0481 | 0.0093 | 0.0138 |
+| 20 | 0.0499 | 0.0278 | 0.0327 | 0.0449 | 0.0513 | 0.0547 | 0.0346 | 0.0381 | 0.0077 | 0.0116 |
+| 32 | 0.0480 | 0.0216 | 0.0238 | 0.0451 | 0.0480 | 0.0453 | 0.0236 | 0.0266 | 0.0039 | 0.0069 |
+| 64 | 0.0466 | 0.0144 | 0.0152 | 0.0454 | 0.0350 | 0.0267 | 0.0135 | 0.0155 | 0.0021 | 0.0036 |
+| 128 | 0.0457 | 0.0091 | 0.0092 | 0.0457 | 0.0118 | 0.0124 | 0.0081 | 0.0094 | 0.0010 | 0.0017 |
+| 256 | 0.0455 | 0.0056 | 0.0052 | 0.0462 | 0.0059 | 0.0064 | 0.0047 | 0.0054 | 0.0005 | 0.0009 |
+| 512 | 0.0455 | 0.0041 | 0.0038 | 0.0476 | 0.0037 | 0.0040 | 0.0030 | 0.0033 | 0.0004 | 0.0005 |
+| 1024 | 0.0454 | 0.0034 | 0.0032 | 0.0493 | 0.0027 | 0.0028 | 0.0022 | 0.0023 | 0.0002 | 0.0003 |
+| 2048 | 0.0449 | 0.0028 | 0.0027 | 0.0523 | 0.0018 | 0.0018 | 0.0015 | 0.0015 | 0.0002 | 0.0001 |
+
+## Paired gaps (arm minus end-to-end CE tuned `ce_valrps`; negative = arm better), mean [mean +/- 2 SE], n >= 512
+
+| Scenario | n | pearson_head_flex | mse_head_flex | truemean_head_flex | truemean_head_affine | pearson_head_tuned |
+|---|---|---|---|---|---|---|
+| A | 512 | +0.0065 [+0.0063, +0.0067] | +0.0060 [+0.0058, +0.0062] | -0.0010 [-0.0010, -0.0009] | +0.0056 [+0.0055, +0.0057] | +0.0071 [+0.0069, +0.0072] |
+| A | 1024 | +0.0062 [+0.0060, +0.0063] | +0.0055 [+0.0054, +0.0057] | -0.0006 [-0.0006, -0.0006] | +0.0062 [+0.0062, +0.0063] | +0.0072 [+0.0071, +0.0073] |
+| A | 2048 | +0.0052 [+0.0050, +0.0054] | +0.0046 [+0.0044, +0.0048] | -0.0004 [-0.0004, -0.0004] | +0.0066 [+0.0065, +0.0066] | +0.0072 [+0.0071, +0.0073] |
+| B | 512 | +0.0012 [+0.0010, +0.0015] | +0.0001 [-0.0001, +0.0003] | -0.0039 [-0.0041, -0.0038] | +0.0010 [+0.0008, +0.0012] | +0.0050 [+0.0048, +0.0052] |
+| B | 1024 | -0.0002 [-0.0003, +0.0000] | -0.0009 [-0.0010, -0.0008] | -0.0036 [-0.0037, -0.0034] | +0.0016 [+0.0014, +0.0018] | +0.0042 [+0.0040, +0.0043] |
+| B | 2048 | -0.0010 [-0.0011, -0.0009] | -0.0015 [-0.0016, -0.0014] | -0.0033 [-0.0034, -0.0032] | +0.0020 [+0.0019, +0.0022] | +0.0037 [+0.0036, +0.0038] |
+| C | 512 | +0.0006 [+0.0005, +0.0008] | -0.0001 [-0.0002, -0.0000] | -0.0032 [-0.0034, -0.0030] | -0.0032 [-0.0034, -0.0030] | +0.0004 [+0.0003, +0.0006] |
+| C | 1024 | -0.0002 [-0.0003, -0.0001] | -0.0006 [-0.0007, -0.0006] | -0.0027 [-0.0028, -0.0026] | -0.0026 [-0.0027, -0.0024] | -0.0002 [-0.0003, -0.0001] |
+| C | 2048 | -0.0008 [-0.0009, -0.0008] | -0.0011 [-0.0012, -0.0010] | -0.0027 [-0.0029, -0.0026] | -0.0025 [-0.0027, -0.0024] | -0.0007 [-0.0008, -0.0006] |
+| D | 512 | +0.0003 [+0.0001, +0.0004] | -0.0004 [-0.0005, -0.0003] | -0.0033 [-0.0034, -0.0031] | -0.0034 [-0.0036, -0.0033] | -0.0001 [-0.0002, +0.0001] |
+| D | 1024 | -0.0004 [-0.0005, -0.0003] | -0.0009 [-0.0010, -0.0008] | -0.0029 [-0.0030, -0.0028] | -0.0030 [-0.0031, -0.0028] | -0.0005 [-0.0006, -0.0004] |
+| D | 2048 | -0.0009 [-0.0009, -0.0008] | -0.0012 [-0.0012, -0.0011] | -0.0025 [-0.0026, -0.0024] | -0.0025 [-0.0026, -0.0024] | -0.0009 [-0.0010, -0.0009] |
+
+## Paired gaps, flexible minus affine head (negative = flexible better)
+
+| Scenario | n | oracle score | Pearson score | MSE score |
+|---|---|---|---|---|
+| A | 16 | +0.0001 [-0.0013, +0.0015] | +0.0000 [-0.0018, +0.0019] | +0.0021 [+0.0003, +0.0038] |
+| A | 32 | -0.0021 [-0.0027, -0.0015] | +0.0010 [+0.0001, +0.0020] | +0.0000 [-0.0005, +0.0006] |
+| A | 64 | -0.0037 [-0.0041, -0.0033] | +0.0003 [+0.0000, +0.0006] | +0.0006 [+0.0001, +0.0011] |
+| A | 256 | -0.0061 [-0.0062, -0.0059] | -0.0002 [-0.0003, -0.0001] | -0.0005 [-0.0006, -0.0004] |
+| A | 1024 | -0.0068 [-0.0069, -0.0068] | -0.0010 [-0.0011, -0.0009] | -0.0014 [-0.0016, -0.0013] |
+| A | 2048 | -0.0070 [-0.0070, -0.0069] | -0.0020 [-0.0022, -0.0019] | -0.0025 [-0.0027, -0.0023] |
+| B | 16 | +0.0008 [-0.0011, +0.0026] | -0.0004 [-0.0035, +0.0026] | +0.0040 [+0.0015, +0.0065] |
+| B | 32 | -0.0017 [-0.0024, -0.0010] | -0.0034 [-0.0055, -0.0013] | +0.0017 [+0.0005, +0.0028] |
+| B | 64 | -0.0029 [-0.0034, -0.0023] | -0.0095 [-0.0120, -0.0071] | -0.0001 [-0.0009, +0.0006] |
+| B | 256 | -0.0046 [-0.0048, -0.0045] | -0.0025 [-0.0028, -0.0023] | -0.0032 [-0.0035, -0.0030] |
+| B | 1024 | -0.0051 [-0.0052, -0.0051] | -0.0043 [-0.0044, -0.0042] | -0.0046 [-0.0047, -0.0044] |
+| B | 2048 | -0.0053 [-0.0054, -0.0053] | -0.0048 [-0.0049, -0.0047] | -0.0049 [-0.0050, -0.0048] |
+| C | 16 | +0.0041 [+0.0030, +0.0053] | +0.0002 [-0.0026, +0.0030] | +0.0044 [+0.0027, +0.0060] |
+| C | 32 | +0.0028 [+0.0024, +0.0033] | -0.0049 [-0.0069, -0.0028] | +0.0046 [+0.0031, +0.0062] |
+| C | 64 | +0.0015 [+0.0013, +0.0018] | -0.0066 [-0.0088, -0.0043] | +0.0025 [+0.0020, +0.0031] |
+| C | 256 | +0.0002 [+0.0002, +0.0003] | +0.0005 [+0.0004, +0.0006] | +0.0004 [+0.0003, +0.0005] |
+| C | 1024 | -0.0001 [-0.0002, -0.0001] | -0.0000 [-0.0000, +0.0000] | -0.0000 [-0.0001, -0.0000] |
+| C | 2048 | -0.0002 [-0.0002, -0.0002] | -0.0001 [-0.0001, -0.0001] | -0.0001 [-0.0001, -0.0001] |
+| D | 16 | +0.0044 [+0.0036, +0.0053] | +0.0021 [-0.0006, +0.0048] | +0.0060 [+0.0041, +0.0078] |
+| D | 32 | +0.0031 [+0.0027, +0.0035] | -0.0026 [-0.0041, -0.0011] | +0.0030 [+0.0020, +0.0039] |
+| D | 64 | +0.0015 [+0.0013, +0.0017] | -0.0083 [-0.0104, -0.0063] | +0.0020 [+0.0014, +0.0025] |
+| D | 256 | +0.0004 [+0.0003, +0.0005] | +0.0005 [+0.0004, +0.0006] | +0.0007 [+0.0005, +0.0008] |
+| D | 1024 | +0.0000 [+0.0000, +0.0001] | +0.0001 [+0.0001, +0.0002] | +0.0001 [+0.0001, +0.0001] |
+| D | 2048 | -0.0000 [-0.0000, -0.0000] | +0.0000 [+0.0000, +0.0000] | +0.0000 [+0.0000, +0.0000] |
+
+## Secondary columns at n = 2048 (mean test Spearman / Pearson with the true mean; CE excess)
+
+| Scenario | arm | Spearman | Pearson | CE excess |
+|---|---|---|---|---|
+| A | ce_valrps | 0.902 | 0.892 | 0.0066 |
+| A | pearson_head_flex | 0.834 | 0.830 | 0.0875 |
+| A | truemean_head_flex | 0.979 | 0.975 | 0.0033 |
+| A | truemean_head_affine | 1.000 | 1.000 | 0.1160 |
+| B | ce_valrps | 0.949 | 0.970 | 0.0224 |
+| B | pearson_head_flex | 0.971 | 0.986 | 0.0255 |
+| B | truemean_head_flex | 0.999 | 0.999 | 0.0083 |
+| B | truemean_head_affine | 1.000 | 0.995 | 0.1015 |
+| C | ce_valrps | 0.959 | 0.978 | 0.0202 |
+| C | pearson_head_flex | 0.974 | 0.987 | 0.0137 |
+| C | truemean_head_flex | 1.000 | 1.000 | 0.0024 |
+| C | truemean_head_affine | 1.000 | 0.998 | 0.0038 |
+| D | ce_valrps | 0.974 | 0.971 | 0.0183 |
+| D | pearson_head_flex | 0.983 | 0.983 | 0.0116 |
+| D | truemean_head_flex | 1.000 | 0.999 | 0.0023 |
+| D | truemean_head_affine | 1.000 | 0.999 | 0.0019 |

@@ -2,6 +2,8 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/README.md>
 
+**Current status and results in one page:** [STATUS_11-20-2026.md](STATUS_11-20-2026.md) (11-20-2026).
+
 **Supported thesis:** correlation alone does not identify a judge’s desired conditional rating distribution. When that distribution is the target, fit and evaluate probability forecasts with proper probability losses, and retain correlations as useful diagnostics of scalar association.
 
 The project’s original title expresses its research direction. The evidence does **not** establish that every psychometric method is unnecessary, or that cross-entropy always selects the best finite-sample system. Defining the human population, checking input correspondence, and studying reliability and construct validity remain separate questions.

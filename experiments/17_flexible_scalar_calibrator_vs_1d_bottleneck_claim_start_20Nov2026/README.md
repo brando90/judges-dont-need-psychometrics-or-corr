@@ -1,6 +1,6 @@
 # Experiment 17: does a flexible scalar-to-distribution calibrator remove the "one-dimensional bottleneck" claim? (toy, $0)
 
-**Status:** pre-registered 11-20-2026, written and pushed before `scripts/run_sweep.py` was executed. Retrospective label: none (prospective on synthetic data).
+**Status:** pre-registered 11-20-2026, written and pushed before `scripts/run_sweep.py` was executed; run finished 11-20-2026 23:12, see [results.md](results.md). Retrospective label: none (prospective on synthetic data).
 
 **Doc link:** none yet (the one-page status file at the repo root summarizes it).
 **TLDR:** a score-then-calibrate judge is a one-dimensional bottleneck only if the calibrator after the score is simple. Experiment 11 used a 12-parameter affine-in-score head. This experiment replaces it with a flexible (nonlinear) head and asks whether the gap to end-to-end cross-entropy (CE) training survives.
