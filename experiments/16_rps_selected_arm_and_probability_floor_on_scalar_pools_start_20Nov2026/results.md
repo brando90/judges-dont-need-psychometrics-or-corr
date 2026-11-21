@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md>
 
-**TLDR:** On the scalar-vote pools, picking one judge by train RPS does not fix single-judge selection: it is as bad as picking by CE or by correlation, and none beats the constant at the original floor. Mixing judges by train RPS is the best arm on every pool, and beats the constant by 0.05 to 0.06 RPS on the five cached judges. The floor matters a lot for CE (8.9 down to 2.2 at 5e-2) but not enough to put CE-picked single judges below the constant. Retrospective, same 75 artifacts and 195 expert ratings, 1,000 task-grouped 20/5 splits, CPU only, $0.
+**TLDR:** On the scalar-vote pools, picking one judge by train RPS does not fix single-judge selection: it is no better than picking by CE (clearly worse on the open-weight pool) and no better than picking by correlation, and none of the single-judge pickers beats the constant at the original floor. Mixing judges by train RPS is the best fitted arm on every pool, and beats the constant by 0.05 to 0.06 RPS on the five cached judges; on the open-weight pool no arm, mixture included, beats the constant (0.2601 against 0.1836). The floor matters a lot for CE (8.9 down to 2.2 at 5e-2) but not enough to put CE-picked single judges below the constant. Retrospective, same 75 artifacts and 195 expert ratings, 1,000 task-grouped 20/5 splits, CPU only, $0.
 
 Run: 11-20-2026 22:14 to 22:16 on skampere1 (12 cells, 21 s to 100 s in total), plain Python, no language model. Files: `results/<pool>_eps<floor>/results.json`. Smaller RPS is better. Pools: `old5` = 5 cached frontier scalar judges, `open` = 39 open-weight scalar judges, `all` = 44.
 
@@ -53,9 +53,11 @@ Test CE of the CE-picked single judge falls from 8.93 (floor 1e-6) to 2.18 (floo
 ## Reading
 
 - Sanmi's floor explanation is only partly right for these judges: the floor does most of the work on CE, and raising it helps every selector on RPS, but the single-judge selection loss at the original floor is the same for RPS (which has no floor problem in its objective) as for CE. With 25 tasks and 20 training tasks, picking one of five judges is noisy under any objective.
-- Mixing is the robust part: the RPS mixture beats the constant on `old5` at every floor by 0.052 to 0.064 (all intervals exclude 0), and is the best arm on every pool. This is the retrospective version of "fit a calibrated, regularized head, not a flexible selector".
+- Mixing is the robust part: the RPS mixture beats the constant on `old5` at every floor by 0.052 to 0.064 (all intervals exclude 0), and is the best fitted arm on every pool (on `open` the constant, 0.1836, still beats it at 0.2601). This is the retrospective version of "fit a calibrated, regularized head, not a flexible selector".
 - The 39 open-weight scalar judges are worse than the constant for every selector at every floor tried (even the best, the RPS mixture at floor 5e-2, is 0.2256 against 0.1835), so open-weight scalar votes carry little human-rating signal here. Experiment 09 (native probabilities, open weights) is the better test of open-weight judges.
 - RPS-mixture optimizer certificate failures (Frank-Wolfe gap above 1e-8): 4 of 1,000 splits on `old5`, 52 on `open`, 78 on `all` at floor 1e-6, kept in all numbers above as pre-registered.
 - Retrospective: the ratings were seen by the people who built the judges. A prospective test needs fresh ratings.
 
-**TLDR-end:** [judge objectives: experiment 16] RPS-picked single judges do not beat correlation-picked or the constant; RPS-picked mixtures are the best arm on every pool; floor helps all selectors but does not rescue single-judge CE.
+**TLDR-end:** [judge objectives: experiment 16] RPS-picked single judges do not beat correlation-picked or the constant; RPS-picked mixtures are the best fitted arm on every pool (the constant wins on the open-weight pool); floor helps all selectors but does not rescue single-judge CE.
+
+*Correction 11-20-2026 (after a cross-check of this file): the first version said the RPS mixture was "the best arm on every pool" and that RPS-picking was "as bad as" CE or correlation; on the open-weight pool the constant beats every arm and RPS-picking is clearly worse than CE-picking (see scored prediction 1). The text above is corrected; no number changed.*

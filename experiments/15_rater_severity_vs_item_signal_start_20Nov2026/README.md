@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md>
 
-**TLDR:** Sanmi Koyejo's 11-16 point 4 asked whether the ratings measure item signal or just rater severity, with only 2 to 3 raters. The three expert raters are fixed people (slots 1-3: 1 and 2 rated all 75 artifacts, 3 rated 45), so each rater's constant offset is estimable. Result: item signal dominates, rater offsets are small and explain about 2% of within-artifact variance (interval includes 0), and correcting for them changes no judge ranking. CPU only, no model calls, $0. Exploratory, not pre-registered: a 200-draw smoke run of this script was read before this file was written.
+**TLDR:** Sanmi Koyejo's 11-16 point 4 asked whether the ratings measure item signal or just rater severity, with only 2 to 3 raters. The three expert raters are fixed people (slots 1-3: 1 and 2 rated all 75 artifacts, 3 rated 45), so each rater's constant offset is estimable. Result: item signal dominates, rater offsets are small and explain about 2% of within-artifact variance (interval includes 0), and correcting for them leaves the best judge and the RPS ranking unchanged (Spearman and Pearson judge rankings agree with a Kendall tau of at least 0.996). CPU only, no model calls, $0. Exploratory, not pre-registered: a 200-draw smoke run of this script was read before this file was written.
 
 ## What is run
 
@@ -33,8 +33,10 @@ Judge ranking, raw versus severity-adjusted human target: Kendall tau 0.996 (Spe
 
 ## Reading
 
-- Artifact differences are far larger than rater differences (SD 1.44 versus 0.13), and consistency and agreement ICC agree (0.85 versus 0.84 for the two full raters), so on this data severity is not what the ratings are measuring.
+- Artifact differences are far larger than rater differences (SD 1.44 versus 0.13), and consistency and agreement ICC agree (0.85 versus 0.84 for the two full raters), so on this data constant per-rater offsets are small next to item differences. Rater-by-item interactions and raters' use of the scale are not tested here.
 - Rater 3 agrees less with the other two (ICC 0.54 to 0.58) on a smaller overlap (45 artifacts, 15 tasks), with wide intervals.
 - Limits: three raters, 25 tasks, no repeated ratings, offsets are only constants (no per-rater scale or threshold differences, which an ordinal model with rater facets would add, as Sanmi's point 5 lists). The pool of raters is the same retrospective one as the other experiments.
 
-**TLDR-end:** [rater severity: experiment 15] Rater offsets are about 0.1 rating points and explain about 2% of within-artifact variance; severity-correcting the human target changes no judge ranking.
+**TLDR-end:** [rater severity: experiment 15] Rater offsets are about 0.1 rating points and explain about 2% of within-artifact variance; severity-correcting the human target leaves the best judge and the RPS ranking unchanged (constant offsets only).
+
+*Correction 11-20-2026 (after a cross-check): earlier wording said correction "changes no judge ranking" and that "severity is not what the ratings are measuring"; the Spearman and Pearson rankings have tau 0.996 and only constant offsets were estimated. Corrected above; no number changed.*
