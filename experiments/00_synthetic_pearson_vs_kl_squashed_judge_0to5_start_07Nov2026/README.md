@@ -1,4 +1,4 @@
-# 01_synthetic_pearson_vs_kl_squashed_judge_0to5
+# 00_synthetic_pearson_vs_kl_squashed_judge_0to5
 
 **Objective:** show that correlation with human scores can barely separate a faithful judge from one whose score distribution is badly off, while KL(P_human ‖ P_judge) separates them clearly.
 
