@@ -1,0 +1,82 @@
+{
+ "S1 numerator is linear in p with coefficient r*(t_i - tbar)": {
+  "pass": true,
+  "detail": ""
+ },
+ "S2 d rho / d p_i(r) = r * g_i (only the mean direction), exact derivative": {
+  "pass": true,
+  "detail": "max abs diff 0.00e+00"
+ },
+ "S3 RPS = (mean error)^2/(K-1) + shape part (exact, K=4)": {
+  "pass": true,
+  "detail": ""
+ },
+ "S3b sum_k (F_p(k)-F_q(k)) = m_q - m_p (exact, K=4)": {
+  "pass": true,
+  "detail": ""
+ },
+ "S4 vector-Pearson of p=(1-b)/K+b q with q: cov^2 = var_p var_q (so |rho|=1), exact": {
+  "pass": true,
+  "detail": ""
+ },
+ "N1 mean-preserving shape changes leave rho unchanged (200 random draws)": {
+  "pass": true,
+  "detail": "max diff 3.33e-16"
+ },
+ "N2 affine invariance of rho in the judge's mean": {
+  "pass": true,
+  "detail": "max diff 3.33e-16"
+ },
+ "N3a logit gradient of rho = p_i(r)(r - m_i) g_i": {
+  "pass": true,
+  "detail": "max diff 1.88e-10"
+ },
+ "N3b logit gradient of CE = p_i(r) - p*_i(r)": {
+  "pass": true,
+  "detail": ""
+ },
+ "N3c Corr gradient lies in one direction per item: p_i * (r - m_i)": {
+  "pass": true,
+  "detail": "by N3a; CE gradient p_i - p*_i ranges over the (K-1)-dim tangent space"
+ },
+ "N4a CE = H + G + KL(q_m || q) + C (300 random P, q)": {
+  "pass": true,
+  "detail": "max abs err 8.88e-16"
+ },
+ "N4b cross term C = 0 for judges in the tilted-uniform (1-D score) family": {
+  "pass": true,
+  "detail": "max |C| 1.24e-12"
+ },
+ "N5a RPS = (mean error)^2/(K-1) + shape part (500 random pairs, K=6)": {
+  "pass": true,
+  "detail": "max err 1.78e-15"
+ },
+ "N5b |m_p - m_q| <= (K-1) TVD(p, q)": {
+  "pass": true,
+  "detail": ""
+ },
+ "N6 three judges with rho = 1 against t_i (true, max-ent, two-point) differ in CE, TVD, RPS": {
+  "pass": true,
+  "detail": "{\"truth\": {\"rho\": 1.0, \"CE\": 1.2689, \"TVD\": 0.0, \"RPS\": 0.0}, \"max-ent same mean\": {\"rho\": 1.0, \"CE\": 1.6982, \"TVD\": 0.3691, \"RPS\": 0.0824}, \"two-point {0,5} same mean\": {\"rho\": 1.0, \"CE\": 19.5104, \"TVD\": 0.6999, \"RPS\": 0.4059}}"
+ },
+ "N6_table": {
+  "truth": {
+   "rho": 1.0,
+   "CE": 1.2688798031543902,
+   "TVD": 4.3383898181102256e-17,
+   "RPS": 7.176822459039565e-32
+  },
+  "max-ent same mean": {
+   "rho": 0.9999999999999997,
+   "CE": 1.6982095693893298,
+   "TVD": 0.36913122251385605,
+   "RPS": 0.08238404906142828
+  },
+  "two-point {0,5} same mean": {
+   "rho": 0.9999999999999999,
+   "CE": 19.51035193687559,
+   "TVD": 0.6999447714613899,
+   "RPS": 0.4059489844407678
+  }
+ }
+}
