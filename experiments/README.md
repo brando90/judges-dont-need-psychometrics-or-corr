@@ -4,6 +4,8 @@
 
 **TLDR:** This project studies which judge objectives identify or learn human-rating distributions. Read the synthetic studies separately from the historical human-rating comparisons; their follow-ups share data and are not independent replications. The applied human-rating collection remains in trustworthy-theorem-judges.
 
+As of 11-21-2026, [experiment 21](21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/README.md) tests matched calibration on new computer-science homework families and prepares the prospective VeriBench comparison.
+
 ## Folder dates
 
 Folders directly under `experiments/` are active and end in `_start_<DDMonYYYY>` only. An experiment is done only when it moves to `archive/`, and only then does its name gain `_end_<DDMonYYYY>` ([agents-config Rule 88](https://github.com/brando90/agents-config/blob/main/rules/research.md#trigger-rule-88)). Active experiments are numbered from 00. The dates are day-level labels read from git history in America/Los_Angeles time. For exact times, or if a label looks wrong, git history is the authority: run `git log --follow -- <folder>` here, and for experiments 11–14 also in trustworthy-theorem-judges, where they originally ran.
