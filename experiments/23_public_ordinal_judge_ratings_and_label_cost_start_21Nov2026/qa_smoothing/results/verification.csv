@@ -1,0 +1,4 @@
+criterion,alpha,numeric_comparisons,maximum_absolute_error
+consistency,0.01,384,1.687538997430238e-14
+relevance,0.01,384,1.687538997430238e-14
+relevance,0.05,384,1.687538997430238e-14

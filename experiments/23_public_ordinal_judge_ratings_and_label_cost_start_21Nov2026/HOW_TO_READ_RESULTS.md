@@ -35,3 +35,5 @@ python3 report.py
 ```
 
 [Source-specific provenance](summeval/DATA_11-21-2026.md) · [Independent replay and two-item numerical tie correction](VERIFICATION_11-21-2026.md) · [Continuous-model reproduction](continuous/RESULTS_11-21-2026.md) · [Matched-calibration reproduction](matched_calibration/RESULTS_11-21-2026.md)
+
+The [dialogue replication](usr/RESULTS_11-21-2026.md) and [MovieLens replication](movielens/RESULTS_11-21-2026.md) have their own source and verification commands. After running them and the primaries, run `python3 benchmark_summary.py` to regenerate the [cross-domain scores and figure](CROSS_DOMAIN_SCORES_11-21-2026.md). The live VeriBench receipt is a server-side count and reads only schema and aggregate counts; the primary score tables use released public data.

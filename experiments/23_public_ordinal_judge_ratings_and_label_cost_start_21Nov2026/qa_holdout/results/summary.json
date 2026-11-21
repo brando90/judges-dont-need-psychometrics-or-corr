@@ -1,0 +1,25 @@
+{
+  "train_images": 7058,
+  "original_test_images": 2015,
+  "second_panel_images": 1000,
+  "second_panel_votes": 107003,
+  "group_overlap": 0,
+  "training_draws": 64,
+  "training_winner_triplets_replayed": 704,
+  "second_fixed": {
+    "pearson_and_uniform": 12,
+    "all_four": null
+  },
+  "second_crossed": {
+    "pearson_and_uniform": 24,
+    "all_four": null
+  },
+  "original_fixed": {
+    "pearson_and_uniform": 12,
+    "all_four": null
+  },
+  "original_crossed": {
+    "pearson_and_uniform": 24,
+    "all_four": null
+  }
+}

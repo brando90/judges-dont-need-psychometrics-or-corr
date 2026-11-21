@@ -11,3 +11,7 @@ As of 11-21-2026. On KonIQ-10k, a cross-entropy (CE) fit beat a Pearson fit and 
 | How sensitive was the result to judge design? | [Jointly trained multivariable models](continuous/RESULTS_11-21-2026.md) · [Same distribution calibration for all scores](matched_calibration/RESULTS_11-21-2026.md) · [Smoothing and training-sample sensitivity plan](SENSITIVITIES_11-21-2026.md) |
 
 Experiment 22 owns the coworker's complementary HelpSteer2, ChaosNLI and DICES scope. Historical formal-specification coverage grades and frozen prospective VeriBench judge forecasts are available from their original experiments. [Experiment 22](../22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md) · [VeriBench registration](../21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/veribench/STATUS_11-21-2026.md)
+
+The separately registered USR dialogue and MovieLens field replications broaden the comparison to conversational quality and voluntary product ratings. [All public settings and three test losses](CROSS_DOMAIN_SCORES_11-21-2026.md) · [USR dialogue](usr/RESULTS_11-21-2026.md) · [MovieLens ratings](movielens/RESULTS_11-21-2026.md) · [Light QA](QA_11-21-2026.md)
+
+The disjoint 1,000-image holdout reproduced the 12/24 image thresholds. [Reserved image panel](qa_holdout/RESULTS_11-21-2026.md) · [All GPT-4 smoothing levels](qa_smoothing/RESULTS_11-21-2026.md)

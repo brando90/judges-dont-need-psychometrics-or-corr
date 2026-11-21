@@ -1,0 +1,7 @@
+dataset,depth,heldout_items,groups,budgets,training_draws,checked_method_draw_scores,checked_paired_contrasts,max_abs_draw_rps_error,max_abs_point_or_band_error,jointly_passing_budgets,sustained_joint,sustained_against_all_four
+topical_usr,1,120,24,6,64,2688,24,3.3306690738754696e-16,8.326672684688674e-17,,,
+topical_usr,3,120,24,6,64,2688,24,3.3306690738754696e-16,6.938893903907228e-17,,,
+topical_lexical,1,144,24,7,64,3136,28,4.163336342344337e-16,1.6653345369377348e-16,,,
+topical_lexical,3,144,24,7,64,3136,28,3.885780586188048e-16,1.942890293094024e-16,,,
+persona_lexical,1,120,24,6,64,2688,24,3.3306690738754696e-16,9.367506770274758e-17,"48,96,180",48,
+persona_lexical,3,120,24,6,64,2688,24,3.3306690738754696e-16,9.71445146547012e-17,"96,180",96,

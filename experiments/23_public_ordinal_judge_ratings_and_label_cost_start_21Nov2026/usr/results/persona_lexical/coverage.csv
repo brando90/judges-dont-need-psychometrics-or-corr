@@ -1,0 +1,2 @@
+track,responses,contexts,individual_grades,systems,raters,test_contexts,test_items,train_contexts,train_items,shared_normalized_reply_strings
+persona_lexical,300,60,900,5,4,24,120,36,180,10
