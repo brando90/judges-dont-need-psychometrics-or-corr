@@ -82,3 +82,68 @@ with (ROOT / "known_mean_prior_threshold.csv").open() as stream:
         assert math.isclose(float(boundary[name]), ref, abs_tol=1e-15)
 print("All 48 law-pair/input checks satisfy the total-variation, moment and KL bounds.")
 print("One-label error rates 2/5 and 1/5 and prevalence threshold 1/3 independently verified.")
+
+# Post-hoc curve-priority sensitivity in the joint search under low-spread truth.
+# Swap the last two inputs and reflect R about 2. This swaps curves A/B, at
+# either spread, without changing probabilities or reversing the objective order.
+assert np.array_equal(p[[2, 3, 0, 1]], p[:, [0, 2, 1], ::-1])
+centered = np.array([[-1, 0, 1], [1, -1, 0]])
+
+
+def curve_score_mass(k):
+    """Exact A win, A/B tie, B win masses under A_low, for both objectives."""
+    totals = {objective: [0, 0, 0] for objective in ("ce", "pearson")}
+
+    def tally(likelihood, dot, multiplicity):
+        curves = likelihood.reshape(2, 2, -1).max(axis=1)
+        mass = (likelihood[0] * multiplicity).ravel()
+        for objective, (a, b) in (("ce", curves), ("pearson", dot.reshape(2, -1))):
+            counts = totals[objective]
+            for i, mask in enumerate((a > b, a == b, a < b)):
+                counts[i] += int(mass[mask].sum())
+
+    if k == 0:
+        # One training rating on one randomly selected input. Pearson is undefined.
+        tally(p.reshape(4, -1), np.zeros((2, 9), dtype=int), 1)
+        return totals, 30
+    hist = [(a, k-a-c, c) for a in range(k+1) for c in range(k-a+1)]
+    ways = np.array([math.comb(k, a)*math.comb(k-a, c) for a, _, c in hist], dtype=object)
+    signed = np.array([c-a for a, _, c in hist])
+    per_input = np.array([[[math.prod(int(prob)**count for prob, count in zip(row, h))
+                            for h in hist] for row in law] for law in p], dtype=object)
+    likelihood_12 = per_input[:, 1, :, None] * per_input[:, 2, None, :]
+    dot_12 = (centered[:, 1, None, None] * signed[None, :, None]
+              + centered[:, 2, None, None] * signed[None, None, :])
+    for i, count in enumerate(ways):
+        likelihood = per_input[:, 0, i, None, None] * likelihood_12
+        dot = dot_12 + centered[:, 0, None, None] * signed[i]
+        tally(likelihood, dot, count * ways[:, None] * ways[None, :])
+    return totals, 10**(3*k)
+
+
+budgets = sorted({int(r["total_train_ratings"]) for r in records})
+assert budgets == [1, 3, 6, 9, 12, 18, 24, 36]
+print("Joint search, low spread, equal true curves: population-test mean squared error.")
+for budget in budgets:
+    tallies, denominator = curve_score_mass(budget // 3)
+    averages = {}
+    for objective, (win, tie, lose) in tallies.items():
+        assert win + tie + lose == denominator
+        # Under truth A, A-first ties are correct. Under truth B, the symmetry
+        # interchanges the strict wins and losses, while the tie has equal mass.
+        for truth, wrong_mass in (("A_low", lose), ("B_low", lose + tie)):
+            mass_row, = [r for r in records if int(r["total_train_ratings"]) == budget
+                         and r["true_law"] == truth and r["selector"] == objective
+                         and r["known_information"] == "joint" and r["tie_policy"] == "low_first"]
+            assert int(mass_row["common_mass_denominator"]) == denominator
+            other_curve = "B" if truth == "A_low" else "A"
+            assert sum(int(mass_row[other_curve + s]) for s in ("_low", "_high")) == wrong_mass
+            risk_row, = [r for r in risks if int(r["total_train_ratings"]) == budget
+                         and r["true_law"] == truth and r["selector"] == objective
+                         and r["known_information"] == "joint" and r["tie_policy"] == "low_first"]
+            assert math.isclose(float(risk_row["mean_mse"]), 0.08 * wrong_mass / denominator,
+                                rel_tol=1e-13, abs_tol=1e-15)
+        # B-first swaps the two conditional errors. An independent fair curve
+        # priority gives this same average for either underlying mean curve.
+        averages[objective] = 0.08 * (2*lose + tie) / (2*denominator)
+    print(f"{budget:2d} training rating(s): CE {averages['ce']:.9f}, Pearson {averages['pearson']:.9f}")

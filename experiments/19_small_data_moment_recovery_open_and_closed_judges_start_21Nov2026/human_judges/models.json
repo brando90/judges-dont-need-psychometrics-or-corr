@@ -1,12 +1,86 @@
 {
   "verified_date": "11-21-2026",
-  "representation": "One original P0 human-mirror verbal probability vector per model and artifact. Archive prompts and APIs are study-specific.",
+  "representation": "Six model-written probabilities per artifact from two different P0 elicitation contracts. Both studies use the shared human scoring rubric and the same three artifact files. The selected data exclude token log probabilities and model-produced scalar scores.",
   "open_weight_archive_sha256": "9794b2f2b039e8e6a3505fa2ec77aeafeca80e609ca51894521b612c61bb7dbe",
   "closed_weight_archive_sha256": "fcbbd3332da9196aa8e285f182baf1c9c5081d7516fc6000cf1f644208b0a8f8",
   "models": [
-    {"key":"qwen3_4b","model":"Qwen/Qwen3-4B-Instruct-2507","weight_access":"open","forecast_key":"q3_4b_2507__P0_human_mirror","evidence":"The publisher distributes three safetensors checkpoint shards. The cached runner names this exact repository.","sources":["https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/main"]},
-    {"key":"qwen25_coder_14b","model":"Qwen/Qwen2.5-Coder-14B-Instruct","weight_access":"open","forecast_key":"q25c_14b__P0_human_mirror","evidence":"The publisher distributes the checkpoint under Apache 2.0. The cached runner names this exact repository.","sources":["https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct/tree/main"]},
-    {"key":"gpt54_mini","model":"gpt-5.4-mini","weight_access":"closed","forecast_key":"gpt54_mini__P0","evidence":"Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.","sources":["https://developers.openai.com/api/docs/models/gpt-5.4-mini","https://openai.com/open-models/"]},
-    {"key":"gpt61_sol","model":"gpt-6.1-sol","weight_access":"closed","forecast_key":"gpt61_sol__P0","evidence":"Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.","sources":["https://developers.openai.com/api/docs/models/gpt-6.1-sol","https://openai.com/open-models/"]}
-  ]
+    {
+      "key": "qwen3_4b",
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "weight_access": "open",
+      "forecast_key": "q3_4b_2507__P0_human_mirror",
+      "evidence": "The publisher distributes three safetensors checkpoint shards. The cached runner names this exact repository.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/main"
+      ],
+      "source_zero_entries": 78,
+      "source_probability_entries": 450
+    },
+    {
+      "key": "qwen25_coder_14b",
+      "model": "Qwen/Qwen2.5-Coder-14B-Instruct",
+      "weight_access": "open",
+      "forecast_key": "q25c_14b__P0_human_mirror",
+      "evidence": "The publisher distributes the checkpoint under Apache 2.0. The cached runner names this exact repository.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct/tree/main"
+      ],
+      "source_zero_entries": 345,
+      "source_probability_entries": 450
+    },
+    {
+      "key": "gpt54_mini",
+      "model": "gpt-5.4-mini",
+      "weight_access": "closed",
+      "forecast_key": "gpt54_mini__P0",
+      "evidence": "Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+        "https://openai.com/open-models/"
+      ]
+    },
+    {
+      "key": "gpt61_sol",
+      "model": "gpt-6.1-sol",
+      "weight_access": "closed",
+      "forecast_key": "gpt61_sol__P0",
+      "evidence": "Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+        "https://openai.com/open-models/"
+      ]
+    }
+  ],
+  "elicitation_provenance": {
+    "open": {
+      "archive": "experiment 09 verbal_forecasts",
+      "rubric_placement": "System message; user message contains the three task files.",
+      "requested_output_order": [
+        "A/B/C/D checklist",
+        "two- to three-sentence rationale",
+        "six probabilities over ratings 0–5",
+        "one final integer score"
+      ],
+      "system_sha256": "2bea05941420109f62f660ff77f7321a09202d91bcbad8a058199013c174941e",
+      "fallback": "Missing verbal probabilities retain the recorded uniform vector; 4 Qwen3-4B, 0 Qwen2.5-Coder-14B.",
+      "alias_verification": "Runner MODELS maps the two archived P0 forecast prefixes to publisher cache repositories. Each alias resolves to its own local snapshot and served-model name."
+    },
+    "closed": {
+      "archive": "experiment 10 native_prob_forecasts; json_prob mode",
+      "rubric_placement": "User message after the three files; separate short system instruction.",
+      "requested_output_order": [
+        "six probabilities explicitly for an expert human’s rating",
+        "one rationale, at most 25 words"
+      ],
+      "reconstruction": "150/150 request fingerprints matched and cached outputs reproduced; 5 used the longer response repair. Zero terminal fallbacks."
+    },
+    "files": {
+      "hash_matched_between_archives": 75,
+      "total_artifacts": 75,
+      "reference_hash_matched_annotation_version": 15,
+      "named_rating_field_marker_hits": 0,
+      "artifact_file_occurrences_checked": 225
+    },
+    "label_scope": "The P0 builders pass the three task files, rubric and output instructions. Historical item ratings are used downstream for fitting and evaluation, and do not appear as input fields in these model calls. Prior exposure and reference-version uncertainty remain."
+  }
 }

@@ -1,12 +1,12 @@
 \documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.9in]{geometry}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{booktabs,array,tabularx}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \newcommand{\Pj}{p^{\theta}_{j}}
 \newcommand{\Ps}{p^{\ast}_{j}}
 \newcommand{\ttil}{\tilde t}
-\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
 \begin{document}
 
 \begin{center}
@@ -14,7 +14,7 @@
 11-21-2026
 \end{center}
 
-\textbf{Date:} 11-21-2026. \textbf{By:} ultimate\_brando9 (Brando's AI assistant), Claude Sonnet 5.5, Claude Code headless harness; checks run by sympy 1.14, numpy/scipy, and Lean 4.22 with Mathlib (\texttt{math/}). Codex added the first-moment explanation and the small-data study on 11-21-2026. This file is the typeset form of \texttt{MATH\_11-21-2026.md} (same math, same numbers).
+\textbf{Date:} 11-21-2026. \textbf{By:} ultimate\_brando9 (Brando's AI assistant), Claude Sonnet 5.5, Claude Code headless harness; checks run by sympy 1.14, numpy/scipy, and Lean 4.22 with Mathlib (\texttt{math/}). Codex added the first-moment explanation and the small-data study on 11-21-2026. This file is the typeset form of \texttt{MATH\_11-21-2026.md} (same math, same numbers). As of 11-21-2026 13:57 PST, scoring conventions and domain conditions are explicit.
 
 \section*{Only the first conditional moment enters Pearson}
 On each artifact $x$, a judge predicts six probabilities $q_x(r)$ for ratings $r=0,\ldots,5$.
@@ -42,7 +42,7 @@ restrictions can change which fitted judge has lower held-out loss.
 The \href{https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026}{small-data moment study} tests this separately for open-weight and closed-weight judges.
 
 \section*{What correlation can and cannot learn (11-21-2026)}
-\textbf{In one sentence.} The correlation objective reads exactly one number per item from the judge, the first moment (the mean) $m_i=\sum_r r\,p_i(r)$, and only up to a shift and a positive rescaling of the means. The spread, the shape and every higher moment of $p_i$ are invisible to it. CE, RPS and TVD read the whole distribution.
+\textbf{In one sentence.} Mean-based Pearson reads one number per artifact, $m_i=\sum_r r\,p_i(r)$. Changing a feasible distribution while preserving this mean leaves every defined correlation unchanged. Pearson is undefined if either vector of means is constant. Normalized individual-rating ranked probability score (RPS) and CE assess the distribution using individual ratings. Total variation distance (TVD) compares two distributions.
 
 \textbf{1. The dependence is through the means only (R1).} Since $\sum_i\ttil_i=0$, the numerator of the box is $\sum_i\ttil_i m_i$, so
 \[
@@ -54,20 +54,20 @@ a function of the $n$ numbers $m_i$ and of the fixed target means $\ttil_i$. The
 \[
 \rho(a+b\,m)=\rho(m),\qquad\text{so}\qquad \rho=1\ \Longleftrightarrow\ m_i=a+b\,t_i\ \ (b>0).
 \]
-A judge whose means are $a+b\,t_i$ for any $a$ and any $b>0$ is correlation-optimal, whatever its level, scale or spread.
+With nonconstant target and forecast means, any allowed forecast with $m_i=a+bt_i$ and $b>0$ attains the maximum 1. A restricted judge family may contain no such forecast.
 
-\textbf{3. Spread, shape and higher moments are invisible (R2).} The $k$-th moment $\mu_k(p_i)=\sum_r r^k p_i(r)$ and the variance $\sigma_i^2=\sum_r(r-m_i)^2p_i(r)=\mu_2(p_i)-m_i^2$ do not appear in $F$. Two judges with the same means $m_i$ get the same $\rho$ for every choice of $\sigma_i^2,\mu_3,\mu_4,\dots$ The pair above (uniform on $\{1,2,3\}$ and on $\{0,2,4\}$, Lean-checked, see the checks table) has the same mean $2$, hence the same $\rho$, while the variances are $2/3$ and $8/3$ and the RPS between them is $2/9>0$. Within a fixed mean, each item still has $K-2$ free shape dimensions, so the correlation-optimal set has $n(K-2)$ free dimensions plus $(a,b)$.
+\textbf{3. Spread and higher moments are unidentified at fixed means (R2).} The distributions uniform on $\{1,2,3\}$ and $\{0,2,4\}$ share mean 2, with variances $2/3$ and $8/3$. Substituting one for the other preserves all defined mean-based correlations across artifacts. Their summed squared cumulative distribution function (CDF) difference is $D=2/9$ (Lean-checked). On the six-category scale this is normalized excess expected RPS $D/5=2/45$. At an interior distribution, fixing the mean leaves $K-2$ independent shape directions per artifact.
 
 \textbf{4. The gradient lives on one direction per item (R3).} With $p_i=\mathrm{softmax}(u_i)$,
 \[
 \begin{aligned}
-\frac{\partial\rho}{\partial u_i(r)}&=p_i(r)\,(r-m_i)\,g_i &&(\text{one fixed direction in }r,\ \text{scaled by the number }g_i),\\
-\frac{\partial L_{CE}}{\partial u_i(r)}&=p_i(r)-p^\ast_i(r) &&(\text{all }K-1\text{ directions}).
+\frac{\partial\rho}{\partial u_i(r)}&=p_i(r)\,(r-m_i)\,g_i &&(\text{one local direction in }r,\ \text{scaled by the number }g_i),\\
+\frac{\partial L_{CE}}{\partial u_i(r)}&=p_i(r)-p^\ast_i(r) &&(\text{category-specific errors}).
 \end{aligned}
 \]
-Correlation training can only push each item's mean; CE training can also correct its shape.
+A Pearson update follows the mean gradient and can incidentally change spread. Distributions with the same means receive identical objective values. CE supplies a separate discrepancy in each category. R3 differentiates the correlation $\rho$ to maximize. The minimized loss has derivative $\partial(1-\rho)/\partial u_i(r)=-p_i(r)(r-m_i)g_i$. The CE gradient shown is for the summed loss; averaging over items divides it by $n$.
 
-\textbf{5. What CE, RPS and TVD read (R4--R6).} CE and RPS are strictly proper and TVD vanishes only at the target: each is minimized only at $p_i=p^\ast_i$, and $p_i=p^\ast_i$ fixes the mean and every higher moment, $\mu_k(p_i)=\mu_k(p^\ast_i)$ for all $k$. CE splits exactly into noise, a shape gap $G(P)\ge0$ out of reach of every mean-only objective, and a calibration term (R4).
+\textbf{5. What CE, RPS and TVD read (R4–R6).} Expected individual-rating CE and RPS uniquely favor the true forecast over unrestricted distributions. TVD to the true law vanishes only at equality. A sparse empirical histogram gives a noisy TVD diagnostic. The shape gap $G(P)$ in R4 is the excess CE of the best log-affine-in-rating forecast. For general forecasts an additional signed cross term can cancel that gap.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.25}
@@ -78,12 +78,12 @@ Correlation training can only push each item's mean; CE training can also correc
 Corr ($\rho$) & read & not identified & not read & no (R2, R6)\\
 CE & read & read & read & yes\\
 RPS & read & read & read & yes\\
-TVD & read & read & read & yes\\
+TVD to the true law & read & read & read & yes\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\textbf{What this shows, and what it does not.} It shows, at the population level (the human distribution $p^\ast_i$ known exactly, i.e. unlimited data), what each objective can see and where each is optimal. It does \emph{not} show the limited-data claim: whether a CE-trained judge also does better with few ratings is empirical (experiments 02, 08, 11, 16, 17 and the sweep in this folder), and a separate new experiment tests it.
+\textbf{What this shows, and what it does not.} It shows, at the population level (the human distribution $p^\ast_i$ known exactly, a mathematical population target), what each objective can see and where each is optimal. It does \emph{not} show the limited-data claim: whether a CE-trained judge also does better with few ratings is empirical (experiments 02, 08, 11, 16, 17 and the sweep in this folder), and experiment 19 reports retrospective human-rating comparisons and exact synthetic risks.
 
 \section*{Pearson between mean ratings}
 Replace the placeholder on the page by
@@ -111,13 +111,13 @@ Categories $R=\{0,\dots,K-1\}$, $K=6$. Items $i=1,\dots,n$ (the page's $v\in V$;
 \midrule
 CE (page: sign dropped) &
 $\begin{array}{@{}l@{}}\ell^{CE}_{i,r}=-p^\ast_i(r)\log p_i(r)\\ L_{CE}=\sum_i\sum_r\ell^{CE}_{i,r}\end{array}$ &
-every coordinate $p_i(r)$ separately; unique population minimizer $p_i=p^\ast_i$ & no (sum of independent terms)\\
+every coordinate $p_i(r)$ separately; unique population minimizer $p_i=p^\ast_i$ & no (additive over artifacts)\\
 Corr &
 $\begin{array}{@{}l@{}}L_{corr}=1-\rho,\quad \rho=\dfrac{N}{\sqrt{n}\,s_t\,\lVert m-\bar m\rVert}\\ N=\sum_i\sum_r r\,\ttil_i\,p_i(r),\quad s_t^2=\tfrac1n\sum_i\ttil_i^2\end{array}$ &
 only $m_i=\sum_r r\,p_i(r)$; numerator term $(i,r)$ is $c_{i,r}\,p_i(r)$ with $c_{i,r}=r\,\ttil_i$ (linear); denominator through the spread of $m$ &
-yes (via $\bar m$ and $\lVert m-\bar m\rVert$); equals $\frac1n\sum_i z_i\zeta_i$, the mean product of z-scores of the judge mean and the target mean\\
+yes; $\rho=n^{-1}\sum_i z_i\zeta_i$ and $L_{\rm corr}=(2n)^{-1}\sum_i(z_i-\zeta_i)^2$. Each standardized value depends on the whole sample.\\
 RPS &
-$\displaystyle\sum_{k=0}^{K-2}\big(F_{p_i}(k)-F_{p^\ast_i}(k)\big)^2$ & whole CDF & no\\
+$\displaystyle\frac1{K-1}\sum_{k=0}^{K-2}(F_q(k)-\mathbf{1}\{y\le k\})^2$ & all cumulative probabilities & no; average over ratings within each artifact\\
 TVD &
 $\displaystyle\tfrac12\sum_r\lvert p_i(r)-p^\ast_i(r)\rvert$ & whole vector & no\\
 \bottomrule
@@ -129,9 +129,9 @@ $\displaystyle\tfrac12\sum_r\lvert p_i(r)-p^\ast_i(r)\rvert$ & whole vector & no
 \sum_i(m_i-\bar m)(t_i-\bar t)=\sum_i\ttil_i m_i-\bar m\sum_i\ttil_i=\sum_i\ttil_i m_i
 \qquad\text{because }\sum_i\ttil_i=0 .
 \]
-Insert $m_i=\sum_r r\,p_i(r)$. The denominator $\sqrt{\sum\ttil_i^2\sum(m_i-\bar m)^2}$ is a function of $m$ alone. \hfill$\blacksquare$
+Insert $m_i=\sum_r r\,p_i(r)$. The denominator $\sqrt{\sum\ttil_i^2\sum(m_i-\bar m)^2}$ for a fixed target is a function of $m$ alone. \hfill$\blacksquare$
 
-\textbf{R2 (Pearson sees only the means; level and scale are not identified).} By R1, $\rho=F(m_1,\dots,m_n)$. Two judges with the same $m_i$ for all $i$ have the same $\rho$ whatever their shapes; and
+\textbf{R2 (positive affine invariance).} By R1, $\rho=F(m_1,\dots,m_n)$. Two judges with the same $m_i$ for all $i$ have the same $\rho$ whatever their shapes; and
 \[
 \rho(a+bm)=\rho(m)\quad\text{for } b>0
 \]
@@ -139,52 +139,51 @@ Insert $m_i=\sum_r r\,p_i(r)$. The denominator $\sqrt{\sum\ttil_i^2\sum(m_i-\bar
 \[
 \{\,p:\ m_i=a+b\,t_i,\ b>0\,\}
 \]
-(when feasible inside $[0,K-1]$): $n(K-2)$ free shape dimensions plus $(a,b)$. A judge with the wrong level, the wrong scale and any spread is ``optimal''. \hfill$\blacksquare$
+(when this set intersects the judge family). With unrestricted per-artifact distributions and nonconstant targets, the stratum with all probabilities positive has relative dimension $n(K-2)+2$. At a boundary the feasible shape directions may be fewer. \hfill$\blacksquare$
 
-\textbf{R3 (gradients: Corr moves one direction per item, CE moves all of them).} With $p_i=\mathrm{softmax}(u_i)$:
+\textbf{R3 (gradients: Pearson uses the mean gradient, CE uses category errors).} With $p_i=\mathrm{softmax}(u_i)$:
 \[
 \frac{\partial L_{CE}}{\partial u_i(r)}=p_i(r)-p^\ast_i(r),\qquad
 \frac{\partial\rho}{\partial u_i(r)}=p_i(r)\,(r-m_i)\,g_i,\qquad g_i=\frac{\zeta_i-\rho\,z_i}{n\,s_m},
 \]
-$z_i=(m_i-\bar m)/s_m$, $\zeta_i=\ttil_i/s_t$. Proof: $\partial\rho/\partial p_i(r)=r\,g_i$ (R1), and $\partial p_i(r')/\partial u_i(r)=p_i(r)(\delta_{rr'}-p_i(r'))$, so $\partial m_i/\partial u_i(r)=p_i(r)(r-m_i)$. \hfill$\blacksquare$ The correlation gradient on item $i$ always lies on the single direction $p_i\circ(r-m_i)$ (the score direction of the mean); the CE gradient ranges over the whole $(K-1)$-dimensional tangent space, so it is the one that can correct shape.
+$z_i=(m_i-\bar m)/s_m$, $\zeta_i=\ttil_i/s_t$. Proof: $\partial\rho/\partial p_i(r)=r\,g_i$ (R1), and $\partial p_i(r')/\partial u_i(r)=p_i(r)(\delta_{rr'}-p_i(r'))$, so $\partial m_i/\partial u_i(r)=p_i(r)(r-m_i)$. \hfill$\blacksquare$ The correlation gradient on item $i$ is proportional to the local direction $p_i\circ(r-m_i)$ (the score direction of the mean); varying the target allows CE gradients to span the $(K-1)$-dimensional tangent space.
 
-\textbf{R4 (exact decomposition of CE: the ``linear decomposition'').} Let $q_m$ be the tilted-uniform (max-entropy) distribution on $R$ with mean $m$, $G(P)=H(q_{m(P)})-H(P)\ge0$ (experiment 05). For any $P$ and any $q$,
+\textbf{R4 (exact decomposition of CE: the ``linear decomposition'').} Let $q_m$ be the tilted-uniform (max-entropy) distribution on $R$ with mean $m$, $G(P)=H(q_{m(P)})-H(P)\ge0$ (experiment 05). For interior target mean $m(P)$ assume $q(r)>0$ for every category, so each term below is finite. At an endpoint mean the target and its maximum-entropy representative are the same point mass.
 \[
 \mathrm{CE}(P,q)=\underbrace{H(P)}_{\text{irreducible noise}}+\underbrace{G(P)}_{\text{shape gap}}+\underbrace{\mathrm{KL}(q_{m(P)}\,\Vert\,q)}_{\text{level/scale/shape of }q}+\underbrace{\sum_r\big(P(r)-q_{m(P)}(r)\big)\big(-\log q(r)\big)}_{C(P,q)\ \text{(cross term)}}.
 \]
-Proof: $G+\mathrm{KL}(q_m\Vert q)=-H(P)+\mathrm{CE}(q_m,q)$, and $\mathrm{CE}(P,q)-\mathrm{CE}(q_m,q)=C$. \hfill$\blacksquare$ If $\log q$ is affine in $r$ (a judge that is a softmax of one affine score, a ``1-D'' judge), then $C=0$ and $\mathrm{KL}(q_{m(P)}\Vert q)$ is a function of the two means only: the term $G(P)$ is outside this log-affine family. Other scalar-to-distribution models can represent different shapes. A mean-based objective cannot separate forecasts that share each artifact’s mean. The paper's ``one-dimensional bottleneck'' is exactly $C=0$ plus $G>0$.
+Proof: $G+\mathrm{KL}(q_m\Vert q)=-H(P)+\mathrm{CE}(q_m,q)$, and $\mathrm{CE}(P,q)-\mathrm{CE}(q_m,q)=C$. \hfill$\blacksquare$ If $\log q(r)=\alpha+\beta r$, mass and mean matching give $C=0$. Within this log-affine family the minimum excess CE is $G(P)$, at $q=q_{m(P)}$. An unrestricted judge can have $q=P$ and zero excess CE even when $G(P)>0$. For positive $P$, $C(P,P)=-G(P)-\mathrm{KL}(q_{m(P)}\Vert P)$ in that case. A scalar-to-distribution model can represent other shapes.
 
-\textbf{R5 (RPS splits into a mean part and a shape part).} With $d_k=F_p(k)-F_q(k)$, $k=0,\dots,K-2$: $\sum_k d_k=m_q-m_p$ and
+\textbf{R5 (decomposition of excess expected RPS).} Write $d_k=F_p(k)-F_q(k)$, $k=0,\ldots,K-2$, and let $D=\sum_kd_k^2$ be the unnormalized squared CDF distance. For a fresh rating $Y\sim p$, the project score has expected value
 \[
-\mathrm{RPS}(p,q)=\frac{(m_p-m_q)^2}{K-1}+\sum_k\big(d_k-\bar d\big)^2 .
+\mathbb E_p S(q,Y)=\underbrace{\frac{1}{K-1}\sum_k F_p(k)(1-F_p(k))}_{\mathbb E_p S(p,Y)}
++\frac{D}{K-1}.
 \]
-Proof: $\sum_k d_k^2=(\sum d_k)^2/(K-1)+\sum(d_k-\bar d)^2$ (variance identity), and $\sum_{k=0}^{K-2}F_p(k)=K-1-m_p$. \hfill$\blacksquare$ So RPS $\ge$ (mean error)$^2/(K-1)$, equality iff the CDF difference is constant. Likewise
+This follows by expanding the squared error of each Bernoulli indicator. Since $\sum_k d_k=m_q-m_p$, the normalized excess is
 \[
-\lvert m_p-m_q\rvert\le(K-1)\,\mathrm{TVD}(p,q)
+\frac{D}{K-1}=\frac{(m_q-m_p)^2}{(K-1)^2}
++\frac{1}{K-1}\sum_k(d_k-\bar d)^2.
 \]
-(since $\sum_r r(p-q)(r)$, with $\sum(p-q)=0$, is at most $(K-1)$ times the positive part).
+The excess equals the first term exactly when all CDF differences are equal. On the six-rating scale its mean-error denominator is 25. Also $|m_p-m_q|\le(K-1)\mathrm{TVD}(p,q)$ (step 5 below).
 
-\textbf{R6 (propriety).} CE and RPS are strictly proper: the minimum over $p$ is attained only at $p=p^\ast$ (Gibbs; sum of squares of CDF gaps). TVD is zero only at $p=p^\ast$. $\rho$ is maximal on the whole set in R2, so it is not proper and cannot rank two judges whose means are affinely related to $t$. Concrete numbers (30 synthetic items, test against the truth, probabilities floored at $10^{-12}$, \texttt{math/results/verify\_math.json}): three judges all with $\rho=1.0000$:
+\textbf{R6 (propriety).} Expected individual-rating CE and RPS have unique minimum at the true distribution. R5 gives the strictly positive RPS excess for any different forecast. TVD to the true distribution is zero only at equality. With one observed rating $y$, $\mathrm{TVD}(p,\delta_y)=1-p(y)$. Its expectation $1-\sum_r p^\ast(r)p(r)$ favors forecasts supported on the most probable ratings. Positive affine changes of mean leave a defined Pearson correlation unchanged. In the archived example (30 synthetic items; probability floor $10^{-12}$), three forecasts have $\rho=1.0000$ to the reported precision. The archived column named RPS is the summed CDF distance $D$. For comparison the last column converts it to normalized excess expected RPS.
+
 \begin{center}
-\begin{tabular}{@{}lrrr@{}}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
-judge & CE & TVD & RPS\\
+Forecast & CE (nats) & TVD & $D$ & Excess RPS $D/5$\\
 \midrule
-truth & 1.269 & 0.000 & 0.000\\
-max-entropy with the right mean & 1.698 & 0.369 & 0.082\\
-two-point on $\{0,5\}$ with the right mean & 19.51 & 0.700 & 0.406\\
+True distribution & 1.269 & 0.000 & 0.000 & 0.0000\\
+Maximum entropy, same mean & 1.698 & 0.369 & 0.082 & 0.0165\\
+Endpoint mass, same mean & 19.51 & 0.700 & 0.406 & 0.0812\\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\textbf{R7 (the literal reading of the page's last line).} If $\mathrm{Corr}(p^\theta,p^\ast)$ is taken as the correlation of the two histograms over $r$ (per item, 6 numbers each), it equals 1 for every
-\[
-p=\frac{1-b}{K}\mathbf 1+b\,p^\ast,\qquad b\in(0,1]:
-\]
-shrinkage towards uniform. Same conclusion (not proper), but this is not how correlation is used for judges; the box above (correlation of the judge's mean across items) is.
+\textbf{R7 (correlating the probability bins).} Within an item with nonuniform target profile $p^\ast_i$, a forecast $p_i=U+b_i(p^\ast_i-U)$ with $U=(1/K,\ldots,1/K)$ and $0<b_i\le1$ achieves Pearson 1 across categories. A uniform forecast or target makes this profile correlation undefined. Stacking all item/category pairs gives a different coefficient: using one common $b>0$ attains 1 when the stacked target has positive variance and the forecast is feasible. Both objectives read probability-bin contrasts and can distinguish some equal-mean shapes. Neither uniquely identifies the distribution. The main analysis uses Pearson across artifact means.
 
 \section{Step-by-step derivations of R1--R6 (11-21-2026)}
-Every symbol is as in the box on page 1: $p_i$ is the judge's distribution on item $i$, $m_i=\sum_r r\,p_i(r)$ its mean, $t_i$ the target mean, $\ttil_i=t_i-\bar t$, $n$ items, $R=\{0,\dots,K-1\}$.
+Every symbol is as in the boxed formula above: $p_i$ is the judge's distribution on item $i$, $m_i=\sum_r r\,p_i(r)$ its mean, $t_i$ the target mean, $\ttil_i=t_i-\bar t$, $n$ items, $R=\{0,\dots,K-1\}$.
 
 \textbf{R1, step by step.}
 \begin{enumerate}\setlength{\itemsep}{1pt}
@@ -202,7 +201,7 @@ Every symbol is as in the box on page 1: $p_i$ is the judge's distribution on it
 \item Denominator: $\sqrt{\sum\ttil_i^2\cdot b^2\sum(m_i-\bar m)^2}=b\sqrt{\sum\ttil_i^2\sum(m_i-\bar m)^2}$, using $b>0$.
 \item The factor $b$ cancels, so $\rho(a+b\,m)=\rho(m)$.
 \item $\rho=1$ iff the centered vectors $(m_i-\bar m)$ and $(\ttil_i)$ are positively proportional (equality in Cauchy--Schwarz), i.e. $m_i-\bar m=b\,\ttil_i$ with $b>0$, i.e. $m_i=a+b\,t_i$ with $a=\bar m-b\,\bar t$.
-\item Counting: $p_i$ has $K-1$ free parameters; fixing $m_i$ removes one, leaving $K-2$ per item, so $n(K-2)$ shape dimensions plus $(a,b)$ are free. \hfill$\blacksquare$
+\item Counting the positive-probability stratum of the unrestricted optimum set: each of $n$ separate distributions has $K-1$ dimensions. Fixing its mean leaves $K-2$. A nonconstant target makes the two feasible affine parameters locally independent. Boundary or shared-model constraints may reduce this dimension.
 \end{enumerate}
 
 \textbf{R3, step by step.}
@@ -218,12 +217,12 @@ Every symbol is as in the box on page 1: $p_i$ is the judge's distribution on it
 
 \textbf{R4, step by step.}
 \begin{enumerate}\setlength{\itemsep}{1pt}
-\item Let $q_m$ be the maximum-entropy distribution on $R$ with mean $m$ (an exponential tilt of the uniform: $q_m(r)\propto e^{\lambda r}$), and $m(P)$ the mean of $P$. Define $G(P)=H(q_{m(P)})-H(P)$; it is $\ge0$ because $q_{m(P)}$ maximizes entropy among all distributions with mean $m(P)$, and $P$ is one of them.
+\item Let $q_m$ be the maximum-entropy distribution on $R$ with interior mean $m$ (an exponential tilt of the uniform: $q_m(r)\propto e^{\lambda r}$), and $m(P)$ the mean of $P$. Define $G(P)=H(q_{m(P)})-H(P)$; it is $\ge0$ because $q_{m(P)}$ maximizes entropy among all distributions with interior mean $m(P)$, and $P$ is one of them.
 \item Add and subtract: $\mathrm{CE}(P,q)=\mathrm{CE}(q_{m(P)},q)+C(P,q)$ with \[C(P,q)=\sum_r\big(P(r)-q_{m(P)}(r)\big)(-\log q(r)).\]
 \item $\mathrm{CE}(q_m,q)=H(q_m)+\mathrm{KL}(q_m\Vert q)$ (the identity $\mathrm{CE}=H+\mathrm{KL}$), and $H(q_m)=H(P)+G(P)$.
 \item Together: $\mathrm{CE}(P,q)=H(P)+G(P)+\mathrm{KL}(q_{m(P)}\Vert q)+C(P,q)$.
-\item If $-\log q(r)=\alpha+\beta r$ (log-affine, a ``1-D'' judge): $C=\alpha\sum_r(P-q_m)(r)+\beta\sum_r r\,(P-q_m)(r)=\alpha\cdot0+\beta\,(m(P)-m(P))=0$, since $P$ and $q_{m(P)}$ both sum to 1 and both have mean $m(P)$.
-\item Then $\mathrm{CE}(P,q)=H(P)+G(P)+\mathrm{KL}(q_{m(P)}\Vert q)$: the only part $q$ controls is the KL term, a function of the two means. $G(P)$ is the same for every 1-D judge. \hfill$\blacksquare$
+\item If $-\log q(r)=\alpha+\beta r$ (log-affine in the rating): $C=\alpha\sum_r(P-q_m)(r)+\beta\sum_r r\,(P-q_m)(r)=\alpha\cdot0+\beta\,(m(P)-m(P))=0$, since $P$ and $q_{m(P)}$ both sum to 1 and both have mean $m(P)$.
+\item Then $\mathrm{CE}(P,q)=H(P)+G(P)+\mathrm{KL}(q_{m(P)}\Vert q)$: the only part $q$ controls is the KL term, a function of the two means. $G(P)$ is the same for all judges in this log-affine family. \hfill$\blacksquare$
 \end{enumerate}
 
 \textbf{R5, step by step.}
@@ -231,20 +230,20 @@ Every symbol is as in the box on page 1: $p_i$ is the judge's distribution on it
 \item $\sum_{k=0}^{K-2}F_p(k)=\sum_{k=0}^{K-2}\sum_{r\le k}p(r)=\sum_r p(r)\,\#\{k:\ r\le k\le K-2\}=\sum_r p(r)(K-1-r)=K-1-m_p$ (for $r=K-1$ the count is $0=K-1-r$).
 \item Hence $\sum_k d_k=\sum_kF_p(k)-\sum_kF_q(k)=m_q-m_p$.
 \item Variance identity over the $K-1$ values $d_k$ with mean $\bar d=\frac{1}{K-1}\sum_kd_k$: $\sum_kd_k^2=(K-1)\bar d^{\,2}+\sum_k(d_k-\bar d)^2=\dfrac{(\sum_kd_k)^2}{K-1}+\sum_k(d_k-\bar d)^2$.
-\item With $\mathrm{RPS}=\sum_kd_k^2$ and step 2: $\mathrm{RPS}(p,q)=\dfrac{(m_p-m_q)^2}{K-1}+\sum_k(d_k-\bar d)^2$. Equality with the first term iff all $d_k$ are equal.
+\item The archived sum $D=\sum_kd_k^2$ has mean term $(m_p-m_q)^2/(K-1)$. Divide by $K-1$ for normalized excess expected RPS: $D/(K-1)=(m_p-m_q)^2/(K-1)^2+\sum_k(d_k-\bar d)^2/(K-1)$. The shape term vanishes exactly when all differences are equal.
 \item TVD bound: $m_p-m_q=\sum_r r\,(p-q)(r)=\sum_r\big(r-\tfrac{K-1}2\big)(p-q)(r)$ because $\sum_r(p-q)(r)=0$. Since $\lvert r-\tfrac{K-1}2\rvert\le\tfrac{K-1}2$, $\lvert m_p-m_q\rvert\le\tfrac{K-1}2\sum_r\lvert p-q\rvert=(K-1)\,\mathrm{TVD}(p,q)$. \hfill$\blacksquare$
 \end{enumerate}
 
 \textbf{R6, step by step.}
 \begin{enumerate}\setlength{\itemsep}{1pt}
 \item CE: $\mathrm{CE}(p^\ast,p)-\mathrm{CE}(p^\ast,p^\ast)=\mathrm{KL}(p^\ast\Vert p)\ge0$, with equality iff $p=p^\ast$ (Gibbs' inequality). So CE is minimized only at $p^\ast$.
-\item RPS $=\sum_kd_k^2=0$ iff every CDF gap is $0$ iff $F_p=F_{p^\ast}$ iff $p=p^\ast$.
+\item Expected RPS excess $D/(K-1)$ vanishes exactly when every CDF gap is zero, equivalently $p=p^\ast$. Expected RPS itself also includes the true forecast’s irreducible score.
 \item TVD $=\frac12\sum_r\lvert p(r)-p^\ast(r)\rvert=0$ iff $p=p^\ast$.
 \item $\rho\le1$, and by R2 it equals 1 on the whole set $\{p:\ m_i=a+b\,t_i,\ b>0\}$, which contains many $p\ne p^\ast$. So $\rho$ is not uniquely maximized at $p^\ast$, and it cannot rank two judges whose means are affinely related to $t$. \hfill$\blacksquare$
 \end{enumerate}
 
 \section{Evaluation, as the page says it is ``wrong''}
-Using correlation of the judge's mean with human mean ratings as the evaluation metric has the R2 blindness: level, scale and spread are invisible, and three judges with $\rho=1$ (R6) differ by 18 nats of CE. The metrics that read the whole distribution are test CE, test TVD and test RPS (all lower is better), with Pearson and Spearman as sanity columns; Sanmi's point 4 (distributional accuracy when the output is read as a rating or distribution; rank agreement for ranking uses) matches. Caveat from the page: judges selected on Corr will tend to win on Corr metrics, so a Corr win on a Corr metric says little; the sweep reports both.
+Using correlation of the judge's mean with human mean ratings as the evaluation metric has the R2 blindness: level, scale and spread are invisible, and three judges with $\rho=1$ (R6) differ by 18 nats of CE. The metrics that read the whole distribution are test CE, test TVD and test RPS (all lower is better), with Pearson and Spearman as sanity columns; Sanmi's point 4 (distributional accuracy when the output is read as a rating or distribution; rank agreement for ranking uses) matches. Selecting on training correlation can yield higher or lower test correlation. The empirical sweep reports both Pearson and Spearman.
 
 \section{Checks, and what the result does and does not show}
 \small\sloppy\renewcommand{\arraystretch}{1.3}
@@ -253,16 +252,18 @@ Using correlation of the judge's mean with human mean ratings as the evaluation 
 \textbf{Check} & \textbf{Where} & \textbf{Result}\\
 \midrule
 By hand & Section 3 & R1--R7\\
-sympy exact ($n=3$, $K=4$ / $K=4$ / $K=6$) & \texttt{math/\allowbreak verify\_math.py} S1--S4 & numerator linear in $p$ (exact); $\partial\rho/\partial p_i(r)=r g_i$ (exact derivative vs formula, diff 0 at a rational point); RPS split and $\sum d_k=m_q-m_p$ (exact); vector-Pearson identity (exact)\\
-numerical, $K=6$, random & \texttt{math/\allowbreak verify\_math.py} N1--N6 & shape changes leave $\rho$ unchanged (max diff $3\mathrm{e}{-16}$, 200 draws); affine invariance ($3\mathrm{e}{-16}$); logit gradients of $\rho$ and CE match finite differences ($2\mathrm{e}{-10}$, $<10^{-6}$); CE decomposition R4 ($8.9\mathrm{e}{-16}$, 300 draws); $C=0$ for 1-D judges ($10^{-12}$); RPS split ($1.8\mathrm{e}{-15}$, 500 pairs); $\lvert\Delta m\rvert\le(K-1)$TVD\\
-Lean 4.22 + Mathlib & \texttt{math/\allowbreak CEvsCorr.lean}, log in \texttt{math/\allowbreak results/\allowbreak lean\_check.log} & proved, no \texttt{sorry}: mean is linear in $p$; Pearson numerator needs no centering of the judge means; $\rho$ computed from the means is equal for judges with equal means; a concrete pair (uniform on $\{1,2,3\}$, uniform on $\{0,2,4\}$) with the same mean, different shape, RPS $2/9>0$; CDF-difference sum equals mean difference; RPS split; RPS $\ge$ (mean error)$^2/5$\\
+sympy exact ($n=3$, $K=4$ / $K=4$ / $K=6$) & \texttt{math/\allowbreak verify\_math.py} S1--S4 & numerator linear in $p$ (exact); $\partial\rho/\partial p_i(r)=r g_i$ (exact derivative vs formula, diff 0 at a rational point); unnormalized CDF-distance split and $\sum d_k=m_q-m_p$ (exact); vector-Pearson identity (exact)\\
+numerical, $K=6$, random & \texttt{math/\allowbreak verify\_math.py} N1--N6 & shape changes leave $\rho$ unchanged (max diff $3\mathrm{e}{-16}$, 200 draws); affine invariance ($3\mathrm{e}{-16}$); logit gradients of $\rho$ and CE match finite differences ($2\mathrm{e}{-10}$, $<10^{-6}$); CE decomposition R4 ($8.9\mathrm{e}{-16}$, 300 draws); $C=0$ for log-affine forecasts ($10^{-12}$); unnormalized CDF-distance split ($1.8\mathrm{e}{-15}$, 500 pairs); $\lvert\Delta m\rvert\le(K-1)$TVD\\
+Lean 4.22 + Mathlib & \href{https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/math/CEvsCorr.lean}{\texttt{math/CEvsCorr.lean}} & proved, no \texttt{sorry}: mean is linear in $p$; Pearson numerator needs no centering of the judge means; $\rho$ computed from the means is equal for judges with equal means; a concrete pair (uniform on $\{1,2,3\}$, uniform on $\{0,2,4\}$) with the same mean, different shape, CDF distance $2/9>0$; CDF-difference sum equals mean difference; unnormalized CDF-distance split; CDF distance $\ge$ (mean error)$^2/5$\\
 \bottomrule
 \end{tabularx}
 
-\normalsize\textbf{Shows:} with the human distribution known, Pearson-of-means is a function of the judge's means only (R1--R3), is blind to level, scale and shape, is not proper (R6), and the CE loss decomposes exactly into noise, an unreachable shape gap, and a level/scale/shape-of-$q$ term (R4); RPS has the same mean-plus-shape split (R5).
+\normalsize{\raggedright\textbf{Reproduce the Lean check.} In a Lean 4.22.0 Lake environment with Mathlib revision \texttt{79e94a093aff4a60fb1b1f92d9681e407124c2ca}, run \texttt{lake env lean /absolute/path/to/math/CEvsCorr.lean}. The replay used the existing VeriBench environment at \texttt{\string~/veribench/veribench\_dataset/lean\_src} and exited successfully.\par}
+
+\normalsize\textbf{Shows:} Pearson of expected ratings depends only on the means and is invariant to a common positive affine transformation. R4 gives the log-affine-in-rating forecast family’s irreducible gap $G(P)$ as its best excess CE. Other families require their own analysis. R5 separates normalized excess RPS into mean error and the remaining CDF error.
 
 \textbf{Does not show:} (1) That a CE-trained judge generalizes better with few ratings. That is empirical (exp 02, 08, 11, 16, 17 and the sweep in this folder). (2) That correlation \emph{training} of a flexible judge fails: at the population level it is not proper, but with finite data it can act as a regularizer; the sweep tests when. (3) Anything about the real rating noise: $t_i$ here is the target mean; with 2--3 raters it is estimated (Sanmi point 4). (4) The Lean file proves the building blocks; the full theorem ``$\rho(a+bm)=\rho(m)$'' and the R4/R3 identities are checked with sympy and numbers, not in Lean. (5) Spearman and Kendall depend on the ranks of $m$, so they share the ``only the means'' property but are not covered by the formula in the box.
 
-\textbf{TLDR-end:} [exp 18 math] Pearson between rating means depends only on the first conditional moment, up to a positive affine change; CE splits exactly into noise, an unreachable shape gap and a calibration term; checked by hand, sympy, numbers and Lean.
+\textbf{TLDR-end:} [exp 18 math] An unrestricted mean-based Pearson objective cannot select among equal-mean distribution shapes. CE and individual-rating RPS identify the conditional distribution in expectation. R4 quantifies the special log-affine restriction; R5 gives the normalized RPS excess.
 
 \end{document}

@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.82in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,tabularx,microtype,xcolor}
+\usepackage[colorlinks,allcolors=blue!55!black]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{Corr vs CE \enspace / \enspace Experiment 19}
+\fancyhead[R]{11-21-2026}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}\setlength{\abovedisplayskip}{5pt}\setlength{\belowdisplayskip}{5pt}
+\newcommand{\E}{\mathbb E}\newcommand{\Var}{\operatorname{Var}}\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\TV}{\mathrm{TV}}\newcommand{\CE}{\mathrm{CE}}
+\def\expurl{https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026}
+\begin{document}
+{\small\scshape Judge learning from human ratings \quad|\quad Derivation and exact check}\par
+{\LARGE\bfseries Which rating moments does a training objective identify?}\par
+{\small As of 11-21-2026 \quad|\quad \href{\expurl/theory_simulation}{Experiment 19, theory and simulation}}\par
+\textbf{Claim.} Pearson correlation of predicted mean rating with human rating can recover a nonlinear mean curve up to positive affine transformation. At any fixed mean it is blind to four independent probability directions in the interior of a six-category forecast. Population excess cross-entropy bounds the squared error of every bounded conditional moment. With few training ratings, either fitted judge can have lower test error. Page 3 derives exactly when the ordering reverses for one two-spread model.
+
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule Symbol & Meaning \\ \midrule
+$X,x;\ R,r$ & Random item and a realized item; individual human rating and a rating category $r\in\{0,\ldots,5\}$.\\
+$p_x(r),q_x(r)$ & True and forecast conditional probability of rating $r$ at $x$.\\
+$\mu(x),m_q(x)$ & True and forecast conditional mean, each in rating points.\\
+$f,\Delta_f,m_f(q,x)$ & Bounded function of a rating, its range width, and its expectation under $q_x$.\\
+$\CE,\,\KL,\,\TV$ & Expected individual-rating cross-entropy, Kullback--Leibler divergence (natural logs), and total variation distance.\\
+\bottomrule
+\end{tabularx}
+
+\section*{1. What mean-based Pearson can see}
+The forecast enters through $m_q(x)=\sum_r r q_x(r)$. Conditioning on $X$ gives
+\begin{align*}
+\Cov(m_q(X),R)&=\E[(m_q(X)-\E m_q(X))R] &&\text{(center the first factor)}\\
+ &=\E[(m_q(X)-\E m_q(X))\mu(X)] &&\text{(conditional expectation)}\\
+ &=\Cov(m_q(X),\mu(X)). &&\text{(definition of covariance)}
+\end{align*}
+For nonconstant $m_q,\mu$ and positive rating variance, divide by the two standard deviations to get
+\[
+\boxed{\Corr(m_q(X),R)=\Corr(m_q(X),\mu(X))\sqrt{\Var(\mu(X))/\Var(R)}.}
+\]
+Cauchy--Schwarz gives the maximum at feasible $m_q(x)=a+b\mu(x)$, $b>0$. A constant forecast has undefined correlation. The linear map is from probabilities to a mean. The feature map from the input $x$ to those probabilities can be nonlinear. A perturbation $h_r$ with $\sum_r h_r=\sum_r rh_r=0$ preserves the objective whenever the perturbed probabilities are feasible. The two constraints are independent, leaving $6-2=4$ directions in the interior.
+
+\newpage
+\section*{2. What population cross-entropy says about moments}
+Write $m_f(q,x)=\sum_r f(r)q_x(r)$, $\Delta_f=\max_r f(r)-\min_r f(r)$. Let $\CE(q)=\E_{X,R}[-\log q_X(R)]$, expectation under the true law. Expanding the difference of expected log losses at the same $X$ gives
+\[
+\CE(q)-\CE(p)=\E_X\sum_r p_X(r)\log\!\frac{p_X(r)}{q_X(r)}
+             =\E_X\KL(p_X\Vert q_X).
+\]
+The convention is infinite loss when positive truth mass receives zero forecast mass. The minimum is unique up to probability-zero inputs if the truth is available. For fixed $x$ let $d_r=p_x(r)-q_x(r)$. Both positive and negative parts have total mass $\TV=\tfrac12\sum_r|d_r|$. Since $\sum_r d_r=0$, subtracting $\min f$ bounds the signed difference in either direction by $\Delta_f\,\TV$.
+
+Take $A=\{r:d_r>0\}$, $s=p_x(A),u=q_x(A)$. Group terms by membership in $A$ using the log-sum inequality. For $0<u<1$ this gives
+\begin{align*}
+\KL(p_x\Vert q_x)&\ge g_u(s)
+ =s\log(s/u)+(1-s)\log((1-s)/(1-u)),\\
+g_u(u)&=g_u'(u)=0,\qquad g_u''(s)=1/[s(1-s)]\ge 4,\\
+g_u(s)&\ge 2(s-u)^2=2\TV^2 \qquad\text{(integrate twice; endpoints by limits).}
+\end{align*}
+Squaring the moment difference bound and averaging over $X$ now gives
+\[
+\boxed{\E_X[(m_f(q,X)-m_f(p,X))^2]\le \tfrac12\Delta_f^2\{\CE(q)-\CE(p)\}.}
+\]
+For $f(r)=(r/5)^j$, $j\ge1$, the width is one. For conditional variance write
+$V_p=\min_{a\in[0,5]}\E_{p_x}(R-a)^2$. Each squared loss has width at most 25. Evaluate the two expectations at $q$'s minimizer to get $V_p-V_q\le25\,\TV$; exchanging $p,q$ bounds the opposite sign. Squaring and averaging gives the coefficient $625/2$ times excess CE. These population bounds hold conditional on a fitted judge evaluated on fresh draws. They do not compare the moment errors of two finite-sample fits.
+
+\subsection*{What one observation contributes to the fitted head}
+For the historical judge, let $q_x(r)\propto p_{\rm base}(r\mid x)^\tau
+ \exp\{b v(r)+c v(r)^2\}$, $v(r)=(r-2.5)/2.5$. For observed $y$, $\ell=-\log q_x(y)$. Differentiating the log normalizer takes a forecast expectation:
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}l l X@{}}\toprule
+Term & Derivative or change & Information in that term\\ \midrule
+CE, tilt $b$ & $\partial_b\ell=\E_q v(R)-v(y)$ & First-moment residual from one rating.\\
+CE, tilt $c$ & $\partial_c\ell=\E_q v(R)^2-v(y)^2$ & Second-moment residual about fixed center 2.5.\\
+Pearson, shape $h$ & $\Delta m_q=\sum_r r h_r=0$ & Shared means yield identical scores at every feasible step in this direction.\\ \bottomrule
+\end{tabularx}
+\end{center}
+The same rating supplies both residuals. An exhaustive finite grid can select a transform without making either derivative zero. Spread changes that also change the predicted mean can affect Pearson.
+
+\newpage
+\section*{3. Exactly when do three ratings help recover spread?}
+Let $R=2+D$ for $D\in\{-1,0,1\}$, with mean $m(x)$ and second moment $t$ for $D$. Solving normalization, mean and second moment gives
+\[
+P(D=-1,0,+1\mid x)=\big((t-m(x))/2,\ 1-t,\ (t+m(x))/2\big).
+\]
+Three input types have equal test probability. The centered mean curve is one of $(-1,0,1)/5$ or $(1,-1,0)/5$, equally likely. Supply the correct curve to both fits, and allow the same two spreads, $t_L=0.4,t_H=0.8$. The conditional variance is $t-m(x)^2$. A wrong spread costs $\delta^2=(t_H-t_L)^2=0.16$ squared variance error (rating points to the fourth).
+
+Let $N$ be the total number of training ratings and $e_L(N),e_H(N)$ the maximum-likelihood CE selector's probabilities of choosing the wrong spread under the low and high truths. Each training set and its independent test draws share a single world. Let $\pi$ be the probability of a high-spread world, independent of the chosen curve. The Pearson score is identical for both spreads. Fix the shared tie rule to low spread, including undefined Pearson samples. Averaging across worlds yields
+\begin{align*}
+\mathcal R_{\rm Pearson}&=\delta^2\pi &&\text{(always selects low)},\\
+\mathcal R_{\rm CE}&=\delta^2[(1-\pi)e_L(N)+\pi e_H(N)]
+    &&\text{(condition on truth)},\\
+\mathcal R_{\rm CE}<\mathcal R_{\rm Pearson}
+ &\iff e_L(N)<\pi[1+e_L(N)-e_H(N)] &&\text{(rearrange).}
+\end{align*}
+The denominator is positive for every enumerated budget. Thus
+\[
+\boxed{\text{CE has lower expected squared variance error}\quad\iff\quad
+  \pi>\frac{e_L(N)}{1+e_L(N)-e_H(N)}.}
+\]
+\begin{tabularx}{\linewidth}{@{}r r r r X@{}}
+\toprule $N$ & $e_L$ & $e_H$ & Equal-risk $\pi$ & Training inputs\\ \midrule
+1 & .400000 & .200000 & $1/3$ & One uniformly chosen type.\\
+3 & .298000 & .154000 & .260490 & One rating per type.\\
+6 & .176284 & .101380 & .164000 & Two ratings per type.\\
+9 & .099817 & .083913 & .098255 & Three ratings per type.\\
+\bottomrule
+\end{tabularx}
+
+At $N=1$, CE chooses high for $R=1$ or 3 and low for $R=2$; Pearson is undefined and uses its fallback. At $N=3$, the two CE risks are $0.16(0.298)=0.04768$ for low truth and $0.16(0.154)=0.02464$ for high truth; Pearson's are zero and $0.16$. At $\pi=0.10$ the default wins at six ratings and CE wins at nine. A high-first default instead incurs $\delta^2(1-\pi)$ and a fair random default incurs $\delta^2/2$. These numbers average exhaustively over training samples and fresh test ratings at the same three input types. There is no Monte Carlo uncertainty.
+
+\textbf{Sources and checks.} The \href{\expurl/theory_simulation}{study directory} contains the prespecified protocol, \texttt{enumerate\_risk.py}, the exact selection counts, \texttt{known\_mean\_prior\_threshold.csv}, and the independent ordered-sequence verifier. The \href{\expurl/human_judges}{human-rating directory} contains the calibrated head and its gradient check. For strict propriety see \href{https://doi.org/10.1198/016214506000001437}{Gneiting and Raftery (2007)}.
+\end{document}
