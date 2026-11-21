@@ -799,7 +799,7 @@ depth,budget,draw,ce,pearson,rps,pearson_undefined
 3,192,35,"native:t=0.5,b=1,c=0","native:t=1.0,b=1,c=1","native:t=0.5,b=1,c=0",0
 3,384,35,"native:t=0.5,b=1,c=0","native:t=1.0,b=1,c=1","native:t=0.5,b=1,c=0",0
 3,768,35,"native:t=0.5,b=1,c=0","native:t=1.0,b=1,c=1","native:t=0.5,b=1,c=1",0
-3,6,36,"native:t=0.5,b=0,c=-1","native:t=0.5,b=-1,c=1","native:t=1.0,b=0,c=1",0
+3,6,36,"native:t=0.5,b=0,c=-1","native:t=1.0,b=0,c=0","native:t=1.0,b=0,c=1",0
 3,12,36,"native:t=0.5,b=1,c=-1","native:t=2.0,b=-1,c=-1","native:t=0.5,b=1,c=0",0
 3,24,36,"native:t=0.5,b=1,c=-1","native:t=1.0,b=1,c=-1","native:t=0.5,b=1,c=0",0
 3,48,36,"native:t=0.5,b=1,c=0","native:t=0.5,b=1,c=-1","native:t=0.5,b=1,c=1",0

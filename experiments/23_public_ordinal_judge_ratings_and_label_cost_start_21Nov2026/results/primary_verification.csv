@@ -1,0 +1,5 @@
+dataset,depth,heldout_items,groups,budgets,training_draws,checked_method_draw_scores,checked_paired_contrasts,max_abs_draw_rps_error,max_abs_point_or_band_error,jointly_passing_budgets,sustained_joint,sustained_against_all_four,max_alt_quartile_draw_rps_shift,max_alt_quartile_pooled_rps_shift,alt_quartile_sustained_joint,alt_quartile_sustained_all_four
+gpt4_consistency,1,640,40,8,64,3584,32,1.6653345369377348e-15,8.326672684688674e-17,,,,0.0017588363781719488,3.176179041687928e-05,,
+gpt4_consistency,3,640,40,8,64,3584,32,2.1649348980190553e-15,1.6653345369377348e-16,,,,0.002902418751562996,4.248427653912138e-05,,
+image_quality,1,2015,2015,11,64,4928,44,1.0547118733938987e-15,5.551115123125783e-17,"12,24,48,96,192,384,768,1536,3072,6144",12,,0.0,0.0,12,
+image_quality,3,2015,2015,11,64,4928,44,1.0547118733938987e-15,8.326672684688674e-17,"48,96,192,384,768,1536,3072,6144",48,,0.0,0.0,48,
