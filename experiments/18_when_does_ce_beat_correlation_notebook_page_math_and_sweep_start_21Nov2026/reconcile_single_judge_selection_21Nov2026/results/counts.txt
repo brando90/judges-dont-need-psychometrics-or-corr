@@ -1,0 +1,12 @@
+N15 C 9 CE better pts 9 Pearson better pts 0 CE sig 6 Pearson sig 0
+N15 M 12 CE better pts 12 Pearson better pts 0 CE sig 5 Pearson sig 0
+N15s3 C 9 CE better pts 9 Pearson better pts 0 CE sig 3 Pearson sig 0
+N15s3 M 12 CE better pts 12 Pearson better pts 0 CE sig 3 Pearson sig 0
+N15+H44 C 9 CE better pts 9 Pearson better pts 0 CE sig 6 Pearson sig 0
+N15+H44 M 12 CE better pts 12 Pearson better pts 0 CE sig 6 Pearson sig 0
+H44 C 9 CE better pts 0 Pearson better pts 9 CE sig 0 Pearson sig 7
+H44 M 12 CE better pts 0 Pearson better pts 12 CE sig 0 Pearson sig 7
+H5 C 9 CE better pts 3 Pearson better pts 6 CE sig 0 Pearson sig 0
+H5 M 12 CE better pts 0 Pearson better pts 12 CE sig 0 Pearson sig 0
+k spread N15 C 0.002815458116212338 0.002025012310483826
+k spread H44 M 0.011828624318869774

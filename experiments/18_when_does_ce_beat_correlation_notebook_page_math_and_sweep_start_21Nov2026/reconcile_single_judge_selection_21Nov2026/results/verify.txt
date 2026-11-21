@@ -1,0 +1,2 @@
+max abs difference to Codex paired_rps.csv (point, lo, hi, 6 budgets): 6.397993246309852e-12
+direct loop check, 12 splits: selector disagreements = 0 ; test RPS from individual ratings matches histogram RPS to 1e-12
