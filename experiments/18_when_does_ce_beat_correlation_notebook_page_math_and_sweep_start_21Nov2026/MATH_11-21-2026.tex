@@ -1,0 +1,139 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,array,tabularx}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\newcommand{\Pj}{p^{\theta}_{j}}
+\newcommand{\Ps}{p^{\ast}_{j}}
+\newcommand{\ttil}{\tilde t}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Exp 18, math: per-term equations for the correlation objective, and why it is linear in the judge's mean}\\[4pt]
+11-21-2026
+\end{center}
+
+\textbf{Date:} 11-21-2026. \textbf{By:} ultimate\_brando9 (Brando's AI assistant), Claude Sonnet 5.5, Claude Code headless harness; checks run by sympy 1.14, numpy/scipy, and Lean 4.22 with Mathlib (\texttt{math/}). No model judge was called. This file is the typeset form of \texttt{MATH\_11-21-2026.md} (same math, same numbers).
+
+\section*{Answer first}
+Replace the placeholder on the page by
+\[
+\boxed{\ \mathrm{Corr}\big(\Pj,\Ps\big)=\frac{\sum_{i}\ttil_i\,\sum_{r\in R} r\,\Pj(r\mid x_i,y^\ast_i,\hat y_i;\theta)}{\sqrt{\sum_i \ttil_i^{\,2}\ \cdot\ \sum_i\big(m_i-\bar m\big)^2}}\ }
+\]
+with
+\begin{align*}
+m_i&=\sum_{r\in R} r\,\Pj(r\mid x_i,y^\ast_i,\hat y_i;\theta) &&\text{the judge's mean rating on item } i,\\
+t_i&=\sum_{r\in R} r\,\Ps(r\mid x_i,y^\ast_i,\hat y_i;h) &&\text{the target mean rating (human or persona } h),\\
+\ttil_i&=t_i-\bar t,\quad \bar t=\tfrac1n\textstyle\sum_i t_i &&\text{the centered target mean},\\
+\bar m&=\tfrac1n\textstyle\sum_i m_i &&\text{the average judge mean},\\
+\textstyle\sum_i&=\textstyle\sum_{i=1}^{n} &&\text{the sum over items } i \ (\text{the page's } v\in V).
+\end{align*}
+The judge's distribution $\Pj$ enters only through the $n$ numbers $m_i$ (its mean ratings), in the numerator linearly (coefficient $r\,\ttil_i$ on $p_i(r)$) and in the denominator through their spread. Everything about the shape of $p_i$ beyond its mean is invisible. CE, RPS and TVD are functions of the whole vector $p_i$. Section 5 lists what is and is not shown.
+
+\section{Setting and notation}
+Categories $R=\{0,\dots,K-1\}$, $K=6$. Items $i=1,\dots,n$ (the page's $v\in V$; each item is $(x,y^\ast,\hat y)$ or a variant i--iv). Judge distribution $p_i=\Pj(\cdot\mid\cdot;\theta)\in\Delta^{K-1}$. Target $p^\ast_i=\Ps(\cdot\mid\cdot;h)$ for a human or persona $h$; with $k$ sparse ratings it is the empirical histogram, and $t_i$ is then the mean of the $k$ ratings (a noisy estimate of the true score). Means $m_i=\sum_r r\,p_i(r)$, $t_i=\sum_r r\,p^\ast_i(r)$; $\bar m,\bar t$ their averages over items; $\ttil_i=t_i-\bar t$.
+
+\section{The equation per loss term}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{6.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Objective (to minimize)} & \textbf{Per-term equation} & \textbf{Reads of $p_i$} & \textbf{Coupled across items?}\\
+\midrule
+CE (page: sign dropped) &
+$\begin{array}{@{}l@{}}\ell^{CE}_{i,r}=-p^\ast_i(r)\log p_i(r)\\ L_{CE}=\sum_i\sum_r\ell^{CE}_{i,r}\end{array}$ &
+every coordinate $p_i(r)$ separately; strictly convex; unique minimizer $p_i=p^\ast_i$ & no (sum of independent terms)\\
+Corr &
+$\begin{array}{@{}l@{}}L_{corr}=1-\rho,\quad \rho=\dfrac{N}{\sqrt{n}\,s_t\,\lVert m-\bar m\rVert}\\ N=\sum_i\sum_r r\,\ttil_i\,p_i(r),\quad s_t^2=\tfrac1n\sum_i\ttil_i^2\end{array}$ &
+only $m_i=\sum_r r\,p_i(r)$; numerator term $(i,r)$ is $c_{i,r}\,p_i(r)$ with $c_{i,r}=r\,\ttil_i$ (linear); denominator through the spread of $m$ &
+yes (via $\bar m$ and $\lVert m-\bar m\rVert$); equals $\frac1n\sum_i z_i\zeta_i$, the mean product of z-scores of the judge mean and the target mean\\
+RPS &
+$\displaystyle\sum_{k=0}^{K-2}\big(F_{p_i}(k)-F_{p^\ast_i}(k)\big)^2$ & whole CDF & no\\
+TVD &
+$\displaystyle\tfrac12\sum_r\lvert p_i(r)-p^\ast_i(r)\rvert$ & whole vector & no\\
+\bottomrule
+\end{tabularx}
+
+\section{Results (proofs by hand)}
+\textbf{R1 (the formula in the box).}
+\[
+\sum_i(m_i-\bar m)(t_i-\bar t)=\sum_i\ttil_i m_i-\bar m\sum_i\ttil_i=\sum_i\ttil_i m_i
+\qquad\text{because }\sum_i\ttil_i=0 .
+\]
+Insert $m_i=\sum_r r\,p_i(r)$. The denominator $\sqrt{\sum\ttil_i^2\sum(m_i-\bar m)^2}$ is a function of $m$ alone. \hfill$\blacksquare$
+
+\textbf{R2 (Pearson sees only the means; level and scale are not identified).} By R1, $\rho=F(m_1,\dots,m_n)$. Two judges with the same $m_i$ for all $i$ have the same $\rho$ whatever their shapes; and
+\[
+\rho(a+bm)=\rho(m)\quad\text{for } b>0
+\]
+(numerator and denominator both scale by $b$, shifts cancel by centering). So the set of correlation-optimal judges is
+\[
+\{\,p:\ m_i=a+b\,t_i,\ b>0\,\}
+\]
+(when feasible inside $[0,K-1]$): $n(K-2)$ free shape dimensions plus $(a,b)$. A judge with the wrong level, the wrong scale and any spread is ``optimal''. \hfill$\blacksquare$
+
+\textbf{R3 (gradients: Corr moves one direction per item, CE moves all of them).} With $p_i=\mathrm{softmax}(u_i)$:
+\[
+\frac{\partial L_{CE}}{\partial u_i(r)}=p_i(r)-p^\ast_i(r),\qquad
+\frac{\partial\rho}{\partial u_i(r)}=p_i(r)\,(r-m_i)\,g_i,\qquad g_i=\frac{\zeta_i-\rho\,z_i}{n\,s_m},
+\]
+$z_i=(m_i-\bar m)/s_m$, $\zeta_i=\ttil_i/s_t$. Proof: $\partial\rho/\partial p_i(r)=r\,g_i$ (R1), and $\partial p_i(r')/\partial u_i(r)=p_i(r)(\delta_{rr'}-p_i(r'))$, so $\partial m_i/\partial u_i(r)=p_i(r)(r-m_i)$. \hfill$\blacksquare$ The correlation gradient on item $i$ always lies on the single direction $p_i\circ(r-m_i)$ (the score direction of the mean); the CE gradient ranges over the whole $(K-1)$-dimensional tangent space, so it is the one that can correct shape.
+
+\textbf{R4 (exact decomposition of CE: the ``linear decomposition'').} Let $q_m$ be the tilted-uniform (max-entropy) distribution on $R$ with mean $m$, $G(P)=H(q_{m(P)})-H(P)\ge0$ (experiment 05). For any $P$ and any $q$,
+\[
+\mathrm{CE}(P,q)=\underbrace{H(P)}_{\text{irreducible noise}}+\underbrace{G(P)}_{\text{shape gap}}+\underbrace{\mathrm{KL}(q_{m(P)}\,\Vert\,q)}_{\text{level/scale/shape of }q}+\underbrace{\sum_r\big(P(r)-q_{m(P)}(r)\big)\big(-\log q(r)\big)}_{C(P,q)\ \text{(cross term)}}.
+\]
+Proof: $G+\mathrm{KL}(q_m\Vert q)=-H(P)+\mathrm{CE}(q_m,q)$, and $\mathrm{CE}(P,q)-\mathrm{CE}(q_m,q)=C$. \hfill$\blacksquare$ If $\log q$ is affine in $r$ (a judge that is a softmax of one affine score, a ``1-D'' judge), then $C=0$ and $\mathrm{KL}(q_{m(P)}\Vert q)$ is a function of the two means only: Pearson (up to affine) is all such a judge can fit, and the term $G(P)$ is out of reach of every 1-D judge and of every mean-only objective. The paper's ``one-dimensional bottleneck'' is exactly $C=0$ plus $G>0$.
+
+\textbf{R5 (RPS splits into a mean part and a shape part).} With $d_k=F_p(k)-F_q(k)$, $k=0,\dots,K-2$: $\sum_k d_k=m_q-m_p$ and
+\[
+\mathrm{RPS}(p,q)=\frac{(m_p-m_q)^2}{K-1}+\sum_k\big(d_k-\bar d\big)^2 .
+\]
+Proof: $\sum_k d_k^2=(\sum d_k)^2/(K-1)+\sum(d_k-\bar d)^2$ (variance identity), and $\sum_{k=0}^{K-2}F_p(k)=K-1-m_p$. \hfill$\blacksquare$ So RPS $\ge$ (mean error)$^2/(K-1)$, equality iff the CDF difference is constant. Likewise
+\[
+\lvert m_p-m_q\rvert\le(K-1)\,\mathrm{TVD}(p,q)
+\]
+(since $\sum_r r(p-q)(r)$, with $\sum(p-q)=0$, is at most $(K-1)$ times the positive part).
+
+\textbf{R6 (propriety).} CE and RPS are strictly proper: the minimum over $p$ is attained only at $p=p^\ast$ (Gibbs; sum of squares of CDF gaps). TVD is zero only at $p=p^\ast$. $\rho$ is maximal on the whole set in R2, so it is not proper and cannot rank two judges whose means are affinely related to $t$. Concrete numbers (30 synthetic items, test against the truth, probabilities floored at $10^{-12}$, \texttt{math/results/verify\_math.json}): three judges all with $\rho=1.0000$:
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+judge & CE & TVD & RPS\\
+\midrule
+truth & 1.269 & 0.000 & 0.000\\
+max-entropy with the right mean & 1.698 & 0.369 & 0.082\\
+two-point on $\{0,5\}$ with the right mean & 19.51 & 0.700 & 0.406\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{R7 (the literal reading of the page's last line).} If $\mathrm{Corr}(p^\theta,p^\ast)$ is taken as the correlation of the two histograms over $r$ (per item, 6 numbers each), it equals 1 for every
+\[
+p=\frac{1-b}{K}\mathbf 1+b\,p^\ast,\qquad b\in(0,1]:
+\]
+shrinkage towards uniform. Same conclusion (not proper), but this is not how correlation is used for judges; the box above (correlation of the judge's mean across items) is.
+
+\section{Evaluation, as the page says it is ``wrong''}
+Using correlation of the judge's mean with human mean ratings as the evaluation metric has the R2 blindness: level, scale and spread are invisible, and three judges with $\rho=1$ (R6) differ by 18 nats of CE. The metrics that read the whole distribution are test CE, test TVD and test RPS (all lower is better), with Pearson and Spearman as sanity columns; Sanmi's point 4 (distributional accuracy when the output is read as a rating or distribution; rank agreement for ranking uses) matches. Caveat from the page: judges selected on Corr will tend to win on Corr metrics, so a Corr win on a Corr metric says little; the sweep reports both.
+
+\section{Checks, and what the result does and does not show}
+\small\sloppy\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Check} & \textbf{Where} & \textbf{Result}\\
+\midrule
+By hand & Section 3 & R1--R7\\
+sympy exact ($n=3$, $K=4$ / $K=4$ / $K=6$) & \texttt{math/\allowbreak verify\_math.py} S1--S4 & numerator linear in $p$ (exact); $\partial\rho/\partial p_i(r)=r g_i$ (exact derivative vs formula, diff 0 at a rational point); RPS split and $\sum d_k=m_q-m_p$ (exact); vector-Pearson identity (exact)\\
+numerical, $K=6$, random & \texttt{math/\allowbreak verify\_math.py} N1--N6 & shape changes leave $\rho$ unchanged (max diff $3\mathrm{e}{-16}$, 200 draws); affine invariance ($3\mathrm{e}{-16}$); logit gradients of $\rho$ and CE match finite differences ($2\mathrm{e}{-10}$, $<10^{-6}$); CE decomposition R4 ($8.9\mathrm{e}{-16}$, 300 draws); $C=0$ for 1-D judges ($10^{-12}$); RPS split ($1.8\mathrm{e}{-15}$, 500 pairs); $\lvert\Delta m\rvert\le(K-1)$TVD\\
+Lean 4.22 + Mathlib & \texttt{math/\allowbreak CEvsCorr.lean}, log in \texttt{math/\allowbreak results/\allowbreak lean\_check.log} & proved, no \texttt{sorry}: mean is linear in $p$; Pearson numerator needs no centering of the judge means; $\rho$ computed from the means is equal for judges with equal means; a concrete pair (uniform on $\{1,2,3\}$, uniform on $\{0,2,4\}$) with the same mean, different shape, RPS $2/9>0$; CDF-difference sum equals mean difference; RPS split; RPS $\ge$ (mean error)$^2/5$\\
+\bottomrule
+\end{tabularx}
+
+\normalsize\textbf{Shows:} with the human distribution known, Pearson-of-means is a function of the judge's means only (R1--R3), is blind to level, scale and shape, is not proper (R6), and the CE loss decomposes exactly into noise, an unreachable shape gap, and a level/scale/shape-of-$q$ term (R4); RPS has the same mean-plus-shape split (R5).
+
+\textbf{Does not show:} (1) That a CE-trained judge generalizes better with few ratings. That is empirical (exp 02, 08, 11, 16, 17 and the sweep in this folder). (2) That correlation \emph{training} of a flexible judge fails: at the population level it is not proper, but with finite data it can act as a regularizer; the sweep tests when. (3) Anything about the real rating noise: $t_i$ here is the target mean; with 2--3 raters it is estimated (Sanmi point 4). (4) The Lean file proves the building blocks; the full theorem ``$\rho(a+bm)=\rho(m)$'' and the R4/R3 identities are checked with sympy and numbers, not in Lean. (5) Spearman and Kendall depend on the ranks of $m$, so they share the ``only the means'' property but are not covered by the formula in the box.
+
+\textbf{TLDR-end:} [exp 18 math] Pearson of a judge is a function of its mean ratings only (linear in the distribution, blind to level, scale and spread, not proper); CE splits exactly into noise, an unreachable shape gap and a calibration term; checked by hand, sympy, numbers and Lean.
+
+\end{document}
