@@ -36,3 +36,6 @@
 3. Results doc with the answer to "when does CE win?" in its first lines.
 
 Related: experiments 05, 06, 08, 11, 16, 17 and `STATUS_11-20-2026.md` at the repo root.
+
+## Status log
+- 11-21-2026 ~12:05: sweeps A (5,040 cells) and B (25,200 pools) and the real-data n_train sweep finished (skampere1, CPU, $0). Results, predictions scored, limits: `RESULTS_11-21-2026.md`; tables `sweep/results/tables.md`; figure `figures/fig_A_rps_vs_n.png`; analysis `sweep/scripts/analyze.py`. Real-data runs: `real_n_sweep/`.

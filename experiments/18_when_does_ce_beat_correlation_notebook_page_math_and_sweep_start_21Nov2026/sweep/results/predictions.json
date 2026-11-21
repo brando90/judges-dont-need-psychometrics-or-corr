@@ -1,0 +1,228 @@
+{
+ "A_cells": 252,
+ "A_seeds_min": 20,
+ "P1_pearson_loses_to_constant_frac": 0.6388888888888888,
+ "P2_AB_J6_n>=64": {
+  "verdicts": {
+   "tie": 1,
+   "CE": 20,
+   "mixed": 3
+  },
+  "mean_dRPS": 0.009671065588582361,
+  "max_abs_dRPS": 0.03025363382647984
+ },
+ "P2_AB_J6_n<=16": {
+  "verdicts": {
+   "CE": 10,
+   "tie": 1,
+   "mixed": 1
+  },
+  "mean_dRPS": 0.02001983392058577,
+  "max_abs_dRPS": 0.047154390459594415
+ },
+ "P2_CD_J1_all_n": {
+  "verdicts": {
+   "CE": 9,
+   "mixed": 5,
+   "tie": 6,
+   "other": 22
+  },
+  "mean_dRPS": 0.0016925550925402284,
+  "max_abs_dRPS": 0.036612162531022785
+ },
+ "P3_crossover_pearson_head_tuned": {
+  "A_k1_J1": 8,
+  "A_k1_J3": 64,
+  "A_k1_J6": 128,
+  "A_k3_J1": 8,
+  "A_k3_J3": 8,
+  "A_k3_J6": 64,
+  "A_k10_J1": 8,
+  "A_k10_J3": 8,
+  "A_k10_J6": 8,
+  "B_k1_J1": null,
+  "B_k1_J3": 128,
+  "B_k1_J6": 512,
+  "B_k3_J1": null,
+  "B_k3_J3": null,
+  "B_k3_J6": 32,
+  "B_k10_J1": null,
+  "B_k10_J3": null,
+  "B_k10_J6": 8,
+  "C_k1_J1": null,
+  "C_k1_J3": null,
+  "C_k1_J6": null,
+  "C_k3_J1": null,
+  "C_k3_J3": null,
+  "C_k3_J6": null,
+  "C_k10_J1": null,
+  "C_k10_J3": null,
+  "C_k10_J6": null,
+  "D_k1_J1": null,
+  "D_k1_J3": null,
+  "D_k1_J6": null,
+  "D_k3_J1": null,
+  "D_k3_J3": null,
+  "D_k3_J6": null,
+  "D_k10_J1": null,
+  "D_k10_J3": null,
+  "D_k10_J6": null
+ },
+ "P3_pearson_head_tuned_k1_never": 7,
+ "P3_pearson_head_tuned_k1_median_n": 128.0,
+ "P3_pearson_head_tuned_k3_never": 8,
+ "P3_pearson_head_tuned_k3_median_n": 20.0,
+ "P3_pearson_head_tuned_k10_never": 8,
+ "P3_pearson_head_tuned_k10_median_n": 8.0,
+ "P3_crossover_pearson_raw": {
+  "A_k1_J1": 256,
+  "A_k1_J3": 64,
+  "A_k1_J6": 128,
+  "A_k3_J1": 64,
+  "A_k3_J3": 64,
+  "A_k3_J6": 64,
+  "A_k10_J1": 32,
+  "A_k10_J3": 16,
+  "A_k10_J6": 16,
+  "B_k1_J1": 64,
+  "B_k1_J3": 32,
+  "B_k1_J6": 64,
+  "B_k3_J1": 16,
+  "B_k3_J3": 16,
+  "B_k3_J6": 32,
+  "B_k10_J1": 8,
+  "B_k10_J3": 16,
+  "B_k10_J6": 16,
+  "C_k1_J1": 64,
+  "C_k1_J3": 64,
+  "C_k1_J6": 128,
+  "C_k3_J1": 32,
+  "C_k3_J3": 16,
+  "C_k3_J6": 32,
+  "C_k10_J1": 16,
+  "C_k10_J3": 16,
+  "C_k10_J6": 16,
+  "D_k1_J1": 64,
+  "D_k1_J3": 256,
+  "D_k1_J6": 256,
+  "D_k3_J1": 32,
+  "D_k3_J3": 32,
+  "D_k3_J6": 64,
+  "D_k10_J1": 16,
+  "D_k10_J3": 32,
+  "D_k10_J6": 16
+ },
+ "P3_pearson_raw_k1_never": 0,
+ "P3_pearson_raw_k1_median_n": 64.0,
+ "P3_pearson_raw_k3_never": 0,
+ "P3_pearson_raw_k3_median_n": 32.0,
+ "P3_pearson_raw_k10_never": 0,
+ "P3_pearson_raw_k10_median_n": 16.0,
+ "P4_ce_spearman_within_0.02_of_pearson_trained_frac": 0.8095238095238095,
+ "P4b_ce_spearman_within_0.02_of_pearson_head_frac": 0.7341269841269841,
+ "B_cells": 252,
+ "P5_prob_ce_n>=16": {
+  "verdicts": {
+   "CE": 60
+  },
+  "cells": 60,
+  "mean_dRPS": 0.014696733873966743
+ },
+ "P5_prob_ce_n<=8": {
+  "verdicts": {
+   "tie": 2,
+   "CE": 21,
+   "mixed": 1
+  },
+  "cells": 24,
+  "mean_dRPS": 0.017275419352255014
+ },
+ "P5_prob_rps_n>=16": {
+  "verdicts": {
+   "CE": 59,
+   "mixed": 1
+  },
+  "cells": 60,
+  "mean_dRPS": 0.014404065367727351
+ },
+ "P5_prob_rps_n<=8": {
+  "verdicts": {
+   "tie": 1,
+   "CE": 23
+  },
+  "cells": 24,
+  "mean_dRPS": 0.01614314905564247
+ },
+ "P5_votes3_ce_n>=16": {
+  "verdicts": {
+   "CE": 23,
+   "tie": 24,
+   "mixed": 13
+  },
+  "cells": 60,
+  "mean_dRPS": 0.005113883750194088
+ },
+ "P5_votes3_ce_n<=8": {
+  "verdicts": {
+   "tie": 15,
+   "mixed": 2,
+   "CE": 7
+  },
+  "cells": 24,
+  "mean_dRPS": 0.0036916785521077383
+ },
+ "P5_votes3_rps_n>=16": {
+  "verdicts": {
+   "CE": 51,
+   "tie": 6,
+   "mixed": 3
+  },
+  "cells": 60,
+  "mean_dRPS": 0.00807091699973981
+ },
+ "P5_votes3_rps_n<=8": {
+  "verdicts": {
+   "tie": 5,
+   "mixed": 4,
+   "CE": 15
+  },
+  "cells": 24,
+  "mean_dRPS": 0.006945608184007956
+ },
+ "P5_votes3_f5e-2_ce_n>=16": {
+  "verdicts": {
+   "CE": 30,
+   "tie": 25,
+   "mixed": 5
+  },
+  "cells": 60,
+  "mean_dRPS": 0.003358652632758107
+ },
+ "P5_votes3_f5e-2_ce_n<=8": {
+  "verdicts": {
+   "CE": 9,
+   "tie": 13,
+   "mixed": 2
+  },
+  "cells": 24,
+  "mean_dRPS": 0.00459618798633388
+ },
+ "P5_votes3_f5e-2_rps_n>=16": {
+  "verdicts": {
+   "CE": 56,
+   "mixed": 3,
+   "tie": 1
+  },
+  "cells": 60,
+  "mean_dRPS": 0.005190566059181972
+ },
+ "P5_votes3_f5e-2_rps_n<=8": {
+  "verdicts": {
+   "CE": 20,
+   "tie": 3,
+   "mixed": 1
+  },
+  "cells": 24,
+  "mean_dRPS": 0.006315217576850278
+ }
+}
