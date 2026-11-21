@@ -15,7 +15,7 @@
 | Experiment 11: "eliminates" the small-n spike; "CE" columns are KL | Right | TLDR reworded to "reduces"; KL note added |
 | Index: experiment 07 "crossovers unchanged"; 01 and 02 "paper integration remains open" | Right (integration is in commits 3bfd866 and 18f529e) | `experiments/README.md` fixed |
 | Experiment 00 README heading says 01 | Right | Fixed |
-| Version 27: "1D bottleneck" | Overclaim: a nonlinear scalar calibrator was untested | Experiment 17 (pre-registered, running) tests it |
+| Version 27: "1D bottleneck" | Overclaim: a nonlinear scalar calibrator was untested | Experiment 17 tested it (done 11-20-2026): one number loses nothing in the toys; the gap is score quality |
 | Version 27: rater severity "cannot be separated" | Contradicted by experiment 15 (constant offsets are estimable and small) | Open in the paper text; the status file says so |
 | Version 27: "small-sample gains on human ratings remain untested" | Stale: experiment 10's learning curve is retrospective human small-n | Open in the paper text |
 | Experiment 09 TLDR-end: blanket "native probabilities beat the constant"; digit-logprob pool is worse than the constant on CE | Right | Open: wording not yet changed |
