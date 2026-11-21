@@ -1,0 +1,5 @@
+truth	 rho=1.000	 RPS=0.0953	 CE=1.234	 TVD=0.000	 means=[0.5, 1.5, 2.5, 3.5, 4.5]
+A compressed means m=2.5+0.1(t-2.5)	 rho=1.000	 RPS=0.1891	 CE=1.983	 TVD=0.397	 means=[2.3, 2.4, 2.5, 2.6, 2.7]
+B noisy means m=t+e	 rho=0.949	 RPS=0.1083	 CE=1.341	 TVD=0.169	 means=[1.0, 1.0, 3.0, 3.0, 4.5]
+U uniform	 rho=nan	 RPS=0.1922	 CE=1.792	 TVD=0.427	 means=[2.5, 2.5, 2.5, 2.5, 2.5]
+D reversed spread: shape-wrong, true means	 rho=0.985	 RPS=0.1099	 CE=1.444	 TVD=0.310	 means=[0.25, 1.75, 2.25, 3.75, 4.25]
