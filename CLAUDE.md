@@ -4,6 +4,10 @@
 
 **TLDR:** Shared agent policy lives in agents-config. Read it first, then the project facts below. `AGENTS.md` and `CLAUDE.md` are identical.
 
+## Notebook and screenshot sources — 11-21-2026
+
+When Brando sends research images for an experiment, save the supplied image bytes and a dated transcription in both the canonical GitHub experiment folder and the project Google Drive folder. Verify the copies against the attachments. Keep private correspondence in restricted Drive storage and use a recoverable encrypted archive for those bytes in a public repository. Distinguish uncertain handwriting and overlapping screenshots in the transcription.
+
 ## Human-rating identity and collection — Brando, 11-11-2026
 
 - Every active personal human-rating Google Sheet and comma-separated values (CSV) form/export begins with `rater_name`, then `rater_id`. Prefill the actual name from the verified roster on every assigned row; keep the stable ID for joins and duplicate detection. Apply this to every participant.
