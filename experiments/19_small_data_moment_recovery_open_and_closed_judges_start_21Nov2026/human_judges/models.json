@@ -1,0 +1,12 @@
+{
+  "verified_date": "11-21-2026",
+  "representation": "One original P0 human-mirror verbal probability vector per model and artifact. Archive prompts and APIs are study-specific.",
+  "open_weight_archive_sha256": "9794b2f2b039e8e6a3505fa2ec77aeafeca80e609ca51894521b612c61bb7dbe",
+  "closed_weight_archive_sha256": "fcbbd3332da9196aa8e285f182baf1c9c5081d7516fc6000cf1f644208b0a8f8",
+  "models": [
+    {"key":"qwen3_4b","model":"Qwen/Qwen3-4B-Instruct-2507","weight_access":"open","forecast_key":"q3_4b_2507__P0_human_mirror","evidence":"The publisher distributes three safetensors checkpoint shards. The cached runner names this exact repository.","sources":["https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/main"]},
+    {"key":"qwen25_coder_14b","model":"Qwen/Qwen2.5-Coder-14B-Instruct","weight_access":"open","forecast_key":"q25c_14b__P0_human_mirror","evidence":"The publisher distributes the checkpoint under Apache 2.0. The cached runner names this exact repository.","sources":["https://huggingface.co/Qwen/Qwen2.5-Coder-14B-Instruct/tree/main"]},
+    {"key":"gpt54_mini","model":"gpt-5.4-mini","weight_access":"closed","forecast_key":"gpt54_mini__P0","evidence":"Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.","sources":["https://developers.openai.com/api/docs/models/gpt-5.4-mini","https://openai.com/open-models/"]},
+    {"key":"gpt61_sol","model":"gpt-6.1-sol","weight_access":"closed","forecast_key":"gpt61_sol__P0","evidence":"Provider-hosted model in the official API catalog. The provider’s separately published open-weight catalog lists the gpt-oss families. Closed here means no provider-published downloadable weights for this ID; the archive records an API response.","sources":["https://developers.openai.com/api/docs/models/gpt-6.1-sol","https://openai.com/open-models/"]}
+  ]
+}
