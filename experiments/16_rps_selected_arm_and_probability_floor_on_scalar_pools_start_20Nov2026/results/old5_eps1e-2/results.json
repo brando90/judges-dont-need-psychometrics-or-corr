@@ -1,0 +1,886 @@
+{
+ "experiment": 16,
+ "pool": "old5",
+ "judges": [
+  "H0_sol",
+  "H0_opus",
+  "H1_sol",
+  "H2_sol",
+  "H2_opus"
+ ],
+ "n_judges": 5,
+ "epsilon": 0.01,
+ "n_artifacts": 75,
+ "n_tasks": 25,
+ "splits": 1000,
+ "train_tasks": 20,
+ "test_tasks": 5,
+ "bootstrap_draws": 10000,
+ "spearman_search_draws": 4000,
+ "optimizer_certificate_failures": {
+  "pm": 0,
+  "cm": 0,
+  "rm": 2
+ },
+ "inference_calls": 0,
+ "provider_cost_usd": 0,
+ "test_count_per_artifact_min_max": [
+  167,
+  226
+ ],
+ "metrics": {
+  "ce": {
+   "constant": 1.8519010008086676,
+   "equal_mixture": 2.2113204165224465,
+   "corr_single": 2.785253406484965,
+   "corr_single_spearman": 2.7832327907991368,
+   "corr_mixture_pearson": 2.2515404514031894,
+   "corr_mixture_spearman": 2.7824508289546195,
+   "ce_single": 3.0378190318835525,
+   "ce_mixture": 2.187423060585354,
+   "rps_single": 2.9413909560306166,
+   "rps_mixture": 2.2212063959255186
+  },
+  "rps": {
+   "constant": 0.1835658003949626,
+   "equal_mixture": 0.14371672014502102,
+   "corr_single": 0.16903386575961485,
+   "corr_single_spearman": 0.1686256575840808,
+   "corr_mixture_pearson": 0.1363216436444357,
+   "corr_mixture_spearman": 0.1685549191107388,
+   "ce_single": 0.19244464307353784,
+   "ce_mixture": 0.13173147549159697,
+   "rps_single": 0.1928409601496094,
+   "rps_mixture": 0.1273450370984573
+  },
+  "tvd": {
+   "constant": 0.6817945559410755,
+   "equal_mixture": 0.5327672866507809,
+   "corr_single": 0.5954745707193202,
+   "corr_single_spearman": 0.5950549924724662,
+   "corr_mixture_pearson": 0.5226092413125323,
+   "corr_mixture_spearman": 0.594907209077555,
+   "ce_single": 0.6445709766269787,
+   "ce_mixture": 0.51226630238046,
+   "rps_single": 0.625598253844894,
+   "rps_mixture": 0.5008689892935837
+  }
+ },
+ "corr_metrics": {
+  "pearson": {
+   "constant": {
+    "mean_over_splits": null,
+    "undefined_splits": 1000
+   },
+   "equal_mixture": {
+    "mean_over_splits": 0.7032927289006863,
+    "undefined_splits": 0
+   },
+   "corr_single": {
+    "mean_over_splits": 0.7496835051056976,
+    "undefined_splits": 0
+   },
+   "corr_single_spearman": {
+    "mean_over_splits": 0.7516539385238791,
+    "undefined_splits": 0
+   },
+   "corr_mixture_pearson": {
+    "mean_over_splits": 0.7304164184127456,
+    "undefined_splits": 0
+   },
+   "corr_mixture_spearman": {
+    "mean_over_splits": 0.751412427453121,
+    "undefined_splits": 0
+   },
+   "ce_single": {
+    "mean_over_splits": 0.6506910768023126,
+    "undefined_splits": 0
+   },
+   "ce_mixture": {
+    "mean_over_splits": 0.7175591789049466,
+    "undefined_splits": 0
+   },
+   "rps_single": {
+    "mean_over_splits": 0.6191302097203236,
+    "undefined_splits": 0
+   },
+   "rps_mixture": {
+    "mean_over_splits": 0.726924723315202,
+    "undefined_splits": 0
+   }
+  },
+  "spearman": {
+   "constant": {
+    "mean_over_splits": null,
+    "undefined_splits": 1000
+   },
+   "equal_mixture": {
+    "mean_over_splits": 0.6091066711914047,
+    "undefined_splits": 0
+   },
+   "corr_single": {
+    "mean_over_splits": 0.7191312601980373,
+    "undefined_splits": 0
+   },
+   "corr_single_spearman": {
+    "mean_over_splits": 0.7210501457867872,
+    "undefined_splits": 0
+   },
+   "corr_mixture_pearson": {
+    "mean_over_splits": 0.6689612170630663,
+    "undefined_splits": 0
+   },
+   "corr_mixture_spearman": {
+    "mean_over_splits": 0.7208982434668164,
+    "undefined_splits": 0
+   },
+   "ce_single": {
+    "mean_over_splits": 0.6173268135345569,
+    "undefined_splits": 0
+   },
+   "ce_mixture": {
+    "mean_over_splits": 0.6052710171986007,
+    "undefined_splits": 0
+   },
+   "rps_single": {
+    "mean_over_splits": 0.5926000022297055,
+    "undefined_splits": 0
+   },
+   "rps_mixture": {
+    "mean_over_splits": 0.6494508693958986,
+    "undefined_splits": 0
+   }
+  }
+ },
+ "paired": {
+  "ce: corr_single minus rps_single": {
+   "point": -0.15613754954565107,
+   "ci95": [
+    -0.34528804200815594,
+    0.0040893134400977514
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 13
+  },
+  "ce: corr_single_spearman minus rps_single": {
+   "point": -0.1581581652314791,
+   "ci95": [
+    -0.3492926147432832,
+    0.003272208628851056
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 13
+  },
+  "ce: corr_mixture_pearson minus rps_mixture": {
+   "point": 0.03033405547767097,
+   "ci95": [
+    -0.02049902214162354,
+    0.08642443145214246
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 11
+  },
+  "ce: corr_mixture_spearman minus rps_mixture": {
+   "point": 0.5612444330291011,
+   "ci95": [
+    0.23341806565731799,
+    0.9173350182964507
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 10
+  },
+  "ce: corr_single minus ce_single": {
+   "point": -0.2525656253985872,
+   "ci95": [
+    -0.48115755378996583,
+    -0.06801775352143792
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 15
+  },
+  "ce: corr_mixture_pearson minus ce_mixture": {
+   "point": 0.06411739081783517,
+   "ci95": [
+    -0.020495877537423348,
+    0.14505805213195955
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 9
+  },
+  "ce: corr_mixture_spearman minus ce_mixture": {
+   "point": 0.5950277683692653,
+   "ci95": [
+    0.25323888599184224,
+    0.9605575230091195
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 10
+  },
+  "ce: ce_single minus rps_single": {
+   "point": 0.09642807585293622,
+   "ci95": [
+    -0.002713306760019304,
+    0.22178928677886128
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 5
+  },
+  "ce: ce_mixture minus rps_mixture": {
+   "point": -0.0337833353401642,
+   "ci95": [
+    -0.09942098172788498,
+    0.027657468617061934
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 11
+  },
+  "ce: rps_single minus constant": {
+   "point": 1.089489955221948,
+   "ci95": [
+    0.6101336517689405,
+    1.5462034813313332
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 6
+  },
+  "ce: rps_mixture minus constant": {
+   "point": 0.36930539511685023,
+   "ci95": [
+    -0.03761634828492719,
+    0.7843532622262376
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 9
+  },
+  "ce: corr_single minus constant": {
+   "point": 0.9333524056762971,
+   "ci95": [
+    0.4117562252501934,
+    1.4496683194615105
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 6
+  },
+  "ce: ce_single minus constant": {
+   "point": 1.185918031074884,
+   "ci95": [
+    0.6831874024063734,
+    1.6503073369202181
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 5
+  },
+  "ce: ce_mixture minus constant": {
+   "point": 0.335522059776686,
+   "ci95": [
+    -0.07712644866052307,
+    0.7634226760547286
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 11
+  },
+  "ce: rps_mixture minus equal_mixture": {
+   "point": 0.009885979403071794,
+   "ci95": [
+    -0.10040378520655001,
+    0.12923478151670373
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 14
+  },
+  "rps: corr_single minus rps_single": {
+   "point": -0.023807094389994524,
+   "ci95": [
+    -0.058863844607909124,
+    -0.0003480905100559832
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 11
+  },
+  "rps: corr_single_spearman minus rps_single": {
+   "point": -0.024215302565528576,
+   "ci95": [
+    -0.05963505721210892,
+    -0.0004947635482445367
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 11
+  },
+  "rps: corr_mixture_pearson minus rps_mixture": {
+   "point": 0.008976606545978356,
+   "ci95": [
+    -0.0018884491137453048,
+    0.02021030977989508
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "rps: corr_mixture_spearman minus rps_mixture": {
+   "point": 0.04120988201228151,
+   "ci95": [
+    0.015234594636614321,
+    0.06691861218962586
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 9
+  },
+  "rps: corr_single minus ce_single": {
+   "point": -0.023410777313923006,
+   "ci95": [
+    -0.051260571838909565,
+    -0.0012479566199917176
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 11
+  },
+  "rps: corr_mixture_pearson minus ce_mixture": {
+   "point": 0.004590168152838725,
+   "ci95": [
+    -0.006174354036596739,
+    0.016199941110222663
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "rps: corr_mixture_spearman minus ce_mixture": {
+   "point": 0.03682344361914189,
+   "ci95": [
+    0.011970601651973075,
+    0.06181664829919014
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 9
+  },
+  "rps: ce_single minus rps_single": {
+   "point": -0.00039631707607150774,
+   "ci95": [
+    -0.014021070982492705,
+    0.013720888854790109
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 12
+  },
+  "rps: ce_mixture minus rps_mixture": {
+   "point": 0.00438643839313963,
+   "ci95": [
+    -0.00047433358796634647,
+    0.009713806386526658
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "rps: rps_single minus constant": {
+   "point": 0.009275159754646775,
+   "ci95": [
+    -0.05146147688218764,
+    0.0692921091115814
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 9
+  },
+  "rps: rps_mixture minus constant": {
+   "point": -0.05622076329650529,
+   "ci95": [
+    -0.1016800475711124,
+    -0.011436155567345573
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 18
+  },
+  "rps: corr_single minus constant": {
+   "point": -0.014531934635347741,
+   "ci95": [
+    -0.07437331697858854,
+    0.04690643611337382
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 12
+  },
+  "rps: ce_single minus constant": {
+   "point": 0.008878842678575263,
+   "ci95": [
+    -0.05063119807090206,
+    0.06641861892879855
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 9
+  },
+  "rps: ce_mixture minus constant": {
+   "point": -0.05183432490336567,
+   "ci95": [
+    -0.09830183472380956,
+    -0.006417276644978848
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 17
+  },
+  "rps: rps_mixture minus equal_mixture": {
+   "point": -0.016371683046563727,
+   "ci95": [
+    -0.031111873546815466,
+    -0.002150202048408676
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 17
+  },
+  "tvd: corr_single minus rps_single": {
+   "point": -0.030123683125573716,
+   "ci95": [
+    -0.06881577234180297,
+    0.0024685363083975734
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 13
+  },
+  "tvd: corr_single_spearman minus rps_single": {
+   "point": -0.0305432613724278,
+   "ci95": [
+    -0.06965308733939328,
+    0.0023357475785733173
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 13
+  },
+  "tvd: corr_mixture_pearson minus rps_mixture": {
+   "point": 0.021740252018948584,
+   "ci95": [
+    -0.0005791440824253468,
+    0.04553341310925273
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 7
+  },
+  "tvd: corr_mixture_spearman minus rps_mixture": {
+   "point": 0.09403821978397127,
+   "ci95": [
+    0.035846313463545956,
+    0.15667613049999515
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 9
+  },
+  "tvd: corr_single minus ce_single": {
+   "point": -0.04909640590765856,
+   "ci95": [
+    -0.09218687040769938,
+    -0.01334511866207112
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 15
+  },
+  "tvd: corr_mixture_pearson minus ce_mixture": {
+   "point": 0.010342938932072351,
+   "ci95": [
+    -0.012983180547055467,
+    0.03292445516625297
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "tvd: corr_mixture_spearman minus ce_mixture": {
+   "point": 0.08264090669709503,
+   "ci95": [
+    0.02386095679644483,
+    0.14269708521317434
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 10
+  },
+  "tvd: ce_single minus rps_single": {
+   "point": 0.01897272278208484,
+   "ci95": [
+    -0.00030418875605241923,
+    0.041965251274695956
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 6
+  },
+  "tvd: ce_mixture minus rps_mixture": {
+   "point": 0.011397313086876233,
+   "ci95": [
+    0.0023973241935487397,
+    0.021919354436942883
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 6
+  },
+  "tvd: rps_single minus constant": {
+   "point": -0.05619630209618139,
+   "ci95": [
+    -0.1690590389611445,
+    0.04781702738874597
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "tvd: rps_mixture minus constant": {
+   "point": -0.18092556664749163,
+   "ci95": [
+    -0.2750913465292094,
+    -0.09018780764220814
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 20
+  },
+  "tvd: corr_single minus constant": {
+   "point": -0.0863199852217551,
+   "ci95": [
+    -0.2068788501703773,
+    0.029283039312555173
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 12
+  },
+  "tvd: ce_single minus constant": {
+   "point": -0.037223579314096526,
+   "ci95": [
+    -0.15393832096531573,
+    0.06963288257214477
+   ],
+   "excludes_zero": false,
+   "tasks_first_better": 10
+  },
+  "tvd: ce_mixture minus constant": {
+   "point": -0.1695282535606154,
+   "ci95": [
+    -0.26415288414446797,
+    -0.07901934085433444
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 19
+  },
+  "tvd: rps_mixture minus equal_mixture": {
+   "point": -0.03189829735719721,
+   "ci95": [
+    -0.06093003885011829,
+    -0.002465992158593653
+   ],
+   "excludes_zero": true,
+   "tasks_first_better": 17
+  },
+  "pearson (test-set correlation, task-attributed): corr_single minus rps_single": {
+   "point": 0.1305167321309534,
+   "ci95": [
+    0.10129241989517747,
+    0.1658047303814539
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): corr_single_spearman minus rps_single": {
+   "point": 0.1324508836442418,
+   "ci95": [
+    0.1026236130771879,
+    0.16874565257980503
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): corr_mixture_pearson minus rps_mixture": {
+   "point": 0.0035672016589997344,
+   "ci95": [
+    -0.009964233132883955,
+    0.01345161911010452
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): corr_mixture_spearman minus rps_mixture": {
+   "point": 0.024732931136463195,
+   "ci95": [
+    0.004030227390404582,
+    0.044400843165277655
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): corr_single minus ce_single": {
+   "point": 0.09942240781484905,
+   "ci95": [
+    0.07789278946684296,
+    0.12372137754272519
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): corr_mixture_pearson minus ce_mixture": {
+   "point": 0.012883297357614296,
+   "ci95": [
+    3.3859572098139216e-05,
+    0.02282928834720398
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): corr_mixture_spearman minus ce_mixture": {
+   "point": 0.03404902683507775,
+   "ci95": [
+    0.013770032226388484,
+    0.05301124810607073
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): ce_single minus rps_single": {
+   "point": 0.031094324316104375,
+   "ci95": [
+    0.01651078461670215,
+    0.04778970993615085
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): ce_mixture minus rps_mixture": {
+   "point": -0.009316095698614562,
+   "ci95": [
+    -0.012648411077867015,
+    -0.006619537311664186
+   ],
+   "excludes_zero": true
+  },
+  "pearson (test-set correlation, task-attributed): rps_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): rps_mixture minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): corr_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): ce_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): ce_mixture minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "pearson (test-set correlation, task-attributed): rps_mixture minus equal_mixture": {
+   "point": 0.023372113554978386,
+   "ci95": [
+    0.015665483029740458,
+    0.03192999016873123
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_single minus rps_single": {
+   "point": 0.12644101354263107,
+   "ci95": [
+    0.09862744640727333,
+    0.15901287879160972
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_single_spearman minus rps_single": {
+   "point": 0.12832492841450902,
+   "ci95": [
+    0.09978431152503787,
+    0.16188905241605914
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_mixture_pearson minus rps_mixture": {
+   "point": 0.01926972655993366,
+   "ci95": [
+    0.01069829881467996,
+    0.026799044096823484
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_mixture_spearman minus rps_mixture": {
+   "point": 0.07130485919327581,
+   "ci95": [
+    0.05628933056224571,
+    0.08755148959075268
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_single minus ce_single": {
+   "point": 0.1021797894942379,
+   "ci95": [
+    0.08036596990700469,
+    0.12622014897597342
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_mixture_pearson minus ce_mixture": {
+   "point": 0.06330884579830853,
+   "ci95": [
+    0.05278848743200892,
+    0.07411868052200507
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): corr_mixture_spearman minus ce_mixture": {
+   "point": 0.11534397843165069,
+   "ci95": [
+    0.09882575223067601,
+    0.13240633861980072
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): ce_single minus rps_single": {
+   "point": 0.02426122404839317,
+   "ci95": [
+    0.010303507560250988,
+    0.03946077676047882
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): ce_mixture minus rps_mixture": {
+   "point": -0.04403911923837487,
+   "ci95": [
+    -0.051443302549533755,
+    -0.03753521004505655
+   ],
+   "excludes_zero": true
+  },
+  "spearman (test-set correlation, task-attributed): rps_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "spearman (test-set correlation, task-attributed): rps_mixture minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "spearman (test-set correlation, task-attributed): corr_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "spearman (test-set correlation, task-attributed): ce_single minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "spearman (test-set correlation, task-attributed): ce_mixture minus constant": {
+   "point": NaN,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "excludes_zero": false
+  },
+  "spearman (test-set correlation, task-attributed): rps_mixture minus equal_mixture": {
+   "point": 0.040166663299249325,
+   "ci95": [
+    0.030557310508676303,
+    0.04949240523468644
+   ],
+   "excludes_zero": true
+  }
+ },
+ "mean_weights": {
+  "equal_mixture": {
+   "H0_sol": 0.19999999999999718,
+   "H0_opus": 0.19999999999999718,
+   "H1_sol": 0.19999999999999718,
+   "H2_sol": 0.19999999999999718,
+   "H2_opus": 0.19999999999999718
+  },
+  "corr_single": {
+   "H2_opus": 0.998
+  },
+  "corr_single_spearman": {
+   "H2_opus": 1.0
+  },
+  "corr_mixture_pearson": {
+   "H0_sol": 0.2908674350635453,
+   "H2_sol": 0.03130949467345593,
+   "H2_opus": 0.675529865382183
+  },
+  "corr_mixture_spearman": {
+   "H2_opus": 0.9995755540799289
+  },
+  "ce_single": {
+   "H0_sol": 0.274,
+   "H2_sol": 0.078,
+   "H2_opus": 0.645
+  },
+  "ce_mixture": {
+   "H0_sol": 0.3936463656675993,
+   "H0_opus": 0.07890105224651946,
+   "H1_sol": 0.09712683567746848,
+   "H2_sol": 0.035447588568755586,
+   "H2_opus": 0.3948781578396573
+  },
+  "rps_single": {
+   "H0_sol": 0.284,
+   "H2_opus": 0.709
+  },
+  "rps_mixture": {
+   "H0_sol": 0.4796216909205262,
+   "H2_opus": 0.5160760589977416
+  }
+ },
+ "single_judge_choice_counts": {
+  "corr_single": {
+   "H0_sol": 1,
+   "H0_opus": 1,
+   "H2_opus": 998
+  },
+  "corr_single_spearman": {
+   "H2_opus": 1000
+  },
+  "ce_single": {
+   "H0_sol": 274,
+   "H0_opus": 2,
+   "H1_sol": 1,
+   "H2_sol": 78,
+   "H2_opus": 645
+  },
+  "rps_single": {
+   "H0_sol": 284,
+   "H1_sol": 3,
+   "H2_sol": 4,
+   "H2_opus": 709
+  }
+ },
+ "labels": {
+  "constant": "constant (train marginal)",
+  "equal_mixture": "equal-weight mixture",
+  "corr_single": "\u2461 best single judge by train Pearson",
+  "corr_single_spearman": "\u2461 best single judge by train Spearman",
+  "corr_mixture_pearson": "\u2461 mixture maximizing train Pearson",
+  "corr_mixture_spearman": "\u2461 mixture maximizing train Spearman",
+  "ce_single": "\u2463 best single judge by train CE",
+  "ce_mixture": "\u2463 mixture minimizing train CE",
+  "rps_single": "\u2463 best single judge by train RPS (new)",
+  "rps_mixture": "\u2463 mixture minimizing train RPS (new)"
+ },
+ "seconds": 2.3030459880828857,
+ "environment": {
+  "python": "3.12.3",
+  "numpy": "2.2.6",
+  "scipy": "1.17.1"
+ }
+}
