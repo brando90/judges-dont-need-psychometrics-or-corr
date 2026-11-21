@@ -81,6 +81,19 @@ def pearson_from_totals(m1, m2, my, y1, y2, n):
     return best(rho, maximize=True), False
 
 
+def pearson_for_pair(candidate_means, observed_means):
+    """With two observations every eligible Pearson score is exactly +1 or -1."""
+    predicted_difference = candidate_means[1] - candidate_means[0]
+    observed_difference = observed_means[1] - observed_means[0]
+    # For two equally weighted observations the population variance is (difference/2)^2.
+    eligible = (predicted_difference / 2)**2 > TOL
+    if (observed_difference / 2)**2 <= TOL or not eligible.any():
+        return 0, True
+    scores = np.full(len(predicted_difference), -np.inf)
+    scores[eligible] = np.sign(predicted_difference[eligible]) * np.sign(observed_difference)
+    return best(scores, maximize=True), False
+
+
 def bin_indices(train_means, all_means):
     cuts = np.unique(np.quantile(train_means, (.25,.5,.75)))
     return np.searchsorted(cuts, all_means, side="right")

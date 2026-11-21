@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from candidates import R, best, bin_distribution, bin_indices, build, loss_by_grade, pearson_from_totals, per_item
+from candidates import R, best, bin_distribution, bin_indices, build, loss_by_grade, pearson_for_pair, pearson_from_totals, per_item
 from design import draw, load
 from diagnostics import diagnostics, human_reference
 
@@ -115,7 +115,10 @@ def run(data,mode,out):
                 sum_y += y.sum()
                 sq_y += np.dot(y,y)
                 ce, rps = best(sums[0]/n), best(sums[1]/n)
-                pearson, undefined = pearson_from_totals(*sums[2:],sum_y,sq_y,n)
+                if n == 2:
+                    pearson, undefined = pearson_for_pair(means[order[:n]], (picked[:n] / depth) @ R)
+                else:
+                    pearson, undefined = pearson_from_totals(*sums[2:],sum_y,sq_y,n)
                 hist_count = picked[:n].sum(axis=0)
                 prior = (hist_count+.5)/(b+2.5)
                 if pearson not in bins_cache:

@@ -1,0 +1,15 @@
+dataset,budget,comparator,ce_lower,comparator_lower,tied,paired_training_draws,average_difference
+summeval,12,pearson,10,6,0,16,-0.0011366429385403524
+summeval,12,score_then_calibrate,8,8,0,16,-0.006483506855846015
+summeval,192,pearson,16,0,0,16,0.0033730517111995473
+summeval,192,score_then_calibrate,8,8,0,16,-0.0003291143665867828
+summeval,768,pearson,16,0,0,16,0.011005381523117289
+summeval,768,score_then_calibrate,16,0,0,16,0.001719143477174597
+koniq,12,pearson,12,4,0,16,0.006682982176267926
+koniq,12,score_then_calibrate,6,10,0,16,-0.0026655107438344735
+koniq,192,pearson,16,0,0,16,0.013560256887564199
+koniq,192,score_then_calibrate,6,10,0,16,-0.0015019200887474628
+koniq,768,pearson,16,0,0,16,0.016289419582799218
+koniq,768,score_then_calibrate,13,3,0,16,0.0009270477368381212
+koniq,6144,pearson,16,0,0,16,0.01605541249222826
+koniq,6144,score_then_calibrate,16,0,0,16,0.0012644426334656117
