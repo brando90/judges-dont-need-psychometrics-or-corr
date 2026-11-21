@@ -41,6 +41,50 @@ This bound uses population excess CE. With few training ratings, sampling noise 
 restrictions can change which fitted judge has lower held-out loss.
 The \href{https://github.com/brando90/judges-dont-need-psychometrics-or-corr/tree/main/experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026}{small-data moment study} tests this separately for open-weight and closed-weight judges.
 
+\section*{What correlation can and cannot learn (11-21-2026)}
+\textbf{In one sentence.} The correlation objective reads exactly one number per item from the judge, the first moment (the mean) $m_i=\sum_r r\,p_i(r)$, and only up to a shift and a positive rescaling of the means. The spread, the shape and every higher moment of $p_i$ are invisible to it. CE, RPS and TVD read the whole distribution.
+
+\textbf{1. The dependence is through the means only (R1).} Since $\sum_i\ttil_i=0$, the numerator of the box is $\sum_i\ttil_i m_i$, so
+\[
+\rho=\frac{\sum_i\ttil_i\,m_i}{\sqrt{\sum_i\ttil_i^{\,2}\cdot\sum_i(m_i-\bar m)^2}}=F(m_1,\dots,m_n),\qquad m_i=\sum_{r\in R} r\,p_i(r),
+\]
+a function of the $n$ numbers $m_i$ and of the fixed target means $\ttil_i$. The numerator is linear in the judge's distribution: the judge enters through the $n$ linear functionals $p_i\mapsto\sum_r r\,p_i(r)$.
+
+\textbf{2. Level and scale are not identified (R2).} For $b>0$ and any $a$,
+\[
+\rho(a+b\,m)=\rho(m),\qquad\text{so}\qquad \rho=1\ \Longleftrightarrow\ m_i=a+b\,t_i\ \ (b>0).
+\]
+A judge whose means are $a+b\,t_i$ for any $a$ and any $b>0$ is correlation-optimal, whatever its level, scale or spread.
+
+\textbf{3. Spread, shape and higher moments are invisible (R2).} The $k$-th moment $\mu_k(p_i)=\sum_r r^k p_i(r)$ and the variance $\sigma_i^2=\sum_r(r-m_i)^2p_i(r)=\mu_2(p_i)-m_i^2$ do not appear in $F$. Two judges with the same means $m_i$ get the same $\rho$ for every choice of $\sigma_i^2,\mu_3,\mu_4,\dots$ The pair above (uniform on $\{1,2,3\}$ and on $\{0,2,4\}$, Lean-checked, see the checks table) has the same mean $2$, hence the same $\rho$, while the variances are $2/3$ and $8/3$ and the RPS between them is $2/9>0$. Within a fixed mean, each item still has $K-2$ free shape dimensions, so the correlation-optimal set has $n(K-2)$ free dimensions plus $(a,b)$.
+
+\textbf{4. The gradient lives on one direction per item (R3).} With $p_i=\mathrm{softmax}(u_i)$,
+\[
+\begin{aligned}
+\frac{\partial\rho}{\partial u_i(r)}&=p_i(r)\,(r-m_i)\,g_i &&(\text{one fixed direction in }r,\ \text{scaled by the number }g_i),\\
+\frac{\partial L_{CE}}{\partial u_i(r)}&=p_i(r)-p^\ast_i(r) &&(\text{all }K-1\text{ directions}).
+\end{aligned}
+\]
+Correlation training can only push each item's mean; CE training can also correct its shape.
+
+\textbf{5. What CE, RPS and TVD read (R4--R6).} CE and RPS are strictly proper and TVD vanishes only at the target: each is minimized only at $p_i=p^\ast_i$, and $p_i=p^\ast_i$ fixes the mean and every higher moment, $\mu_k(p_i)=\mu_k(p^\ast_i)$ for all $k$. CE splits exactly into noise, a shape gap $G(P)\ge0$ out of reach of every mean-only objective, and a calibration term (R4).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & mean $m_i$ & level, scale & variance, shape, $\mu_{k\ge3}$ & minimized only at $p^\ast$\\
+\midrule
+Corr ($\rho$) & read & not identified & not read & no (R2, R6)\\
+CE & read & read & read & yes\\
+RPS & read & read & read & yes\\
+TVD & read & read & read & yes\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{What this shows, and what it does not.} It shows, at the population level (the human distribution $p^\ast_i$ known exactly, i.e. unlimited data), what each objective can see and where each is optimal. It does \emph{not} show the limited-data claim: whether a CE-trained judge also does better with few ratings is empirical (experiments 02, 08, 11, 16, 17 and the sweep in this folder), and a separate new experiment tests it.
+
 \section*{Pearson between mean ratings}
 Replace the placeholder on the page by
 \[
@@ -54,7 +98,7 @@ t_i&=\sum_{r\in R} r\,\Ps(r\mid x_i,y^\ast_i,\hat y_i;h) &&\text{the target mean
 \bar m&=\tfrac1n\textstyle\sum_i m_i &&\text{the average judge mean},\\
 \textstyle\sum_i&=\textstyle\sum_{i=1}^{n} &&\text{the sum over items } i \ (\text{the page's } v\in V).
 \end{align*}
-The judge's distribution $\Pj$ enters only through the $n$ numbers $m_i$ (its mean ratings), in the numerator linearly (coefficient $r\,\ttil_i$ on $p_i(r)$) and in the denominator through their spread. Everything about the shape of $p_i$ beyond its mean is invisible. CE, RPS and TVD are functions of the whole vector $p_i$. Section 5 lists what is and is not shown.
+The judge's distribution $\Pj$ enters only through the $n$ numbers $m_i$ (its mean ratings), in the numerator linearly (coefficient $r\,\ttil_i$ on $p_i(r)$) and in the denominator through their spread. Everything about the shape of $p_i$ beyond its mean is invisible. CE, RPS and TVD are functions of the whole vector $p_i$. Section 6 lists what is and is not shown.
 
 \section{Setting and notation}
 Categories $R=\{0,\dots,K-1\}$, $K=6$. Items $i=1,\dots,n$ (the page's $v\in V$; each item is $(x,y^\ast,\hat y)$ or a variant i--iv). Judge distribution $p_i=\Pj(\cdot\mid\cdot;\theta)\in\Delta^{K-1}$. Target $p^\ast_i=\Ps(\cdot\mid\cdot;h)$ for a human or persona $h$; with $k$ sparse ratings it is the empirical histogram, and $t_i$ is then the mean of the $k$ ratings (a noisy estimate of the true score). Means $m_i=\sum_r r\,p_i(r)$, $t_i=\sum_r r\,p^\ast_i(r)$; $\bar m,\bar t$ their averages over items; $\ttil_i=t_i-\bar t$.
@@ -138,6 +182,66 @@ two-point on $\{0,5\}$ with the right mean & 19.51 & 0.700 & 0.406\\
 p=\frac{1-b}{K}\mathbf 1+b\,p^\ast,\qquad b\in(0,1]:
 \]
 shrinkage towards uniform. Same conclusion (not proper), but this is not how correlation is used for judges; the box above (correlation of the judge's mean across items) is.
+
+\section{Step-by-step derivations of R1--R6 (11-21-2026)}
+Every symbol is as in the box on page 1: $p_i$ is the judge's distribution on item $i$, $m_i=\sum_r r\,p_i(r)$ its mean, $t_i$ the target mean, $\ttil_i=t_i-\bar t$, $n$ items, $R=\{0,\dots,K-1\}$.
+
+\textbf{R1, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item Pearson correlation across items: $\rho=\dfrac{\sum_i(m_i-\bar m)(t_i-\bar t)}{\sqrt{\sum_i(m_i-\bar m)^2\sum_i(t_i-\bar t)^2}}$, and $t_i-\bar t=\ttil_i$.
+\item Expand the numerator: $\sum_i(m_i-\bar m)\ttil_i=\sum_i m_i\ttil_i-\bar m\sum_i\ttil_i$.
+\item $\sum_i\ttil_i=\sum_i t_i-n\bar t=0$, so the second term vanishes and the numerator is $\sum_i\ttil_i m_i$.
+\item Insert $m_i=\sum_r r\,p_i(r)$: the numerator is $\sum_i\sum_r (r\,\ttil_i)\,p_i(r)$, linear in $p$ with fixed coefficients $c_{i,r}=r\,\ttil_i$.
+\item In the denominator, $\sum_i\ttil_i^2$ is a constant of the target and $\sum_i(m_i-\bar m)^2$ depends on the judge only through $m$. Hence $\rho=F(m_1,\dots,m_n)$. \hfill$\blacksquare$
+\end{enumerate}
+
+\textbf{R2, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item Replace $m_i$ by $a+b\,m_i$ with $b>0$. The average becomes $a+b\,\bar m$, so every centered value becomes $b\,(m_i-\bar m)$ and $a$ cancels.
+\item Numerator: $\sum_i\ttil_i\,b\,(m_i-\bar m)=b\sum_i\ttil_i m_i$ (R1).
+\item Denominator: $\sqrt{\sum\ttil_i^2\cdot b^2\sum(m_i-\bar m)^2}=b\sqrt{\sum\ttil_i^2\sum(m_i-\bar m)^2}$, using $b>0$.
+\item The factor $b$ cancels, so $\rho(a+b\,m)=\rho(m)$.
+\item $\rho=1$ iff the centered vectors $(m_i-\bar m)$ and $(\ttil_i)$ are positively proportional (equality in Cauchy--Schwarz), i.e. $m_i-\bar m=b\,\ttil_i$ with $b>0$, i.e. $m_i=a+b\,t_i$ with $a=\bar m-b\,\bar t$.
+\item Counting: $p_i$ has $K-1$ free parameters; fixing $m_i$ removes one, leaving $K-2$ per item, so $n(K-2)$ shape dimensions plus $(a,b)$ are free. \hfill$\blacksquare$
+\end{enumerate}
+
+\textbf{R3, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item Write $\rho=\dfrac{N}{\sqrt n\,s_t\,\lVert m-\bar m\rVert}$ with $N=\sum_i\ttil_i m_i$, $s_t^2=\frac1n\sum\ttil_i^2$, $s_m^2=\frac1n\sum(m_i-\bar m)^2$, so $\lVert m-\bar m\rVert=\sqrt n\,s_m$.
+\item $\partial N/\partial m_j=\ttil_j$. Because $\sum_i(m_i-\bar m)=0$, the centering term drops and $\partial\lVert m-\bar m\rVert/\partial m_j=(m_j-\bar m)/\lVert m-\bar m\rVert$.
+\item Quotient rule: $\dfrac{\partial\rho}{\partial m_j}=\dfrac{\ttil_j}{\sqrt n s_t\lVert m-\bar m\rVert}-\dfrac{N\,(m_j-\bar m)}{\sqrt n s_t\lVert m-\bar m\rVert^3}=\dfrac{\zeta_j-\rho\,z_j}{n\,s_m}=g_j$, with $\zeta_j=\ttil_j/s_t$, $z_j=(m_j-\bar m)/s_m$.
+\item $\partial m_i/\partial p_i(r)=r$, so $\partial\rho/\partial p_i(r)=r\,g_i$.
+\item Softmax $p_i(r')=e^{u_i(r')}/\sum_s e^{u_i(s)}$ gives $\partial p_i(r')/\partial u_i(r)=p_i(r')(\delta_{rr'}-p_i(r))$. Hence $\dfrac{\partial m_i}{\partial u_i(r)}=\sum_{r'}r'p_i(r')(\delta_{rr'}-p_i(r))=p_i(r)\,(r-m_i)$.
+\item Chain rule: $\partial\rho/\partial u_i(r)=p_i(r)(r-m_i)\,g_i$: the vector $p_i\circ(r-m_i)$ times the single number $g_i$.
+\item CE: $L_{CE}=-\sum_i\sum_r p^\ast_i(r)\log p_i(r)$, so $\dfrac{\partial L_{CE}}{\partial u_i(r)}=-\sum_{r'}\dfrac{p^\ast_i(r')}{p_i(r')}\,p_i(r')(\delta_{rr'}-p_i(r))=-p^\ast_i(r)+p_i(r)\sum_{r'}p^\ast_i(r')=p_i(r)-p^\ast_i(r)$. \hfill$\blacksquare$
+\end{enumerate}
+
+\textbf{R4, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item Let $q_m$ be the maximum-entropy distribution on $R$ with mean $m$ (an exponential tilt of the uniform: $q_m(r)\propto e^{\lambda r}$), and $m(P)$ the mean of $P$. Define $G(P)=H(q_{m(P)})-H(P)$; it is $\ge0$ because $q_{m(P)}$ maximizes entropy among all distributions with mean $m(P)$, and $P$ is one of them.
+\item Add and subtract: $\mathrm{CE}(P,q)=\mathrm{CE}(q_{m(P)},q)+C(P,q)$ with \[C(P,q)=\sum_r\big(P(r)-q_{m(P)}(r)\big)(-\log q(r)).\]
+\item $\mathrm{CE}(q_m,q)=H(q_m)+\mathrm{KL}(q_m\Vert q)$ (the identity $\mathrm{CE}=H+\mathrm{KL}$), and $H(q_m)=H(P)+G(P)$.
+\item Together: $\mathrm{CE}(P,q)=H(P)+G(P)+\mathrm{KL}(q_{m(P)}\Vert q)+C(P,q)$.
+\item If $-\log q(r)=\alpha+\beta r$ (log-affine, a ``1-D'' judge): $C=\alpha\sum_r(P-q_m)(r)+\beta\sum_r r\,(P-q_m)(r)=\alpha\cdot0+\beta\,(m(P)-m(P))=0$, since $P$ and $q_{m(P)}$ both sum to 1 and both have mean $m(P)$.
+\item Then $\mathrm{CE}(P,q)=H(P)+G(P)+\mathrm{KL}(q_{m(P)}\Vert q)$: the only part $q$ controls is the KL term, a function of the two means. $G(P)$ is the same for every 1-D judge. \hfill$\blacksquare$
+\end{enumerate}
+
+\textbf{R5, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item $\sum_{k=0}^{K-2}F_p(k)=\sum_{k=0}^{K-2}\sum_{r\le k}p(r)=\sum_r p(r)\,\#\{k:\ r\le k\le K-2\}=\sum_r p(r)(K-1-r)=K-1-m_p$ (for $r=K-1$ the count is $0=K-1-r$).
+\item Hence $\sum_k d_k=\sum_kF_p(k)-\sum_kF_q(k)=m_q-m_p$.
+\item Variance identity over the $K-1$ values $d_k$ with mean $\bar d=\frac{1}{K-1}\sum_kd_k$: $\sum_kd_k^2=(K-1)\bar d^{\,2}+\sum_k(d_k-\bar d)^2=\dfrac{(\sum_kd_k)^2}{K-1}+\sum_k(d_k-\bar d)^2$.
+\item With $\mathrm{RPS}=\sum_kd_k^2$ and step 2: $\mathrm{RPS}(p,q)=\dfrac{(m_p-m_q)^2}{K-1}+\sum_k(d_k-\bar d)^2$. Equality with the first term iff all $d_k$ are equal.
+\item TVD bound: $m_p-m_q=\sum_r r\,(p-q)(r)=\sum_r\big(r-\tfrac{K-1}2\big)(p-q)(r)$ because $\sum_r(p-q)(r)=0$. Since $\lvert r-\tfrac{K-1}2\rvert\le\tfrac{K-1}2$, $\lvert m_p-m_q\rvert\le\tfrac{K-1}2\sum_r\lvert p-q\rvert=(K-1)\,\mathrm{TVD}(p,q)$. \hfill$\blacksquare$
+\end{enumerate}
+
+\textbf{R6, step by step.}
+\begin{enumerate}\setlength{\itemsep}{1pt}
+\item CE: $\mathrm{CE}(p^\ast,p)-\mathrm{CE}(p^\ast,p^\ast)=\mathrm{KL}(p^\ast\Vert p)\ge0$, with equality iff $p=p^\ast$ (Gibbs' inequality). So CE is minimized only at $p^\ast$.
+\item RPS $=\sum_kd_k^2=0$ iff every CDF gap is $0$ iff $F_p=F_{p^\ast}$ iff $p=p^\ast$.
+\item TVD $=\frac12\sum_r\lvert p(r)-p^\ast(r)\rvert=0$ iff $p=p^\ast$.
+\item $\rho\le1$, and by R2 it equals 1 on the whole set $\{p:\ m_i=a+b\,t_i,\ b>0\}$, which contains many $p\ne p^\ast$. So $\rho$ is not uniquely maximized at $p^\ast$, and it cannot rank two judges whose means are affinely related to $t$. \hfill$\blacksquare$
+\end{enumerate}
 
 \section{Evaluation, as the page says it is ``wrong''}
 Using correlation of the judge's mean with human mean ratings as the evaluation metric has the R2 blindness: level, scale and spread are invisible, and three judges with $\rho=1$ (R6) differ by 18 nats of CE. The metrics that read the whole distribution are test CE, test TVD and test RPS (all lower is better), with Pearson and Spearman as sanity columns; Sanmi's point 4 (distributional accuracy when the output is read as a rating or distribution; rank agreement for ranking uses) matches. Caveat from the page: judges selected on Corr will tend to win on Corr metrics, so a Corr win on a Corr metric says little; the sweep reports both.
