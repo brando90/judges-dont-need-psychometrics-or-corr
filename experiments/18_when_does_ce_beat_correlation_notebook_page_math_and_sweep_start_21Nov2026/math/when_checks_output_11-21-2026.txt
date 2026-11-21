@@ -1,0 +1,18 @@
+W1 corr(m,t)= 0.9999999999999998
+W1 Brier excess mean= 0.01750000000000001 KL mean nats= 0.04075782741805726
+W2 s= 0 mean 1 var 0
+W2 s= 0.25 mean 1.0 var 0.5
+W2 s= 0.5 mean 1.0 var 1.0
+W2 RPS(unnorm) between (0,1,0) and (1/2,0,1/2)= 0.5
+W3 t,m 2.5 2.7 KL 0.0068871226880117195 approx (m-t)^2/(2V) 0.00685714285714287
+W3 t,m 1.5 1.8 KL 0.017913164169498858 approx (m-t)^2/(2V) 0.01958075111000759
+W3 t,m 3.5 3.0 KL 0.047610685115586596 approx (m-t)^2/(2V) 0.054390975305576635
+W3 CE-opt mean 2.9999999326075333 target mean 3.0
+W5 rho at Sigma^-1 c= 0.7978480264161344 numeric max= 0.7978479863284546 cos(angle)= 0.99999728304932
+W4 starts reaching rho>1-1e-6: 13 of 30; their (w,b): [(np.float64(1.3), np.float64(-0.4))]
+W4b c= 1.0 corr(m(cW),m(W))= 1.0 slope b= 0.9999999999999993
+W4b c= 0.3 corr(m(cW),m(W))= 0.9404818243022596 slope b= 0.35099907637116073
+W4b c= 0.1 corr(m(cW),m(W))= 0.8547744284948949 slope b= 0.1035184366331206
+W4b c= 0.03 corr(m(cW),m(W))= 0.8053327679175639 slope b= 0.029029396708210763
+W7 k= 1 corr(m,t)= 0.8942710073096833 corr(m,t_hat)= 0.5640508850330885 formula 0.565586645710337
+W7 k= 3 corr(m,t)= 0.8942710073096833 corr(m,t_hat)= 0.729742534578109 formula 0.73016921989115

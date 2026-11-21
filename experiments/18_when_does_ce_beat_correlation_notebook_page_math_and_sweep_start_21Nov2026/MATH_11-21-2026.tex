@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[margin=0.9in]{geometry}
 \usepackage{amsmath,amssymb,mathtools}
-\usepackage{booktabs,array,tabularx}
+\usepackage{booktabs,array,tabularx,longtable}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \newcommand{\Pj}{p^{\theta}_{j}}
 \newcommand{\Ps}{p^{\ast}_{j}}
@@ -15,6 +15,117 @@
 \end{center}
 
 \textbf{Date:} 11-21-2026. \textbf{By:} ultimate\_brando9 (Brando's AI assistant), Claude Sonnet 5.5, Claude Code headless harness; checks run by sympy 1.14, numpy/scipy, and Lean 4.22 with Mathlib (\texttt{math/}). Codex added the first-moment explanation and the small-data study on 11-21-2026. This file is the typeset form of \texttt{MATH\_11-21-2026.md} (same math, same numbers). As of 11-21-2026 13:57 PST, scoring conventions and domain conditions are explicit.
+
+\section*{What correlation can and cannot learn, and WHEN (11-21-2026)}
+\textbf{Bottom line.} Correlation (Corr) reads one number per artifact: the judge's mean rating $m_i$, and only up to a shift and a positive rescaling. Whether that costs anything compared with cross-entropy (CE) depends on three things: the rating scale ($K$), the model class (how much freedom it has beyond the mean) and the amount of data. In the population limit Corr loses level and scale always, and shape whenever $K\ge 3$ and the class has free shape; with little data the order can flip, because CE has more to estimate. ``Derived'' below means proved here (by hand, and numerically spot-checked where stated); ``measured'' means read off experiment 19 or 20; nothing is both unless said.
+
+\textbf{Notation.} Ratings $r\in\{0,\dots,K-1\}$, item $i=1,\dots,n$, judge distribution $p_i$, target distribution $p^\ast_i$, means $m_i=\sum_r r\,p_i(r)$ and $t_i=\sum_r r\,p^\ast_i(r)$, $\tilde t_i=t_i-\bar t$. A model class is a set $\mathcal Q=\{q_\theta\}$; $M(\theta)=(m_\theta(x_1),\dots,m_\theta(x_n))$ is its mean map.
+
+\subsection*{Table 1. Summary: condition $\to$ what Corr learns, cannot learn, what CE learns}
+{\small\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{2.1cm}@{}}
+\toprule
+Condition & Corr learns & Corr cannot learn & CE learns & Status\\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Rating scale (population limit, flexible class)}}\\
+$K=2$ (binary) & item ranking; the mean, hence the whole distribution, up to $(a,b)$ & level $a$ and scale $b$ (no shape exists to lose) & the mean exactly, hence the distribution & derived (W1)\\
+$K\ge3$ & item ranking up to $(a,b)$ & level, scale and $K-2$ shape directions per item (spread, skew, \dots) & the whole distribution & derived (W2, R2--R4)\\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Model class (population limit, $K\ge3$)}}\\
+Fully flexible per item & ranking only & level, scale, all shape & everything & derived (W2)\\
+One-parameter family per item, shape $=f(\text{mean})$ (binomial, beta-binomial with fixed overdispersion, tilted-uniform) & ranking & level and scale (shape is set by the family) & mean exactly; shape only as the family dictates, also if the truth lies outside it & derived (W3)\\
+Parametric, well-specified, and no affine copy of the truth inside the class (e.g.\ binary logistic-linear) & the truth (locally unique) & nothing, in the population limit & the truth & derived (W4); binary logistic checked numerically\\
+Linear mean $m=a+w\!\cdot\!\phi$ & the direction $w\propto\Sigma_\phi^{-1}c$ (best linear predictor of the mean) & offset, scale, any nonlinearity, spread, skew & log-linear structure of every category's probability (softmax-linear head) & derived (W5)\\
+Nonlinear mean model $m_\theta(x)$ & a nonlinear mean function, up to $(a,b)$ ($\rho=1$ if the truth mean is in the class) & spread and skew (outputs that do not enter $m_\theta$ get zero Corr gradient), level, scale & mean, spread, skew (if the head outputs a distribution) & derived (W6)\\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Amount of data (class: softmax-linear head, $K=6$; see Table~2 for numbers)}}\\
+Very few ratings (about 12) & a noisy ranking (target attenuated, W7) and a head that stays near uniform & spread, scale, level & CE overfits: it \textbf{loses} to Corr on RPS at 4 items & derived (form), measured (size)\\
+Around the number of CE-head parameters (about 24--48 ratings) & as above & as above & ties at 8 items, \textbf{wins} from 16 items $\times$ 3 ratings & measured\\
+Many ratings & ranking only; error on RPS stays at its floor & level, scale, shape (a bias that does not shrink with $n$) & distribution; error shrinks like $P/(2N)$ & derived (W7); measured to 512 items\\
+\bottomrule
+\end{longtable}}
+
+\subsection*{Table 2. WHEN CE beats Corr (measured; $>0$ means CE better on RPS)}
+{\small\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{3.7cm}@{}}
+\toprule
+Setting (experiment) & Very few data & Moderate data & Many data\\
+\midrule
+Synthetic, softmax-linear head, same init and ridge, 3 ratings per item, 200 seeds (exp.\ 20) & 4 items: $-0.027$ [$-0.032,-0.021$], CE better in 24\% of seeds & 8 items: tie ($+0.002$ [$-0.002,+0.007$]); 16 items: $+0.034$ [$0.031,0.036$], 96\% of seeds & 512 items: CE 0.003 vs Corr 0.075 RPS excess\\
+Same, 1 rating per item & loses below 32 items & 32 items: $+0.030$, 94\% & (not tabulated here)\\
+Real 75 artifacts, CE head vs Pearson head on judge scores, pools closed-15, all-59, historical-44 (exp.\ 20) & 3 training families: tie & 7 families and up: $+0.027$ to $+0.058$, intervals exclude 0 & 15 families: inside that range\\
+Real, open-weight 39 pool (exp.\ 20) & 3 families: $-0.037$ [$-0.055,-0.019$] (Corr better) & 7 and 15 families: tie & --\\
+Two calibration heads on four judges, about 12 training ratings (exp.\ 19, Codex) & open-weight Qwen pair: CE fit better by $+0.020$ [$+0.002,+0.052$]; closed-weight OpenAI pair: tie ($+0.0015$) & -- & --\\
+Picking one judge: Corr-selection vs CE-selection (exp.\ 20) & historical 44 three-vote judges: Corr better at every size ($-0.030$ to $-0.033$) & closed 3-vote 5: Corr better at 15 families ($-0.024$) & closed-15, open-39, all-59: CE selection better ($+0.011$ to $+0.063$)\\
+\bottomrule
+\end{longtable}}
+Not tested: binary ($K=2$) ratings, any class other than the softmax-linear head and the 3-parameter calibration head, and fresh judge runs (layer 4, in progress).
+
+\subsection*{W1. Binary ratings ($K=2$): the mean is the distribution}
+With $r\in\{0,1\}$: $m_i=0\cdot p_i(0)+1\cdot p_i(1)=p_i(1)$ and $p_i(0)=1-m_i$. So $p_i$ is a function of $m_i$; the fibre $\{p:\sum_r r\,p(r)=m\}$ is a single point ($K-2=0$ shape directions). By R2 the Corr-optimal set is $m_i=a+bt_i$ with $b>0$ and $m_i\in[0,1]$; CE (and RPS, which for $K=2$ equals $(F_p(0)-F_{p^\ast}(0))^2=(m_i-t_i)^2$, the Brier score) is minimized only at $m_i=t_i$. Hence Corr loses \emph{nothing about shape}; it loses level and scale only, and the cost of that is
+\[
+\text{excess Brier}=\frac1n\sum_i\big(a+(b-1)t_i\big)^2,\qquad
+\text{excess CE}=\frac1n\sum_i \mathrm{KL}\big(\mathrm{Bern}(t_i)\,\Vert\,\mathrm{Bern}(a+bt_i)\big).
+\]
+\emph{Example (computed).} $t=(0.2,0.5,0.8)$, $a=0.3$, $b=0.5$: $m=(0.4,0.55,0.7)$, $\rho=1$ exactly, yet excess Brier $=(0.2^2+0.05^2+0.1^2)/3=0.0175$ and excess CE $=0.0408$ nats.
+
+\subsection*{W2. Three or more levels: shape is free at fixed mean}
+For $K\ge3$ the fibre of the mean map at an interior point is a polytope of dimension $K-2$ (unknowns $p(0),\dots,p(K-1)$; two linear constraints: $\sum p=1$, $\sum r\,p=m$). \emph{Example, $K=3$, $m=1$.} Put $s=p(2)$. Then $p(1)=m-2s=1-2s$ and $p(0)=1-m+s=s$, so $p=(s,\,1-2s,\,s)$ for $s\in[0,\tfrac12]$ and $\mathrm{Var}=\sum_r (r-1)^2p(r)=2s$, from $0$ (the point mass at 1) to $1$ (half at 0, half at 2). Every $s$ has mean 1, so Corr cannot tell them apart. The cumulative distribution $F=(s,\,1-s)$ at the two thresholds, so the (unnormalized) RPS between the point mass ($s=0$) and the split ($s=\tfrac12$) is $(0-\tfrac12)^2+(1-\tfrac12)^2=\tfrac12$. With $n$ items this is $n(K-2)$ free shape dimensions plus $(a,b)$, which is R2.
+
+\subsection*{W3. Model class: a one-parameter family per item (shape $=f(\text{mean})$)}
+Let $q_\eta(r)\propto e^{\eta r}$ (tilted-uniform; binomial and similar families behave the same way). Its log-partition $A(\eta)=\log\sum_r e^{\eta r}$ is convex with $A'(\eta)=m(\eta)$ strictly increasing, so $\eta\leftrightarrow m$ is a bijection and $\mathrm{Var}_\eta=A''(\eta)=V(m)$ is a function of the mean: shape is tied to the mean.
+\begin{enumerate}
+\item \emph{Corr, free $\eta_i$ per item.} Optimal set $m_i=a+bt_i$, i.e.\ $\eta_i=A'^{-1}(a+bt_i)$: level and scale free, shape tied.
+\item \emph{CE, any target $p^\ast$ (inside the family or not).} $\mathrm{KL}(p^\ast\Vert q_\eta)=\text{const}-\eta\,t+A(\eta)$, whose derivative $-t+A'(\eta)$ vanishes at $m(\eta)=t$. So CE matches the target mean exactly (level and scale included) and the variance it then outputs is $V(t)$, \emph{not} the target's: the family cannot express more.
+\item \emph{Price of Corr's freedom.} For a mean error $\Delta=m-t$, $\mathrm{KL}(q_{\eta(t)}\Vert q_{\eta(m)})=A(\eta_m)-A(\eta_t)-A'(\eta_t)(\eta_m-\eta_t)\approx\tfrac12 A''(\eta_t)(\Delta\eta)^2$, and $\Delta\eta\approx\Delta/V(t)$, so
+\[
+\mathrm{KL}\approx\frac{(m-t)^2}{2\,V(t)}.
+\]
+\end{enumerate}
+(Computed check, $K=6$: $t=2.5$, $m=2.7$: exact KL 0.00689, approximation 0.00686; $t=3.5$, $m=3.0$: 0.0476 vs 0.0544. Misspecified target $p^\ast=(.3,.05,.05,.05,.05,.5)$: CE optimum has mean $3.0000$, the target mean $3.0$.)
+So in this class CE's advantage over Corr is \emph{calibration} (level and scale), weighted by $1/V$; neither learns spread beyond $V(m)$.
+
+\subsection*{W4. Parametric, well-specified classes: Corr can lose nothing}
+Suppose $p^\ast_i=q_{\theta^\ast}(\cdot\mid x_i)$. CE is strictly proper, so (with identifiability) its population optimum is $\theta^\ast$. The Corr-optimal set is
+\[
+\Theta_\rho=\{\theta:\ M(\theta)=a+b\,M(\theta^\ast),\ b>0\}\ \supseteq\ \{\theta^\ast\}.
+\]
+Corr loses nothing iff $\Theta_\rho=\{\theta^\ast\}$ (the class contains no other affine copy of the true mean function and $M$ is injective there). Whether that holds is a property of the class, not of Corr:
+\begin{itemize}
+\item \emph{Binary logistic-linear} $m_i=\sigma(w\phi_i+w_0)$. An affine copy $a+b\,\sigma(\cdot)$ is again a logistic of an affine score only for $a=0$, $b=1$ (the map $z\mapsto\sigma(z)$ is not closed under affine maps). Computed check: $n=50$ items, truth $(w,w_0)=(1.3,-0.4)$, 30 random starts maximizing $\rho$: the 13 that converged ($\rho>1-10^{-6}$) all reached the truth; the others stopped on saturated sigmoids. So here Corr identifies the truth (it need not do so for $K=6$).
+\item \emph{Near-affine closure.} For a softmax-linear head with logits $u=c\,W\phi$ and small $c$, $m(cW)=m_0+c\,L(W)+O(c^2)$ with $L$ linear in $W$ (derivation: expand the softmax mean at $u=0$, $L(W)=\frac1K\sum_r(r-m_0)(W\phi)_r$). So the class contains approximate affine copies $a+b\,m$ with $b=c$ of any \emph{weak-logit} truth, and $\rho$ cannot choose among scales. For a strong-logit truth the copy is not close to affine (computed: with logit standard deviation about 2.4, $\mathrm{corr}(m(0.1W),m(W))=0.85$ although the slope is $0.10$). Whether experiment 20's world is in the weak-logit regime was not tested; this is a possible reason, not a finding, why its Corr-trained heads kept a compressed mean (their mean RMSE 1.16 to 1.20 vs 1.14 to 1.15 for a constant forecast, measured).
+\end{itemize}
+
+\subsection*{W5. Linear mean model: Corr learns the best linear predictor, nothing more}
+Let $m_i=a+w^\top\phi_i$, $\Sigma=\mathrm{Cov}(\phi)$, $c=\mathrm{Cov}(\phi,t)$, $\sigma_t^2=\mathrm{Var}(t)$. Then $\rho(w)=\dfrac{w^\top c}{\sqrt{w^\top\Sigma w}\;\sigma_t}$. Cauchy--Schwarz in the $\Sigma$-inner product gives $(w^\top c)^2=\langle\Sigma^{1/2}w,\Sigma^{-1/2}c\rangle^2\le (w^\top\Sigma w)(c^\top\Sigma^{-1}c)$, with equality iff $\Sigma^{1/2}w\propto\Sigma^{-1/2}c$, i.e.
+\[
+w=\beta\,\Sigma^{-1}c\ (\beta>0),\qquad \rho_{\max}^2=\frac{c^\top\Sigma^{-1}c}{\sigma_t^2}=R^2_{\mathrm{OLS}} .
+\]
+So Corr learns the OLS direction (scale $\beta$ and offset $a$ free), and $\rho_{\max}<1$ whenever the true mean is not linear in $\phi$; there is no output for spread or skew. (Computed check, 4 features, $n=400$ with a nonlinear target: $\rho$ at $\Sigma^{-1}c$ is $0.79785$, a numerical maximizer reaches $0.79785$ at cosine $0.999997$ with it.) A softmax-linear CE head has per-category gradient $\partial L/\partial W_r=\mathbb E[\phi\,(q_r-p^\ast_r)]$ (R3), so its optimum matches the feature-weighted frequency of every category, hence the dependence of mean, spread and skew on $\phi$ as far as the log-linear form can express it.
+
+\subsection*{W6. Nonlinear mean model: nonlinear mean yes, spread no}
+If the model outputs a mean $m_\theta(x)$ from a rich class (a neural network) then $\rho(m_\theta,t)$ can reach $1$ whenever $t$ lies in the class, so a nonlinear mean is learned (up to $(a,b)$). Any extra output $s_\theta(x)$ (a spread or shape head) that does not enter $m_\theta$ has $\partial\rho/\partial s_\theta=0$ (R1: $\rho$ depends on $\theta$ only through $M(\theta)$): Corr never trains it. CE trains it through $\partial L_{CE}/\partial u_i(r)=p_i(r)-p^\ast_i(r)$.
+
+\subsection*{W7. Amount of data}
+\textbf{(i) The Corr target is noisy, and the noise is the spread.} With $k$ ratings per item the observed mean is $\hat t_i=t_i+\varepsilon_i$, $\mathbb E\varepsilon_i=0$, $\mathrm{Var}\,\varepsilon_i=\sigma_i^2/k$ where $\sigma_i^2=\mathrm{Var}(p^\ast_i)$ is the spread Corr ignores. If $\varepsilon$ is independent of $m$, $\mathrm{Cov}(m,\hat t)=\mathrm{Cov}(m,t)$ and $\mathrm{Var}(\hat t)=s_t^2+\bar\sigma^2/k$, so
+\[
+\rho(m,\hat t)=\frac{\rho(m,t)}{\sqrt{1+\bar\sigma^2/(k\,s_t^2)}}.
+\]
+(Computed check by simulation, $s_t^2=1$, $\bar\sigma^2=1.5$: $k=1$ gives $0.564$ against $0.566$ from the formula, $k=3$ gives $0.730$ against $0.730$; illustrative numbers, not from the experiments.) A flexible Corr-trained head can reach $\rho=1$ against $\hat t$ by $m_i=a+b\hat t_i$, i.e.\ it memorizes the noise, which is why training correlation is not evidence of test quality at small $n$.
+
+\textbf{(ii) CE has more to estimate.} CE must fit a full distribution. For a well-specified head with $P$ free parameters and $N$ ratings, the classical (Wald) expansion gives expected excess risk $\approx P/(2N)$ nats for $N\gg P$; for $N$ of order $P$ or below the expansion does not apply and CE can overfit (a zero-probability category at a held-out rating costs unbounded loss, floored at $10^{-12}$ in the experiments). Corr's floor $B$ (W1--W6: level, scale, shape) does not depend on $N$. A heuristic crossover is where $P/(2N)\approx B$ in the same units: $N^\ast\approx P/(2B)$, so the more shape and scale the class leaves free, the larger $B$ and the earlier CE wins; the more parameters CE must fit, the later. This is a derivation of the form only: $B$ was not measured in nats. Measured (Table~2): the head has 6 features plus an intercept, so $P=(K-1)\times7=35$ identifiable weights (the experiment's own summary says about 40); CE loses at 4 items (12 ratings), ties at 8 items (24), wins from 16 items (48 ratings), or from 32 items with 1 rating each, the same order as $P$.
+
+\textbf{(iii) Exact tiny-sample case (experiment 19, Codex's derivation).} If the mean curve is known and the candidates differ only in spread, every defined Corr value is equal, so Corr can only follow its tie rule, whatever $N$. CE with three ratings (one per input type) already moves: conditional-variance squared error 0.02464 (high-spread truth) against 0.16 for Corr's low-spread default; for a low-spread truth Corr's default is exactly right (0) and CE is worse (0.04768). So Corr can win at tiny $N$ only when its default happens to match the truth; it cannot improve with more data.
+
+\textbf{(iv) Selecting one judge.} With fixed judges, Corr selects the best-ranking judge, CE the best-calibrated. Which wins depends on whether the pool's calibration differs more than its ranking: measured, Corr selection wins in the 44 historical 3-vote judges, CE selection in the closed native-probability 15, the open-weight 39 and all 59 (Table~2). A reason (coarse three-vote probabilities with zero entries are expensive under CE) is plausible and was not tested here.
+
+\subsection*{Derived vs measured (one list)}
+\begin{itemize}
+\item \textbf{Derived (proof here):} Corr is a function of the means up to $(a,b)$ (R1, R2); binary case loses level and scale only (W1); $K-2$ free shape dimensions (W2); one-parameter families: CE matches the mean, Corr does not, and the price is $\approx(m-t)^2/(2V)$ (W3); the Corr-optimal set in a well-specified class (W4); the OLS direction for a linear mean (W5); zero Corr gradient on outputs outside the mean (W6); noise attenuation $1/\sqrt{1+\bar\sigma^2/(ks_t^2)}$ and the $P/(2N)$ form (W7).
+\item \textbf{Computed checks (CPU, numpy/scipy, this run):} W1 example, W3 approximations, W4 binary logistic, W5 OLS direction, W7 attenuation, and the near-affine closure caveat in W4.
+\item \textbf{Measured (experiments 19 and 20, CPU, \$0, no new model calls):} every threshold in Table~2.
+\item \textbf{Not shown:} that Corr loses in the binary case in practice; the measured crossovers for any class other than the two heads above; the reason for the Pearson-selection wins; $B$ in nats.
+\end{itemize}
 
 \section*{Only the first conditional moment enters Pearson}
 On each artifact $x$, a judge predicts six probabilities $q_x(r)$ for ratings $r=0,\ldots,5$.
