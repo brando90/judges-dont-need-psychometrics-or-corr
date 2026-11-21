@@ -1,0 +1,15 @@
+# Reading the historical rating-budget results | 11-21-2026
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/HOW_TO_READ_RESULTS.md>
+
+Date: 11-21-2026
+
+**TLDR:** Begin with the six paired held-out test ranked probability score (RPS) comparisons. The archive records retrospective selection among fixed forecasts on the same previously used human ratings.
+
+- **Data and selection.** Each of the 250 original task-family splits has four held-out test families. The 15 candidates, the artifact-level metrics, the applied probability floor and the tie rule are identical across objectives. The exhaustive searches use training data only. The training budgets vary both task-family count and the number of ratings retained per artifact. Split counts, metric definitions, uncertainty and prior exposure are in the [dated results](RESULTS_11-21-2026.md) and [prospectively fixed analysis design for this retrospective cache](PROTOCOL_11-21-2026.md).
+- **Machine-readable results.** The RPS difference in [paired_rps.csv](paired_rps.csv) is held-out test RPS for the Pearson-selected judge minus held-out test RPS for the subtrahend selector named in that row. Positive favors the subtrahend. The six Pearson-selected minus constant rows are equal-weight paired descriptive estimates with empty interval fields and zero draws. Each reported pointwise 95% credible interval uses 1,000 independent draws of weights on the 19 *families*, shared across overlapping splits, with reselection each time. In [scores.csv](scores.csv), blank correlations are undefined and each metric has its own valid-split denominator. [Selection counts](selection_counts.csv) describe the original 250 splits per budget and selector.
+- **Reproduce.** Run `python3 analyze.py` with NumPy and SciPy from this folder, then `python3 verify.py`. The script finds the exact, hash-verified historical input files from the repository's experiments directory. `python3 report.py` renders the figure from the public summary with Matplotlib. The raw historical ratings remain in their original private location.
+
+As of 11-21-2026 13:08 PST, the test Spearman column uses midranks of exact raw-label means and archived decimal forecast means. The independent verifier checks all 18 selected-judge Spearman means using decimal arithmetic for model outputs and rational arithmetic for raw human ratings. The six primary RPS differences and their intervals are also available in the [cross-protocol reconciliation](../../reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md).
+
+As of 11-21-2026 13:17 PST, the historical results report both controls explicitly. Held-out individual-rating losses average first over ratings within an artifact, then equally over test artifacts in each split, then equally over the 250 splits. The verifier reconstructs six constant baselines from individual training counts and checks all 18 paired point estimates against direct individual-rating losses.

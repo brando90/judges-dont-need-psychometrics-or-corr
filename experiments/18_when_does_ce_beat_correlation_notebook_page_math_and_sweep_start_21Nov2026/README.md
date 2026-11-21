@@ -1,9 +1,13 @@
 # Experiment 18: when does cross-entropy (CE) beat correlation? Notebook page, per-term math, and a sweep over data amount, flexibility, regularization and rater noise (started 11-21-2026)
 
-**Status:** started 11-21-2026 11:23 AM. Step 1 (transcription and images) done and pushed; steps 2-3 (math, sweep) planned, marked below as planned until a script prints the numbers.
+**Status as of 11-21-2026:** The transcription, mathematics, two synthetic sweeps and retrospective human-rating sweep are complete. The [sweep results](RESULTS_11-21-2026.md) and [matched-protocol reconciliation of single-judge selection](reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md) report how the conclusions depend on the judge pool and scoring protocol.
 
-**Doc link:** none yet (one dated Google Doc will be added here when the results exist).
-**TLDR:** Brando's notebook page (11-21-2026) asks for (a) the equation per loss term of the correlation objective versus CE and a clear, checked proof that Pearson is only a function of the judge's mean (linear), and (b) the experiment that says when CE wins. This folder holds the page and Sanmi Koyejo's 11-16-2026 5:15 PM Discord message as images plus a word-for-word transcription, then the math and the sweep.
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/README.md>
+**TLDR:** Brando's notebook page (11-21-2026) asks for (a) the equation per loss term of the correlation objective versus CE and a checked derivation of what Pearson correlation between mean ratings can identify, and (b) the experiment that says when CE wins. This folder holds the page and Sanmi Koyejo's 11-16-2026 5:15 PM Discord message as images plus a word-for-word transcription, then the math and the sweep.
+
+## Rating budgets and conditional spread
+
+As of 11-21-2026 11:35 PST, the matched historical rating-budget study, the independent shape simulation, and the four-input calculation have run. [Findings and full metric panels](conditional_shape_and_rating_budget/README.md) · [Mathematics](conditional_shape_and_rating_budget/MATH_11-21-2026.md) · [Google Doc](https://docs.google.com/document/d/1dcu-9M48NlBrCf77CgZj1Of8J0Hnj7_yOh9hC_nbbaE/edit). The [companion sweep](RESULTS_11-21-2026.md) varies model flexibility and rater noise. Its sample-size crossovers describe the fitted models, optimizers and data generators tested. The [matched historical analysis](reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md) found opposite winners in two judge pools on the same human ratings.
 
 ## Files
 - [TRANSCRIPTION_11-21-2026.md](TRANSCRIPTION_11-21-2026.md): the handwritten page and Sanmi's five points, transcribed (unclear spots marked).
@@ -30,7 +34,7 @@
 6. (B) At n <= 8 no selection rule is distinguishable from picking the constant/random candidate; Pearson selection is not worse than CE selection (about 60%).
 **Reading rule:** a cell counts as "CE wins" only if the 95% bootstrap interval (over seeds) of the paired difference excludes 0 on test RPS and CE excess both; "tie" if both include 0. Everything is reported, including cells that go against these guesses.
 
-## Plan (planned, not done)
+## Original plan (recorded before the sweeps)
 1. Math (page TODO): per-loss-term equations for Pearson correlation of a judge distribution against a target distribution, versus CE, RPS and TVD; proof by hand, sympy and numeric checks; Lean only if feasible.
 2. Sweep (builds on, does not redo, experiments 05, 08, 11, 15, 16, 17): when CE wins as a function of n, judge flexibility, regularization and rater noise; primary test metrics CE, TVD and RPS; Pearson and Spearman secondary.
 3. Results doc with the answer to "when does CE win?" in its first lines.

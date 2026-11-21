@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run one Gemini Carbon High review from the account owner's Terminal."""
 import argparse
+import gzip
 import hashlib
 import json
 import subprocess
@@ -11,36 +12,17 @@ from tempfile import TemporaryDirectory
 STUDY = Path(__file__).resolve().parents[1]
 MODEL = "gemini-4-carbon-high"
 PACKET_SHA256 = "6f6564f6e687097ffb4659ccc7dc14d62482350aefeec84cffefa0a3501f5b65"
-BRIEF = (
-    "Perform ONE light scientific review. Check whether reported differences, denominators, loss definitions, "
-    "math and finite-sample interpretation follow from the design and results. Check split handling, ties, "
-    "conditional family uncertainty, stage of model fitting versus selection, exact versus empirical claims. "
-    "Flag concrete errors with file and correction. Give a verdict PASS or FIX REQUIRED and severity. "
-    "Do not edit files. Only the numeric, procedural and theoretical claims in this package are under review.\n"
-)
-SOURCES = (
-    "README.md", "MATH_11-21-2026.md", "PROTOCOL.md", "results.md",
-    "historical_rating_budget/PROTOCOL_11-21-2026.md",
-    "historical_rating_budget/RESULTS_11-21-2026.md",
-    "input_ablation/README.md", "scripts/run.py", "historical_rating_budget/analyze.py",
-)
-
-
-def build_packet():
-    sections = [BRIEF.encode()]
-    for name in SOURCES:
-        sections.append(f"===== {name} =====\n".encode() + (STUDY / name).read_bytes())
-    return b"\n\n".join(sections)
+ARCHIVE = STUDY / "review" / "carbon-high-input-11-21-2026.txt.gz"
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="verify the packet locally and exit")
-    parser.add_argument("--packet", type=Path, help="read the archived packet instead of building it")
+    parser.add_argument("--packet", type=Path, help="read a plain-text copy of the archived review packet")
     parser.add_argument("--output", type=Path, default=STUDY / "carbon-high.json")
     args = parser.parse_args()
 
-    packet = args.packet.read_bytes() if args.packet else build_packet()
+    packet = args.packet.read_bytes() if args.packet else gzip.decompress(ARCHIVE.read_bytes())
     digest = hashlib.sha256(packet).hexdigest()
     if digest != PACKET_SHA256:
         parser.exit(1, f"Packet differs from the archived review input: {digest}\n")

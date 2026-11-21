@@ -1,0 +1,10 @@
+{
+  "python": "3.11.6",
+  "numpy": "2.2.6",
+  "scipy": "1.16.3",
+  "full_replications": 256,
+  "total_rows": 32256,
+  "protocol_sha256": "f4a04e634adf5d0bc53b955053f3f425331a3d93956858be61aded05cc525eb7",
+  "script_sha256": "6ac6bf5968a5e4d26272fded40826aef5d59b0e2c1b597d0a9e327dc21b6b8f0",
+  "uncompressed_csv_sha256": "bd014096163bea8e8eb39d4d02d1064468d6d0b5016be726e4b7a0040ca9925a"
+}
