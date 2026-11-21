@@ -16,10 +16,12 @@
 | Index: experiment 07 "crossovers unchanged"; 01 and 02 "paper integration remains open" | Right (integration is in commits 3bfd866 and 18f529e) | `experiments/README.md` fixed |
 | Experiment 00 README heading says 01 | Right | Fixed |
 | Version 27: "1D bottleneck" | Overclaim: a nonlinear scalar calibrator was untested | Experiment 17 tested it (done 11-20-2026): one number loses nothing in the toys; the gap is score quality |
-| Version 27: rater severity "cannot be separated" | Contradicted by experiment 15 (constant offsets are estimable and small) | Open in the paper text; the status file says so |
-| Version 27: "small-sample gains on human ratings remain untested" | Stale: experiment 10's learning curve is retrospective human small-n | Open in the paper text |
-| Experiment 09 TLDR-end: blanket "native probabilities beat the constant"; digit-logprob pool is worse than the constant on CE | Right | Open: wording not yet changed |
+| Version 27: rater severity "cannot be separated" | Contradicted by experiment 15 (constant offsets are estimable and small) | Fixed 11-20-2026 in `paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html` (two places) and `AAAI_2027_EvalAIScientists_JudgesKL/7-discussion.tex`, `10-supplementary.tex`: constant offsets estimable and small (exp 15), interaction and scale use still confounded |
+| Version 27: "small-sample gains on human ratings remain untested" | Stale: experiment 10's learning curve is retrospective human small-n | Fixed 11-20-2026 in the same HTML (conjecture paragraph): exp 10 and exp 09 retrospective learning curves on the human data, CE ahead from 5 training families (about 52 ratings), no prospective test |
+| Experiment 09 TLDR-end: blanket "native probabilities beat the constant"; digit-logprob pool is worse than the constant on CE | Right | Fixed 11-20-2026: `experiments/09_*/results.md` TLDR-end (and `scripts/make_reports.py`) now says verbalized (1.629) and calibrated-harness (1.606) beat the 1.887 constant, raw digit-logprob mix (2.273) does not; dated correction line added |
 | Experiment 09 "AST scaffold" is a regex summary; experiment 10 key names `H2_ast_gpt61__*` ran `gpt-5.4-mini` | Right, already disclosed in the reports | Open: label change needs a rename of result keys |
 | Experiment 10 grid: registered five-fold five-value, executed three folds and c in {0.1, 1, 10} | Right, a disclosed deviation | Open |
 | Human-ceiling and theorem-count numbers differ between experiments 09 and 10 | Different definitions (leave-one-rater-out loss vs estimated floor; count vs ratio) | Open: definitions to be put side by side |
 | Experiment 05 forecast with zero mass on ratings 1 to 4 gives finite CE | Not confirmed or refuted in this pass | Open |
+
+**Update 11-20-2026 (late):** the three wording claims above are fixed in the repo with dated notes. The "1D bottleneck" wording in Version 27 is listed, not changed: it waits on Brando's agreement (experiment 17). The published Claude artifact was not touched; the rebuilt HTML still has to be re-published for the new wording to show there.

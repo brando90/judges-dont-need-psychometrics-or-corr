@@ -4,7 +4,7 @@ The synthetic construction deliberately includes the oracle and varies distribut
 The language-model prompt, harness and LoRA comparisons add real probability forecasts, yet all reuse one retrospective 75-artifact human dataset with prior exposure and unverified reference hashes.
 
 Proper-loss training beat correlation from 12 ratings on informative-mean targets and 192 ratings under dispersion shifts (subject to non-convex optimizer budgets).
-With 2--3 raters per item, rater severity and item ambiguity remain confounded; if spread is mostly rater error, the expected universe score is the target.
+With 2--3 raters per item, constant rater offsets are estimable and small (about $0.1$ rating points, about $2\%$ of within-artifact variance), but rater-by-item interaction and scale use remain confounded with item ambiguity; if spread is mostly rater error, the expected universe score is the target.
 Optimize scalar correlation only for mean ranking; when outputs serve as ratings or distributions, report proper losses alongside association, error and bias.
 
 \section{Conclusion}
