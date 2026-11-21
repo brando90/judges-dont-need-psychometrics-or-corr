@@ -19,7 +19,7 @@ for a_, (proto, unit) in zip(ax, [('C', 'training families'), ('M', 'training ta
     for pn in ['N15', 'N15s3', 'N15+H44', 'H44', 'H5']:
         cs = sorted([c for c in cells if c['pool'] == pn and c['proto'] == proto and c['k'] == 1], key=lambda c: c['n_train_units'])
         a_.plot([c['n_train_units'] for c in cs], [c['pearson_minus_ce'] for c in cs], marker='o', color=col[pn], label=pn)
-    a_.axhline(0, color='k', lw=.8); a_.set_xlabel(unit + (' (Codex splits)' if proto == 'C' else ' (real_n_sweep splits)')); a_.grid(alpha=.3)
+    a_.axhline(0, color='k', lw=.8); a_.set_xlabel(unit + (' (Codex splits)' if proto == 'C' else ' (real_n_sweep splits)')); a_.grid(True, alpha=.3)
 ax[0].set_ylabel('Pearson-selected minus CE-selected test RPS\n(positive = CE better), 1 rating per artifact')
 ax[0].legend(fontsize=8); fig.suptitle('Single-judge selection, same data: the sign follows the judge pool, not the split protocol (11-21-2026)', fontsize=10)
 fig.tight_layout(); fig.savefig('fig_reconcile.png', dpi=140)

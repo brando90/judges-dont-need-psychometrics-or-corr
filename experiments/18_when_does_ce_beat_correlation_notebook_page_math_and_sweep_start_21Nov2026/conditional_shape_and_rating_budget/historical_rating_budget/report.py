@@ -24,7 +24,7 @@ axis.invert_yaxis()
 axis.set_ylabel("Training families and\nratings per artifact")
 axis.set_xlabel("Held-out normalized ranked probability score (RPS)\n"
                 "Pearson-selected judge minus cross-entropy-selected judge")
-axis.grid(axis="both", color="#ddddda", lw=0.65)
+axis.grid(True, axis="both", color="#ddddda", lw=0.65)
 axis.set_axisbelow(True)
 axis.set_title("Single-judge selection on historical human ratings", loc="left", fontweight="bold")
 for name in ("top", "right"):

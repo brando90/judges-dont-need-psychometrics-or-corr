@@ -17,4 +17,4 @@ Read `AGENTS.md`, section “Reporting results: name the data, the metric and th
 4. **Uncertainty:** interval type, level, resampling unit and number of draws.
 5. **How the judge was chosen:** search space, objective and its data, optimizer or search, start and budget, and whether the optimum is guaranteed; a one-line version goes in every caption showing fitted or selected judges.
 
-Every plot axis label itself names its metric and split, never only the panel title; difference axes state their order. Data plots with numeric axes have gridlines (major, plus faint minor lines on log axes). Frozen result files are not rewritten; each experiment folder has a `HOW_TO_READ_RESULTS.md` instead.
+Every plot axis label itself names its metric and split, never only the panel title; difference axes state their order. For Python Matplotlib figures, call `ax.grid(True)` on every data subplot. Use visible major gridlines and faint minor gridlines on log axes. Frozen result files are not rewritten; each experiment folder has a `HOW_TO_READ_RESULTS.md` instead.

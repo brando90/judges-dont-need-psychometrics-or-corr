@@ -72,7 +72,7 @@ for axis,key in zip(axes,pool):
             axis.plot([lo,hi],[i+offset,i+offset],color=color,lw=2)
             axis.plot(d,i+offset,marker=symbol,color=color,label=('Training constant' if base=='constant' else 'Original forecast') if i==0 else None)
     axis.set_title(groups[key]);axis.set_xlabel("Held-out test squared moment loss\nCE-fitted minus reference")
-    axis.axvline(0,lw=1,color='#555');axis.grid(alpha=.23);axis.set_axisbelow(True)
+    axis.axvline(0,lw=1,color='#555');axis.grid(True, alpha=.23);axis.set_axisbelow(True)
 axes[0].set_yticks(range(len(metrics)),metric_names);axes[0].invert_yaxis();axes[0].legend(fontsize=8,title="Reference",loc='upper left')
 fig.suptitle('What did calibration with one rating per artifact add?',fontsize=14)
 fig.text(.5,.08,'Three training families, 12.1 ratings on average. Negative favors the cross-entropy (CE) fit. Raw ratings are divided by five.\n'

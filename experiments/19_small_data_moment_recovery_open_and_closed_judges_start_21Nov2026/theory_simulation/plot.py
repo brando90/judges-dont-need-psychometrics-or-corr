@@ -22,7 +22,7 @@ for ax, shape, title in zip(axes, ["low", "high"], ["True spread is low", "True 
     ax.set_title(title)
     ax.set_xlabel("Total training ratings across three types")
     ax.set_xticks([3,6,12,18,24,36])
-    ax.grid(axis="both", color="#dcdcd7", lw=0.65)
+    ax.grid(True, axis="both", color="#dcdcd7", lw=0.65)
     ax.set_axisbelow(True)
     for edge in ("top","right"):
         ax.spines[edge].set_visible(False)

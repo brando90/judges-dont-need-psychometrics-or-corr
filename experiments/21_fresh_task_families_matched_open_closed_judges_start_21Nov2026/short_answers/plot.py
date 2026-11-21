@@ -5,7 +5,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.ticker import FormatStrFormatter
+from matplotlib.ticker import FormatStrFormatter, LogLocator, NullFormatter
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
@@ -39,6 +39,8 @@ for j, (judge, title) in enumerate((("qwen","Qwen3.5-9B (open weights)"),("claud
     bottom.set_xscale("log",base=2);bottom.set_xticks(x, labels=[str(k) for k in x])
     for ax in (top,bottom):
         ax.minorticks_on()
+        ax.xaxis.set_minor_locator(LogLocator(base=2, subs=[np.sqrt(2)]))
+        ax.xaxis.set_minor_formatter(NullFormatter())
         ax.grid(True,which="major",color="#d4d8d9",lw=.65)
         ax.grid(True,which="minor",color="#e6e8e8",lw=.35,alpha=.65)
         ax.set_axisbelow(True)
