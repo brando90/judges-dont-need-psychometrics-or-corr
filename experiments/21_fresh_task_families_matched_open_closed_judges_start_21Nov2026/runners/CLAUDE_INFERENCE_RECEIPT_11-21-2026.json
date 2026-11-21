@@ -1,0 +1,41 @@
+{
+  "title": "Matched closed-weight judge runs | 11-21-2026",
+  "date": "11-21-2026",
+  "as_of": "11-21-2026",
+  "model": "claude-sonnet-5",
+  "effort": "low",
+  "transport": "Native Claude client, included subscription, one turn per item, no tools, no content retries. The runner rejected overage events and required first-party authentication.",
+  "datasets": {
+    "short_answers": {
+      "successful_calls": 160,
+      "parse_outcomes": {
+        "valid": 160
+      },
+      "raw_jsonl_sha256": "957d2036fc2a099057caecb4940a538e47d113707dff0ada1c58a23f8f7e93c8",
+      "bundle_sha256": "f07d4df247dfa15c041e98b90ec120dfee6063d7442f6c5e6edb2ef32136e2ed",
+      "cli_version": "2.1.329",
+      "provider_usage_tokens": {
+        "input_tokens": 150416,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0,
+        "output_tokens": 5717
+      }
+    },
+    "veribench": {
+      "successful_calls": 175,
+      "parse_outcomes": {
+        "valid": 160,
+        "invalid_uniform": 15
+      },
+      "raw_jsonl_sha256": "6dfaa9738a03a8a6aa621e3f1e983af7175f78d282199d8ddd088cd36e5b75f3",
+      "bundle_sha256": "8fb986600708fb323fea37f17daf24825d5295d9ef2a022ab526ba014f39d51d",
+      "cli_version": "2.1.329",
+      "provider_usage_tokens": {
+        "input_tokens": 350,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 2807738,
+        "output_tokens": 11126
+      }
+    }
+  }
+}

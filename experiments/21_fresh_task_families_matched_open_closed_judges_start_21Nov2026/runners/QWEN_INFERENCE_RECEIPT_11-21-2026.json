@@ -1,0 +1,150 @@
+{
+  "title": "Two open-weight judge inference runs | 11-21-2026",
+  "date": "11-21-2026",
+  "as_of": "2026-11-21T22:35:07.824183Z",
+  "protocol_commit": "ff2f07a",
+  "frozen_runner_sha256": "b254a45f3af7382933b548a154ccfffe4a6885c71a7ac7bb5a34f96d857fd480",
+  "model_sources": [
+    "https://ollama.com/library/qwen3.5:9b-q4_K_M",
+    "https://huggingface.co/Qwen/Qwen3.5-9B"
+  ],
+  "quantization": "Q4_K_M; GGUF model blob SHA-256 02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d",
+  "stateless_request": "Each item supplies exactly its frozen system message and user message to one loopback Ollama chat request. Thinking and structured JSON decoding were disabled. Identical text is independently verified by recomputing the SHA-256 of each canonical message pair.",
+  "token_audit": "Local llama.cpp loaded the exact GGUF vocabulary without evaluating model weights. Rendered the Qwen/Qwen3.5-9B upstream chat template at c202236235762e1c871ad0ccb60c8ee5ba337b9a, with enable_thinking=false and the assistant generation prefix, then counted tokens including chat control tokens. Compared each count to prompt_eval_count and checked context capacity including generated tokens.",
+  "receipt_commitment": "In frozen request order, hash the complete bytes of each private JSON receipt with SHA-256. Concatenate the 32-byte binary digests, then SHA-256 that concatenation. Each receipt binds the prompt bundle, exact message pair, full native request, model manifest, raw response and runtime timings.",
+  "parser": "Unedited output processed with the preregistered collect.py parser. Invalid forecasts retain the uniform fallback. All native completions, including malformed forecasts, are represented. Forecast status does not use human labels.",
+  "transport_setup": "One Linux startup was stopped by the model-digest guard before any chat request. Installing the original registry manifest in place of the Mac-specific wrapper made the server report the required digest. All 175 VeriBench items then ran on the same H200. The server was stopped on completion and GPU memory returned to zero. Local and Linux inference used Ollama 0.40.8 with the identical quantization and upstream model digest.",
+  "runtime_cost": "Existing local hardware and group-owned GPU; zero provider-billed model calls.",
+  "datasets": {
+    "short_answers": {
+      "completed_utc": "2026-11-21T22:35:07.824183Z",
+      "distinct_ids": 160,
+      "hardware": "Apple M1 Max, MacBookPro18,2, 64 GiB unified memory; Metal",
+      "joined_per_request_digests": {
+        "messages": true,
+        "request": true
+      },
+      "json_mode": false,
+      "model": "qwen3.5:9b-q4_K_M",
+      "model_manifest_sha256": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "options": {
+        "num_ctx": 16384,
+        "num_predict": 384,
+        "seed": 20261121,
+        "temperature": 0
+      },
+      "prompt_tokens": {
+        "max": 259,
+        "median": 199.0,
+        "min": 166,
+        "total": 32050
+      },
+      "reasons": {
+        "stop": 160
+      },
+      "receipt_aggregate_sha256": "f3c2b609efabdb92439247d393294feb659433769da8390efe09c7ca4357ff0e",
+      "receipts": 160,
+      "request_bundle_sha256": "f07d4df247dfa15c041e98b90ec120dfee6063d7442f6c5e6edb2ef32136e2ed",
+      "response_tokens": {
+        "max": 43,
+        "median": 36.5,
+        "min": 34,
+        "total": 5867
+      },
+      "runner": "Ollama",
+      "thinking": false,
+      "transport": "loopback HTTP",
+      "version": "0.40.8",
+      "wall_seconds": {
+        "first": 1.8165653749892954,
+        "median": 5.266991958502331,
+        "total": 777.9068561618915
+      },
+      "per_request_prompt_token_counts_matching_independent_gguf_tokenization": 160,
+      "maximum_input_plus_generated_tokens": 298,
+      "forecast_status_counts": {
+        "valid": 141,
+        "invalid_uniform": 19
+      },
+      "invalid_forecast_reasons": {
+        "sum_outside_frozen_tolerance": 19
+      },
+      "forecast_status_by_split": {
+        "all": {
+          "valid": 141,
+          "invalid_uniform": 19
+        }
+      },
+      "generation_calls_with_response": 160,
+      "generation_transport_failures": 0,
+      "content_retries": 0
+    },
+    "veribench": {
+      "completed_utc": "2026-11-21T22:31:52.624982732Z",
+      "distinct_ids": 175,
+      "hardware": "skampere2 single NVIDIA H200 CUDA (all 33 layers); no other device in run",
+      "joined_per_request_digests": {
+        "messages": true,
+        "request": true
+      },
+      "json_mode": false,
+      "model": "qwen3.5:9b-q4_K_M",
+      "model_manifest_sha256": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "options": {
+        "num_ctx": 65536,
+        "num_predict": 384,
+        "seed": 20261121,
+        "temperature": 0
+      },
+      "prompt_tokens": {
+        "max": 36184,
+        "median": 8539,
+        "min": 1428,
+        "total": 1722523
+      },
+      "reasons": {
+        "stop": 175
+      },
+      "receipt_aggregate_sha256": "986368f80c4a400b0a0cb88e577b96205af91f1c9cc370c4d7e9a8dd13b04c62",
+      "receipts": 175,
+      "request_bundle_sha256": "8fb986600708fb323fea37f17daf24825d5295d9ef2a022ab526ba014f39d51d",
+      "response_tokens": {
+        "max": 41,
+        "median": 36,
+        "min": 29,
+        "total": 6276
+      },
+      "runner": "Ollama",
+      "thinking": false,
+      "transport": "SSH multiplexed to owned Stanford host, loopback HTTP on execution host, copied finished raw receipts to private Mac output directory",
+      "version": "0.40.8",
+      "wall_seconds": {
+        "first": 79.77488555014133,
+        "median": 1.638459062203765,
+        "total": 400.60574434511364
+      },
+      "per_request_prompt_token_counts_matching_independent_gguf_tokenization": 175,
+      "maximum_input_plus_generated_tokens": 36218,
+      "forecast_status_counts": {
+        "valid": 169,
+        "invalid_uniform": 6
+      },
+      "invalid_forecast_reasons": {
+        "sum_outside_frozen_tolerance": 5,
+        "wrong_bin_count": 1
+      },
+      "forecast_status_by_split": {
+        "may_development": {
+          "valid": 69,
+          "invalid_uniform": 6
+        },
+        "set_n_test": {
+          "valid": 100
+        }
+      },
+      "generation_calls_with_response": 175,
+      "generation_transport_failures": 0,
+      "content_retries": 0
+    }
+  }
+}

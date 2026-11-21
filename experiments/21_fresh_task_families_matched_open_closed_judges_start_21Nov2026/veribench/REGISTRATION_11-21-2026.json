@@ -1,0 +1,168 @@
+{
+  "combined_requests_sha256": "8fb986600708fb323fea37f17daf24825d5295d9ef2a022ab526ba014f39d51d",
+  "date": "11-21-2026",
+  "distinct_operation_cases": 56,
+  "draws_per_budget": 200,
+  "fitted_source_sha256": "ca10db3b8ca67ec02d1bd2ea49a6c50705d3574c33f5364c60be975fb69420b7",
+  "grid": [
+    [
+      1.0,
+      0,
+      0
+    ],
+    [
+      0.5,
+      0,
+      0
+    ],
+    [
+      1.0,
+      -1,
+      0
+    ],
+    [
+      1.0,
+      0,
+      -1
+    ],
+    [
+      1.0,
+      0,
+      1
+    ],
+    [
+      1.0,
+      1,
+      0
+    ],
+    [
+      2.0,
+      0,
+      0
+    ],
+    [
+      0.5,
+      -1,
+      0
+    ],
+    [
+      0.5,
+      0,
+      -1
+    ],
+    [
+      0.5,
+      0,
+      1
+    ],
+    [
+      0.5,
+      1,
+      0
+    ],
+    [
+      1.0,
+      -1,
+      -1
+    ],
+    [
+      1.0,
+      -1,
+      1
+    ],
+    [
+      1.0,
+      1,
+      -1
+    ],
+    [
+      1.0,
+      1,
+      1
+    ],
+    [
+      2.0,
+      -1,
+      0
+    ],
+    [
+      2.0,
+      0,
+      -1
+    ],
+    [
+      2.0,
+      0,
+      1
+    ],
+    [
+      2.0,
+      1,
+      0
+    ],
+    [
+      0.5,
+      -1,
+      -1
+    ],
+    [
+      0.5,
+      -1,
+      1
+    ],
+    [
+      0.5,
+      1,
+      -1
+    ],
+    [
+      0.5,
+      1,
+      1
+    ],
+    [
+      2.0,
+      -1,
+      -1
+    ],
+    [
+      2.0,
+      -1,
+      1
+    ],
+    [
+      2.0,
+      1,
+      -1
+    ],
+    [
+      2.0,
+      1,
+      1
+    ]
+  ],
+  "judges": [
+    "qwen",
+    "claude"
+  ],
+  "metrics_source_sha256": "3b40aafc580891c646502bdbdc3f1e06feac87f65f162ff836d0598e3499c6eb",
+  "models": {
+    "claude": "claude-sonnet-5",
+    "qwen": "qwen3.5:9b-q4_K_M"
+  },
+  "parse_statuses": {
+    "claude/invalid_uniform": 15,
+    "claude/valid": 160,
+    "qwen/invalid_uniform": 6,
+    "qwen/valid": 169
+  },
+  "protocol_sha256": "cf049a6242b78c783eefcc0bb1c45a7be988bcb0b92d7b0d966ee4516e537d1d",
+  "scheduled_test_cases": 100,
+  "selection_source_sha256": "7da6ec369cb0157b7b55d1a7f4f434dfb0f94d85fc5f868f9debebba212f7881",
+  "source_forecasts_sha256": [
+    "03e527f4ea8425ad9c7aa45a22eb0b1a021183c45478eb396e117a324095b1ad"
+  ],
+  "test_distributions_sha256": "686a8872568693b592b76ed823b0505f14c8041d36afbcdcab44b767866f92be",
+  "training_conditions": 2800,
+  "training_draws_sha256": "8c03093ab6d8b4507ff3aaf77679f3634d6471a37f9b98636394250a53a77061"
+}

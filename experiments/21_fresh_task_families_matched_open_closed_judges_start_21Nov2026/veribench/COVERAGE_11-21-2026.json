@@ -1,0 +1,37 @@
+{
+  "panels": {
+    "broader_all": {
+      "distinct_raters": 0,
+      "max_ratings_per_evaluable_artifact": null,
+      "min_ratings_per_evaluable_artifact": null,
+      "observed_artifacts": 0,
+      "observed_operation_groups": 0,
+      "released_ratings": 0,
+      "scheduled_artifacts": 100,
+      "scheduled_operation_groups": 24
+    },
+    "distinct_operations": {
+      "distinct_raters": 0,
+      "max_ratings_per_evaluable_artifact": null,
+      "min_ratings_per_evaluable_artifact": null,
+      "observed_artifacts": 0,
+      "observed_operation_groups": 0,
+      "released_ratings": 0,
+      "scheduled_artifacts": 56,
+      "scheduled_operation_groups": 14
+    },
+    "strict_all": {
+      "distinct_raters": 0,
+      "max_ratings_per_evaluable_artifact": null,
+      "min_ratings_per_evaluable_artifact": null,
+      "observed_artifacts": 0,
+      "observed_operation_groups": 0,
+      "released_ratings": 0,
+      "scheduled_artifacts": 100,
+      "scheduled_operation_groups": 24
+    }
+  },
+  "registered_forecasts_sha256": "fd5fefdfcb7066ce2576176132fe6da46ac2af55250621bf5044cee8e152aa3e",
+  "released_input_sha256": null,
+  "status": "no_released_ratings"
+}
