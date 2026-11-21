@@ -64,7 +64,7 @@ if __name__ == "__main__":
     row = dict(as_of_pacific=args.as_of, sheets=len(sheets), assigned=sum(a for a,_ in cells),
                nonempty_score_cells=sum(b for _,b in cells), individual_outcomes_downloaded=0)
     with args.output.open("w") as stream:
-        writer = csv.DictWriter(stream,fieldnames=row)
+        writer = csv.DictWriter(stream, fieldnames=row, lineterminator="\n")
         writer.writeheader()
         writer.writerow(row)
     print(row)
