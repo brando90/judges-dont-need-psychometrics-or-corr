@@ -28,6 +28,8 @@ IMAGE_PATTERNS = [
     "experiments/09_*/figures/*.png",
     "experiments/10_*/figures/*.png",
     "experiments/11_*/*.png",
+    "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/figures/*.png",
+    "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/figures/*.png",
     "experiments/archive/13_*/*.png",
 ]
 

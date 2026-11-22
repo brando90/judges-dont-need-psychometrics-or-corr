@@ -1,5 +1,5 @@
-% Supplementary Material S1-S4 (compiled only into arXiv edition via 00_main_arxiv.tex).
-% Provenance: Exp 01, Exp 06, Exp 08, Exp 09, and Exp 10.
+% Supplementary Material S1-S5 (compiled only into arXiv edition via 00_main_arxiv.tex).
+% Provenance: Exp 01, Exp 06, Exp 08, Exp 09, Exp 10, Exp 24, and Exp 25.
 % One sentence per line (Trigger Rule 13); strictly anonymized.
 
 \FloatBarrier
@@ -233,3 +233,33 @@ Four empirical boundaries govern interpretation of the human-rating and syntheti
     \item \emph{Optimizer budget on nonconvex objectives.} Synthetic results reflect finite-budget L-BFGS-B optimization ($400$--$2{,}000$ iterations across $1$--$9$ starts).
     While convex CE guarantees unique optima verified across $95{,}291$ exact-gradient refits, rank and correlation objectives lack global optimality certificates, strengthening the practical recommendation to prefer convex proper losses whenever flexible parameters are trained.
 \end{enumerate}
+
+\section{Public HelpSteer2 LoRA Scale and Cross-Family Replication (Experiments 24--25)}
+\label{sec:supp-helpsteer2}
+
+Table~\ref{tab:supp-helpsteer2} summarizes prompt-disjoint fine-tuning on \texttt{nvidia/HelpSteer2}~\citep{wang2024helpsteer2} ($1{,}038$ held-out validation responses across $519$ source prompts and $3{,}610$ human votes on $\{0,\dots,4\}$; leave-one-vote-out human reference $\text{RPS}=0.14567$, $\text{CE}=1.3585$ nats). Both objectives update top-4-block LoRA adapters ($\text{rank}=8$, $\alpha=16$) plus a $5$-digit rating head under matched \texttt{AdamW} learning-rate grids ($\{5\times 10^{-5}, 2\times 10^{-4}, 8\times 10^{-4}\}$), identical step schedules, validation-RPS checkpoint selection on disjoint $S_{\text{val}}$, and an identical strictly convex $7$-parameter L-BFGS-B CE calibrator fitted on disjoint $S_{\text{cal}}$ ($N_{\text{cal}}=B_{\text{total}}/4$). Uncertainty intervals use $4{,}000$ prompt-clustered bootstrap draws ($519$ clusters) reporting two-way crossed ($\text{draw}\times\text{prompt}$) simultaneous max-$t$ 95\% bands.
+
+\begin{table*}[t]
+\centering
+\caption{Experiments~24--25 on prompt-disjoint \texttt{HelpSteer2}: uncalibrated (raw) and $S_{\text{cal}}$-calibrated held-out test RPS across \texttt{Qwen/Qwen3-4B-Instruct-2507} ($1.85\text{M}$ trainable params) and \texttt{unsloth/Llama-3.1-8B-Instruct} ($2.64\text{M}$ params). Every value column reports held-out test RPS; differences report Pearson minus CE RPS ($>0$ favors CE) with two-way crossed simultaneous 95\% intervals ($\text{draw}\times\text{prompt}$).}
+\label{tab:supp-helpsteer2}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llccccc@{}}
+\hline
+Backbone (Study) & $B_{\text{total}}$ ($N_{\text{train}}$) & Draws & CE raw / cal. & Pearson raw / cal. & Base all-dev & Cal.\ Pearson $-$ CE [crossed 95\% CI] (wins) \\
+\hline
+\texttt{Qwen3-4B} (Exp.~24) & 512 (256) & 10 & $0.15577$ / $0.15632$ & $0.21766$ / $0.15754$ & $0.15537$ & $+0.00122$ [$-0.00136, +0.00380$] (6/10) \\
+\texttt{Qwen3-4B} (Exp.~24) & 2,048 (1,024) & 10 & $0.15213$ / $0.15200$ & $0.18376$ / $0.15309$ & $0.15514$ & $+0.00110$ [$-0.00031, +0.00250$] (9/10) \\
+\texttt{Qwen3-4B} (Exp.~25A) & 512 (256) & 20 & $0.15615$ / $0.15641$ & $0.21162$ / $0.15725$ & $0.15541$ & $+0.00084$ [$-0.00097, +0.00265$] (12/20) \\
+\texttt{Qwen3-4B} (Exp.~25A) & 2,048 (1,024) & 20 & $0.15214$ / $0.15210$ & $0.18448$ / $0.15284$ & $0.15482$ & $+0.00075$ [$-0.00045, +0.00194$] (13/20) \\
+\texttt{Qwen3-4B} (Exp.~25A) & 4,096 (2,048) & 20 & $0.15176$ / $0.15113$ & $0.17086$ / $0.15140$ & $0.15479$ & $+0.00027$ [$-0.00088, +0.00142$] (10/20) \\
+\texttt{Qwen3-4B} (Exp.~25A) & 8,192 (4,096) & 20 & $0.15119$ / $0.15080$ & $0.17090$ / $0.15089$ & $0.15481$ & $+0.00009$ [$-0.00117, +0.00136$] (11/20) \\
+\hline
+\texttt{Llama-3.1-8B} (Exp.~25B) & 256 (128) & 10 & $0.16678$ / $0.17346$ & $0.20798$ / $0.17194$ & $0.16350$ & $-0.00152$ [$-0.00487, +0.00182$] (4/10) \\
+\texttt{Llama-3.1-8B} (Exp.~25B) & 512 (256) & 10 & $0.16387$ / $0.16341$ & $0.20509$ / $0.16407$ & $0.16206$ & $+0.00066$ [$-0.00204, +0.00337$] (6/10) \\
+\texttt{Llama-3.1-8B} (Exp.~25B) & 1,024 (512) & 10 & $0.16078$ / $0.16104$ & $0.18644$ / $0.16147$ & $0.16203$ & $+0.00042$ [$-0.00271, +0.00355$] (5/10) \\
+\texttt{Llama-3.1-8B} (Exp.~25B) & 2,048 (1,024) & 10 & $0.16031$ / $0.16005$ & $0.19409$ / $0.15893$ & $0.16186$ & $-0.00112$ [$-0.00410, +0.00185$] (4/10) \\
+\hline
+\end{tabular}
+\end{table*}

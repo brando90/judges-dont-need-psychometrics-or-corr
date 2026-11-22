@@ -1,0 +1,124 @@
+{
+  "model_key": "llama31_8b",
+  "model_snapshot": "/dfs/scratch0/brando9/at1025_hf/hub/models--unsloth--Llama-3.1-8B-Instruct/snapshots/4699cc75b550f9c6f3173fb80f4703b62d946aa5",
+  "n_layers": 32,
+  "split_layer": 28,
+  "top_k_blocks": 4,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "chunk_size": 8,
+  "n_lora_modules": 28,
+  "n_trainable_params": 2641925,
+  "digit_token_ids": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "token_length_stats": {
+    "count": 4238,
+    "min": 233,
+    "p50": 631,
+    "p95": 1217,
+    "max": 2426,
+    "truncated_at_4096": 0
+  },
+  "gradient_verification": {
+    "pearson_two_pass_rel_error": 3.800994805352383e-16,
+    "passed": true
+  },
+  "left_pad_mask_invariance_max_prob_diff": 0.0004472509026527405,
+  "epoch0_unbatched_vs_left_padded_max_prob_diff": 0.004506707191467285,
+  "hf_wrapper_bf16_ulp_max_prob_diff": 0.0,
+  "two_step_full_vs_batched_equivalence": {
+    "ce": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    },
+    "pearson": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    }
+  },
+  "karpathy_controls": {
+    "label_in_prompt_hits": 5,
+    "label_in_prompt_details": [
+      {
+        "target": 0,
+        "pred_mode": 0,
+        "pred_mean": 0.9750847482355312
+      },
+      {
+        "target": 1,
+        "pred_mode": 1,
+        "pred_mean": 1.7715879827737808
+      },
+      {
+        "target": 2,
+        "pred_mode": 2,
+        "pred_mean": 2.66316364290833
+      },
+      {
+        "target": 3,
+        "pred_mode": 3,
+        "pred_mean": 3.289646092987823
+      },
+      {
+        "target": 4,
+        "pred_mode": 4,
+        "pred_mean": 3.980006404370215
+      }
+    ],
+    "blank_response_mean_grade": 0.12283399911248125,
+    "matched_20_mean_grade": 2.8650717912468124,
+    "shuffled_20_mean_grade": 0.42222391496757156,
+    "matched_20_pearson": 0.400167288947822,
+    "shuffled_20_pearson": 0.22939642733354668,
+    "overfit_1batch_16items_40steps": {
+      "ce": {
+        "ce_before": 2.6637021548069555,
+        "ce_after": 1.0877886929232956e-06,
+        "pearson_before": 0.36928685697868413,
+        "pearson_after": 0.9999999999968148,
+        "selected_lr": 0.0008,
+        "by_lr": {
+          "5e-05": {
+            "ce_after": 0.49069432188550344,
+            "pearson_after": 0.8839102664371444
+          },
+          "0.0002": {
+            "ce_after": 8.17762233069055e-05,
+            "pearson_after": 0.9999999943718975
+          },
+          "0.0008": {
+            "ce_after": 1.0877886929232956e-06,
+            "pearson_after": 0.9999999999968148
+          }
+        }
+      },
+      "pearson": {
+        "ce_before": 2.6637021548069555,
+        "ce_after": 3.7736055198459364,
+        "pearson_before": 0.36928685697868413,
+        "pearson_after": 0.624633827694758,
+        "selected_lr": 0.0002,
+        "by_lr": {
+          "5e-05": {
+            "ce_after": 4.175098663876524,
+            "pearson_after": 0.6216492125069213
+          },
+          "0.0002": {
+            "ce_after": 3.7736055198459364,
+            "pearson_after": 0.624633827694758
+          },
+          "0.0008": {
+            "ce_after": 6.763359987414123,
+            "pearson_after": 0.5494004352825874
+          }
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 618.19
+}

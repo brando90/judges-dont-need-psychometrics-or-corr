@@ -1,0 +1,124 @@
+{
+  "model_key": "qwen3_4b",
+  "model_snapshot": "/dfs/scratch0/brando9/at1025_hf/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554",
+  "n_layers": 36,
+  "split_layer": 32,
+  "top_k_blocks": 4,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "chunk_size": 8,
+  "n_lora_modules": 28,
+  "n_trainable_params": 1847813,
+  "digit_token_ids": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "token_length_stats": {
+    "count": 9230,
+    "min": 211,
+    "p50": 615,
+    "p95": 1215,
+    "max": 3805,
+    "truncated_at_4096": 0
+  },
+  "gradient_verification": {
+    "pearson_two_pass_rel_error": 3.800994805352383e-16,
+    "passed": true
+  },
+  "left_pad_mask_invariance_max_prob_diff": 1.3715936802327633e-05,
+  "epoch0_unbatched_vs_left_padded_max_prob_diff": 0.0072678327560424805,
+  "hf_wrapper_bf16_ulp_max_prob_diff": 0.0,
+  "two_step_full_vs_batched_equivalence": {
+    "ce": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    },
+    "pearson": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    }
+  },
+  "karpathy_controls": {
+    "label_in_prompt_hits": 5,
+    "label_in_prompt_details": [
+      {
+        "target": 0,
+        "pred_mode": 0,
+        "pred_mean": 1.248992859537168e-05
+      },
+      {
+        "target": 1,
+        "pred_mode": 1,
+        "pred_mean": 1.0000013462814934
+      },
+      {
+        "target": 2,
+        "pred_mode": 2,
+        "pred_mean": 2.0000127341476457
+      },
+      {
+        "target": 3,
+        "pred_mode": 3,
+        "pred_mean": 3.000886364230823
+      },
+      {
+        "target": 4,
+        "pred_mode": 4,
+        "pred_mean": 3.9999825250172947
+      }
+    ],
+    "blank_response_mean_grade": 0.16047938693666156,
+    "matched_20_mean_grade": 3.337498279519172,
+    "shuffled_20_mean_grade": 0.15868867817003096,
+    "matched_20_pearson": 0.36915913613279483,
+    "shuffled_20_pearson": 0.21217785382793167,
+    "overfit_1batch_16items_40steps": {
+      "ce": {
+        "ce_before": 7.290984838725779,
+        "ce_after": 6.707154606340385e-05,
+        "pearson_before": 0.2609681198163293,
+        "pearson_after": 0.9999999981703923,
+        "selected_lr": 0.0008,
+        "by_lr": {
+          "5e-05": {
+            "ce_after": 0.9697262992924058,
+            "pearson_after": 0.5185757732002595
+          },
+          "0.0002": {
+            "ce_after": 0.07186129212855333,
+            "pearson_after": 0.9979417718498419
+          },
+          "0.0008": {
+            "ce_after": 6.707154606340385e-05,
+            "pearson_after": 0.9999999981703923
+          }
+        }
+      },
+      "pearson": {
+        "ce_before": 7.290984838725779,
+        "ce_after": 4.978262683006474,
+        "pearson_before": 0.2609681198163293,
+        "pearson_after": 0.9706658564425404,
+        "selected_lr": 0.0008,
+        "by_lr": {
+          "5e-05": {
+            "ce_after": 6.486550916021427,
+            "pearson_after": 0.6452879931491393
+          },
+          "0.0002": {
+            "ce_after": 4.34639305751579,
+            "pearson_after": 0.6758759416491782
+          },
+          "0.0008": {
+            "ce_after": 4.978262683006474,
+            "pearson_after": 0.9706658564425404
+          }
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 436.31
+}
