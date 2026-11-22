@@ -1,0 +1,20 @@
+{
+  "drive_folder_id": "1QKHpBRLFOaYIw5IHwv2yAqZaHvBq-moG",
+  "drive_folder_url": "https://drive.google.com/drive/folders/1QKHpBRLFOaYIw5IHwv2yAqZaHvBq-moG",
+  "native_gdoc_status": "blocked_oauth_expired",
+  "native_gdoc_error_type": "RefreshError",
+  "native_gdoc_error_message": "('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})",
+  "google_doc_id": null,
+  "google_doc_url": null,
+  "shared": null,
+  "permissions": [],
+  "local_drive_copies": [
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_RESULTS_11-21-2026.md",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_helpsteer2_lora_learning_curves_11-21-2026.png",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_helpsteer2_calibration_and_depth_11-21-2026.png",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_scores_11-21-2026.csv",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_contrasts_11-21-2026.csv",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_RESULTS_11-21-2026.html",
+    "/Users/brandomiranda/Library/CloudStorage/GoogleDrive-brandojazz@gmail.com/My Drive/Agent Sync (human-readable)/judges-dont-need-psychometrics-or-corr/Experiment_24_reproducibility_11-21-2026.zip"
+  ]
+}

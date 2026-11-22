@@ -1,0 +1,112 @@
+{
+  "model_snapshot": "/dfs/scratch0/brando9/at1025_hf/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554",
+  "n_layers": 36,
+  "split_layer": 32,
+  "top_k_blocks": 4,
+  "lora_rank": 8,
+  "lora_alpha": 16.0,
+  "n_lora_modules": 28,
+  "n_trainable_params": 1847813,
+  "digit_token_ids": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "token_length_stats": {
+    "count": 4238,
+    "min": 211,
+    "p50": 611,
+    "p95": 1212,
+    "p99": 1576,
+    "max": 2534,
+    "truncated_at_4096": 0
+  },
+  "sample_prompts": [
+    {
+      "item_id": 0,
+      "n_tokens": 574,
+      "rendered_sha256": "79a265b4c4950b578ff1682e94267a1b3dbfd0c5157dc4f356648c9817409183",
+      "rendered_tail_200": "ted the legendary Mustafa.\n</assistant_response>\n\nRate the helpfulness of the assistant response inside <assistant_response> on the 0-4 scale.<|im_end|>\n<|im_start|>assistant\nHelpfulness grade (0-4): "
+    },
+    {
+      "item_id": 1,
+      "n_tokens": 450,
+      "rendered_sha256": "d6668ca2ad323b6940b7188a2ab9ed2b4d6bf5ff6694882f83f88d0e3e4aadfb",
+      "rendered_tail_200": "return them to the client.\n</assistant_response>\n\nRate the helpfulness of the assistant response inside <assistant_response> on the 0-4 scale.<|im_end|>\n<|im_start|>assistant\nHelpfulness grade (0-4): "
+    },
+    {
+      "item_id": 2,
+      "n_tokens": 450,
+      "rendered_sha256": "f7b677d73c34237140478b5352539e6e8a4638a2611a2df38ccc350d6e2302d1",
+      "rendered_tail_200": "as email and phone number]\n</assistant_response>\n\nRate the helpfulness of the assistant response inside <assistant_response> on the 0-4 scale.<|im_end|>\n<|im_start|>assistant\nHelpfulness grade (0-4): "
+    }
+  ],
+  "gradient_verification": {
+    "pearson_two_pass_rel_error": 5.486383455192029e-16,
+    "passed": true
+  },
+  "epoch0_full_vs_h32_max_prob_diff": 0.0,
+  "hf_wrapper_bf16_ulp_max_prob_diff": 1.7285346984863281e-06,
+  "two_step_full_vs_h32_equivalence": {
+    "ce": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    },
+    "pearson": {
+      "max_prob_diff_after_2_steps": 0.0,
+      "max_weight_diff_after_2_steps": 0.0
+    }
+  },
+  "karpathy_controls": {
+    "label_in_prompt_hits": 5,
+    "label_in_prompt_details": [
+      {
+        "target": 0,
+        "pred_mode": 0,
+        "pred_mean": 1.248992859537168e-05
+      },
+      {
+        "target": 1,
+        "pred_mode": 1,
+        "pred_mean": 1.0000013462814934
+      },
+      {
+        "target": 2,
+        "pred_mode": 2,
+        "pred_mean": 2.0000127341476457
+      },
+      {
+        "target": 3,
+        "pred_mode": 3,
+        "pred_mean": 3.000886364230823
+      },
+      {
+        "target": 4,
+        "pred_mode": 4,
+        "pred_mean": 3.9999825250172947
+      }
+    ],
+    "blank_response_mean_grade": 0.16022595060238726,
+    "matched_20_mean_grade": 3.3476121453311656,
+    "shuffled_20_mean_grade": 0.15714783373844063,
+    "matched_20_pearson": 0.37709301695702874,
+    "shuffled_20_pearson": 0.21127077730914615,
+    "overfit_1batch_16items_40steps": {
+      "ce": {
+        "ce_before": 7.267529458496005,
+        "ce_after": 0.0004652697766756432,
+        "pearson_before": 0.27303111384188855,
+        "pearson_after": 0.9999997643811166
+      },
+      "pearson": {
+        "ce_before": 7.267529458496005,
+        "ce_after": 4.276841087101509,
+        "pearson_before": 0.27303111384188855,
+        "pearson_after": 0.9447877663479688
+      }
+    }
+  },
+  "elapsed_seconds": 150.16
+}
