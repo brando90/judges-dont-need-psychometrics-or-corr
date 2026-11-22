@@ -1,0 +1,160 @@
+{
+  "dataset": "nvidia/HelpSteer2",
+  "commit_sha": "990b2711a36180dd19d9c94b8627844866f8982a",
+  "raw_file_sha256": {
+    "disagreements/disagreements.jsonl.gz": "53435e0e2926620bf08ce91f278d7368ee6903f416a47764fe8839f3b71b3ab4",
+    "train.jsonl.gz": "c0d7e91d738d42e8a08070db26c4c09a9c7631308e1f0fd380ff43d130c9f713",
+    "validation.jsonl.gz": "610eeb5289494d613c4c0f70aade2df8df0b499f3a24e76d232f74e6909d010a"
+  },
+  "raw_counts": {
+    "disagreements_rows": 23652,
+    "disagreements_unique_pairs": 23651,
+    "duplicate_pair_details": [
+      {
+        "duplicate_row_index": 10779,
+        "first_votes": [
+          4,
+          4,
+          4
+        ],
+        "duplicate_votes": [
+          4,
+          4,
+          4
+        ]
+      }
+    ],
+    "official_train_rows": 20324,
+    "official_train_unique_prompts": 10161,
+    "official_validation_rows": 1038,
+    "official_validation_unique_prompts": 519,
+    "train_val_prompt_overlap": 0
+  },
+  "prepared_bundle_path": "/tmp/exp24_helpsteer2_raw/prepared_bundle.json",
+  "prepared_bundle_sha256": "c916357850510076f17c2974c45ff128873987eb9c4a4f8f0c9dae1ce47a475d",
+  "n_draws": 10,
+  "budgets_d1": [
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "budgets_d2": [
+    64,
+    256,
+    1024
+  ],
+  "pool_statistics": {
+    "train_pool": {
+      "n_responses": 1600,
+      "n_unique_prompts": 1600,
+      "total_votes": 5577,
+      "vote_length_counts": {
+        "2": 75,
+        "3": 1052,
+        "4": 98,
+        "5": 371,
+        "6": 4
+      },
+      "vote_value_counts": {
+        "0": 586,
+        "1": 522,
+        "2": 845,
+        "3": 1214,
+        "4": 2410
+      },
+      "mean_vote": 2.7781961628115472,
+      "leave_one_vote_out_ceiling": {
+        "rps": 0.1462978447347729,
+        "ce_nats": 1.3473774180526226,
+        "map_accuracy": 0.4749062499999999,
+        "n_items": 1600,
+        "n_votes": 5577
+      }
+    },
+    "val_pool": {
+      "n_responses": 800,
+      "n_unique_prompts": 800,
+      "total_votes": 2743,
+      "vote_length_counts": {
+        "2": 42,
+        "3": 545,
+        "4": 44,
+        "5": 166,
+        "6": 3
+      },
+      "vote_value_counts": {
+        "0": 271,
+        "1": 280,
+        "2": 462,
+        "3": 575,
+        "4": 1155
+      },
+      "mean_vote": 2.75209624498724,
+      "leave_one_vote_out_ceiling": {
+        "rps": 0.1440435447243112,
+        "ce_nats": 1.3324087433682896,
+        "map_accuracy": 0.4830833333333333,
+        "n_items": 800,
+        "n_votes": 2743
+      }
+    },
+    "cal_pool": {
+      "n_responses": 800,
+      "n_unique_prompts": 800,
+      "total_votes": 2746,
+      "vote_length_counts": {
+        "2": 39,
+        "3": 550,
+        "4": 41,
+        "5": 166,
+        "6": 4
+      },
+      "vote_value_counts": {
+        "0": 336,
+        "1": 250,
+        "2": 417,
+        "3": 637,
+        "4": 1106
+      },
+      "mean_vote": 2.7017479970866716,
+      "leave_one_vote_out_ceiling": {
+        "rps": 0.14364421544200445,
+        "ce_nats": 1.326163093433803,
+        "map_accuracy": 0.4809791666666666,
+        "n_items": 800,
+        "n_votes": 2746
+      }
+    },
+    "test_set": {
+      "n_responses": 1038,
+      "n_unique_prompts": 519,
+      "total_votes": 3610,
+      "vote_length_counts": {
+        "2": 50,
+        "3": 692,
+        "4": 46,
+        "5": 250
+      },
+      "vote_value_counts": {
+        "0": 347,
+        "1": 316,
+        "2": 592,
+        "3": 850,
+        "4": 1505
+      },
+      "mean_vote": 2.789473684210526,
+      "leave_one_vote_out_ceiling": {
+        "rps": 0.14566637200282992,
+        "ce_nats": 1.3584898178270421,
+        "map_accuracy": 0.4640333975594091,
+        "n_items": 1038,
+        "n_votes": 3610
+      }
+    }
+  }
+}
