@@ -1,0 +1,6 @@
+judge,calls,ok_calls,input_tokens,output_tokens,estimated_usd_at_configured_rate,rate_source,reference_usd_if_priced_at_1.4_and_4.4
+gpt-6-astra,160,160,30606,11797,0.8959,Pi gateway provider list rate,0.0948
+claude-opus-5-5,160,160,45176,13360,0.4479,Pi gateway provider list rate,0.122
+kimi-k3,160,160,34126,35923,0.0,listed at 0 in the gateway provider,0.2058
+glm-5.3,160,160,31408,88992,0.0,listed at 0 in the gateway provider,0.4355
+deepseek-v4.1-flash,160,160,34025,67039,0.0,listed at 0 in the gateway provider,0.3426
