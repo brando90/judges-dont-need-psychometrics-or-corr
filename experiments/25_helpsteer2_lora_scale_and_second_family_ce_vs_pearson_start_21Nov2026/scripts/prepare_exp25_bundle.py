@@ -140,62 +140,56 @@ def pool_stats(pool: list[dict]) -> dict:
     }
 
 
-def main() -> None:
+def _load_raw_tables() -> tuple[dict[str, str], dict[str, list[dict]]]:
     file_hashes: dict[str, str] = {}
     loaded: dict[str, list[dict]] = {}
     for name, rel in FILES.items():
         path, digest = download_or_load(rel)
         file_hashes[rel] = digest
         loaded[name] = load_jsonl_gz(path)
+    return file_hashes, loaded
 
-    dis_raw, train_raw, val_raw = loaded["disagreements"], loaded["train"], loaded["validation"]
-    dedup_dis: dict[tuple[str, str], dict] = {}
+
+def _dedup_disagreements(dis_raw: list[dict]) -> dict[tuple[str, str], dict]:
+    dedup: dict[tuple[str, str], dict] = {}
     for row in dis_raw:
-        key = (row["prompt"], row["response"])
-        if key not in dedup_dis:
-            dedup_dis[key] = row
-    assert len(dis_raw) == 23652 and len(dedup_dis) == 23651
+        dedup.setdefault((row["prompt"], row["response"]), row)
+    assert len(dis_raw) == 23652 and len(dedup) == 23651
+    return dedup
 
+
+def _extract_item(row: dict, dedup_dis: dict[tuple[str, str], dict]) -> dict:
+    votes = [int(v) for v in dedup_dis[(row["prompt"], row["response"])]["helpfulness"]]
+    assert len(votes) >= 2 and all(0 <= v <= 4 for v in votes)
+    return {
+        "prompt": row["prompt"],
+        "response": row["response"],
+        "votes": votes,
+        "official_helpfulness": int(row["helpfulness"]),
+    }
+
+
+def _build_master_items_and_splits(
+    train_raw: list[dict],
+    val_raw: list[dict],
+    dedup_dis: dict[tuple[str, str], dict],
+) -> tuple[list[dict], dict[str, list[int]], dict[str, list[int]]]:
     train_by_prompt: dict[str, list[dict]] = defaultdict(list)
     for row in train_raw:
-        key = (row["prompt"], row["response"])
-        votes = [int(v) for v in dedup_dis[key]["helpfulness"]]
-        assert len(votes) >= 2 and all(0 <= v <= 4 for v in votes)
-        train_by_prompt[row["prompt"]].append({
-            "prompt": row["prompt"],
-            "response": row["response"],
-            "votes": votes,
-            "official_helpfulness": int(row["helpfulness"]),
-        })
+        train_by_prompt[row["prompt"]].append(_extract_item(row, dedup_dis))
 
-    test_items: list[dict] = []
-    test_prompts_set: set[str] = set()
-    for row in val_raw:
-        key = (row["prompt"], row["response"])
-        votes = [int(v) for v in dedup_dis[key]["helpfulness"]]
-        assert len(votes) >= 2 and all(0 <= v <= 4 for v in votes)
-        test_prompts_set.add(row["prompt"])
-        test_items.append({
-            "prompt": row["prompt"],
-            "response": row["response"],
-            "votes": votes,
-            "official_helpfulness": int(row["helpfulness"]),
-        })
+    test_items = [_extract_item(row, dedup_dis) for row in val_raw]
+    train_prompts = set(train_by_prompt.keys())
+    test_prompts = {it["prompt"] for it in test_items}
+    assert not (train_prompts & test_prompts)
 
-    train_prompts_set = set(train_by_prompt.keys())
-    assert len(train_prompts_set & test_prompts_set) == 0
-    ranked_prompts = sorted(train_prompts_set, key=lambda p: sha256_str(f"exp24-prompt|{p}"))
+    ranked_prompts = sorted(train_prompts, key=lambda p: sha256_str(f"exp24-prompt|{p}"))
     assert len(ranked_prompts) >= N_TRAIN_A + N_VAL_A + N_CAL_A
+    dev_pool = [
+        dict(sorted(train_by_prompt[p], key=lambda r: sha256_str(f"exp24-resp|{r['prompt']}\0{r['response']}"))[0])
+        for p in ranked_prompts[: N_TRAIN_A + N_VAL_A + N_CAL_A]
+    ]
 
-    def pick_one(prompts: list[str]) -> list[dict]:
-        out = []
-        for p in prompts:
-            cands = sorted(train_by_prompt[p], key=lambda r: sha256_str(f"exp24-resp|{r['prompt']}\0{r['response']}"))
-            out.append(dict(cands[0]))
-        return out
-
-    # Master list: [0:8192] ranked official train prompts, [8192:9230] official validation test items
-    dev_pool = pick_one(ranked_prompts[: N_TRAIN_A + N_VAL_A + N_CAL_A])
     items = dev_pool + test_items
     for idx, it in enumerate(items):
         it["item_id"] = idx
@@ -217,6 +211,33 @@ def main() -> None:
     }
     assert_disjoint(items, splits_a)
     assert_disjoint(items, splits_b)
+    return items, splits_a, splits_b
+
+
+def _study_manifest(
+    items: list[dict],
+    splits: dict[str, list[int]],
+    n_draws: int,
+    budgets: list[int],
+    hidden_dim: int,
+) -> dict:
+    used_ids = sorted(set(splits["train_ids"] + splits["val_ids"] + splits["cal_ids"] + splits["test_ids"]))
+    est_tokens = sum((len(items[i]["prompt"]) + len(items[i]["response"])) / 3.8 + 135 for i in used_ids)
+    return {
+        "n_draws": n_draws,
+        "budgets": budgets,
+        "est_cache_gb": round(est_tokens * hidden_dim * 2 / 1e9, 2),
+        "train_pool": pool_stats([items[i] for i in splits["train_ids"]]),
+        "val_pool": pool_stats([items[i] for i in splits["val_ids"]]),
+        "cal_pool": pool_stats([items[i] for i in splits["cal_ids"]]),
+        "test_set": pool_stats([items[i] for i in splits["test_ids"]]),
+    }
+
+
+def main() -> None:
+    file_hashes, loaded = _load_raw_tables()
+    dedup_dis = _dedup_disagreements(loaded["disagreements"])
+    items, splits_a, splits_b = _build_master_items_and_splits(loaded["train"], loaded["validation"], dedup_dis)
 
     draws_a = make_draws(items, splits_a["train_ids"], splits_a["val_ids"], splits_a["cal_ids"], DRAWS_A, seed_tag=25)
     draws_b = make_draws(items, splits_b["train_ids"], splits_b["val_ids"], splits_b["cal_ids"], DRAWS_B, seed_tag=24)
@@ -228,30 +249,12 @@ def main() -> None:
         "scale": [0, 1, 2, 3, 4],
         "items": items,
         "studies": {
-            "qwen3_4b": {
-                "model_key": "qwen3_4b",
-                "n_draws": DRAWS_A,
-                "budgets": BUDGETS_A,
-                "max_steps_cap": 256,
-                "splits": splits_a,
-                "draws": draws_a,
-            },
-            "llama31_8b": {
-                "model_key": "llama31_8b",
-                "n_draws": DRAWS_B,
-                "budgets": BUDGETS_B,
-                "max_steps_cap": 160,
-                "splits": splits_b,
-                "draws": draws_b,
-            },
+            "qwen3_4b": {"model_key": "qwen3_4b", "n_draws": DRAWS_A, "budgets": BUDGETS_A, "max_steps_cap": 256, "splits": splits_a, "draws": draws_a},
+            "llama31_8b": {"model_key": "llama31_8b", "n_draws": DRAWS_B, "budgets": BUDGETS_B, "max_steps_cap": 160, "splits": splits_b, "draws": draws_b},
         },
     }
     BUNDLE_PATH.write_text(json.dumps(bundle), encoding="utf-8")
     bundle_sha = sha256_bytes(BUNDLE_PATH.read_bytes())
-
-    est_tokens_a = sum((len(it["prompt"]) + len(it["response"])) / 3.8 + 135 for it in items)
-    b_ids_set = sorted(set(splits_b["train_ids"] + splits_b["val_ids"] + splits_b["cal_ids"] + splits_b["test_ids"]))
-    est_tokens_b = sum((len(items[i]["prompt"]) + len(items[i]["response"])) / 3.8 + 135 for i in b_ids_set)
 
     manifest = {
         "dataset": "nvidia/HelpSteer2",
@@ -261,31 +264,17 @@ def main() -> None:
         "prepared_bundle_sha256": bundle_sha,
         "n_master_items": len(items),
         "studies": {
-            "qwen3_4b": {
-                "n_draws": DRAWS_A,
-                "budgets": BUDGETS_A,
-                "est_cache_gb": round(est_tokens_a * 2560 * 2 / 1e9, 2),
-                "train_pool": pool_stats([items[i] for i in splits_a["train_ids"]]),
-                "val_pool": pool_stats([items[i] for i in splits_a["val_ids"]]),
-                "cal_pool": pool_stats([items[i] for i in splits_a["cal_ids"]]),
-                "test_set": pool_stats([items[i] for i in splits_a["test_ids"]]),
-            },
-            "llama31_8b": {
-                "n_draws": DRAWS_B,
-                "budgets": BUDGETS_B,
-                "est_cache_gb": round(est_tokens_b * 4096 * 2 / 1e9, 2),
-                "train_pool": pool_stats([items[i] for i in splits_b["train_ids"]]),
-                "val_pool": pool_stats([items[i] for i in splits_b["val_ids"]]),
-                "cal_pool": pool_stats([items[i] for i in splits_b["cal_ids"]]),
-                "test_set": pool_stats([items[i] for i in splits_b["test_ids"]]),
-            },
+            "qwen3_4b": _study_manifest(items, splits_a, DRAWS_A, BUDGETS_A, hidden_dim=2560),
+            "llama31_8b": _study_manifest(items, splits_b, DRAWS_B, BUDGETS_B, hidden_dim=4096),
         },
     }
     MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"Prepared bundle: {BUNDLE_PATH} ({BUNDLE_PATH.stat().st_size/1e6:.2f} MB, sha256={bundle_sha[:16]}...)")
-    print("Est cache GB — Qwen3-4B (9,230 items):", manifest["studies"]["qwen3_4b"]["est_cache_gb"],
-          "Llama-3.1-8B (4,238 items):", manifest["studies"]["llama31_8b"]["est_cache_gb"])
+    print(
+        "Est cache GB — Qwen3-4B (9,230 items):", manifest["studies"]["qwen3_4b"]["est_cache_gb"],
+        "Llama-3.1-8B (4,238 items):", manifest["studies"]["llama31_8b"]["est_cache_gb"],
+    )
 
 
 if __name__ == "__main__":

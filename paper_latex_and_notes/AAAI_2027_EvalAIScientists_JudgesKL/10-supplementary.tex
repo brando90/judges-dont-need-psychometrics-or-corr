@@ -20,13 +20,13 @@ This section provides the full held-out numerical tables backing the population 
 Across synthetic suites, predictions are evaluated on $500$ held-out tasks per seed against the analytic data-generating distribution $p(r \mid x)$ across $100$ random seeds, with uncertainty reported as paired $95\%$ percentile bootstrap intervals over $10{,}000$ draws.
 
 \subsection{Population Counterexample and Single-Rating Selection (Experiment 01)}
-In the two-point population counterexample with bimodal symmetric task uncertainty versus unimodal spread, all candidate judges $q_\epsilon$ with mixing parameter $\epsilon \in \{0, 0.25, 0.50, 0.75, 0.95\}$ achieve identical normalized mean squared error ($\mathrm{nMSE} = 0.038$) and identical Pearson correlation with the conditional mean.
-Table~\ref{tab:supp-exp01} contrasts these scalar metrics against strictly proper distributional scoring rules and reports 256-task single-rating selection recovery.
+In the two-point population counterexample with bimodal symmetric task uncertainty versus unimodal spread, all candidate judges $q_\lambda$ with mixing parameter $\lambda \in \{0, 0.25, 0.50, 0.75, 0.95\}$ achieve identical normalized mean squared error ($\mathrm{nMSE} = 0.038$) and identical Pearson correlation with the conditional mean.
+Table~\ref{tab:supp-exp01} contrasts these scalar metrics against strictly proper distributional scoring rules and reports 256-replication single-rating selection recovery across $48$ validation and $48$ test items.
 Cross-entropy (CE) identifies the true distribution in $249/256$ draws (mean held-out CE $1.331$ nats, $95\%$ CI $[1.329, 1.334]$), while Brier score and ranked probability score (RPS) recover it in $245/256$ draws ($1.333$ nats, $95\%$ CI $[1.330, 1.336]$), compared with $1.995$ nats under uniform correlation tie-breaking.
 
 \begin{table}[htb]
 \centering
-\caption{Experiment~01 population scoring rules across ambiguity perturbations $q_\epsilon$ sharing identical mean rating and identical nMSE ($0.038$), plus sign-reversed control (lower is better).}
+\caption{Experiment~01 population scoring rules across ambiguity perturbations $q_\lambda$ sharing identical mean rating and identical nMSE ($0.038$), plus sign-reversed control (lower is better).}
 \label{tab:supp-exp01}
 \small
 \setlength{\tabcolsep}{3pt}
@@ -164,7 +164,7 @@ Figure~\ref{fig:supp-frontier-curve} traces the 48-configuration frontier family
 Finally, Table~\ref{tab:supp-frontier-live} reports the blind live prompt-and-harness search over the $9/5/5$ task-family split ($30$ test artifacts).
 Under the basic prompt/harness \texttt{H1}, validation-Pearson selection ($0.1828$) trails training-Pearson selection ($0.1068$), while CE selection reaches $0.1410$ despite $7/30$ items reverting to uniform fallback probability predictions under structured formatting checks.
 Under the richer structured harness \texttt{H3}, base $0.1600$ improves to $0.1136$ under \texttt{P\_corr\_val} and $0.1174$ under \texttt{P\_ce\_val}.
-When choosing jointly over prompts and harnesses on validation, the difference between RPS-selected and Pearson-selected judges is $-0.0060$ ($95\%$ CI $[-0.0493, +0.0613]$; $0.1529$ vs.\ $0.1590$), remaining statistically indistinguishable at this 5-family validation budget.
+When choosing jointly over prompts and harnesses on validation, the difference between Pearson-selected and RPS-selected judges is $-0.0060$ ($95\%$ CI $[-0.0493, +0.0613]$; $0.1529$ vs.\ $0.1590$; negative favors Pearson-selected), remaining statistically indistinguishable at this 5-family validation budget.
 
 \begin{figure}[t]
 \centering
@@ -215,7 +215,7 @@ Harness & Prompt Variant & Held-Out Test RPS \\
 \texttt{H3} (structured) & Validation-Pearson \texttt{P\_corr\_val} & $0.1136$ \\
 \texttt{H3} (structured) & Validation-CE \texttt{P\_ce\_val} & $0.1174$ \\
 \hline
-Joint $2\times 2$ Val & RPS-selected vs.\ Pearson-selected & $0.1529$ vs.\ $0.1590$ ($-0.0060$ $[-0.0493,+0.0613]$) \\
+Joint $2\times 2$ Val & Pearson-selected vs.\ RPS-selected & $0.1529$ vs.\ $0.1590$ ($-0.0060$ $[-0.0493,+0.0613]$) \\
 \hline
 \end{tabular}
 \end{table*}
@@ -237,17 +237,19 @@ Four empirical boundaries govern interpretation of the human-rating and syntheti
 \section{Public HelpSteer2 LoRA Scale and Cross-Family Replication (Experiments 24--25)}
 \label{sec:supp-helpsteer2}
 
-Table~\ref{tab:supp-helpsteer2} summarizes prompt-disjoint fine-tuning on \texttt{nvidia/HelpSteer2}~\citep{wang2024helpsteer2} ($1{,}038$ held-out validation responses across $519$ source prompts and $3{,}610$ human votes on $\{0,\dots,4\}$; leave-one-vote-out human reference $\text{RPS}=0.14567$, $\text{CE}=1.3585$ nats). Both objectives update top-4-block LoRA adapters ($\text{rank}=8$, $\alpha=16$) plus a $5$-digit rating head under matched \texttt{AdamW} learning-rate grids ($\{5\times 10^{-5}, 2\times 10^{-4}, 8\times 10^{-4}\}$), identical step schedules, validation-RPS checkpoint selection on disjoint $S_{\text{val}}$, and an identical strictly convex $7$-parameter L-BFGS-B CE calibrator fitted on disjoint $S_{\text{cal}}$ ($N_{\text{cal}}=B_{\text{total}}/4$). Uncertainty intervals use $4{,}000$ prompt-clustered bootstrap draws ($519$ clusters) reporting two-way crossed ($\text{draw}\times\text{prompt}$) simultaneous max-$t$ 95\% bands.
+Table~\ref{tab:supp-helpsteer2} summarizes prompt-disjoint fine-tuning on \texttt{nvidia/HelpSteer2}~\citep{wang2024helpsteer2} ($1{,}038$ held-out test responses from HelpSteer2's official validation split across $519$ source prompts and $3{,}610$ human votes on $\{0,\dots,4\}$; leave-one-vote-out human reference $\text{RPS}=0.14567$, $\text{CE}=1.3585$ nats).
+Both objectives update top-4-block LoRA adapters ($\text{rank}=8$, $\alpha=16$) plus a $5$-digit rating head under matched \texttt{AdamW} learning-rate grids ($\{5\times 10^{-5}, 2\times 10^{-4}, 8\times 10^{-4}\}$), identical step schedules, validation-RPS checkpoint selection on disjoint $S_{\text{val}}$, and an identical strictly convex $7$-parameter L-BFGS-B CE calibrator fitted on disjoint $S_{\text{cal}}$ ($N_{\text{cal}}=B_{\text{total}}/4$).
+Uncertainty intervals use $4{,}000$ prompt-clustered bootstrap draws ($519$ clusters) reporting two-way crossed ($\text{draw}\times\text{prompt}$) simultaneous max-$t$ 95\% bands.
 
 \begin{table*}[t]
 \centering
-\caption{Experiments~24--25 on prompt-disjoint \texttt{HelpSteer2}: uncalibrated (raw) and $S_{\text{cal}}$-calibrated held-out test RPS across \texttt{Qwen/Qwen3-4B-Instruct-2507} ($1.85\text{M}$ trainable params) and \texttt{unsloth/Llama-3.1-8B-Instruct} ($2.64\text{M}$ params). Every value column reports held-out test RPS; differences report Pearson minus CE RPS ($>0$ favors CE) with two-way crossed simultaneous 95\% intervals ($\text{draw}\times\text{prompt}$).}
+\caption{Experiments~24--25 on prompt-disjoint \texttt{HelpSteer2}: uncalibrated (raw) and $S_{\text{cal}}$-calibrated held-out test RPS across \texttt{Qwen/Qwen3-4B-Instruct-2507} ($1.85\text{M}$ trainable params) and \texttt{unsloth/Llama-3.1-8B-Instruct} ($2.64\text{M}$ params). Every value column reports held-out test RPS; differences report Pearson-trained minus CE-trained RPS ($>0$ favors CE-trained) with two-way crossed simultaneous 95\% intervals ($\text{draw}\times\text{prompt}$).}
 \label{tab:supp-helpsteer2}
 \scriptsize
 \setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{@{}llccccc@{}}
 \hline
-Backbone (Study) & $B_{\text{total}}$ ($N_{\text{train}}$) & Draws & CE raw / cal. & Pearson raw / cal. & Base all-dev & Cal.\ Pearson $-$ CE [crossed 95\% CI] (wins) \\
+Backbone (Study) & $B_{\text{total}}$ ($N_{\text{train}}$) & Draws & CE raw / cal. & Pearson raw / cal. & Base all-dev & Cal.\ P-fit $-$ CE-fit RPS [crossed 95\% CI] (wins) \\
 \hline
 \texttt{Qwen3-4B} (Exp.~24) & 512 (256) & 10 & $0.15577$ / $0.15632$ & $0.21766$ / $0.15754$ & $0.15537$ & $+0.00122$ [$-0.00136, +0.00380$] (6/10) \\
 \texttt{Qwen3-4B} (Exp.~24) & 2,048 (1,024) & 10 & $0.15213$ / $0.15200$ & $0.18376$ / $0.15309$ & $0.15514$ & $+0.00110$ [$-0.00031, +0.00250$] (9/10) \\

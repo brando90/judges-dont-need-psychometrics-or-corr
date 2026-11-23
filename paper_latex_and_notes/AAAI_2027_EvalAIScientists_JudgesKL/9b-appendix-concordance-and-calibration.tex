@@ -63,7 +63,7 @@ Pearson-trained (78-wt softmax) & $0\%$ & $0.0183 \to 0.0173$ / $0.0949 \to 0.09
 
 Table~\ref{tab:app-exp08-short} compares validation-selected ridge regularization (Formulations~\textcircled{3} and~\textcircled{1}) against fixed ridge (\textcircled{4} and~\textcircled{2}) across all four synthetic targets of Experiment~08.
 Even in Scenario~D with a strictly linear conditional mean, directly training all 78 weights on fixed-ridge Pearson loses to the constant marginal histogram at $n=2{,}048$ ($0.0523$ vs.\ $0.0449$, paired diff $+0.0074$ $[+0.0063, +0.0087]$), whereas validation tuning lowers Pearson to $0.0359$ while proper CE achieves $0.0027$--$0.0028$.
-To verify numerical stability, a post-hoc exact-gradient audit (\texttt{ce\_gradient\_check.json}) refitted all $95{,}291$ CE models using analytical log-sum-exp gradients: all $95{,}291$ fits converged, $0/4{,}400$ fixed-ridge cells moved above $10^{-9}$ (maximum RPS-excess change $1.06 \times 10^{-13}$), and $338/4{,}400$ validation-tuned rows shifted (only one ridge selection change, max RPS-excess shift $0.00023$, and zero changes in cell means or crossovers).
+To verify numerical stability, a post-hoc exact-gradient audit (\texttt{ce\_gradient\_check.json}) refitted all $95{,}291$ CE models using analytical log-sum-exp gradients: all $95{,}291$ fits converged, $0/4{,}400$ fixed-ridge grid points moved above $10^{-9}$ (maximum RPS-excess change $1.06 \times 10^{-13}$), and $338/4{,}400$ validation-tuned rows shifted (only one ridge selection change, max RPS-excess shift $0.00023$, and zero changes in condition means or crossovers).
 
 \begin{table*}[t]
 \centering
@@ -103,7 +103,7 @@ Complete sample-size tables, full rank-surrogate curves, live blind $9/5/5$ prom
 
 \begin{table*}[t]
 \centering
-\caption{Compact cross-study held-out human-rating performance across pooled and single-judge protocols (lower RPS and CE are better; constant baseline $\approx 0.186$--$0.187$ RPS, $\approx 1.89$--$1.93$ nats CE).}
+\caption{Concise cross-study held-out human-rating performance across pooled and single-judge protocols (lower RPS and CE are better; constant baseline $\approx 0.186$--$0.187$ RPS, $\approx 1.89$--$1.93$ nats CE).}
 \label{tab:human-summary-app}
 \footnotesize
 \setlength{\tabcolsep}{2.5pt}

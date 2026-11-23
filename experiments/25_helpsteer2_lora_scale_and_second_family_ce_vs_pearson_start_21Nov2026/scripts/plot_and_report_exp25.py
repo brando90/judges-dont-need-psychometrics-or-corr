@@ -10,7 +10,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator, FuncFormatter, LogLocator
-import numpy as np
 
 EXP_DIR = Path(__file__).resolve().parent.parent
 RESULTS_DIR = EXP_DIR / "results"

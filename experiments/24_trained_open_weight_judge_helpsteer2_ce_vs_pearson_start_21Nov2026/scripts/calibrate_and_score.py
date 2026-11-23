@@ -328,17 +328,63 @@ def compute_diagnostics(
     }
 
 
-def main() -> None:
-    verify_calibrator_gradient()
-    bundle = json.loads(BUNDLE_PATH.read_text(encoding="utf-8"))
-    npz = np.load(PREDICTIONS_PATH)
+METHODS = (
+    "ce_calibrated",
+    "pearson_calibrated",
+    "ce_raw",
+    "pearson_raw",
+    "base_raw",
+    "base_calibrated_matched",
+    "base_calibrated_all_dev",
+    "uniform",
+    "training_histogram",
+    "all_dev_histogram",
+    "ce_exp23_4bin",
+    "pearson_exp23_4bin",
+    "base_exp23_4bin",
+)
+METRIC_NAMES = ("rps", "ce_nats", "ce_eps1e2", "tvd", "brier")
+DIAG_KEYS = (
+    "rps_low_dis", "rps_high_dis", "pearson", "spearman", "kendall", "lin_ccc",
+    "forecast_mean", "human_mean", "mean_bias", "mean_mae",
+    "cumulative_ece", "modal_agreement", "map_accuracy", "within_prompt_pair_acc",
+)
+PRIMARY_COMPARATORS = (
+    "pearson_calibrated",
+    "uniform",
+    "training_histogram",
+    "all_dev_histogram",
+    "base_calibrated_matched",
+    "base_calibrated_all_dev",
+    "ce_raw",
+)
 
-    items = bundle["items"]
-    test_ids = list(bundle["splits"]["test_ids"])
+
+def _write_csv(path: Path, rows: list[dict]) -> None:
+    import csv
+
+    if not rows:
+        return
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _emp_from_draw(draw_spec: dict, item_ids: list[int], depth: int) -> np.ndarray:
+    out = np.zeros((len(item_ids), 5), dtype=np.float64)
+    for k, iid in enumerate(item_ids):
+        v1, v2 = draw_spec["sampled_vote_pairs"][str(iid)]
+        if depth == 1:
+            out[k, v1] = 1.0
+        else:
+            out[k, v1] += 0.5
+            out[k, v2] += 0.5
+    return out
+
+
+def _load_test_ground_truth(items: list[dict], test_ids: list[int]) -> dict:
     n_test = len(test_ids)
-    n_draws = int(bundle["n_draws"])
-
-    # Held-out ground truth histogram & prompt cluster mapping
     counts_test = np.zeros((n_test, 5), dtype=np.float64)
     test_prompts = []
     for k, iid in enumerate(test_ids):
@@ -347,114 +393,97 @@ def main() -> None:
         test_prompts.append(it["prompt"])
     h_test = counts_test / counts_test.sum(axis=1, keepdims=True)
     vote_totals = counts_test.sum(axis=1)
-    mask_low_dis = vote_totals <= 3
-    mask_high_dis = vote_totals >= 4
-
     unique_prompts, prompt_inv, prompt_counts = np.unique(test_prompts, return_inverse=True, return_counts=True)
     n_prompts = len(unique_prompts)
     assert n_prompts == 519 and np.all(prompt_counts == 2)
+    return {
+        "counts_test": counts_test,
+        "h_test": h_test,
+        "mask_low_dis": vote_totals <= 3,
+        "mask_high_dis": vote_totals >= 4,
+        "prompt_inv": prompt_inv,
+        "n_prompts": n_prompts,
+    }
 
-    base_probs_all = npz["base_probs"].astype(np.float64)
-    q_base_test = base_probs_all[test_ids]
 
-    methods = [
-        "ce_calibrated",
-        "pearson_calibrated",
-        "ce_raw",
-        "pearson_raw",
-        "base_raw",
-        "base_calibrated_matched",
-        "base_calibrated_all_dev",
-        "uniform",
-        "training_histogram",
-        "all_dev_histogram",
-        "ce_exp23_4bin",
-        "pearson_exp23_4bin",
-        "base_exp23_4bin",
-    ]
-    n_methods = len(methods)
-    m_idx = {m: i for i, m in enumerate(methods)}
+def _predict_draw_methods(
+    draw_spec: dict,
+    draw_id: int,
+    depth: int,
+    b_total: int,
+    base_probs_all: np.ndarray,
+    q_base_test: np.ndarray,
+    npz,
+    cal_logs: list[dict],
+) -> dict[str, np.ndarray]:
+    n_test = q_base_test.shape[0]
+    n_tr, n_va, n_ca = (b_total // 2) // depth, (b_total // 4) // depth, (b_total // 4) // depth
+    tr_ids = draw_spec["train_order"][:n_tr]
+    va_ids = draw_spec["val_order"][:n_va]
+    ca_ids = draw_spec["cal_order"][:n_ca]
+    all_dev_ids = tr_ids + va_ids + ca_ids
 
-    configs = [(1, b) for b in bundle["budgets_d1"]] + [(2, b) for b in bundle["budgets_d2"]]
+    p_tr = _emp_from_draw(draw_spec, tr_ids, depth)
+    p_va = _emp_from_draw(draw_spec, va_ids, depth)
+    p_ca = _emp_from_draw(draw_spec, ca_ids, depth)
+    p_all_dev = np.concatenate([p_tr, p_va, p_ca], axis=0)
 
-    def emp_from_draw(draw_spec: dict, item_ids: list[int], depth: int) -> np.ndarray:
-        out = np.zeros((len(item_ids), 5), dtype=np.float64)
-        for k, iid in enumerate(item_ids):
-            v1, v2 = draw_spec["sampled_vote_pairs"][str(iid)]
-            if depth == 1:
-                out[k, v1] = 1.0
-            else:
-                out[k, v1] += 0.5
-                out[k, v2] += 0.5
-        return out
+    tr_counts = (p_tr * depth).sum(axis=0)
+    all_counts = (p_all_dev * depth).sum(axis=0)
+    q_preds: dict[str, np.ndarray] = {
+        "uniform": np.full((n_test, 5), 0.2, dtype=np.float64),
+        "training_histogram": np.broadcast_to((tr_counts + 0.5) / (tr_counts.sum() + 2.5), (n_test, 5)).copy(),
+        "all_dev_histogram": np.broadcast_to((all_counts + 0.5) / (all_counts.sum() + 2.5), (n_test, 5)).copy(),
+        "base_raw": q_base_test,
+    }
+    q_preds["base_calibrated_matched"], _ = fit_and_apply_7param_cv(base_probs_all[ca_ids], p_ca, depth, q_base_test)
+    q_preds["base_calibrated_all_dev"], _ = fit_and_apply_7param_cv(base_probs_all[all_dev_ids], p_all_dev, depth, q_base_test)
+    q_preds["base_exp23_4bin"] = fit_and_apply_exp23_4bin(
+        base_probs_all[va_ids + ca_ids], base_probs_all[ca_ids], p_ca, depth, q_base_test
+    )
 
-    # Store per-(config, draw, method, test_item) for RPS, CE(6e-6), CE(1e-2), TVD, Brier
-    # Shape: (n_configs, n_draws, n_methods, n_test, 5)
-    losses_all = np.zeros((len(configs), n_draws, n_methods, n_test, 5), dtype=np.float64)
-    diag_rows = []
-    cal_logs = []
+    for obj in ("ce", "pearson"):
+        key_p = f"draw{draw_id}_d{depth}_B{b_total}_{obj}"
+        q_cal_obj = npz[f"{key_p}_cal"].astype(np.float64)
+        q_val_obj = npz[f"{key_p}_val"].astype(np.float64)
+        q_test_obj = npz[f"{key_p}_test"].astype(np.float64)
+        q_preds[f"{obj}_raw"] = q_test_obj
+        q_preds[f"{obj}_calibrated"], cal_meta = fit_and_apply_7param_cv(q_cal_obj, p_ca, depth, q_test_obj)
+        q_preds[f"{obj}_exp23_4bin"] = fit_and_apply_exp23_4bin(
+            np.concatenate([q_val_obj, q_cal_obj], axis=0), q_cal_obj, p_ca, depth, q_test_obj
+        )
+        cal_logs.append({
+            "depth": depth,
+            "b_total": b_total,
+            "draw_id": draw_id,
+            "method": f"{obj}_calibrated",
+            "selected_lambda": cal_meta["selected_lambda"],
+            "grad_inf_norm": cal_meta["grad_inf_norm"],
+        })
+    return q_preds
+
+
+def _evaluate_all_configs(
+    bundle: dict,
+    configs: list[tuple[int, int]],
+    base_probs_all: np.ndarray,
+    q_base_test: np.ndarray,
+    npz,
+    gt: dict,
+) -> tuple[np.ndarray, list[dict], list[dict]]:
+    n_draws = int(bundle["n_draws"])
+    n_test = q_base_test.shape[0]
+    m_idx = {m: i for i, m in enumerate(METHODS)}
+    losses_all = np.zeros((len(configs), n_draws, len(METHODS), n_test, 5), dtype=np.float64)
+    diag_rows, cal_logs = [], []
+    h_test, prompt_inv, n_prompts = gt["h_test"], gt["prompt_inv"], gt["n_prompts"]
 
     for c_i, (depth, b_total) in enumerate(configs):
-        n_tr = (b_total // 2) // depth
-        n_va = (b_total // 4) // depth
-        n_ca = (b_total // 4) // depth
+        n_tr, n_va, n_ca = (b_total // 2) // depth, (b_total // 4) // depth, (b_total // 4) // depth
         for draw_id in range(n_draws):
-            draw_spec = bundle["draws"][draw_id]
-            tr_ids = draw_spec["train_order"][:n_tr]
-            va_ids = draw_spec["val_order"][:n_va]
-            ca_ids = draw_spec["cal_order"][:n_ca]
-            all_dev_ids = tr_ids + va_ids + ca_ids
-
-            p_tr = emp_from_draw(draw_spec, tr_ids, depth)
-            p_va = emp_from_draw(draw_spec, va_ids, depth)
-            p_ca = emp_from_draw(draw_spec, ca_ids, depth)
-            p_all_dev = np.concatenate([p_tr, p_va, p_ca], axis=0)
-
-            q_preds: dict[str, np.ndarray] = {}
-            q_preds["uniform"] = np.full((n_test, 5), 0.2, dtype=np.float64)
-
-            tr_counts = (p_tr * depth).sum(axis=0)
-            tr_hist = (tr_counts + 0.5) / (tr_counts.sum() + 2.5)
-            q_preds["training_histogram"] = np.broadcast_to(tr_hist, (n_test, 5)).copy()
-
-            all_counts = (p_all_dev * depth).sum(axis=0)
-            all_hist = (all_counts + 0.5) / (all_counts.sum() + 2.5)
-            q_preds["all_dev_histogram"] = np.broadcast_to(all_hist, (n_test, 5)).copy()
-
-            q_preds["base_raw"] = q_base_test
-
-            # Calibrated unmodified base on matched S_cal (N_cal labels) and all B_total dev labels
-            q_preds["base_calibrated_matched"], cal_meta_bm = fit_and_apply_7param_cv(
-                base_probs_all[ca_ids], p_ca, depth, q_base_test
+            q_preds = _predict_draw_methods(
+                bundle["draws"][draw_id], draw_id, depth, b_total, base_probs_all, q_base_test, npz, cal_logs
             )
-            q_preds["base_calibrated_all_dev"], cal_meta_ba = fit_and_apply_7param_cv(
-                base_probs_all[all_dev_ids], p_all_dev, depth, q_base_test
-            )
-            q_preds["base_exp23_4bin"] = fit_and_apply_exp23_4bin(
-                base_probs_all[va_ids + ca_ids], base_probs_all[ca_ids], p_ca, depth, q_base_test
-            )
-
-            for obj in ("ce", "pearson"):
-                key_p = f"draw{draw_id}_d{depth}_B{b_total}_{obj}"
-                q_cal_obj = npz[f"{key_p}_cal"].astype(np.float64)
-                q_val_obj = npz[f"{key_p}_val"].astype(np.float64)
-                q_test_obj = npz[f"{key_p}_test"].astype(np.float64)
-                q_preds[f"{obj}_raw"] = q_test_obj
-                q_preds[f"{obj}_calibrated"], cal_meta = fit_and_apply_7param_cv(
-                    q_cal_obj, p_ca, depth, q_test_obj
-                )
-                q_preds[f"{obj}_exp23_4bin"] = fit_and_apply_exp23_4bin(
-                    np.concatenate([q_val_obj, q_cal_obj], axis=0), q_cal_obj, p_ca, depth, q_test_obj
-                )
-                cal_logs.append({
-                    "depth": depth,
-                    "b_total": b_total,
-                    "draw_id": draw_id,
-                    "method": f"{obj}_calibrated",
-                    "selected_lambda": cal_meta["selected_lambda"],
-                    "grad_inf_norm": cal_meta["grad_inf_norm"],
-                })
-
             for m_name, q_test_m in q_preds.items():
                 mi = m_idx[m_name]
                 losses_all[c_i, draw_id, mi, :, 0] = rps_per_item(q_test_m, h_test)
@@ -462,158 +491,93 @@ def main() -> None:
                 losses_all[c_i, draw_id, mi, :, 2] = ce_per_item(q_test_m, h_test, EPS_CE_ALT)
                 losses_all[c_i, draw_id, mi, :, 3] = tvd_per_item(q_test_m, h_test)
                 losses_all[c_i, draw_id, mi, :, 4] = brier_per_item(q_test_m, h_test)
-
                 dg = compute_diagnostics(q_test_m, h_test, prompt_inv, n_prompts)
                 dg.update({
-                    "depth": depth,
-                    "b_total": b_total,
-                    "n_train": n_tr * depth,
-                    "n_val": n_va * depth,
-                    "n_cal": n_ca * depth,
-                    "n_train_items": n_tr,
-                    "draw_id": draw_id,
-                    "method": m_name,
-                    "rps_low_dis": float(losses_all[c_i, draw_id, mi, mask_low_dis, 0].mean()),
-                    "rps_high_dis": float(losses_all[c_i, draw_id, mi, mask_high_dis, 0].mean()),
+                    "depth": depth, "b_total": b_total, "n_train": n_tr * depth,
+                    "n_val": n_va * depth, "n_cal": n_ca * depth, "n_train_items": n_tr,
+                    "draw_id": draw_id, "method": m_name,
+                    "rps_low_dis": float(losses_all[c_i, draw_id, mi, gt["mask_low_dis"], 0].mean()),
+                    "rps_high_dis": float(losses_all[c_i, draw_id, mi, gt["mask_high_dis"], 0].mean()),
                 })
                 diag_rows.append(dg)
+    return losses_all, diag_rows, cal_logs
 
-    # Aggregate absolute scores per (config, method)
-    import csv
 
-    def write_csv(path: Path, rows: list[dict]) -> None:
-        if not rows:
-            return
-        with path.open("w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator="\n")
-            w.writeheader()
-            w.writerows(rows)
-
-    metric_names = ("rps", "ce_nats", "ce_eps1e2", "tvd", "brier")
+def _aggregate_scores(configs: list[tuple[int, int]], losses_all: np.ndarray, diag_rows: list[dict]) -> list[dict]:
     score_rows = []
     for c_i, (depth, b_total) in enumerate(configs):
-        n_tr = (b_total // 2) // depth
-        n_va = (b_total // 4) // depth
-        n_ca = (b_total // 4) // depth
-        for mi, m_name in enumerate(methods):
+        n_tr, n_va, n_ca = (b_total // 2) // depth, (b_total // 4) // depth, (b_total // 4) // depth
+        for mi, m_name in enumerate(METHODS):
             row = {
-                "depth": depth,
-                "b_total": b_total,
-                "n_train": n_tr * depth,
-                "n_val": n_va * depth,
-                "n_cal": n_ca * depth,
-                "n_train_items": n_tr,
-                "n_val_items": n_va,
-                "n_cal_items": n_ca,
-                "method": m_name,
+                "depth": depth, "b_total": b_total, "n_train": n_tr * depth,
+                "n_val": n_va * depth, "n_cal": n_ca * depth, "n_train_items": n_tr,
+                "n_val_items": n_va, "n_cal_items": n_ca, "method": m_name,
             }
-            for d_i, met in enumerate(metric_names):
-                draw_means = losses_all[c_i, :, mi, :, d_i].mean(axis=1)  # [n_draws]
+            for d_i, met in enumerate(METRIC_NAMES):
+                draw_means = losses_all[c_i, :, mi, :, d_i].mean(axis=1)
                 row[met] = float(draw_means.mean())
                 row[f"{met}_draw_sd"] = float(draw_means.std(ddof=1))
-            # Aggregate diagnostics across draws
             sub_dg = [r for r in diag_rows if r["depth"] == depth and r["b_total"] == b_total and r["method"] == m_name]
-            for dk in (
-                "rps_low_dis", "rps_high_dis", "pearson", "spearman", "kendall", "lin_ccc",
-                "forecast_mean", "human_mean", "mean_bias", "mean_mae",
-                "cumulative_ece", "modal_agreement", "map_accuracy", "within_prompt_pair_acc",
-            ):
+            for dk in DIAG_KEYS:
                 vals = [r[dk] for r in sub_dg if np.isfinite(r[dk])]
                 row[dk] = float(np.mean(vals)) if vals else float("nan")
             score_rows.append(row)
+    return score_rows
 
-    # Prompt-clustered bootstrap & two-way crossed (draw x prompt) bootstrap
-    # Focus contrasts:
-    #   Primary family (d=1, 8 budgets): comparator - ce_calibrated for key comparators
-    #   Also raw: pearson_raw - ce_raw, and 4bin: pearson_exp23_4bin - ce_exp23_4bin,
-    #   and depth comparison d=1 vs d=2 at shared B_total in {64, 256, 1024}
-    comparators = (
-        "pearson_calibrated",
-        "uniform",
-        "training_histogram",
-        "all_dev_histogram",
-        "base_calibrated_matched",
-        "base_calibrated_all_dev",
-        "ce_raw",
-    )
 
-    # Precompute prompt-averaged loss array: [n_configs, n_draws, n_methods, n_prompts, 5]
-    prompt_losses = np.zeros((len(configs), n_draws, n_methods, n_prompts, 5), dtype=np.float64)
-    for pid in range(n_prompts):
-        prompt_losses[:, :, :, pid, :] = losses_all[:, :, :, prompt_inv == pid, :].mean(axis=3)
+def _max_t_bands(boots: np.ndarray, point: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    pt_lo, pt_hi = np.quantile(boots, [0.025, 0.975], axis=0)
+    se = boots.std(axis=0, ddof=1)
+    valid = se > 1e-12
+    tmax = np.abs((boots[:, valid] - point[valid]) / se[valid]).max(axis=1) if valid.any() else np.zeros(N_BOOT)
+    crit = float(np.quantile(tmax, 0.95, method="higher"))
+    sim_lo, sim_hi = point - crit * se, point + crit * se
+    sim_pvals, pt_pvals = np.ones_like(point), np.ones_like(point)
+    for k in np.flatnonzero(valid):
+        t_obs = abs(point[k] / se[k])
+        sim_pvals[k] = float((1 + np.sum(tmax >= t_obs)) / (N_BOOT + 1))
+        pt_pvals[k] = float((1 + np.sum(np.abs((boots[:, k] - point[k]) / se[k]) >= t_obs)) / (N_BOOT + 1))
+    return pt_lo, pt_hi, sim_lo, sim_hi, pt_pvals, sim_pvals
 
-    rng_boot = np.random.default_rng(20261124)
-    prompt_weights = rng_boot.multinomial(n_prompts, np.full(n_prompts, 1.0 / n_prompts), size=N_BOOT) / n_prompts  # [B, P]
-    draw_weights = rng_boot.multinomial(n_draws, np.full(n_draws, 1.0 / n_draws), size=N_BOOT) / n_draws  # [B, D]
 
-    def run_paired_bootstrap(
-        diff_by_dp: np.ndarray,
-    ) -> dict:
-        """diff_by_dp has shape [n_budgets, n_draws, n_prompts]; returns pointwise, simultaneous max-t, crossed 95% CIs."""
-        # Conditional on draws: [n_budgets, n_prompts]
-        cond_by_p = diff_by_dp.mean(axis=1)  # [K, P]
-        point = cond_by_p.mean(axis=1)  # [K]
-        cond_boots = prompt_weights @ cond_by_p.T  # [B, K]
-        pt_lo, pt_hi = np.quantile(cond_boots, [0.025, 0.975], axis=0)
-        se_cond = cond_boots.std(axis=0, ddof=1)
-        valid = se_cond > 1e-12
-        tmax_cond = (
-            np.abs((cond_boots[:, valid] - point[valid]) / se_cond[valid]).max(axis=1)
-            if valid.any()
-            else np.zeros(N_BOOT)
-        )
-        crit_cond = float(np.quantile(tmax_cond, 0.95, method="higher"))
-        sim_lo = point - crit_cond * se_cond
-        sim_hi = point + crit_cond * se_cond
-        sim_pvals = np.ones_like(point)
-        pt_pvals = np.ones_like(point)
-        for k in np.flatnonzero(valid):
-            t_obs = abs(point[k] / se_cond[k])
-            sim_pvals[k] = float((1 + np.sum(tmax_cond >= t_obs)) / (N_BOOT + 1))
-            t_null = np.abs((cond_boots[:, k] - point[k]) / se_cond[k])
-            pt_pvals[k] = float((1 + np.sum(t_null >= t_obs)) / (N_BOOT + 1))
+def _run_paired_bootstrap(diff_by_dp: np.ndarray, prompt_weights: np.ndarray, draw_weights: np.ndarray) -> dict:
+    """diff_by_dp has shape [n_budgets, n_draws, n_prompts]; returns pointwise, simultaneous max-t, crossed 95% CIs."""
+    cond_by_p = diff_by_dp.mean(axis=1)
+    point = cond_by_p.mean(axis=1)
+    pt_lo, pt_hi, sim_lo, sim_hi, pt_pvals, sim_pvals = _max_t_bands(prompt_weights @ cond_by_p.T, point)
+    cross_boots = np.einsum("bd,kdp,bp->bk", draw_weights, diff_by_dp, prompt_weights)
+    cr_lo, cr_hi, cr_sim_lo, cr_sim_hi, _, cr_sim_pvals = _max_t_bands(cross_boots, point)
+    return {
+        "point": point, "pt_lo": pt_lo, "pt_hi": pt_hi, "sim_lo": sim_lo, "sim_hi": sim_hi,
+        "pt_pval": pt_pvals, "sim_pval": sim_pvals,
+        "cross_pt_lo": cr_lo, "cross_pt_hi": cr_hi, "cross_sim_lo": cr_sim_lo, "cross_sim_hi": cr_sim_hi,
+        "cross_sim_pval": cr_sim_pvals,
+    }
 
-        # Two-way crossed (draw x prompt) bootstrap
-        # For each boot b: sum_{d, p} draw_weights[b, d] * prompt_weights[b, p] * diff_by_dp[:, d, p]
-        # Shape via einsum: 'bd,kdp,bp->bk'
-        cross_boots = np.einsum("bd,kdp,bp->bk", draw_weights, diff_by_dp, prompt_weights)
-        cr_lo, cr_hi = np.quantile(cross_boots, [0.025, 0.975], axis=0)
-        se_cr = cross_boots.std(axis=0, ddof=1)
-        valid_cr = se_cr > 1e-12
-        tmax_cr = (
-            np.abs((cross_boots[:, valid_cr] - point[valid_cr]) / se_cr[valid_cr]).max(axis=1)
-            if valid_cr.any()
-            else np.zeros(N_BOOT)
-        )
-        crit_cr = float(np.quantile(tmax_cr, 0.95, method="higher"))
-        cr_sim_lo = point - crit_cr * se_cr
-        cr_sim_hi = point + crit_cr * se_cr
-        cr_sim_pvals = np.ones_like(point)
-        for k in np.flatnonzero(valid_cr):
-            cr_sim_pvals[k] = float((1 + np.sum(tmax_cr >= abs(point[k] / se_cr[k]))) / (N_BOOT + 1))
 
-        return {
-            "point": point,
-            "pt_lo": pt_lo,
-            "pt_hi": pt_hi,
-            "sim_lo": sim_lo,
-            "sim_hi": sim_hi,
-            "pt_pval": pt_pvals,
-            "sim_pval": sim_pvals,
-            "cross_pt_lo": cr_lo,
-            "cross_pt_hi": cr_hi,
-            "cross_sim_lo": cr_sim_lo,
-            "cross_sim_hi": cr_sim_hi,
-            "cross_sim_pval": cr_sim_pvals,
-        }
+def _find_sustained(lo_arr: np.ndarray, budgets: list[int]) -> dict | None:
+    first_idx = None
+    for idx in range(len(budgets) - 1, -1, -1):
+        if lo_arr[idx] > 0.0:
+            first_idx = idx
+        else:
+            break
+    if first_idx is None:
+        return None
+    return {"b_total": int(budgets[first_idx]), "n_train": int(budgets[first_idx] // 2)}
 
-    # Build contrasts for d=1 primary sweep (configs 0..7)
+
+def _build_primary_contrasts(
+    configs: list[tuple[int, int]],
+    prompt_losses: np.ndarray,
+    prompt_weights: np.ndarray,
+    draw_weights: np.ndarray,
+) -> tuple[list[dict], dict]:
+    m_idx = {m: i for i, m in enumerate(METHODS)}
     d1_indices = [i for i, (d, _) in enumerate(configs) if d == 1]
     d1_budgets = [configs[i][1] for i in d1_indices]
     contrast_specs = [
-        ("ce_calibrated", comp, d_i, met)
-        for comp in comparators
-        for d_i, met in enumerate(metric_names[:4])
+        ("ce_calibrated", comp, d_i, met) for comp in PRIMARY_COMPARATORS for d_i, met in enumerate(METRIC_NAMES[:4])
     ] + [
         ("ce_raw", "pearson_raw", 0, "rps"),
         ("ce_raw", "pearson_raw", 1, "ce_nats"),
@@ -622,118 +586,104 @@ def main() -> None:
         ("ce_exp23_4bin", "pearson_exp23_4bin", 1, "ce_nats"),
         ("ce_exp23_4bin", "pearson_exp23_4bin", 3, "tvd"),
     ]
-
-    contrast_rows = []
-    sustained_summary = {}
+    contrast_rows, sustained_summary = [], {}
     for target_m, comp_m, d_i, met in contrast_specs:
         diff_dp = prompt_losses[d1_indices, :, m_idx[comp_m], :, d_i] - prompt_losses[d1_indices, :, m_idx[target_m], :, d_i]
-        boot = run_paired_bootstrap(diff_dp)
-        draw_diffs = diff_dp.mean(axis=2)  # [8, 10]
+        boot = _run_paired_bootstrap(diff_dp, prompt_weights, draw_weights)
+        draw_diffs = diff_dp.mean(axis=2)
         for k_i, b_tot in enumerate(d1_budgets):
             dd = draw_diffs[k_i]
             contrast_rows.append({
-                "depth": 1,
-                "b_total": b_tot,
-                "n_train": b_tot // 2,
-                "n_val": b_tot // 4,
-                "n_cal": b_tot // 4,
-                "metric": met,
-                "target": target_m,
-                "comparator": comp_m,
+                "depth": 1, "b_total": b_tot, "n_train": b_tot // 2, "n_val": b_tot // 4, "n_cal": b_tot // 4,
+                "metric": met, "target": target_m, "comparator": comp_m,
                 "diff_comparator_minus_target": float(boot["point"][k_i]),
-                "pt_lo_95": float(boot["pt_lo"][k_i]),
-                "pt_hi_95": float(boot["pt_hi"][k_i]),
-                "sim_lo_95": float(boot["sim_lo"][k_i]),
-                "sim_hi_95": float(boot["sim_hi"][k_i]),
-                "pt_pval": float(boot["pt_pval"][k_i]),
-                "sim_pval": float(boot["sim_pval"][k_i]),
-                "cross_pt_lo_95": float(boot["cross_pt_lo"][k_i]),
-                "cross_pt_hi_95": float(boot["cross_pt_hi"][k_i]),
-                "cross_sim_lo_95": float(boot["cross_sim_lo"][k_i]),
-                "cross_sim_hi_95": float(boot["cross_sim_hi"][k_i]),
+                "pt_lo_95": float(boot["pt_lo"][k_i]), "pt_hi_95": float(boot["pt_hi"][k_i]),
+                "sim_lo_95": float(boot["sim_lo"][k_i]), "sim_hi_95": float(boot["sim_hi"][k_i]),
+                "pt_pval": float(boot["pt_pval"][k_i]), "sim_pval": float(boot["sim_pval"][k_i]),
+                "cross_pt_lo_95": float(boot["cross_pt_lo"][k_i]), "cross_pt_hi_95": float(boot["cross_pt_hi"][k_i]),
+                "cross_sim_lo_95": float(boot["cross_sim_lo"][k_i]), "cross_sim_hi_95": float(boot["cross_sim_hi"][k_i]),
                 "cross_sim_pval": float(boot["cross_sim_pval"][k_i]),
                 "draw_sd": float(dd.std(ddof=1)),
                 "draws_target_better": int((dd > 1e-12).sum()),
                 "draws_comparator_better": int((dd < -1e-12).sum()),
             })
-
         if target_m == "ce_calibrated" and met == "rps":
-            # Step-down sustained-win threshold
-            def find_sustained(lo_arr: np.ndarray) -> dict | None:
-                n_b = len(d1_budgets)
-                first_idx = None
-                for idx in range(n_b - 1, -1, -1):
-                    if lo_arr[idx] > 0.0:
-                        first_idx = idx
-                    else:
-                        break
-                if first_idx is None:
-                    return None
-                return {
-                    "b_total": int(d1_budgets[first_idx]),
-                    "n_train": int(d1_budgets[first_idx] // 2),
-                }
-
             sustained_summary[comp_m] = {
-                "conditional_sim_95": find_sustained(boot["sim_lo"]),
-                "crossed_sim_95": find_sustained(boot["cross_sim_lo"]),
-                "crossed_pt_95": find_sustained(boot["cross_pt_lo"]),
+                "conditional_sim_95": _find_sustained(boot["sim_lo"], d1_budgets),
+                "crossed_sim_95": _find_sustained(boot["cross_sim_lo"], d1_budgets),
+                "crossed_pt_95": _find_sustained(boot["cross_pt_lo"], d1_budgets),
             }
+    return contrast_rows, sustained_summary
 
-    # Also compute d=2 vs d=1 equal-cost contrasts and d=2 within-depth CE vs Pearson contrasts
+
+def _build_depth_contrasts(
+    bundle: dict,
+    configs: list[tuple[int, int]],
+    prompt_losses: np.ndarray,
+    prompt_weights: np.ndarray,
+    draw_weights: np.ndarray,
+) -> list[dict]:
+    m_idx = {m: i for i, m in enumerate(METHODS)}
     depth_rows = []
+    within_pairs = (
+        ("ce_calibrated", "pearson_calibrated"),
+        ("ce_calibrated", "uniform"),
+        ("ce_calibrated", "training_histogram"),
+        ("ce_calibrated", "base_calibrated_matched"),
+        ("ce_raw", "pearson_raw"),
+    )
     for b_tot in bundle["budgets_d2"]:
-        c1 = configs.index((1, b_tot))
-        c2 = configs.index((2, b_tot))
-        # Within d=2: pearson_calibrated - ce_calibrated, and pearson_raw - ce_raw
-        for target_m, comp_m in (
-            ("ce_calibrated", "pearson_calibrated"),
-            ("ce_calibrated", "uniform"),
-            ("ce_calibrated", "training_histogram"),
-            ("ce_calibrated", "base_calibrated_matched"),
-            ("ce_raw", "pearson_raw"),
-        ):
-            diff_dp = prompt_losses[[c2], :, m_idx[comp_m], :, 0] - prompt_losses[[c2], :, m_idx[target_m], :, 0]
-            boot = run_paired_bootstrap(diff_dp)
+        c1, c2 = configs.index((1, b_tot)), configs.index((2, b_tot))
+        specs = [(f"d2_{comp}_minus_{tgt}", prompt_losses[[c2], :, m_idx[comp], :, 0] - prompt_losses[[c2], :, m_idx[tgt], :, 0]) for tgt, comp in within_pairs]
+        specs += [(f"{m}_d2_minus_d1", prompt_losses[[c2], :, m_idx[m], :, 0] - prompt_losses[[c1], :, m_idx[m], :, 0]) for m in ("ce_calibrated", "pearson_calibrated")]
+        for label, diff_dp in specs:
+            boot = _run_paired_bootstrap(diff_dp, prompt_weights, draw_weights)
             dd = diff_dp[0].mean(axis=1)
             depth_rows.append({
-                "comparison": f"d2_{comp_m}_minus_{target_m}",
-                "b_total": b_tot,
-                "diff": float(boot["point"][0]),
-                "pt_lo_95": float(boot["pt_lo"][0]),
-                "pt_hi_95": float(boot["pt_hi"][0]),
-                "cross_pt_lo_95": float(boot["cross_pt_lo"][0]),
-                "cross_pt_hi_95": float(boot["cross_pt_hi"][0]),
-                "pt_pval": float(boot["pt_pval"][0]),
-                "draws_positive": int((dd > 1e-12).sum()),
+                "comparison": label, "b_total": b_tot, "diff": float(boot["point"][0]),
+                "pt_lo_95": float(boot["pt_lo"][0]), "pt_hi_95": float(boot["pt_hi"][0]),
+                "cross_pt_lo_95": float(boot["cross_pt_lo"][0]), "cross_pt_hi_95": float(boot["cross_pt_hi"][0]),
+                "pt_pval": float(boot["pt_pval"][0]), "draws_positive": int((dd > 1e-12).sum()),
             })
-        # Equal-cost allocation: d=2 minus d=1 (>0 means d=1 is lower RPS!)
-        for m_name in ("ce_calibrated", "pearson_calibrated"):
-            diff_dp = prompt_losses[[c2], :, m_idx[m_name], :, 0] - prompt_losses[[c1], :, m_idx[m_name], :, 0]
-            boot = run_paired_bootstrap(diff_dp)
-            dd = diff_dp[0].mean(axis=1)
-            depth_rows.append({
-                "comparison": f"{m_name}_d2_minus_d1",
-                "b_total": b_tot,
-                "diff": float(boot["point"][0]),
-                "pt_lo_95": float(boot["pt_lo"][0]),
-                "pt_hi_95": float(boot["pt_hi"][0]),
-                "cross_pt_lo_95": float(boot["cross_pt_lo"][0]),
-                "cross_pt_hi_95": float(boot["cross_pt_hi"][0]),
-                "pt_pval": float(boot["pt_pval"][0]),
-                "draws_positive": int((dd > 1e-12).sum()),
-            })
+    return depth_rows
 
-    write_csv(RESULTS_DIR / "scores.csv", score_rows)
-    write_csv(RESULTS_DIR / "contrasts.csv", contrast_rows)
-    write_csv(RESULTS_DIR / "depth_contrasts.csv", depth_rows)
-    write_csv(RESULTS_DIR / "calibration_logs.csv", cal_logs)
+
+def main() -> None:
+    verify_calibrator_gradient()
+    bundle = json.loads(BUNDLE_PATH.read_text(encoding="utf-8"))
+    npz = np.load(PREDICTIONS_PATH)
+    test_ids = list(bundle["splits"]["test_ids"])
+    gt = _load_test_ground_truth(bundle["items"], test_ids)
+
+    base_probs_all = npz["base_probs"].astype(np.float64)
+    q_base_test = base_probs_all[test_ids]
+    configs = [(1, b) for b in bundle["budgets_d1"]] + [(2, b) for b in bundle["budgets_d2"]]
+
+    losses_all, diag_rows, cal_logs = _evaluate_all_configs(bundle, configs, base_probs_all, q_base_test, npz, gt)
+    score_rows = _aggregate_scores(configs, losses_all, diag_rows)
+
+    n_draws, n_prompts = int(bundle["n_draws"]), gt["n_prompts"]
+    prompt_losses = np.zeros((len(configs), n_draws, len(METHODS), n_prompts, 5), dtype=np.float64)
+    for pid in range(n_prompts):
+        prompt_losses[:, :, :, pid, :] = losses_all[:, :, :, gt["prompt_inv"] == pid, :].mean(axis=3)
+
+    rng_boot = np.random.default_rng(20261124)
+    prompt_weights = rng_boot.multinomial(n_prompts, np.full(n_prompts, 1.0 / n_prompts), size=N_BOOT) / n_prompts
+    draw_weights = rng_boot.multinomial(n_draws, np.full(n_draws, 1.0 / n_draws), size=N_BOOT) / n_draws
+
+    contrast_rows, sustained_summary = _build_primary_contrasts(configs, prompt_losses, prompt_weights, draw_weights)
+    depth_rows = _build_depth_contrasts(bundle, configs, prompt_losses, prompt_weights, draw_weights)
+
+    _write_csv(RESULTS_DIR / "scores.csv", score_rows)
+    _write_csv(RESULTS_DIR / "contrasts.csv", contrast_rows)
+    _write_csv(RESULTS_DIR / "depth_contrasts.csv", depth_rows)
+    _write_csv(RESULTS_DIR / "calibration_logs.csv", cal_logs)
     summary = {
-        "n_test_items": n_test,
+        "n_test_items": len(test_ids),
         "n_test_prompts": n_prompts,
-        "n_test_votes": int(counts_test.sum()),
-        "n_low_disagreement_items": int(mask_low_dis.sum()),
-        "n_high_disagreement_items": int(mask_high_dis.sum()),
+        "n_test_votes": int(gt["counts_test"].sum()),
+        "n_low_disagreement_items": int(gt["mask_low_dis"].sum()),
+        "n_high_disagreement_items": int(gt["mask_high_dis"].sum()),
         "sustained_win_thresholds_rps": sustained_summary,
     }
     (RESULTS_DIR / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")

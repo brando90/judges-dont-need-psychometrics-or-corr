@@ -2,6 +2,7 @@
 """Independent verification of Experiment 25 splits, LoRA provenance, algebraic RPS/CE/TVD, and reports."""
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -18,6 +19,7 @@ EXPECTED_STUDIES = {
     "qwen3_4b": (20, 5, 200, (4096, 2048, 2048, 1038)),
     "llama31_8b": (10, 8, 160, (1600, 800, 800, 1038)),
 }
+METRIC_SCORE_COL = {"rps": "rps", "ce_nats": "ce_nats", "tvd": "tvd", "brier": "brier"}
 
 
 def literal_rps_vote_by_vote(q_item: np.ndarray, votes: list[int]) -> float:
@@ -80,6 +82,26 @@ def verify_study_splits(
     _assert_pairwise_disjoint(model_key, psets)
 
 
+def verify_manifest_and_summary(score_lookup: dict) -> None:
+    manifest = json.loads((RESULTS_DIR / "data_manifest.json").read_text(encoding="utf-8"))
+    summary = json.loads((RESULTS_DIR / "summary.json").read_text(encoding="utf-8"))
+    assert summary["n_test_items"] == 1038 and summary["n_test_prompts"] == 519 and summary["n_test_votes"] == 3610
+    for model_key, (exp_draws, exp_budgets, _, exp_lens) in EXPECTED_STUDIES.items():
+        m_study = manifest["studies"][model_key]
+        assert m_study["n_draws"] == exp_draws and len(m_study["budgets"]) == exp_budgets
+        actual_lens = tuple(m_study[k]["n_responses"] for k in ("train_pool", "val_pool", "cal_pool", "test_set"))
+        assert actual_lens == exp_lens, f"{model_key} manifest split mismatch: {actual_lens} != {exp_lens}"
+    with (RESULTS_DIR / "contrasts.csv").open(encoding="utf-8") as f:
+        contrasts = list(csv.DictReader(f))
+    for row in contrasts:
+        col = METRIC_SCORE_COL.get(row["metric"])
+        if col is None:
+            continue
+        t_val = float(score_lookup[(row["study"], int(row["b_total"]), row["target"])][col])
+        c_val = float(score_lookup[(row["study"], int(row["b_total"]), row["comparator"])][col])
+        np.testing.assert_allclose(float(row["diff_comparator_minus_target"]), c_val - t_val, atol=1e-9, rtol=0)
+
+
 def verify_study_sanity(model_key: str) -> None:
     san = json.loads((RESULTS_DIR / f"{model_key}_sanity.json").read_text(encoding="utf-8"))
     assert san["gradient_verification"]["pearson_two_pass_rel_error"] < 1e-9
@@ -109,6 +131,8 @@ def verify_npz_simplex(model_key: str, npz) -> None:
         if "base_probs" not in k or np.any(arr.sum(axis=1) > 0):
             # base_probs only populated on study items; non-study rows are softmax([0]*5)=0.2
             assert np.max(np.abs(arr.sum(axis=1) - 1.0)) < 1e-4, f"Prob sum mismatch in {model_key}:{k}"
+        if k.endswith("_test"):
+            assert arr.shape == (1038, 5), f"Unexpected test shape in {model_key}:{k}: {arr.shape}"
 
 
 def _mean_draw_metrics(
@@ -165,30 +189,45 @@ def verify_calibration_and_reports() -> None:
     assert plot_src.count(".grid(True") >= 3, "Missing ax.grid(True) across figure subplots"
 
 
+def parse_args() -> argparse.Namespace:
+    ap = argparse.ArgumentParser(description="Verify Experiment 25 provenance, metrics, and reports.")
+    ap.add_argument("--bundle", type=Path, default=BUNDLE_PATH, help="Optional raw bundle path in /tmp for vote-by-vote checks.")
+    return ap.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
     verify_protocol_hash()
-    bundle = json.loads(BUNDLE_PATH.read_text(encoding="utf-8"))
-    items = bundle["items"]
     with (RESULTS_DIR / "scores.csv").open(encoding="utf-8") as f:
         scores = list(csv.DictReader(f))
     score_lookup = {(r["study"], int(r["b_total"]), r["method"]): r for r in scores}
+    verify_manifest_and_summary(score_lookup)
+
+    bundle = json.loads(args.bundle.read_text(encoding="utf-8")) if args.bundle.exists() else None
+    items = bundle["items"] if bundle is not None else None
 
     for model_key, (exp_draws, exp_budgets, exp_runs, exp_split_lens) in EXPECTED_STUDIES.items():
-        study = bundle["studies"][model_key]
-        verify_study_splits(model_key, study, items, exp_draws, exp_budgets, exp_split_lens)
         verify_study_sanity(model_key)
         verify_study_provenance(model_key, exp_runs, exp_budgets)
         npz_path = RESULTS_DIR / f"{model_key}_predictions.npz"
         assert npz_path.stat().st_size < 50_000_000, f"{npz_path.name} exceeds 50 MB GitHub limit"
         npz = np.load(npz_path)
         verify_npz_simplex(model_key, npz)
-        verify_literal_metrics(model_key, study, items, exp_draws, npz, score_lookup)
+        if bundle is not None and items is not None:
+            study = bundle["studies"][model_key]
+            verify_study_splits(model_key, study, items, exp_draws, exp_budgets, exp_split_lens)
+            verify_literal_metrics(model_key, study, items, exp_draws, npz, score_lookup)
 
     verify_calibration_and_reports()
+    bundle_note = (
+        "literal vote-by-vote RPS/CE/TVD matched scores.csv (< 1e-11), zero prompt overlap"
+        if bundle is not None
+        else f"repo-local scores/contrasts arithmetic matched (< 1e-9); skipped raw-bundle checks ({args.bundle} absent)"
+    )
     print(
         "VERIFICATION PASSED: protocol SHA-256 intact, Qwen3-4B (200 runs) + Llama-3.1-8B (160 runs) non-zero LoRA/head updates, "
-        "all draw-0 disk reloads < 1e-7, literal vote-by-vote RPS/CE/TVD matched scores.csv (< 1e-11), "
-        "360/360 L-BFGS-B calibrator gradient norms < 1e-6, zero prompt overlap, zero banned terminology."
+        f"all draw-0 disk reloads < 1e-7, {bundle_note}, "
+        "360/360 L-BFGS-B calibrator gradient norms < 1e-6, zero banned terminology."
     )
 
 

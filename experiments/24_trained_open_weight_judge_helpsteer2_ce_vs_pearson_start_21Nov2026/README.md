@@ -10,5 +10,5 @@
 - [PROTOCOL_11-21-2026.md](PROTOCOL_11-21-2026.md): Frozen pre-run protocol (SHA-256 in `results/protocol.sha256`).
 - [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md): Metric definitions, splits, calibration, and optimizer disclosures.
 - [CKPT_helpsteer2_lora.md](CKPT_helpsteer2_lora.md): Run checkpoint and verification log.
-- `scripts/`: `prepare_helpsteer2.py`, `train_lora_helpsteer2.py`, `calibrate_and_score.py`, `plot_and_report.py`, `verify.py`, `send_run_email.py`.
+- `scripts/`: `prepare_helpsteer2.py`, `train_lora_helpsteer2.py`, `calibrate_and_score.py`, `plot_and_report.py`, `verify.py`, `sync_gdoc_and_drive.py`, `send_run_email.py`.
 - `figures/`: `helpsteer2_lora_learning_curves.{png,pdf}`, `helpsteer2_calibration_and_depth.{png,pdf}`.
