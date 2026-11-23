@@ -1,0 +1,1446 @@
+[
+ {
+  "name": "ChaosNLI (SNLI, MNLI-m and alphaNLI parts; v1.0)",
+  "task": "Natural language inference (3-way for SNLI/MNLI-m, 2-way hypothesis choice for alphaNLI) with 100 crowd labels per item to study the distribution of human opinions.",
+  "items": {
+   "total": 4645,
+   "definition": "one NLI example (premise+hypothesis, or alphaNLI observation pair + 2 hypotheses), a subset of the SNLI dev set, the MNLI-matched dev set, and the full alphaNLI dev set",
+   "per_part": {
+    "snli": 1514,
+    "mnli_m": 1599,
+    "alphanli": 1532
+   },
+   "counted_from_file": true
+  },
+  "ratings_per_item": {
+   "min": 100,
+   "median": 100,
+   "max": 100,
+   "counted_from_file": true,
+   "note": "sum(label_count) is exactly 100 for every item in all 3 files; total 151,400 + 159,900 + 153,200 = 464,500 new labels. SNLI/MNLI items additionally carry the 5 (7 SNLI items: 4) original labels as strings in old_labels."
+  },
+  "scale": "SNLI and MNLI-m: 3 categories (entailment, neutral, contradiction); alphaNLI: 2 categories (hypothesis 1 or 2 more plausible)",
+  "individual_ratings_released": {
+   "answer": "no",
+   "file": "chaosNLI_snli.jsonl, chaosNLI_mnli_m.jsonl, chaosNLI_alphanli.jsonl contain only per-item label counts (label_counter, label_count, label_dist, entropy), not one record per annotator",
+   "rater_ids": "no",
+   "note": "The distribution per item is fully released; per-annotator labels, rater ids and annotator-to-item links are not. The 5 original labels (old_labels) are strings without ids."
+  },
+  "licence": {
+   "name": "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0); GitHub README wording: 'Creative Commons-Non Commercial 4.0'",
+   "url": "https://github.com/easonnie/ChaosNLI (README, License section; LICENSE file titled 'Attribution-NonCommercial 4.0 International')",
+   "note": "The HF mirror earino/chaosnli card says license: cc-by-nc-4.0 (https://huggingface.co/datasets/earino/chaosnli)."
+  },
+  "link": "https://github.com/easonnie/ChaosNLI (data now hosted at https://huggingface.co/datasets/earino/chaosnli; paper https://arxiv.org/abs/2010.03532)",
+  "selection_bias": "SNLI and MNLI-m items are only those whose original 5-label majority agreed with just 3 of 5 original annotators (i.e. low-to-moderate original agreement, source field snli_agree_3 / mnli_agree_3), while alphaNLI is the entire dev set, so the SNLI/MNLI parts are not representative of the full datasets.",
+  "checked": [
+   {
+    "fact": "Totals: 100 annotations per example, 3,113 SNLI+MNLI examples, 1,532 alphaNLI examples, 464,500 annotations",
+    "url": "https://arxiv.org/abs/2010.03532 (PDF https://arxiv.org/pdf/2010.03532)",
+    "quote": "collecting 100 annotations per example for 3,113 examples in SNLI and MNLI and 1,532 examples in \u03b1NLI."
+   },
+   {
+    "fact": "Selection of SNLI/MNLI items and alphaNLI = full dev set",
+    "url": "https://arxiv.org/pdf/2010.03532 (Section 3.1)",
+    "quote": "examples satisfy the requirement that their majority label agrees with only three out of five individual labels collected by the original work ... The third set is the entire \u03b1NLI development set"
+   },
+   {
+    "fact": "Per-file item counts, ratings per item, number of categories, unique ids, source tags",
+    "url": "https://huggingface.co/datasets/earino/chaosnli/tree/eb7cc18dbfa0f161d93a2b22c7856ca0faafcf2b/raw (files downloaded and counted locally)",
+    "quote": "python3 -I script over each file: chaosNLI_snli 1514 uniq 1514 n/item min/med/max 100 100.0 100 total 151400 ncat 3 source snli_agree_3 | chaosNLI_mnli_m 1599 uniq 1599 100 100 100 total 159900 ncat 3 mnli_agree_3 | chaosNLI_alphanli 1532 uniq 1532 100 100 100 total 153200 ncat 2 abdnli_dev"
+   },
+   {
+    "fact": "File integrity: sha256 of the 3 jsonl files equals the checksums pinned in the official GitHub downloader script",
+    "url": "https://raw.githubusercontent.com/easonnie/ChaosNLI/master/scripts/download_data.py",
+    "quote": "sha256sum: 99f9015d...509c1 chaosNLI_snli.jsonl; 8eb49b58...7664d chaosNLI_mnli_m.jsonl; f55817ec...24c9e chaosNLI_alphanli.jsonl (all equal to the CHECKSUMS dict)"
+   },
+   {
+    "fact": "Original Dropbox gone; official README points to the HF community mirror (unofficial, taken from a Kaggle mirror)",
+    "url": "https://github.com/easonnie/ChaosNLI (README, 'Where can I download the data')",
+    "quote": "The original ChaosNLI Dropbox download is no longer available. Download the data from the ChaosNLI community mirror on Hugging Face"
+   },
+   {
+    "fact": "Licence statement on official repo",
+    "url": "https://github.com/easonnie/ChaosNLI",
+    "quote": "Chaos NLI is licensed under Creative Commons-Non Commercial 4.0. See the LICENSE file for details."
+   },
+   {
+    "fact": "No per-annotator records: only aggregated counts in each item",
+    "url": "https://github.com/easonnie/ChaosNLI (README, Data Format)",
+    "quote": "\"label_counter\": {\"e\": 76, \"n\": 20, \"c\": 4}, // count of each newly collected ChaosNLI label ... \"label_count\": [76, 20, 4]"
+   }
+  ],
+  "not_verified": [
+   "Files compared only against the HF mirror (derived from a Kaggle copy, per the mirror card); the original Dropbox archive is gone, so the mirror was not diffed against the original. Counts agree with the paper (3,113 / 1,532 / 464,500) and the pinned checksums come from the official GitHub repo.",
+   "Whether the original release had any per-annotator file or worker ids (README/paper describe none; paper Table 1 reports 1,639 Turkers for ChaosNLI-S but ids are not in the files).",
+   "Licence of the underlying SNLI/MNLI/alphaNLI text (not checked)."
+  ]
+ },
+ {
+  "name": "DICES-350",
+  "task": "Safety rating of adversarial multi-turn human-chatbot conversations by a demographically balanced rater pool (every rater rated every conversation).",
+  "items": {
+   "total": 350,
+   "definition": "one multi-turn adversarial conversation (last chatbot response is rated)",
+   "counted_from_file": true
+  },
+  "ratings_per_item": {
+   "min": 123,
+   "median": 123,
+   "max": 123,
+   "counted_from_file": true,
+   "note": "43,050 rows = 350 items x 123 raters, no duplicate (item, rater); each row holds ~20 granular Yes/No/Unsure ratings. The paper's analysis uses 104 raters after quality filtering (README says so too); all 123 are released."
+  },
+  "scale": "Per safety question (Q2-Q6 granular items and overall Q2/Q3/Q6/Q_overall): Yes (unsafe) / No (safe) / Unsure. Q1 comprehension: 4 categories (fine, nonsensical, unfamiliar topic, not English). Q_overall counts in file: No 26,292, Yes 14,064, Unsure 2,694.",
+  "individual_ratings_released": {
+   "answer": "yes",
+   "file": "350/diverse_safety_adversarial_dialog_350.csv (one row per rater x conversation)",
+   "rater_ids": "yes (numeric rater_id, 123 unique) plus rater gender, race/ethnicity, age group, education"
+  },
+  "licence": {
+   "name": "Creative Commons Attribution 4.0 International License (CC BY 4.0)",
+   "url": "https://github.com/google-research-datasets/dices-dataset (README, License section)"
+  },
+  "link": "https://github.com/google-research-datasets/dices-dataset/tree/main/350 (paper https://arxiv.org/abs/2306.11247)",
+  "selection_bias": "Conversations were deliberately adversarial and chosen as a clearer adversarial sample than DICES-990, sampled evenly from items with an expert (gold) or platinum safe label and an unsafe label (half safe, half unsafe), so unsafe content is over-represented relative to natural traffic.",
+  "checked": [
+   {
+    "fact": "350 conversations, 123 raters, each rated all, 43,050 rows",
+    "url": "https://github.com/google-research-datasets/dices-dataset (README)",
+    "quote": "Dataset 350: ... contains 350 conversations rated by a diverse rater pool of 123 unique raters ... Each conversation has 123 unique ratings. Total number of rows in this dataset is 43050."
+   },
+   {
+    "fact": "Counted from CSV: items, raters, rows/item, items/rater, duplicates",
+    "url": "https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv",
+    "quote": "pandas: shape (43050, 41); items 350 raters 123 rows 43050; rows/item min/med/max 123 123.0 123; items/rater 350/350/350; dup (item,rater) 0"
+   },
+   {
+    "fact": "Rating options",
+    "url": "https://arxiv.org/abs/2306.11247 (PDF https://arxiv.org/pdf/2306.11247)",
+    "quote": "Rating options for Q2 to Q6 were: \u201cNo\u201d (i.e., safe), \u201cYes\u201d (i.e., unsafe) and \u201cUnsure\u201d."
+   },
+   {
+    "fact": "Sampling of DICES-350",
+    "url": "https://arxiv.org/pdf/2306.11247 (Section 3.2)",
+    "quote": "We compiled DICES-350 to be a counterpart to DICES-990, but with a clearer adversarial sample. Sampling was done evenly from both platinum and gold labelled conversations"
+   },
+   {
+    "fact": "Quality-filtered rater pool 104 vs released 123",
+    "url": "https://github.com/google-research-datasets/dices-dataset/blob/main/350/README.md",
+    "quote": "the results presented in the papers typically deal with 104 unique raters ... However, in the released data we provide all ratings from all 123 raters"
+   },
+   {
+    "fact": "Licence",
+    "url": "https://github.com/google-research-datasets/dices-dataset",
+    "quote": "Google LLC licenses this data under a Creative Commons Attribution 4.0 International License."
+   }
+  ],
+  "not_verified": [
+   "How the 350 conversations were drawn from the 8K source corpus beyond the paper's one-sentence description (selection details of the source corpus are in a cited paper, not read).",
+   "The paper's 731,850-rating figure was not recomputed (43,050 rows x 17 granular+overall columns is consistent but I did not count non-null cells per column)."
+  ]
+ },
+ {
+  "name": "DICES-990",
+  "task": "Safety rating of adversarial multi-turn human-chatbot conversations by raters from the US and India balanced by gender (each rater rated only a subset).",
+  "items": {
+   "total": 990,
+   "definition": "one multi-turn adversarial conversation (last chatbot response is rated)",
+   "counted_from_file": true
+  },
+  "ratings_per_item": {
+   "min": 69,
+   "median": 73,
+   "max": 76,
+   "counted_from_file": true,
+   "note": "72,103 rows (item x rater), no duplicate (item, rater); 172 unique raters; items per rater min/median/max 1/331/990. README and paper say 60-70 ratings per conversation and 173 raters; the file shows 69-76 and 172."
+  },
+  "scale": "Per safety question (Q2-Q4 granular items and overall Q2/Q3/Q4/Q_overall): Yes (unsafe) / No (safe) / Unsure. Q1 comprehension: 4 categories. Q_overall counts in file: No 48,995, Yes 19,357, Unsure 3,751.",
+  "individual_ratings_released": {
+   "answer": "yes",
+   "file": "990/diverse_safety_adversarial_dialog_990.csv (one row per rater x conversation)",
+   "rater_ids": "yes (numeric rater_id, 172 unique) plus rater gender, locale (US/India), race/ethnicity, age group, education"
+  },
+  "licence": {
+   "name": "Creative Commons Attribution 4.0 International License (CC BY 4.0)",
+   "url": "https://github.com/google-research-datasets/dices-dataset (README, License section)"
+  },
+  "link": "https://github.com/google-research-datasets/dices-dataset/tree/main/990 (paper https://arxiv.org/abs/2306.11247)",
+  "selection_bias": "Conversations are adversarial (human agents tried to provoke an unsafe chatbot answer) and were drawn by stratified sampling across the three adversariality groups of the source corpus, so the set is not a sample of natural chatbot traffic.",
+  "checked": [
+   {
+    "fact": "README claims: 990 conversations, 173 raters, 60-70 ratings per conversation, 72103 rows",
+    "url": "https://github.com/google-research-datasets/dices-dataset (README)",
+    "quote": "Dataset 990: ... contains 990 conversations rated by a diverse rater pool of 173 unique raters ... Each conversation has 60-70 unique ratings. Total number of rows in this dataset is 72103."
+   },
+   {
+    "fact": "Counted from CSV",
+    "url": "https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/990/diverse_safety_adversarial_dialog_990.csv",
+    "quote": "pandas: shape (72103, 43); items 990 raters 172 rows 72103; rows/item min/med/max 69 73.0 76; uniq raters/item 69 73.0 76; dup (item,rater) 0; items/rater 1/331.0/990"
+   },
+   {
+    "fact": "990 README itself says 172 raters were released (inconsistent with its own '173' in the first paragraph)",
+    "url": "https://github.com/google-research-datasets/dices-dataset/blob/main/990/README.md",
+    "quote": "in the released data we provide all ratings from all 172 raters in case other researchers want to apply a different strategy for quality of raters."
+   },
+   {
+    "fact": "Paper claims 173 raters and 60-70 ratings per conversation",
+    "url": "https://arxiv.org/pdf/2306.11247 (Section 3.3)",
+    "quote": "diverse rater pool in US and India (totalling 173 unique raters). This provided 60-70 unique ratings per conversation along 24 safety criteria."
+   },
+   {
+    "fact": "Sampling of DICES-990",
+    "url": "https://arxiv.org/pdf/2306.11247 (Section 3.2)",
+    "quote": "We compiled DICES-990 by stratified sampling from the source corpus across the three adversariality groups."
+   },
+   {
+    "fact": "Licence",
+    "url": "https://github.com/google-research-datasets/dices-dataset",
+    "quote": "Google LLC licenses this data under a Creative Commons Attribution 4.0 International License."
+   }
+  ],
+  "not_verified": [
+   "Why the file has 172 raters and 69-76 ratings per item rather than 173 and 60-70 (possibly a rater dropped or later release; no explanation found in README/paper).",
+   "Details of the source corpus sampling (cited paper not read).",
+   "Note: the 990 README text on removed raters says 'removed from the DICES-350 dataset' but lists a variable named removed_raters_990 (typo in README, not investigated)."
+  ]
+ },
+ {
+  "name": "HelpSteer2 (incl. disagreements file)",
+  "task": "Helpfulness, correctness, coherence, complexity and verbosity ratings of LLM responses to prompts (for reward-model training), plus pairwise preference annotations.",
+  "items": {
+   "total": 21362,
+   "definition": "one (prompt, response) sample in train (20,324) + validation (1,038); 10,681 prompts per the paper with two responses each (counted 10,680 distinct prompt strings, one prompt string occurs twice)",
+   "disagreements_file_rows": 23652,
+   "disagreements_file_unique_samples": 23651,
+   "of_which_in_train_or_val": 21361,
+   "of_which_not_in_train_or_val": 2290,
+   "preference_file_rows": 9125,
+   "counted_from_file": true
+  },
+  "ratings_per_item": {
+   "min": 2,
+   "median": 3,
+   "max": 6,
+   "counted_from_file": true,
+   "note": "From disagreements/disagreements.jsonl (list length per attribute): 2 annotators 1,160-1,162 samples; 3: 16,390; 4: 1,314; 5: 4,724; 6: 62; mean 3.41 (paper says 3.41). Train/validation files only contain the aggregated (mean) integer score per attribute, not the individual annotations. preference.jsonl has all_preferences_unprocessed with 1-6 entries."
+  },
+  "scale": "5 attributes, each integer 0-4 (Likert-5, higher is better) in the disagreements lists; train/val hold a rounded mean. Preference file: preference_strength integer -3..3.",
+  "individual_ratings_released": {
+   "answer": "yes",
+   "file": "disagreements/disagreements.jsonl.gz (each attribute is a list of individual annotator scores); also preference/preference.jsonl.gz (all_preferences_unprocessed with strength and justification)",
+   "rater_ids": "no (plain lists with no annotator ids; list positions are not documented as consistent per annotator)"
+  },
+  "licence": {
+   "name": "CC-BY-4.0 (card metadata: license: cc-by-4.0; text: 'HelpSteer2 is an open-source Helpfulness Dataset (CC-BY-4.0)')",
+   "url": "https://huggingface.co/datasets/nvidia/HelpSteer2"
+  },
+  "link": "https://huggingface.co/datasets/nvidia/HelpSteer2 (paper https://arxiv.org/abs/2406.08673)",
+  "selection_bias": "Prompts come mostly (>95%) from ShareGPT, topic-balanced; the released train/val set keeps only samples whose helpfulness spread among the retained annotators was at most 2 (about 10% removed, about 50% of all annotations excluded), so it understates disagreement, while the disagreements file also contains high-spread samples and extra items.",
+  "checked": [
+   {
+    "fact": "Final size, split and filtering of the main dataset",
+    "url": "https://arxiv.org/abs/2406.08673 (PDF https://arxiv.org/pdf/2406.08673, Section 2)",
+    "quote": "Our final dataset contains 21,362 high-quality annotated samples, consisting of 10,681 prompts each with two annotated responses."
+   },
+   {
+    "fact": "Annotators per sample and re-annotation rule",
+    "url": "https://arxiv.org/pdf/2406.08673 (Section 2.1)",
+    "quote": "Each sample is initially annotated by three annotators. If ... the difference in helpfulness ... is greater than 2, two additional annotators are recruited ... on average annotated by 3.41 annotators."
+   },
+   {
+    "fact": "Disagreement filter that biases the main set",
+    "url": "https://arxiv.org/pdf/2406.08673 (Section 2.1)",
+    "quote": "we retained only responses for which the differences in helpfulness attribute among annotators were 2 points or below on a Likert-5 scale ... resulting in the removal of about 10% of the samples."
+   },
+   {
+    "fact": "Scale 0-4 and 5 attributes",
+    "url": "https://huggingface.co/datasets/nvidia/HelpSteer2 (card)",
+    "quote": "five human-annotated attributes of the response, each ranging between 0 and 4 where higher means better for each attribute."
+   },
+   {
+    "fact": "Disagreements file description",
+    "url": "https://huggingface.co/datasets/nvidia/HelpSteer2 (card, Disagreements)",
+    "quote": "We release the individual annotations that were used to calculate the mean score (after filtering outliers) ... each entry is a list of labels given by various annotators."
+   },
+   {
+    "fact": "Counts of train, validation, disagreements (downloaded from HF and counted)",
+    "url": "https://huggingface.co/datasets/nvidia/HelpSteer2/tree/main",
+    "quote": "train 20324 val 1038; disagreements 23652 rows, uniq (prompt,response) 23651; n/item (helpfulness) min/med/max 2 3.0 6 {3:16390, 5:4724, 2:1162, 4:1314, 6:62}; mean n = 3.4137; train+val keys 21361 overlap 21361 dis-only 2290"
+   },
+   {
+    "fact": "Disagreements lists contain wide-spread items despite the README saying outliers were filtered",
+    "url": "https://huggingface.co/datasets/nvidia/HelpSteer2/resolve/main/disagreements/disagreements.jsonl.gz",
+    "quote": "For the 21,362 train/val samples matched to the file: helpfulness range (max-min) of list = 0:5317, 1:7755, 2:4927, 3:1671, 4:1692; round(mean(list))==train score for only 17,593 of 21,362"
+   },
+   {
+    "fact": "Licence",
+    "url": "https://huggingface.co/datasets/nvidia/HelpSteer2",
+    "quote": "license: cc-by-4.0 ... HelpSteer2 is an open-source Helpfulness Dataset (CC-BY-4.0)"
+   }
+  ],
+  "not_verified": [
+   "Why disagreements.jsonl holds 2,290 samples that are absent from train/validation (about 1,396 of them with helpfulness spread above 2); no explanation found in the card or paper. A plausible reason (samples dropped by the spread filter) is an inference, not checked.",
+   "Whether list order in the disagreements file corresponds to a fixed annotator (no ids documented).",
+   "The README says the lists are 'used to calculate the mean after filtering outliers' yet 3,363 train/val samples have helpfulness spread 3-4 in the lists and the rounded list mean differs from the released score for 3,769 samples, so the lists appear to include annotations dropped before averaging (inference from counts, not confirmed with the authors).",
+   "Exact rater count: the paper says approximately 1,000 US-based annotators via Scale AI; not recomputable from the files."
+  ]
+ },
+ {
+  "name": "MT-Bench human judgments",
+  "task": "Expert pairwise preference between two model answers (model_a, model_b, or tie) to an MT-Bench question, per conversation turn, used to validate LLM-as-a-judge.",
+  "items": {
+   "total": 1814,
+   "definition": "one (question, turn, unordered model pair) comparison: 80 MT-Bench questions x 2 turns x 15 model pairs = 2,400 possible, 1,814 of them have at least one human vote",
+   "human_votes_total": 3355,
+   "questions": 80,
+   "models": 6,
+   "counted_from_file": true,
+   "note": "The gpt4_pair split (2,400 rows) is GPT-4 judgments, not human, and is not counted as items."
+  },
+  "ratings_per_item": {
+   "min": 1,
+   "median": 2,
+   "max": 7,
+   "counted_from_file": true,
+   "note": "Votes per (question, turn, unordered model pair), human split: 1 vote: 853 items, 2: 561, 3: 271, 4: 92, 5: 25, 6: 10, 7: 2. Only 961 items have 2+ votes (2,502 votes) and 400 have 3+. One (item, judge) pair appears twice."
+  },
+  "scale": "winner in {model_a, model_b, tie} (human split counts: model_a 1,293, model_b 1,282, tie 780); the gpt4_pair split additionally has 'tie (inconsistent)'.",
+  "individual_ratings_released": {
+   "answer": "yes",
+   "file": "data/human-00000-of-00001-25f4910818759289.parquet (split 'human', one row per vote)",
+   "rater_ids": "yes (pseudonymous judge ids: expert_0..., 58 distinct, and author_*, 7 distinct; 65 total; votes per judge min/median/max 4/44/205)"
+  },
+  "licence": {
+   "name": "cc-by-4.0 (HF card metadata 'license: cc-by-4.0')",
+   "url": "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments"
+  },
+  "link": "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments (paper https://arxiv.org/abs/2306.05685)",
+  "selection_bias": "Items are 80 hand-built multi-turn questions answered by only 6 models, judged by about 58 mostly-graduate-student volunteers who each saw at least 20 random multi-turn questions, and whenever a human disagreed with GPT-4 the interface showed GPT-4's judgment and asked if it was reasonable.",
+  "checked": [
+   {
+    "fact": "Human split size, number of models/questions, annotators",
+    "url": "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments",
+    "quote": "This dataset contains 3.3K expert-level pairwise human preferences for model responses generated by 6 models in response to 80 MT-bench questions."
+   },
+   {
+    "fact": "58 labelers, at least 20 questions each, about 3K votes",
+    "url": "https://arxiv.org/abs/2306.05685 (PDF https://arxiv.org/pdf/2306.05685, Section 4.1)",
+    "quote": "58 expert-level human labelers. The labelers are mostly graduate students ... let each human evaluate at least 20 random multi-turn questions. This resulted in around 3K votes for all questions."
+   },
+   {
+    "fact": "Interface shows GPT-4 judgment when human disagrees (possible anchoring)",
+    "url": "https://arxiv.org/pdf/2306.05685 (Appendix C.1)",
+    "quote": "we additionally show GPT-4's judgment to users and ask if it is reasonable when a human differs from GPT-4."
+   },
+   {
+    "fact": "Counted from the human parquet (read with pyarrow)",
+    "url": "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments/resolve/main/data/human-00000-of-00001-25f4910818759289.parquet",
+    "quote": "shape (3355, 8); questions 80; judges 65 (expert 58, author 7); unique (question,turn,model pair) items 1814; judgments/item min/med/max 1 2.0 7 {1:853, 2:561, 3:271, 4:92, 5:25, 6:10, 7:2}; winner model_a 1293, model_b 1282, tie 780; turn 1: 1689, turn 2: 1666"
+   },
+   {
+    "fact": "Licence",
+    "url": "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments (card YAML)",
+    "quote": "license: cc-by-4.0"
+   }
+  ],
+  "not_verified": [
+   "Licence read from the card's YAML front matter (raw README), not from the rendered page; the MT-Bench questions/model outputs may carry upstream terms (not checked).",
+   "Whether the 7 'author' judges are included in the paper's '58 expert labelers' (file has 58 expert ids plus 7 author ids; paper Table 13 reports authors separately, not checked in detail).",
+   "Item-level ratings per (question, turn, model pair) depend on treating the pair as unordered; the model_a/model_b order varies across votes and I merged both orders (winner relative to model_a/model_b was not re-mapped since only counts were reported)."
+  ]
+ },
+ {
+  "name": "SummEval (Fabbri et al. 2021) human annotations",
+  "task": "Human quality ratings (coherence, consistency, fluency, relevance) of machine-generated CNN/DailyMail news summaries, by experts and MTurk crowd workers.",
+  "items": "1,600 summaries (100 CNN/DM source articles x 16 summarization models; counted: 100 unique ids, each with 16 model outputs, 1600 unique (id, model) pairs) in model_annotations.aligned.jsonl",
+  "ratings_per_item": {
+   "min": 8,
+   "median": 8,
+   "max": 8,
+   "detail": "per summary and per dimension: 3 expert + 5 crowd ratings (counted: expert_annotations len 3 in all 1600 rows, turker_annotations len 5 in all 1600 rows). 12,800 annotation records = 1600 x 8, each record carrying 4 dimension scores."
+  },
+  "scale": "Likert 1-5 (higher is better) on each of 4 dimensions; integer values 1..5 observed in both groups (crowd scores are integers in the file, not averages).",
+  "individual_ratings_released": "yes - model_annotations.aligned.jsonl, fields expert_annotations (list of 3 dicts) and turker_annotations (list of 5 dicts) per summary. Rater ids: NO (each dict has only the 4 keys coherence/consistency/fluency/relevance; no worker or expert id, so the same-rater-across-items link cannot be recovered; whether list position of the 3 experts is a stable identity is not verified). Caveat: expert scores are the post-second-round scores, where experts saw each other's first-round scores, so the 3 expert ratings are not independent.",
+  "licence": "No data-specific licence stated. The repository carries the MIT License (copyright 2021 Fabbri, Kryscinski, McCann, Xiong, Socher, Radev) at https://github.com/Yale-LILY/SummEval/blob/master/LICENSE; the README (https://github.com/Yale-LILY/SummEval) states no separate terms for the annotation file, which is hosted on storage.googleapis.com. Source articles are CNN/DailyMail (separate terms, not checked).",
+  "link": "https://github.com/Yale-LILY/SummEval (annotation file: https://storage.googleapis.com/sfr-summarization-repo-research/model_annotations.aligned.jsonl; paper arXiv 2007.12626)",
+  "selection_bias": "Paper: 100 articles randomly picked from the CNN/DailyMail test set; crowd workers were MTurk workers in US/UK/Australia with >=10,000 approved HITs and >=97% approval; the 3 experts were summarization researchers/students (2 had published, 1 senior thesis).",
+  "checked": [
+   {
+    "fact": "README describes file, 1600 examples, 8 annotations each, 4 dimensions",
+    "url": "https://raw.githubusercontent.com/Yale-LILY/SummEval/master/README.md",
+    "quote": "Each of the summaries was annotated by 5 indepedent crowdsource workers and 3 independent experts (8 annotations in total)."
+   },
+   {
+    "fact": "Likert 1-5 scale",
+    "url": "https://arxiv.org/pdf/2007.12626",
+    "quote": "Judges were asked to rate the summaries on a Likert scale from 1 to 5 (higher better) along the four mentioned dimensions."
+   },
+   {
+    "fact": "article selection",
+    "url": "https://arxiv.org/pdf/2007.12626",
+    "quote": "Annotations were collected for 100 articles randomly picked from the CNN/DailyMail [test set]"
+   },
+   {
+    "fact": "crowd hiring criteria",
+    "url": "https://arxiv.org/pdf/2007.12626",
+    "quote": "Crowd-sourced annotators were hired through the Amazon Mechanical Turk platform. The hiring criteria were set to a minimum of 10000 approved HITs and an approval rate of 97% or higher."
+   },
+   {
+    "fact": "experts saw each other's first-round scores",
+    "url": "https://arxiv.org/pdf/2007.12626",
+    "quote": "When re-evaluating examples, judges were allowed to see scores assigned by other expert annotators in the first round of annotations."
+   },
+   {
+    "fact": "paper total annotations",
+    "url": "https://arxiv.org/pdf/2007.12626",
+    "quote": "each summary was scored by 5 crowd-sourced and 3 expert workers, amounting to 12800 summary-level annotations"
+   },
+   {
+    "fact": "counts from file: 1600 rows, 100 ids, 16 models, 3 expert / 5 crowd per row, keys only 4 dimensions, values 1-5",
+    "url": "https://storage.googleapis.com/sfr-summarization-repo-research/model_annotations.aligned.jsonl",
+    "quote": "python -I script over downloaded file (5,839,062 bytes): rows=1600; ids=100; models=16; expert_annotations len min/med/max 3/3/3; turker_annotations 5/5/5; key sets = {coherence,consistency,fluency,relevance} for all 4800 expert + 8000 crowd records. Expert fluency counts {1:48,2:126,3:365,4:270,5:3991}; crowd coherence {1:145,2:486,3:1998,4:3475,5:1896}"
+   },
+   {
+    "fact": "MIT licence on repo",
+    "url": "https://raw.githubusercontent.com/Yale-LILY/SummEval/master/LICENSE",
+    "quote": "MIT License  Copyright (c) 2021 Alex Fabbri, Wojciech Kry\u015bci\u0144ski, Bryan McCann, Caiming Xiong, Richard Socher, and Dragomir Radev"
+   }
+  ],
+  "not_verified": [
+   "Whether the annotation file itself (as opposed to the code) is covered by the MIT licence - README is silent.",
+   "Whether the order of the 3 expert / 5 crowd entries corresponds to stable annotators across summaries.",
+   "Number of distinct crowd workers (not in file; paper text read only in the annotation sections).",
+   "Whether the _paired_ file (with source article text) can be produced - requires separate CNN/DM download; not tried."
+  ]
+ },
+ {
+  "name": "KonIQ-10k (Hosu et al. 2020)",
+  "task": "Blind image quality assessment (in-the-wild images) with crowdsourced 5-point ACR quality ratings.",
+  "items": "10,073 images (counted: 10,073 rows, 10,073 unique image_name) in koniq10k_scores_and_distributions",
+  "ratings_per_item": {
+   "min": 93,
+   "median": 106,
+   "max": 157,
+   "detail": "c_total per image, counted from file; mean 107.03; sum of all counts 1,078,154. Paper says 'at least 120 scores each' and 'more than 1.2 million' - file does NOT match (see not_verified / discrepancies)."
+  },
+  "scale": "5-point Absolute Category Rating: bad(1), poor(2), fair(3), good(4), excellent(5). File gives per-image histogram c1..c5 plus MOS, SD, MOS_zscore.",
+  "individual_ratings_released": "Per-image count histogram only (c1-c5), so the full per-item score distribution is available, but individual ratings are NOT in the released files: no per-rating rows, no rater ids. The paper says 'we will provide the complete raw crowdsourcing data as part of the final release'; the DaRUS record (v1, 2022-09-23) lists only 4 files (1024x768 zip, 512x384 zip, indicators, scores_and_distributions) and no raw file.",
+  "licence": "DaRUS record terms: 'This dataset is licensed under CC-BY 4.0 with the following exceptions: The images in this dataset are individually licensed under one of the various Creative Common licenses. Explicit license information for each image is available in the metadata of the YFCC100M dataset.' The official lab page only says 'KonIQ-10k is freely available to the research community.'",
+  "link": "https://database.mmsp-kn.de/koniq-10k-database.html (DOI https://doi.org/10.18419/DARUS-2435)",
+  "selection_bias": "Paper: ~10 million random YFCC100M records filtered to Creative-Commons images with machine tags and resolution 960x540-6000x6000, then tag-based sampling, 13,000 images sampled enforcing a uniform distribution across eight image indicators, de-duplicated and manually filtered to 10,073; raters were CrowdFlower workers who passed a 20-question quiz (>70%), hidden test questions, outlier and line-clicker screening (1,459 of 2,302 kept).",
+  "checked": [
+   {
+    "fact": "official page description, downloads, file header",
+    "url": "https://database.mmsp-kn.de/koniq-10k-database.html",
+    "quote": "KonIQ-10k is freely available to the research community. ... c1-c5: number of ratings for each ACR value  c_total: total number of judgments per image  MOS: Mean Opinion Scores of the 5-point ACR"
+   },
+   {
+    "fact": "DaRUS licence/terms of use and file list (API json: termsOfUse, files)",
+    "url": "https://darus.uni-stuttgart.de/api/datasets/:persistentId/?persistentId=doi:10.18419/DARUS-2435",
+    "quote": "This dataset is licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC-BY 4.0</a> with the following exceptions: The images in this dataset are individually licensed"
+   },
+   {
+    "fact": "scale",
+    "url": "https://arxiv.org/pdf/1910.06180",
+    "quote": "We used the standard 5-point Absolute Category Rating (ACR) scale, i.e., bad (1), poor (2), fair (3), good (4), and excellent (5)."
+   },
+   {
+    "fact": "paper claims on rating counts",
+    "url": "https://arxiv.org/pdf/1910.06180",
+    "quote": "to annotate the entire database of 10,073 images, with at least 120 scores each, more than 1.2 million trusted judgments were submitted."
+   },
+   {
+    "fact": "worker screening",
+    "url": "https://arxiv.org/pdf/1910.06180",
+    "quote": "All in all, we arrived at 1,459 of 2,302 crowd workers who passed these filtering steps."
+   },
+   {
+    "fact": "raw data promise",
+    "url": "https://arxiv.org/pdf/1910.06180",
+    "quote": "we will provide the complete raw crowdsourcing data as part of the final release of our database."
+   },
+   {
+    "fact": "count from file: 10,073 images; c_total min/median/max; sum",
+    "url": "https://darus.uni-stuttgart.de/api/access/datafile/72288?format=original",
+    "quote": "python -I pandas on koniq10k_scores_and_distributions.csv (831,853 bytes): shape (10073,10); unique image_name 10073; c_total min 93, median 106.0, max 157, mean 107.03, sum 1078154; c1..c5 sums 24533/178101/492270/365381/17869; c1+..+c5==c_total for all rows"
+   }
+  ],
+  "not_verified": [
+   "Official-page download link http://datasets.vqa.mmsp-kn.de/archives/koniq10k_scores_and_distributions.zip returned 504 / timeout through the proxy (3 tries), so I counted the same-named file from the DaRUS record (datafile 72288, original csv) instead; I could not confirm it is byte-identical to the zip on the lab page.",
+   "Reason for the gap between paper (>=120 ratings/image, >1.2M ratings) and file (min 93, median 106, total 1.078M) - plausibly the released counts exclude some workers/ratings; not stated anywhere I read.",
+   "Whether a raw per-rater file was ever released elsewhere (lab page and DaRUS list none).",
+   "Images/other files not downloaded (5.6 GB)."
+  ]
+ },
+ {
+  "name": "USR dialogue quality annotations (Mehri & Eskenazi 2020)",
+  "task": "Human quality ratings (6 qualities) of dialogue responses for Topical-Chat and PersonaChat, to benchmark dialogue evaluation metrics.",
+  "items": "660 responses: Topical-Chat 360 (60 contexts x 6 responses) in tc_usr_data.json + PersonaChat 300 (60 contexts x 5 responses) in pc_usr_data.json (counted)",
+  "ratings_per_item": {
+   "min": 3,
+   "median": 3,
+   "max": 3,
+   "detail": "3 annotators per response on each of 6 qualities (counted in both files: every score list has length 3); 11,880 individual scores in total: 6,480 (TC) + 5,400 (PC)."
+  },
+  "scale": "Per-quality integer scales: Understandable 0-1; Natural 1-3; Maintains Context 1-3; Engaging (called 'Interesting' in the paper) 1-3; Uses Knowledge 0-1; Overall 1-5. Observed values in files match these ranges.",
+  "individual_ratings_released": "yes - tc_usr_data.json and pc_usr_data.json: each response has a list of 3 scores per quality. Rater ids: partly - each dialogue context carries an 'annotators' list of 3 short name strings (TC: er, fl, me, sm, yf; PC: maxine, mckenna, shikib, yulan); whether score position i corresponds to annotators[i] is not documented (likely but not verified).",
+  "licence": "No licence or terms stated on the data page http://shikib.com/usr (only download links and a contact address). The code repository https://github.com/Shikib/usr is Apache-2.0 (GitHub licence metadata and LICENSE file), and its README only says 'The USR data can be found here (http://shikib.com/usr)'.",
+  "link": "http://shikib.com/usr (data: https://shikib.com/tc_usr_data.json, https://shikib.com/pc_usr_data.json; paper arXiv 2005.00456)",
+  "selection_bias": "Paper: 60 Topical-Chat dialog contexts randomly sampled from the frequent test set and 60 PersonaChat contexts sampled from the ConvAI2 validation set, rated by six dialog researchers (not crowd workers), with annotators randomly assigned to each context.",
+  "checked": [
+   {
+    "fact": "data page lists the two files, no licence",
+    "url": "http://shikib.com/usr",
+    "quote": "hrefs found in raw HTML: https://shikib.com/tc_usr_data.json, https://shikib.com/pc_usr_data.json, https://github.com/Shikib/usr, mehrishikib@gmail.com (no licence/terms text on page, 2,363 bytes)"
+   },
+   {
+    "fact": "qualities and scales, 3 annotators",
+    "url": "https://arxiv.org/pdf/2005.00456",
+    "quote": "Understandable (0-1), Natural (1-3), Maintains Context (1-3), Interesting (1-3), Uses Knowledge (0-1), Overall Quality (1-5). Three annotators labeled each response."
+   },
+   {
+    "fact": "sample sizes and sampling",
+    "url": "https://arxiv.org/pdf/2005.00456",
+    "quote": "60 dialog contexts randomly sampled from the frequent test set, for a total of 360 responses ... PersonaChat, 60 dialog contexts were sampled from the ConvAI2 validation set"
+   },
+   {
+    "fact": "annotators were researchers, not crowd",
+    "url": "https://arxiv.org/pdf/2005.00456",
+    "quote": "Quality annotation was performed by six dialog researchers."
+   },
+   {
+    "fact": "counts from files",
+    "url": "https://shikib.com/tc_usr_data.json",
+    "quote": "python -I: tc.json (318,220 B) list of 60 contexts, 6 responses each = 360 items, each of 6 quality fields has list len 3; Overall counts {1:188,2:211,3:214,4:191,5:276}; pc.json (219,315 B) 60 contexts, 5 responses each = 300 items, len 3; Overall {1:27,2:108,3:204,4:267,5:294}"
+   },
+   {
+    "fact": "annotator id strings per context",
+    "url": "https://shikib.com/tc_usr_data.json",
+    "quote": "python -I: tc 'annotators' len 3 in all 60 contexts, 6 distinct triples, ids {er,fl,me,sm,yf}; pc len 3 in all 60, 3 distinct triples, ids {maxine,mckenna,shikib,yulan}"
+   },
+   {
+    "fact": "repo licence",
+    "url": "https://github.com/Shikib/usr",
+    "quote": "GitHub API repos/shikib/usr license: {'key': 'apache-2.0', 'name': 'Apache License 2.0'}; LICENSE file starts 'Apache License Version 2.0, January 2004'"
+   }
+  ],
+  "not_verified": [
+   "Licence of the data itself (none stated).",
+   "Whether score list position aligns with the 'annotators' list order.",
+   "Why the files have 5+4 = 9 distinct annotator id strings while the paper says six researchers (ids may overlap under different spellings, e.g. 'sm' vs 'shikib' - not verifiable).",
+   "Rater-level agreement numbers in the paper were not re-computed."
+  ]
+ },
+ {
+  "name": "Stanford Sentiment Treebank (Socher et al. 2013) raw individual ratings",
+  "task": "Fine-grained sentiment of movie-review sentences and every phrase in their parse trees, rated on a 25-position slider by MTurk workers.",
+  "items": "239,232 phrases/vocabulary entries (phrase = a node of a parse tree, incl. words, sub-phrases and 11,855 full sentences) in rawscores_exp12.txt (counted: 239,232 lines, unique ids 0..239231, identical to the 239,232 rows of sentiment_labels.txt and dictionary.txt). The paper says 215,154 phrases in 11,855 sentences.",
+  "ratings_per_item": {
+   "min": 3,
+   "median": 3,
+   "max": 6,
+   "detail": "counted: 238,674 items with 3 ratings, 485 with 4, 73 with 6, none with 5; total 718,400 raw ratings. Matches the raw README ('most will only have 3, and only a handful have 4-6')."
+  },
+  "scale": "Integer slider 1-25 (1 most negative, 25 most positive; observed values 1..25). Processed release averages and bins to 5 classes (very negative..very positive) with cut-offs [0,.2],(.2,.4],(.4,.6],(.6,.8],(.8,1].",
+  "individual_ratings_released": "yes - rawscores_exp12.txt inside stanfordSentimentTreebankRaw.zip (linked on the page as 'Dataset raw counts (5mb)'), one line per phrase: 'index,score1,score2,score3[,...]', phrase text in sentlex_exp12.txt. Rater ids: NO (only the scores).",
+  "licence": "No licence or terms stated on the official pages https://nlp.stanford.edu/sentiment/ , /treebank.html , /code.html, nor in the two README.txt files in the zips (the main README only asks: 'If you use this dataset in your research, please cite the above paper.').",
+  "link": "https://nlp.stanford.edu/sentiment/ (raw ratings: https://nlp.stanford.edu/~socherr/stanfordSentimentTreebankRaw.zip; main: https://nlp.stanford.edu/~socherr/stanfordSentimentTreebank.zip)",
+  "selection_bias": "Paper: sentences are the 10,662 Rotten Tomatoes snippets from Pang and Lee (2005), parsed with the Stanford parser (~1,100 split into several sentences); phrases per MTurk HIT were randomly sampled from all phrases; raters are anonymous Mechanical Turk workers (no worker screening described in the main text).",
+  "checked": [
+   {
+    "fact": "download list on official page",
+    "url": "https://nlp.stanford.edu/sentiment/",
+    "quote": "Dataset Downloads: Main zip file with readme (6mb) Dataset raw counts (5mb) Train,Dev,Test Splits in PTB Tree Format"
+   },
+   {
+    "fact": "raw file format and scale",
+    "url": "https://nlp.stanford.edu/~socherr/stanfordSentimentTreebankRaw.zip",
+    "quote": "A raw score is an integer between [1, 25] with 1 being the most negative and 25 most positive. rawscores_exp12.txt contains an index followed by 3-6 raw scores"
+   },
+   {
+    "fact": "paper: 3 judges, 215,154 phrases, MTurk, 25-value slider",
+    "url": "https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf",
+    "quote": "a total of 215,154 unique phrases from those parse trees, each annotated by 3 human judges."
+   },
+   {
+    "fact": "slider",
+    "url": "https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf",
+    "quote": "The slider has 25 different values and is initially set to neutral. The phrases in each hit are randomly sampled from the set of all phrases"
+   },
+   {
+    "fact": "source of sentences",
+    "url": "https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf",
+    "quote": "The original dataset includes 10,662 sentences, half of which were considered positive and half negative."
+   },
+   {
+    "fact": "raw README caveat on vocabulary",
+    "url": "https://nlp.stanford.edu/~socherr/stanfordSentimentTreebankRaw.zip",
+    "quote": "Some of the vocab may not be used in the final dataset. This is due to changes in the data acquisition during our earlier iterations."
+   },
+   {
+    "fact": "counts from file",
+    "url": "https://nlp.stanford.edu/~socherr/stanfordSentimentTreebankRaw.zip",
+    "quote": "python -I on rawscores_exp12.txt: lines 239232; unique idx 239232; ratings/item min 3, median 3.0, max 6; distribution [(3,238674),(4,485),(6,73)]; total ratings 718400; values 1..25. Main zip: sentiment_labels rows 239232; dictionary 239232; datasetSentences 11855; split train 8544 / test 2210 / dev 1101"
+   }
+  ],
+  "not_verified": [
+   "Licence (none stated anywhere on the official pages).",
+   "Which of the 239,232 entries are the 215,154 phrases of the final dataset (the raw README says some vocabulary is unused; I did not map them).",
+   "Number of distinct MTurk workers (no worker ids; paper main text does not give it - supplementary material not read).",
+   "Whether the order of scores within a line is meaningful (no documentation)."
+  ]
+ },
+ {
+  "name": "MovieLens 100K",
+  "task": "Movie star-rating (recommender-system) data from the MovieLens web site, Sept 1997 - April 1998.",
+  "items": "1,682 movies (counted: unique item ids in u.data = 1682; u.item has 1682 lines); 943 users, 100,000 ratings",
+  "ratings_per_item": {
+   "min": 1,
+   "median": 27,
+   "max": 583,
+   "detail": "ratings per movie, counted from u.data (mean 59.45); 141 movies have a single rating, 939 have >=20. Per user: min 20, median 65, max 737."
+  },
+  "scale": "Integer stars 1-5; counted rating histogram {1:6110, 2:11370, 3:27145, 4:34174, 5:21201}.",
+  "individual_ratings_released": "yes - u.data (user id, item id, rating, unix timestamp; tab separated). Rater ids: yes, pseudonymous numeric user id 1-943 (plus age, gender, occupation, zip in u.user). No duplicate (user,item) pairs.",
+  "licence": "Not an open licence; custom terms in the dataset README: 'The data set may be used for any research purposes under the following conditions:' no implied endorsement by Univ. of Minnesota/GroupLens; must acknowledge use in publications; 'The user may not redistribute the data without separate permission.'; no commercial/revenue-bearing use without permission from a GroupLens faculty member. Read at the README linked from the official page.",
+  "link": "https://grouplens.org/datasets/movielens/100k/ (zip: https://files.grouplens.org/datasets/movielens/ml-100k.zip)",
+  "selection_bias": "README: ratings were collected through the MovieLens web site (self-selected users who chose to rate), and 'users who had less than 20 ratings or did not have complete demographic information were removed from this data set'.",
+  "checked": [
+   {
+    "fact": "official page description",
+    "url": "https://grouplens.org/datasets/movielens/100k/",
+    "quote": "MovieLens 100K movie ratings . Stable benchmark dataset. 100,000 ratings from 1000 users on 1700 movies. Released 4/1998."
+   },
+   {
+    "fact": "README summary counts and scale",
+    "url": "https://files.grouplens.org/datasets/movielens/ml-100k/README",
+    "quote": "100,000 ratings (1-5) from 943 users on 1682 movies. Each user has rated at least 20 movies."
+   },
+   {
+    "fact": "licence terms",
+    "url": "https://files.grouplens.org/datasets/movielens/ml-100k/README",
+    "quote": "The user may not redistribute the data without separate permission."
+   },
+   {
+    "fact": "selection",
+    "url": "https://files.grouplens.org/datasets/movielens/ml-100k/README",
+    "quote": "users who had less than 20 ratings or did not have complete demographic information were removed from this data set."
+   },
+   {
+    "fact": "counts from file",
+    "url": "https://files.grouplens.org/datasets/movielens/ml-100k.zip",
+    "quote": "python -I pandas on u.data: rows 100000; users 943; items 1682; ratings {1..5}; duplicate (u,i) 0; per-item min 1, median 27.0, max 583; per-user 20/65/737; timestamps 1997-09-20 to 1998-04-22; u.info: 943 users 1682 items 100000 ratings"
+   }
+  ],
+  "not_verified": [
+   "Whether the page has any additional licence text beyond the README (page text only links README.txt).",
+   "Whether the numeric user ids are re-identifiable (not assessed)."
+  ]
+ },
+ {
+  "name": "Chatbot Arena Conversations (lmsys/chatbot_arena_conversations)",
+  "task": "Pairwise human preference votes between two anonymous LLMs' answers to a user's own prompt (crowdsourced, in the wild).",
+  "items": "Per the card: 33,000 conversations, each one prompt/conversation shown to two models (model_a, model_b) with one user vote; 20 models, 13,383 users, 96 languages. NOT counted from the file: the data file is gated (see not_verified).",
+  "ratings_per_item": "pairwise vote only, no per-item rating distribution (one vote per conversation pair per the card/schema: fields winner, judge; no repeated votes per item stated). Not counted from the file (gated).",
+  "scale": "Categorical pairwise outcome in field `winner` (card schema lists it as a string; the allowed values, e.g. model_a / model_b / tie, were not verified because the file is gated).",
+  "individual_ratings_released": "yes per the card, not verified in the file: each row is one individual user's vote (field `winner`) with an anonymized user id in field `judge` ('the anonymized user ID'). File: data/train-00000-of-00001-cced8514c7ed782a.parquet (41.6 MB, gated).",
+  "licence": "Card front matter `license: cc`; card License section: 'The user prompts are licensed under CC-BY-4.0, while the model outputs are licensed under CC-BY-NC-4.0.' Access is gated (auto-approve click-through 'Disclaimers and Terms'). Read at https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+  "link": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+  "selection_bias": "Self-selected volunteer users of the public Arena site; the Chatbot Arena paper (2403.04132, Sec. 8): 'we anticipate that it will primarily consist of LLM hobbyists and researchers who are eager to experiment with and evaluate the latest LLMs.'",
+  "checked": [
+   {
+    "fact": "Dataset is gated (auto)",
+    "url": "https://huggingface.co/api/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "curl -s https://huggingface.co/api/datasets/lmsys/chatbot_arena_conversations -> \"gated\":\"auto\""
+   },
+   {
+    "fact": "Data file cannot be downloaded without an authenticated, access-granted HF account",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations/resolve/main/data/train-00000-of-00001-cced8514c7ed782a.parquet",
+    "quote_or_command": "curl -L -> HTTP 401: 'Access to dataset lmsys/chatbot_arena_conversations is restricted. You must have access to it and be authenticated to access it. Please log in.'"
+   },
+   {
+    "fact": "Size and content",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "This dataset contains 33K cleaned conversations with pairwise human preferences. It is collected from 13K unique IP addresses on the Chatbot Arena from April to June 2023."
+   },
+   {
+    "fact": "Fields per sample incl. user vote and anonymized user id",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "Each sample includes a question ID, two model names, their full conversation text in OpenAI API JSON format, the user vote, the anonymized user ID, the detected language tag"
+   },
+   {
+    "fact": "Basic statistics table on card",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "| # Conversations | 33,000 | ... | # Models | 20 | # Users | 13,383 | # Languages | 96 |"
+   },
+   {
+    "fact": "Licence text",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "The user prompts are licensed under CC-BY-4.0, while the model outputs are licensed under CC-BY-NC-4.0."
+   },
+   {
+    "fact": "Gating terms",
+    "url": "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+    "quote_or_command": "Users of this data agree to not attempt to determine the identity of individuals in this dataset."
+   },
+   {
+    "fact": "The 33K-conversation dataset is described by the MT-Bench/Chatbot Arena paper 2306.05685 (the card cites it), not by 2403.04132",
+    "url": "https://arxiv.org/abs/2306.05685",
+    "quote_or_command": "Card cites eprint={2306.05685}; that paper: 'We publicly release 80 MT-bench questions, 3K expert votes, and 30K conversations with human preferences for future study.'"
+   },
+   {
+    "fact": "2403.04132 only promises a later, larger release",
+    "url": "https://arxiv.org/abs/2403.04132",
+    "quote_or_command": "We will publicly release a human preference dataset with over 100K pairwise votes collected from Chatbot Arena."
+   },
+   {
+    "fact": "2403.04132 data volume and consent",
+    "url": "https://arxiv.org/abs/2403.04132",
+    "quote_or_command": "we have received around 240K votes from over 90K users ... users are required to accept terms of use, which gives us their consent to release the data publicly."
+   },
+   {
+    "fact": "datasets-server also refuses this gated dataset",
+    "url": "https://datasets-server.huggingface.co/size?dataset=lmsys/chatbot_arena_conversations",
+    "quote_or_command": "curl -> {\"error\":\"The dataset does not exist, or is not accessible without authentication (private or gated)...\"}"
+   }
+  ],
+  "not_verified": [
+   "All counts (33,000 conversations, 13,383 users, 20 models) are the card's numbers, not mine: the parquet is gated and I have no access-granted HF credentials, so I did not download it and did not look for an ungated mirror (would bypass the gate/terms).",
+   "Values of `winner` (tie coding), whether the `judge` field is a per-user id, votes per conversation, ratings per user: all not verified.",
+   "Whether the 100K-vote release promised in 2403.04132 exists, and under what licence/name: not checked (outside the named dataset)."
+  ]
+ },
+ {
+  "name": "WebGPT Comparisons (openai/webgpt_comparisons)",
+  "task": "Pairwise human comparison of two model-written, browser-assisted long-form answers to the same question (reward-modelling data for WebGPT).",
+  "items": "19,578 comparisons (one item = one pair of answers to one question) per paper Appendix K, HF card, and HF datasets-server num_rows=19578. Not counted by me over the full file (278,540,416 bytes > 150 MB limit); counted in the first 40 MB only: 2,752 complete pair-lines, 2,552 distinct question ids (2,352 questions once, 200 questions twice).",
+  "ratings_per_item": "pairwise vote only, no per-item rating distribution: one preference score per pair (score_0 = -score_1). Number of labelers per comparison is not stated in the paper or card (not verified). Not a distribution.",
+  "scale": "Paper App. C: each comparison rating used 'a 5-point Likert scale with the options A much better, A better, Equally good, B better and B much better'; released score is a number from -1 to 1 (card/App. K). In my 40 MB sample the score_0 values observed were -1, -2/3, -1/2, -1/3, 0, 1/3, 1/2, 2/3, 1 (187/13/769/38/759/28/743/9/206 of 2,752), i.e. 9 distinct values, not only the 5 Likert points; why 1/3 and 2/3 occur is not explained in the sources I read.",
+  "individual_ratings_released": "no. Single file comparisons.jsonl (https://openaipublic.blob.core.windows.net/webgpt-answer-viewer/comparisons.jsonl, 278,540,416 bytes): each line is a list of two records with keys question, quotes, answer, tokens, score only; no labeler id, no per-labeler ratings (checked in 40 MB sample).",
+  "licence": "No licence stated on the HF card (front matter has only pretty_name; no License section). The loader script webgpt_comparisons.py carries an Apache-2.0 header but that covers the HF script, not the data. Paper Appendix K gives no licence either. Read at https://huggingface.co/datasets/openai/webgpt_comparisons",
+  "link": "https://huggingface.co/datasets/openai/webgpt_comparisons",
+  "selection_bias": "Paper: 'For both demonstrations and comparisons, the vast majority of questions were taken from ELI5' (98% of comparisons); labelers were 10 Upwork + 46 Surge AI contractors, and the release is only comparisons 'marked as suitable for reward modeling by the end of the WebGPT project'.",
+  "checked": [
+   {
+    "fact": "Card: 19,578 comparisons, marked suitable for reward modelling",
+    "url": "https://huggingface.co/datasets/openai/webgpt_comparisons",
+    "quote_or_command": "This is the dataset of all comparisons that were marked as suitable for reward modeling by the end of the WebGPT project. There are 19,578 comparisons in total."
+   },
+   {
+    "fact": "Paper App. K: release size and fields",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "We are releasing a dataset of all comparisons that were marked as suitable for reward modeling by the end of the project, totalling 19,578 comparisons."
+   },
+   {
+    "fact": "Paper App. K: score definition",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "Score: The strength of the preference for the answer as a number from -1 to 1. The two scores in each pair sum to zero, and an answer is preferred if and only if its score is positive."
+   },
+   {
+    "fact": "Paper: collected ~21,500 comparisons, 98% ELI5 (release is 19,578)",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "around 21,500 comparisons, 98% of which were for questions from ELI5"
+   },
+   {
+    "fact": "Paper App. C: 5-point Likert",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "For each of the comparison ratings, we used a 5-point Likert scale with the options 'A much better', 'A better', 'Equally good', 'B better' and 'B much better'."
+   },
+   {
+    "fact": "Paper App. C: contractors",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "around 25% of our data was provided by 10 contractors from Upwork, and around 75% by 46 contractors from Surge AI. The top 5 contractors provided around 50% of the data."
+   },
+   {
+    "fact": "Paper App. C: labeler agreement",
+    "url": "https://arxiv.org/abs/2112.09332",
+    "quote_or_command": "we measured a final researcher-labeler agreement rate of 74%, and a labeler-labeler agreement rate of 73%."
+   },
+   {
+    "fact": "Row count 19,578 reported by HF datasets-server (derived by HF from the actual file; file is 278,540,416 bytes)",
+    "url": "https://datasets-server.huggingface.co/size?dataset=openai/webgpt_comparisons",
+    "quote_or_command": "curl -s ... -> num_bytes_original_files 278540416, num_rows 19578"
+   },
+   {
+    "fact": "File size > 150 MB, so only a range sample was fetched",
+    "url": "https://openaipublic.blob.core.windows.net/webgpt-answer-viewer/comparisons.jsonl",
+    "quote_or_command": "curl -I -> Content-Length: 278540416; curl -r 0-39999999 -> HTTP 206, 40,000,000 bytes"
+   },
+   {
+    "fact": "Structure and score distribution in the 40 MB sample",
+    "url": "local sample",
+    "quote_or_command": "python -I: complete lines 2752; all lists of 2 records; record keys ['question','quotes','answer','tokens','score']; scores sum to 0 in all pairs; score_0 counts {-1:187, -0.667:13, -0.5:769, -0.333:38, 0:759, 0.333:28, 0.5:743, 0.667:9, 1:206}; datasets eli5 2272, critique_eli5 185, triviaqa 134, arc-challenge 84, arc-easy 77"
+   }
+  ],
+  "not_verified": [
+   "Full-file counts (item count, question-level counts, score distribution over all 19,578): not downloaded because the file is 278 MB (>150 MB). 19,578 is corroborated by card, paper and datasets-server only.",
+   "How many labelers rated each comparison, and why score values of +-1/3 and +-2/3 exist: not stated in the sources read.",
+   "Data licence: none found on the card or paper; not checked elsewhere (e.g. OpenAI's own site).",
+   "Sample was the first 14% of the file, so distribution of datasets/scores may not be representative of the whole."
+  ]
+ },
+ {
+  "name": "Stanford Human Preferences Dataset (SHP) (stanfordnlp/SHP)",
+  "task": "Reddit-derived preferences: which of two top-level comments on a self-post is more helpful, inferred from comment scores and timestamps (collective preference, not rated by annotators).",
+  "items": "385,563 preference pairs (one item = one Reddit post + an ordered pair of comments A/B) across 18 subreddits; 348,718 train / 18,436 validation / 18,409 test (card table; HF datasets-server num_rows=385563 with the same split sizes). I recounted 6 of the 18 subreddits from the files (askanthropology 4,381; askcarguys 3,503; askhistorians 3,541; asksocialscience 3,041; askvet 3,694; askdocs 7,219) and all match the card table; the other 12 (about 827 MB total download) were not downloaded.",
+  "ratings_per_item": "pairwise vote only, no per-item rating distribution. Each pair carries two aggregate net scores (score_A, score_B = upvotes - downvotes + 1); the number of voters and individual votes are not given. Pairs per post in the 6 counted subreddits: min 1, median 1-3.5 (askanthropology 1, askcarguys 2, askhistorians 1, asksocialscience 1, askvet 2, askdocs 3.5), max 233 (askvet).",
+  "scale": "Binary preference label (labels = 1 if A preferred, 0 if B preferred, randomised ~50/50; counted over the 6 recounted subreddits: 12,689 rows with 1 vs 12,690 with 0) plus integer aggregate comment scores (>=2 for every comment, filter on card) and float score_ratio.",
+  "individual_ratings_released": "no. Files <subreddit>/{train,validation,test}.json (JSON lines, 15 fields: c_root_id_A, c_root_id_B, created_at_utc_A, created_at_utc_B, domain, history, human_ref_A, human_ref_B, labels, post_id, score_A, score_B, score_ratio, seconds_difference, upvote_ratio). Only aggregate scores; no voter ids, no author ids.",
+  "licence": "No SPDX licence on the card. Card 'License' section (last updated 03/01/2023): 'This dataset was made by scraping Reddit in accordance with the Reddit API Terms of Use, without any direct communication or written agreements with Reddit.' and 'We reserve the right to modify the SHP dataset and this license at any point in the future.' Read at https://huggingface.co/datasets/stanfordnlp/SHP",
+  "link": "https://huggingface.co/datasets/stanfordnlp/SHP",
+  "selection_bias": "Card: only posts/subreddits that are well-known ('subscriber count >= 100K'), starting from 'the top-scoring 1000 posts (of all time)' of each subreddit plus the 25 most similar posts to each, with pairs kept only if A was written no later than B and scores >= 2 (post score >= 10).",
+  "checked": [
+   {
+    "fact": "Dataset size and nature",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "SHP is a dataset of 385K collective human preferences over responses to questions/instructions in 18 different subject areas, from cooking to legal advice."
+   },
+   {
+    "fact": "Label inferred from score+timestamp, not annotated",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "if comment A was written after comment B but has a higher score nonetheless, then A is ostensibly more preferred to B."
+   },
+   {
+    "fact": "Score definition",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "score_A: (# positive votes - # negative votes + 1) received by comment A (integer)"
+   },
+   {
+    "fact": "Card caveat that the label is collective, not independent",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "the collective preference label in SHP is not necessarily what we would get if we asked users to independently vote on each comment before taking an unweighted sum."
+   },
+   {
+    "fact": "Card selection filters",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "The post has a score >= 10 and each comment has a score >= 2 (upvoted at least once)."
+   },
+   {
+    "fact": "Card: how posts were gathered",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "We started with the top-scoring 1000 posts (of all time) and searched for the 25 most similar posts to each one using Reddit's search function"
+   },
+   {
+    "fact": "Card: subreddit choice",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "whether they were well-known (subscriber count >= 100K)"
+   },
+   {
+    "fact": "Card table total",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "| ALL | 348718 | 18436 | 18409 | 385563 |"
+   },
+   {
+    "fact": "datasets-server total rows and splits",
+    "url": "https://datasets-server.huggingface.co/size?dataset=stanfordnlp/SHP",
+    "quote_or_command": "num_rows 385563; train 348718; validation 18436; test 18409; num_bytes_original_files 827255243"
+   },
+   {
+    "fact": "Recount of 6 subreddits from the JSON files",
+    "url": "local files",
+    "quote_or_command": "python -I shp_count.py: askanthropology {'train':3910,'validation':203,'test':268} total 4381, 1463 posts; askcarguys 3503 (3227/159/117), 801 posts; askhistorians 3541, 728 posts; asksocialscience 3041, 1223 posts; askvet 3694, 703 posts; askdocs 7219, 708 posts; min score_A 2 in all; labels ~50/50"
+   },
+   {
+    "fact": "Licence section",
+    "url": "https://huggingface.co/datasets/stanfordnlp/SHP",
+    "quote_or_command": "This dataset was made by scraping Reddit in accordance with the Reddit API Terms of Use, without any direct communication or written agreements with Reddit."
+   }
+  ],
+  "not_verified": [
+   "Counts for the 12 other subreddits (largest files up to 149 MB, ~827 MB total): not downloaded; the 385,563 total rests on the card and the HF datasets-server.",
+   "Number of voters behind each score (the dataset does not provide it).",
+   "Legal status of the Reddit-scraped text: only the card's own statement was read; Reddit's terms page was not checked."
+  ]
+ },
+ {
+  "name": "WMT MQM human evaluation (google/wmt-mqm-human-evaluation; Freitag et al. 2021, arXiv 2104.14478)",
+  "task": "Expert (professional translator) MQM error annotation of machine and human translations of WMT news test sets, English-German and Chinese-English.",
+  "items": "newstest2020 (the Freitag et al. 2021 data): en-de 14,180 system-segment items (1,418 source segments x 10 systems incl. 3 human references, 130 docs); zh-en 20,000 (2,000 source segments x 10 systems incl. 2 references, 155 docs) = 34,180. Counted from mqm_newstest2020_{ende,zhen}.tsv. Also counted newstest2021 (ende 9,909 items over 1,002 source segments, 17 system labels; zhen 9,750 items, 650 source segments, 15 labels). Later files (TED, generalMT2022-2024) not counted.",
+  "ratings_per_item": "newstest2020 en-de: min 3, median 3, max 3 (all 14,180 items); zh-en: 3/3/3 (all 20,000). newstest2021 en-de and zh-en: 1/1/1 (single rater per item). Counted as distinct rater ids per (system, doc, doc_id, seg_id).",
+  "scale": "Per annotated error: severity Major / Minor / Neutral (or no-error) plus category (20 categories en-de, 22 zh-en in the 2020 files); paper Table 1 weights give a per-rater segment score from 0 (perfect) to 25 (worst): Major 5 (Non-translation 25), Minor 1 (Fluency/Punctuation 0.1), Neutral 0; final segment score = mean over annotators.",
+  "individual_ratings_released": "yes. newstest2020/ende/mqm_newstest2020_ende.tsv (79,024 rows) and newstest2020/zhen/mqm_newstest2020_zhen.tsv (124,312 rows): one row per error annotation (plus 'no-error' rows), columns system, doc, doc_id, seg_id, rater, source, target, category, severity. Rater ids are pseudonymous labels rater1..rater6 (2020 files; 13 raters in 2021 ende, 9 in 2021 zhen), not tied to identities. Using the paper's weights I derived per-rater segment scores: all 3 raters gave the identical score on 17.6% of en-de items and 11.0% of zh-en items.",
+  "licence": "Apache License 2.0 (repo LICENSE file, first lines 'Apache License Version 2.0, January 2004'; GitHub API license key apache-2.0). README adds 'The contents of this repository are not an official Google product.' Read at https://github.com/google/wmt-mqm-human-evaluation/blob/main/LICENSE",
+  "link": "https://github.com/google/wmt-mqm-human-evaluation",
+  "selection_bias": "Paper Sec. 3.4: 'The MT outputs included all top-performing systems according to the WMT human evaluation, augmented with systems we selected to increase diversity'; raters were professional translators, native speakers of the target language, in a pool of 6 for MQM.",
+  "checked": [
+   {
+    "fact": "Repo description / what was annotated",
+    "url": "https://github.com/google/wmt-mqm-human-evaluation",
+    "quote_or_command": "We re-annotated the WMT English to German and Chinese to English test sets newstest2020, newstest2021, and the TED talks WMT21 test suite with raters that are professional translators"
+   },
+   {
+    "fact": "Paper: size of re-annotated sets",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "We re-annotated the WMT 2020 English->German and Chinese->English test sets, comprising 1418 segments (130 documents) and 2000 segments (155 documents) respectively."
+   },
+   {
+    "fact": "Paper: systems",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "For each set we chose 10 'systems' for annotation, including the three reference translations available for English->German and the two references available for Chinese->English."
+   },
+   {
+    "fact": "Paper Table 2: 3 ratings per segment, 6 professional raters for MQM",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "MQM  3 professional 6   (columns: ratings/seg, rater pool, raters)"
+   },
+   {
+    "fact": "Paper: rater assignment",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "we assigned documents in round-robin fashion to all 20 different sets of 3 raters from these pools."
+   },
+   {
+    "fact": "Paper: segments per rater",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "The number of segments per rater ranged from 6,830-7,220 for English->German and from 9,860-10,210 for Chinese->English."
+   },
+   {
+    "fact": "Paper: weights and score range",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "segment-level scores can range from 0 (perfect) to 25 (worst). The final segment-level score is an average over scores from all annotators."
+   },
+   {
+    "fact": "Paper: selection of systems",
+    "url": "https://arxiv.org/abs/2104.14478",
+    "quote_or_command": "The MT outputs included all top-performing systems according to the WMT human evaluation, augmented with systems we selected to increase diversity."
+   },
+   {
+    "fact": "Count: newstest2020 en-de",
+    "url": "local file",
+    "quote_or_command": "python -I mqm_count.py mqm_newstest2020_ende.tsv -> rows 79024; systems 10; raters rater1..rater6; system-segment items 14180, raters/item {3:14180}; distinct source segments 1418; docs 130; segments per rater 6830-7220; severity Minor 55632, no-error 14039, Major 7608, Neutral 1745"
+   },
+   {
+    "fact": "Count: newstest2020 zh-en",
+    "url": "local file",
+    "quote_or_command": "python -I mqm_count.py mqm_newstest2020_zhen.tsv -> rows 124312; systems 10; items 20000, raters/item {3:20000}; source segments 2000; docs 155; segments per rater 9860-10210; severity Minor 57214, Major 50074, no-error 15961, Neutral 1063"
+   },
+   {
+    "fact": "Count: newstest2021",
+    "url": "local files",
+    "quote_or_command": "python -I: ende rows 11896, 17 system labels (13 hyp.* + 4 ref.*), items 9909, raters/item {1:9909}, 13 raters; zhen rows 17221, 15 system labels, items 9750, raters/item {1:9750}, 9 raters"
+   },
+   {
+    "fact": "Licence",
+    "url": "https://github.com/google/wmt-mqm-human-evaluation/blob/main/LICENSE",
+    "quote_or_command": "curl LICENSE | head -4 -> 'Apache License / Version 2.0, January 2004 / http://www.apache.org/licenses/'; GitHub API repos/google/wmt-mqm-human-evaluation -> license key apache-2.0"
+   }
+  ],
+  "not_verified": [
+   "Files not downloaded/counted: TED (2021), generalMT2022, generalMT2023, generalMT2024, the *.3ratingsPerSegment, re-annotation and sxs files, pSQM files (24 MB-80 MB each; outside the Freitag 2021 scope I was given).",
+   "Licence of the underlying WMT source/reference texts (the Apache licence applies to the repo; WMT data terms not checked).",
+   "Whether raters are the same people across 2020 and 2021 files: rater ids are file-local labels, not verified."
+  ]
+ },
+ {
+  "name": "CIFAR-10H (jcpeterson/cifar-10h; Peterson, Battleday, Griffiths, Russakovsky, ICCV 2019, arXiv 1908.07086)",
+  "task": "Human 10-way object categorisation of all 10,000 CIFAR-10 test images, giving a distribution of human labels per image (soft labels).",
+  "items": "10,000 images (one item = one CIFAR-10 test image).",
+  "ratings_per_item": "data/cifar10h-counts.npy (the released soft-label file): min 47, median 51, max 63 judgments per image, 511,000 total. Raw annotator-level file (data/cifar10h-raw.zip -> cifar10h-raw.csv), non-attention-check trials: min 50, median 51, max 63, 514,200 total from all 2,571 annotators.",
+  "scale": "Forced choice among 10 classes (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck); counts per class per image, normalised to probabilities in cifar10h-probs.npy.",
+  "individual_ratings_released": "yes. data/cifar10h-raw.zip contains cifar10h-raw.csv (539,910 rows = 514,200 normal trials + 25,710 attention checks; 13 columns) with annotator_id (integer 0..2570; the README says it is not the MTurk Worker ID); 2,571 annotators x 210 trials each (200 normal + 10 attention checks). So individual labels and pseudonymous rater ids are both present.",
+  "licence": "CC BY-NC-SA 4.0. LICENSE.txt: 'The CIFAR-10H dataset (including any metadata, scripts, and documentation) is made available under Creative Commons BY-NC-SA 4.0 license.' Read at https://github.com/jcpeterson/cifar-10h/blob/master/LICENSE.txt (GitHub's own licence detector shows 'Other/NOASSERTION').",
+  "link": "https://github.com/jcpeterson/cifar-10h",
+  "selection_bias": "Paper Sec. 4.2: Amazon Mechanical Turk workers each categorised 200 images, and 'participants who scored below 75% on these [attention checks] were removed from the final analysis (14 total)'; all 10,000 CIFAR-10 test images were rated, so no item selection.",
+  "checked": [
+   {
+    "fact": "README: what the dataset is, files",
+    "url": "https://github.com/jcpeterson/cifar-10h",
+    "quote_or_command": "cifar10h-counts.npy - 10000 x 10 numpy matrix containing human classification counts (out of ~50) for each image and class."
+   },
+   {
+    "fact": "README: raw file and ids",
+    "url": "https://github.com/jcpeterson/cifar-10h",
+    "quote_or_command": "annotator_id is a unique integer ID (starting at 0) for the annotator from Amazon Turk (but is not their Worker ID). For each ID, there are 210 associated ratings trials"
+   },
+   {
+    "fact": "Licence",
+    "url": "https://github.com/jcpeterson/cifar-10h/blob/master/LICENSE.txt",
+    "quote_or_command": "The CIFAR-10H dataset (including any metadata, scripts, and documentation) is made available under Creative Commons BY-NC-SA 4.0 license."
+   },
+   {
+    "fact": "Paper: totals",
+    "url": "https://arxiv.org/abs/1908.07086",
+    "quote_or_command": "We collected 511,400 human classifications over our stimulus set via Amazon Mechanical Turk"
+   },
+   {
+    "fact": "Paper: participants, labels per image, exclusion",
+    "url": "https://arxiv.org/abs/1908.07086",
+    "quote_or_command": "each participant (2,571 total) categorized 200 images ... removed from the final analysis (14 total). We collected 51 judgments per image on average (range: 47 - 63)."
+   },
+   {
+    "fact": "Count counts.npy",
+    "url": "local file",
+    "quote_or_command": "python -I: counts shape (10000,10); per-item totals min 47 median 51 max 63; sum 511000"
+   },
+   {
+    "fact": "Count raw csv",
+    "url": "local file",
+    "quote_or_command": "python -I: shape (539910,13); annotators 2571; attention rows 25710; normal rows 514200; unique images 10000; ratings/img min 50 median 51 max 63; trials per annotator 210 (200 normal); no duplicate annotator-image pairs"
+   },
+   {
+    "fact": "counts.npy = raw minus 16 low-attention annotators",
+    "url": "local files",
+    "quote_or_command": "python -I: dropping annotators with attention-check accuracy < 0.75 removes 16 annotators; resulting matrix identical to cifar10h-counts.npy (True), total 511000"
+   },
+   {
+    "fact": "probs sum to 1",
+    "url": "local file",
+    "quote_or_command": "python -I: np.allclose(probs.sum(1),1) -> True"
+   }
+  ],
+  "not_verified": [
+   "Why the paper says 14 removed / 511,400 decisions while the released counts file reflects 16 removed / 511,000 (I only reproduced the 16 by an attention-check accuracy < 75% rule; I did not find any explanation by the authors).",
+   "Payment/consent details and the image selection per participant (20 per class) were not re-derived from the raw file."
+  ]
+ },
+ {
+  "name": "OpenAssistant Conversations oasst1 (OpenAssistant/oasst1; Koepf et al. 2023, arXiv 2304.07327)",
+  "task": "Volunteer-written multi-turn assistant conversation trees with per-message quality/spam/guideline labels and sibling rankings.",
+  "items": "Messages. 2023-04-12_oasst_all.messages.jsonl.gz: 161,443 messages in 66,497 trees (91,829 prompter + 69,614 assistant; 35 languages; 8,576 synthetic). The 'ready_for_export' subset (2023-04-12_oasst_ready.messages.jsonl.gz = HF train+validation parquet, 84,437 + 4,401): 88,838 messages in 10,364 trees, 25 languages. In the all-file, 10,968 trees are ready_for_export (92,365 messages).",
+  "ratings_per_item": "Counted as the `count` of the quality label per message. All-file: 148,855 messages have a quality label; labels per message min 1, median 3, max 13 (mean 3.10; 97.0% have >=3); counts sum to 461,292. Ready-file: 87,403 messages with quality, min 1 / median 3 / max 13, sum 277,544. Messages with no quality label: 12,588 (all), 1,435 (ready). Other label counts (spam up to 16, lang_mismatch up to 19) similar, median 3. review_count: min 0, median 3, max 12. Rank (sibling ordering among assistant replies) is present on 54,183 messages (all file), merged from 'several' annotators' rankings, count of rankers not released.",
+  "scale": "Quality, creativity, humor, helpfulness, violence, rudeness: five-point Likert per paper; released as the mean on [0,1] (quality at count 3 takes values k/12, 13 distinct values, consistent with 5 levels averaged). Binary labels (spam, lang_mismatch, pii, not_appropriate, hate_speech, sexual_content ...) released as fraction of raters. Rank: integer 0..15.",
+  "individual_ratings_released": "no. Each message's `labels` object holds only aggregate {value (mean), count} per label name (e.g. quality {value 0.4167, count 3}); individual rater labels and individual rankings are not in any released file I checked (all/ready messages jsonl, HF parquet schema). `user_id` is the message AUTHOR (15,044 distinct in the all-file), not the labeller; labeller ids: no.",
+  "licence": "Apache-2.0 (HF card front matter `license: apache-2.0`; repo LICENSE file is the Apache License 2.0 text). Read at https://huggingface.co/datasets/OpenAssistant/oasst1",
+  "link": "https://huggingface.co/datasets/OpenAssistant/oasst1",
+  "selection_bias": "Paper: unpaid volunteers recruited largely via Discord - 'the method of recruiting via Discord is biased towards users who are present on the platform and have been active around the time of the announcement.'",
+  "checked": [
+   {
+    "fact": "Card: counts and ratings",
+    "url": "https://huggingface.co/datasets/OpenAssistant/oasst1",
+    "quote_or_command": "consisting of 161,443 messages in 35 different languages, annotated with 461,292 quality ratings, resulting in over 10,000 fully annotated conversation trees."
+   },
+   {
+    "fact": "Licence",
+    "url": "https://huggingface.co/datasets/OpenAssistant/oasst1",
+    "quote_or_command": "license: apache-2.0 (front matter); repo file LICENSE begins 'Apache License Version 2.0, January 2004'"
+   },
+   {
+    "fact": "Card JSON example shows aggregate labels",
+    "url": "https://huggingface.co/datasets/OpenAssistant/oasst1",
+    "quote_or_command": "\"quality\": { \"value\": 0.416, \"count\": 3 }"
+   },
+   {
+    "fact": "Paper: Likert scale for quality labels",
+    "url": "https://arxiv.org/abs/2304.07327",
+    "quote_or_command": "Quality labels require users to rate the message on a five-point Likert scale across dimensions such as quality, creativity, humorousness, politeness, and harmlessness."
+   },
+   {
+    "fact": "Paper: rank merged from several annotators",
+    "url": "https://arxiv.org/abs/2304.07327",
+    "quote_or_command": "We additionally release the rank of each assistant message compared to other assistant messages submitted for the same prompt, computed from the preference rankings of several human annotators."
+   },
+   {
+    "fact": "Paper: dataset composition",
+    "url": "https://arxiv.org/abs/2304.07327",
+    "quote_or_command": "The full dataset consists of 161,443 messages (91,829 prompter and 69,614 assistant messages) distributed across 66,497 conversation trees, in 35 different languages"
+   },
+   {
+    "fact": "Paper: complete trees",
+    "url": "https://arxiv.org/abs/2304.07327",
+    "quote_or_command": "we consider 10,968 complete ... The completed trees contain 92,365 messages."
+   },
+   {
+    "fact": "Paper: recruitment bias",
+    "url": "https://arxiv.org/abs/2304.07327",
+    "quote_or_command": "We note that the method of recruiting via Discord is biased towards users who are present on the platform and have been active around the time of the announcement."
+   },
+   {
+    "fact": "Count all-file",
+    "url": "local file",
+    "quote_or_command": "python -I oasst_count2.py 2023-04-12_oasst_all.messages.jsonl.gz -> messages 161443; trees 66497; ready_for_export trees 10968 / msgs 92365; quality: msgs 148855, count min/med/max 1/3.0/13, sum 461292; distribution {1:2404,2:2054,3:127530,4:13574,5:2378,6:599,...,13:2}; labels are dict name->{value,count}; rank on 54183 msgs; unique user_id 15044"
+   },
+   {
+    "fact": "Count ready-file",
+    "url": "local file",
+    "quote_or_command": "python -I -> messages 88838; trees 10364; quality msgs 87403, min/med/max 1/3/13, sum 277544; rank on 51263; unique user_id 13249; HF datasets-server num_rows 88838 (train 84437)"
+   },
+   {
+    "fact": "Quality score values at count 3",
+    "url": "local file",
+    "quote_or_command": "python -I -> [0.0, 0.0833, 0.1667, 0.25, 0.3333, 0.4167, 0.5, 0.5833, 0.6667, 0.75, 0.8333, 0.9167, 1.0]"
+   }
+  ],
+  "not_verified": [
+   "Individual labeller-level data: the repo might hold other files (trees.jsonl, oasst_prompts, spam) but I only parsed the two messages files and the card schema; the trees files (53 MB / 34 MB) have the same message objects per the card and were not parsed.",
+   "Whether the OpenAssistant GitHub repo or database dumps outside the HF dataset expose per-labeller labels: not checked.",
+   "The paper's per-message count of rankers is not stated, so 'ratings per item' for rank is not countable."
+  ]
+ },
+ {
+  "name": "Wikipedia Talk Labels: Toxicity (Wikipedia Detox / Ex Machina, Wulczyn et al. 2017)",
+  "task": "Crowd judgement of how toxic (rude/disrespectful/unreasonable) a Wikipedia talk-page comment is, on a 5-point scale plus a binary toxic flag.",
+  "items": "159,686 Wikipedia talk-page comments (unique rev_id in toxicity_annotations.tsv); 1,598,289 individual ratings",
+  "ratings_per_item": {
+   "min": 8,
+   "median": 10,
+   "max": 21,
+   "mean": 10.01,
+   "counted": true
+  },
+  "scale": "toxicity_score: ordinal 5-point {-2 very toxic, -1, 0 neutral, 1, 2 very healthy}; toxicity: binary {0,1}",
+  "individual_ratings_released": "yes - toxicity_annotations.tsv (columns rev_id, worker_id, toxicity, toxicity_score); worker_id anonymised but consistent; 4,301 distinct workers; worker_demographics file also released",
+  "licence": "CC0 (figshare metadata: CC0, https://creativecommons.org/publicdomain/zero/1.0/); Meta-Wiki: 'These datasets are released under a CC0 public domain dedication.' (https://meta.wikimedia.org/wiki/Research:Detox/Data_Release)",
+  "link": "https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Toxicity/4563973 (API: https://api.figshare.com/v2/articles/4563973; files toxicity_annotations.tsv 36 MB, toxicity_annotated_comments.tsv 78 MB)",
+  "selection_bias": "Comments were a random sample of talk-page comments enhanced by oversampling comments made by users who were later blocked for personal attacks, so attack/toxic prevalence is inflated relative to Wikipedia as a whole (the toxicity-specific sampling is not separately verified in the paper text I read; the paper describes this for the attack labels).",
+  "checked": [
+   {
+    "fact": "Figshare record for toxicity labels lists CC0 licence and the 3 files",
+    "url": "https://api.figshare.com/v2/articles/4563973",
+    "quote": "command: curl -s https://api.figshare.com/v2/articles/4563973 | json -> license {'value': 2, 'name': 'CC0', 'url': 'https://creativecommons.org/publicdomain/zero/1.0/'}; files toxicity_annotations.tsv 36177321 bytes"
+   },
+   {
+    "fact": "Counts of items and ratings per item",
+    "url": "https://ndownloader.figshare.com/files/7394539",
+    "quote": "command: python -I scripts/detox.py toxicity_annotations.tsv -> (1598289, 4) items 159686 min/med/max 8 10.0 21 mean 10.01 workers 4301 dups 0; toxicity_score values [-2.0,-1.0,0.0,1.0,2.0]"
+   },
+   {
+    "fact": "Schema: worker_id and toxicity_score scale",
+    "url": "https://meta.wikimedia.org/wiki/Research:Detox/Data_Release",
+    "quote": "toxicity_score: Categorical variable ranging from very toxic (-2), to neutral (0), to very healthy (2). | worker_id: Anonymized crowd-worker id."
+   },
+   {
+    "fact": "10 annotators per comment",
+    "url": "https://arxiv.org/abs/1610.08914",
+    "quote": "each comment was labeled by at least 10 different Crowdflower annotators"
+   },
+   {
+    "fact": "Sampling: random plus blocked-user comments",
+    "url": "https://arxiv.org/abs/1610.08914",
+    "quote": "we enhance our random dataset by also sampling comments made by users who where blocked for violating Wikipedia's policy on personal attacks"
+   }
+  ],
+  "not_verified": "Whether the toxicity comment set was drawn with exactly the same sampling as the attack/aggression set (paper text read describes only the attack study); rater selection/quality-control details beyond the paper's 10-question test; that all rev_id in toxicity_annotated_comments.tsv match (comments file not downloaded)."
+ },
+ {
+  "name": "Wikipedia Talk Labels: Aggression + Personal Attack (Wikipedia Detox, Wulczyn et al. 2017)",
+  "task": "Crowd judgement of aggression (7-point scale) and of personal attack (binary plus 4 attack-type flags) in Wikipedia talk-page comments.",
+  "items": "115,864 Wikipedia talk-page comments (same rev_ids in aggression and attack files); 1,365,217 individual ratings per file",
+  "ratings_per_item": {
+   "min": 8,
+   "median": 10,
+   "max": 46,
+   "mean": 11.78,
+   "counted": true
+  },
+  "scale": "aggression_score: ordinal 7-point {-3..3}; aggression binary {0,1}; attack binary plus quoting/recipient/third_party/other attack flags {0,1}",
+  "individual_ratings_released": "yes - aggression_annotations.tsv and attack_annotations.tsv (rev_id, worker_id, labels); anonymised worker_id, 4,053 workers; demographics files released",
+  "licence": "CC0 (figshare metadata for article 4267550 and 4054689: CC0, https://creativecommons.org/publicdomain/zero/1.0/); Meta-Wiki: 'These datasets are released under a CC0 public domain dedication.'",
+  "link": "https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Aggression/4267550 and https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Personal_Attacks/4054689",
+  "selection_bias": "The paper randomly samples comments but adds comments made around block events by users blocked for personal attacks, so attacks are over-represented relative to the ~1% base rate.",
+  "checked": [
+   {
+    "fact": "Licence CC0 and file list for aggression and attack records",
+    "url": "https://api.figshare.com/v2/articles/4267550",
+    "quote": "command: curl figshare API for 4267550 and 4054689 -> license name CC0 for both; aggression_annotations.tsv 30627328 bytes; attack_annotations.tsv 46760112 bytes"
+   },
+   {
+    "fact": "Counts",
+    "url": "https://ndownloader.figshare.com/files/7394506",
+    "quote": "command: python -I scripts/detox.py aggression_annotations.tsv attack_annotations.tsv -> (1365217, 4) items 115864 min/med/max 8 10.0 46 mean 11.78 workers 4053 dups 0; aggression_score values [-3.0..3.0]"
+   },
+   {
+    "fact": "Random dataset plus blocked-user comments; ~1% attack prevalence",
+    "url": "https://arxiv.org/abs/1610.08914",
+    "quote": "the overall prevalence of personal attacks on Wikipedia talk pages is around 1%"
+   },
+   {
+    "fact": "Blocked-user oversampling",
+    "url": "https://arxiv.org/abs/1610.08914",
+    "quote": "we consider the 5 comments made by these users around every block event. We call this the blocked dataset"
+   }
+  ],
+  "not_verified": "The wording of the 7-point aggression scale anchors (only the numeric range was counted); the exact count of random vs blocked comments in the released set."
+ },
+ {
+  "name": "DynaSent v1.1 (Potts et al. 2021)",
+  "task": "Ternary-plus-mixed sentiment labelling of sentences (positive / negative / neutral / mixed) by five crowdworkers each.",
+  "items": "121,634 sentences (Round 1 Yelp 94,459 train + 3,600 dev + 3,600 test; Round 2 Dynabench 18,535 + 720 + 720), plus 1,101 SST dev sentences re-validated",
+  "ratings_per_item": {
+   "min": 5,
+   "median": 5,
+   "max": 5,
+   "counted": true
+  },
+  "scale": "categorical 4-way: positive / negative / neutral / mixed (gold_label by 3-of-5 majority, else None)",
+  "individual_ratings_released": "yes - label_distribution field in every jsonl row maps each label to the list of anonymised MTurk worker ids who chose it; 1,832 distinct workers in R1 train",
+  "licence": "Creative Commons Attribution 4.0 International License (README 'License' section, https://github.com/cgpotts/dynasent#license; link https://creativecommons.org/licenses/by/4.0/)",
+  "link": "https://github.com/cgpotts/dynasent (dynasent-v1.1.zip, 17 MB; HF loader dynabench/dynasent)",
+  "selection_bias": "Round 1 sentences were harvested from Yelp with a model (Model 0) so as to be challenging, and Round 2 sentences were written by workers to fool a model, so neither is a natural sample.",
+  "checked": [
+   {
+    "fact": "Licence",
+    "url": "https://raw.githubusercontent.com/cgpotts/dynasent/main/README.md",
+    "quote": "DynaSent has a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)."
+   },
+   {
+    "fact": "Counts: items, raters per item, workers",
+    "url": "https://github.com/cgpotts/dynasent/raw/main/dynasent-v1.1.zip",
+    "quote": "command: python -I scripts/dyna.py dyn.zip -> r1-train items 94459 raters/item 5/5/5 workers 1832; r1-dev 3600; r1-test 3600; r2-train 18535; r2-dev 720; r2-test 720; sst-dev-validated 1101 (all 5/5/5)"
+   },
+   {
+    "fact": "Worker ids released",
+    "url": "https://github.com/cgpotts/dynasent",
+    "quote": "'label_distribution': response distribution from the MTurk validation task. The keys are ... and the values are lists of anonymized MTurk ids"
+   },
+   {
+    "fact": "Total and 5 validators",
+    "url": "https://arxiv.org/abs/2012.15349",
+    "quote": "DynaSent has a total of 121,634 sentences, each validated by five crowdworkers"
+   },
+   {
+    "fact": "Round 1 harvesting of challenging examples",
+    "url": "https://arxiv.org/abs/2012.15349",
+    "quote": "use it to harvest challenging examples from an existing corpus"
+   }
+  ],
+  "not_verified": "Whether the underlying Yelp/Amazon source text carries extra licence restrictions beyond the CC BY 4.0 statement; worker qualification criteria."
+ },
+ {
+  "name": "MD-Agreement (Leonardelli et al. 2021; LeWiDi/SemEval-2023 Task 11)",
+  "task": "Offensiveness of English tweets (offensive / not offensive), 5 US crowd annotators each, tweets selected to include disagreement.",
+  "items": "10,753 tweets (train 6,592 / dev 1,104 / test 3,057 in the LeWiDi copy); 53,765 individual annotations",
+  "ratings_per_item": {
+   "min": 5,
+   "median": 5,
+   "max": 5,
+   "counted": true
+  },
+  "scale": "binary {0 not offensive, 1 offensive}",
+  "individual_ratings_released": "yes - MD-Agreement_{train,dev,test}.json fields 'annotations' (comma-separated) and 'annotators' (AnnNNN ids, 819 distinct, consistent within dataset)",
+  "licence": "No formal licence. Authors' repo: 'the datasets are available for non-commercial research only ... and cannot be used for any discriminatory purpose' and 'can be obtained upon request'; the LeWiDi repo (https://github.com/Le-Wi-Di/le-wi-di.github.io) hosts the files openly with no licence file (GitHub API license: null).",
+  "link": "https://github.com/dhfbk/annotators-agreement-dataset ; https://github.com/Le-Wi-Di/le-wi-di.github.io/tree/main/LeWiDi_2-2023/MD-Agreement_dataset",
+  "selection_bias": "Tweets were pre-selected with an ensemble of classifiers so that agreement classes (including hard/disagreement cases) were sampled equally, so the sample is deliberately enriched for ambiguous tweets and is not representative of Twitter.",
+  "checked": [
+   {
+    "fact": "Counts",
+    "url": "https://raw.githubusercontent.com/Le-Wi-Di/le-wi-di.github.io/main/LeWiDi_2-2023/MD-Agreement_dataset/MD-Agreement_train.json",
+    "quote": "command: python -I scripts/lewidi.py -> MD-Agreement items 10753 {'train': 6592, 'dev': 1104, 'test': 3057} ann/item 5/5/5 total 53765 annotators 819 values {'0': 35427, '1': 18338}"
+   },
+   {
+    "fact": "Access terms",
+    "url": "https://raw.githubusercontent.com/dhfbk/annotators-agreement-dataset/master/README.md",
+    "quote": "the datasets are available for non-commercial research only (...) and cannot be used for any discriminatory purpose"
+   },
+   {
+    "fact": "Individual annotations and ids released",
+    "url": "https://raw.githubusercontent.com/dhfbk/annotators-agreement-dataset/master/README.md",
+    "quote": "The text of the tweet, the individual annotations and anonymized IDs of annotators are released."
+   },
+   {
+    "fact": "Selection stratified by classifier agreement",
+    "url": "https://aclanthology.org/2021.emnlp-main.822.pdf",
+    "quote": "we select an equal number of tweets from each class of agreement of the ensemble (A++, A+, A0) to be manually annotated."
+   }
+  ],
+  "not_verified": "Whether the LeWiDi public copy is permitted under the authors' 'upon request' terms (conflict between the two repos); tweet text redistribution rights."
+ },
+ {
+  "name": "LeWiDi-2025 CSC: Conversational Sarcasm Corpus",
+  "task": "Rating of how sarcastic a speaker's response is given a context, on a 1-6 Likert scale.",
+  "items": "7,036 context+response pairs (train 5,628 / dev 704 / test 704); 31,984 individual ratings",
+  "ratings_per_item": {
+   "min": 4,
+   "median": 4,
+   "max": 6,
+   "counted": true
+  },
+  "scale": "ordinal Likert 1-6",
+  "individual_ratings_released": "yes - CSC_{train,dev,test}.json 'annotations' dict {AnnNNN: rating}; 872 distinct annotator ids; CSC_annotators_meta.json released",
+  "licence": "not verified (the LeWiDi repo has no licence file; GitHub API license: null; original corpus licence not checked)",
+  "link": "https://github.com/Le-Wi-Di/le-wi-di.github.io/tree/main/LeWiDi_3-2025/CSC",
+  "selection_bias": "not verified (original corpus paper not read)",
+  "checked": [
+   {
+    "fact": "Counts and scale",
+    "url": "https://raw.githubusercontent.com/Le-Wi-Di/le-wi-di.github.io/main/LeWiDi_3-2025/CSC/CSC_train.json",
+    "quote": "command: python -I scripts/lewidi.py -> CSC items 7036 {'train': 5628, 'dev': 704, 'test': 704} ann/item 4/4.0/6 total 31984 annotators 872 values 1..6"
+   },
+   {
+    "fact": "Scale as stated",
+    "url": "https://raw.githubusercontent.com/Le-Wi-Di/le-wi-di.github.io/main/LeWiDi_3-2025/readme.md",
+    "quote": "CSC (Conversational Sarcasm Corpus) - A dataset of context + response pairs labeled for sarcasm on a scale from 1 to 6."
+   }
+  ],
+  "not_verified": "Licence; selection bias; annotator recruitment; whether the 4-6 raters per item are a fixed panel (a given annotator rates only a subset)."
+ },
+ {
+  "name": "LeWiDi-2025 MP: MultiPico (multilingual irony)",
+  "task": "Binary irony detection for a reply given a post, in 9 languages.",
+  "items": "18,778 post-reply pairs across all languages (train 12,017 / dev 3,005 / test 3,756); 94,342 individual annotations",
+  "ratings_per_item": {
+   "min": 2,
+   "median": 5,
+   "max": 21,
+   "counted": true
+  },
+  "scale": "binary {0 not ironic, 1 ironic}",
+  "individual_ratings_released": "yes - MP_{train,dev,test}.json with annotator ids (506 distinct); MP_annotators_meta.json with demographics",
+  "licence": "not verified (no licence file in LeWiDi repo; original MultiPICO release not checked)",
+  "link": "https://github.com/Le-Wi-Di/le-wi-di.github.io/tree/main/LeWiDi_3-2025/MP",
+  "selection_bias": "not verified",
+  "checked": [
+   {
+    "fact": "Counts",
+    "url": "https://raw.githubusercontent.com/Le-Wi-Di/le-wi-di.github.io/main/LeWiDi_3-2025/MP/MP_train.json",
+    "quote": "command: python -I scripts/lewidi.py -> MP items 18778 {'train': 12017, 'dev': 3005, 'test': 3756} ann/item 2/5.0/21 total 94342 annotators 506 values {'0': 63905, '1': 30437}"
+   },
+   {
+    "fact": "Annotator ids and metadata released",
+    "url": "https://raw.githubusercontent.com/Le-Wi-Di/le-wi-di.github.io/main/LeWiDi_3-2025/readme.md",
+    "quote": "Annotator IDs and metadata (e.g., gender, age, nationality) are available."
+   }
+  ],
+  "not_verified": "Licence; selection bias; per-language counts; the min of 2 annotations per item suggests some items are thin and should be filtered."
+ },
+ {
+  "name": "Pavlick & Kwiatkowski 2019 NLI-variation-data (Inherent Disagreements in Human Textual Inferences)",
+  "task": "Graded judgement of how likely a hypothesis is true given a premise (NLI), collected at ~50x redundancy.",
+  "items": "496 premise/hypothesis pairs after filtering (preprocessed file); raw batch1.csv covers 120 pairs",
+  "ratings_per_item": {
+   "min": 15,
+   "median": 40,
+   "max": 45,
+   "counted": true,
+   "note": "counted on preprocessed-data.jsonl after the authors' worker filtering; 19,360 labels total; raw batch1.csv has exactly 20 per pair for 120 pairs"
+  },
+  "scale": "continuous slider -50 (hypothesis definitely not true) to +50 (definitely true) in preprocessed data (raw 0-100); plus NA flag",
+  "individual_ratings_released": "partly - preprocessed-data.jsonl has per-item label lists but NO rater ids; raw/batch1.csv (MTurk dump) has WorkerId (71 workers) but covers only 120 pairs x 20 ratings",
+  "licence": "not verified - no licence stated in repo README and GitHub API license: null",
+  "link": "https://github.com/epavlick/NLI-variation-data",
+  "selection_bias": "Pairs are drawn from the training sets of five existing NLI datasets (RTE2, SNLI, MNLI, JOCI, DNC), so they inherit those datasets' construction biases; the set is small (about 500 pairs).",
+  "checked": [
+   {
+    "fact": "Counts on preprocessed file",
+    "url": "https://raw.githubusercontent.com/epavlick/NLI-variation-data/master/sentence-pair-analysis/preprocessed-data.jsonl",
+    "quote": "command: python -I scripts/pk.py pre.jsonl -> items 496 labels/item min/med/max 15 40.0 45 total 19360; label range -50.0001..50.0001"
+   },
+   {
+    "fact": "Raw batch1 has worker ids",
+    "url": "https://raw.githubusercontent.com/epavlick/NLI-variation-data/master/sentence-pair-analysis/raw/batch1.csv",
+    "quote": "command: python -I scripts/pk3.py raw1.csv -> rows 2400 pairs 120 workers 71 raw ratings/pair min/med/max 20 20.0 20"
+   },
+   {
+    "fact": "50 raters per pair; slider scale",
+    "url": "https://aclanthology.org/Q19-1043.pdf",
+    "quote": "We show each p/h pair to 50 independent raters on Amazon Mechanical Turk."
+   },
+   {
+    "fact": "Pair sources",
+    "url": "https://aclanthology.org/Q19-1043.pdf",
+    "quote": "We draw our p/h pairs from the training sets of each of the following five datasets: RTE2, SNLI, MNLI, JOCI, and DNC"
+   },
+   {
+    "fact": "Data location",
+    "url": "https://github.com/epavlick/NLI-variation-data",
+    "quote": "contains the 50x redundant annotations for the ~500 premise/hypothesis pairs drawn from existing NLI datasets"
+   }
+  ],
+  "not_verified": "Licence; why preprocessed items have at most 45 labels and the raw directory holds only batch1 (other raw batches not in the repo listing); mapping of raw WorkerIds to the other ~376 pairs."
+ },
+ {
+  "name": "GoEmotions raw (Demszky et al. 2020)",
+  "task": "Multi-label emotion annotation (27 emotions + neutral) of Reddit comments, by individual raters.",
+  "items": "58,011 Reddit comments (unique id in raw/train parquet); 211,225 individual rater rows",
+  "ratings_per_item": {
+   "min": 1,
+   "median": 3,
+   "max": 5,
+   "counted": true,
+   "note": "distribution {1:70, 2:592, 3:37335, 4:2104, 5:17910}; 2 extra raters added only when 3 raters had no common label"
+  },
+  "scale": "categorical multi-label: 28 binary indicator columns per rater (27 emotions + neutral); example_very_unclear flag",
+  "individual_ratings_released": "yes - raw/train-00000-of-00001.parquet on HF with rater_id (82 distinct integer ids) and one row per rater",
+  "licence": "HF dataset card: licence tag apache-2.0; 'The GitHub repository which houses this dataset has an Apache License 2.0' (https://huggingface.co/datasets/google-research-datasets/go_emotions; https://github.com/google-research/google-research/blob/master/LICENSE)",
+  "link": "https://huggingface.co/datasets/google-research-datasets/go_emotions (raw config, 24.8 MB); official repo https://github.com/google-research/google-research/tree/master/goemotions",
+  "selection_bias": "Reddit's user base skews young and male, and the authors downsample/balance by subreddit, sentiment and predicted emotion and restrict to 3-30 token comments, so it is not a natural comment sample.",
+  "checked": [
+   {
+    "fact": "Counts",
+    "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/main/raw/train-00000-of-00001.parquet",
+    "quote": "command: python -I scripts/gemo.py raw.parquet -> (211225, 37) items 58011 min/med/max 1 3.0 5 mean 3.64 raters 82"
+   },
+   {
+    "fact": "Licence on card",
+    "url": "https://huggingface.co/datasets/google-research-datasets/go_emotions/raw/main/README.md",
+    "quote": "The GitHub repository which houses this dataset has an [Apache License 2.0]"
+   },
+   {
+    "fact": "Raters per example",
+    "url": "https://arxiv.org/abs/2005.00547",
+    "quote": "We assigned three raters to each example. For those examples where no raters agree on at least one emotion label, we assigned two additional raters."
+   },
+   {
+    "fact": "Reddit demographic bias",
+    "url": "https://arxiv.org/abs/2005.00547",
+    "quote": "Reddit is known for a demographic bias leaning towards young male users"
+   }
+  ],
+  "not_verified": "Whether HF card licence tag differs from the original GitHub repo licence file in the goemotions folder; annotators' country (card says India) not independently checked in the repo."
+ },
+ {
+  "name": "Measuring Hate Speech corpus (Kennedy et al. 2020; Sachdeva et al. 2022), public HF release",
+  "task": "Ten ordinal hate-speech-related survey items plus a 3-level 'hatespeech' item per comment, from MTurk annotators (also a Rasch-derived hate_speech_score).",
+  "items": "39,565 comments (unique comment_id); 135,556 annotator-comment rows",
+  "ratings_per_item": {
+   "min": 1,
+   "median": 2,
+   "max": 815,
+   "mean": 3.43,
+   "counted": true,
+   "note": "distribution {1:10077, 2:12136, 3:11362, 4:5709, 5:208, 6:3} plus a handful of comments (at least 6 seen, e.g. 243-365 ratings, max 815) with hundreds of ratings; only 281 comments have >=5 ratings. Paper design intends 4 per comment."
+  },
+  "scale": "sentiment, respect, insult, humiliate, status, dehumanize, violence, genocide, attack_defend: ordinal 0-4; hatespeech: {0,1,2}",
+  "individual_ratings_released": "yes - measuring-hate-speech.parquet (14 MB) rows are (comment_id, annotator_id) with all item labels; 7,912 annotators with demographics; no duplicate pairs",
+  "licence": "cc-by-4.0 (HF dataset card metadata, https://huggingface.co/datasets/ucberkeley-dlab/measuring-hate-speech)",
+  "link": "https://huggingface.co/datasets/ucberkeley-dlab/measuring-hate-speech ; paper https://arxiv.org/abs/2009.10277",
+  "selection_bias": "Comments were selected by enrichment sampling that heavily oversamples bins predicted to be hateful or counter-speech and undersamples irrelevant/neutral ones, so the sample is not representative of social media.",
+  "checked": [
+   {
+    "fact": "Counts",
+    "url": "https://huggingface.co/datasets/ucberkeley-dlab/measuring-hate-speech/resolve/main/measuring-hate-speech.parquet",
+    "quote": "command: python -I scripts/mhs.py and mhs2.py on measuring-hate-speech.parquet -> (135556, 131) items 39565 min/med/max 1 2.0 815 annotators 7912; mean 3.43; n>=5 281; n==1 10077; no duplicate (comment,annotator) pairs"
+   },
+   {
+    "fact": "Card size statement and licence",
+    "url": "https://huggingface.co/api/datasets/ucberkeley-dlab/measuring-hate-speech",
+    "quote": "consisting of 39,565 comments annotated by 7,912 annotators, for 135,556 combined rows ... \"license\":\"cc-by-4.0\" (tag license:cc-by-4.0)"
+   },
+   {
+    "fact": "Oversampling",
+    "url": "https://arxiv.org/abs/2009.10277",
+    "quote": "We heavily oversampled bins 2, 4, and 5, and undersampled bins 1 and 3."
+   }
+  ],
+  "not_verified": "Why a few comments have hundreds of ratings (max 815) in the public parquet (only the first 12 histogram bins were printed, so the full list of such comments was not counted); the filtering that reduced the 50k corpus to 39,565 comments."
+ },
+ {
+  "name": "Jigsaw Unintended Bias in Toxicity Classification: toxicity_individual_annotations.csv (Civil Comments)",
+  "task": "Individual rater judgments of comment toxicity (toxic plus subtype flags) and identity mentions on Civil Comments.",
+  "items": "not verified (file could not be downloaded; Kaggle needs a login and the HF mirror returned an auth error)",
+  "ratings_per_item": {
+   "min": "not verified",
+   "median": "not verified",
+   "max": "not verified",
+   "counted": false,
+   "note": "Secondary sources: Jigsaw blog says each comment is shown to three to 10 raters; Kaggle page says up to 10 annotators"
+  },
+  "scale": "binary per question (toxic, severe_toxic-type subtypes: identity_attack, insult, obscene, sexual_explicit, threat), per Kaggle data description as relayed by search; not verified from the page itself",
+  "individual_ratings_released": "yes per Kaggle data description (relayed by search result): file has 'id' and 'worker' columns; not verified by download",
+  "licence": "not verified",
+  "link": "https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification/data",
+  "selection_bias": "not verified",
+  "checked": [
+   {
+    "fact": "Kaggle data page describes the individual annotation files",
+    "url": "https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification/data",
+    "quote": "WebFetch returned only the page title; the file description was obtained only from a web search summary (not a direct quote)"
+   },
+   {
+    "fact": "HF mirror unavailable",
+    "url": "https://huggingface.co/api/datasets/mohsenfayyaz/toxicity-classification-datasets",
+    "quote": "command: curl -s <url> -> {\"error\":\"Invalid username or password.\"}"
+   }
+  ],
+  "not_verified": "Everything: item count, ratings per item, scale, licence, selection bias. Needs a Kaggle login to download. Consider only after a human fetches the file."
+ }
+]
