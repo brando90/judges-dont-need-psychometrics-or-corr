@@ -1,0 +1,40 @@
+\section{Introduction}
+Perfect correlation with human mean ratings does not identify a judge's rating distribution.
+A conditional distribution describes how human ratings vary for an item.
+Its mean summarizes only one aspect of that variation.
+If two forecasts have identical means on every item, correlation of those means assigns identical values to both forecasts.
+The distributions can still disagree about uncertainty and the probabilities of individual ratings.
+
+The interpretation of correlation therefore depends on the prediction target.
+When the target is association between scalar scores, correlation directly describes that association.
+When the target is a conditional rating distribution, association alone leaves additional questions unanswered.
+Strictly proper scoring rules address distribution recovery by making the true distribution the unique optimum of expected score~\cite{gneiting2007}.
+The ranked probability score uses the ordering of the rating categories~\cite{epstein1969}.
+Our comparison concerns these mathematical targets rather than a claim about how often practitioners use any objective.
+
+We characterize the information discarded by Pearson correlation of conditional means.
+At correlation one, forecast means equal target means after a common positive affine transformation.
+On a scale with at least three categories, unrestricted distributions also retain shape variation at fixed means.
+This result concerns the objective's dependence on outputs.
+It places no linearity restriction on a neural judge's map from an item to its mean rating.
+
+The model class determines which ambiguities are feasible.
+A restricted family can tie shape to the mean or exclude every alternative affine copy of the target means.
+Shared parameters can also couple changes in mean and shape.
+We account for these restrictions through the model's mean map and its feasible directions.
+We then compare population cross-entropy, normalized individual-rating ranked probability score, and total variation distance to the true distribution.
+
+We give detailed proofs and an exact finite illustration rather than a trained-model comparison.
+The illustration holds the means fixed across three strictly positive rating distributions.
+Its correlation is one, although its average normalized excess ranked probability score is $3/200$.
+The supplied arithmetic reproduces these values without fitting a model.
+A separate analysis explains why finite rating noise and estimation error prevent a universal training comparison.
+
+The results support matching the evaluation criterion to the intended output.
+They do not establish that one training algorithm always generalizes better.
+We make the following contributions:
+\begin{enumerate}
+\item We characterize the invariances, equality conditions, gradients, and probability-profile variants of Pearson correlation.
+\item We derive distributional loss identities, moment bounds, and lower bounds for recovery from means alone.
+\item We state how the rating scale, model restrictions, and finite-data assumptions change these conclusions.
+\end{enumerate}

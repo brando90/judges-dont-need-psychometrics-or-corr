@@ -1,0 +1,56 @@
+\section{An exact reproducible illustration}\label{sec:example}
+Consider three items on $R=\{0,1,2\}$ with true and forecast distributions
+\begin{equation}\label{eq:example}
+ P=\begin{pmatrix}
+ 3/5&3/10&1/10\\
+ 1/5&3/5&1/5\\
+ 1/10&3/10&3/5
+ \end{pmatrix},\qquad
+ Q=\begin{pmatrix}
+ 13/20&1/5&3/20\\
+ 2/5&1/5&2/5\\
+ 3/20&1/5&13/20
+ \end{pmatrix}.
+\end{equation}
+Rows index items and columns index rating categories in increasing order.
+All probabilities are strictly positive.
+The true and forecast means both equal $t=m=(1/2,1,3/2)$, so their Pearson correlation across items is exactly one.
+Nevertheless, $Q_i-P_i=s_i(1,-2,1)$ with $(s_1,s_2,s_3)=(1/20,1/5,1/20)$.
+Thus $\TV(P_i,Q_i)=2s_i$ and the two CDF differences equal $(-s_i,s_i)$.
+Proposition~\ref{prop:rps} gives $\mathcal E_{P_i}(Q_i)=s_i^2$.
+Consequently,
+\[
+ \frac13\sum_i\TV(P_i,Q_i)=\frac15,\qquad
+ \frac13\sum_i\mathcal E_{P_i}(Q_i)=\frac{(1/20)^2+(1/5)^2+(1/20)^2}{3}=\frac3{200}.
+\]
+The expected normalized RPS of the true distributions is $49/300$.
+Adding the excess gives $107/600$ for $Q$.
+These expected scores include stochastic rating noise; their difference isolates distributional error.
+
+% Provenance: experiments/exact_counterexample/reproduce.py; exact rational inputs, standard-library logarithms for CE.
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Forecast & Pearson & TVD & Excess RPS & CE (nats)\\
+\midrule
+True distribution $P$ & $1$ & $0$ & $0$ & $0.915387330$\\
+Changed shape $Q$ & $1$ & $1/5$ & $3/200$ & $1.064735095$\\
+\bottomrule
+\end{tabular}
+\caption{Exact three-item illustration, not a fitted-model comparison.
+Pearson correlation uses the three conditional means; higher is better for association.
+TVD compares each forecast with the true distribution and lies in $[0,1]$.
+Excess normalized individual-rating RPS subtracts the true forecast's expected score and lies in $[0,1]$.
+CE is expected individual-rating cross-entropy in nats.
+All distributional metrics are averaged equally across the three items, and lower is better.
+The true distribution is the reference forecast.
+There is no train, validation, or test split, fitted judge, optimizer, or sampling uncertainty; every entry follows from the displayed distributions.}
+\label{tab:exact}
+\end{table}
+
+The script \texttt{experiments/exact\_counterexample/reproduce.py} reproduces the table with Python's standard library.
+It uses rational arithmetic for means, CDFs, TVD, and RPS and evaluates logarithms numerically only for CE.
+It also verifies mass, positivity, the signed CDF identity, and equality of the mean vectors.
+The average excess CE is approximately $0.149347765$ nats, which is the difference between the two CE values before rounding.
+The example demonstrates nonidentification, not the behavior of an optimizer or the frequency of this error in practice.

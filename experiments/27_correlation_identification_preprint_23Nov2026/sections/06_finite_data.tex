@@ -1,0 +1,78 @@
+\section{Finite ratings and estimation error}
+\subsection{Noise in the observed target mean}
+Let $I$ be a random held-out item and $Y_{I1},\ldots,Y_{Ik}$ be conditionally independent ratings drawn from $P_I$.
+Set $t_I=\E[Y\mid I]$, $\sigma_I^2=\Var(Y\mid I)$, and $\widehat t_I=k^{-1}\sum_{j=1}^kY_{Ij}=t_I+\varepsilon_I$.
+Then
+\[
+ \E[\varepsilon_I\mid I]=0,\qquad \Var(\varepsilon_I\mid I)=\frac{\sigma_I^2}{k}.
+\]
+For a fixed forecast mean $m_I$, or a forecast conditioned on training data independent of these test ratings, the law of total covariance yields
+\[
+ \Cov(m_I,\varepsilon_I)=\E[(m_I-\E m_I)\E(\varepsilon_I\mid I)]=0.
+\]
+The same argument gives $\Cov(t_I,\varepsilon_I)=0$.
+The law of total variance therefore implies
+\[
+ \Cov(m_I,\widehat t_I)=\Cov(m_I,t_I),\qquad
+ \Var(\widehat t_I)=\Var(t_I)+\E[\sigma_I^2]/k.
+\]
+Whenever the relevant variances are positive,
+\begin{equation}\label{eq:attenuation}
+ \operatorname{Corr}(m_I,\widehat t_I)
+ =\frac{\operatorname{Corr}(m_I,t_I)}{\sqrt{1+\E[\sigma_I^2]/(k\Var(t_I))}}.
+\end{equation}
+Conditional mean-zero noise suffices; independence of the noise from the item is unnecessary and generally false with heteroskedastic ratings.
+For item-dependent counts $k_I$, replace $\E[\sigma_I^2]/k$ by $\E[\sigma_I^2/k_I]$ under the same sampling assumptions.
+
+Equation~\eqref{eq:attenuation} is a population correlation identity over random held-out items and fresh ratings.
+It is not an equality for the expectation of a finite-sample Pearson coefficient, whose denominator is random.
+It also does not apply directly to a predictor fitted on the same rating noise.
+An unrestricted predictor can interpolate $m_i=a+b\widehat t_i$ whenever feasible and the observed means are nonconstant, attaining training correlation one while memorizing noise.
+Correlated raters, changing rater populations, and selection of which items receive ratings require a different noise analysis.
+
+\subsection{A regular asymptotic CE calculation}
+The familiar $P/(2N)$ expression concerns a specific estimation regime, not every distributional learner.
+To state it precisely, let $Z_j=(X_j,Y_j)$, $j=1,\ldots,N$, be independent and identically distributed observations from a well-specified parametric conditional model $q_{\theta^\ast}(Y\mid X)$.
+Let $\theta^\ast$ lie in the interior of an identifiable $P$-dimensional parameter domain.
+Assume a twice differentiable population CE risk
+\[
+ R(\theta)=\E[-\log q_\theta(Y\mid X)]
+\]
+with nonsingular Fisher information $I=\nabla^2R(\theta^\ast)$, and an efficient consistent unpenalized maximum-likelihood estimator satisfying
+\[
+ \sqrt N(\widehat\theta-\theta^\ast)\ \xrightarrow{d}\ \mathcal N(0,I^{-1}).
+\]
+Assume in addition the moment convergence needed to take expectations of the quadratic form and an expected Taylor remainder $o(N^{-1})$.
+For example, appropriate uniform integrability of $N\|\widehat\theta-\theta^\ast\|^2$ together with control of the remainder suffices.
+Then
+\begin{align}
+ R(\widehat\theta)-R(\theta^\ast)
+ &=\tfrac12(\widehat\theta-\theta^\ast)^\top I(\widehat\theta-\theta^\ast)+\text{remainder},\\
+ \E[R(\widehat\theta)-R(\theta^\ast)]
+ &=\frac1{2N}\operatorname{tr}(II^{-1})+o(N^{-1})
+ =\frac{P}{2N}+o(N^{-1}).\label{eq:asymptotic}
+\end{align}
+The first-order Taylor term vanishes at the interior population minimizer.
+The second equality uses $\E[N(\widehat\theta-\theta^\ast)(\widehat\theta-\theta^\ast)^\top]\to I^{-1}$ and the trace identity for quadratic forms.
+Thus the expectation statement requires more than convergence in distribution alone.
+The result is a conditional regular-asymptotic calculation, measured in nats per fresh observation.
+
+When $N$ is comparable to $P$, when the MLE lies near a boundary or does not exist, under misspecification, or with strong regularization, these assumptions can fail.
+Overparameterized models and clustered ratings need separate analyses.
+In particular, an estimated zero probability can yield infinite test CE even when the corresponding category was absent from training.
+A probability floor changes the estimator and its evaluated loss; it is not implicit in the preceding identities.
+
+\subsection{Why there is no universal break-even sample size}
+Correlation's population optimum set includes the truth when the class is well specified.
+Its nonuniqueness therefore does not force a positive error floor for every fitting procedure.
+Initialization, regularization, a tie rule, and model restrictions can select different members of that set.
+If a specified procedure converges to a forecast with positive excess CE $B$, then comparing $P/(2N)$ to $B$ suggests the heuristic scale $N\approx P/(2B)$.
+This comparison requires both risks to use CE in nats and the asymptotic assumptions to be relevant.
+It is invalid to substitute an RPS gap for $B$ in that expression.
+Neither $B>0$ nor a universal crossover follows from correlation's invariances.
+
+Properness describes the optimizer of population expected loss.
+It does not order finite-sample estimators, optimization methods, or validation procedures.
+With a small number of ratings, a restricted or regularized forecast can have lower held-out RPS or CE than a more flexible fit.
+The invariance results also do not compare choosing among existing judges with fitting a new distributional head.
+These are distinct statistical procedures whose performance depends on the candidate class and data.

@@ -1,0 +1,48 @@
+\section{Problem setup and notation}
+Fix $n\ge2$ items $x_1,\ldots,x_n$ and ordered ratings $R=\{0,\ldots,K-1\}$ with $K\ge2$.
+For item $i$, let $P_i$ denote the true conditional human-rating distribution and let $q_i$ denote a forecast.
+Both belong to the probability simplex $\Delta^{K-1}$.
+Define
+\[
+ t_i=\sum_{r=0}^{K-1}rP_i(r),\qquad
+ m_i=\sum_{r=0}^{K-1}rq_i(r),\qquad
+ \bar t=\frac1n\sum_i t_i,\qquad \bar m=\frac1n\sum_i m_i.
+\]
+An item can include a prompt, reference answer, and candidate answer; all conditioning information is included in $x_i$.
+A model class is $\mathcal Q=\{q_\theta:\theta\in\Theta\}$ with mean map $M(\theta)=(m_\theta(x_1),\ldots,m_\theta(x_n))$.
+Identification here concerns these conditional distributions on the specified items unless a population of inputs is explicitly introduced.
+Different parameters may represent the same predictions.
+
+Write $s_t^2=n^{-1}\sum_i(t_i-\bar t)^2$ and $s_m^2=n^{-1}\sum_i(m_i-\bar m)^2$.
+For $s_t,s_m>0$, Pearson correlation across item means is
+\begin{equation}\label{eq:pearson}
+ \rho(m,t)=\frac{\sum_i(m_i-\bar m)(t_i-\bar t)}{n s_m s_t}.
+\end{equation}
+If either vector is constant, this coefficient is undefined.
+The minimized correlation loss is $1-\rho$.
+Whenever this paper says ``correlation'' without a qualifier, it means Eq.~\eqref{eq:pearson}.
+
+For distributions $P,q$, use natural logarithms and define entropy, cross-entropy (CE), Kullback--Leibler divergence (KL), and total variation distance (TVD) by
+\begin{align}
+ H(P)&=-\sum_r P(r)\log P(r), &
+ \CE(P,q)&=-\sum_r P(r)\log q(r),\\
+ \KL(P\Vert q)&=\sum_r P(r)\log\frac{P(r)}{q(r)}, &
+ \TV(P,q)&=\frac12\sum_r|P(r)-q(r)|.
+\end{align}
+Terms with $P(r)=0$ contribute zero.
+If $P(r)>0=q(r)$, CE and KL equal $+\infty$.
+Finite CE requires $q$ positive on the support of $P$.
+Some decompositions below require $q(r)>0$ for all $r$ and state that stronger condition explicitly.
+Entropy, CE, and KL use nats; TVD lies in $[0,1]$.
+
+Let $F_q(k)=\sum_{r=0}^k q(r)$ for $k=0,\ldots,K-2$.
+The normalized individual-rating ranked probability score (RPS) is
+\begin{equation}\label{eq:rps}
+ S(q,y)=\frac1{K-1}\sum_{k=0}^{K-2}\big(F_q(k)-\mathbf1\{y\le k\}\big)^2.
+\end{equation}
+This score lies in $[0,1]$, and smaller values are better.
+We use $\mathcal E_P(q)=\E_{Y\sim P}S(q,Y)-\E_{Y\sim P}S(P,Y)$ for its excess expected score.
+The original ranked-category construction and the general proper-scoring framework appear in Epstein~\cite{epstein1969} and Gneiting and Raftery~\cite{gneiting2007}, respectively.
+All identities needed here are proved below.
+Unless stated otherwise, losses and distances across items are averaged with weight $1/n$.
+An empirical histogram estimates $P_i$ from finitely many ratings; it is not assumed to equal $P_i$.

@@ -1,0 +1,30 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,tabularx,hyperref,microtype}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\newcommand{\CE}{\operatorname{CE}}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\TV}{\operatorname{TVD}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\softmax}{softmax}
+\title{What Correlation Can and Cannot Identify in Human-Rating Judges}
+\author{Brando Miranda\\Stanford University\\\texttt{brando9@stanford.edu}}
+\date{11-23-2026}
+\begin{document}
+\maketitle
+\input{sections/00_abstract}
+\input{sections/01_introduction}
+\input{sections/02_setup}
+\input{sections/03_correlation}
+\input{sections/04_proper_losses}
+\input{sections/05_model_classes}
+\input{sections/06_finite_data}
+\input{sections/07_illustration}
+\input{sections/08_limitations}
+\input{sections/09_references}
+\end{document}

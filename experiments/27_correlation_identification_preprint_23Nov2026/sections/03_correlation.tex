@@ -1,0 +1,112 @@
+\section{What correlation identifies}
+\begin{proposition}[Dependence on means and affine invariance]\label{prop:invariance}
+For nonconstant $m,t$,
+\begin{equation}\label{eq:meanonly}
+ \rho(m,t)=\frac{\sum_i(t_i-\bar t)\sum_r r q_i(r)}{\sqrt{\sum_i(t_i-\bar t)^2\sum_i(m_i-\bar m)^2}}.
+\end{equation}
+Thus forecasts with equal item means have equal correlation.
+For any $a\in\R$ and $b>0$, $\rho(a\mathbf1+bm,t)=\rho(m,t)$.
+Moreover,
+\begin{equation}\label{eq:perfect}
+ \rho(m,t)=1\quad\Longleftrightarrow\quad m=a\mathbf1+bt\quad\text{for some }a\in\R,\ b>0.
+\end{equation}
+The right side must be feasible in the model class to describe an attainable optimum.
+\end{proposition}
+\begin{proof}
+Since $\sum_i(t_i-\bar t)=0$,
+\[
+ \sum_i(m_i-\bar m)(t_i-\bar t)=\sum_i m_i(t_i-\bar t).
+\]
+Substitution of $m_i=\sum_r r q_i(r)$ gives Eq.~\eqref{eq:meanonly}.
+Its numerator is linear in the probabilities; its denominator depends on the forecast only through $m$.
+The centered vector of $a\mathbf1+bm$ equals $b(m-\bar m\mathbf1)$.
+Its covariance numerator and standard-deviation denominator both acquire the same factor $b$, proving invariance.
+Cauchy--Schwarz bounds the correlation by one.
+Equality with positive sign holds exactly when $m-\bar m\mathbf1=b(t-\bar t\mathbf1)$ for $b>0$.
+Setting $a=\bar m-b\bar t$ proves both directions of Eq.~\eqref{eq:perfect}.
+\end{proof}
+
+The linear functional from probabilities to a mean does not constrain the map $x\mapsto m_\theta(x)$ to be linear.
+A nonlinear mean predictor can attain correlation one whenever it can represent the nonconstant target mean function.
+The objective still cannot distinguish feasible alternatives with identical means.
+
+\begin{proposition}[Rating scale and dimension]\label{prop:dimension}
+For binary ratings, $q=(1-m,m)$ is determined by its mean.
+For $K\ge3$, the set of distributions with a fixed interior mean $m\in(0,K-1)$ has affine dimension $K-2$.
+With unrestricted item distributions, the all-positive part of the correlation-one set has dimension $n(K-2)+2$.
+Boundary constraints or model restrictions can reduce the dimension.
+\end{proposition}
+\begin{proof}
+For $K=2$, $m=q(1)$ and mass conservation gives $q(0)=1-m$.
+For general $K$, the constraints $\sum_r q(r)=1$ and $\sum_r r q(r)=m$ have independent coefficient vectors.
+Their common affine solution space therefore has dimension $K-2$.
+Every interior mean admits an all-positive distribution, for example the exponential family established in Proposition~\ref{prop:exponential}.
+At such a point, positivity imposes no additional local equality constraints.
+For $n$ items with independently specified means, the dimensions add to $n(K-2)$.
+In Eq.~\eqref{eq:perfect}, the columns $\mathbf1$ and $t$ are independent because $t$ is nonconstant.
+The feasible all-positive stratum allows two locally independent changes in $(a,b)$, giving the stated total dimension.
+\end{proof}
+
+For $K=3$ and mean one, write $q_s=(s,1-2s,s)$ with $0\le s\le1/2$.
+Its variance is $2s$, although every distribution in the family has the same mean.
+For binary targets with means $t_i$ and feasible correlation-one forecasts $m_i=a+bt_i$, the excess expected RPS is
+\[
+ \frac1n\sum_i\big(a+(b-1)t_i\big)^2.
+\]
+Its excess CE is $n^{-1}\sum_i\KL(\operatorname{Bern}(t_i)\Vert\operatorname{Bern}(a+bt_i))$.
+Thus binary ratings remove independent shape ambiguity but retain level and scale ambiguity.
+Here RPS uses the one-threshold binary Brier convention; the sum of squared errors over both category probabilities would be twice as large.
+
+\begin{proposition}[Gradients and feasible directions]\label{prop:gradient}
+Let $q_i=\softmax(u_i)$ and let $z_i=(m_i-\bar m)/s_m$ and $\zeta_i=(t_i-\bar t)/s_t$.
+With $g_i=(\zeta_i-\rho z_i)/(n s_m)$,
+\begin{equation}\label{eq:gradients}
+ \frac{\partial\rho}{\partial m_i}=g_i,\qquad
+ \frac{\partial\rho}{\partial u_i(r)}=g_i q_i(r)(r-m_i),\qquad
+ \frac{\partial\sum_j\CE(P_j,q_j)}{\partial u_i(r)}=q_i(r)-P_i(r).
+\end{equation}
+For a differentiable shared-parameter model, $D\rho(\theta)[v]=0$ whenever $DM(\theta)[v]=0$.
+Along a feasible path whose means are exactly constant, correlation is exactly constant wherever defined.
+\end{proposition}
+\begin{proof}
+Let $T=t-\bar t\mathbf1$, $C=m-\bar m\mathbf1$, and $N=T^\top m$.
+Then $\rho=N/(\|T\|\|C\|)$, $\partial N/\partial m_i=T_i$, and $\partial\|C\|/\partial m_i=C_i/\|C\|$ because $\sum_i C_i=0$.
+The quotient rule gives
+\[
+ \frac{\partial\rho}{\partial m_i}=\frac{T_i}{\|T\|\|C\|}-\rho\frac{C_i}{\|C\|^2}=\frac{\zeta_i-\rho z_i}{n s_m}.
+\]
+The softmax derivative is $\partial q_i(s)/\partial u_i(r)=q_i(s)(\mathbf1\{s=r\}-q_i(r))$.
+Consequently,
+\[
+ \frac{\partial m_i}{\partial u_i(r)}=\sum_s s q_i(s)(\mathbf1\{s=r\}-q_i(r))=q_i(r)(r-m_i).
+\]
+The chain rule gives the correlation derivative.
+Differentiating $-\sum_sP_i(s)\log q_i(s)$ gives $-P_i(r)+q_i(r)\sum_sP_i(s)=q_i(r)-P_i(r)$.
+The shared-parameter derivative is $\sum_i g_i DM_i(\theta)[v]$, which vanishes under the stated condition.
+Exact constancy along a mean-preserving path follows directly from Proposition~\ref{prop:invariance}.
+\end{proof}
+
+For the minimized loss $1-\rho$, the correlation derivative in Eq.~\eqref{eq:gradients} changes sign.
+Averaging the summed CE divides its derivative by $n$.
+The ambient probability derivative can be written $\partial\rho/\partial q_i(r)=r g_i$; feasible simplex derivatives are its restrictions to mass-preserving directions.
+An independently parameterized shape output that never changes $M$ receives zero direct gradient from correlation.
+A shared parameter can change both mean and shape, so correlation can change shape indirectly.
+A first-order mean-preserving direction guarantees a zero directional derivative at that point, not constancy at higher orders.
+
+\begin{proposition}[Correlation of probability profiles]\label{prop:profiles}
+Let $U=(1/K,\ldots,1/K)$ and let $P$ be nonuniform.
+For any $b>0$ such that $q=U+b(P-U)$ is feasible, Pearson correlation across the $K$ category probabilities equals one.
+In particular, all $0<b\le1$ are feasible.
+The same construction with a common $b$ across all items yields correlation one after stacking every item/category pair, provided the stacked target is nonconstant.
+\end{proposition}
+\begin{proof}
+The average entry of each probability profile is $1/K$.
+Its centered vectors therefore satisfy $q-U=b(P-U)$, and Proposition~\ref{prop:invariance}'s equality argument applies.
+For $0<b\le1$, $q=(1-b)U+bP$ is a probability distribution.
+The stacked vectors also have average entry $1/K$ and satisfy the same proportionality when $b$ is common.
+\end{proof}
+
+Itemwise profile correlations can use different $b_i$; their average is a different objective from correlation of stacked profiles.
+Uniform targets or forecasts make the corresponding profile correlation undefined.
+These objectives can distinguish some equal-mean shapes because they use probability contrasts.
+They still fail to identify the distribution uniquely, and they are distinct from Eq.~\eqref{eq:pearson}.

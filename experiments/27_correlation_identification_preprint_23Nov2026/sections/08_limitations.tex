@@ -1,0 +1,25 @@
+\section{Limitations and implications}
+The results describe population identification on a finite ordered rating scale.
+They assume a specified conditional target distribution for each item.
+In practice, a small number of ratings estimates that distribution imprecisely.
+Changes in the rater population or the meaning of rating categories change the target itself.
+One observed rating supports an unbiased individual-rating CE or RPS observation under the assumed sampling law, but it does not reveal the full conditional distribution for that item.
+
+The geometry of unrestricted distributions does not automatically describe a restricted neural model.
+Parameter sharing, regularization, initialization, and optimization may choose a particular shape even when the objective does not identify it.
+Conversely, strict properness does not remove misspecification or optimization error.
+The linear-model result needs covariance and feasibility conditions, and the exponential-family result needs its stated sufficient statistic and positive variance.
+Global identification requires checking the full feasible affine-copy set; local derivative conditions provide only the stated local guarantee.
+
+The exact illustration is a mathematical construction with no trained judge or sampled human ratings.
+It establishes possibility and reproduces a loss difference exactly.
+It does not estimate the prevalence of such differences or compare real-world training methods.
+The asymptotic CE calculation concerns regular, interior, well-specified iid maximum likelihood with additional expectation control.
+It does not predict a universal sample size at which CE-trained judges surpass correlation-trained judges.
+
+Our main results concern Pearson correlation of conditional means.
+Spearman and Kendall coefficients computed only from those means also discard equal-mean shape differences, but their equality conditions and gradients differ.
+Probability-profile correlation is a separate objective with the ambiguity in Proposition~\ref{prop:profiles}.
+For applications that require only rank association, distribution recovery can exceed the task's requirements.
+For applications that interpret a judge's output as a rating distribution, individual-rating proper scores directly target that distribution.
+Correlation remains a useful association diagnostic when its target and undefined constant-vector cases are reported explicitly.

@@ -1,0 +1,24 @@
+{
+  "seed": 20261123,
+  "random_cases": 200,
+  "maximum_errors": {
+    "rps": 3.885780586188048e-16,
+    "cdf_mean": 2.220446049250313e-15,
+    "gradient": 2.7302521354855003e-11,
+    "ce_decomposition": 1.3322676295501878e-15
+  },
+  "example": {
+    "means": [
+      "1/2",
+      "1",
+      "3/2"
+    ],
+    "pearson": 1,
+    "TVD": "1/5",
+    "excess_RPS": "3/200",
+    "expected_RPS_true": 0.16333333333333333,
+    "expected_RPS_forecast": 0.17833333333333334,
+    "CE_true": 0.9153873296489313,
+    "CE_forecast": 1.064735094652901
+  }
+}

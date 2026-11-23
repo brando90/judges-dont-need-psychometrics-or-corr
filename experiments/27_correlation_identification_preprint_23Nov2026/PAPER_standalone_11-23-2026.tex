@@ -1,0 +1,737 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,tabularx,hyperref,microtype}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\newcommand{\CE}{\operatorname{CE}}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\TV}{\operatorname{TVD}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\softmax}{softmax}
+\title{What Correlation Can and Cannot Identify in Human-Rating Judges}
+\author{Brando Miranda\\Stanford University\\\texttt{brando9@stanford.edu}}
+\date{11-23-2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+% CS197 move 1: problem motivation (failure mode) -- perfect association can hide a wrong rating distribution.
+A judge can achieve perfect Pearson correlation with human mean ratings while predicting the wrong conditional rating distribution.
+% CS197 move 2: assumption (setup bit) -- association does not itself imply distribution recovery.
+Interpreting this agreement requires separating identification of a mean from identification of a distribution.
+% CS197 move 3: contribution (bit flip) -- characterize the objective rather than claim empirical training superiority.
+We characterize exactly what correlation of conditional means identifies on a finite ordered rating scale.
+% CS197 move 4a: instantiation (bit flip instantiation) -- precise invariances and feasible model directions.
+The objective depends only on means and is invariant to a common positive affine transformation.
+% CS197 move 4b: instantiation (bit flip instantiation) -- state the model-class qualifications.
+We derive its gradients, characterize restricted-family identification, and distinguish binary ratings from scales with independent shape variation.
+% CS197 move 4c: instantiation (bit flip instantiation) -- compare population targets using self-contained proofs.
+Cross-entropy and normalized individual-rating ranked probability score identify the distribution in expectation; their finite-data training performance requires separate analysis.
+% CS197 move 4d: instantiation (bit flip instantiation) -- name the exact loss decompositions.
+We also derive a signed cross-entropy decomposition and an exact cumulative-probability decomposition of excess ranked probability score.
+% CS197 move 4e: instantiation (bit flip instantiation) -- distinguish information bounds from an estimator guarantee.
+Recovery lower bounds show why exact means alone cannot determine distributional shape without additional restrictions.
+% CS197 move 5: evaluation (diagnostic result) -- exact rational arithmetic in experiments/exact_counterexample/reproduce.py, no trained models.
+An exact three-item example has correlation one, average total variation distance $1/5$, and normalized excess ranked probability score $3/200$.
+% CS197 move 6: implication (north star) -- align evaluation with its target and limit finite-data claims.
+The analysis separates association, distribution recovery, and estimation error, providing conditions for meaningful comparisons without asserting a universal advantage for cross-entropy training.
+\end{abstract}
+
+\section{Introduction}
+Perfect correlation with human mean ratings does not identify a judge's rating distribution.
+A conditional distribution describes how human ratings vary for an item.
+Its mean summarizes only one aspect of that variation.
+If two forecasts have identical means on every item, correlation of those means assigns identical values to both forecasts.
+The distributions can still disagree about uncertainty and the probabilities of individual ratings.
+
+The interpretation of correlation therefore depends on the prediction target.
+When the target is association between scalar scores, correlation directly describes that association.
+When the target is a conditional rating distribution, association alone leaves additional questions unanswered.
+Strictly proper scoring rules address distribution recovery by making the true distribution the unique optimum of expected score~\cite{gneiting2007}.
+The ranked probability score uses the ordering of the rating categories~\cite{epstein1969}.
+Our comparison concerns these mathematical targets rather than a claim about how often practitioners use any objective.
+
+We characterize the information discarded by Pearson correlation of conditional means.
+At correlation one, forecast means equal target means after a common positive affine transformation.
+On a scale with at least three categories, unrestricted distributions also retain shape variation at fixed means.
+This result concerns the objective's dependence on outputs.
+It places no linearity restriction on a neural judge's map from an item to its mean rating.
+
+The model class determines which ambiguities are feasible.
+A restricted family can tie shape to the mean or exclude every alternative affine copy of the target means.
+Shared parameters can also couple changes in mean and shape.
+We account for these restrictions through the model's mean map and its feasible directions.
+We then compare population cross-entropy, normalized individual-rating ranked probability score, and total variation distance to the true distribution.
+
+We give detailed proofs and an exact finite illustration rather than a trained-model comparison.
+The illustration holds the means fixed across three strictly positive rating distributions.
+Its correlation is one, although its average normalized excess ranked probability score is $3/200$.
+The supplied arithmetic reproduces these values without fitting a model.
+A separate analysis explains why finite rating noise and estimation error prevent a universal training comparison.
+
+The results support matching the evaluation criterion to the intended output.
+They do not establish that one training algorithm always generalizes better.
+We make the following contributions:
+\begin{enumerate}
+\item We characterize the invariances, equality conditions, gradients, and probability-profile variants of Pearson correlation.
+\item We derive distributional loss identities, moment bounds, and lower bounds for recovery from means alone.
+\item We state how the rating scale, model restrictions, and finite-data assumptions change these conclusions.
+\end{enumerate}
+
+\section{Problem setup and notation}
+Fix $n\ge2$ items $x_1,\ldots,x_n$ and ordered ratings $R=\{0,\ldots,K-1\}$ with $K\ge2$.
+For item $i$, let $P_i$ denote the true conditional human-rating distribution and let $q_i$ denote a forecast.
+Both belong to the probability simplex $\Delta^{K-1}$.
+Define
+\[
+ t_i=\sum_{r=0}^{K-1}rP_i(r),\qquad
+ m_i=\sum_{r=0}^{K-1}rq_i(r),\qquad
+ \bar t=\frac1n\sum_i t_i,\qquad \bar m=\frac1n\sum_i m_i.
+\]
+An item can include a prompt, reference answer, and candidate answer; all conditioning information is included in $x_i$.
+A model class is $\mathcal Q=\{q_\theta:\theta\in\Theta\}$ with mean map $M(\theta)=(m_\theta(x_1),\ldots,m_\theta(x_n))$.
+Identification here concerns these conditional distributions on the specified items unless a population of inputs is explicitly introduced.
+Different parameters may represent the same predictions.
+
+Write $s_t^2=n^{-1}\sum_i(t_i-\bar t)^2$ and $s_m^2=n^{-1}\sum_i(m_i-\bar m)^2$.
+For $s_t,s_m>0$, Pearson correlation across item means is
+\begin{equation}\label{eq:pearson}
+ \rho(m,t)=\frac{\sum_i(m_i-\bar m)(t_i-\bar t)}{n s_m s_t}.
+\end{equation}
+If either vector is constant, this coefficient is undefined.
+The minimized correlation loss is $1-\rho$.
+Whenever this paper says ``correlation'' without a qualifier, it means Eq.~\eqref{eq:pearson}.
+
+For distributions $P,q$, use natural logarithms and define entropy, cross-entropy (CE), Kullback--Leibler divergence (KL), and total variation distance (TVD) by
+\begin{align}
+ H(P)&=-\sum_r P(r)\log P(r), &
+ \CE(P,q)&=-\sum_r P(r)\log q(r),\\
+ \KL(P\Vert q)&=\sum_r P(r)\log\frac{P(r)}{q(r)}, &
+ \TV(P,q)&=\frac12\sum_r|P(r)-q(r)|.
+\end{align}
+Terms with $P(r)=0$ contribute zero.
+If $P(r)>0=q(r)$, CE and KL equal $+\infty$.
+Finite CE requires $q$ positive on the support of $P$.
+Some decompositions below require $q(r)>0$ for all $r$ and state that stronger condition explicitly.
+Entropy, CE, and KL use nats; TVD lies in $[0,1]$.
+
+Let $F_q(k)=\sum_{r=0}^k q(r)$ for $k=0,\ldots,K-2$.
+The normalized individual-rating ranked probability score (RPS) is
+\begin{equation}\label{eq:rps}
+ S(q,y)=\frac1{K-1}\sum_{k=0}^{K-2}\big(F_q(k)-\mathbf1\{y\le k\}\big)^2.
+\end{equation}
+This score lies in $[0,1]$, and smaller values are better.
+We use $\mathcal E_P(q)=\E_{Y\sim P}S(q,Y)-\E_{Y\sim P}S(P,Y)$ for its excess expected score.
+The original ranked-category construction and the general proper-scoring framework appear in Epstein~\cite{epstein1969} and Gneiting and Raftery~\cite{gneiting2007}, respectively.
+All identities needed here are proved below.
+Unless stated otherwise, losses and distances across items are averaged with weight $1/n$.
+An empirical histogram estimates $P_i$ from finitely many ratings; it is not assumed to equal $P_i$.
+
+\section{What correlation identifies}
+\begin{proposition}[Dependence on means and affine invariance]\label{prop:invariance}
+For nonconstant $m,t$,
+\begin{equation}\label{eq:meanonly}
+ \rho(m,t)=\frac{\sum_i(t_i-\bar t)\sum_r r q_i(r)}{\sqrt{\sum_i(t_i-\bar t)^2\sum_i(m_i-\bar m)^2}}.
+\end{equation}
+Thus forecasts with equal item means have equal correlation.
+For any $a\in\R$ and $b>0$, $\rho(a\mathbf1+bm,t)=\rho(m,t)$.
+Moreover,
+\begin{equation}\label{eq:perfect}
+ \rho(m,t)=1\quad\Longleftrightarrow\quad m=a\mathbf1+bt\quad\text{for some }a\in\R,\ b>0.
+\end{equation}
+The right side must be feasible in the model class to describe an attainable optimum.
+\end{proposition}
+\begin{proof}
+Since $\sum_i(t_i-\bar t)=0$,
+\[
+ \sum_i(m_i-\bar m)(t_i-\bar t)=\sum_i m_i(t_i-\bar t).
+\]
+Substitution of $m_i=\sum_r r q_i(r)$ gives Eq.~\eqref{eq:meanonly}.
+Its numerator is linear in the probabilities; its denominator depends on the forecast only through $m$.
+The centered vector of $a\mathbf1+bm$ equals $b(m-\bar m\mathbf1)$.
+Its covariance numerator and standard-deviation denominator both acquire the same factor $b$, proving invariance.
+Cauchy--Schwarz bounds the correlation by one.
+Equality with positive sign holds exactly when $m-\bar m\mathbf1=b(t-\bar t\mathbf1)$ for $b>0$.
+Setting $a=\bar m-b\bar t$ proves both directions of Eq.~\eqref{eq:perfect}.
+\end{proof}
+
+The linear functional from probabilities to a mean does not constrain the map $x\mapsto m_\theta(x)$ to be linear.
+A nonlinear mean predictor can attain correlation one whenever it can represent the nonconstant target mean function.
+The objective still cannot distinguish feasible alternatives with identical means.
+
+\begin{proposition}[Rating scale and dimension]\label{prop:dimension}
+For binary ratings, $q=(1-m,m)$ is determined by its mean.
+For $K\ge3$, the set of distributions with a fixed interior mean $m\in(0,K-1)$ has affine dimension $K-2$.
+With unrestricted item distributions, the all-positive part of the correlation-one set has dimension $n(K-2)+2$.
+Boundary constraints or model restrictions can reduce the dimension.
+\end{proposition}
+\begin{proof}
+For $K=2$, $m=q(1)$ and mass conservation gives $q(0)=1-m$.
+For general $K$, the constraints $\sum_r q(r)=1$ and $\sum_r r q(r)=m$ have independent coefficient vectors.
+Their common affine solution space therefore has dimension $K-2$.
+Every interior mean admits an all-positive distribution, for example the exponential family established in Proposition~\ref{prop:exponential}.
+At such a point, positivity imposes no additional local equality constraints.
+For $n$ items with independently specified means, the dimensions add to $n(K-2)$.
+In Eq.~\eqref{eq:perfect}, the columns $\mathbf1$ and $t$ are independent because $t$ is nonconstant.
+The feasible all-positive stratum allows two locally independent changes in $(a,b)$, giving the stated total dimension.
+\end{proof}
+
+For $K=3$ and mean one, write $q_s=(s,1-2s,s)$ with $0\le s\le1/2$.
+Its variance is $2s$, although every distribution in the family has the same mean.
+For binary targets with means $t_i$ and feasible correlation-one forecasts $m_i=a+bt_i$, the excess expected RPS is
+\[
+ \frac1n\sum_i\big(a+(b-1)t_i\big)^2.
+\]
+Its excess CE is $n^{-1}\sum_i\KL(\operatorname{Bern}(t_i)\Vert\operatorname{Bern}(a+bt_i))$.
+Thus binary ratings remove independent shape ambiguity but retain level and scale ambiguity.
+Here RPS uses the one-threshold binary Brier convention; the sum of squared errors over both category probabilities would be twice as large.
+
+\begin{proposition}[Gradients and feasible directions]\label{prop:gradient}
+Let $q_i=\softmax(u_i)$ and let $z_i=(m_i-\bar m)/s_m$ and $\zeta_i=(t_i-\bar t)/s_t$.
+With $g_i=(\zeta_i-\rho z_i)/(n s_m)$,
+\begin{equation}\label{eq:gradients}
+ \frac{\partial\rho}{\partial m_i}=g_i,\qquad
+ \frac{\partial\rho}{\partial u_i(r)}=g_i q_i(r)(r-m_i),\qquad
+ \frac{\partial\sum_j\CE(P_j,q_j)}{\partial u_i(r)}=q_i(r)-P_i(r).
+\end{equation}
+For a differentiable shared-parameter model, $D\rho(\theta)[v]=0$ whenever $DM(\theta)[v]=0$.
+Along a feasible path whose means are exactly constant, correlation is exactly constant wherever defined.
+\end{proposition}
+\begin{proof}
+Let $T=t-\bar t\mathbf1$, $C=m-\bar m\mathbf1$, and $N=T^\top m$.
+Then $\rho=N/(\|T\|\|C\|)$, $\partial N/\partial m_i=T_i$, and $\partial\|C\|/\partial m_i=C_i/\|C\|$ because $\sum_i C_i=0$.
+The quotient rule gives
+\[
+ \frac{\partial\rho}{\partial m_i}=\frac{T_i}{\|T\|\|C\|}-\rho\frac{C_i}{\|C\|^2}=\frac{\zeta_i-\rho z_i}{n s_m}.
+\]
+The softmax derivative is $\partial q_i(s)/\partial u_i(r)=q_i(s)(\mathbf1\{s=r\}-q_i(r))$.
+Consequently,
+\[
+ \frac{\partial m_i}{\partial u_i(r)}=\sum_s s q_i(s)(\mathbf1\{s=r\}-q_i(r))=q_i(r)(r-m_i).
+\]
+The chain rule gives the correlation derivative.
+Differentiating $-\sum_sP_i(s)\log q_i(s)$ gives $-P_i(r)+q_i(r)\sum_sP_i(s)=q_i(r)-P_i(r)$.
+The shared-parameter derivative is $\sum_i g_i DM_i(\theta)[v]$, which vanishes under the stated condition.
+Exact constancy along a mean-preserving path follows directly from Proposition~\ref{prop:invariance}.
+\end{proof}
+
+For the minimized loss $1-\rho$, the correlation derivative in Eq.~\eqref{eq:gradients} changes sign.
+Averaging the summed CE divides its derivative by $n$.
+The ambient probability derivative can be written $\partial\rho/\partial q_i(r)=r g_i$; feasible simplex derivatives are its restrictions to mass-preserving directions.
+An independently parameterized shape output that never changes $M$ receives zero direct gradient from correlation.
+A shared parameter can change both mean and shape, so correlation can change shape indirectly.
+A first-order mean-preserving direction guarantees a zero directional derivative at that point, not constancy at higher orders.
+
+\begin{proposition}[Correlation of probability profiles]\label{prop:profiles}
+Let $U=(1/K,\ldots,1/K)$ and let $P$ be nonuniform.
+For any $b>0$ such that $q=U+b(P-U)$ is feasible, Pearson correlation across the $K$ category probabilities equals one.
+In particular, all $0<b\le1$ are feasible.
+The same construction with a common $b$ across all items yields correlation one after stacking every item/category pair, provided the stacked target is nonconstant.
+\end{proposition}
+\begin{proof}
+The average entry of each probability profile is $1/K$.
+Its centered vectors therefore satisfy $q-U=b(P-U)$, and Proposition~\ref{prop:invariance}'s equality argument applies.
+For $0<b\le1$, $q=(1-b)U+bP$ is a probability distribution.
+The stacked vectors also have average entry $1/K$ and satisfy the same proportionality when $b$ is common.
+\end{proof}
+
+Itemwise profile correlations can use different $b_i$; their average is a different objective from correlation of stacked profiles.
+Uniform targets or forecasts make the corresponding profile correlation undefined.
+These objectives can distinguish some equal-mean shapes because they use probability contrasts.
+They still fail to identify the distribution uniquely, and they are distinct from Eq.~\eqref{eq:pearson}.
+
+\section{Distributional losses and recovery bounds}
+\subsection{Cross-entropy and the signed shape decomposition}
+\begin{proposition}[Strict propriety of CE]\label{prop:ce}
+For every true distribution $P$,
+\[
+ \CE(P,q)=H(P)+\KL(P\Vert q),\qquad \KL(P\Vert q)\ge0,
+\]
+with equality in the second relation exactly when $q=P$.
+Thus expected individual-rating CE uniquely identifies $P$ over the unrestricted simplex.
+\end{proposition}
+\begin{proof}
+Subtracting $H(P)$ from CE gives the displayed KL expression whenever CE is finite; the identity extends to infinite CE.
+For $A=\{r:P(r)>0\}$ and a forecast positive on $A$, concavity of the logarithm gives
+\[
+ -\KL(P\Vert q)=\sum_{r\in A}P(r)\log\frac{q(r)}{P(r)}
+ \le\log\sum_{r\in A}q(r)\le0.
+\]
+Equality requires $q(r)/P(r)$ constant on $A$ and $\sum_{r\in A}q(r)=1$, forcing that constant to be one.
+If $q$ is zero on a positive-probability category, KL is infinite and cannot minimize CE.
+\end{proof}
+
+\begin{proposition}[Natural exponential families and moment matching]\label{prop:exponential}
+Let $h(r)>0$ on $R$ and
+\[
+ q_\eta(r)=h(r)e^{\eta r-A(\eta)},\qquad
+ A(\eta)=\log\sum_r h(r)e^{\eta r},\qquad \eta\in\R.
+\]
+Then $A'(\eta)=m(\eta)$ and $A''(\eta)=\Var_{q_\eta}(R)>0$.
+The mean map is a bijection from $\R$ to $(0,K-1)$.
+For any target $P$ with interior mean $t$, expected CE within this family has a unique finite minimizer satisfying $m(\eta)=t$, even if $P$ lies outside the family.
+For $h\equiv1$, this mean-matching distribution, denoted $q_t$, uniquely maximizes entropy among all distributions with mean $t$.
+\end{proposition}
+\begin{proof}
+Differentiating the finite sum defining $A$ gives $A'=\sum_r r q_\eta(r)$.
+Differentiating again gives $A''=\sum_r r^2q_\eta(r)-(\sum_r rq_\eta(r))^2$.
+All categories have positive probability and at least two distinct ratings exist, so this variance is strictly positive.
+Hence $m$ is continuous and strictly increasing.
+As $\eta\to-\infty$, mass concentrates at zero, and as $\eta\to+\infty$, mass concentrates at $K-1$.
+The intermediate value theorem establishes the claimed range and inverse.
+Writing $t=\sum_r rP(r)$ gives
+\[
+ \CE(P,q_\eta)=-\sum_rP(r)\log h(r)-\eta t+A(\eta).
+\]
+Its first derivative is $m(\eta)-t$ and its second derivative is strictly positive.
+The unique zero of the first derivative is therefore the unique global minimizer.
+For $h\equiv1$ and $\eta$ chosen to give mean $t$, every distribution $P$ with that mean satisfies
+\[
+ \KL(P\Vert q_t)=-H(P)-\eta t+A(\eta)=H(q_t)-H(P).
+\]
+Nonnegativity and the equality condition of KL prove unique entropy maximization.
+\end{proof}
+
+At an endpoint target mean, $P$ is the corresponding point mass.
+A full-support exponential family approaches that optimum as $\eta\to\pm\infty$; it does not attain it at a finite parameter.
+Moment matching here requires the sufficient statistic $r$ and the positive-variance condition.
+It is not a property of every one-parameter rating family.
+With freely chosen $\eta_i$ per item and interior feasible means, correlation-one predictions remain $m_i=a+bt_i$.
+The family's shape is tied to these means, so the remaining ambiguity concerns level and scale.
+
+Let $\eta_t$ and $\eta_m$ have nearby interior means $t$ and $m$, and write $V(t)=A''(\eta_t)>0$.
+Then
+\begin{align}
+ \KL(q_{\eta_t}\Vert q_{\eta_m})
+ &=A(\eta_m)-A(\eta_t)-A'(\eta_t)(\eta_m-\eta_t)\\
+ &=\frac{(m-t)^2}{2V(t)}+o((m-t)^2).\label{eq:localprice}
+\end{align}
+Indeed, Taylor expansion gives $\tfrac12 V(t)(\eta_m-\eta_t)^2+o((\eta_m-\eta_t)^2)$, and the inverse-function derivative gives $\eta_m-\eta_t=(m-t)/V(t)+o(m-t)$.
+For a misspecified target of mean $t$, subtracting its CE at $\eta_t$ from its CE at $\eta_m$ gives the same exact expression on the first line.
+This is a local cost of mean miscalibration inside this family.
+It does not assert that the family's variance equals the target variance.
+
+\begin{proposition}[Signed CE decomposition]\label{prop:cross}
+Let $P$ have interior mean $t$ and let $q_t$ be its maximum-entropy mean-matching distribution from Proposition~\ref{prop:exponential} with $h\equiv1$.
+For a forecast $q$ positive on every category, define
+\[
+ G(P)=H(q_t)-H(P)\ge0,\qquad
+ C(P,q)=\sum_r(P(r)-q_t(r))(-\log q(r)).
+\]
+Then
+\begin{equation}\label{eq:cross}
+ \CE(P,q)=H(P)+G(P)+\KL(q_t\Vert q)+C(P,q).
+\end{equation}
+The cross term $C(P,q)$ can be negative.
+If $\log q(r)=\alpha+\beta r$, it vanishes, and the minimum excess CE within that log-affine-in-rating family is $G(P)$.
+\end{proposition}
+\begin{proof}
+Add and subtract $\CE(q_t,q)$ to obtain $\CE(P,q)=\CE(q_t,q)+C(P,q)$.
+Proposition~\ref{prop:ce} gives $\CE(q_t,q)=H(q_t)+\KL(q_t\Vert q)$.
+Substitution of $H(q_t)=H(P)+G(P)$ yields Eq.~\eqref{eq:cross}.
+If $\log q(r)=\alpha+\beta r$, then
+\[
+ C(P,q)=-\alpha\sum_r(P(r)-q_t(r))-\beta\sum_r r(P(r)-q_t(r))=0
+\]
+because both total mass and mean agree.
+KL is uniquely minimized at $q=q_t$, establishing the family-specific excess $G(P)$.
+For any positive $P$, substituting the unrestricted forecast $q=P$ into Eq.~\eqref{eq:cross} yields
+\[
+ C(P,P)=-G(P)-\KL(q_t\Vert P).
+\]
+This is negative whenever $P\ne q_t$.
+\end{proof}
+
+The nonnegative shape gap is therefore a restriction cost for the stated log-affine family, not an unavoidable penalty for every forecast.
+The cross term prevents interpreting Eq.~\eqref{eq:cross} as a sum of nonnegative errors.
+Other scalar-to-distribution families require their own analysis.
+At endpoint means, the target and its maximum-entropy representative coincide and $G(P)=C(P,q)=0$.
+
+\subsection{Ranked probability score and distribution distances}
+\begin{proposition}[Expected RPS, signed CDF identity, and decomposition]\label{prop:rps}
+For any $P,q$, let $d_k=F_P(k)-F_q(k)$, $\bar d=(K-1)^{-1}\sum_k d_k$, and $D(P,q)=\sum_k d_k^2$.
+Then
+\begin{align}
+ \E_P S(q,Y)&=\frac1{K-1}\sum_k F_P(k)(1-F_P(k))+\frac{D(P,q)}{K-1},\label{eq:riskrps}\\
+ \sum_{k=0}^{K-2}d_k&=m_q-m_P,\label{eq:signedcdf}\\
+ \mathcal E_P(q)&=\frac{(m_q-m_P)^2}{(K-1)^2}+\frac1{K-1}\sum_k(d_k-\bar d)^2.\label{eq:rpssplit}
+\end{align}
+Consequently, individual-rating normalized RPS is strictly proper.
+Also $|m_q-m_P|\le(K-1)\TV(P,q)$.
+\end{proposition}
+\begin{proof}
+For $Z_k=\mathbf1\{Y\le k\}$, $\E Z_k=F_P(k)$ and $\Var(Z_k)=F_P(k)(1-F_P(k))$.
+The identity $\E(a-Z_k)^2=(a-\E Z_k)^2+\Var(Z_k)$, summed and divided by $K-1$, proves Eq.~\eqref{eq:riskrps}.
+Interchanging the finite sums gives
+\[
+ \sum_{k=0}^{K-2}F_P(k)=\sum_rP(r)(K-1-r)=K-1-m_P.
+\]
+Subtracting its counterpart for $q$ proves Eq.~\eqref{eq:signedcdf}, including its sign.
+The centered sum-of-squares identity is
+\[
+ \sum_kd_k^2=\frac{(\sum_kd_k)^2}{K-1}+\sum_k(d_k-\bar d)^2.
+\]
+Dividing by $K-1$ gives Eq.~\eqref{eq:rpssplit}.
+The excess vanishes exactly when all CDF values agree, which determines every category probability by successive differences.
+This proves strict propriety, including distributions on the simplex boundary.
+Finally, mass conservation gives
+\[
+ |m_q-m_P|=\left|\sum_r\left(r-\frac{K-1}{2}\right)(q(r)-P(r))\right|
+ \le\frac{K-1}{2}\sum_r|q(r)-P(r)|.
+\]
+\end{proof}
+
+The first term of Eq.~\eqref{eq:riskrps} is the irreducible expected score for a fresh stochastic rating.
+It is distinct from excess RPS, which can be zero.
+Equation~\eqref{eq:rpssplit} has mean-error denominator $(K-1)^2$, which is $25$ on a six-category scale.
+The remaining term measures variation of the CDF differences after their average is removed.
+It vanishes exactly when all CDF differences are equal; it is not an independent variance error.
+If means agree, all remaining CDF discrepancy appears in this term.
+
+TVD to the true distribution equals zero exactly when $q=P$.
+It is a distribution distance rather than a strictly proper individual-rating score.
+In fact,
+\[
+ \TV(q,\delta_y)=\frac12\left(1-q(y)+\sum_{r\ne y}q(r)\right)=1-q(y),
+\]
+so $\E_{Y\sim P}\TV(q,\delta_Y)=1-\sum_rP(r)q(r)$.
+This expected loss is minimized by forecasts supported on the modal categories of $P$.
+It generally does not recover $P$.
+TVD to a sparse empirical histogram is also a noisy diagnostic, whose expectation need not equal TVD to $P$.
+
+\begin{proposition}[CE controls bounded moments]\label{prop:pinsker}
+For every $f:R\to[0,1]$,
+\begin{equation}\label{eq:momentbound}
+ |\E_P f-\E_q f|\le\TV(P,q)\le\sqrt{\KL(P\Vert q)/2}.
+\end{equation}
+In particular, the bound applies to every normalized raw moment $f(r)=(r/(K-1))^j$, $j\ge1$.
+\end{proposition}
+\begin{proof}
+Write $\delta(r)=P(r)-q(r)$ and $A=\{r:\delta(r)\ge0\}$.
+Since $\sum_r\delta(r)=0$, $\sum_{r\in A}\delta(r)=\TV(P,q)=d$.
+The positive and negative parts bound $\sum_r f(r)\delta(r)$ above by $d$ and below by $-d$.
+To prove the second inequality, suppose KL is finite; otherwise it is immediate.
+Grouping categories in $A$ and its complement cannot increase KL.
+For completeness, for any group $B$, concavity of the logarithm applied with weights $P(r)/P(B)$ yields
+\[
+ \sum_{r\in B}P(r)\log\frac{P(r)}{q(r)}\ge P(B)\log\frac{P(B)}{q(B)}.
+\]
+Zero group masses follow by continuity.
+Set $a=P(A)$ and $b=q(A)$, so $a-b=d$.
+The grouped bound is the Bernoulli KL $h_b(a)$.
+For $a,b\in(0,1)$, $h_b(b)=h_b'(b)=0$ and
+\[
+ h_b''(a)=\frac1{a(1-a)}\ge4.
+\]
+Integrating twice between $b$ and $a$ gives $h_b(a)\ge2(a-b)^2=2d^2$.
+Endpoint cases follow by limits or have infinite KL.
+Thus $\KL(P\Vert q)\ge2\TV(P,q)^2$.
+\end{proof}
+
+\subsection{Limits of recovering distributions from means alone}
+\begin{proposition}[Two-distribution recovery lower bounds]\label{prop:lower}
+Suppose a recovery rule receives only the exact mean and outputs a distribution $Q(m)$.
+Let $P_0,P_1$ be distinct distributions with the same mean, and set $d=\TV(P_0,P_1)$.
+For $q=Q(m)$,
+\begin{align}
+ \max_{j\in\{0,1\}}\TV(P_j,q)&\ge d/2,\\
+ \frac{\mathcal E_{P_0}(q)+\mathcal E_{P_1}(q)}2
+ &\ge\frac{D(P_0,P_1)}{4(K-1)},\label{eq:twopointrps}\\
+ \max_{j\in\{0,1\}}\KL(P_j\Vert q)&\ge d^2/2.
+\end{align}
+The first two bounds are sharp when the feasible forecast set includes $(P_0+P_1)/2$.
+\end{proposition}
+\begin{proof}
+The rule sees the same input under both truths and therefore must use the same forecast.
+The triangle inequality gives $d\le\TV(P_0,q)+\TV(q,P_1)$, proving the first bound.
+Let $v_j=(F_{P_j}(k))_{k=0}^{K-2}$ and $u=(F_q(k))_{k=0}^{K-2}$.
+The Euclidean identity
+\[
+ \frac{\|v_0-u\|^2+\|v_1-u\|^2}{2}
+ =\left\|u-\frac{v_0+v_1}{2}\right\|^2+\frac{\|v_0-v_1\|^2}{4}
+\]
+and Proposition~\ref{prop:rps} give Eq.~\eqref{eq:twopointrps}.
+The mixture forecast has the midpoint CDF and TVD $d/2$ to each truth, proving sharpness of those bounds.
+For at least one truth the TVD is at least $d/2$; Proposition~\ref{prop:pinsker} then gives KL at least $2(d/2)^2$.
+\end{proof}
+
+For a randomized rule, the RPS bound holds after averaging over its randomization, and the corresponding TVD and KL worst-case bounds hold for expected losses.
+Indeed the same inequalities can first be averaged over the common output law, using $\max_j\E L_j\ge(\E L_0+\E L_1)/2$ and convexity where necessary.
+For raw expected RPS, the right side of Eq.~\eqref{eq:twopointrps} must be added to the average of the two irreducible scores in Eq.~\eqref{eq:riskrps}.
+These are information bounds for a rule given only means.
+They do not lower-bound an estimator that also receives informative individual ratings, item features, or valid shape restrictions.
+Nor do they force every correlation optimizer to choose an inaccurate member of its optimum set.
+
+\section{Consequences of model restrictions}
+\subsection{Global and local identification}
+Assume the model is well specified on the chosen items, with $P_i=q_{\theta^\ast}(\cdot\mid x_i)$ and nonconstant $t=M(\theta^\ast)$.
+Proposition~\ref{prop:invariance} gives the exact global optimum set
+\begin{equation}\label{eq:thetaset}
+ \Theta_\rho=\{\theta\in\Theta:M(\theta)=a\mathbf1+bM(\theta^\ast),\ a\in\R,\ b>0\}.
+\end{equation}
+Correlation identifies the true predictions exactly when every $\theta\in\Theta_\rho$ satisfies $q_\theta(\cdot\mid x_i)=P_i$ for all $i$.
+It identifies the parameter itself only when this set reduces to $\{\theta^\ast\}$, after any stipulated parameter equivalences are removed.
+This requires excluding alternative feasible affine copies and alternative shapes with the same means.
+Within a well-specified class, CE also identifies the true predictions, by Proposition~\ref{prop:ce}; parameter symmetries can still prevent parameter identification.
+
+Local identification replaces $\Theta$ in this criterion by a neighborhood of $\theta^\ast$.
+It does not exclude a distant second optimum.
+For an open $d$-dimensional parameter domain and continuously differentiable $M$, the following is a sufficient local condition:
+\begin{equation}\label{eq:tangent}
+ DM(\theta^\ast)v\in\operatorname{span}\{\mathbf1,t\}\quad\Longrightarrow\quad v=0.
+\end{equation}
+To see this, define the standardized mean map
+\[
+ B(\theta)=\frac{M(\theta)-\overline{M(\theta)}\mathbf1}{\|M(\theta)-\overline{M(\theta)}\mathbf1\|}.
+\]
+For any perturbation $h$ of the mean vector, its derivative under centering and normalization vanishes exactly when $h\in\operatorname{span}\{\mathbf1,t\}$ at $\theta^\ast$.
+Thus Eq.~\eqref{eq:tangent} makes $DB(\theta^\ast)$ have full column rank.
+Selecting $d$ independent output coordinates and applying the inverse function theorem shows that $B$ is injective in a neighborhood.
+Since correlation one is equivalent to $B(\theta)=B(\theta^\ast)$, the local optimum is unique there.
+Failure of this first-order condition alone does not prove nonidentification; a singular derivative can coexist with local injectivity.
+
+A family name, including logistic-linear, does not by itself establish Eq.~\eqref{eq:thetaset}'s uniqueness on a finite design.
+The number and placement of the items and any shared-parameter symmetries matter.
+A claim about identities of functions on an interval is stronger than a claim about equality on finitely many items.
+
+Restricted models can also contain approximate affine copies.
+For softmax logits $c v_i(r)$ with fixed $v_i$ and $c\to0$, direct Taylor expansion gives
+\begin{equation}\label{eq:weaklogit}
+ m_i(c)=\frac{K-1}{2}+\frac cK\sum_r\left(r-\frac{K-1}{2}\right)v_i(r)+O(c^2).
+\end{equation}
+Indeed $q_i(r;c)=K^{-1}+cK^{-1}(v_i(r)-\bar v_i)+O(c^2)$, and multiplication by $r$ and summation gives Eq.~\eqref{eq:weaklogit}.
+On a fixed finite design the remainder is uniform across items.
+If the displayed linear coefficient is nonconstant, then for any fixed $a>0$, $\rho(m(c),m(ac))\to1$ as $c\to0^+$.
+This establishes approximate scale ambiguity near uniform logits, not an exact additional symmetry of every softmax model.
+It supplies no empirical explanation for a fitted model without checking that model's regime.
+
+\subsection{Linear mean models}
+\begin{proposition}[Best linear direction]\label{prop:linear}
+Let $\phi$ be a random feature vector with positive definite covariance $\Sigma$, let $t$ be a target mean with $\Var(t)=\sigma_t^2>0$, and put $c=\Cov(\phi,t)\ne0$.
+For unconstrained linear mean predictions $m=a+w^\top\phi$,
+\[
+ \rho(w)=\frac{w^\top c}{\sqrt{w^\top\Sigma w}\,\sigma_t}.
+\]
+Its maximum is attained exactly at $w=\beta\Sigma^{-1}c$, $\beta>0$, with
+\[
+ \rho_{\max}^2=\frac{c^\top\Sigma^{-1}c}{\sigma_t^2}.
+\]
+The offset $a$ and positive scale $\beta$ are undetermined.
+\end{proposition}
+\begin{proof}
+Centering removes $a$, and the covariance and variance of $w^\top\phi$ give the first formula.
+Cauchy--Schwarz applied to $\Sigma^{1/2}w$ and $\Sigma^{-1/2}c$ gives
+\[
+ (w^\top c)^2\le(w^\top\Sigma w)(c^\top\Sigma^{-1}c).
+\]
+Equality requires proportionality of these vectors, and a positive correlation maximum requires a positive proportionality factor.
+This yields $w=\beta\Sigma^{-1}c$.
+The same vector solves the normal equations for least squares with an intercept.
+Its explained variance is $c^\top\Sigma^{-1}c$, giving the stated squared correlation.
+\end{proof}
+
+The result also applies to empirical covariances on a fixed item set.
+If $c=0$, every nonconstant feasible linear forecast has correlation zero, so there is no distinguished direction.
+If forecasts must lie in $[0,K-1]$, the optimum above requires a feasible offset and scale; the unconstrained formula alone does not guarantee feasibility on unbounded feature supports.
+Correlation can equal one in this linear class only when the target is an affine function of the features almost surely.
+A linear mean head itself provides no distributional shape output.
+
+For comparison, a softmax-linear distribution model $q_\theta(r\mid x)=\softmax(W\phi(x))_r$ has expected CE gradient
+\[
+ \frac{\partial L}{\partial W_r}=\E\big[\phi(x)(q_\theta(r\mid x)-P(r\mid x))\big].
+\]
+This follows by applying Eq.~\eqref{eq:gradients} and the chain rule.
+A finite unpenalized stationary point matches these feature-weighted category frequencies.
+Under misspecification this need not recover the true conditional distribution or each item's mean.
+The moment-matching guarantee in Proposition~\ref{prop:exponential} assumes a free scalar natural parameter for the distribution being fitted; arbitrary shared-parameter classes do not inherit that guarantee.
+
+\subsection{Nonlinear mean models}
+A nonlinear mean model can represent a nonlinear target $t(x)$ and attain population correlation one.
+Its input-to-rating map need not be linear.
+If an additional output changes the distribution along a feasible path while preserving all means, the objective is constant on that path.
+If shared parameters force every shape change to alter means, correlation can influence shape indirectly, as Proposition~\ref{prop:gradient} states.
+Thus the unidentifiable set must be intersected with the feasible model class rather than inferred from a parameter's informal description as a spread parameter.
+
+\section{Finite ratings and estimation error}
+\subsection{Noise in the observed target mean}
+Let $I$ be a random held-out item and $Y_{I1},\ldots,Y_{Ik}$ be conditionally independent ratings drawn from $P_I$.
+Set $t_I=\E[Y\mid I]$, $\sigma_I^2=\Var(Y\mid I)$, and $\widehat t_I=k^{-1}\sum_{j=1}^kY_{Ij}=t_I+\varepsilon_I$.
+Then
+\[
+ \E[\varepsilon_I\mid I]=0,\qquad \Var(\varepsilon_I\mid I)=\frac{\sigma_I^2}{k}.
+\]
+For a fixed forecast mean $m_I$, or a forecast conditioned on training data independent of these test ratings, the law of total covariance yields
+\[
+ \Cov(m_I,\varepsilon_I)=\E[(m_I-\E m_I)\E(\varepsilon_I\mid I)]=0.
+\]
+The same argument gives $\Cov(t_I,\varepsilon_I)=0$.
+The law of total variance therefore implies
+\[
+ \Cov(m_I,\widehat t_I)=\Cov(m_I,t_I),\qquad
+ \Var(\widehat t_I)=\Var(t_I)+\E[\sigma_I^2]/k.
+\]
+Whenever the relevant variances are positive,
+\begin{equation}\label{eq:attenuation}
+ \operatorname{Corr}(m_I,\widehat t_I)
+ =\frac{\operatorname{Corr}(m_I,t_I)}{\sqrt{1+\E[\sigma_I^2]/(k\Var(t_I))}}.
+\end{equation}
+Conditional mean-zero noise suffices; independence of the noise from the item is unnecessary and generally false with heteroskedastic ratings.
+For item-dependent counts $k_I$, replace $\E[\sigma_I^2]/k$ by $\E[\sigma_I^2/k_I]$ under the same sampling assumptions.
+
+Equation~\eqref{eq:attenuation} is a population correlation identity over random held-out items and fresh ratings.
+It is not an equality for the expectation of a finite-sample Pearson coefficient, whose denominator is random.
+It also does not apply directly to a predictor fitted on the same rating noise.
+An unrestricted predictor can interpolate $m_i=a+b\widehat t_i$ whenever feasible and the observed means are nonconstant, attaining training correlation one while memorizing noise.
+Correlated raters, changing rater populations, and selection of which items receive ratings require a different noise analysis.
+
+\subsection{A regular asymptotic CE calculation}
+The familiar $P/(2N)$ expression concerns a specific estimation regime, not every distributional learner.
+To state it precisely, let $Z_j=(X_j,Y_j)$, $j=1,\ldots,N$, be independent and identically distributed observations from a well-specified parametric conditional model $q_{\theta^\ast}(Y\mid X)$.
+Let $\theta^\ast$ lie in the interior of an identifiable $P$-dimensional parameter domain.
+Assume a twice differentiable population CE risk
+\[
+ R(\theta)=\E[-\log q_\theta(Y\mid X)]
+\]
+with nonsingular Fisher information $I=\nabla^2R(\theta^\ast)$, and an efficient consistent unpenalized maximum-likelihood estimator satisfying
+\[
+ \sqrt N(\widehat\theta-\theta^\ast)\ \xrightarrow{d}\ \mathcal N(0,I^{-1}).
+\]
+Assume in addition the moment convergence needed to take expectations of the quadratic form and an expected Taylor remainder $o(N^{-1})$.
+For example, appropriate uniform integrability of $N\|\widehat\theta-\theta^\ast\|^2$ together with control of the remainder suffices.
+Then
+\begin{align}
+ R(\widehat\theta)-R(\theta^\ast)
+ &=\tfrac12(\widehat\theta-\theta^\ast)^\top I(\widehat\theta-\theta^\ast)+\text{remainder},\\
+ \E[R(\widehat\theta)-R(\theta^\ast)]
+ &=\frac1{2N}\operatorname{tr}(II^{-1})+o(N^{-1})
+ =\frac{P}{2N}+o(N^{-1}).\label{eq:asymptotic}
+\end{align}
+The first-order Taylor term vanishes at the interior population minimizer.
+The second equality uses $\E[N(\widehat\theta-\theta^\ast)(\widehat\theta-\theta^\ast)^\top]\to I^{-1}$ and the trace identity for quadratic forms.
+Thus the expectation statement requires more than convergence in distribution alone.
+The result is a conditional regular-asymptotic calculation, measured in nats per fresh observation.
+
+When $N$ is comparable to $P$, when the MLE lies near a boundary or does not exist, under misspecification, or with strong regularization, these assumptions can fail.
+Overparameterized models and clustered ratings need separate analyses.
+In particular, an estimated zero probability can yield infinite test CE even when the corresponding category was absent from training.
+A probability floor changes the estimator and its evaluated loss; it is not implicit in the preceding identities.
+
+\subsection{Why there is no universal break-even sample size}
+Correlation's population optimum set includes the truth when the class is well specified.
+Its nonuniqueness therefore does not force a positive error floor for every fitting procedure.
+Initialization, regularization, a tie rule, and model restrictions can select different members of that set.
+If a specified procedure converges to a forecast with positive excess CE $B$, then comparing $P/(2N)$ to $B$ suggests the heuristic scale $N\approx P/(2B)$.
+This comparison requires both risks to use CE in nats and the asymptotic assumptions to be relevant.
+It is invalid to substitute an RPS gap for $B$ in that expression.
+Neither $B>0$ nor a universal crossover follows from correlation's invariances.
+
+Properness describes the optimizer of population expected loss.
+It does not order finite-sample estimators, optimization methods, or validation procedures.
+With a small number of ratings, a restricted or regularized forecast can have lower held-out RPS or CE than a more flexible fit.
+The invariance results also do not compare choosing among existing judges with fitting a new distributional head.
+These are distinct statistical procedures whose performance depends on the candidate class and data.
+
+\section{An exact reproducible illustration}\label{sec:example}
+Consider three items on $R=\{0,1,2\}$ with true and forecast distributions
+\begin{equation}\label{eq:example}
+ P=\begin{pmatrix}
+ 3/5&3/10&1/10\\
+ 1/5&3/5&1/5\\
+ 1/10&3/10&3/5
+ \end{pmatrix},\qquad
+ Q=\begin{pmatrix}
+ 13/20&1/5&3/20\\
+ 2/5&1/5&2/5\\
+ 3/20&1/5&13/20
+ \end{pmatrix}.
+\end{equation}
+Rows index items and columns index rating categories in increasing order.
+All probabilities are strictly positive.
+The true and forecast means both equal $t=m=(1/2,1,3/2)$, so their Pearson correlation across items is exactly one.
+Nevertheless, $Q_i-P_i=s_i(1,-2,1)$ with $(s_1,s_2,s_3)=(1/20,1/5,1/20)$.
+Thus $\TV(P_i,Q_i)=2s_i$ and the two CDF differences equal $(-s_i,s_i)$.
+Proposition~\ref{prop:rps} gives $\mathcal E_{P_i}(Q_i)=s_i^2$.
+Consequently,
+\[
+ \frac13\sum_i\TV(P_i,Q_i)=\frac15,\qquad
+ \frac13\sum_i\mathcal E_{P_i}(Q_i)=\frac{(1/20)^2+(1/5)^2+(1/20)^2}{3}=\frac3{200}.
+\]
+The expected normalized RPS of the true distributions is $49/300$.
+Adding the excess gives $107/600$ for $Q$.
+These expected scores include stochastic rating noise; their difference isolates distributional error.
+
+% Provenance: experiments/exact_counterexample/reproduce.py; exact rational inputs, standard-library logarithms for CE.
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Forecast & Pearson & TVD & Excess RPS & CE (nats)\\
+\midrule
+True distribution $P$ & $1$ & $0$ & $0$ & $0.915387330$\\
+Changed shape $Q$ & $1$ & $1/5$ & $3/200$ & $1.064735095$\\
+\bottomrule
+\end{tabular}
+\caption{Exact three-item illustration, not a fitted-model comparison.
+Pearson correlation uses the three conditional means; higher is better for association.
+TVD compares each forecast with the true distribution and lies in $[0,1]$.
+Excess normalized individual-rating RPS subtracts the true forecast's expected score and lies in $[0,1]$.
+CE is expected individual-rating cross-entropy in nats.
+All distributional metrics are averaged equally across the three items, and lower is better.
+The true distribution is the reference forecast.
+There is no train, validation, or test split, fitted judge, optimizer, or sampling uncertainty; every entry follows from the displayed distributions.}
+\label{tab:exact}
+\end{table}
+
+The script \texttt{experiments/exact\_counterexample/reproduce.py} reproduces the table with Python's standard library.
+It uses rational arithmetic for means, CDFs, TVD, and RPS and evaluates logarithms numerically only for CE.
+It also verifies mass, positivity, the signed CDF identity, and equality of the mean vectors.
+The average excess CE is approximately $0.149347765$ nats, which is the difference between the two CE values before rounding.
+The example demonstrates nonidentification, not the behavior of an optimizer or the frequency of this error in practice.
+
+\section{Limitations and implications}
+The results describe population identification on a finite ordered rating scale.
+They assume a specified conditional target distribution for each item.
+In practice, a small number of ratings estimates that distribution imprecisely.
+Changes in the rater population or the meaning of rating categories change the target itself.
+One observed rating supports an unbiased individual-rating CE or RPS observation under the assumed sampling law, but it does not reveal the full conditional distribution for that item.
+
+The geometry of unrestricted distributions does not automatically describe a restricted neural model.
+Parameter sharing, regularization, initialization, and optimization may choose a particular shape even when the objective does not identify it.
+Conversely, strict properness does not remove misspecification or optimization error.
+The linear-model result needs covariance and feasibility conditions, and the exponential-family result needs its stated sufficient statistic and positive variance.
+Global identification requires checking the full feasible affine-copy set; local derivative conditions provide only the stated local guarantee.
+
+The exact illustration is a mathematical construction with no trained judge or sampled human ratings.
+It establishes possibility and reproduces a loss difference exactly.
+It does not estimate the prevalence of such differences or compare real-world training methods.
+The asymptotic CE calculation concerns regular, interior, well-specified iid maximum likelihood with additional expectation control.
+It does not predict a universal sample size at which CE-trained judges surpass correlation-trained judges.
+
+Our main results concern Pearson correlation of conditional means.
+Spearman and Kendall coefficients computed only from those means also discard equal-mean shape differences, but their equality conditions and gradients differ.
+Probability-profile correlation is a separate objective with the ambiguity in Proposition~\ref{prop:profiles}.
+For applications that require only rank association, distribution recovery can exceed the task's requirements.
+For applications that interpret a judge's output as a rating distribution, individual-rating proper scores directly target that distribution.
+Correlation remains a useful association diagnostic when its target and undefined constant-vector cases are reported explicitly.
+
+\begin{thebibliography}{9}
+\bibitem{gneiting2007}
+Tilmann Gneiting and Adrian E. Raftery.
+Strictly proper scoring rules, prediction, and estimation.
+\emph{Journal of the American Statistical Association}, 102(477):359--378, 2007.
+\href{https://doi.org/10.1198/016214506000001437}{doi:10.1198/016214506000001437}.
+
+\bibitem{epstein1969}
+Edward S. Epstein.
+A scoring system for probability forecasts of ranked categories.
+\emph{Journal of Applied Meteorology}, 8(6):985--987, 1969.
+\href{https://doi.org/10.1175/1520-0450(1969)008\%3C0985:ASSFPF\%3E2.0.CO;2}{doi:10.1175/1520-0450(1969)008\textless0985:ASSFPF\textgreater2.0.CO;2}.
+\end{thebibliography}
+\bigskip
+\noindent\small\copyright\ 2026 Brando Miranda.
+This preprint is licensed under the \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License (CC BY 4.0)}.
+
+\end{document}

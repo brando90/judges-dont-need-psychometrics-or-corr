@@ -1,0 +1,89 @@
+\section{Consequences of model restrictions}
+\subsection{Global and local identification}
+Assume the model is well specified on the chosen items, with $P_i=q_{\theta^\ast}(\cdot\mid x_i)$ and nonconstant $t=M(\theta^\ast)$.
+Proposition~\ref{prop:invariance} gives the exact global optimum set
+\begin{equation}\label{eq:thetaset}
+ \Theta_\rho=\{\theta\in\Theta:M(\theta)=a\mathbf1+bM(\theta^\ast),\ a\in\R,\ b>0\}.
+\end{equation}
+Correlation identifies the true predictions exactly when every $\theta\in\Theta_\rho$ satisfies $q_\theta(\cdot\mid x_i)=P_i$ for all $i$.
+It identifies the parameter itself only when this set reduces to $\{\theta^\ast\}$, after any stipulated parameter equivalences are removed.
+This requires excluding alternative feasible affine copies and alternative shapes with the same means.
+Within a well-specified class, CE also identifies the true predictions, by Proposition~\ref{prop:ce}; parameter symmetries can still prevent parameter identification.
+
+Local identification replaces $\Theta$ in this criterion by a neighborhood of $\theta^\ast$.
+It does not exclude a distant second optimum.
+For an open $d$-dimensional parameter domain and continuously differentiable $M$, the following is a sufficient local condition:
+\begin{equation}\label{eq:tangent}
+ DM(\theta^\ast)v\in\operatorname{span}\{\mathbf1,t\}\quad\Longrightarrow\quad v=0.
+\end{equation}
+To see this, define the standardized mean map
+\[
+ B(\theta)=\frac{M(\theta)-\overline{M(\theta)}\mathbf1}{\|M(\theta)-\overline{M(\theta)}\mathbf1\|}.
+\]
+For any perturbation $h$ of the mean vector, its derivative under centering and normalization vanishes exactly when $h\in\operatorname{span}\{\mathbf1,t\}$ at $\theta^\ast$.
+Thus Eq.~\eqref{eq:tangent} makes $DB(\theta^\ast)$ have full column rank.
+Selecting $d$ independent output coordinates and applying the inverse function theorem shows that $B$ is injective in a neighborhood.
+Since correlation one is equivalent to $B(\theta)=B(\theta^\ast)$, the local optimum is unique there.
+Failure of this first-order condition alone does not prove nonidentification; a singular derivative can coexist with local injectivity.
+
+A family name, including logistic-linear, does not by itself establish Eq.~\eqref{eq:thetaset}'s uniqueness on a finite design.
+The number and placement of the items and any shared-parameter symmetries matter.
+A claim about identities of functions on an interval is stronger than a claim about equality on finitely many items.
+
+Restricted models can also contain approximate affine copies.
+For softmax logits $c v_i(r)$ with fixed $v_i$ and $c\to0$, direct Taylor expansion gives
+\begin{equation}\label{eq:weaklogit}
+ m_i(c)=\frac{K-1}{2}+\frac cK\sum_r\left(r-\frac{K-1}{2}\right)v_i(r)+O(c^2).
+\end{equation}
+Indeed $q_i(r;c)=K^{-1}+cK^{-1}(v_i(r)-\bar v_i)+O(c^2)$, and multiplication by $r$ and summation gives Eq.~\eqref{eq:weaklogit}.
+On a fixed finite design the remainder is uniform across items.
+If the displayed linear coefficient is nonconstant, then for any fixed $a>0$, $\rho(m(c),m(ac))\to1$ as $c\to0^+$.
+This establishes approximate scale ambiguity near uniform logits, not an exact additional symmetry of every softmax model.
+It supplies no empirical explanation for a fitted model without checking that model's regime.
+
+\subsection{Linear mean models}
+\begin{proposition}[Best linear direction]\label{prop:linear}
+Let $\phi$ be a random feature vector with positive definite covariance $\Sigma$, let $t$ be a target mean with $\Var(t)=\sigma_t^2>0$, and put $c=\Cov(\phi,t)\ne0$.
+For unconstrained linear mean predictions $m=a+w^\top\phi$,
+\[
+ \rho(w)=\frac{w^\top c}{\sqrt{w^\top\Sigma w}\,\sigma_t}.
+\]
+Its maximum is attained exactly at $w=\beta\Sigma^{-1}c$, $\beta>0$, with
+\[
+ \rho_{\max}^2=\frac{c^\top\Sigma^{-1}c}{\sigma_t^2}.
+\]
+The offset $a$ and positive scale $\beta$ are undetermined.
+\end{proposition}
+\begin{proof}
+Centering removes $a$, and the covariance and variance of $w^\top\phi$ give the first formula.
+Cauchy--Schwarz applied to $\Sigma^{1/2}w$ and $\Sigma^{-1/2}c$ gives
+\[
+ (w^\top c)^2\le(w^\top\Sigma w)(c^\top\Sigma^{-1}c).
+\]
+Equality requires proportionality of these vectors, and a positive correlation maximum requires a positive proportionality factor.
+This yields $w=\beta\Sigma^{-1}c$.
+The same vector solves the normal equations for least squares with an intercept.
+Its explained variance is $c^\top\Sigma^{-1}c$, giving the stated squared correlation.
+\end{proof}
+
+The result also applies to empirical covariances on a fixed item set.
+If $c=0$, every nonconstant feasible linear forecast has correlation zero, so there is no distinguished direction.
+If forecasts must lie in $[0,K-1]$, the optimum above requires a feasible offset and scale; the unconstrained formula alone does not guarantee feasibility on unbounded feature supports.
+Correlation can equal one in this linear class only when the target is an affine function of the features almost surely.
+A linear mean head itself provides no distributional shape output.
+
+For comparison, a softmax-linear distribution model $q_\theta(r\mid x)=\softmax(W\phi(x))_r$ has expected CE gradient
+\[
+ \frac{\partial L}{\partial W_r}=\E\big[\phi(x)(q_\theta(r\mid x)-P(r\mid x))\big].
+\]
+This follows by applying Eq.~\eqref{eq:gradients} and the chain rule.
+A finite unpenalized stationary point matches these feature-weighted category frequencies.
+Under misspecification this need not recover the true conditional distribution or each item's mean.
+The moment-matching guarantee in Proposition~\ref{prop:exponential} assumes a free scalar natural parameter for the distribution being fitted; arbitrary shared-parameter classes do not inherit that guarantee.
+
+\subsection{Nonlinear mean models}
+A nonlinear mean model can represent a nonlinear target $t(x)$ and attain population correlation one.
+Its input-to-rating map need not be linear.
+If an additional output changes the distribution along a feasible path while preserving all means, the objective is constant on that path.
+If shared parameters force every shape change to alter means, correlation can influence shape indirectly, as Proposition~\ref{prop:gradient} states.
+Thus the unidentifiable set must be intersected with the feasible model class rather than inferred from a parameter's informal description as a spread parameter.

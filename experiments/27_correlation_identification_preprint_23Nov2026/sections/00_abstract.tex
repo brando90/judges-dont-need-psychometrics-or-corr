@@ -1,0 +1,22 @@
+\begin{abstract}
+% CS197 move 1: problem motivation (failure mode) -- perfect association can hide a wrong rating distribution.
+A judge can achieve perfect Pearson correlation with human mean ratings while predicting the wrong conditional rating distribution.
+% CS197 move 2: assumption (setup bit) -- association does not itself imply distribution recovery.
+Interpreting this agreement requires separating identification of a mean from identification of a distribution.
+% CS197 move 3: contribution (bit flip) -- characterize the objective rather than claim empirical training superiority.
+We characterize exactly what correlation of conditional means identifies on a finite ordered rating scale.
+% CS197 move 4a: instantiation (bit flip instantiation) -- precise invariances and feasible model directions.
+The objective depends only on means and is invariant to a common positive affine transformation.
+% CS197 move 4b: instantiation (bit flip instantiation) -- state the model-class qualifications.
+We derive its gradients, characterize restricted-family identification, and distinguish binary ratings from scales with independent shape variation.
+% CS197 move 4c: instantiation (bit flip instantiation) -- compare population targets using self-contained proofs.
+Cross-entropy and normalized individual-rating ranked probability score identify the distribution in expectation; their finite-data training performance requires separate analysis.
+% CS197 move 4d: instantiation (bit flip instantiation) -- name the exact loss decompositions.
+We also derive a signed cross-entropy decomposition and an exact cumulative-probability decomposition of excess ranked probability score.
+% CS197 move 4e: instantiation (bit flip instantiation) -- distinguish information bounds from an estimator guarantee.
+Recovery lower bounds show why exact means alone cannot determine distributional shape without additional restrictions.
+% CS197 move 5: evaluation (diagnostic result) -- exact rational arithmetic in experiments/exact_counterexample/reproduce.py, no trained models.
+An exact three-item example has correlation one, average total variation distance $1/5$, and normalized excess ranked probability score $3/200$.
+% CS197 move 6: implication (north star) -- align evaluation with its target and limit finite-data claims.
+The analysis separates association, distribution recovery, and estimation error, providing conditions for meaningful comparisons without asserting a universal advantage for cross-entropy training.
+\end{abstract}

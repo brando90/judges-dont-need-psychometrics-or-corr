@@ -1,0 +1,7 @@
+K = 3; n = 3; no fitted model; exact finite illustration
+target means: 1/2, 1, 3/2
+forecast means: 1/2, 1, 3/2
+correlation: 1.0
+True distribution: TVD=0; excess RPS=0; expected RPS=49/300; CE=0.915387330 nats; excess CE=0.000000000 nats
+Changed shape, same mean: TVD=1/5; excess RPS=3/200; expected RPS=107/600; CE=1.064735095 nats; excess CE=0.149347765 nats
+All exact rational assertions passed.
