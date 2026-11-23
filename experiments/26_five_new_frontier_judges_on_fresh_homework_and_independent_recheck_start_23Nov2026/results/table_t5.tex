@@ -1,0 +1,46 @@
+\begin{longtable}{lrrr}
+\toprule
+judge & training ratings & CE-fit advantage in RPS [95\% interval] & reading \\
+\midrule
+\endfirsthead
+\toprule
+judge & training ratings & CE-fit advantage in RPS [95\% interval] & reading \\
+\midrule
+\endhead
+gpt-6-astra & 256 & +0.0389 [+0.0167, +0.0611] & CE fit better \\
+gpt-6-astra & 128 & +0.0392 [+0.0177, +0.0607] & CE fit better \\
+gpt-6-astra & 64 & +0.0388 [+0.0178, +0.0598] & CE fit better \\
+gpt-6-astra & 32 & +0.0387 [+0.0176, +0.0599] & CE fit better \\
+gpt-6-astra & 16 & +0.0399 [+0.0190, +0.0608] & CE fit better \\
+gpt-6-astra & 8 & +0.0445 [+0.0224, +0.0666] & CE fit better \\
+gpt-6-astra & 4 & +0.0578 [+0.0320, +0.0836] & CE fit better \\
+claude-opus-5-5 & 256 & +0.0411 [+0.0184, +0.0637] & CE fit better \\
+claude-opus-5-5 & 128 & +0.0411 [+0.0184, +0.0638] & CE fit better \\
+claude-opus-5-5 & 64 & +0.0415 [+0.0183, +0.0646] & CE fit better \\
+claude-opus-5-5 & 32 & +0.0426 [+0.0198, +0.0655] & CE fit better \\
+claude-opus-5-5 & 16 & +0.0454 [+0.0233, +0.0675] & CE fit better \\
+claude-opus-5-5 & 8 & +0.0531 [+0.0326, +0.0736] & CE fit better \\
+claude-opus-5-5 & 4 & +0.0696 [+0.0484, +0.0908] & CE fit better \\
+kimi-k3 & 256 & +0.0337 [+0.0143, +0.0532] & CE fit better \\
+kimi-k3 & 128 & +0.0338 [+0.0150, +0.0527] & CE fit better \\
+kimi-k3 & 64 & +0.0343 [+0.0158, +0.0528] & CE fit better \\
+kimi-k3 & 32 & +0.0352 [+0.0168, +0.0535] & CE fit better \\
+kimi-k3 & 16 & +0.0368 [+0.0188, +0.0548] & CE fit better \\
+kimi-k3 & 8 & +0.0417 [+0.0219, +0.0616] & CE fit better \\
+kimi-k3 & 4 & +0.0550 [+0.0307, +0.0794] & CE fit better \\
+glm-5.3 & 256 & +0.0292 [+0.0038, +0.0547] & CE fit better \\
+glm-5.3 & 128 & +0.0293 [+0.0043, +0.0543] & CE fit better \\
+glm-5.3 & 64 & +0.0300 [+0.0056, +0.0545] & CE fit better \\
+glm-5.3 & 32 & +0.0313 [+0.0079, +0.0548] & CE fit better \\
+glm-5.3 & 16 & +0.0325 [+0.0098, +0.0552] & CE fit better \\
+glm-5.3 & 8 & +0.0361 [+0.0127, +0.0594] & CE fit better \\
+glm-5.3 & 4 & +0.0471 [+0.0207, +0.0736] & CE fit better \\
+deepseek-v4.1-flash & 256 & +0.0222 [-0.0068, +0.0513] & no clear difference \\
+deepseek-v4.1-flash & 128 & +0.0223 [-0.0062, +0.0508] & no clear difference \\
+deepseek-v4.1-flash & 64 & +0.0235 [-0.0045, +0.0514] & no clear difference \\
+deepseek-v4.1-flash & 32 & +0.0254 [-0.0014, +0.0522] & no clear difference \\
+deepseek-v4.1-flash & 16 & +0.0280 [+0.0022, +0.0538] & CE fit better \\
+deepseek-v4.1-flash & 8 & +0.0319 [+0.0057, +0.0581] & CE fit better \\
+deepseek-v4.1-flash & 4 & +0.0406 [+0.0117, +0.0695] & CE fit better \\
+\bottomrule
+\end{longtable}

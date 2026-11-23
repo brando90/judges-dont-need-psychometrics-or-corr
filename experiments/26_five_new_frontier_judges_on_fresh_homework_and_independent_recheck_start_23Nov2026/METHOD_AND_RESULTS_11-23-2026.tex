@@ -1,0 +1,122 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,graphicx,xcolor,array}
+\usepackage{lscape}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{0.45em}\setlength{\parindent}{0pt}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\RPS}{\mathrm{RPS}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\TVD}{\mathrm{TVD}}
+\newcommand{\corr}{\mathrm{corr}}
+\title{Experiment 26: five new frontier judges, CE-trained versus Pearson-trained calibration at small training sizes\\[0.3em]\large Method, derivation and results \quad (11-23-2026)}
+\author{ub9sc for Brando Miranda \quad project: judges-dont-need-psychometrics-or-corr}
+\date{11-23-2026 \quad (as of 11-23-2026)}
+\begin{document}
+\maketitle
+
+\section*{1. What this result does and does not show}
+\fbox{\parbox{0.96\linewidth}{
+\textbf{Shows.} On one real corpus (160 short answers to 10 homework assignments, each graded 0--5 by two graders), five frontier judges (closed: GPT-6 Astra, Claude Opus 5.5; open weights: Kimi K3, GLM 5.3, DeepSeek V4.1 Flash) were asked once per answer for a probability over the six grades. A calibration of each judge's probabilities was then \emph{chosen from a fixed family of 27 transforms} using only a small number of human ratings, in two ways: by minimising cross-entropy (\textbf{CE fit}) or by maximising Pearson correlation (\textbf{Pearson fit}). On held-out assignments the CE fit had lower ranked probability score (RPS) than the Pearson fit in \textbf{35 of 35} judge-by-budget cells (point estimates). It passed the pre-registered descending significance rule for GPT-6 Astra and Kimi K3 (256 down to 8 training ratings), and \emph{not} for Claude Opus 5.5, GLM 5.3 and DeepSeek V4.1 Flash, which already fail at 256 ratings.\\[0.4em]
+\textbf{Does not show.} (i) Not that CE wins everywhere: with only 4 training ratings the CE fit is not significantly better than the Pearson fit in RPS for four of the five judges (DeepSeek is the exception), the CE fit has a \emph{higher} held-out CE than the Pearson fit for GPT-6 Astra (interval excludes 0), and Pearson has lower TVD than CE for Claude Opus 5.5 at 256 and 128 ratings (Table~4). (ii) Not a statement about trained judges in general: only a 27-transform calibration of a frozen judge was fitted, on one course, two graders, ten dependent folds, one judge run per model. (iii) Nothing about VeriBench: fresh VeriBench ratings do not yet exist.\\[0.4em]
+\textbf{Why correlation is limited (stated up front).} The Pearson objective sees a judge only through its predicted mean grade $m_i=\sum_g g\,q_{ig}$ for each answer $i$, and only up to level and scale:
+\[
+\boxed{\;\rho(m,\bar y)=\frac{\sum_i (m_i-\bar m)(\bar y_i-\bar{\bar y})}{\sqrt{\sum_i (m_i-\bar m)^2}\sqrt{\sum_i(\bar y_i-\bar{\bar y})^2}},\qquad \rho(a+b\,m,\bar y)=\rho(m,\bar y)\ \ (b>0)\;}
+\]
+so it is blind to the spread and shape of $q_i$ (second and higher moments) and to the mean's level and scale. Proper scores (CE, RPS) are minimised only at the full human distribution, which fixes the mean \emph{and} every higher moment. That is the infinite-data statement; whether it helps at small $N$ is exactly what this experiment tests (Section~4).
+}}
+
+\section*{2. Data, judges and notation}
+\begin{tabular}{p{2.6cm}p{12.4cm}}
+\toprule symbol & meaning \\ \midrule
+$i$ & an answer (160 in total); $a(i)$ its assignment (10 assignments, 16 answers each) \\
+$g\in\{0,\dots,5\}$ & grade \\
+$r_{i1},r_{i2}$ & the two graders' grades for answer $i$; $\bar y_i=(r_{i1}+r_{i2})/2$ \\
+$H_i\in\Delta^5$ & the human distribution of answer $i$: $H_{ig}=\tfrac12\sum_{j=1}^2\mathbf 1[r_{ij}=g]$ \\
+$p_i\in\Delta^5$ & the judge's reported probabilities for answer $i$ (one call, parsed; invalid output becomes uniform) \\
+$\theta=(t,b,c)$ & one of 27 calibration settings: $t\in\{0.5,1,2\}$, $b,c\in\{-1,0,1\}$ \\
+$q^{\theta}_i$ & calibrated distribution, defined below \\
+$m^\theta_i$ & its mean grade $\sum_g g\,q^\theta_{ig}$ \\
+$B$ & training budget in individual ratings (4, 8, \dots, 256); in the primary condition $n=B/2$ distinct answers, both graders' ratings \\
+\bottomrule
+\end{tabular}
+
+Calibration. With smoothing $\tilde p_{ig}=(1-6\cdot10^{-6})p_{ig}+10^{-6}$ and $u_g=(g-2.5)/2.5$,
+\[
+\boxed{\,q^{\theta}_{ig}=\frac{\exp\!\big(t\log\tilde p_{ig}+b\,u_g+c\,u_g^2\big)}{\sum_{h}\exp\!\big(t\log\tilde p_{ih}+b\,u_h+c\,u_h^2\big)}\,}
+\]
+$\theta=(1,0,0)$ is the uncalibrated judge. The 27 settings are ordered by distance to this identity.
+
+\section*{3. Derivations}
+\subsection*{3.1 The two fits}
+Given a training sample $T$ of $n$ answers with ratings $r_{ij}$ ($j=1..k$, $k=2$ primary, $k=1$ secondary):
+\begin{align}
+\hat\theta_{\CE}&=\arg\min_\theta\ \frac{1}{nk}\sum_{i\in T}\sum_{j=1}^{k}-\log q^\theta_{i,r_{ij}} &&\text{mean individual-rating CE},\\
+\hat\theta_{P}&=\arg\max_\theta\ \rho\big(m^\theta_T,\bar y_T\big) &&\text{Pearson of predicted mean vs observed mean grade.}
+\end{align}
+Ties go to the earliest setting in the identity-ordered grid (within $10^{-12}$). If $\rho$ is undefined for every $\theta$ (no variance), the Pearson fit returns the identity.
+
+\subsection*{3.2 Why Pearson only sees the mean}
+$\rho$ depends on $\theta$ only through the vector $(m^\theta_i)_{i\in T}$. If two settings give $m^{\theta'}_i=a+b\,m^\theta_i$ with $b>0$ on $T$, then $\rho$ is identical, because centring removes $a$ and the denominator rescales by $b$. Hence two judges with equal means up to level and scale are indistinguishable to this objective, whatever their predicted spread. Concretely, the temperature $t$ changes spread and mean together, so a Pearson fit can only prefer $t$ through its effect on the means.
+
+\subsection*{3.3 Why CE and RPS are proper, so they see every moment}
+For a target distribution $H$ and forecast $q$, $\E_{r\sim H}[-\log q_r]=-\sum_g H_g\log q_g=\mathrm{H}(H)+\mathrm{KL}(H\,\|\,q)\ge \mathrm{H}(H)$, with equality only at $q=H$. For RPS, with $F_k=\sum_{g\le k}q_g$, $G_k=\sum_{g\le k}H_g$ and the observed rating $r\sim H$:
+\begin{align}
+\E_r\Big[\tfrac15\sum_{k=0}^{4}\big(F_k-\mathbf 1[r\le k]\big)^2\Big]
+&=\tfrac15\sum_{k=0}^{4}\Big(F_k^2-2F_k\,\E\mathbf 1[r\le k]+\E\mathbf 1[r\le k]^2\Big)\notag\\
+&=\boxed{\tfrac15\sum_{k=0}^{4}\big(F_k^2-2F_kG_k+G_k\big)}=\tfrac15\sum_{k=0}^4\big(F_k-G_k\big)^2+\tfrac15\sum_{k=0}^4 G_k(1-G_k),
+\end{align}
+using $\mathbf 1^2=\mathbf 1$ and $\E\mathbf 1[r\le k]=G_k$. The last term does not depend on $q$, so the expected RPS is minimised only at $F=G$, i.e.\ $q=H$. The code scores each held-out answer with the formula in the box, using $H_i$ as the distribution of the observed rating.
+
+\subsection*{3.4 Test metrics, comparators and the sign convention}
+For a held-out answer $i$ and forecast $q_i$: $\RPS_i$ as above with $G=\mathrm{cdf}(H_i)$; $\CE_i=-\sum_g H_{ig}\log q_{ig}$ (nats); $\TVD_i=\tfrac12\sum_g|q_{ig}-H_{ig}|$. Per fold the metric is the mean over the 16 held-out answers and over 200 seeded training draws (SeedSequence$[20261121,\text{held-out},\text{draw}]$), then the ten fold values are the data. Comparators: the uniform forecast, the identity (uncalibrated judge) and the training histogram with 0.5 pseudo-count per grade.
+\[
+\boxed{\ \Delta_f(\text{comparator})=\text{metric}_f(\text{comparator})-\text{metric}_f(\text{CE fit}),\ \ f=1,\dots,10\ }\quad\text{positive means the CE fit is better.}
+\]
+
+\subsection*{3.5 Interval and the descending rule}
+Folds share training answers, so I use the overlap-adjusted standard error
+\[
+\boxed{\ \mathrm{SE}=s_\Delta\sqrt{\tfrac1{10}+\tfrac19},\qquad \text{95\% interval}=\bar\Delta\pm t_{0.975,9}\,\mathrm{SE}\ }
+\]
+with $s_\Delta$ the sample standard deviation of the ten $\Delta_f$ and 9 degrees of freedom. Confirmatory rule (frozen before any grade was read): test $B=256,128,\dots,4$ in descending order; a budget passes if the one-sided lower bounds of $\bar\Delta$ against the Pearson fit \emph{and} against uniform are both above 0, at level $\alpha=0.01$ per judge for the five new judges ($\alpha=0.025$ for the two experiment~21 judges); stop formal claims at the first failure. Later budgets are then descriptive only.
+
+\section*{4. Results (primary condition: two ratings per answer; RPS lower is better)}
+\textbf{Bottom line.} CE fit beat Pearson fit on RPS at all 35 judge-by-budget cells. The advantage is $0.02$--$0.03$ RPS at mid budgets for four judges (smaller for Claude Opus 5.5), small next to the gap to uniform ($0.15$--$0.19$). The formal rule passes for GPT-6 Astra and Kimi K3 from 256 down to 8 ratings; it fails at 4 ratings for both (Pearson and CE are within noise with two training answers). For Claude Opus 5.5 ($+0.0037$, 95\% interval $[-0.0025,+0.0098]$), GLM 5.3 ($+0.0195$, lower one-sided bound at $\alpha=0.01$ is $-0.0021$) and DeepSeek V4.1 Flash ($+0.0040$, $[-0.0044,+0.0124]$) the rule fails already at 256, so no formal claim is made below that; descriptively their intervals exclude 0 at smaller budgets (Table~2). Against the training histogram the CE fit is better for four judges at every budget and for DeepSeek only at 16 ratings and fewer.
+
+\begin{center}\includegraphics[width=\linewidth]{results/fig_learning_curves_11-23-2026.png}\end{center}
+\textit{Figure.} Top: held-out RPS by training ratings. Bottom: Pearson fit minus CE fit with 95\% interval. Grid on; positive means CE better.
+
+\textbf{Pattern.} The advantage is largest at 8--64 ratings and shrinks at 256 for the strongest closed judges (Claude Opus 5.5 and, in experiment~21, Claude Sonnet 5: $+0.0001$ at 256), whose mean grade is already close to the human mean, leaving Pearson little to lose. The uncalibrated judge is as good as or better than the Pearson fit at most budgets (Table~1; for GPT-6 Astra at 8 ratings 0.0858 uncalibrated against 0.0981 Pearson fit), so the Pearson fit adds nothing there and can hurt. The CE fit has lower RPS than the uncalibrated judge in all 35 cells; its 95\% interval against the uncalibrated judge excludes 0 at 256 ratings for all five judges, and at 4 ratings only for DeepSeek.
+
+\textbf{Where Pearson is not beaten} (Table~4): RPS at 4 ratings for four judges (all but DeepSeek); Claude Opus 5.5 at 256, 128 and 64; DeepSeek at 256. In held-out CE and TVD the picture is weaker for CE: at 4 ratings the CE fit has higher CE than the Pearson fit for GPT-6 Astra ($-0.159$, interval $[-0.238,-0.080]$; Kimi K3 and GLM 5.3 also negative, intervals include 0), and Claude Opus 5.5 has lower TVD under Pearson ($-0.0243$ at 256, $-0.0129$ at 128, intervals exclude 0). With two training answers, the minimum-CE transform can be extreme, which hurts held-out CE.
+
+\textbf{Experiment~21 judges re-analysed} (Table~7): Qwen passes at all budgets (advantage $+0.07$ to $+0.12$; its Pearson fit is worse than uniform); Claude Sonnet 5 fails at 256 ($+0.0001$) and is positive at 128 and below, matching Codex's decisions (pass flags and numbers agree; only the status wording differs).
+
+\section*{5. Checks, cost and caveats}
+\textbf{Independent check.} A second implementation written for this experiment reproduces experiment~21's Qwen and Claude Sonnet 5 results: 1170 of 1170 score values and 936 of 936 contrast values agree within $3.5\cdot10^{-11}$. A first run disagreed by up to $3\cdot10^{-4}$ in 9 values because the $10^{-12}$ tie tolerance was applied to a summed rather than a mean-per-rating CE; fixed, and the agreement above is after the fix. The author of the second implementation read experiment~21's schedule and selection code first, so it catches transcription errors rather than being a blind rewrite.
+
+\textbf{Cost.} About \$1.34 estimated in total (GPT-6 Astra \$0.90, Claude Opus 5.5 \$0.45; the three open-weight models are listed at \$0 on the gateway), against the \$100 cap and \$80 stop. Table~8.
+
+\textbf{Harness and models.} All judge calls: the Stanford AI API Gateway chat-completions endpoint, one call per answer with the same system and user prompt for every judge, no retries on content. GPT-6 Astra was first tried on the personal Codex plan route but rate-limited (157 of 160 calls failed, none used) and was moved to the gateway (Amendment~1). Claude Opus 5.5 was run through the gateway, not through Claude Code, so it is not the same harness as experiment~21's Claude Sonnet 5. Analysis: ub9sc's Python (numpy/scipy), cross-checked against Codex's experiment~21 code.
+
+\textbf{Caveats.} One course (UNT), two graders, ten folds that share training answers (the interval is adjusted, not exact); each judge ran once, so judge sampling noise is not separated from fold noise; cross-experiment comparisons with experiment~21 mix harnesses; Claude Opus 5.5 produced 4 and GLM 5.3 produced 1 unusable outputs, which became uniform forecasts and stay in the analysis (Table~9); the open-weight costs are \$0 at the gateway's listed rate, not a measured price. Not covered: fresh VeriBench ratings (not yet collected), any judge fine-tuned rather than calibrated, other corpora. The claim ``CE is better even with limited data'' is therefore \emph{supported on this one corpus for RPS from 256 down to 8 ratings by the formal rule for two judges, only descriptively for the other three, and not supported at 4 ratings for four of five judges}; it is not shown in general.
+
+\clearpage
+\newgeometry{paperwidth=29.7cm,paperheight=21cm,margin=1.5cm}\pdfpagewidth=29.7cm \pdfpageheight=21cm
+\section*{Appendix: tables}
+\scriptsize\setlength{\tabcolsep}{2pt}
+\textbf{Table 1.} Held-out RPS (lower is better), two ratings per answer, mean of ten folds.\par\input{results/table_t1.tex}
+\textbf{Table 2.} CE-fit advantage in RPS (comparator minus CE fit; positive = CE better), 95\% two-sided interval, and descending formal test (alpha 0.01 per judge). ``not\_tested\_after\_failure'' rows are descriptive only.\par\input{results/table_t2.tex}
+\textbf{Table 3.} Held-out CE (nats) and TVD, two ratings per answer (lower is better).\par\input{results/table_t3.tex}
+\textbf{Table 4.} Every primary-condition case where the Pearson fit is not significantly worse than the CE fit. Advantage = Pearson-fit metric minus CE-fit metric; negative means CE worse.\par\input{results/table_t4.tex}
+\textbf{Table 5.} CE fit versus the training histogram (descriptive).\par\input{results/table_t5.tex}
+\textbf{Table 6.} One rating per answer (secondary): CE-fit advantage in RPS over the Pearson fit; * marks a 95\% lower bound above 0; n/a = not run (256 exceeds the 144 distinct training answers).\par\input{results/table_t6.tex}
+\textbf{Table 7.} Experiment~21's two judges (labels as in its files: qwen, claude = Claude Sonnet 5) re-analysed with the second implementation (alpha 0.025).\par\input{results/table_t7.tex}
+\clearpage
+\textbf{Table 8.} Cost of the new judge calls. Reference column: GLM 5.3's list rate on another provider (1.4 in / 4.4 out USD per million tokens) as a stand-in upper reference for the 0-rated models, not a charge.\par\input{results/table_t8.tex}
+\textbf{Table 9.} Forecast parse status.\par\input{results/table_t9.tex}
+
+\textbf{Sources.} Frozen protocol \texttt{PROTOCOL\_11-23-2026.md} and \texttt{AMENDMENT\_1\_11-23-2026.md}; receipts in \texttt{receipts/}; forecasts and costs in \texttt{forecasts/}; code in \texttt{analysis/} and \texttt{runners/}; numbers in \texttt{results/}.
+
+\end{document}

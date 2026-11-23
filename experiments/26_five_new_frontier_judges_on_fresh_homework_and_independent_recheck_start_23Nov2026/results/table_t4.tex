@@ -1,0 +1,31 @@
+\begin{longtable}{lrrrrr}
+\toprule
+judge & training ratings & metric & Pearson minus CE & 95\% interval & reading \\
+\midrule
+\endfirsthead
+\toprule
+judge & training ratings & metric & Pearson minus CE & 95\% interval & reading \\
+\midrule
+\endhead
+gpt-6-astra & 4 & rps & +0.0012 & [-0.0050, +0.0074] & CE fit better on average, interval includes 0 \\
+gpt-6-astra & 4 & ce & -0.1592 & [-0.2384, -0.0801] & Pearson fit better on average \\
+gpt-6-astra & 4 & tvd & -0.0110 & [-0.0305, +0.0085] & Pearson fit better on average \\
+claude-opus-5-5 & 256 & rps & +0.0037 & [-0.0025, +0.0098] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 256 & ce & +0.0485 & [-0.0170, +0.1140] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 256 & tvd & -0.0243 & [-0.0368, -0.0118] & Pearson fit better on average \\
+claude-opus-5-5 & 128 & rps & +0.0044 & [-0.0021, +0.0109] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 128 & tvd & -0.0129 & [-0.0219, -0.0038] & Pearson fit better on average \\
+claude-opus-5-5 & 64 & rps & +0.0072 & [-0.0001, +0.0144] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 64 & tvd & +0.0014 & [-0.0071, +0.0099] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 4 & rps & +0.0065 & [-0.0033, +0.0164] & CE fit better on average, interval includes 0 \\
+claude-opus-5-5 & 4 & ce & +0.0101 & [-0.0871, +0.1073] & CE fit better on average, interval includes 0 \\
+kimi-k3 & 256 & tvd & +0.0257 & [-0.0259, +0.0772] & CE fit better on average, interval includes 0 \\
+kimi-k3 & 128 & tvd & +0.0245 & [-0.0116, +0.0607] & CE fit better on average, interval includes 0 \\
+kimi-k3 & 4 & rps & +0.0027 & [-0.0033, +0.0088] & CE fit better on average, interval includes 0 \\
+kimi-k3 & 4 & ce & -0.1383 & [-0.2937, +0.0172] & Pearson fit better on average \\
+glm-5.3 & 4 & rps & +0.0074 & [-0.0004, +0.0153] & CE fit better on average, interval includes 0 \\
+glm-5.3 & 4 & ce & -0.0559 & [-0.1551, +0.0433] & Pearson fit better on average \\
+deepseek-v4.1-flash & 256 & rps & +0.0040 & [-0.0044, +0.0124] & CE fit better on average, interval includes 0 \\
+deepseek-v4.1-flash & 256 & ce & +0.0814 & [-0.0317, +0.1945] & CE fit better on average, interval includes 0 \\
+\bottomrule
+\end{longtable}
