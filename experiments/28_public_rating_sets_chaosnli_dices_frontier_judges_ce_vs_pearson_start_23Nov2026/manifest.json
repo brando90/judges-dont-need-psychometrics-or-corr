@@ -1,0 +1,11 @@
+{
+ "requests_sha256": "6004ef74d41bfd99415900a4da7661361c2278c2da22db49217d2960d138ee64",
+ "n": {
+  "chaosnli_snli": 600,
+  "chaosnli_mnli": 600,
+  "chaosnli_alphanli": 400,
+  "dices350": 350,
+  "dices990": 400
+ },
+ "total": 2350
+}
