@@ -18,6 +18,7 @@ def main(fc_path, lab_path, out_dir):
     judges = sorted({j for _, j in fc})
     abs_rows, con_rows, cor_rows, status_rows, raw_rows = [], [], [], [], []
     rng = np.random.default_rng(np.random.SeedSequence([20261123, 999]))
+    rng_raw = np.random.default_rng(np.random.SeedSequence([20261123, 998]))   # separate stream: adding the raw comparator leaves every other interval unchanged
     for ds, k in DATASETS.items():
         ids = [i for i in labels if i.startswith(ds + "/")]
         counts = np.array([labels[i]["counts"] for i in ids], float)
@@ -50,6 +51,16 @@ def main(fc_path, lab_path, out_dir):
                         m2, l2, _ = simultaneous_lower(-delta, 4000, rng)
                         for bi, B in enumerate(budgets):
                             con_rows.append([ds, judge, d, B, metric, comp + "_reverse", f"{m2[bi]:.6f}", f"{l2[bi]:.6f}", "", int(l2[bi] > 0)])
+                # raw judge forecast (no fitting) as comparator, own random stream
+                rawm = np.repeat(raw[:, None, :3], len(budgets), axis=1)
+                for j, metric in enumerate(METRICS[:3]):
+                    delta = rawm[:, :, j] - ce[:, :, j]
+                    mean, lower, se = simultaneous_lower(delta, 4000, rng_raw)
+                    for bi, B in enumerate(budgets):
+                        con_rows.append([ds, judge, d, B, metric, "raw", f"{mean[bi]:.6f}", f"{lower[bi]:.6f}", f"{se[bi]:.6f}", int(lower[bi] > 0)])
+                    m2, l2, _ = simultaneous_lower(-delta, 4000, rng_raw)
+                    for bi, B in enumerate(budgets):
+                        con_rows.append([ds, judge, d, B, metric, "raw_reverse", f"{m2[bi]:.6f}", f"{l2[bi]:.6f}", "", int(l2[bi] > 0)])
             print(ds, judge, "done", flush=True)
 
     def w(name, header, rows):

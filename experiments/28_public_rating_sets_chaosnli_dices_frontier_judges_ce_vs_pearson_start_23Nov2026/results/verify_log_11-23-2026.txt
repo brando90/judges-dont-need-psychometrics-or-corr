@@ -1,0 +1,33 @@
+dices350 kimi-k3 d=1 B=16 ce: max |loop - vectorized| over 70 held-out items = 6.38e-16
+dices350 kimi-k3 d=1 B=16 pearson: max |loop - vectorized| over 70 held-out items = 2.50e-16
+dices350 kimi-k3 d=1 B=16 rps: max |loop - vectorized| over 70 held-out items = 2.78e-16
+dices350 kimi-k3 d=1 B=16 uniform: max |loop - vectorized| over 70 held-out items = 2.78e-16
+dices350 kimi-k3 d=1 B=16 hist: max |loop - vectorized| over 70 held-out items = 2.78e-16
+dices350 kimi-k3 d=5 B=40 ce: max |loop - vectorized| over 70 held-out items = 9.44e-16
+dices350 kimi-k3 d=5 B=40 pearson: max |loop - vectorized| over 70 held-out items = 2.22e-16
+dices350 kimi-k3 d=5 B=40 rps: max |loop - vectorized| over 70 held-out items = 4.16e-16
+dices350 kimi-k3 d=5 B=40 uniform: max |loop - vectorized| over 70 held-out items = 2.78e-16
+dices350 kimi-k3 d=5 B=40 hist: max |loop - vectorized| over 70 held-out items = 1.67e-16
+WORST 9.44e-16
+chaosnli_snli gpt-6-astra d=1 B=16 ce: max |loop - vectorized| over 118 held-out items = 1.67e-16
+chaosnli_snli gpt-6-astra d=1 B=16 pearson: max |loop - vectorized| over 118 held-out items = 2.50e-16
+chaosnli_snli gpt-6-astra d=1 B=16 rps: max |loop - vectorized| over 118 held-out items = 1.25e-16
+chaosnli_snli gpt-6-astra d=1 B=16 uniform: max |loop - vectorized| over 118 held-out items = 9.99e-16
+chaosnli_snli gpt-6-astra d=1 B=16 hist: max |loop - vectorized| over 118 held-out items = 1.11e-16
+chaosnli_snli gpt-6-astra d=5 B=40 ce: max |loop - vectorized| over 118 held-out items = 2.22e-16
+chaosnli_snli gpt-6-astra d=5 B=40 pearson: max |loop - vectorized| over 118 held-out items = 1.80e-16
+chaosnli_snli gpt-6-astra d=5 B=40 rps: max |loop - vectorized| over 118 held-out items = 1.67e-16
+chaosnli_snli gpt-6-astra d=5 B=40 uniform: max |loop - vectorized| over 118 held-out items = 9.99e-16
+chaosnli_snli gpt-6-astra d=5 B=40 hist: max |loop - vectorized| over 118 held-out items = 8.33e-17
+WORST 9.99e-16
+chaosnli_alphanli glm-5.3 d=1 B=16 ce: max |loop - vectorized| over 80 held-out items = 3.05e-16
+chaosnli_alphanli glm-5.3 d=1 B=16 pearson: max |loop - vectorized| over 80 held-out items = 2.22e-16
+chaosnli_alphanli glm-5.3 d=1 B=16 rps: max |loop - vectorized| over 80 held-out items = 1.94e-16
+chaosnli_alphanli glm-5.3 d=1 B=16 uniform: max |loop - vectorized| over 80 held-out items = 0.00e+00
+chaosnli_alphanli glm-5.3 d=1 B=16 hist: max |loop - vectorized| over 80 held-out items = 1.11e-16
+chaosnli_alphanli glm-5.3 d=5 B=40 ce: max |loop - vectorized| over 80 held-out items = 3.33e-16
+chaosnli_alphanli glm-5.3 d=5 B=40 pearson: max |loop - vectorized| over 80 held-out items = 2.22e-16
+chaosnli_alphanli glm-5.3 d=5 B=40 rps: max |loop - vectorized| over 80 held-out items = 1.67e-16
+chaosnli_alphanli glm-5.3 d=5 B=40 uniform: max |loop - vectorized| over 80 held-out items = 0.00e+00
+chaosnli_alphanli glm-5.3 d=5 B=40 hist: max |loop - vectorized| over 80 held-out items = 1.11e-16
+WORST 3.33e-16

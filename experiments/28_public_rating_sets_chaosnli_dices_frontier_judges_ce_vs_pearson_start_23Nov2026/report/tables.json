@@ -1,0 +1,340 @@
+{
+ "t1_d1": {
+  "md": "| Set | vs Pearson-fit | vs uniform | vs both | vs histogram | vs Pearson+calibration | vs raw judge |\n|---|---|---|---|---|---|---|\n| ChaosNLI SNLI | 4 | 4 | 4 | 4 | 4 | 64 (4/5 none) |\n| ChaosNLI MNLI-m | 4 | 4 | 4 | 4 | none (5/5) | 16-32 (2/5 none) |\n| ChaosNLI alphaNLI (control) | 4-8 | 4 | 4-8 | 4 | 4 (1/5 none) | 256 (4/5 none) |\n| DICES-350 | 4 | 8 | 8 | 16-256 (3/5 none) | 8 (4/5 none) | 8-128 |\n| DICES-990 | 4 | 4 | 4 | 8-64 | none (5/5) | 16 (1/5 none) |",
+  "tex": "\\footnotesize\n\\begin{tabular}{lllllll}\\toprule\nSet & vs Pearson-fit & vs uniform & vs both & vs histogram & vs Pearson+calibration & vs raw judge \\\\ \\midrule\nChaosNLI SNLI & 4 & 4 & 4 & 4 & 4 & 64 (4/5 none) \\\\\nChaosNLI MNLI-m & 4 & 4 & 4 & 4 & none (5/5) & 16-32 (2/5 none) \\\\\nChaosNLI alphaNLI (control) & 4-8 & 4 & 4-8 & 4 & 4 (1/5 none) & 256 (4/5 none) \\\\\nDICES-350 & 4 & 8 & 8 & 16-256 (3/5 none) & 8 (4/5 none) & 8-128 \\\\\nDICES-990 & 4 & 4 & 4 & 8-64 & none (5/5) & 16 (1/5 none) \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "t1_d5": {
+  "md": "| Set | vs Pearson-fit | vs uniform | vs both | vs histogram | vs Pearson+calibration | vs raw judge |\n|---|---|---|---|---|---|---|\n| ChaosNLI SNLI | 20 | 10 | 20 | 10 | 10 | 80 (4/5 none) |\n| ChaosNLI MNLI-m | 20 | 10 | 20 | 10 | none (5/5) | 20-80 (2/5 none) |\n| ChaosNLI alphaNLI (control) | 20 | 10 | 20 | 10 | 10 | 320 (4/5 none) |\n| DICES-350 | 10-20 | 10-20 | 10-20 | 20-160 (3/5 none) | 20 (4/5 none) | 10-160 |\n| DICES-990 | 20 | 10 | 20 | 10-80 | none (5/5) | 20-40 (1/5 none) |",
+  "tex": "\\footnotesize\n\\begin{tabular}{lllllll}\\toprule\nSet & vs Pearson-fit & vs uniform & vs both & vs histogram & vs Pearson+calibration & vs raw judge \\\\ \\midrule\nChaosNLI SNLI & 20 & 10 & 20 & 10 & 10 & 80 (4/5 none) \\\\\nChaosNLI MNLI-m & 20 & 10 & 20 & 10 & none (5/5) & 20-80 (2/5 none) \\\\\nChaosNLI alphaNLI (control) & 20 & 10 & 20 & 10 & 10 & 320 (4/5 none) \\\\\nDICES-350 & 10-20 & 10-20 & 10-20 & 20-160 (3/5 none) & 20 (4/5 none) & 10-160 \\\\\nDICES-990 & 20 & 10 & 20 & 10-80 & none (5/5) & 20-40 (1/5 none) \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "t2": {
+  "md": "| Set | raw | unif | hist | Pear | Pear+cal | CE | raw | unif | hist | Pear | Pear+cal | CE |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| ChaosNLI SNLI | 0.117 | 0.196 | 0.199 | 0.150 | 0.148 | 0.128 | 0.117 | 0.196 | 0.190 | 0.134 | 0.124 | 0.115 |\n| ChaosNLI MNLI-m | 0.170 | 0.213 | 0.211 | 0.203 | 0.186 | 0.174 | 0.170 | 0.213 | 0.201 | 0.185 | 0.161 | 0.163 |\n| ChaosNLI alphaNLI (control) | 0.121 | 0.250 | 0.263 | 0.155 | 0.151 | 0.133 | 0.121 | 0.250 | 0.250 | 0.125 | 0.126 | 0.120 |\n| DICES-350 | 0.253 | 0.267 | 0.241 | 0.293 | 0.250 | 0.242 | 0.253 | 0.267 | 0.230 | 0.276 | 0.221 | 0.226 |\n| DICES-990 | 0.222 | 0.269 | 0.224 | 0.261 | 0.225 | 0.216 | 0.222 | 0.269 | 0.213 | 0.261 | 0.194 | 0.198 |",
+  "tex": "\\footnotesize\n\\begin{tabular}{lrrrrrrrrrrrr}\\toprule\nSet & raw & unif & hist & Pear & Pear+cal & CE & raw & unif & hist & Pear & Pear+cal & CE \\\\ \\midrule\nChaosNLI SNLI & 0.117 & 0.196 & 0.199 & 0.150 & 0.148 & 0.128 & 0.117 & 0.196 & 0.190 & 0.134 & 0.124 & 0.115 \\\\\nChaosNLI MNLI-m & 0.170 & 0.213 & 0.211 & 0.203 & 0.186 & 0.174 & 0.170 & 0.213 & 0.201 & 0.185 & 0.161 & 0.163 \\\\\nChaosNLI alphaNLI (control) & 0.121 & 0.250 & 0.263 & 0.155 & 0.151 & 0.133 & 0.121 & 0.250 & 0.250 & 0.125 & 0.126 & 0.120 \\\\\nDICES-350 & 0.253 & 0.267 & 0.241 & 0.293 & 0.250 & 0.242 & 0.253 & 0.267 & 0.230 & 0.276 & 0.221 & 0.226 \\\\\nDICES-990 & 0.222 & 0.269 & 0.224 & 0.261 & 0.225 & 0.216 & 0.222 & 0.269 & 0.213 & 0.261 & 0.194 & 0.198 \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "t3": {
+  "md": "| Set | Pearson CE | Pearson TVD | Pearson top-1 | CE-fit CE | CE-fit TVD | CE-fit top-1 |\n|---|---|---|---|---|---|---|\n| ChaosNLI SNLI | 0.824 | 0.235 | 0.715 | 0.713 | 0.169 | 0.813 |\n| ChaosNLI MNLI-m | 1.037 | 0.261 | 0.606 | 0.911 | 0.208 | 0.662 |\n| ChaosNLI alphaNLI (control) | 0.454 | 0.131 | 0.885 | 0.396 | 0.125 | 0.878 |\n| DICES-350 | 1.272 | 0.314 | 0.621 | 0.851 | 0.163 | 0.797 |\n| DICES-990 | 1.047 | 0.315 | 0.565 | 0.757 | 0.138 | 0.852 |",
+  "tex": "\\footnotesize\n\\begin{tabular}{lrrrrrr}\\toprule\nSet & Pearson CE & Pearson TVD & Pearson top-1 & CE-fit CE & CE-fit TVD & CE-fit top-1 \\\\ \\midrule\nChaosNLI SNLI & 0.824 & 0.235 & 0.715 & 0.713 & 0.169 & 0.813 \\\\\nChaosNLI MNLI-m & 1.037 & 0.261 & 0.606 & 0.911 & 0.208 & 0.662 \\\\\nChaosNLI alphaNLI (control) & 0.454 & 0.131 & 0.885 & 0.396 & 0.125 & 0.878 \\\\\nDICES-350 & 1.272 & 0.314 & 0.621 & 0.851 & 0.163 & 0.797 \\\\\nDICES-990 & 1.047 & 0.315 & 0.565 & 0.757 & 0.138 & 0.852 \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "t4": {
+  "md": "| Comparator significantly better than CE-fit | Set | Cells | Budgets | Judges |\n|---|---|---|---|---|\n| Pearson-fit | ChaosNLI SNLI | 5 of 65 | 10 to 10 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| Pearson-fit | ChaosNLI MNLI-m | 5 of 65 | 10 to 10 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| Pearson-fit | ChaosNLI alphaNLI (control) | 6 of 65 | 4 to 10 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| Pearson-fit | DICES-350 | 1 of 65 | 10 to 10 | Claude Opus 5.5 |\n| Pearson-fit | DICES-990 | 2 of 65 | 10 to 10 | Claude Opus 5.5, GLM 5.3 |\n| raw judge | ChaosNLI SNLI | 51 of 65 | 4 to 320 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| raw judge | ChaosNLI MNLI-m | 33 of 65 | 4 to 320 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| raw judge | ChaosNLI alphaNLI (control) | 50 of 65 | 4 to 320 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| raw judge | DICES-350 | 9 of 65 | 4 to 40 | Claude Opus 5.5, GLM 5.3, Kimi K3 |\n| raw judge | DICES-990 | 13 of 65 | 4 to 40 | Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 |\n| histogram | DICES-350 | 7 of 65 | 4 to 160 | DeepSeek V4.1 Flash, Kimi K3 |\n| Pearson+calibration | ChaosNLI MNLI-m | 3 of 65 | 256 to 320 | DeepSeek V4.1 Flash, Kimi K3 |\n| Pearson+calibration | DICES-350 | 12 of 65 | 64 to 320 | DeepSeek V4.1 Flash, GPT-6 Astra |\n| Pearson+calibration | DICES-990 | 10 of 65 | 64 to 320 | DeepSeek V4.1 Flash, GPT-6 Astra, Kimi K3 |\n| RPS-fit (extra) | DICES-350 | 13 of 65 | 32 to 320 | DeepSeek V4.1 Flash, GPT-6 Astra |\n| RPS-fit (extra) | DICES-990 | 3 of 65 | 10 to 320 | GPT-6 Astra |",
+  "tex": "\\footnotesize\n\\begin{tabular}{llrll}\\toprule\nComparator significantly better than CE-fit & Set & Cells & Budgets & Judges \\\\ \\midrule\nPearson-fit & ChaosNLI SNLI & 5 of 65 & 10 to 10 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nPearson-fit & ChaosNLI MNLI-m & 5 of 65 & 10 to 10 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nPearson-fit & ChaosNLI alphaNLI (control) & 6 of 65 & 4 to 10 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nPearson-fit & DICES-350 & 1 of 65 & 10 to 10 & Claude Opus 5.5 \\\\\nPearson-fit & DICES-990 & 2 of 65 & 10 to 10 & Claude Opus 5.5, GLM 5.3 \\\\\nraw judge & ChaosNLI SNLI & 51 of 65 & 4 to 320 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nraw judge & ChaosNLI MNLI-m & 33 of 65 & 4 to 320 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nraw judge & ChaosNLI alphaNLI (control) & 50 of 65 & 4 to 320 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nraw judge & DICES-350 & 9 of 65 & 4 to 40 & Claude Opus 5.5, GLM 5.3, Kimi K3 \\\\\nraw judge & DICES-990 & 13 of 65 & 4 to 40 & Claude Opus 5.5, DeepSeek V4.1 Flash, GLM 5.3, GPT-6 Astra, Kimi K3 \\\\\nhistogram & DICES-350 & 7 of 65 & 4 to 160 & DeepSeek V4.1 Flash, Kimi K3 \\\\\nPearson+calibration & ChaosNLI MNLI-m & 3 of 65 & 256 to 320 & DeepSeek V4.1 Flash, Kimi K3 \\\\\nPearson+calibration & DICES-350 & 12 of 65 & 64 to 320 & DeepSeek V4.1 Flash, GPT-6 Astra \\\\\nPearson+calibration & DICES-990 & 10 of 65 & 64 to 320 & DeepSeek V4.1 Flash, GPT-6 Astra, Kimi K3 \\\\\nRPS-fit (extra) & DICES-350 & 13 of 65 & 32 to 320 & DeepSeek V4.1 Flash, GPT-6 Astra \\\\\nRPS-fit (extra) & DICES-990 & 3 of 65 & 10 to 320 & GPT-6 Astra \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "t5": {
+  "md": "| Judge | Uniform fallback | Calls ok | Input tokens | Output tokens | USD at configured rate | USD at 1.4/4.4 stand-in |\n|---|---|---|---|---|---|---|\n| Claude Opus 5.5 | 41 of 2350 | 2350 | 699,281 | 205,401 | 6.91 | 1.88 |\n| DeepSeek V4.1 Flash | 139 of 2350 | 2350 | 522,230 | 1,252,039 | 0.00 | 6.24 |\n| GLM 5.3 | 54 of 2350 | 2350 | 474,355 | 1,395,108 | 0.00 | 6.80 |\n| GPT-6 Astra | 0 of 2350 | 2350 | 461,981 | 163,230 | 12.78 | 1.36 |\n| Kimi K3 | 168 of 2350 | 2350 | 516,466 | 1,258,030 | 0.00 | 6.26 |",
+  "tex": "\\footnotesize\n\\begin{tabular}{lrrrrrr}\\toprule\nJudge & Uniform fallback & Calls ok & Input tokens & Output tokens & USD at configured rate & USD at 1.4/4.4 stand-in \\\\ \\midrule\nClaude Opus 5.5 & 41 of 2350 & 2350 & 699,281 & 205,401 & 6.91 & 1.88 \\\\\nDeepSeek V4.1 Flash & 139 of 2350 & 2350 & 522,230 & 1,252,039 & 0.00 & 6.24 \\\\\nGLM 5.3 & 54 of 2350 & 2350 & 474,355 & 1,395,108 & 0.00 & 6.80 \\\\\nGPT-6 Astra & 0 of 2350 & 2350 & 461,981 & 163,230 & 12.78 & 1.36 \\\\\nKimi K3 & 168 of 2350 & 2350 & 516,466 & 1,258,030 & 0.00 & 6.26 \\\\\n\\bottomrule\\end{tabular}\n"
+ },
+ "catalog_rows": [
+  [
+   "1",
+   "ChaosNLI (SNLI, MNLI-m, alphaNLI parts)",
+   "NLI label distribution",
+   "1,514 + 1,599 + 1,532 = 4,645",
+   "100 / 100 / 100",
+   "3 classes (alphaNLI: 2)",
+   "per-item counts only, no rater ids",
+   "CC BY-NC 4.0",
+   "https://github.com/easonnie/ChaosNLI",
+   "SNLI and MNLI-m: only items whose original 5 labels had 3-of-5 agreement (biased toward disagreement); alphaNLI is the full dev set"
+  ],
+  [
+   "2",
+   "DICES-350",
+   "safety rating of adversarial chatbot conversations",
+   "350",
+   "123 / 123 / 123",
+   "Yes (unsafe) / No / Unsure",
+   "yes, with rater ids and demographics",
+   "CC BY 4.0",
+   "https://github.com/google-research-datasets/dices-dataset/tree/main/350",
+   "adversarial conversations, stratified toward clear safe/unsafe gold labels"
+  ],
+  [
+   "3",
+   "DICES-990",
+   "same",
+   "990",
+   "69 / 73 / 76",
+   "Yes / No / Unsure",
+   "yes, 172 raters, with demographics",
+   "CC BY 4.0",
+   "https://github.com/google-research-datasets/dices-dataset/tree/main/990",
+   "adversarial conversations, stratified by adversariality group"
+  ],
+  [
+   "4",
+   "HelpSteer2 (+ disagreements file)",
+   "helpfulness etc. of LLM replies",
+   "21,362",
+   "2 / 3 / 6",
+   "5 attributes, integers 0-4",
+   "yes (lists, no rater ids)",
+   "CC BY 4.0",
+   "https://huggingface.co/datasets/nvidia/HelpSteer2",
+   "ShareGPT prompts; train/val keeps only samples with limited annotator spread"
+  ],
+  [
+   "5",
+   "MT-Bench human judgments",
+   "pairwise model preference",
+   "1,814 pairs (3,355 votes)",
+   "1 / 2 / 7",
+   "model_a / model_b / tie",
+   "yes, 65 pseudonymous judges",
+   "CC BY 4.0",
+   "https://huggingface.co/datasets/lmsys/mt_bench_human_judgments",
+   "80 hand-built questions, 6 models, volunteer graduate-student judges"
+  ],
+  [
+   "6",
+   "SummEval",
+   "summary quality (4 dimensions)",
+   "1,600 summaries",
+   "8 / 8 / 8 (3 expert + 5 crowd)",
+   "Likert 1-5",
+   "yes, no rater ids",
+   "no data licence stated (repo MIT)",
+   "https://github.com/Yale-LILY/SummEval",
+   "100 random CNN/DM articles, 16 systems; MTurk workers with high approval"
+  ],
+  [
+   "7",
+   "KonIQ-10k",
+   "image quality",
+   "10,073",
+   "93 / 106 / 157",
+   "5-point ACR",
+   "per-image histogram only",
+   "CC BY 4.0 with per-image exceptions",
+   "https://database.mmsp-kn.de/koniq-10k-database.html",
+   "tag-sampled Creative-Commons YFCC100M images"
+  ],
+  [
+   "8",
+   "USR (Topical-Chat, PersonaChat)",
+   "dialogue response quality",
+   "660",
+   "3 / 3 / 3",
+   "per quality: 0-1, 1-3, 1-5",
+   "yes, partly with annotator ids",
+   "none stated (code Apache-2.0)",
+   "http://shikib.com/usr",
+   "60 + 60 random contexts, six responses each"
+  ],
+  [
+   "9",
+   "Stanford Sentiment Treebank raw",
+   "phrase sentiment",
+   "239,232 phrases",
+   "3 / 3 / 6",
+   "slider 1-25",
+   "yes (raw scores)",
+   "none stated",
+   "https://nlp.stanford.edu/sentiment/",
+   "Rotten Tomatoes snippets, MTurk"
+  ],
+  [
+   "10",
+   "MovieLens 100K",
+   "movie ratings",
+   "1,682 movies",
+   "1 / 27 / 583",
+   "1-5 stars",
+   "yes, user ids",
+   "research-use terms",
+   "https://grouplens.org/datasets/movielens/100k/",
+   "self-selected raters, users with at least 20 ratings"
+  ],
+  [
+   "11",
+   "Chatbot Arena Conversations",
+   "pairwise vote, in the wild",
+   "33,000 conversations",
+   "1 (n.v. in file; gated, card only)",
+   "winner field",
+   "yes per card (n.v. in file), anonymised user id",
+   "prompts CC BY 4.0, outputs CC BY-NC 4.0 (gated)",
+   "https://huggingface.co/datasets/lmsys/chatbot_arena_conversations",
+   "self-selected hobbyist volunteers"
+  ],
+  [
+   "12",
+   "WebGPT comparisons",
+   "pairwise comparison of answers",
+   "19,578",
+   "1 (count from a 2,752-pair sample; labelers per pair n.v.)",
+   "score -1 to 1",
+   "no per-labeler ratings",
+   "none stated",
+   "https://huggingface.co/datasets/openai/webgpt_comparisons",
+   "98% ELI5 questions, 10 Upwork + few labelers"
+  ],
+  [
+   "13",
+   "SHP",
+   "which Reddit reply is preferred",
+   "385,563 pairs",
+   "aggregate net scores only",
+   "score_A, score_B",
+   "no individual votes",
+   "Reddit-terms statement only",
+   "https://huggingface.co/datasets/stanfordnlp/SHP",
+   "popular subreddits, top-scoring posts"
+  ],
+  [
+   "14",
+   "WMT MQM (newstest2020 en-de, zh-en)",
+   "translation error annotation",
+   "14,180 + 20,000",
+   "3 / 3 / 3",
+   "error spans with severity",
+   "yes, rater ids rater1-6",
+   "Apache-2.0",
+   "https://github.com/google/wmt-mqm-human-evaluation",
+   "top-performing systems plus a few chosen ones"
+  ],
+  [
+   "15",
+   "CIFAR-10H",
+   "10-way image classification",
+   "10,000",
+   "47 / 51 / 63 (counts file)",
+   "10 classes",
+   "counts file; raw CSV with annotator ids",
+   "CC BY-NC-SA 4.0",
+   "https://github.com/jcpeterson/cifar-10h",
+   "CIFAR-10 test images; MTurk workers passing a 75% attention check"
+  ],
+  [
+   "16",
+   "oasst1",
+   "message quality labels",
+   "161,443 messages (148,855 labelled)",
+   "1 / 3 / 13 labels per message",
+   "aggregate mean and count per label",
+   "no (aggregates only)",
+   "Apache-2.0",
+   "https://huggingface.co/datasets/OpenAssistant/oasst1",
+   "unpaid volunteers recruited mainly via Discord"
+  ],
+  [
+   "17",
+   "Wikipedia Detox: toxicity",
+   "comment toxicity",
+   "159,686",
+   "8 / 10 / 21",
+   "5-point ordinal (+ binary)",
+   "yes, rater ids",
+   "CC0",
+   "https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Toxicity/4563973",
+   "random sample plus oversampling of comments by later-blocked users"
+  ],
+  [
+   "18",
+   "Wikipedia Detox: aggression",
+   "comment aggression, personal attack",
+   "115,864",
+   "8 / 10 / 46",
+   "7-point ordinal (+ binary)",
+   "yes, rater ids",
+   "CC0",
+   "https://figshare.com/articles/dataset/Wikipedia_Talk_Labels_Aggression/4267550",
+   "same oversampling"
+  ],
+  [
+   "19",
+   "DynaSent v1.1",
+   "sentiment",
+   "121,634",
+   "5 / 5 / 5",
+   "positive / negative / neutral / mixed",
+   "yes, worker ids",
+   "CC BY 4.0",
+   "https://github.com/cgpotts/dynasent",
+   "model-in-the-loop, adversarial sentences"
+  ],
+  [
+   "20",
+   "MD-Agreement",
+   "tweet offensiveness",
+   "10,753",
+   "5 / 5 / 5",
+   "binary",
+   "yes, 819 annotators",
+   "no formal licence; non-commercial, on request",
+   "https://github.com/dhfbk/annotators-agreement-dataset",
+   "sampled evenly over agreement classes"
+  ],
+  [
+   "21",
+   "LeWiDi-2025 CSC",
+   "sarcasm",
+   "7,036",
+   "4 / 4 / 6",
+   "Likert 1-6",
+   "yes, 872 annotators",
+   "n.v.",
+   "https://github.com/Le-Wi-Di/le-wi-di.github.io/tree/main/LeWiDi_3-2025/CSC",
+   "n.v."
+  ],
+  [
+   "22",
+   "LeWiDi-2025 MultiPico",
+   "irony",
+   "18,778",
+   "2 / 5 / 21",
+   "binary",
+   "yes",
+   "n.v.",
+   "https://github.com/Le-Wi-Di/le-wi-di.github.io/tree/main/LeWiDi_3-2025/MP",
+   "n.v."
+  ],
+  [
+   "23",
+   "Pavlick and Kwiatkowski 2019",
+   "NLI judgments on a slider",
+   "496",
+   "15 / 40 / 45",
+   "slider -50 to 50",
+   "main file: no rater ids; raw batch1.csv with ids for 120 pairs",
+   "n.v.",
+   "https://github.com/epavlick/NLI-variation-data",
+   "pairs from five existing NLI training sets"
+  ],
+  [
+   "24",
+   "GoEmotions raw",
+   "28 emotion flags",
+   "58,011",
+   "1 / 3 / 5",
+   "binary flags",
+   "yes, 82 raters",
+   "Apache-2.0",
+   "https://huggingface.co/datasets/google-research-datasets/go_emotions",
+   "Reddit, balanced by subreddit and predicted emotion"
+  ],
+  [
+   "25",
+   "Measuring Hate Speech",
+   "hate-speech scale",
+   "39,565",
+   "1 / 2 / 815 (only 281 comments with 5 or more)",
+   "ordinal items",
+   "yes",
+   "CC BY 4.0",
+   "https://huggingface.co/datasets/ucberkeley-dlab/measuring-hate-speech",
+   "enrichment sampling toward hateful and counter-speech bins"
+  ],
+  [
+   "26",
+   "Jigsaw Unintended Bias, individual annotations",
+   "comment toxicity",
+   "n.v.",
+   "n.v.",
+   "n.v.",
+   "n.v. (could not download: Kaggle login)",
+   "n.v.",
+   "https://www.kaggle.com/competitions/jigsaw-unintended-bias-in-toxicity-classification/data",
+   "n.v."
+  ]
+ ]
+}

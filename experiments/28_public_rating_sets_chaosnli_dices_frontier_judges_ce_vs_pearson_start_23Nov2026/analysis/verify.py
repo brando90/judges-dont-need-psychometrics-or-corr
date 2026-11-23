@@ -30,7 +30,7 @@ def main(fc_path, lab_path, judge, ds):
     counts = np.array([labels[i]["counts"] for i in ids], float)
     groups = [labels[i]["group"] for i in ids]
     K = counts.shape[1]
-    fc = {r["id"]: [float(r[f"p{j}"]) for j in range(K)] for r in csv.DictReader(open(fc_path)) if r["judge"] == judge}
+    fc = {r["id"]: [float(r[f"p{j}"]) for j in range(K)] for r in csv.DictReader(open(fc_path)) if r["judge"] == judge and r["id"].startswith(ds + "/")}
     p = np.array([fc[i] for i in ids])
     k = DATASETS[ds]; fold = folds_of(groups, k)
     test = np.flatnonzero(fold == 0); pool = np.flatnonzero(fold != 0)
