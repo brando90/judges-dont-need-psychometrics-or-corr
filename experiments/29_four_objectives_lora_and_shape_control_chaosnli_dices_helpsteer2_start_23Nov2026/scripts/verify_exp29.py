@@ -190,6 +190,7 @@ def verify_code_and_reports() -> None:
     targets = list(sorted((EXP_DIR / "scripts").glob("*.py"))) + list(sorted(EXP_DIR.glob("*.md")))
     targets += [root / "STATUS_11-23-2026.md", root / "README.md", root / "experiments/README.md"]
     targets += [root / "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL" / f for f in ("6-case-study.tex", "7-discussion.tex", "10-supplementary.tex")]
+    targets += [root / "paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager" / f for f in ("judge-objectives-status.html", "README.md")]
     for path in targets:
         src = path.read_text(encoding="utf-8")
         assert banned.search(src) is None, f"Banned word in {path.name}"

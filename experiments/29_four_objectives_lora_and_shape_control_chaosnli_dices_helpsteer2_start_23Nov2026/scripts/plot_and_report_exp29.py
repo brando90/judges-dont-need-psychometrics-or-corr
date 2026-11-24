@@ -64,7 +64,7 @@ def _setup_log2_panel(ax: plt.Axes, title: str) -> None:
     ax.grid(True, which="major", alpha=0.38)
     ax.grid(True, which="minor", alpha=0.16, linestyle=":")
     ax.set_title(title, fontsize=9.3, fontweight="bold")
-    ax.set_xlabel("Training rating budget B_total (log2 scale; test items disjoint)", fontsize=7.8)
+    ax.set_xlabel("Total allocated ratings B_total (train+val+cal, log2 scale; test items disjoint)", fontsize=7.6)
     ax.set_ylabel("Held-out test ranked probability score (RPS; lower better)", fontsize=7.5)
 
 
@@ -145,7 +145,7 @@ def _plot_disagreement_panel(ax: plt.Axes, idx: dict, order: list[tuple[str, int
     ax.grid(True, axis="both", alpha=0.38)
     ax.set_ylim(0.0, max(max(ce_diff), max(mse_diff), max(pear_diff)) * 1.28)
     ax.set_xticks(x)
-    ax.set_xticklabels([SHORT_LABELS[k].replace(" (Qwen)", "").replace(" (Llama)", "\n(Llama)") for k in show], fontsize=7.6)
+    ax.set_xticklabels([SHORT_LABELS[k] for k in show], rotation=16, ha="right", fontsize=7.4)
     ax.set_title("High- vs Low-Disagreement Split Gap (Median Human Variance)", fontsize=9.3, fontweight="bold")
     ax.set_ylabel("Held-out test RPS diff: High-dis minus Low-dis items", fontsize=7.6)
     ax.legend(fontsize=7.3, loc="upper left", ncol=2)
@@ -232,7 +232,7 @@ def write_how_to_read(summary: dict, order: list[tuple[str, int]]) -> None:
    - `chaos3` (`ChaosNLI SNLI+MNLI-m`, $K=3$): `1,200` train / `600` validation / `600` calibration / `713` test items (`659` test groups, `71,300` test votes, disjoint by premise). Newly split for Exp 29, though `265/713` test items were previously scored by frontier judges in Exp 28 (LoRA weights never trained on them).
    - `alpha2` (`ChaosNLI alphaNLI`, $K=2$ binary control): `560` / `280` / `280` / `412` items (`41,200` test votes). Newly split for Exp 29, though `110/412` test items were previously scored in Exp 28 (LoRA weights never saw them).
    - `dices3` (`DICES-350/990`, $K=3$): `520` / `260` / `260` / `300` items (`25,846` test votes). Newly split for Exp 29, though `172/300` test items were previously scored in Exp 28 (LoRA weights never saw them).
-   - `hs2` (`HelpSteer2`, $K=5$): `1,600` / `800` / `800` / `1,038` items (`519` test prompt groups, `3,610` test votes), reusing the frozen test split of Experiment 24. Moreover, `hs2_qwen` **reuses `ce` and `pearson` predictions from Exp 24** (`experiments/24_.../results/predictions.npz`) while running `161` new `rps`, `mse`, and parity runs (`draw0_B64_ce` parity RPS `0.17098` new vs `0.16886` Exp 24, `+0.00212`; `max_abs_seq_len_diff = 0`, median `base_probs` diff `0.0`, max `0.2928` across `3.87%` items `>0.05`). Do not treat HelpSteer2 cross-codebase differences below `~0.003` RPS as reliable.
+   - `hs2` (`HelpSteer2`, $K=5$): `1,600` / `800` / `800` / `1,038` items (`519` test prompt groups, `3,610` test votes), reusing the frozen test split of Experiment 24. Moreover, `hs2_qwen` **reuses `ce` and `pearson` predictions from Exp 24** (`experiments/24_.../results/predictions.npz`) while running `161` new `rps`, `mse`, and parity runs (`draw0_B64_ce` parity RPS `0.17098` new vs `0.16886` Exp 24, `+0.00212`, and max `base_probs` diff `0.2928` in `summary.json`; direct `.npz` cross-check confirms `max_abs_seq_len_diff = 0`, median `base_probs` diff `0.0`, and `3.87%` items `>0.05`). Do not treat HelpSteer2 cross-codebase differences below `~0.003` RPS as reliable.
    - Present studies in this snapshot (`{len(order)}` panels): {", ".join(f"{s} (d={d})" for s, d in order)}.
 2. **Which metrics:**
    - **Primary & validation-selection metric:** normalized individual-rating **ranked probability score (RPS)** on $K$ categories (`[0, 1]`, lower is better).
@@ -241,7 +241,7 @@ def write_how_to_read(summary: dict, order: list[tuple[str, int]]) -> None:
    - **References:** uniform baseline and empirical human **leave-one-vote-out (LOVO)** reference (`ChaosNLI` `0.11668`, `alphaNLI` `0.08485`, `DICES` `0.18118`, `HelpSteer2` `0.14567`; reference value, not a mathematical lower bound).
    - **Disagreement slices:** `Low-Dis` vs `High-Dis` split test items at the dataset's median empirical human rating variance (`ChaosNLI` `0.2504`, `alphaNLI` `0.0475`, `DICES` `0.6943`, `HelpSteer2` `0.2222`).
 3. **What is subtracted:** Every contrast reports `comparator minus target` on the identical test metric and split (`> 0` favors `target`).
-4. **Uncertainty:** Paired 4,000-draw cluster-bootstrap (`seed={summary["bootstrap_seed"]}`) resampled by `group_key`. Reports both **conditional** (`sim_lo_95`..`sim_hi_95`) and **two-way crossed** (`cross_sim_lo_95`..`cross_sim_hi_95`, `draw x group`) simultaneous `max-t` 95% bands.
+4. **Uncertainty:** Paired 4,000-draw cluster-bootstrap (`seed={summary["bootstrap_seed"]}`) resampled by `group_key`. Reports both **conditional** (`sim_lo_95`..`sim_hi_95`) and **two-way crossed** (`cross_sim_lo_95`..`cross_sim_hi_95`, `draw x group`) simultaneous `max-t` 95% bands. **Sustained win thresholds ($N^\\star$):** smallest allocated budget `B_total` from which every larger budget also has a 95% lower bound strictly above `0`.
 5. **How the judge was chosen:** **Low-Rank Adaptation (LoRA)** (`rank=8, alpha=16`) on top-4 blocks + $K$-way linear head (`3 LR x 4 ckpt = 12` `AdamW` candidates selected by validation RPS on disjoint `N_val`, non-convex objective). Calibrators (`1D scalar_cal` [`K+1` params] and `(K+2) logit_cal` [`K+2` params]) minimize strictly convex L2-regularized softmax CE on disjoint `N_cal` (`4-fold CV RPS` over `lambda in {{0.05, 0.2, 1.0, 5.0}}`, gradient infinity-norm `< 1e-6`).
 """
     (EXP_DIR / "HOW_TO_READ_RESULTS.md").write_text(text, encoding="utf-8")
@@ -271,15 +271,31 @@ def _fmt_study_row(st: str, dp: int, idx: dict, c_map: dict, manifest: dict) -> 
 
 
 def _verdict_table_lines(c_map: dict, idx: dict) -> list[str]:
-    lines = [
-        "| Pre-Registered Hypothesis | Verdict (Phase A Qwen3-4B) | Exact Contrast Evidence (Crossed 95% Sim CI unless labeled cond) |",
+    has_llama = any(st.endswith("_llama") for st, _d, _b, _m in idx)
+    col_hdr = "Verdict (All 6 Studies: Qwen3-4B + Llama-3.1-8B)" if has_llama else "Verdict (Phase A Qwen3-4B)"
+    h1_note = (
+        "All 7 setups (Qwen + Llama) strictly $>0$ on crossed CI (`+0.01321` to `+0.07609` RPS; sustained crossed wins from `B=16–80` CE, `64–1,024` RPS [`1,024` alphaNLI, `320` ChaosNLI `d=5`, `256` Qwen DICES]; cond wins CE `16–80`, RPS `16–256`)"
+        if has_llama else
+        "All 5 setups strictly $>0$ on crossed CI (`+0.01321` to `+0.07609` RPS; sustained crossed wins from `B=16–80` CE, `B=64–1,024` RPS)"
+    )
+    h3_note = (
+        "`(K+2) logit_cal` beats `1D` on Pearson for Qwen ChaosNLI `d=1/5` & HS2 (`+0.00073..+0.00368`), null on Qwen/Llama DICES & Llama ChaosNLI (`+0.00006`). However, under `(K+2) logit_cal`, `ce_logit_cal` beats `pearson_logit_cal` crossed on **Qwen ChaosNLI `d=1` (`+0.00293`)** (`d=5` `+0.00104 [-0.00034,+0.00241]`) and **Llama ChaosNLI (`+0.00205 [+0.00024,+0.00385]`)**, whereas on Qwen DICES `mse_scalar_cal` edges `ce_scalar_cal` (`-0.00191` cond; on Llama DICES `ce/rps_scalar_cal` beat MSE cond `+0.00095`/`+0.00122`)"
+        if has_llama else
+        "`(K+2) logit_cal` beats `1D` on Pearson for ChaosNLI `d=1` (`+0.00127 [+0.00021,+0.00232]`), `d=5` (`+0.00368 [+0.00209,+0.00526]`), HS2 (`+0.00073 [+0.00016,+0.00131]`), not DICES (`-0.00011`). Under `1D cal`, CE clears Pearson crossed only at ChaosNLI `d=5` (`+0.00231 [+0.00065,+0.00398]`); **fails on DICES** where `mse_scalar_cal` beats `ce_scalar_cal` (`-0.00191` cond `[-0.00309,-0.00072]`)"
+    )
+    h4_note = (
+        "Raw CE beats raw MSE crossed on 5/6 $K\\ge 3$ panels (`+0.00305` to `+0.06062`; Llama ChaosNLI `+0.00249` cond, crossed `[-0.00066,+0.00565]` while CE/TVD clear crossed) and raw RPS beats MSE crossed on 5/6 (including Llama ChaosNLI `+0.00321` & Llama DICES `+0.06057`). Raw MSE beats raw Pearson crossed on Qwen ChaosNLI `d=1/5` & Llama ChaosNLI (`+0.03186`), ties crossed on Qwen DICES/HS2 & Llama DICES (`-0.01610`, cond worse)"
+        if has_llama else
+        "Raw CE beats raw MSE on all 4 $K\\ge 3$ panels; raw RPS vs MSE crossed CI excludes 0 on 3/4 (ChaosNLI `d=5` crossed `[-0.00094,+0.01816]`). Raw MSE beats raw Pearson crossed on ChaosNLI `d=1/5`, ties crossed on DICES (`[-0.00092,+0.04295]`) & HS2 (`+0.00104 [-0.01293,+0.01501]`)"
+    )
+    return [
+        f"| Pre-Registered Hypothesis | {col_hdr} | Exact Contrast Evidence (Crossed 95% Sim CI unless labeled cond) |",
         "|---|---|---|",
-        "| **H1:** Raw CE & RPS beat raw Pearson at max budget | **Confirmed** | All 5 setups strictly $>0$ on crossed CI (`+0.01321` to `+0.07609` RPS; sustained crossed wins from `B=16–64` CE, `B=64–256` RPS) |",
+        f"| **H1:** Raw CE & RPS beat raw Pearson at max budget | **Confirmed** | {h1_note} |",
         "| **H2 ($K=2$ control):** Raw MSE matches CE; `(K+2)` cal adds zero gain; `1D scalar_cal` matches CE | **Partial (2/3 hold; `1D cal` fails)** | Raw MSE vs CE `+0.00034` (`[-0.00209, +0.00278]`) & logit vs 1D `+0.00119` (`[-0.00114, +0.00353]`), **but CE `1D cal` still beats Pearson `1D cal` by `+0.00429` (`[+0.00058, +0.00800]`, 10/10 draws)** |",
-        "| **H3 ($K\\ge 3$ shape):** Cal CE/RPS beat cal Pearson/MSE; `(K+2) logit_cal` beats `1D scalar_cal` | **Partial (mixed by suite)** | `(K+2) logit_cal` beats `1D` on Pearson for ChaosNLI `d=1` (`+0.00127 [+0.00021,+0.00232]`), `d=5` (`+0.00368 [+0.00209,+0.00526]`), HS2 (`+0.00073 [+0.00016,+0.00131]`), not DICES (`-0.00011`). Under `1D cal`, CE clears Pearson crossed only at ChaosNLI `d=5` (`+0.00231 [+0.00065,+0.00398]`); **fails on DICES** where `mse_scalar_cal` beats `ce_scalar_cal` (`-0.00191` cond `[-0.00309,-0.00072]`) |",
-        "| **H4:** For $K\\ge 3$, raw CE/RPS beat raw MSE; raw MSE improves over raw Pearson | **Partial** | Raw CE beats raw MSE on all 4 $K\\ge 3$ panels; raw RPS vs MSE crossed CI excludes 0 on 3/4 (ChaosNLI `d=5` crossed `[-0.00094,+0.01816]`). Raw MSE beats raw Pearson crossed on ChaosNLI `d=1/5`, ties crossed on DICES (`[-0.00092,+0.04295]`) & HS2 (`+0.00104 [-0.01293,+0.01501]`) |",
+        f"| **H3 ($K\\ge 3$ shape):** Cal CE/RPS beat cal Pearson/MSE; `(K+2) logit_cal` beats `1D scalar_cal` | **Partial (mixed by suite)** | {h3_note} |",
+        f"| **H4:** For $K\\ge 3$, raw CE/RPS beat raw MSE; raw MSE improves over raw Pearson | **Partial** | {h4_note} |",
     ]
-    return lines
 
 
 def _cal_table_lines(idx: dict, order: list[tuple[str, int]], c_map: dict) -> list[str]:
@@ -349,7 +365,7 @@ def write_results_and_budget_tables(idx: dict, order: list[tuple[str, int]], con
         "## 4. Verification, Calibrator Gradient Checks, & Exp 24 HelpSteer2 Parity",
         "",
         f"- **Finite-difference calibrator checks (max grad error across $K \\in \\{{2,3,5\\}}$):** `{max(summary['calibrator_fd_checks'].values()):.3e}`.",
-        f"- **HelpSteer2 parity (`hs2_qwen` draw-0 `B=64` CE RPS vs Exp 24):** new `{parity['draw0_B64_ce_rps_new']:.5f}` vs Exp 24 `{parity['draw0_B64_ce_rps_exp24']:.5f}` (`+0.00212`; identical token lengths `max_abs_seq_len_diff = 0`, median `base_probs` diff `0.0`, max `0.2928`). Do not treat cross-codebase HS2 gaps `< 0.003` as meaningful.",
+        f"- **HelpSteer2 parity (`hs2_qwen` draw-0 `B=64` CE RPS vs Exp 24):** new `{parity['draw0_B64_ce_rps_new']:.5f}` vs Exp 24 `{parity['draw0_B64_ce_rps_exp24']:.5f}` (`+0.00212`; max `base_probs` diff `{parity['max_abs_base_prob_diff']:.4f}` in `summary.json`, plus direct `.npz` cross-check `max_abs_seq_len_diff = 0` and median `0.0`). Do not treat cross-codebase HS2 gaps `< 0.003` as meaningful.",
         "",
         "![Figure 1: Four-Objective LoRA Rating Curves](figures/fig1_four_objectives_and_k2_control.png)",
         "![Figure 2: Disagreement Slices and Logit Calibration Rescue](figures/fig2_disagreement_slices_and_logit_rescue.png)",
@@ -386,7 +402,7 @@ def write_ckpt_and_readme(order: list[tuple[str, int]]) -> None:
     ckpt = f"""# Experiment 29 Checkpoint
 
 - **Status (`11-23-2026`):** {state_line}
-- **Pre-Phase-B records:** `AMENDMENT_1_11-23-2026.md` records `chaos3_llama` `320`-run budget expansion, `hs2_qwen` Exp 24 CE/Pearson reuse (`0.17098` vs `0.16886` parity), Exp 28 item overlap (`265/713`, `110/412`, `172/300`), and post-freeze `_make_hs2_draws` refactor preserving exact bundle SHA-256 (`301869bb...`, Exp 24 SHA `c9163578...`).
+- **Protocol & Amendment:** `AMENDMENT_1_11-23-2026.md` records `chaos3_llama` `320`-run budget expansion, `hs2_qwen` Exp 24 CE/Pearson reuse (`0.17098` vs `0.16886` parity), Exp 28 item overlap (`265/713`, `110/412`, `172/300`), and post-freeze `_make_hs2_draws` refactor preserving exact bundle SHA-256 (`301869bb...`, Exp 24 SHA `c9163578...`).
 - **Completed suites in `results/`:** {", ".join(f"`{s}` (`d={d}`)" for s, d in order)}.
 """
     (EXP_DIR / "CKPT_exp29.md").write_text(ckpt, encoding="utf-8")
