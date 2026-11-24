@@ -1,5 +1,9 @@
 # judges-dont-need-psychometrics-or-corr
 
+**Working title (Brando, Nov 24 12:20): "No Free Lunch of AI Judges."** This is the correlation vs cross-entropy (CE) repo: CE-trained judges vs correlation-trained judges, scored with the proper scores RPS, CE and TVD. The framing: no need for G theory or D theory; really just CE and lots of data (scaling laws as always).
+
+**How this differs from [correlation-is-not-trust](https://github.com/brando90/correlation-is-not-trust):** that repo asks whether a judge that correlates highly with humans still **fails trustworthy judge properties** (renaming, worse file, inserted bug, consistency, item order), i.e. bad properties despite high correlation. This repo asks **which objective to fit** (correlation vs CE) and when CE beats Pearson on held-out proper scores. Read both together.
+
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/README.md>
 
 **Current status and results in one page:** [STATUS_11-23-2026.md](STATUS_11-23-2026.md) (11-23-2026; historical snapshot: [STATUS_11-20-2026.md](STATUS_11-20-2026.md)). Quick links: [tech report PDF (arXiv edition)](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf), [AAAI-27 submission PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf), [Version 29 meeting brief HTML](paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html), Stanford Digital Repository preprint (`DOI: 10.25740/bh388th6008`), and [Experiment 29 complete results](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md).
