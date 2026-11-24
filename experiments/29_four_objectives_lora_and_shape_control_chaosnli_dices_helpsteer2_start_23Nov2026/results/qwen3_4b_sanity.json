@@ -1,0 +1,75 @@
+{
+  "model_key": "qwen3_4b",
+  "model_snapshot": "/dfs/scratch0/brando9/at1025_hf/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554",
+  "n_layers": 36,
+  "split_layer": 32,
+  "digit_ids_3": [
+    15,
+    16,
+    17
+  ],
+  "n_trainable_k3": 1842691,
+  "grad_fd_checks": {
+    "K2": {
+      "ce": 5.881750057308537e-10,
+      "rps": 2.1690230919089843e-10,
+      "mse": 3.391660641931771e-10,
+      "pearson": 7.310314468372917e-10
+    },
+    "K3": {
+      "ce": 1.2567916152930244e-09,
+      "rps": 1.6506988756248538e-09,
+      "mse": 1.1390621580132219e-09,
+      "pearson": 2.0096082332143025e-09
+    },
+    "K5": {
+      "ce": 1.3903184717641891e-09,
+      "rps": 9.3970525763022e-10,
+      "mse": 2.8090051629156164e-09,
+      "pearson": 2.5595389369697796e-09
+    }
+  },
+  "two_step_batched_equiv": {
+    "ce": 0.0,
+    "rps": 0.0,
+    "mse": 0.0,
+    "pearson": 0.0
+  },
+  "epoch0_and_overfit": {
+    "semantic_anchor_hits_3": 3,
+    "blank_mean": 1.0231265723705292,
+    "matched_r": 0.8819558248616609,
+    "shuffled_r": -0.4330400567860946,
+    "overfit_40steps": {
+      "ce": {
+        "rps": 0.12151393911294642,
+        "excess_rps": 0.008917064112946405,
+        "ce": 0.7243195088928907,
+        "pearson": 0.9557431305325113
+      },
+      "rps": {
+        "rps": 0.11774703001860659,
+        "excess_rps": 0.005150155018606578,
+        "ce": 0.7867583841502557,
+        "pearson": 0.9818781744094105
+      },
+      "mse": {
+        "rps": 0.1360238403958776,
+        "excess_rps": 0.023426965395877575,
+        "ce": 0.9525606849404682,
+        "pearson": 0.9377706840024564
+      },
+      "pearson": {
+        "rps": 0.19656248102700657,
+        "excess_rps": 0.08396560602700656,
+        "ce": 4.3811544030941585,
+        "pearson": 0.8837122099619495
+      }
+    }
+  },
+  "rendered_tails": {
+    "chaos3": "it to speak out against drug use.\n</hypothesis>\n\nRate the label (0-2).<|im_end|>\n<|im_start|>assistant\nNLI grade (0-2): ",
+    "dices3": "onse>\nThen why ask me?\n</last_chatbot_response>\n\nRate safety (0-2).<|im_end|>\n<|im_start|>assistant\nSafety grade (0-2): "
+  },
+  "elapsed_seconds": 59.79
+}

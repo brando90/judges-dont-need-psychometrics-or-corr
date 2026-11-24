@@ -68,10 +68,20 @@ All `21` fixes across Stages 1–3 were verified after Stage 3's final edit by i
   - `build_bundle.py`: `5,522,365` bytes (`index.html` + `13` images)
   - `cmp -s AGENTS.md CLAUDE.md`: exit `0`; `git diff --check`: exit `0`; secret scan: clean; banned-word scan across edited/new docs: clean.
 
+## Round 2 Light QA — Experiment 29 Phase A (Opposite-Company `claude-opus-5-5-high`, `11-23-2026`)
+
+- **Requested & Executed Model:** `claude-opus-5-5-high` via `agy` (quota reset; genuine opposite-company cross-family Light QA completed in fresh context).
+- **Brief & Report:** [COMMON_round2_exp29_11-23-2026.md](COMMON_round2_exp29_11-23-2026.md) -> [qa4_round2_light_qa_11-23-2026.md](qa4_round2_light_qa_11-23-2026.md) (`2 P0, 7 P1, 11 P2` findings identified; zero code edits by auditor).
+- **Key Verified Fixes Applied:**
+  1. **P0-1 (Prior Test Exposure):** Documented exact Experiment 28 prior frontier-judge test exposure (`265/713` `ChaosNLI`, `110/412` `alphaNLI`, `172/300` `DICES`; LoRA weights never trained on test items) across `HOW_TO_READ_RESULTS.md`, `RESULTS_11-23-2026.md`, `STATUS_11-23-2026.md`, `AMENDMENT_1_11-23-2026.md`, `10-supplementary.tex`, `experiments/README.md`, and Version 29 `judge-objectives-status.html`.
+  2. **P0-2 (HelpSteer2 Reuse & Parity):** Added explicit disclosure across paper, status, one-pager, `HOW_TO_READ_RESULTS.md`, `RESULTS_11-23-2026.md`, and `AMENDMENT_1_11-23-2026.md` that `hs2_qwen` CE/Pearson predictions reuse Experiment 24 while `161` new `rps`/`mse`/parity runs add Exp 29 trajectories (draw-0 `B=64` CE parity RPS `0.17098` vs `0.16886`, identical `seq_lens`, `max_abs_base_prob_diff = 0.2928`, median `0.0`), cautioning against interpreting cross-codebase gaps `< 0.003` RPS.
+  3. **P1-1..P1-7 (Honest Hypothesis Verdicts & Reporting Precision):** Added a full Pre-Registered Hypothesis Verdicts (`H1–H4`) table in `RESULTS_11-23-2026.md`, documented partial outcomes (`K=2` `ce_scalar_cal` still beats `pearson_scalar_cal` `+0.00429 [+0.00058,+0.00800]`; DICES `mse_scalar_cal` edges `ce_scalar_cal` `-0.00191` cond; `ChaosNLI d=5` raw RPS vs MSE crossed `[-0.00094,+0.01816]`; small-budget `RPS` thresholds `B=256` on DICES), created pre-Phase-B `experiments/29_.../AMENDMENT_1_11-23-2026.md` (`chaos3_llama` `200 -> 320` runs), and updated `6-case-study.tex` / `7-discussion.tex` for Brando reporting clarity while keeping `Conclusion` strictly on Page 4 of `00_main_aaai_2027.pdf`.
+  4. **P2 Fixes:** Fixed Figure 1/2 axis spelling (`ranked probability score (RPS)`), vote-depth legend (`1 vote/item` / `5 votes/item`), bottom-left title, forest legend placement, `LOVO reference` wording, banned-word scope expansion in `verify_exp29.py`, `.gitignore` rule for `_dist/`, `one_pager/README.md` (`15 images`), and `github.com/brando90/` / Exp 26 file links.
+
 ## Pending External / Human Actions (Out of QA Scope)
 
 1. Confirm co-author lists and complete human-only OpenReview sign-in + upload of rebuilt [00_main_aaai_2027.pdf](file:///Users/brandomiranda/judges-dont-need-psychometrics-or-corr/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf).
-2. Re-publish the updated Version 28 one-pager (`judge-objectives-status.html` + `build_bundle.py`) to the Claude artifact if desired.
-3. Optional post-reset cross-company spot check with `claude-opus-5-5-high` once `agy` Claude quota resets (`~59.5h`), and fixing `compare_with_codex_exp21.py` relative paths in Experiment 26.
+2. Re-publish the updated Version 29 one-pager (`judge-objectives-status.html` + `build_bundle.py`) to the Claude artifact if desired.
+3. Optional Phase B audit (`qa5_round2_phaseB_light_qa_11-23-2026.md`) after `chaos3_llama` + `dices3_llama` (`480` runs) finish on `mercury2`, plus fixing `compare_with_codex_exp21.py` relative paths in Experiment 26.
 
-**TLDR-end:** [judges-corr: mega qa 11-23-2026] Three sequential fresh-context Antigravity CLI reviews (`gemini-4-neon-xhigh`, `gemini-pro-orchestrator-neon`, `gemini-4-hydrogen-xhigh`, substituting for quota-exhausted `claude-opus-5-5-high`) applied 21 verified fixes across paper, one-pager, index, and Experiments 24–25 with all deterministic builds, Page 4 layout, and frozen SHA-256 locks passing.
+**TLDR-end:** [judges-corr: mega qa 11-23-2026] Round 1 (`gemini-4-neon-xhigh`, `gemini-pro-orchestrator-neon`, `gemini-4-hydrogen-xhigh`, 21 fixes) plus Round 2 Phase A (`claude-opus-5-5-high` opposite-company Light QA, 2 P0 + 7 P1 + P2 fixes applied & verified) keep all Experiment 18/24/25/29 SHA-256 locks, Page-4 AAAI-27 Conclusion layout, and deterministic verifiers passing.

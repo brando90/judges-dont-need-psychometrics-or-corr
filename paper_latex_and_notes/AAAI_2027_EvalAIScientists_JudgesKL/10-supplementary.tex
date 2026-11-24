@@ -265,3 +265,48 @@ Backbone (Study) & $B_{\text{total}}$ ($N_{\text{train}}$) & Draws & CE raw / ca
 \hline
 \end{tabular}
 \end{table*}
+
+\section{Frontier Multi-Rater Break-Even and Matched Four-Objective Shape Control (Experiments~26, 28, 29)}
+\label{sec:supp-exp29}
+
+Three follow-up studies probe frontier break-even thresholds and isolate distributional shape from affine scale drift under matched budgets:
+\begin{enumerate}
+    \item \emph{Frontier homework judges (Exp.~26).} On $160$ held-out homework answers scored across five frontier models ($\approx\$1.34$ spend), CE-fit outperforms Pearson-fit on point held-out RPS in all $35/35$ judge--budget pairs. The pre-specified $256\to 8$ descending threshold test passes for GPT-6 Astra ($0.0660$ vs.\ $0.0843$ RPS) and Kimi K3 ($0.0712$ vs.\ $0.0996$), whereas Claude Opus 5.5 ($0.0639$ vs.\ $0.0675$), GLM 5.3 ($0.0757$ vs.\ $0.0952$), and DeepSeek V4.1 Flash ($0.0827$ vs.\ $0.0867$) miss the formal criterion at $256$ ratings.
+    \item \emph{ChaosNLI and DICES frontier transforms (Exp.~28).} Across $2{,}350$ public items evaluated by five frontier judges ($\approx\$19.69$), discrete CE-fit defeats Pearson-fit and the uniform baseline on held-out RPS after $4$--$8$ ratings ($d=1$) or $10$--$20$ ratings ($d=5$) in all $25/25$ dataset-by-judge pairs; Pearson-fit leads in $19/325$ combinations, mainly at $N_{\text{train}}=2$ items, and Pearson followed by post-hoc proper-loss calibration beats direct CE-fit on high-disagreement DICES from $64$ ratings onward.
+    \item \emph{Four-objective LoRA and $K=2$ shape control (Exp.~29, Qwen3-4B Phase A complete; Llama-3.1-8B replication in progress).} Table~\ref{tab:supp-exp29} and Figures~\ref{fig:supp-exp29-curves}--\ref{fig:supp-exp29-rescue} report all $921/921$ completed \texttt{Qwen3-4B-Instruct-2507} runs across \texttt{ChaosNLI SNLI+MNLI-m} ($K=3$, $713$ test items), \texttt{alphaNLI} ($K=2$ binary control, $412$ items), \texttt{DICES-350/990} ($K=3$, $300$ items), and \texttt{HelpSteer2} ($K=5$, $1{,}038$ items). Although the disjoint splits were newly constructed (LoRA weights never trained on test items), $265/713$ (\texttt{ChaosNLI}), $110/412$ (\texttt{alphaNLI}), and $172/300$ (\texttt{DICES}) test items had prior project exposure as frontier-scored items in Exp.~28, and \texttt{HelpSteer2} reuses Exp.~24's test set plus Exp.~24's CE/Pearson predictions ($161$ new Exp.~29 RPS/MSE/parity runs; draw-0 $B=64$ CE parity RPS $0.17098$ vs.\ $0.16886$, max base-prob diff $0.2928$; differences $<0.003$ cross codebases are treated cautiously). Every LoRA judge optimizes a fixed $12$-candidate AdamW grid ($\text{rank}=8$, top-$4$ blocks, selected by validation RPS on disjoint $S_{\text{val}}$); calibrators minimize strictly convex L2-regularized softmax CE selected by 4-fold CV RPS on disjoint $S_{\text{cal}}$ (verified gradient norm $<10^{-6}$). On $K=2$ ($0$ higher-order shape degrees of freedom), raw MSE LoRA is statistically indistinguishable from raw CE LoRA ($+0.00034$, crossed $95\%$ CI [$-0.00209,+0.00278$]), yet Pearson retains both level/scale drift ($+0.02195$ [$+0.01168,+0.03223$]) and residual scalar-quality loss unremoved by 1D calibration (\texttt{ce\_scalar\_cal} vs.\ \texttt{pearson\_scalar\_cal} $+0.00429$ [$+0.00058,+0.00800$]). For $K\ge 3$, raw CE beats both raw MSE and Pearson across all four setups once budgets pass $16$--$64$ ratings (raw RPS also clears both except vs.\ MSE on \texttt{ChaosNLI} $d=5$ crossed [$-0.00094,+0.01816$], conditional excludes $0$; raw RPS clears Pearson on \texttt{DICES} from $B=256$); post-hoc $(K+2)$ \texttt{logit\_cal} improves Pearson beyond $1$-dimensional \texttt{scalar\_cal} on \texttt{ChaosNLI} ($d=1,5$) and \texttt{HelpSteer2} (not \texttt{DICES}, where calibrated MSE/Pearson match or edge calibrated CE).
+\end{enumerate}
+
+\begin{table*}[t]
+\centering
+\caption{Experiment~29 (\texttt{Qwen3-4B-Instruct-2507}, $921/921$ runs, 10 random train+cal draws; prior Exp.~28 frontier exposure on $265/713$, $110/412$, and $172/300$ test items): max-budget held-out test ranked probability score (RPS; lower is better), compared against Human leave-one-vote-out (LOVO) references. Contrasts report comparator minus CE-trained RPS (columns 8--9) and Pearson $1$-dimensional scalar minus $(K+2)$ logit calibration RPS (column 10; $>0$ indicates logit calibration improves Pearson beyond a scalar mean bottleneck), with two-way crossed $4{,}000$-draw cluster-bootstrap simultaneous $95\%$ intervals. $^*$\texttt{HelpSteer2} CE-/Pearson-trained columns reuse Exp.~24 predictions; RPS-/MSE-trained columns are new Exp.~29 runs (draw-0 $B=64$ CE parity RPS $0.17098$ vs.\ $0.16886$; max base-prob diff $0.2928$).}
+\label{tab:supp-exp29}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lccccccccc@{}}
+\hline
+Suite ($K, d$) & $B_{\text{max}}$ ($N_{\text{tr}}$) & LOVO & CE raw & RPS raw & MSE raw & Pearson raw & Pearson $-$ CE raw [crossed 95\%] & MSE $-$ CE raw [crossed 95\%] & P.\ 1D $-$ logit cal [crossed 95\%] \\
+\hline
+\texttt{ChaosNLI} ($3, 1$) & 2,048 (1,024) & $0.11668$ & $0.14902$ & $0.14812$ & $0.15207$ & $0.16223$ & $+0.01321$ [$+0.00626,+0.02015$] & $+0.00305$ [$+0.00058,+0.00552$] & $+0.00127$ [$+0.00021,+0.00232$] \\
+\texttt{ChaosNLI} ($3, 5$) & 1,280 (128) & $0.11668$ & $0.15305$ & $0.15604$ & $0.16465$ & $0.19099$ & $+0.03794$ [$+0.02160,+0.05429$] & $+0.01160$ [$+0.00394,+0.01926$] & $+0.00368$ [$+0.00209,+0.00526$] \\
+\texttt{alphaNLI} ($2, 1$) & 1,024 (512) & $0.08485$ & $0.18624$ & $0.18727$ & $0.18659$ & $0.20820$ & $+0.02195$ [$+0.01168,+0.03223$] & $+0.00034$ [$-0.00209,+0.00278$] & $+0.00119$ [$-0.00114,+0.00353$] \\
+\texttt{DICES} ($3, 1$) & 1,024 (512) & $0.18118$ & $0.20876$ & $0.21013$ & $0.26384$ & $0.28486$ & $+0.07609$ [$+0.05717,+0.09502$] & $+0.05508$ [$+0.04182,+0.06834$] & $-0.00011$ [$-0.00058,+0.00036$] \\
+\texttt{HelpSteer2}$^*$ ($5, 1$) & 2,048 (1,024) & $0.14567$ & $0.15213$ & $0.15267$ & $0.18271$ & $0.18376$ & $+0.03162$ [$+0.01871,+0.04453$] & $+0.03058$ [$+0.02276,+0.03840$] & $+0.00073$ [$+0.00016,+0.00131$] \\
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/fig1_four_objectives_and_k2_control.pdf}
+\caption{Experiment~29 (\texttt{Qwen3-4B-Instruct-2507}, $921/921$ runs): uncalibrated held-out test ranked probability score (RPS) across training rating budgets $B_{\text{total}}$ ($10$ nested draws, validation-RPS checkpoint selection over $12$ AdamW LoRA candidates) and max-budget paired differences with crossed $95\%$ cluster-bootstrap intervals.}
+\label{fig:supp-exp29-curves}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/fig2_disagreement_slices_and_logit_rescue.pdf}
+\caption{Experiment~29: high- vs.\ low-disagreement RPS split gaps, \texttt{ChaosNLI} depth ($d=1$ vs.\ $d=5$), Pearson $1$-dimensional scalar minus $(K+2)$ logit calibration rescue across $K\in\{2,3,5\}$ ($95\%$ crossed CIs), and post-calibration max-budget RPS.}
+\label{fig:supp-exp29-rescue}
+\end{figure*}

@@ -1,0 +1,75 @@
+{
+  "model_key": "llama31_8b",
+  "model_snapshot": "/dfs/scratch0/brando9/at1025_hf/hub/models--unsloth--Llama-3.1-8B-Instruct/snapshots/4699cc75b550f9c6f3173fb80f4703b62d946aa5",
+  "n_layers": 32,
+  "split_layer": 28,
+  "digit_ids_3": [
+    15,
+    16,
+    17
+  ],
+  "n_trainable_k3": 2633731,
+  "grad_fd_checks": {
+    "K2": {
+      "ce": 5.881750057308537e-10,
+      "rps": 2.1690230919089843e-10,
+      "mse": 3.391660641931771e-10,
+      "pearson": 7.310314468372917e-10
+    },
+    "K3": {
+      "ce": 1.2567916152930244e-09,
+      "rps": 1.6506988756248538e-09,
+      "mse": 1.1390621580132219e-09,
+      "pearson": 2.0096082332143025e-09
+    },
+    "K5": {
+      "ce": 1.3903184717641891e-09,
+      "rps": 9.3970525763022e-10,
+      "mse": 2.8090051629156164e-09,
+      "pearson": 2.5595389369697796e-09
+    }
+  },
+  "two_step_batched_equiv": {
+    "ce": 0.0,
+    "rps": 0.0,
+    "mse": 0.0,
+    "pearson": 0.0
+  },
+  "epoch0_and_overfit": {
+    "semantic_anchor_hits_3": 3,
+    "blank_mean": 1.3848138749599457,
+    "matched_r": 0.715702841729388,
+    "shuffled_r": 0.3099112698851305,
+    "overfit_40steps": {
+      "ce": {
+        "rps": 0.12217713907244646,
+        "excess_rps": 0.009580264072446443,
+        "ce": 0.7257564475817043,
+        "pearson": 0.9907529773208101
+      },
+      "rps": {
+        "rps": 0.11600787946239229,
+        "excess_rps": 0.0034110044623922725,
+        "ce": 0.7880849646780044,
+        "pearson": 0.9906166486264182
+      },
+      "mse": {
+        "rps": 0.12070784485720984,
+        "excess_rps": 0.008110969857209827,
+        "ce": 0.8497012187714115,
+        "pearson": 0.9912891136834737
+      },
+      "pearson": {
+        "rps": 0.17522295918541428,
+        "excess_rps": 0.06262608418541427,
+        "ce": 4.654549849070259,
+        "pearson": 0.9788973710440927
+      }
+    }
+  },
+  "rendered_tails": {
+    "chaos3": "drug use.\n</hypothesis>\n\nRate the label (0-2).<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nNLI grade (0-2): ",
+    "dices3": "/last_chatbot_response>\n\nRate safety (0-2).<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\nSafety grade (0-2): "
+  },
+  "elapsed_seconds": 104.63
+}

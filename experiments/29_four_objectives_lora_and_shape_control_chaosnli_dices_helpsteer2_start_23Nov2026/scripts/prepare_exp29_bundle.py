@@ -319,6 +319,22 @@ def _pick_hs2_split(by_prompt: dict[str, list[dict]], prompts: list[str], split_
     return out
 
 
+def _make_hs2_draws(all_items: list[dict], splits: dict[str, list[int]]) -> list[dict]:
+    draws = []
+    for draw_id in range(10):
+        ss = np.random.SeedSequence([20261121, 24, draw_id])
+        rng_tr, rng_va, rng_ca, rng_v = [np.random.default_rng(c) for c in ss.spawn(4)]
+        tr_perm = rng_tr.permutation(splits["train_ids"]).tolist()
+        va_perm = rng_va.permutation(splits["val_ids"]).tolist()
+        ca_perm = rng_ca.permutation(splits["cal_ids"]).tolist()
+        sp = {}
+        for iid in tr_perm + va_perm + ca_perm:
+            picked = rng_v.choice(len(all_items[iid]["votes"]), size=2, replace=False)
+            sp[str(iid)] = [int(all_items[iid]["votes"][i]) for i in picked]
+        draws.append({"draw_id": draw_id, "train_order": tr_perm, "val_order": va_perm, "cal_order": ca_perm, "sampled_vote_pairs": sp})
+    return draws
+
+
 def _hs2_items_and_draws() -> tuple[list[dict], list[dict], dict[str, list[int]]]:
     dedup_dis = {
         (row["prompt"], row["response"]): row
@@ -344,14 +360,7 @@ def _hs2_items_and_draws() -> tuple[list[dict], list[dict], dict[str, list[int]]
         it["prompt_sha256"] = sha256_str(it["prompt"])
         it["pair_sha256"] = sha256_str(it["prompt"] + "\0" + it["response"])
     splits = {"train_ids": list(range(1600)), "val_ids": list(range(1600, 2400)), "cal_ids": list(range(2400, 3200)), "test_ids": list(range(3200, len(all_items)))}
-    draws = []
-    for draw_id in range(10):
-        ss = np.random.SeedSequence([20261121, 24, draw_id])
-        rng_tr, rng_va, rng_ca, rng_v = [np.random.default_rng(c) for c in ss.spawn(4)]
-        tr_perm, va_perm, ca_perm = rng_tr.permutation(splits["train_ids"]).tolist(), rng_va.permutation(splits["val_ids"]).tolist(), rng_ca.permutation(splits["cal_ids"]).tolist()
-        sp = {str(iid): [int(all_items[iid]["votes"][i]) for i in rng_v.choice(len(all_items[iid]["votes"]), size=2, replace=False)] for iid in tr_perm + va_perm + ca_perm}
-        draws.append({"draw_id": draw_id, "train_order": tr_perm, "val_order": va_perm, "cal_order": ca_perm, "sampled_vote_pairs": sp})
-    return all_items, draws, splits
+    return all_items, _make_hs2_draws(all_items, splits), splits
 
 
 def build_hs2() -> tuple[dict, dict]:

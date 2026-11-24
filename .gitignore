@@ -221,3 +221,6 @@ __marimo__/
 
 # LaTeX build artifacts
 _build/
+
+# Built one-pager zip distribution
+paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/_dist/
