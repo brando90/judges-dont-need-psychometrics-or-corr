@@ -1,0 +1,48 @@
+\section{Scaling laws for judges}
+\label{sec:scaling}
+
+% Provenance: experiment 31 (free CPU re-analysis of the saved results of experiments 26, 28 and 29; no model calls).
+If a judge is an ordinary learning problem, its held-out loss should fall with data the way other losses do.
+We fit a saturating power law to the saved learning curves of experiments 26, 28 and 29,
+\begin{equation}
+\mathrm{error}(N)=\mathrm{floor}+a\,(N/N_{\min})^{-b},
+\label{eq:scaling}
+\end{equation}
+where $N$ is the number of human ratings spent on fitting, $a$ is the excess at the smallest $N$ tested, $b\in[0.02,3]$ and $\mathrm{floor},a\ge0$.
+Following the scaling-law literature~\citep{kaplan2020scaling,hoffmann2022training}, which treats cross-entropy as the quantity that falls smoothly with data, we ask whether the curves of a CE-fit judge follow Equation~\eqref{eq:scaling} and whether those of a Pearson-fit judge do.
+Fits use weighted least squares with weights $1/\mathrm{SE}^2$ from the saved standard errors, exact over a grid of 150 values of $b$ (floor and $a$ solved in closed form); intervals come from 2{,}000 parametric bootstrap draws per curve with each point drawn from a normal distribution with its standard error, refitted, and a percentile 95\% interval is taken.
+A curve is called non-monotone if any step up exceeds 1.96 standard errors of the two points, flat if its decline from first to last point is under two standard errors, a poor fit if the root-mean-square residual exceeds 10\% of the curve's range, and its floor is not identified if the floor's interval is wider than that range.
+Curves with three budgets are not fitted.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_scaling.pdf}
+\caption{\textbf{Held-out RPS against the number of human ratings, with a saturating power-law fit for the CE-fit judge.}
+Vertical axis: held-out test RPS (0--1; lower is better); horizontal axis: number of human ratings $N$ used to fit (log scale).
+Left two panels: frozen frontier judges with a 27-setting head, mean over five judges, one rating per item, on DICES-990 and ChaosNLI MNLI-matched (experiment 28).
+Right two panels: raw (uncalibrated) forecasts of CE-trained and Pearson-trained LoRA judges, Qwen3-4B-Instruct on ChaosNLI and HelpSteer2 (experiment 29; 10 draws per budget).
+Blue: CE-fit or CE-trained, with the fitted $\mathrm{floor}+aN^{-b}$ (solid over the tested range, dotted beyond it); red dashed: Pearson-fit or Pearson-trained; dotted: uniform; dash-dotted green: the untuned model.
+The CE judge is chosen by minimizing training cross-entropy within its family (exhaustive search for the head; AdamW with a validation-selected checkpoint for LoRA); the Pearson judge is chosen the same way with correlation as objective.
+\textbf{Takeaway:} CE curves saturate smoothly; Pearson curves are flat or still falling at the largest budget.}
+\label{fig:scaling}
+\end{figure*}
+
+\paragraph{CE curves follow a power law with exponent near 0.7.}
+For the frozen judges of experiment 28 with one rating per item, the median exponent over the judge-by-dataset cells with an identified floor is $0.66$ for RPS (8 of 25 cells), $0.82$ for cross-entropy (20 of 25) and $0.59$ for total variation distance (10 of 25).
+For CE-trained LoRA on the three experiment 29 panels with eight budgets, $b$ is $0.89$ (95\% interval $[0.76,0.99]$) for ChaosNLI with Qwen3-4B, $0.76$ ($[0.64,0.89]$) for HelpSteer2 with Qwen3-4B and $0.64$ ($[0.49,0.78]$) for ChaosNLI with Llama-3.1-8B.
+At $b=0.66$ each doubling of $N$ removes about $37\%$ of the error still above the floor, since $1-2^{-0.66}=0.367$.
+The floors sit well under a uniform forecast, with the RPS floor between $0.46$ and $0.83$ of the uniform RPS across the five experiment 28 rating sets and between $0.69$ and $0.76$ across the experiment 29 panels.
+\Cref{tab:scaling} in \appref{app:extra} lists, for each panel, the RPS at the largest budget for both objectives, the fitted CE floor with its interval and exponent, and the verdict for the Pearson curve.
+
+\paragraph{Pearson curves do not follow it.}
+The Pearson-fit and Pearson-LoRA curves are not described by Equation~\eqref{eq:scaling}: they are still falling at the largest $N$ with a log-like decline ($b$ at most $0.1$, floor not identified), flat (DICES-990 stays at RPS $0.26$ against uniform $0.27$), or non-monotone (all 25 judge-by-dataset cells with five ratings per item).
+At the largest $N$ tested the Pearson-fit RPS lies above the CE-fit floor in 20 of 25 experiment 28 cells with one rating per item (CE: 25 of 25; TVD: 21 of 25), at a 95\% bound.
+So the Pearson curve has not reached where the CE curve saturates, and the data cannot say where, or whether, it does.
+In cross-entropy nats, 15 of the 25 one-rating Pearson-fit curves do pass the fit rule, but at the largest $N$ they still sit above the CE-fit floor in every cell.
+The result is about these two objectives in these families; it does not say that every correlation objective with every optimizer behaves so.
+
+\paragraph{What we cannot say.}
+The saved intervals of experiment 26 are too wide to identify any law (every judge is flat within noise).
+The human leave-one-vote-out RPS floor cannot be compared with the fitted floors because the labels are sealed outside the repository, so floors are compared with uniform and with the raw judge.
+There is no judge-size axis within one model family, and nothing beyond $N=256$ (experiments 26 and 28) or $2{,}048$ (experiment 29) is observed: dotted extrapolations in \Cref{fig:scaling} are extrapolations.
+Exponents between $0.6$ and $0.9$ are also not universal constants of the problem: they describe five rating sets, two model families and two training methods.

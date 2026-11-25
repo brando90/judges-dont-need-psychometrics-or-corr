@@ -1,0 +1,38 @@
+\section{Introduction}
+\label{sec:intro}
+
+AI judges now grade model outputs at scale, and teams usually validate them by correlation with human ratings~\citep{liu2023geval,zheng2023judging}.
+Correlation answers a ranking question: does the judge order items as humans do?
+It does not say whether the judge predicts how experts rate each input.
+That matters whenever a decision uses probabilities, thresholds or averages of the judge's output.
+
+We take the judge to be a conditional distribution.
+Given an item $x$ (a problem, a candidate answer, a reference), expert ratings $r\in\{0,\dots,K-1\}$ vary across raters and occasions.
+We write $p(r\mid x)$ for that distribution and $q(r\mid x)$ for the judge's forecast.
+Fitting $q$ is then ordinary supervised learning with a proper loss, and evaluating it is forecast verification~\citep{gneiting2007strictly}.
+This is the argument of the blog post that this memo supports~\citep{miranda2026bitter}, in the spirit of the bitter lesson~\citep{sutton2019bitter}: use the general method, give it data, and measure how error falls with data.
+
+Correlation cannot identify $p$.
+Pearson correlation across items depends on a forecast only through its conditional means, and only up to a positive affine map.
+On $K$ categories, $K-2$ shape directions per item stay free, and so do the level and scale of the means (Section~\ref{sec:identification}, \appref{app:proofs}).
+Identification is not the whole story, because a flexible model trained on correlation can still land on the right distribution.
+We therefore ask an empirical question.
+How many human ratings does a cross-entropy-fitted judge need before it beats a correlation-fitted judge on held-out ratings, and does the answer survive across datasets, models and objectives?
+
+This memo consolidates every experiment in the repository (29 active folders and four archived ones, numbered 00--31; \appref{app:index}) into one account.
+It builds on the identification preprint~\citep{miranda2026correlation} and on the repository's workshop draft.
+It makes five contributions.
+\begin{enumerate}
+\item \textbf{Identification.} We prove what Pearson correlation, mean squared error, cross-entropy and the ranked probability score identify, bound moment recovery by cross-entropy, and give an exact three-item example with equal means and different distributions (Section~\ref{sec:identification}).
+\item \textbf{Controlled studies.} On synthetic ratings with known distributions, cross-entropy training beats Pearson training from 12 ratings when the mean carries the signal (experiment 08, three ratings per task) and from 48 ratings in a second toy whose spread and shape also vary (experiment 20, where it loses at 12 ratings); it needs 192 ratings when the mean says little. We map these exceptions (Section~\ref{sec:controlled}).
+\item \textbf{Frozen judges on human ratings.} With five frontier judges and a 27-setting calibration head, cross-entropy fitting clears Pearson fitting and a uniform forecast after 4--8 ratings, one per item, in all 25 dataset-by-judge cells of ChaosNLI and DICES (Section~\ref{sec:frozen}).
+\item \textbf{Trained judges.} In matched LoRA fine-tuning with four objectives, Pearson-trained judges lose on raw RPS in all seven setups at the largest budget, and squared error fails where the theory predicts, on scales with $K\ge3$ (Section~\ref{sec:lora}).
+\item \textbf{Scaling laws.} Held-out error of cross-entropy-fitted judges follows a floor plus $aN^{-b}$ with $b\approx0.6$--$0.9$ in the number $N$ of human ratings; Pearson-fitted curves do not (Section~\ref{sec:scaling}).
+\end{enumerate}
+
+\paragraph{Related work.}
+\citet{han2025judgesverdict} report, across 54 judges, that high correlation with humans does not guarantee human-like agreement.
+\citet{guerdan2025validating} show that validating judges against forced-choice human labels can select judges performing as much as 31\% worse than selection that accounts for rating indeterminacy.
+\citet{elangovan2025beyond} show that one aggregate correlation can hide differences when human labels are uncertain.
+We add training and a matched-budget comparison of objectives.
+Scaling laws for cross-entropy are standard for language models~\citep{kaplan2020scaling,hoffmann2022training}; we test whether the human-rating cross-entropy of a judge follows one.

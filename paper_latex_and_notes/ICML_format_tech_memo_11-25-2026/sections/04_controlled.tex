@@ -1,0 +1,50 @@
+\section{Controlled studies with known rating distributions}
+\label{sec:controlled}
+
+% Provenance: experiments 01, 04, 05, 06, 07, 08, 11, 13 (archived), 15, 17, 18, 20. Every number below is printed by the script in that folder.
+Synthetic items have a known $p(r\mid x)$, so every forecast can be scored exactly against the truth.
+These studies cannot show that the findings transfer to human ratings; they show which mechanisms exist, and their sign and size, before any real data enter.
+All of them train two judges that are identical except for the objective and score them on fresh items with RPS excess (the RPS of the forecast minus the RPS of the true distribution; zero is the best possible).
+
+\paragraph{Proper losses separate what means cannot (experiments 01, 04, 05).}
+Among nine fixed candidate forecasts, CE picked the true distribution in 249 of 256 draws with one sampled rating per validation item, and Brier and RPS in 245 of 256; all three picked it in 256 of 256 draws with two or three ratings.
+Pearson, Spearman, Kendall and scaled squared error always tied all five same-mean candidates.
+In the 11-artifact population of experiment 04 the maximum-entropy forecast with the human mean has Pearson correlation 1 and pays $0.117$ nats of excess CE per rating on average (item range $0.020$ to $0.210$), and three forecasts with correlation 1 differ by $0.117$ to $3.635$ nats of KL to the truth.
+A forecast with the same mean, variance and every reliability coefficient as the truth still has mean TVD $0.446$ and excess RPS $0.0167$, and among five historical judges the most repeatable had the worst held-out RPS.
+Variance-component tools remain useful for what they measure (\appref{app:extra}); our argument concerns the distribution of ratings, not those tools in their own role.
+
+\paragraph{Training judges on known distributions (experiments 06, 07, 08, 18, 20).}
+\Cref{tab:controlled} lists where the cross-entropy-trained judge starts to beat correlation-trained judges on held-out RPS excess.
+With informative means, CE training wins from about a dozen ratings; when the mean says little and the spread carries the signal (scenario A of experiment 08), the Pearson-trained judge is better up to 96 ratings.
+In experiment 20, CE wins from 16 items with three ratings each, by $+0.034$ RPS excess ($95\%$ interval $[0.031,0.036]$; CE better in 96\% of 200 seeds), and loses at 4 items by $-0.027$ ($[-0.032,-0.021]$; CE better in 24\% of seeds) because it overfits while the Pearson-trained judge stays near a uniform forecast: the test CE of the CE-trained judge is 6.14 nats against 1.83 nats for the Pearson-trained judge.
+A rank correlation or a half-and-half mix of Pearson and Spearman does not change the picture (experiment 06), and larger optimizer budgets with best-of-five restarts find a better training objective in 57--90\% of the correlation fits but leave every held-out RPS crossover unchanged (experiment 07).
+Pearson objectives are not convex and we have no global-optimum certificate, but within the budgets we tried the gap is not an optimizer artifact.
+
+\begin{table}[t]
+\caption{\textbf{Where CE-trained judges overtake correlation-trained judges on synthetic ratings with known distributions.}
+Metric: held-out RPS excess, the RPS of the forecast minus the RPS of the true distribution on fresh items (0 is best; lower is better).
+Rows read ``CE-trained better from'' the training size listed, with ratings counted in total (3 per task in experiments 06 and 08).
+Training sizes: 4 to 2,048 tasks or items.
+\textbf{Takeaway:} CE needs about a dozen ratings when the mean is informative and more than 96 when it is not.}
+\label{tab:controlled}
+\centering\small
+\begin{tabular}{@{}p{0.34\columnwidth}p{0.58\columnwidth}@{}}
+\toprule
+Study & CE-trained better from \\
+\midrule
+Exp.\ 08, scenarios B, C, D & 12 ratings (4 tasks) \\
+Exp.\ 08, scenario A (mean uninformative) & more than 96 ratings; Pearson wins to 32 tasks \\
+Exp.\ 06, scenario B / A, vs.\ Spearman, Kendall, mixed & 12 ratings / 192 ratings (64 tasks) \\
+Exp.\ 20, 3 ratings per item & 48 ratings (16 items); loses at 12 ratings (4 items) \\
+Exp.\ 20, 1 rating per item & 32 items \\
+Exp.\ 18, vs.\ Pearson-trained & 16 items (10 ratings each), 32 (3), 64 (1), median over 12 settings \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{A calibrated head closes much of the gap (experiments 11, 15, 17, 18).}
+Squared-error training fixes Pearson's drift in level and scale, and a calibration head after a Pearson score fixes the rest of what a scalar can fix, yet squared error leaves conditional higher moments unconstrained: at 2{,}048 items it trails the validation-selected CE fit by $0.0069$ to $0.0087$ RPS excess (all intervals above zero; experiment 11).
+A flexible calibrator on the \emph{true} mean matches or beats end-to-end CE from 512 items (experiment 17), and a Pearson score followed by a calibrated affine head beats CE-trained judges from 128 items when the spread is a function of the mean but loses when the spread varies independently of it (experiment 18).
+The shape has to be fitted, and CE is one way to fit it.
+Rater severity does not change the picture: offsets are about $0.1$ rating points and leave the RPS ranking unchanged (Kendall $\tau\ge0.995$; experiment 15).
+Details of these studies are in \appref{app:extra}.

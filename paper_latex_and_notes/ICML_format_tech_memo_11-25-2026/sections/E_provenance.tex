@@ -1,0 +1,28 @@
+\section{Provenance, reproduction and data handling}
+\label{app:provenance}
+
+\paragraph{Source and build.}
+This memo was built from commit \texttt{64d6abe} of the repository \url{https://github.com/brando90/judges-dont-need-psychometrics-or-corr} (committed 11-25-2026).
+Its files sit in \texttt{paper\_latex\_and\_notes/ICML\_format\_tech\_memo\_11-25-2026/}.
+Running \texttt{python3 -I make\_memo\_assets.py} there regenerates every figure and table of this memo from committed result files and writes \texttt{assets\_log.txt}; \texttt{make} then runs \texttt{pdflatex} and \texttt{bibtex}.
+Neither step calls a model.
+
+\paragraph{Where each number comes from.}
+Every number in the text is printed by a script committed under \texttt{experiments/} or by \texttt{make\_memo\_assets.py}.
+\Cref{tab:index} names the folder of each experiment; the folders hold the frozen protocol, the run receipts, request hashes and a reading guide that states which data, metric and comparison each number uses.
+
+\paragraph{Data.}
+Public sets (ChaosNLI, DICES, HelpSteer2, KonIQ-10k, SummEval, USR, MovieLens-100K) are used as released.
+The retrospective theorem-judge studies use 75 artifacts, 25 tasks and 195 expert ratings, and the homework studies use 160 short answers with two graders; this memo reports only aggregate results from them and reproduces no rater identity and no raw rating.
+No new human ratings were collected for the memo.
+
+\paragraph{Prior exposure and sealed data.}
+Results on the 75 theorem artifacts are not fresh: experiments 02, 09, 10, 12, 14, 16, 18, 19 and 20 reuse them (Section~\ref{sec:limits}).
+The ratings that would let the fitted floors be compared with a human leave-one-vote-out floor are sealed outside the repository and were not used.
+
+\paragraph{Cost.}
+The scaling-law analysis of experiment 31, the figures and the tables of this memo are free CPU computations on saved results.
+The model calls of the underlying experiments (frontier-judge queries through the Stanford AI API Gateway, LoRA training of Qwen3-4B-Instruct-2507 and Llama-3.1-8B-Instruct) are described in the folders of experiments 21, 26, 28 and 29.
+
+\paragraph{Related deposit.}
+The identification results of Section~\ref{sec:identification} were deposited as a frozen preprint in the Stanford Digital Repository~\citep{miranda2026correlation}; this memo extends them with proofs, controlled studies, matched-budget comparisons and scaling fits.

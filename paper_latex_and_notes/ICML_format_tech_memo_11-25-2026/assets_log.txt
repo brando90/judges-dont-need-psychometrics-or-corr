@@ -1,0 +1,55 @@
+counterexample: mean TVD 0.2000, CE true 0.915387, CE forecast 1.064735, excess RPS 0.015000 (= 3/200 = 0.015)
+wrote figures/fig_counterexample.pdf
+wrote figures/fig_exp28.pdf
+wrote figures/fig_exp28_five_per_item.pdf
+exp28 chaosnli_snli: break-even N_both d=1 4-4, d=5 20-20
+exp28 chaosnli_mnli: break-even N_both d=1 4-4, d=5 20-20
+exp28 chaosnli_alphanli: break-even N_both d=1 4-8, d=5 20-20
+exp28 dices350: break-even N_both d=1 8-8, d=5 10-20
+exp28 dices990: break-even N_both d=1 4-4, d=5 20-20
+exp28: comparison cells 325; Pearson-fit has lower mean RPS than CE-fit in 25 (by d: {1: 3, 5: 22}; by B: {4: 3, 10: 22})
+exp28 break-even N_both over all 25 dataset-judge pairs, by d: {1: {'min': 4, 'max': 8}, 5: {'min': 10, 'max': 20}}; pairs with a value: {1: 25, 5: 25}
+exp28 at largest budget: CE-fit lower mean RPS than Pearson-fit in 50 of 50 cells
+exp28 ChaosNLI SNLI @256 d=1: CE-fit RPS/CE/TVD [0.115, 0.713, 0.169]  Pearson-fit [0.134, 0.824, 0.235]
+exp28 ChaosNLI MNLI-m @256 d=1: CE-fit RPS/CE/TVD [0.163, 0.911, 0.208]  Pearson-fit [0.185, 1.037, 0.261]
+exp28 alphaNLI (two classes) @256 d=1: CE-fit RPS/CE/TVD [0.12, 0.396, 0.125]  Pearson-fit [0.125, 0.454, 0.131]
+exp28 DICES-350 @256 d=1: CE-fit RPS/CE/TVD [0.226, 0.851, 0.163]  Pearson-fit [0.276, 1.272, 0.314]
+exp28 DICES-990 @256 d=1: CE-fit RPS/CE/TVD [0.198, 0.757, 0.138]  Pearson-fit [0.261, 1.047, 0.315]
+wrote figures/fig_exp26_per_judge.pdf
+exp26 GPT-6 Astra: @256 CE-fit 0.0660 Pearson-fit 0.0843 diff 0.0183; uncal 0.0858; hist 0.1049; descending test passes down to 8
+exp26 Claude Opus 5.5: @256 CE-fit 0.0639 Pearson-fit 0.0675 diff 0.0037; uncal 0.0788; hist 0.1049; descending test passes down to none (fails at 256)
+exp26 Kimi K3: @256 CE-fit 0.0712 Pearson-fit 0.0996 diff 0.0284; uncal 0.0899; hist 0.1049; descending test passes down to 8
+exp26 GLM 5.3: @256 CE-fit 0.0757 Pearson-fit 0.0952 diff 0.0195; uncal 0.1027; hist 0.1049; descending test passes down to none (fails at 256)
+exp26 DeepSeek V4.1 Flash: @256 CE-fit 0.0827 Pearson-fit 0.0867 diff 0.0040; uncal 0.1176; hist 0.1049; descending test passes down to none (fails at 256)
+exp26: CE-fit has the lower mean RPS in 35 of 35 judge-by-budget cells (per judge [7, 7, 7, 7, 7])
+wrote figures/fig_exp29_four_objectives.pdf
+wrote figures/fig_exp29_curves.pdf
+exp29 chaos3_qwen d=1 B=2048: raw RPS CE 0.1490 RPS 0.1481 MSE 0.1521 Pearson 0.1622; Pearson-minus-CE +0.0132 crossed sim 95% [+0.0063, +0.0202]
+exp29 chaos3_llama d=1 B=2048: raw RPS CE 0.1555 RPS 0.1548 MSE 0.1580 Pearson 0.1898; Pearson-minus-CE +0.0344 crossed sim 95% [+0.0193, +0.0494]
+exp29 chaos3_qwen d=5 B=1280: raw RPS CE 0.1530 RPS 0.1560 MSE 0.1646 Pearson 0.1910; Pearson-minus-CE +0.0379 crossed sim 95% [+0.0216, +0.0543]
+exp29 alpha2_qwen d=1 B=1024: raw RPS CE 0.1862 RPS 0.1873 MSE 0.1866 Pearson 0.2082; Pearson-minus-CE +0.0220 crossed sim 95% [+0.0117, +0.0322]
+exp29 dices3_qwen d=1 B=1024: raw RPS CE 0.2088 RPS 0.2101 MSE 0.2638 Pearson 0.2849; Pearson-minus-CE +0.0761 crossed sim 95% [+0.0572, +0.0950]
+exp29 dices3_llama d=1 B=1024: raw RPS CE 0.2060 RPS 0.2061 MSE 0.2666 Pearson 0.2505; Pearson-minus-CE +0.0445 crossed sim 95% [+0.0191, +0.0700]
+exp29 hs2_qwen d=1 B=2048: raw RPS CE 0.1521 RPS 0.1527 MSE 0.1827 Pearson 0.1838; Pearson-minus-CE +0.0316 crossed sim 95% [+0.0187, +0.0445]
+exp29: crossed simultaneous lower bound above zero for Pearson minus CE in all 7 setups at the largest budget: True
+exp29 MSE-minus-CE chaos3_qwen d=1: +0.00305 crossed sim 95% [+0.00058, +0.00552]
+exp29 MSE-minus-CE chaos3_llama d=1: +0.00249 crossed sim 95% [-0.00066, +0.00565]
+exp29 MSE-minus-CE chaos3_qwen d=5: +0.01160 crossed sim 95% [+0.00394, +0.01926]
+exp29 MSE-minus-CE alpha2_qwen d=1: +0.00034 crossed sim 95% [-0.00209, +0.00278]
+exp29 MSE-minus-CE dices3_qwen d=1: +0.05508 crossed sim 95% [+0.04182, +0.06834]
+exp29 MSE-minus-CE dices3_llama d=1: +0.06062 crossed sim 95% [+0.04716, +0.07408]
+exp29 MSE-minus-CE hs2_qwen d=1: +0.03058 crossed sim 95% [+0.02276, +0.03840]
+wrote figures/fig_lora_helpsteer2.pdf
+scaling panel 28_dices990_d1: CE floor 0.192 [0.159, 0.201], b 0.58 [0.21, 0.99]; Pearson b nan
+scaling panel 28_chaosnli_mnli_d1: CE floor 0.160 [0.147, 0.165], b 0.64 [0.28, 1.09]; Pearson b 0.02
+scaling panel 29_chaos3_qwen_d1: CE floor 0.148 [0.146, 0.149], b 0.89 [0.76, 0.99]; Pearson b 0.09
+scaling panel 29_hs2_qwen_d1: CE floor 0.151 [0.149, 0.152], b 0.76 [0.64, 0.89]; Pearson b 0.05
+wrote figures/fig_scaling.pdf
+scaling median b, CE-fit, exp28 cells d=1 with identified floor, rps: 0.66 over 8 cells (all CE cells 25)
+scaling median b, CE-fit, exp28 cells d=1 with identified floor, ce: 0.82 over 20 cells (all CE cells 25)
+scaling median b, CE-fit, exp28 cells d=1 with identified floor, tvd: 0.59 over 10 cells (all CE cells 25)
+scaling exp29 chaos3_qwen CE-LoRA b 0.89 [0.76, 0.99]
+scaling exp29 hs2_qwen CE-LoRA b 0.76 [0.64, 0.89]
+scaling exp29 chaos3_llama CE-LoRA b 0.64 [0.49, 0.78]
+scaling: removed share per doubling at b=0.66: 0.367
+copied figures/fig_ratings_needed.pdf from the AAAI paper folder (printed there by experiment 08's make_paper_figure.py)

@@ -1,0 +1,17 @@
+\begin{tabular}{lrrrccl}
+\toprule
+Panel (held-out test RPS) & $N_{\max}$ & CE-fit at $N_{\max}$ & Pearson-fit at $N_{\max}$ & CE-fit floor [95\%] & CE-fit $b$ [95\%] & Pearson-fit curve (experiment 31 verdict) \\
+\midrule
+Exp.\ 28, ChaosNLI SNLI & 256 & 0.115 & 0.134 & 0.105 [0.000, 0.118] & 0.33 [0.04, 0.86] & slow decline, floor not identified \\
+Exp.\ 28, ChaosNLI MNLI-m & 256 & 0.163 & 0.185 & 0.160 [0.147, 0.165] & 0.64 [0.28, 1.09] & slow decline, floor not identified \\
+Exp.\ 28, alphaNLI (two classes) & 256 & 0.120 & 0.125 & 0.115 [0.000, 0.126] & 0.54 [0.05, 1.64] & slow decline, floor not identified \\
+Exp.\ 28, DICES-350 & 256 & 0.226 & 0.276 & 0.221 [0.180, 0.231] & 0.60 [0.18, 1.13] & slow decline, floor not identified \\
+Exp.\ 28, DICES-990 & 256 & 0.198 & 0.261 & 0.192 [0.159, 0.201] & 0.58 [0.21, 0.99] & flat \\
+Exp.\ 29, ChaosNLI, Qwen3-4B & 2048 & 0.149 & 0.162 & 0.148 [0.146, 0.149] & 0.89 [0.76, 0.99] & slow decline, floor not identified \\
+Exp.\ 29, ChaosNLI, Llama-3.1-8B & 2048 & 0.155 & 0.190 & 0.151 [0.146, 0.154] & 0.64 [0.49, 0.78] & poor power-law fit \\
+Exp.\ 29, alphaNLI, Qwen3-4B & 1024 & 0.186 & 0.208 & 0.179 [0.117, 0.184] & 0.56 [0.13, 0.92] & poor power-law fit \\
+Exp.\ 29, DICES, Qwen3-4B & 1024 & 0.209 & 0.285 & 0.204 [0.196, 0.208] & 0.71 [0.46, 0.96] & flat \\
+Exp.\ 29, DICES, Llama-3.1-8B & 1024 & 0.206 & 0.251 & 0.203 [0.194, 0.206] & 0.89 [0.50, 1.29] & poor power-law fit \\
+Exp.\ 29, HelpSteer2, Qwen3-4B & 2048 & 0.152 & 0.184 & 0.151 [0.149, 0.152] & 0.76 [0.64, 0.89] & slow decline, floor not identified \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,13 @@
+\begin{tabular}{lrrrrrl}
+\toprule
+Judge & Uncal. & Train hist. & CE-fit & Pearson-fit & Diff. & Test passes down to \\
+\midrule
+GPT-6 Astra & 0.0858 & 0.1049 & \textbf{0.0660} & 0.0843 & +0.0183 & 8 \\
+Claude Opus 5.5 & 0.0788 & 0.1049 & \textbf{0.0639} & 0.0675 & +0.0037 & none (fails at 256) \\
+Kimi K3 & 0.0899 & 0.1049 & \textbf{0.0712} & 0.0996 & +0.0284 & 8 \\
+GLM 5.3 & 0.1027 & 0.1049 & \textbf{0.0757} & 0.0952 & +0.0195 & none (fails at 256) \\
+DeepSeek V4.1 Flash & 0.1176 & 0.1049 & \textbf{0.0827} & 0.0867 & +0.0040 & none (fails at 256) \\
+\midrule
+Uniform over six grades & \multicolumn{6}{l}{0.2497} \\
+\bottomrule
+\end{tabular}

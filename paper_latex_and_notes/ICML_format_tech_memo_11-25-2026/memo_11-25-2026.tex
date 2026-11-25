@@ -1,0 +1,104 @@
+%%%%%%%% Technical memo, 11-25-2026: cross-entropy versus correlation for AI judges %%%%%%%%%
+% ICML 2026 style, preprint option. Build: `make` in this directory (pdflatex + bibtex).
+% Every number in the text is printed by a committed script under ../../experiments/ or by make_memo_assets.py;
+% provenance comments (% Provenance:) sit beside each block of numbers.
+
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+\usepackage[preprint]{icml2026}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[proposition]{Remark}
+
+% The memo is dated by hand: the preprint footer prints \today.
+\renewcommand{\today}{November 25, 2026}
+
+\newcommand{\RPS}{\mathrm{RPS}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\TVD}{\mathrm{TVD}}
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Ind}{\mathbf{1}}
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\expref}[1]{experiment~#1}
+
+\icmltitlerunning{Cross-Entropy, Not Correlation, for AI Judges}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{Learn Judges Like Any Other Model: Cross-Entropy, Not Correlation,\\
+    for Predicting Human Rating Distributions}
+
+  \icmlsetsymbol{equal}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Brando Miranda}{stanford}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{stanford}{Department of Computer Science, Stanford University, Stanford, CA, USA}
+  \icmlcorrespondingauthor{Brando Miranda}{brando9@stanford.edu}
+
+  \icmlkeywords{LLM-as-a-judge, proper scoring rules, ranked probability score, cross-entropy, evaluation, scaling laws}
+
+  \vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\begin{abstract}
+Teams choose and validate AI judges by their correlation with human ratings.
+Correlation sees only conditional means, up to a positive affine map, so it cannot tell a judge with the right means and the wrong rating distributions from a correct one.
+We instead treat a judge as a probability model of expert ratings, fit it with cross-entropy, and score it with proper scores such as the ranked probability score (RPS).
+First, an exact three-item example matches every conditional mean (Pearson correlation 1) yet has total variation distance 0.20 and cross-entropy 1.065 against 0.915 nats.
+Second, across the repository's experiments on synthetic targets and on human ratings of theorems, homework, images, dialogue, helpfulness and inference, cross-entropy fitting beats Pearson fitting on held-out RPS.
+Frozen frontier judges with a calibration head cross over at 4--8 ratings, one per item, in all 25 judge-by-dataset cells, and matched low-rank adaptation (LoRA) of Qwen3-4B and Llama-3.1-8B favors cross-entropy in all seven setups at the largest budget.
+Third, cross-entropy error falls as a saturating power law in the number of ratings with exponent about 0.6--0.9, while Pearson RPS curves are flat, non-monotone or still declining at the largest budget tested.
+Correlation remains competitive below about eight ratings, when the mean barely varies, and for choosing among scalar-vote judges.
+Judges are an ordinary supervised learning problem: choose a proper loss, hold out data, and fit the learning curve.
+\end{abstract}
+
+\input{sections/01_intro}
+\input{sections/02_setting}
+\input{sections/03_identification}
+\input{sections/04_controlled}
+\input{sections/05_frozen}
+\input{sections/06_lora}
+\input{sections/07_scaling}
+\input{sections/08_limits}
+
+\section*{Acknowledgments}
+We thank Sanmi Koyejo for repeated technical feedback that shaped experiments 11, 15--17 and 22.
+
+\bibliography{memo_refs}
+\bibliographystyle{icml2026}
+
+\newpage
+\appendix
+\onecolumn
+\input{sections/A_proofs}
+\input{sections/B_protocols}
+\input{sections/C_index}
+\input{sections/D_extra}
+\input{sections/E_provenance}
+
+\end{document}

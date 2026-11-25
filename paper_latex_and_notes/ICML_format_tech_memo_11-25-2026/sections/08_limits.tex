@@ -1,0 +1,32 @@
+\section{Limitations, negative results and recommendations}
+\label{sec:limits}
+
+\paragraph{Where correlation holds up.}
+Five results go against a blanket preference for CE.
+(1) Below about eight ratings the Pearson-fit judge sometimes has the lower mean RPS: 25 of 325 cells in experiment 28, and a synthetic CE-trained judge that overfits at 4 items (Section~\ref{sec:controlled}).
+(2) When the mean says little and the spread carries the signal the order reverses in the synthetic studies (scenario A), up to 96 ratings.
+(3) Selecting a single judge from a fixed pool of scalar-vote judges by Pearson was as good as or better than selecting it by CE on the real theorem ratings, although CE selection won on the three pools that contain native-probability judges.
+(4) A Pearson score followed by a proper-loss calibration into grade probabilities equals or beats CE-fit on DICES, KonIQ, SummEval, dialogue and MovieLens, and after one shared calibration the LoRA gap shrinks to $0.0002$ to $0.0043$ RPS.
+(5) Three of the five frontier judges on the homework answers do not clear the preregistered descending test at 256 ratings, and Claude Sonnet 5 never passes it.
+These results sharpen the claim: correlation alone, used to train or choose a distribution, is unreliable; the gain comes from fitting the distribution with a proper loss, by whichever route.
+
+\paragraph{What the evidence does not show.}
+The evidence is partly retrospective and partly shared.
+Experiments 02, 09, 10, 12, 14, 16, 18, 19 and 20 reuse the same 75 theorem artifacts and 195 expert ratings, so they are one body of evidence; experiment 29's HelpSteer2 CE and Pearson curves reuse experiment 24's predictions; and experiment 29's test items overlap experiment 28's frontier-scored items (265 of 713 ChaosNLI, 110 of 412 alphaNLI and 172 of 300 DICES items) though the LoRA judges never trained on them.
+Whether a pretrained model saw a public benchmark is unknown.
+The bands condition on the training draws and, for experiment 28, on the item subsample; ten homework assignments in one course with two graders are ten dependent folds.
+Ordinal coding of the NLI and DICES categories is an assumption that Pearson and RPS inherit, and SNLI and MNLI-matched keep only items with non-unanimous original labels.
+No new human ratings were collected for this memo, and the intended application, a theorem-judge rating collection owned by the sister repository, has no fresh ratings yet.
+The fitted floors of Section~\ref{sec:scaling} could not be compared with a human leave-one-vote-out floor, because the labels are sealed outside the repository.
+For trained judges (the toy models and LoRA) Pearson objectives are not convex and we have no global-optimum certificate; the restarts of experiment 07 change no crossover but cannot prove that none exists, whereas the exhaustive head search of experiments 21, 26 and 28 and the mixture fits of experiment 02 are exact within their families.
+Finally, the identification propositions concern population optimum sets and say nothing about the learning dynamics of any one optimizer.
+
+\paragraph{Recommendations.}
+\begin{enumerate}
+\item \textbf{Fit judges on individual ratings with a proper loss} (CE, or RPS for ordinal scales) and report held-out RPS, CE and TVD, with correlations as secondary ranking diagnostics.
+\item \textbf{Keep the baselines in every table:} the uniform forecast, the training histogram and the unfitted judge.
+\item \textbf{Calibrate the distribution even when you select by ranking.} A ranking-selected score with a calibrated head is a strong, cheap comparator.
+\item \textbf{Report learning curves with simultaneous intervals} and name the data, the metric and the direction of every difference; do not report one correlation.
+\item \textbf{Budget about eight ratings with one rating per item, or twenty with five per item, to fit a calibration head to a strong frozen judge} (the largest break-even budgets over the 25 cells of experiment 28), and \textbf{do not expect a trained judge to add much once a calibrated Pearson baseline is in place}: after one shared calibration the LoRA gap shrank to $0.0002$ to $0.0043$ RPS (Section~\ref{sec:lora}).
+\end{enumerate}
+The common thread is the one the blog post argues~\citep{miranda2026bitter}: judges are an ordinary supervised learning problem, and the usual machinery of loss choice, held-out data and learning curves applies to them without exception.
