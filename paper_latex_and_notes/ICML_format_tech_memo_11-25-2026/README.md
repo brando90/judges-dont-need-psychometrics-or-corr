@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md>
 
-**TLDR:** One ICML-format memo that consolidates the results of every experiment folder in this repository (00 to 31, archived 11 to 14 included): main text, references, then appendices with the proofs, the protocols, an index of all experiments, extra tables and figures, and provenance. `memo_11-25-2026.pdf` is the compiled memo and `HANDOFF_STANFORD_LIBRARY_11-25-2026.md` holds what a depositor needs. It is built from repository commit `64d6abe`. It has not been deposited in the Stanford Digital Repository; that is a human step.
+**TLDR:** One ICML-format memo that consolidates the results of every experiment folder in this repository (00 to 32, archived 11 to 14 included): main text, references, then appendices with the proofs, the protocols, an index of all experiments, extra tables and figures, and provenance. `memo_11-25-2026.pdf` is the compiled memo and `HANDOFF_STANFORD_LIBRARY_11-25-2026.md` holds what a depositor needs. It is built from repository commit `ce9e209`. It has not been deposited in the Stanford Digital Repository; that is a human step.
 
 **Title:** Learn Judges Like Any Other Model: Cross-Entropy, Not Correlation, for Predicting Human Rating Distributions. Brando Miranda, Stanford University. 11-25-2026.
 

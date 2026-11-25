@@ -6,8 +6,8 @@
 
 ## 1. What to upload
 
-1. PDF, deposit name `ce-not-correlation-memo-11-25-2026.pdf`. It is a byte-for-byte copy of `memo_11-25-2026.pdf` in this folder. SHA-256: `93a3e339ed940cdb6f538c11f7d7e0c68af1ba1ba3b6d5e34c3c72023183de9a`.
-2. Source archive, `ce-not-correlation-memo-sources-11-25-2026.zip`. It holds the LaTeX source, the generated figures and tables, the bibliography, the ICML kit, the build and check scripts and a README. `make pdf` rebuilds the PDF from it. SHA-256 of the archive delivered with this note: `9193d66e9ac4b6495116dbe4c87a1993c6b6af02667fe9abf4d4a687d58901b6`. If the archive is rebuilt, record its new hash here.
+1. PDF, deposit name `ce-not-correlation-memo-11-25-2026.pdf`. It is a byte-for-byte copy of `memo_11-25-2026.pdf` in this folder. SHA-256: `385fe8caa1d52c2c8a0bc771565bfdddf4f807b3b18e4ed92ba373bf460d63dc`.
+2. Source archive, `ce-not-correlation-memo-sources-11-25-2026.zip`. It holds the LaTeX source, the generated figures and tables, the bibliography, the ICML kit, the build and check scripts and a README. `make pdf` rebuilds the PDF from it. SHA-256 of the archive delivered with this note: `114a203d3cb432ebb69df358001ee59a77f5fdaa34ed85e5f43812b61ad3dc78`. If the archive is rebuilt, record its new hash here.
 
 The earlier deposit used the same pair (a PDF and a source archive), so this follows that route.
 
@@ -19,8 +19,8 @@ The earlier deposit used the same pair (a PDF and a source archive), so this fol
 - **Keywords:** LLM-as-a-judge, proper scoring rules, ranked probability score, cross-entropy, evaluation, scaling laws
 - **License:** CC BY 4.0, as for the 11-23-2026 deposit (see decision 1 below)
 - **Related item:** continues and extends the earlier preprint "What Correlation Can and Cannot Identify in Human-Rating Judges", DOI 10.25740/bh388th6008 (<https://purl.stanford.edu/bh388th6008>)
-- **Code and data:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr>, built from commit `64d6abe`; the memo files are added by the commit that adds this note (find it with `git log --diff-filter=A -- paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/memo_11-25-2026.pdf`)
-- **Length and format:** 22 pages, ICML 2026 style; main text through page 9, references on pages 9 and 10, Appendices A to E on pages 11 to 22
+- **Code and data:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr>, built from commit `ce9e209`; the memo files are added by the commit that adds this note (find it with `git log --diff-filter=A -- paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/memo_11-25-2026.pdf`)
+- **Length and format:** 23 pages, ICML 2026 style; main text through page 9, references on pages 9 and 10, Appendices A to E on pages 11 to 23
 
 **Abstract (copied from the memo):**
 
@@ -32,7 +32,7 @@ Teams choose and validate AI judges by their correlation with human ratings. Cor
 2. **Acknowledgments.** The memo thanks Sanmi Koyejo for repeated technical feedback that shaped experiments 11, 15 to 17 and 22. Confirm he is comfortable with that line, or delete it and rebuild before depositing.
 3. **AI-use statement.** The memo has none, like the earlier deposit. Add one only if the library or a later venue asks for it, and rebuild so the PDF and its hash stay matched.
 4. **New object or new version.** This is a different document that builds on the 11-23 preprint, so a new deposit that lists the earlier DOI as a related item is the cleaner record than a new version of the old one.
-5. **Folder numbering.** Two active folders begin with 30 and one active and one archived folder begin with 11. Appendix C lists them as they stand. Renaming them would change paths the memo cites, so rename only together with a rebuild.
+5. **Folder numbering.** The duplicate number 30 is resolved: the Cursor figures report that came in through pull request 2 was renumbered to experiment 32 on 11-25-2026, under the repository's duplicate-number rule, and Appendix C lists it as 32. One active and one archived folder both begin with 11; Appendix C notes it, and renumbering the active one would change paths the memo and the paper cite, so leave it unless you want that rebuild.
 
 ## 4. After the deposit
 
