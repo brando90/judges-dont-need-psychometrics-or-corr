@@ -1,0 +1,281 @@
+\section{First moment versus all moments: a self-contained derivation}
+\label{app:moments}
+% Provenance: every identity and bound below is checked on seeded random instances by
+% ../../experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/verify_moment_derivation.py.
+% Its printed output is results/verify_moment_derivation_output.txt (copied into assets_log.txt by make_memo_assets.py).
+
+This appendix shows why a correlation objective constrains one conditional moment of the human rating distribution, while cross-entropy (CE) constrains all of them.
+\Cref{app:proofs} proves the identification statements of Section~\ref{sec:identification}.
+Here we add five derivations: a tower-property factorization of the correlation with individual ratings, a bound that converts the CE gap into an error bound for every bounded moment, the equivalence of ``all moments'' with ``the distribution'', the logit gradient of every objective, and an exactly solvable finite-sample example.
+Experiment~33 checks each identity and bound on seeded random instances with exact finite sums, and each subsection reports the result of its check.
+No rating is sampled and no judge is fitted.
+
+\subsection{Notation}
+\label{app:moments-notation}
+
+\begin{table}[h]
+\caption{\textbf{Every quantity in this appendix is a function of the conditional rating distribution.}
+$K$ is the number of rating categories; the numerical checks use $K=6$.}
+\label{tab:notation}
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$X$, $R\in\{0,\dots,K-1\}$ & an item and one individual human rating of it \\
+$p(\cdot\mid x)$, $q(\cdot\mid x)$ & true conditional rating distribution and the judge's forecast \\
+$\mu(x)$, $m(x)$ & true conditional mean $\E[R\mid x]$ and forecast mean $\E_q[R\mid x]$ \\
+$\sigma^2(x)$ & true conditional variance $\Var(R\mid x)$ \\
+$f$, $\Delta_f$ & a function of the rating and its width $\max_rf(r)-\min_rf(r)$ \\
+$m_f(q,x)$ & forecast expectation $\E_q[f(R)\mid x]$; $f(r)=(r/(K-1))^j$ gives the $j$th moment \\
+$\eta$ & correlation ratio $\sqrt{\Var\mu(X)/\Var R}$ \\
+$\CE(q)$ & $\E[-\log q(R\mid X)]$ in nats \\
+$\TVD(p,q)$ & $\tfrac12\sum_r|p(r)-q(r)|$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Correlation sees one moment}
+\label{app:moments-tower}
+
+Section~\ref{sec:identification} correlates forecast means with item means.
+A judge is also scored by its correlation with individual ratings, one rating per data point.
+Both versions factor through the conditional mean.
+
+\begin{proposition}[Correlation with individual ratings factors through the mean]
+\label{prop:tower}
+Let $m(X)$ be any forecast mean with $\Var m(X)>0$, and let $\eta=\sqrt{\Var\mu(X)/\Var R}$.
+Then
+\begin{equation}
+\operatorname{Corr}\bigl(m(X),R\bigr)=\operatorname{Corr}\bigl(m(X),\mu(X)\bigr)\,\eta,
+\qquad
+\eta^2=1-\frac{\E\,\sigma^2(X)}{\Var R}.
+\label{eq:tower}
+\end{equation}
+The maximum over forecast means equals $\eta$.
+It is attained exactly when $m(X)=a+b\,\mu(X)$ with $b>0$, and it lies below one whenever $\E\,\sigma^2(X)>0$.
+\end{proposition}
+
+\begin{proof}
+Iterated expectation gives $\E[m(X)R]=\E[m(X)\mu(X)]$ and $\E R=\E\mu(X)$, so $\Cov(m(X),R)=\Cov(m(X),\mu(X))$.
+The law of total variance gives $\Var R=\Var\mu(X)+\E\sigma^2(X)$, which yields the second form of $\eta^2$.
+Divide the covariance by $\operatorname{sd}(m(X))\operatorname{sd}(R)$ and write $\operatorname{sd}(R)=\operatorname{sd}(\mu(X))/\eta$.
+Cauchy--Schwarz bounds $\operatorname{Corr}(m(X),\mu(X))$ by one, with equality exactly for positive affine $m$.
+\end{proof}
+
+Only $\mu$ enters Equation~\eqref{eq:tower}.
+Two forecasts with the same mean function have the same correlation however their variance, skewness or tails differ.
+Even the true distribution $p$ scores $\eta$, not one.
+The rating noise $\E\sigma^2(X)$ caps the correlation any judge can reach, and the objective never asks the judge to fit it.
+
+\paragraph{Check.}
+On 200 random instances (seven items with Dirichlet-drawn rating distributions, $K=6$), the factorization, the law of total variance and the affine ceiling each held to within $10^{-13}$.
+No random forecast exceeded the ceiling, which ranged from $0.092$ to $0.681$ (mean $0.400$) across the instances.
+
+\subsection{Cross-entropy controls every bounded moment}
+\label{app:moments-ce}
+
+\begin{lemma}[The CE gap is an expected KL divergence]
+\label{lem:cekl}
+$\CE(q)-\CE(p)=\E_X\KL\bigl(p(\cdot\mid X)\,\|\,q(\cdot\mid X)\bigr)\ge0$.
+\end{lemma}
+
+\begin{proof}
+Write $-\log q=-\log p+\log(p/q)$ and take the expectation under the joint law of $(X,R)$.
+\end{proof}
+
+\begin{proposition}[CE bounds the error of every bounded functional]
+\label{prop:bounded}
+For every $f:\{0,\dots,K-1\}\to\mathbb R$ with width $\Delta_f$,
+\begin{equation}
+\E_X\bigl[(m_f(q,X)-m_f(p,X))^2\bigr]\le\frac{\Delta_f^2}{2}\bigl(\CE(q)-\CE(p)\bigr).
+\label{eq:bounded}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Fix $x$ and write $p$ and $q$ for the conditional distributions.
+With $c=\tfrac12(\max f+\min f)$ we have $|f(r)-c|\le\Delta_f/2$, so $|\E_pf-\E_qf|=\bigl|\sum_r(p(r)-q(r))(f(r)-c)\bigr|\le\Delta_f\,\TVD(p,q)$.
+Pinsker's inequality (\Cref{app:proofs}) gives $\TVD(p,q)\le\sqrt{\KL(p\|q)/2}$.
+Squaring and averaging over $X$ with \Cref{lem:cekl} proves Equation~\eqref{eq:bounded}.
+\end{proof}
+
+\begin{proposition}[Every integer moment and the variance]
+\label{prop:variance}
+(i) For $f(r)=(r/(K-1))^j$ the width is $\Delta_f=1$, and Equation~\eqref{eq:bounded} is Proposition~\ref{prop:moments}.
+(ii) The conditional variance satisfies $|\sigma_p^2(x)-\sigma_q^2(x)|\le(K-1)^2\,\TVD(p,q)$ and
+\[
+\E_X\bigl[(\sigma_p^2(X)-\sigma_q^2(X))^2\bigr]\le\frac{(K-1)^4}{2}\bigl(\CE(q)-\CE(p)\bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+Part (i) is immediate.
+For part (ii), $\Var_p(R)=\min_a\E_p(R-a)^2$ with the minimum over $a\in[0,K-1]$.
+Each $f_a(r)=(r-a)^2$ takes values in $[0,(K-1)^2]$, so $|\E_pf_a-\E_qf_a|\le(K-1)^2\TVD(p,q)$ for every $a$, and the two minima differ by at most this amount.
+Squaring, applying Pinsker's inequality and averaging over $X$ finish the proof.
+\end{proof}
+
+The bounds run in one direction: a small CE gap forces small moment errors, with no assumption on the forecast beyond positivity.
+The converse fails, because a forecast can match the mean and the variance and still differ in shape (\Cref{prop:vander}).
+The bounds are also loose.
+Across 5,000 random populations of nine items the left side reached at most $0.271$ of the right side of Equation~\eqref{eq:bounded} and $0.018$ of the variance bound.
+
+\paragraph{Check.}
+On 20,000 random pairs of distributions ($K=6$), Pinsker's inequality, the width bound $|\E_pf-\E_qf|\le\Delta_f\TVD(p,q)$ and the variance bound held with smallest slacks $0.0042$, $0.0184$ and $0.7561$, all nonnegative.
+The population bounds held in all 5,000 random populations.
+
+\subsection{All moments are the distribution}
+\label{app:moments-vander}
+
+\begin{proposition}[The first $K-1$ moments determine the distribution]
+\label{prop:vander}
+On $K$ rating values the linear map $p\mapsto(\E_pR^j)_{j=0}^{K-1}$ is injective.
+Its matrix $V=(r^j)_{r,j=0}^{K-1}$ has determinant $\prod_{k=1}^{K-1}k!$, which equals $34{,}560$ for $K=6$.
+Matching the moments $j=0,\dots,s$ leaves an affine set of dimension $K-1-s$; matching the mean alone ($s=1$) leaves $K-2$ free directions.
+\end{proposition}
+
+\begin{proof}
+For the nodes $0,\dots,K-1$ the Vandermonde determinant is $\prod_{0\le i<j\le K-1}(j-i)=\prod_{j=1}^{K-1}j!\ne0$.
+The first $s+1$ columns of $V$ have rank $s+1$, so $s+1$ moment equations leave a solution set of dimension $K-(s+1)$.
+\end{proof}
+
+Three consequences follow.
+First, ``CE constrains every moment'' and ``CE identifies the distribution'' are one statement.
+Second, a mean-only objective leaves $K-2$ shape directions per item, which is the count $n(K-2)+2$ of Proposition~\ref{prop:dimension}.
+Third, the moment parameterization is ill-conditioned: $V$ has 2-norm condition number $5.77\times10^{4}$ for $K=6$.
+That is one practical reason to fit probabilities directly with a proper loss instead of matching moments one at a time.
+
+\paragraph{Check.}
+The exact integer determinant of $V$ for $K=6$ is $34{,}560$, and solving for $p$ from its exact moments recovered 200 random distributions to within $10^{-12}$.
+Matching the mean alone leaves 4 free directions, matching the moments up to $K-2$ leaves 1, and matching all $K-1$ leaves 0.
+
+\subsection{Cross-entropy matches moments; the gradient of every objective}
+\label{app:moments-grad}
+
+\begin{proposition}[CE stationarity is moment matching]
+\label{prop:expfam}
+Let $q_\theta(r)\propto\exp(\theta^\top T(r))$ for a feature map $T:\{0,\dots,K-1\}\to\mathbb R^d$.
+For one distribution $p$,
+\[
+\nabla_\theta\,\E_p[-\log q_\theta(R)]=\E_{q_\theta}T(R)-\E_pT(R),
+\qquad
+\nabla_\theta^2\,\E_p[-\log q_\theta(R)]=\Cov_{q_\theta}\bigl(T(R)\bigr)\succeq0 .
+\]
+The CE objective is therefore convex in $\theta$, and a point is stationary exactly when the forecast and the human distribution have the same expected features.
+\end{proposition}
+
+\begin{proof}
+Write $-\log q_\theta(r)=A(\theta)-\theta^\top T(r)$ with the log-partition function $A(\theta)=\log\sum_s\exp(\theta^\top T(s))$.
+Its gradient is $\E_{q_\theta}T$ and its Hessian is the covariance of $T$ under $q_\theta$.
+\end{proof}
+
+With $T(r)=\bigl((r/(K-1))^j\bigr)_{j=1}^{K-1}$ the family contains every positive distribution, because the matrix of the monomials $1,\dots,(r/(K-1))^{K-1}$ is a Vandermonde matrix and $\log q$ can therefore be any vector up to a constant.
+Stationarity then asks for $K-1$ moment equations.
+The calibration head of Equation~\eqref{eq:head} is the same construction with $T=(u_k,u_k^2)$ at fixed temperature $t$.
+For one observed rating $y$ its intercept and curvature gradients are $\E_qu-u(y)$ and $\E_qu^2-u(y)^2$, so the head matches the first two moments of the centered category index to the rating.
+
+\begin{proposition}[Logit gradients of the objectives]
+\label{prop:grad}
+Let $q=\mathrm{softmax}(u)$ for one item with mean $m$ and let $y$ be an observed rating.
+\Cref{tab:losses} lists the gradients with respect to the logit $u(r)$.
+For $n$ items the Pearson gradient is $\partial\rho/\partial u_i(r)=g_i\,q_i(r)(r-m_i)$ with $g_i=(\zeta_i-\rho z_i)/(n\,s_m)$, where $z_i=(m_i-\bar m)/s_m$ and $\zeta_i=(t_i-\bar t)/s_t$ are the standardized forecast and human means.
+\end{proposition}
+
+\begin{table}[h]
+\caption{\textbf{MSE and Pearson move an item's logits only along the direction that changes its mean; CE, Brier and RPS gradients span all $K-1$ shape directions.}
+Notation for one item and one observed rating $y$: $q=\mathrm{softmax}(u)$, $F_k=\sum_{s\le k}q(s)$, $e_y(r)=\Ind\{r=y\}$ and $a_r=\tfrac{2}{K-1}\sum_{k=r}^{K-2}(F_k-\Ind\{y\le k\})$.
+The population optimum is the forecast that minimizes the expected loss (maximizes $\rho$ for Pearson); $\mu$ is the true conditional mean.}
+\label{tab:losses}
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Objective & Loss & Gradient with respect to $u(r)$ & Population optimum \\
+\midrule
+CE & $-\log q(y)$ & $q(r)-e_y(r)$ & $q=p$ \\
+Brier & $\sum_s\bigl(q(s)-e_y(s)\bigr)^2$ & $2q(r)\bigl[(q(r)-e_y(r))-\sum_sq(s)(q(s)-e_y(s))\bigr]$ & $q=p$ \\
+RPS & $\tfrac1{K-1}\sum_k(F_k-\Ind\{y\le k\})^2$ & $q(r)\bigl(a_r-\sum_sq(s)a_s\bigr)$ & $q=p$ \\
+MSE & $(m-y)^2$ & $2(m-y)\,q(r)(r-m)$ & $m=\mu$ \\
+Pearson & $-\rho(m,t)$ & $-g_i\,q_i(r)(r-m_i)$ & $m=a+b\mu$, $b>0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The MSE and Pearson gradients are scalar multiples of $(q(r)(r-m))_r$, the gradient of the item's mean itself.
+A gradient step on either loss therefore changes an item's logits only along the one direction that changes its mean.
+The CE gradient $q-e_y$ ranges over the whole $(K-1)$-dimensional space of logit directions, and averaged over the ratings of one item it equals $q-\hat p$, the gap to the empirical rating histogram.
+These are statements about logits.
+A network shares parameters across items and categories, its Jacobian mixes these directions, and a correlation gradient can therefore move shape indirectly; Sections~\ref{sec:controlled}--\ref{sec:scaling} measure whether it does.
+
+\paragraph{Check.}
+Finite differences reproduce the CE, Brier, MSE and RPS logit gradients (200 random instances each) and the Pearson gradient (100 random instances of six items) to within $10^{-8}$.
+The exponential-family gradient and the head gradients agree to the same tolerance.
+Polynomial features of degree $K-1$ reproduce 200 random positive distributions to within $10^{-12}$.
+
+\subsection{Pearson is a squared loss on standardized scores}
+\label{app:moments-squared}
+
+\begin{proposition}[Pearson is squared error with level and scale removed]
+\label{prop:squared}
+For forecast means $m_i$ and human means $t_i$ with standard deviations $s_m,s_t$, correlation $\rho$ and standardized values $z_i,\zeta_i$,
+\[
+\frac1n\sum_i(z_i-\zeta_i)^2=2(1-\rho),
+\qquad
+\frac1n\sum_i(m_i-t_i)^2=(\bar m-\bar t)^2+(s_m-s_t)^2+2s_ms_t(1-\rho).
+\]
+\end{proposition}
+
+\begin{proof}
+Expand the squares and use $\frac1n\sum_iz_i^2=\frac1n\sum_i\zeta_i^2=1$ and $\frac1n\sum_iz_i\zeta_i=\rho$.
+For the second identity, $\frac1n\sum_i(m_i-t_i)^2=(\bar m-\bar t)^2+s_m^2+s_t^2-2\rho s_ms_t$, and $s_m^2+s_t^2-2\rho s_ms_t=(s_m-s_t)^2+2s_ms_t(1-\rho)$.
+\end{proof}
+
+Maximizing Pearson correlation therefore minimizes a squared error after the level and the scale of the forecast are chosen freely.
+It identifies what squared error identifies, the conditional mean (Proposition~\ref{prop:losses}), up to a positive affine map.
+
+\paragraph{Check.}
+Both identities held to within $10^{-13}$ on 200 random pairs of vectors.
+
+\subsection{A finite-sample example with an exact threshold}
+\label{app:moments-threshold}
+
+Each item has a rating $R=2+D$ with $D\in\{-1,0,1\}$ and probabilities $\bigl(\tfrac{t-m}{2},\,1-t,\,\tfrac{t+m}{2}\bigr)$.
+Here $m$ is a known mean offset, and $t\in\{t_L,t_H\}$ is an unknown spread with $0<t_L<t_H<1$ and $|m|<t_L$.
+Both spreads give the mean $2+m$, so a rule that sees only means cannot tell them apart.
+We compare two rules that must pick the spread of an item from one rating: the mean-only rule, with its tie broken toward $t_L$, and CE (maximum likelihood), which picks the spread with the larger likelihood.
+A fraction $\pi$ of the items has spread $t_H$.
+
+\begin{proposition}[Break-even prior for one rating]
+\label{prop:threshold}
+The CE rule picks $t_H$ exactly when $D\ne0$.
+It errs with probability $e_L=t_L$ on low-spread items and $e_H=1-t_H$ on high-spread items, so its expected error is $(1-\pi)t_L+\pi(1-t_H)$.
+The mean-only rule errs with probability $\pi$.
+CE has the lower expected error exactly when $\pi>t_L/(t_L+t_H)$.
+\end{proposition}
+
+\begin{proof}
+For $D=\pm1$ we have $(t_H\mp m)/2>(t_L\mp m)/2$, so the high spread has the larger likelihood, and for $D=0$ we have $1-t_H<1-t_L$.
+The CE error $(1-\pi)t_L+\pi(1-t_H)$ is below $\pi$ if and only if $t_L<\pi(t_L+t_H)$.
+\end{proof}
+
+For $t_L=0.4$ and $t_H=0.8$ the threshold is $1/3$, with $e_L=0.4$ and $e_H=0.2$.
+Wrongly picking the spread costs a squared variance error of $(t_H-t_L)^2=0.16$.
+At $\pi=1/3$ both rules lose $0.0533$ in expectation.
+At $\pi=0.3$ the mean-only rule loses $0.0480$ against $0.0544$ for CE, and at $\pi=0.4$ CE loses $0.0512$ against $0.0640$ for the mean-only rule.
+This is the break-even logic of Section~\ref{sec:controlled} at the smallest scale: with one rating and a prior that strongly favors one shape, ignoring shape is competitive, and once at least a third of the items have the high spread, CE wins.
+The example is exact for one rating only.
+
+\paragraph{Check.}
+Exact rational arithmetic with five offsets ($m=-0.3,-0.1,0,0.2,0.3$) returns the same $e_L$, $e_H$ and the threshold $1/3=t_L/(t_L+t_H)$ each time.
+
+\subsection{What the derivation shows and does not show}
+\label{app:moments-limits}
+
+The derivation concerns population optima and fixed forecasts.
+It shows that correlation constrains one conditional moment and that CE constrains all of them, with explicit bounds, gradients and a finite-sample example.
+It does not show how a trained network behaves.
+Parameters shared between the mean and the shape let a correlation gradient move the shape indirectly, and the bounds are loose in the random instances checked (largest observed ratios $0.271$ and $0.018$).
+The random instances are Dirichlet draws, so the checks test identities and inequalities and do not describe real ratings.
+Sections~\ref{sec:controlled}--\ref{sec:scaling} and \appref{app:extra-controlled} measure fitted judges on controlled, frozen and trained models.
