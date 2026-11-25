@@ -6,6 +6,8 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/README.md>
 
+**Opinion piece (11-25-2026; the argument; the repo is the evidence):** https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html
+
 **Current status and results in one page:** [STATUS_11-23-2026.md](STATUS_11-23-2026.md) (11-23-2026; historical snapshot: [STATUS_11-20-2026.md](STATUS_11-20-2026.md)). Quick links: [tech report PDF (arXiv edition)](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf), [AAAI-27 submission PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf), [Version 29 meeting brief HTML](paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html), Stanford Digital Repository preprint (`DOI: 10.25740/bh388th6008`), and [Experiment 29 complete results](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md).
 
 **Supported thesis:** correlation alone does not identify a judge’s desired conditional rating distribution. When that distribution is the target, fit and evaluate probability forecasts with proper probability losses, and retain correlations as useful diagnostics of scalar association.
@@ -68,6 +70,8 @@ python3 experiments/01_conditional_binomial_distribution_identification_start_08
 The [experiment index](experiments/README.md) links the complete procedure, hashes and results. The [paper source and current PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md) live together. New measurement runs refuse to overwrite completed evidence; deterministic verification uses the saved rows without new rating samples.
 
 ## Origin and scope
+
+The opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (published 11-25-2026) states the position: define the target as the distribution of expert ratings, train with CE, score with proper scores, and scale the ratings. This repository holds the experiments behind it, including the [Exp 30 results](experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/results_11-25-2026.md) and the [Exp 31 scaling-law fits](experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md) (commit [`9341110`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/commit/93411102e2148723ccf2d064af7279075da156eb)).
 
 The project began with the [original README formulation at commit `f2272f9`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/f2272f9628f1f31575ecbdaa304f33c9ad0743f1/README.md), the [11-07-2026 discussion notes](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md), the [whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png), and [handwritten selection/fitting notes received 11-08-2026](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). Those source records remain unchanged. The [research synthesis](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md) provides further historical context.
 

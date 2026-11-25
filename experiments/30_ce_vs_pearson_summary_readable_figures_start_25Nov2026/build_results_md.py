@@ -44,6 +44,8 @@ S29 = pairs(P29, "single_exp29_rps_{k}.png", "single_exp29_ce_{k}.png", "held-ou
 S29T = ", ".join(f"[{n}](figures/single_exp29_tvd_{k}.png)" for k, n in P29)
 md = f"""# Corr vs CE: current results (11-25-2026)
 
+**Related (11-25-2026):** opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (the argument; this repo is the evidence).
+
 Repo `main` at commit [143ba39]({C}143ba39) (Nov 24) when this was written. No experiment was run; every number and figure is computed from the saved results files of Experiments 26, 28 and 29 by the two scripts in this folder (`make_summary_figures.py`, `make_summary_tables.py`, built into this file by `build_results_md.py`). Every plot has grid lines on. Lower is better for RPS, CE and TVD.
 
 ## Bottom line

@@ -1,5 +1,7 @@
 # Exp 31: scaling laws for judges, CE-fit vs Pearson-fit (RPS, CE, TVD against human ratings) | 11-25-2026
 
+**Related (11-25-2026):** opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (the argument; this repo is the evidence).
+
 Run by ultimate_brando9 for Brando Miranda, task AT-3569. Free CPU re-analysis of the saved results of Exp 26, 28 and 29 of this repo (no model calls, no spend). It answers Brando's Sanmi-meeting note of Nov 25, 11:00 AM ("we should be doing scaling laws for judges, it's not special in any way") and his Nov 11 line ("just ce and lots of data scaling laws as always"). Script: `fit_scaling_laws.py`; tables and this file: `build_results_md.py`; numbers: `results/*.csv`.
 
 ## Bottom line
