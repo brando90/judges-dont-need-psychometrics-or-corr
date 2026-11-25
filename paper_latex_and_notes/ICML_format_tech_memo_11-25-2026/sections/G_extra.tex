@@ -60,12 +60,12 @@ Selecting by RPS did no better than selecting by CE or correlation (experiment 1
 Choosing among whole judges that differ mainly in ranking quality calls for a ranking criterion, while fitting or selecting a distribution is where CE helps.
 
 \begin{table}[h]
-\caption{\textbf{Five frontier judges on 160 homework answers at 256 training ratings (two per answer), experiment 26.}
+\caption{\textbf{CE-fit is ahead of Pearson-fit for every judge, and clears the formal test for two.}
+Five frontier judges on 160 homework answers at 256 training ratings (two per answer), experiment 26.
 Held-out test RPS, 0--1, lower is better; Uncal.: raw judge; Train hist.: smoothed training grade histogram; Diff.: test RPS of the Pearson-fit judge minus test RPS of the CE-fit judge (positive favors CE-fit).
 Test unit: ten held-out homework assignments (16 answers each), 200 training draws per assignment; the last row is the six-grade uniform forecast.
 The last column is the smallest budget down to which the one-sided level-0.01 descending test passes from 256.
-Both fits search the same 27 calibration settings exhaustively on the training ratings.
-\textbf{Takeaway:} CE-fit is ahead of Pearson-fit for every judge, and clears the formal test for two.}
+Both fits search the same 27 calibration settings exhaustively on the training ratings.}
 \label{tab:exp26}
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -86,13 +86,13 @@ In the one-dimensional calibration a sustained conditional advantage appears in 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_lora_helpsteer2.pdf}
-\caption{\textbf{LoRA judges on HelpSteer2 helpfulness: raw versus calibrated forecasts.}
+\caption{\textbf{CE training is far better raw, but after an identical calibration the two objectives are statistically indistinguishable.}
+LoRA judges on HelpSteer2 helpfulness: raw versus calibrated forecasts.
 Vertical axis: held-out test RPS (0--1; lower is better); horizontal axis: total human ratings $B_{\mathrm{total}}$ split among training, validation and calibration.
 Dashed: raw forecasts; solid: after an identical 7-parameter post-hoc calibration; blue: CE-trained; red: Pearson-trained; dotted: uniform.
 Test data: 1{,}038 held-out responses from 519 held-out prompts; panels: experiment 24 (Qwen3-4B, 10 matched draws), experiment 25A (Qwen3-4B, up to 8{,}192 ratings, 20 draws) and experiment 25B (Llama-3.1-8B, 10 draws).
 Human reference, leave-one-vote-out RPS: $0.14567$.
-Both objectives use one optimizer, one schedule and the validation-RPS checkpoint rule; the correlation objective is not convex, so its curve reflects this optimizer, start and budget.
-\textbf{Takeaway:} CE training is far better raw, but after an identical calibration the two objectives are statistically indistinguishable.}
+Both objectives use one optimizer, one schedule and the validation-RPS checkpoint rule; the correlation objective is not convex, so its curve reflects this optimizer, start and budget.}
 \label{fig:lora-hs2}
 \end{figure}
 
@@ -102,25 +102,25 @@ Both objectives use one optimizer, one schedule and the validation-RPS checkpoin
 \Cref{tab:exp29} and \Cref{tab:scaling} give the numbers behind \Cref{fig:exp29} and \Cref{fig:scaling}; \Cref{fig:exp28-five} to \Cref{fig:ratings-needed} show curves that the main text summarizes in words.
 
 \begin{table*}[t]
-\caption{\textbf{Four LoRA objectives at the largest budget (experiment 29).}
+\caption{\textbf{The Pearson-trained judge is worse than the CE-trained judge in all seven setups, and the interval excludes zero in each.}
+Four LoRA objectives at the largest budget (experiment 29).
 Held-out test RPS of the raw forecasts (0--1; lower is better) of LoRA judges trained with CE, RPS, MSE or Pearson correlation on $B$ total human ratings, one rating per item except where noted; Qwen3-4B-Instruct-2507 or Llama-3.1-8B-Instruct; ten nested training draws per budget.
 ``Pearson$-$CE'' is the test RPS of the Pearson-trained judge minus the test RPS of the CE-trained judge on the same held-out items; positive favors the CE-trained judge.
 The band is a two-way crossed simultaneous max-$t$ 95\% band over budgets, from 4{,}000 paired cluster-bootstrap draws that resample training draws and held-out units together.
 Every judge is trained by AdamW with a validation-RPS checkpoint; the Pearson objective is not convex, so the Pearson-trained row reflects this optimizer, start and budget.
-$^{\ast}$The CE and Pearson HelpSteer2 runs are those of experiment 24; the RPS and MSE runs were added in experiment 29 on the same bundle and draws.
-\textbf{Takeaway:} the Pearson-trained judge is worse than the CE-trained judge in all seven setups, and the interval excludes zero in each.}
+$^{\ast}$The CE and Pearson HelpSteer2 runs are those of experiment 24; the RPS and MSE runs were added in experiment 29 on the same bundle and draws.}
 \label{tab:exp29}
 \centering\scriptsize
 \input{tables/tab_exp29}
 \end{table*}
 
 \begin{table*}[t]
-\caption{\textbf{Scaling-law fits and verdicts (experiment 31).}
+\caption{\textbf{Every CE curve has a fitted exponent between $0.33$ and $0.89$, while no Pearson curve in RPS is a power law.}
+Scaling-law fits and verdicts (experiment 31).
 Held-out test RPS (0--1; lower is better) at the largest number of human ratings $N_{\max}$ tested, for the CE-fit (or CE-trained) and the Pearson-fit (or Pearson-trained) judge; frozen-judge panels are means over five frontier judges with one rating per item, and LoRA panels are raw forecasts with ten draws per budget.
 The CE-fit floor and exponent $b$ come from the weighted fit of Equation~\eqref{eq:scaling} with percentile 95\% intervals from 2{,}000 parametric bootstrap draws.
 ``Floor not identified'' means the floor's interval is wider than the curve's range, and ``poor power-law fit'' that the root-mean-square residual exceeds 10\% of the range.
-Judges are chosen as in \Cref{fig:scaling}; exhaustive search for the head, AdamW with a validation checkpoint for LoRA.
-\textbf{Takeaway:} every CE curve has a fitted exponent between $0.33$ and $0.89$, while no Pearson curve in RPS is a power law.}
+Judges are chosen as in \Cref{fig:scaling}; exhaustive search for the head, AdamW with a validation checkpoint for LoRA.}
 \label{tab:scaling}
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -130,47 +130,47 @@ Judges are chosen as in \Cref{fig:scaling}; exhaustive search for the head, Adam
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/fig_exp28_five_per_item.pdf}
-\caption{\textbf{Frozen frontier judges with five ratings per item (experiment 28).}
+\caption{\textbf{In every set the Pearson-fit curve is worse at 20 ratings than at 10 and stays above the raw judge at every larger budget, while the CE-fit curve falls at every step.}
+Frozen frontier judges with five ratings per item (experiment 28).
 Vertical axis: held-out test RPS (0--1; lower is better), mean over five frontier judges; horizontal axis: human ratings used to fit, 10 to 320 (2 to 64 items with five ratings each; log scale).
 Data: ChaosNLI SNLI (600 items), MNLI-matched (600), alphaNLI (400; two classes), DICES-350 (350) and DICES-990 (400 items); each held-out item is scored against all of its collected labels.
 CE-fit minimizes, and Pearson-fit maximizes, its objective on the training ratings over 27 calibration settings of the judge's own probabilities, by exhaustive search; Pearson-fit + calibration follows the Pearson-chosen setting with four quantile-bin category frequencies (0.5 pseudo-count) fitted on the same training ratings.
-Each point averages 200 draws; no interval is drawn here, and the break-even budgets of \Cref{tab:exp28} come from simultaneous one-sided 97.5\% bounds.
-\textbf{Takeaway:} in every set the Pearson-fit curve is worse at 20 ratings than at 10 and stays above the raw judge at every larger budget, while the CE-fit curve falls at every step.}
+Each point averages 200 draws; no interval is drawn here, and the break-even budgets of \Cref{tab:exp28} come from simultaneous one-sided 97.5\% bounds.}
 \label{fig:exp28-five}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_exp26_per_judge.pdf}
-\caption{\textbf{Five frontier judges on fresh homework (experiment 26).}
+\caption{\textbf{The CE-fit curve lies below the Pearson-fit curve in all 35 judge-by-budget cells, but the bands overlap everywhere, so the figure supports the ranking and does not identify any law.}
+Five frontier judges on fresh homework (experiment 26).
 Vertical axis: held-out test RPS (0--1; lower is better) on 16 held-out answers per fold, scored against two grader scores each; horizontal axis: training ratings, 4 to 256, two per answer (log scale).
 Data: 160 short answers of 67 questions in ten homework folds, each fold held out once; the lines are means over folds and 200 training draws.
 Shaded bands are 95\% two-sided overlap-adjusted $t$ intervals over the ten folds (standard deviation times $\sqrt{1/10+1/9}$, 9 degrees of freedom) for the CE-fit and Pearson-fit judges.
-CE-fit and Pearson-fit choose among 27 calibration settings of each judge's six grade probabilities by exhaustive search on the training ratings.
-\textbf{Takeaway:} the CE-fit curve lies below the Pearson-fit curve in all 35 judge-by-budget cells, but the bands overlap everywhere, so the figure supports the ranking and does not identify any law.}
+CE-fit and Pearson-fit choose among 27 calibration settings of each judge's six grade probabilities by exhaustive search on the training ratings.}
 \label{fig:exp26}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_exp29_curves.pdf}
-\caption{\textbf{Learning curves of four LoRA objectives (experiment 29).}
+\caption{\textbf{CE and RPS training track each other, squared error follows them at $K=2$ and falls behind at $K\ge3$, and the Pearson-trained curve lies above the CE curve at nearly every budget.}
+Learning curves of four LoRA objectives (experiment 29).
 Vertical axis: held-out test RPS (0--1; lower is better) of raw forecasts; horizontal axis: total human ratings $B$ used for training (log scale), one rating per item unless the panel says five per item.
 LoRA of Qwen3-4B-Instruct-2507 or Llama-3.1-8B-Instruct on ChaosNLI, alphaNLI (two classes), DICES and HelpSteer2 (CE and Pearson from experiment 24); each point is a mean over ten nested training draws, and no band is drawn (bands for the largest budget are in \Cref{tab:exp29}).
-Each objective uses one optimizer, one schedule and the same validation-RPS checkpoint rule; the correlation objective is not convex, so it reflects this optimizer, start and budget.
-\textbf{Takeaway:} CE and RPS training track each other, squared error follows them at $K=2$ and falls behind at $K\ge3$, and the Pearson-trained curve lies above the CE curve at nearly every budget.}
+Each objective uses one optimizer, one schedule and the same validation-RPS checkpoint rule; the correlation objective is not convex, so it reflects this optimizer, start and budget.}
 \label{fig:exp29-curves}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.56\textwidth]{figures/fig_ratings_needed.pdf}
-\caption{\textbf{Ratings needed in four synthetic scenarios (experiment 08).}
+\caption{\textbf{The CE-trained judge wins from 12 ratings where the mean carries the signal (B, C, D) and needs 192 ratings only in A, where the mean says little.}
+Ratings needed in four synthetic scenarios (experiment 08).
 Vertical axis: held-out test RPS excess over the true distribution, that is the RPS of the judge's forecast minus the RPS of the true conditional distribution on 500 fresh tasks (lower is better; log scale); horizontal axis: training ratings, three per task.
 Targets are beta-binomial distributions over six ratings: A has an almost constant mean and varying disagreement, B a nonlinear mean and varying disagreement, C a nonlinear mean and constant concentration, D a linear mean and constant concentration.
 The judge is a softmax over a linear map of 13 features, trained by L-BFGS-B (400 iterations) from the training histogram with a fixed ridge; the CE objective is convex and the Pearson objective is not, so the Pearson curve reflects this optimizer and start.
-Lines are means over 100 seeds with 95\% percentile bootstrap bands (10{,}000 draws); the dotted line marks the smallest budget from which the paired difference (Pearson-trained minus CE-trained) has a lower bound above zero at every larger budget.
-\textbf{Takeaway:} where the mean carries the signal (B, C, D) the CE-trained judge wins from 12 ratings; only in A, where the mean says little, the CE-trained judge needs 192 ratings.}
+Lines are means over 100 seeds with 95\% percentile bootstrap bands (10{,}000 draws); the dotted line marks the smallest budget from which the paired difference (Pearson-trained minus CE-trained) has a lower bound above zero at every larger budget.}
 \label{fig:ratings-needed}
 \end{figure}
 

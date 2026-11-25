@@ -18,8 +18,8 @@ q\;\propto\;p^{\,t}\exp\!\bigl(b\,u_k+c\,u_k^{2}\bigr),
 \label{eq:head}
 \end{equation}
 with $t\in\{\tfrac12,1,2\}$, $b,c\in\{-1,0,1\}$ and $u_k$ the centered, scaled category index.
-Search is exhaustive; ties go to the setting nearest the identity; every objective sees the same settings and the same training ratings.
-For a trained judge, LoRA weights~\citep{hu2022lora} and a probability read-out are updated by each objective under one optimizer, one schedule and one validation rule.
+The search is exhaustive and breaks ties toward the setting nearest the identity; every objective sees the same settings and the same training ratings.
+For a trained judge, each objective updates the LoRA weights~\citep{hu2022lora} and a probability read-out under one optimizer, one schedule and one validation rule.
 
 \paragraph{Metrics.}
 The primary metric is the normalized individual-rating ranked probability score,
@@ -37,6 +37,6 @@ Pearson, Spearman and Kendall correlations are secondary diagnostics of ranking.
 \paragraph{Differences, uncertainty and break-even.}
 A difference always subtracts the same metric on the same data for two named procedures.
 We write it in words, for example ``test RPS of the Pearson-fitted judge minus test RPS of the CE-fitted judge'', and positive values favor CE.
-Intervals are bootstraps over held-out items (over prompts for HelpSteer2, over folds with an overlap-adjusted $t$ interval for the homework studies), with simultaneous max-$t$ bands across budgets where stated; draws and levels are listed per experiment in \appref{app:protocols}.
+We compute intervals by bootstrapping held-out items (prompts for HelpSteer2; folds with an overlap-adjusted $t$ interval for the homework studies) and use simultaneous max-$t$ bands across budgets where stated; \appref{app:protocols} lists draws and levels per experiment.
 The break-even budget $N^\ast$ is the smallest budget from which the lower bound for ``Pearson-fit minus CE-fit'' and for ``uniform minus CE-fit'' both stay above zero at every larger budget tested.
-Selection of a fitted judge is by training data (and validation data where stated), never by the test ratings.
+We select a fitted judge with training data (and validation data where stated), never with the test ratings.
