@@ -27,6 +27,8 @@ E28 = EXP / "28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_
 E29 = EXP / "29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026"
 
 CE_C, PE_C, CAL_C, UNI_C, RAW_C, HIST_C = "#1f77b4", "#d62728", "#ff7f0e", "#7f7f7f", "#2ca02c", "#9467bd"
+# The salt stays "exp30": it fixes the SVG element ids, so changing it would change every committed figure.
+# This folder was created as experiment 30 and renumbered to 32 on 11-25-2026 (see REPORT.md).
 plt.rcParams.update({"svg.fonttype": "none", "svg.hashsalt": "exp30", "font.size": 10, "axes.grid": True, "grid.alpha": 0.35, "figure.dpi": 150})
 
 
