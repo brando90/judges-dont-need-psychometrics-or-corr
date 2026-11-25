@@ -14,6 +14,34 @@ E25 = "../25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov20
 H28 = "Harness (Exp 28): judges GPT-6 Astra, Claude Opus 5.5, Kimi K3, GLM 5.3 and DeepSeek V4.1 Flash through the Stanford AI API Gateway; orchestration and analysis by Claude Sonnet 5.5 in Claude Code."
 H26 = "Harness (Exp 26): the same five judges through the Stanford AI API Gateway chat completions; analysis by ub9sc in Python (numpy, scipy)."
 H29 = "Harness (Exp 29): LoRA training (rank 8, top 4 blocks) of Qwen3-4B-Instruct-2507 and Llama-3.1-8B-Instruct on the mercury2 GPU box; light QA by claude-opus-5-5-high through the Antigravity CLI."
+SETS = [("chaosnli_snli", "ChaosNLI SNLI"), ("chaosnli_mnli", "ChaosNLI MNLI-m"), ("chaosnli_alphanli", "alphaNLI (2 classes)"), ("dices350", "DICES-350"), ("dices990", "DICES-990")]
+JUDGES = [("gpt-6-astra", "GPT-6 Astra"), ("claude-opus-5-5", "Claude Opus 5.5"), ("kimi-k3", "Kimi K3"), ("glm-5.3", "GLM 5.3"), ("deepseek-v4.1-flash", "DeepSeek V4.1 Flash")]
+P29 = [("chaos3_qwen_d1", "ChaosNLI, Qwen3-4B, d=1"), ("chaos3_qwen_d5", "ChaosNLI, Qwen3-4B, d=5"), ("alpha2_qwen_d1", "alphaNLI, Qwen3-4B"), ("dices3_qwen_d1", "DICES, Qwen3-4B"),
+       ("hs2_qwen_d1", "HelpSteer2, Qwen3-4B"), ("chaos3_llama_d1", "ChaosNLI, Llama-3.1-8B"), ("dices3_llama_d1", "DICES, Llama-3.1-8B")]
+
+
+def img(f, alt, w="49%"): return f'<a href="figures/{f}"><img src="figures/{f}" width="{w}" alt="{alt}"></a>'
+
+
+def pairs(items, left, right, alt_l, alt_r):
+    """One heading and one side-by-side pair of single-panel plots per item (left file pattern, right file pattern)."""
+    return "\n\n".join(f"**{name}**\n\n<p>{img(left.format(k=k), f'{name} {alt_l}')} {img(right.format(k=k), f'{name} {alt_r}')}</p>" for k, name in items)
+
+
+def twos(items, pat, alt):
+    out = []
+    for i in range(0, len(items), 2):
+        out.append("<p>" + " ".join(img(pat.format(k=k), f"{name} {alt}") for k, name in items[i:i + 2]) + "</p>")
+    return "\n\n".join(out)
+
+
+S28 = pairs(SETS, "single_exp28_rps_{k}.png", "single_exp28_ce_{k}.png", "held-out RPS", "held-out CE")
+S28T = ", ".join(f"[{n}](figures/single_exp28_tvd_{k}.png)" for k, n in SETS)
+S26 = pairs(JUDGES, "single_exp26_rps_{k}.png", "single_exp26_ce_{k}.png", "held-out RPS", "held-out CE")
+S26T = ", ".join(f"[{n}](figures/single_exp26_tvd_{k}.png)" for k, n in JUDGES)
+SBE = twos(SETS, "single_exp28_breakeven_{k}.png", "break-even")
+S29 = pairs(P29, "single_exp29_rps_{k}.png", "single_exp29_ce_{k}.png", "held-out RPS", "held-out CE")
+S29T = ", ".join(f"[{n}](figures/single_exp29_tvd_{k}.png)" for k, n in P29)
 md = f"""# Corr vs CE: current results (11-25-2026)
 
 Repo `main` at commit [143ba39]({C}143ba39) (Nov 24) when this was written. No experiment was run; every number and figure is computed from the saved results files of Experiments 26, 28 and 29 by the two scripts in this folder (`make_summary_figures.py`, `make_summary_tables.py`, built into this file by `build_results_md.py`). Every plot has grid lines on. Lower is better for RPS, CE and TVD.
@@ -24,7 +52,7 @@ Repo `main` at commit [143ba39]({C}143ba39) (Nov 24) when this was written. No e
 
 ![Exp 28 held-out RPS per set](figures/fig_exp28_rps_per_set.png)
 
-*Figure 1. Exp 28, held-out RPS (lower is better) against human ratings used to fit, per rating set. Line = mean over 5 judges, band = min to max judge, dashed = raw judge with no fit. {H28}*
+*Figure 1. Overview grid of the five single-panel plots below (Exp 28, held-out RPS, lower is better) against human ratings used to fit, per rating set. Line = mean over 5 judges, band = min to max judge, dashed = raw judge with no fit. {H28}*
 
 ## What "beat" means, exactly
 
@@ -71,7 +99,9 @@ Win counts over all budgets and judge-set cells (point estimates):
 
 *Figure 3. Exp 28, held-out TVD (lower is better), per rating set. {H28}*
 
-Single-panel versions of Figure 1: [SNLI](figures/single_exp28_rps_chaosnli_snli.png), [MNLI-m](figures/single_exp28_rps_chaosnli_mnli.png), [alphaNLI](figures/single_exp28_rps_chaosnli_alphanli.png), [DICES-350](figures/single_exp28_rps_dices350.png), [DICES-990](figures/single_exp28_rps_dices990.png).
+**Single-panel plots, Exp 28, one pair per rating set** (left held-out RPS, right held-out CE; lower is better; click for full size; TVD single-panel files: {S28T}). {H28}
+
+{S28}
 
 ## Break-even and cost (Exp 28)
 
@@ -80,6 +110,10 @@ Single-panel versions of Figure 1: [SNLI](figures/single_exp28_rps_chaosnli_snli
 ![Exp 28 break-even](figures/fig_exp28_breakeven.png)
 
 *Figure 4. Exp 28 break-even: fewest human ratings (one per item) from which CE-fit has lower held-out RPS than the comparator and keeps it (simultaneous 97.5% bound above 0). Each marker is one judge; x = not reached within 256. {H28}*
+
+**Single-panel break-even plots, one per rating set** ({H28})
+
+{SBE}
 
 Cost, from the experiments' own cost files (estimated at the gateway list rate, Kimi K3 is listed at 0 there): Exp 28 used 11,750 judge calls for an estimated 19.69 USD (22.55 USD if priced at the 1.4 and 4.4 USD per million token reference); Exp 26 used 800 calls for an estimated 1.34 USD (1.20 USD at the reference). The human side is the cost that matters: CE-fit needs 4 to 8 human ratings per rating set to beat Pearson-fit and uniform.
 
@@ -97,7 +131,7 @@ Under the definition of "beat" above, Exp 26 is a clean win on RPS only. Claude 
 
 ![Exp 26 held-out RPS per judge](figures/fig_exp26_rps_per_judge.png)
 
-*Figure 5. Exp 26, held-out RPS (lower is better) against human ratings used to fit (two per answer), per judge; mean of 10 folds, band = 95% interval, dashed = raw judge with no fit. {H26}*
+*Figure 5. Overview grid (single-panel plots below). Exp 26, held-out RPS (lower is better) against human ratings used to fit (two per answer), per judge; mean of 10 folds, band = 95% interval, dashed = raw judge with no fit. {H26}*
 
 ![Exp 26 held-out CE per judge](figures/fig_exp26_ce_per_judge.png)
 
@@ -107,7 +141,9 @@ Under the definition of "beat" above, Exp 26 is a clean win on RPS only. Claude 
 
 *Figure 7. Exp 26, held-out TVD. {H26}*
 
-Single-panel versions of Figure 5: [GPT-6 Astra](figures/single_exp26_rps_gpt-6-astra.png), [Claude Opus 5.5](figures/single_exp26_rps_claude-opus-5-5.png), [Kimi K3](figures/single_exp26_rps_kimi-k3.png), [GLM 5.3](figures/single_exp26_rps_glm-5.3.png), [DeepSeek V4.1 Flash](figures/single_exp26_rps_deepseek-v4.1-flash.png).
+**Single-panel plots, Exp 26, one pair per judge** (left held-out RPS, right held-out CE; lower is better; TVD single-panel files: {S26T}). {H26}
+
+{S26}
 
 ## Table 3. Exp 29: LoRA fine-tuning, raw CE-trained against raw Pearson-trained, largest budget
 
@@ -117,7 +153,7 @@ Single-panel versions of Figure 5: [GPT-6 Astra](figures/single_exp26_rps_gpt-6-
 
 ![Exp 29 held-out RPS curves](figures/fig_exp29_rps_lora_curves.png)
 
-*Figure 8. Exp 29, held-out RPS (lower is better) against human ratings, raw (uncalibrated) LoRA judges, mean over 10 draws. {H29}*
+*Figure 8. Overview grid (single-panel plots follow). Exp 29, held-out RPS (lower is better) against human ratings, raw (uncalibrated) LoRA judges, mean over 10 draws. {H29}*
 
 ![Exp 29 held-out CE curves](figures/fig_exp29_ce_lora_curves.png)
 
@@ -126,6 +162,10 @@ Single-panel versions of Figure 5: [GPT-6 Astra](figures/single_exp26_rps_gpt-6-
 ![Exp 29 held-out TVD curves](figures/fig_exp29_tvd_lora_curves.png)
 
 *Figure 10. Exp 29, held-out TVD. {H29}*
+
+**Single-panel plots, Exp 29, one pair per panel** (left held-out RPS, right held-out CE; lower is better; TVD single-panel files: {S29T}). {H29}
+
+{S29}
 
 The repo's own Exp 29 figures: [four objectives and K=2 control]({E29}/figures/fig1_four_objectives_and_k2_control.png), [disagreement slices and logit rescue]({E29}/figures/fig2_disagreement_slices_and_logit_rescue.png). Pre-registered hypotheses (Exp 29): H1 confirmed (raw CE and RPS beat raw Pearson in 7 of 7 panels); H2, H3 and H4 partial; details in [RESULTS_11-23-2026.md]({E29}/RESULTS_11-23-2026.md).
 

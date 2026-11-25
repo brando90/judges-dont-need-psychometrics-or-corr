@@ -54,7 +54,12 @@ def draw26(ax, j, metric, rows):
     style(ax, "human ratings used to fit (two per answer)", f"held-out {MET[metric]}\n(lower is better)", JUDGES[j])
 
 
-def grid(keys, draw, title, fname, single_prefix=None):
+def single(draw, k, fname, prefix):
+    f, ax = plt.subplots(figsize=(6.4, 4.4)); draw(ax, k); ax.legend(fontsize=9)
+    ax.set_title(f"{prefix}: {ax.get_title()}", fontsize=13); f.tight_layout(); f.savefig(OUT / fname, dpi=130); plt.close(f)
+
+
+def grid(keys, draw, title, fname, single_prefix=None, tag=""):
     """2 x 3 grid (5 panels + legend), plus one single-panel file per key when single_prefix is given."""
     fig, axes = plt.subplots(2, 3, figsize=(15, 8.4)); axes = axes.ravel()
     for ax, k in zip(axes, keys): draw(ax, k)
@@ -62,63 +67,72 @@ def grid(keys, draw, title, fname, single_prefix=None):
     axes[5].axis("off"); axes[5].legend(h, l, loc="center", fontsize=12, frameon=False)
     fig.suptitle(title, fontsize=12); fig.tight_layout(rect=(0, 0, 1, 0.94)); fig.savefig(OUT / fname, dpi=130); plt.close(fig)
     if single_prefix:
-        for k in keys:
-            f, ax = plt.subplots(figsize=(6.4, 4.4)); draw(ax, k); ax.legend(fontsize=9)
-            f.tight_layout(); f.savefig(OUT / f"{single_prefix}_{k}.png", dpi=130); plt.close(f)
+        for k in keys: single(draw, k, f"{single_prefix}_{k}.png", tag)
 
 
 def fig28(metric):
     s = rd(E28 / "results/scores_absolute.csv"); raw = rd(E28 / "results/raw_judge_scores.csv")
     grid(list(SETS), lambda ax, ds: draw28(ax, ds, metric, s, raw),
          f"Exp 28: held-out {MET[metric]} vs human ratings (line = mean over 5 judges, band = min to max judge)",
-         f"fig_exp28_{metric}_per_set.png", f"single_exp28_{metric}" if metric == "rps" else None)
+         f"fig_exp28_{metric}_per_set.png", f"single_exp28_{metric}", "Exp 28")
 
 
 def fig26(metric):
     rows = [r for r in rd(E26 / "results/new5/scores.csv") if r["ratings_per_answer"] == "2" and r["metric"] == metric]
     grid(list(JUDGES), lambda ax, j: draw26(ax, j, metric, rows),
          f"Exp 26: held-out {MET[metric]} vs human ratings (160 homework answers, mean of 10 folds, band = 95% interval)",
-         f"fig_exp26_{metric}_per_judge.png", f"single_exp26_{metric}" if metric == "rps" else None)
+         f"fig_exp26_{metric}_per_judge.png", f"single_exp26_{metric}", "Exp 26")
+
+
+def draw_be(ax, ds):
+    b = [r for r in rd(E28 / "results/breakeven_summary.csv") if r["d"] == "1"]
+    jl = list(JUDGES); off = np.linspace(-0.3, 0.3, 3)
+    for k, (key, name, col, mk) in enumerate((("N_uniform", "CE-fit beats uniform", COL["uniform"], "s"), ("N_pearson", "CE-fit beats Pearson-fit", COL["pearson"], "o"), ("N_raw", "CE-fit beats raw judge", COL["raw"], "^"))):
+        for i, j in enumerate(jl):
+            r = [x for x in b if x["dataset"] == ds and x["judge"] == j][0]
+            if r[key]: ax.scatter(i + off[k], float(r[key]), color=col, marker=mk, s=38, label=name if i == 0 else None)
+            else: ax.scatter(i + off[k], 512, color=col, marker="x", s=38, label=None)
+    ax.set_yscale("log", base=2); ax.set_ylim(2.5, 700); ax.grid(True, alpha=0.35)
+    ax.set_yticks([4, 8, 16, 32, 64, 128, 256, 512]); ax.set_yticklabels(["4", "8", "16", "32", "64", "128", "256", "not\nreached"], fontsize=9)
+    ax.set_xticks(range(5)); ax.set_xticklabels([JUDGES[j].replace(" ", "\n", 1) for j in jl], fontsize=9)
+    ax.set_ylabel("human ratings needed (one per item)", fontsize=10)
+    ax.set_title(SETS[ds], fontsize=13)
 
 
 def fig_breakeven():
-    b = [r for r in rd(E28 / "results/breakeven_summary.csv") if r["d"] == "1"]
+    T = "Exp 28 break-even: fewest human ratings from which CE-fit has lower held-out RPS and keeps it (lower = pays off sooner)"
     fig, axes = plt.subplots(2, 3, figsize=(15, 8.4), sharey=True); axes = axes.ravel()
-    jl = list(JUDGES); off = np.linspace(-0.3, 0.3, 3)
-    for ax, ds in zip(axes[:5], SETS):
-        for k, (key, name, col, mk) in enumerate((("N_uniform", "CE-fit beats uniform", COL["uniform"], "s"), ("N_pearson", "CE-fit beats Pearson-fit", COL["pearson"], "o"), ("N_raw", "CE-fit beats raw judge", COL["raw"], "^"))):
-            for i, j in enumerate(jl):
-                r = [x for x in b if x["dataset"] == ds and x["judge"] == j][0]
-                if r[key]: ax.scatter(i + off[k], float(r[key]), color=col, marker=mk, s=38, label=name if i == 0 else None)
-                else: ax.scatter(i + off[k], 512, color=col, marker="x", s=38, label=None)
-        ax.set_yscale("log", base=2); ax.set_ylim(2.5, 700); ax.grid(True, alpha=0.35)
-        ax.set_yticks([4, 8, 16, 32, 64, 128, 256, 512]); ax.set_yticklabels(["4", "8", "16", "32", "64", "128", "256", "not\nreached"], fontsize=8)
-        ax.set_xticks(range(5)); ax.set_xticklabels([JUDGES[j].replace(" ", "\n", 1) for j in jl], fontsize=8.5)
-        ax.set_title(SETS[ds], fontsize=13)
+    for ax, ds in zip(axes[:5], SETS): draw_be(ax, ds)
     h, l = axes[0].get_legend_handles_labels(); axes[5].axis("off"); axes[5].legend(h, l, loc="center", fontsize=12, frameon=False)
-    for ax in (axes[0], axes[3]): ax.set_ylabel("human ratings needed (one per item)", fontsize=9)
-    fig.suptitle("Exp 28 break-even: fewest human ratings from which CE-fit has lower held-out RPS and keeps it (lower = pays off sooner)", fontsize=12)
-    fig.tight_layout(rect=(0, 0, 1, 0.93)); fig.savefig(OUT / "fig_exp28_breakeven.png", dpi=140); plt.close(fig)
+    fig.suptitle(T, fontsize=12); fig.tight_layout(rect=(0, 0, 1, 0.93)); fig.savefig(OUT / "fig_exp28_breakeven.png", dpi=140); plt.close(fig)
+    for ds in SETS: single(draw_be, ds, f"single_exp28_breakeven_{ds}.png", "Exp 28 break-even")
+
+
+PANELS29 = [("chaos3_qwen", "1", "ChaosNLI, Qwen3-4B, d=1"), ("chaos3_qwen", "5", "ChaosNLI, Qwen3-4B, d=5"), ("alpha2_qwen", "1", "alphaNLI, Qwen3-4B"),
+            ("dices3_qwen", "1", "DICES, Qwen3-4B"), ("hs2_qwen", "1", "HelpSteer2, Qwen3-4B"), ("chaos3_llama", "1", "ChaosNLI, Llama-3.1-8B"), ("dices3_llama", "1", "DICES, Llama-3.1-8B")]
+
+
+def draw29(ax, k, metric, s):
+    st, d, name = PANELS29[k]
+    for meth, m, lab in (("uniform", "uniform", "uniform"), ("pearson_raw", "pearson", "Pearson-trained LoRA"), ("ce_raw", "ce", "CE-trained LoRA")):
+        g = sorted([(int(r["b_total"]), float(r[metric])) for r in s if r["study"] == st and r["depth"] == d and r["method"] == meth])
+        if g: ax.plot([a[0] for a in g], [a[1] for a in g], color=COL[m], lw=2.4 if m == "ce" else 1.8, marker="o", ms=3.5, label=lab)
+    style(ax, "human ratings (budget)", f"held-out {MET[metric]}\n(lower is better)", name)
 
 
 def fig29():
     s = rd(E29 / "results/scores.csv")
-    panels = [("chaos3_qwen", "1", "ChaosNLI, Qwen3-4B, d=1"), ("chaos3_qwen", "5", "ChaosNLI, Qwen3-4B, d=5"), ("alpha2_qwen", "1", "alphaNLI, Qwen3-4B"),
-              ("dices3_qwen", "1", "DICES, Qwen3-4B"), ("hs2_qwen", "1", "HelpSteer2, Qwen3-4B"), ("chaos3_llama", "1", "ChaosNLI, Llama-3.1-8B"), ("dices3_llama", "1", "DICES, Llama-3.1-8B")]
     for metric in ("rps", "ce", "tvd"):
+        draw = lambda ax, k, metric=metric: draw29(ax, k, metric, s)
+        T = f"Exp 29: raw (uncalibrated) LoRA judges, held-out {MET[metric]} vs human ratings (mean over 10 draws)"
         fig, axes = plt.subplots(2, 4, figsize=(20, 8)); axes = axes.ravel()
-        for ax, (st, d, name) in zip(axes, panels):
-            for meth, m, lab in (("uniform", "uniform", "uniform"), ("pearson_raw", "pearson", "Pearson-trained LoRA"), ("ce_raw", "ce", "CE-trained LoRA")):
-                g = sorted([(int(r["b_total"]), float(r[metric])) for r in s if r["study"] == st and r["depth"] == d and r["method"] == meth])
-                if g: ax.plot([a[0] for a in g], [a[1] for a in g], color=COL[m], lw=2.4 if m == "ce" else 1.8, marker="o", ms=3.5, label=lab)
-            style(ax, "human ratings (budget)", f"held-out {MET[metric]}\n(lower is better)", name)
-        axes[0].legend(fontsize=8)
-        axes[-1].axis("off")
-        fig.suptitle(f"Exp 29: raw (uncalibrated) LoRA judges, held-out {MET[metric]} vs human ratings (mean over 10 draws)", fontsize=12)
-        fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig(OUT / f"fig_exp29_{metric}_lora_curves.png", dpi=130); plt.close(fig)
+        for ax, k in zip(axes, range(7)): draw(ax, k)
+        axes[0].legend(fontsize=8); axes[-1].axis("off")
+        fig.suptitle(T, fontsize=12); fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig(OUT / f"fig_exp29_{metric}_lora_curves.png", dpi=130); plt.close(fig)
+        for k in range(7): single(draw, k, f"single_exp29_{metric}_{PANELS29[k][0]}_d{PANELS29[k][1]}.png", "Exp 29")
 
 
 if __name__ == "__main__":
     for m in ("rps", "ce", "tvd"): fig28(m); fig26(m)
     fig_breakeven(); fig29()
-    print(sorted(p.name for p in OUT.glob("*.png")))
+    print(len(list(OUT.glob("*.png"))), "figures")
