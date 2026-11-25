@@ -40,14 +40,16 @@ def tab26():
     for j, nm in JUDGES.items():
         d = [r for r in dec if r["judge"] == j and r["training_ratings"] == "256"][0]
         print(f"| {nm} | {g(j,'ce_fit','rps'):.4f} | {g(j,'pearson_fit','rps'):.4f} | {g(j,'ce_fit','ce'):.3f} | {g(j,'pearson_fit','ce'):.3f} | {g(j,'ce_fit','tvd'):.3f} | {g(j,'pearson_fit','tvd'):.3f} | {d['formal_status']} ({float(d['lb_vs_pearson']):+.4f}) |")
-    n = w = 0
-    for j in JUDGES:
-        for B in (4, 8, 16, 32, 64, 128, 256):
-            n += 1
-            ce = [r for r in s if r["judge"] == j and r["ratings_per_answer"] == "2" and r["training_ratings"] == str(B) and r["method"] == "ce_fit" and r["metric"] == "rps"][0]
-            pe = [r for r in s if r["judge"] == j and r["ratings_per_answer"] == "2" and r["training_ratings"] == str(B) and r["method"] == "pearson_fit" and r["metric"] == "rps"][0]
-            w += float(ce["mean"]) < float(pe["mean"])
-    print(f"\nCE-fit lower held-out RPS than Pearson-fit in {w} of {n} judge-by-budget cells.")
+    get = lambda j, B, m, k: float([r for r in s if r["judge"] == j and r["ratings_per_answer"] == "2" and r["training_ratings"] == str(B) and r["method"] == m and r["metric"] == k][0]["mean"])
+    exc = []; cnt = {}
+    for k in ("rps", "ce", "tvd"):
+        n = w = 0
+        for j in JUDGES:
+            for B in (4, 8, 16, 32, 64, 128, 256):
+                n += 1; ok = get(j, B, "ce_fit", k) < get(j, B, "pearson_fit", k); w += ok
+                if not ok: exc.append(f"{k.upper()} at {B} ratings for {JUDGES[j]}")
+        cnt[k] = f"{w} of {n}"
+    print(f"\nCE-fit has lower held-out RPS than Pearson-fit in {cnt['rps']} judge-by-budget cells, lower CE in {cnt['ce']} and lower TVD in {cnt['tvd']}. Cells where Pearson-fit is lower: " + "; ".join(exc) + ".")
     print("\nFormal status by judge and budget:\n\n| Judge | " + " | ".join(str(b) for b in (256, 128, 64, 32, 16, 8, 4)) + " |\n|---|" + "---|" * 7)
     for j, nm in JUDGES.items():
         print(f"| {nm} | " + " | ".join([r for r in dec if r["judge"] == j and r["training_ratings"] == str(b)][0]["formal_status"] for b in (256, 128, 64, 32, 16, 8, 4)) + " |")

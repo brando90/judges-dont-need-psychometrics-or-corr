@@ -20,7 +20,7 @@ Repo `main` at commit [143ba39]({C}143ba39) (Nov 24) when this was written. No e
 
 ## Bottom line
 
-**CE-fit beats Pearson-fit, meaning lower held-out RPS, CE and TVD against the full human rating distribution (never higher held-out correlation).** It does so in 35 of 35 judge-by-budget cells in Exp 26 (point estimates on RPS), in 25 of 25 set-by-judge cells in Exp 28 from only 4 to 8 human ratings (one per item; significant), and for CE-trained against Pearson-trained LoRA judges in 7 of 7 panels at the largest budget in Exp 29 (RPS, CE and TVD, significant on RPS). The weaker comparisons are the raw judge with no fitting (CE-fit wins sustained only from 8 to 256 ratings, and never within 256 for 11 of 25 set-by-judge cells), Pearson-then-calibrate on DICES from 64 ratings, and the formal test in Exp 26, which passes for only 2 of 5 judges at 256 ratings. Nothing numerically new since Nov 23; Exp 29 (the Antigravity runs) is complete.
+**CE-fit beats Pearson-fit, meaning lower held-out RPS, CE and TVD against the full human rating distribution (never higher held-out correlation).** In Exp 26 it is clean on RPS only: lower RPS in 35 of 35 judge-by-budget cells (point estimates), but lower CE in 32 of 35 and lower TVD in 32 of 35. In Exp 28 it wins on RPS in 25 of 25 set-by-judge cells from only 4 to 8 human ratings (one per item; significant), and CE and TVD agree on every set at 256 ratings. For CE-trained against Pearson-trained LoRA judges it wins in 7 of 7 panels at the largest budget in Exp 29 (RPS, CE and TVD; significant on RPS). The weaker comparisons are the raw judge with no fitting (CE-fit wins sustained only from 8 to 256 ratings, and never within 256 for 11 of 25 set-by-judge cells), Pearson-then-calibrate on DICES from 64 ratings, and the formal test in Exp 26, which passes for only 2 of 5 judges at 256 ratings. Nothing numerically new since Nov 23; Exp 29 (the Antigravity runs) is complete.
 
 ![Exp 28 held-out RPS per set](figures/fig_exp28_rps_per_set.png)
 
@@ -30,7 +30,7 @@ Repo `main` at commit [143ba39]({C}143ba39) (Nov 24) when this was written. No e
 
 - **Metric.** A beats B on a metric when A has the lower mean held-out value of that metric. The metrics are RPS (primary), CE in nats and TVD, each computed against the full empirical human rating distribution of every held-out item. Higher held-out correlation never decides a win; Spearman and Pearson r appear only as secondary columns.
 - **What is compared.** A judge fit or trained with a CE objective (CE-fit, CE-LoRA) against the same judge fit or trained to maximize Pearson correlation (Pearson-fit, Pearson-LoRA), on the same data and the same budget.
-- **Two strengths of "beat".** Point estimate: the mean metric is lower (this is what "35 of 35" means). Significant: the lower bound of (Pearson-fit minus CE-fit) is above 0. Exp 28 break-even: 97.5% simultaneous bootstrap bound above 0 at every tested budget from N up, against Pearson-fit and uniform. Exp 26 formal test: descending from 256 ratings, one-sided bound at alpha 0.01 per judge, stopping at the first failure. Exp 29: crossed simultaneous 95% cluster-bootstrap band above 0.
+- **Two strengths of "beat".** Point estimate: the mean metric is lower (this is what "35 of 35" on RPS in Exp 26 means; on CE and TVD the Exp 26 count is 32 of 35 each). Significant: the lower bound of (Pearson-fit minus CE-fit) is above 0. Exp 28 break-even: 97.5% simultaneous bootstrap bound above 0 at every tested budget from N up, against Pearson-fit and uniform. Exp 26 formal test: descending from 256 ratings, one-sided bound at alpha 0.01 per judge, stopping at the first failure. Exp 29: crossed simultaneous 95% cluster-bootstrap band above 0.
 - **Unit of ratings.** The budget counts individual human ratings used to fit or train, not items. d = 1 is one rating per item, d = 5 is five per item.
 
 ## What is new since Nov 23 and what is unchanged
@@ -93,7 +93,7 @@ Formal status by judge and budget (the test stops at the first failure; later bu
 
 {blk['TABLE26'].split('Formal status by judge and budget:')[1].strip()}
 
-Exception on TVD: Claude Opus 5.5 at 256 ratings has TVD 0.334 for CE-fit against 0.309 for Pearson-fit (Pearson-fit lower). Spearman and Pearson r are not in this experiment's tables.
+Under the definition of "beat" above, Exp 26 is a clean win on RPS only. Claude Opus 5.5 at 256 ratings has TVD 0.334 for CE-fit against 0.309 for Pearson-fit (Pearson-fit lower). Spearman and Pearson r are not in this experiment's tables.
 
 ![Exp 26 held-out RPS per judge](figures/fig_exp26_rps_per_judge.png)
 
