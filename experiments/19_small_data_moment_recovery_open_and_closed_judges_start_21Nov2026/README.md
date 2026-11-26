@@ -1,4 +1,6 @@
-# Can cross-entropy recover more than the mean with few human ratings? (11-21-2026)
+# Can cross-entropy recover more than the mean with few human ratings? (11-21-2026) — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 Date: 11-21-2026
 
