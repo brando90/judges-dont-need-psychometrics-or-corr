@@ -1,4 +1,6 @@
-# Experiment 15: item signal versus rater severity on the 75 expert-rated artifacts
+# Experiment 15: item signal versus rater severity on the 75 expert-rated artifacts (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md>
 
