@@ -6,34 +6,38 @@
 
 This note records the population algebra from Brando's notebook derivation (11-26-2026). The matching formal statements are finite-sum identities in `BrierCorr.lean`. The numerical checks are in `results.txt`. Definitions of each printed column are in `HOW_TO_READ_RESULTS.md`.
 
+## Notation (changed 11-26-2026)
+
+Following the PS on notebook page 1 (as I read the handwriting: "I wish I would've defined X~ as centered RV. & Z_{X,i}^{(a)} [reading uncertain] standardized RV. Let's change it."), a tilde now marks the **centered** variable, \(\tilde X=X-\mu_X\), and \(Z_X=\tilde X/\sigma_X\) is the **standardized** variable. The handwritten pages, their transcriptions, `results.txt` and `experiments.py` were written with the tilde for the standardized variable and are left as they were; wherever they print `X~` for a standardized variable, read \(Z_X\) here.
+
 ## 1. Standardized variables
 
-Let \(X\) and \(Y\) be real random variables with means \(\mu_X=\mathbb{E}[X]\) and \(\mu_Y=\mathbb{E}[Y]\) and with positive variances \(\operatorname{Var}(X)=\sigma_X^2>0\) and \(\operatorname{Var}(Y)=\sigma_Y^2>0\). Write \(\sigma_X=\sqrt{\operatorname{Var}(X)}\) and \(\sigma_Y=\sqrt{\operatorname{Var}(Y)}\) for the positive square roots. The standardized variables are
+Let \(X\) and \(Y\) be real random variables with means \(\mu_X=\mathbb{E}[X]\) and \(\mu_Y=\mathbb{E}[Y]\) and with positive variances \(\operatorname{Var}(X)=\sigma_X^2>0\) and \(\operatorname{Var}(Y)=\sigma_Y^2>0\). Write \(\sigma_X=\sqrt{\operatorname{Var}(X)}\) and \(\sigma_Y=\sqrt{\operatorname{Var}(Y)}\) for the positive square roots. The centered variables \(\tilde X,\tilde Y\) and the standardized variables \(Z_X,Z_Y\) are
 
 \[
-z_X=\tilde X=\frac{X-\mu_X}{\sigma_X},\qquad z_Y=\tilde Y=\frac{Y-\mu_Y}{\sigma_Y}.
+\tilde X=X-\mu_X,\quad \tilde Y=Y-\mu_Y,\qquad Z_X=\frac{\tilde X}{\sigma_X}=\frac{X-\mu_X}{\sigma_X},\quad Z_Y=\frac{\tilde Y}{\sigma_Y}=\frac{Y-\mu_Y}{\sigma_Y}.
 \]
 
 Linearity of expectation gives
 
 \[
-\mathbb{E}[\tilde X]=\frac{1}{\sigma_X}\bigl(\mathbb{E}[X]-\mu_X\bigr)=0,
+\mathbb{E}[Z_X]=\frac{1}{\sigma_X}\bigl(\mathbb{E}[X]-\mu_X\bigr)=0,
 \]
 
-and the same calculation gives \(\mathbb{E}[\tilde Y]=0\).
+and the same calculation gives \(\mathbb{E}[Z_Y]=0\).
 
 The variance is then the second moment. The law of the unconscious statistician (LOTUS) applies the function \(g(x)=((x-\mu_X)/\sigma_X)^2\) under the law of \(X\):
 
 \[
-\operatorname{Var}(\tilde X)=\mathbb{E}[\tilde X^2]=\frac{\mathbb{E}[(X-\mu_X)^2]}{\sigma_X^2}=\frac{\operatorname{Var}(X)}{\sigma_X^2}=\frac{\operatorname{Var}(X)}{\operatorname{Var}(X)}=1.
+\operatorname{Var}(Z_X)=\mathbb{E}[Z_X^2]=\frac{\mathbb{E}[(X-\mu_X)^2]}{\sigma_X^2}=\frac{\operatorname{Var}(X)}{\sigma_X^2}=\frac{\operatorname{Var}(X)}{\operatorname{Var}(X)}=1.
 \]
 
-The same identity gives \(\mathbb{E}[\tilde Y^2]=1\).
+The same identity gives \(\mathbb{E}[Z_Y^2]=1\).
 
 Pearson correlation is the remaining cross moment:
 
 \[
-\operatorname{Corr}(X,Y)=\frac{\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X\sigma_Y}=\mathbb{E}[\tilde X\tilde Y].
+\operatorname{Corr}(X,Y)=\frac{\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]}{\sigma_X\sigma_Y}=\mathbb{E}[Z_XZ_Y].
 \]
 
 ## 2. Standardized squared error
@@ -41,13 +45,13 @@ Pearson correlation is the remaining cross moment:
 Expand the square and use the two unit second moments:
 
 \begin{align*}
-\mathbb{E}[(\tilde X-\tilde Y)^2]
-&=\mathbb{E}[\tilde X^2]+\mathbb{E}[\tilde Y^2]-2\mathbb{E}[\tilde X\tilde Y]\\
+\mathbb{E}[(Z_X-Z_Y)^2]
+&=\mathbb{E}[Z_X^2]+\mathbb{E}[Z_Y^2]-2\mathbb{E}[Z_XZ_Y]\\
 &=1+1-2\operatorname{Corr}(X,Y)\\
 &=2\bigl(1-\operatorname{Corr}(X,Y)\bigr).
 \end{align*}
 
-Standardization has already removed location and positive scale. A map \(X\mapsto aX+b\) with \(a>0\) therefore leaves both \(\tilde X\) and the correlation unchanged, and it leaves \(\mathbb{E}[(\tilde X-\tilde Y)^2]\) unchanged. In `BrierCorr.lean` this invariance is `pearson_affine_invariant`: for \(a>0\), the Pearson correlation of \(ax+b\) with \(y\) equals the Pearson correlation of \(x\) with \(y\).
+Standardization has already removed location and positive scale. A map \(X\mapsto aX+b\) with \(a>0\) therefore leaves both \(Z_X\) and the correlation unchanged, and it leaves \(\mathbb{E}[(Z_X-Z_Y)^2]\) unchanged. In `BrierCorr.lean` this invariance is `pearson_affine_invariant`: for \(a>0\), the Pearson correlation of \(ax+b\) with \(y\) equals the Pearson correlation of \(x\) with \(y\).
 
 The finite-sum form proved by `standardized_mse_corr` assumes \(n\neq 0\) and \(\sum_{i=1}^n x_i^2=\sum_{i=1}^n y_i^2=n\), and concludes
 
@@ -64,6 +68,8 @@ Write \(X-Y=(X-\mu_X)-(Y-\mu_Y)+(\mu_X-\mu_Y)\). The centered piece has mean zer
 \[
 \mathbb{E}[(X-Y)^2]=(\mu_X-\mu_Y)^2+\mathbb{E}\bigl[((X-\mu_X)-(Y-\mu_Y))^2\bigr].
 \]
+
+In the centered variables this reads \(\mathbb{E}[(X-Y)^2]=(\mu_X-\mu_Y)^2+\mathbb{E}[(\tilde X-\tilde Y)^2]\).
 
 Expand the second term:
 
@@ -93,7 +99,7 @@ D_{\mathrm{Brier}}(p^*\|\hat q)
 
 The same squared distance is \(\int (p^*(y)-\hat q(y))^2\,dy\) when the objects being compared are densities and the integral exists. Either form scores the forecast at the level of the whole distribution.
 
-\(\mathbb{E}[(X-Y)^2]\) and \(\mathbb{E}[(\tilde X-\tilde Y)^2]\) score pairs of scalar values. Pearson correlation is the scalar cross moment that remains after those values are centered and scaled. Excess Brier risk can be positive for two distributional forecasts that share a mean, because the sum runs over every coordinate of \(p^*-\hat q\).
+\(\mathbb{E}[(X-Y)^2]\) and \(\mathbb{E}[(Z_X-Z_Y)^2]\) score pairs of scalar values. Pearson correlation is the scalar cross moment that remains after those values are centered and scaled. Excess Brier risk can be positive for two distributional forecasts that share a mean, because the sum runs over every coordinate of \(p^*-\hat q\).
 
 The binary outcome is the case in which the scalar and the distribution describe the same object. For \(y\in\{0,1\}\) and a scalar forecast \(q\), `binary_brier_eq_two_l2` is the pointwise identity
 
@@ -109,7 +115,7 @@ The left-hand side is the two-class Brier score of the probability vector \((q,1
 
 | Notebook step | Theorem in `BrierCorr.lean` |
 | --- | --- |
-| \(\mathbb{E}[(\tilde X-\tilde Y)^2]=2(1-\operatorname{Corr}(X,Y))\), under sum of squares equal to \(n\) | `standardized_mse_corr` |
+| \(\mathbb{E}[(Z_X-Z_Y)^2]=2(1-\operatorname{Corr}(X,Y))\), under sum of squares equal to \(n\) | `standardized_mse_corr` |
 | \(\mathbb{E}[(X-Y)^2]=(\mu_X-\mu_Y)^2+(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y(1-\operatorname{Corr}(X,Y))\) | `mse_decomposition` |
 | Correlation unchanged by \(x\mapsto ax+b\) for \(a>0\) | `pearson_affine_invariant` |
 | Excess Brier risk equals \(\sum_y(p^*(y)-\hat q(y))^2\) | `brier_decomposition` |

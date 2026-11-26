@@ -1,0 +1,2 @@
+page1: matches 521, RANSAC inliers 230; ink px old 246843, new 406345, only in new 240529, only in old 97215
+page2: matches 3419, RANSAC inliers 3045; ink px old 340070, new 352793, only in new 107129, only in old 97866
