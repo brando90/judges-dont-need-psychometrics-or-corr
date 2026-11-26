@@ -1,4 +1,6 @@
-# Experiment 26: five new frontier judges, CE-trained versus Pearson-trained calibration at small training sizes
+# Experiment 26: five new frontier judges, CE-trained versus Pearson-trained calibration at small training sizes | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 Date: 11-23-2026 (as of 11-23-2026). Project: judges-dont-need-psychometrics-or-corr. PDF twin: `METHOD_AND_RESULTS_11-23-2026.pdf` (same content, typeset).
 

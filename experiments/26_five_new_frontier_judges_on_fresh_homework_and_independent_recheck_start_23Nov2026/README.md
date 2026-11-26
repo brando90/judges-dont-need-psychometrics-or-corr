@@ -1,4 +1,6 @@
-# Experiment 26: five new frontier judges on fresh homework answers, plus an independent recheck | 11-23-2026
+# Experiment 26: five new frontier judges on fresh homework answers, plus an independent recheck | 11-23-2026 | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 **TLDR:** [Experiment 21](../21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/README.md) already answered the layer-4 question for two judges. This adds five frontier judges (closed: GPT-6 Astra, Claude Opus 5.5; open weights: Kimi K3, GLM 5.3, DeepSeek V4.1 Flash) on the identical 160 UNT prompts, and a second implementation of the analysis that matches experiment 21's numbers to 3.5e-11. CE fit has lower held-out RPS than Pearson fit in 35 of 35 judge-by-budget cells; the pre-registered descending test passes for GPT-6 Astra and Kimi K3 (256 down to 8 training ratings) and fails at 256 for the other three. At 4 training ratings CE is not significantly better in RPS for four of five judges. New spend about $1.34 of the $100 cap.
 
