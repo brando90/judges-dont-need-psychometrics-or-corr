@@ -1,4 +1,6 @@
-# 02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026
+# 02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026 (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md>
 

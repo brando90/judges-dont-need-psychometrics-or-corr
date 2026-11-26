@@ -1,4 +1,6 @@
-# Cross-entropy versus Pearson: complete
+# Cross-entropy versus Pearson: complete (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Status, 11-09-2026:** The historical failure was reproduced; the separately frozen matched-mixture comparison and independent primary-prediction verification are complete. All 50 primary fits passed. Two CE certificate failures among 49,204 bootstrap fits were retained, leaving 998/1,000 valid resamples.
 
