@@ -1,4 +1,6 @@
-# Experiment 28: ChaosNLI and DICES with five frontier judges, CE-fit vs Pearson-fit, break-even number of human ratings | 11-23-2026
+# Experiment 28: ChaosNLI and DICES with five frontier judges, CE-fit vs Pearson-fit, break-even number of human ratings | 11-23-2026 | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 Run by ultimate_brando9 for Brando Miranda. Orchestration and analysis: Claude Sonnet 5.5 in Claude Code, headless. Judges (Stanford AI API Gateway chat completions): GPT-6 Astra, Claude Opus 5.5, Kimi K3, GLM 5.3, DeepSeek V4.1 Flash. Task AT-3292; follows experiments 22 (non-circular protocol), 21 and 26 (same 27-transform head).
 

@@ -1,0 +1,15 @@
+# Experiment 28: verified QA corrections (11-26-2026)
+
+As of 11-26-2026. Findings g6-H4, g6-H5, g6-M1 and g6-L1; CPU source/output verification, no model calls.
+
+The held-out ranked probability score (RPS) thresholds below are recalculated from saved simultaneous lower bounds. Positive lower bounds must persist at every later tested budget. This checks transferred reporting, not the missing raw-label bootstrap.
+
+- **g6-H4, cost:** old headline “At $5 a rating that is under $100”; corrected 11-26-2026: **10–20 ratings at an illustrative $5 each cost $50–$100, at most $100**. The price table already reports $100 for 20 ratings.
+- **g6-H5, KonIQ RPS threshold against Pearson-fit:** old Table 6 “12 (24 with draw resampling, 48 at three per image)”; corrected 11-26-2026: **6 ratings at one per image**, **6 with crossed draw resampling**, and **12 at three per image**. Larger old thresholds concern the uniform or joint comparison, not Pearson-fit alone.
+- **g6-H5, PersonaChat RPS threshold against Pearson-fit:** old “48 (96 at three grades per response)”; corrected 11-26-2026: **6 ratings at one per response and 6 at three per response**. The old 48/96 values concern uniform or joint wins.
+- **g6-H5, Topical-Chat RPS threshold against Pearson-fit:** old “none”; corrected 11-26-2026: **6 ratings at one per response** (and **12 at three per response**). The absence of a sustained win against uniform remains a separate claim.
+- **g6-H5, HelpSteer2/Llama calibrated CE-trained judge against uniform:** old “none”; corrected 11-26-2026: **64 total ratings under both conditional and crossed simultaneous bands**. At 64 the saved crossed lower RPS bound is **+0.00839553148176446**, remaining positive through 2,048. The Table 6 scored rows remain preserved; four of nine rows require these corrections.
+- **g6-M1, evidence limit:** old headlines “all 25” and “19 of 325” reproduce from saved contrast outputs: all 25 judge-by-dataset pairs reach joint RPS break-even at each rating depth, and 19 comparisons significantly favor Pearson-fit. The label table is explicitly stored off-repository; downloaded rating rows supporting catalog population counts are also absent. The catalog JSON supplies recorded summaries/source excerpts. Raw-rating scores, bootstrap bands and source-population counts remain unverified here, despite summary agreement.
+- **g6-L1, metric order:** the old `results/correlations.csv` has **1,950 correlation-only rows**. It is preserved as scored output. Read the [complete joined metric panel](QA_METRIC_PANEL_11-26-2026.md), which presents **RPS, cross-entropy (CE), TVD, Spearman and Pearson** for each of those same rows, keyed by dataset, judge, rating depth, budget and method. No score was changed or imputed.
+
+Evidence: [cost verification](../../docs/qa_11-25-2026/phase2/verify_g6-H4.py), [threshold verification](../../docs/qa_11-25-2026/phase2/verify_g6-H5.py), and [remaining source checks](../../docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.py), with corresponding `.txt` logs alongside them.
