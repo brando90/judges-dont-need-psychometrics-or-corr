@@ -1,0 +1,9 @@
+# Experiment 11 QA evidence (11-26-2026)
+
+Date: 11-26-2026. Read-only CPU reconstruction; no model calls.
+
+g2-M3: first README appearance: 06054e3 2026-11-17 18:28:59 -0800
+First raw sweep appearance: 06054e3 2026-11-17 18:28:59 -0800
+No earlier freeze/smoke receipt is preserved here. A current gradient check cannot establish historical pre-registration or historical maximum 2.41e-7.
+check_grad errors: ce_exact=1.68e-07, mse=2.49e-07, stage2_head=8.82e-08
+Stage-2 c_b=1e8 max |q - P.mean(0)| = 1.09e-09, max|b| = 4.08e-09

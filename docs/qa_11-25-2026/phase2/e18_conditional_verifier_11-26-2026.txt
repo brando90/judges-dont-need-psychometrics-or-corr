@@ -1,0 +1,11 @@
+QA phase 2 test e18_conditional_verifier (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/scripts/verify.py
+Exit code: 1
+
+Traceback (most recent call last):
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/scripts/verify.py", line 85, in <module>
+    verify()
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/scripts/verify.py", line 68, in verify
+    assert actual == {key:str(value) for key, value in regenerated.items()}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

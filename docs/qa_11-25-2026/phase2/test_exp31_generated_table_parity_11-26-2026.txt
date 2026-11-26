@@ -1,0 +1,4 @@
+exp31_generated_table_parity (11-26-2026)
+Generated scored table rows match preserved report: 231
+
+Exit code: 0

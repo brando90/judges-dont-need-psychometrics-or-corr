@@ -1,0 +1,34 @@
+# Experiment 01 QA evidence (11-26-2026)
+
+Date: 11-26-2026. Read-only CPU reconstruction; no model calls.
+
+g1-M1: test trace records = 9 ; candidate rows with sampled-test CE = 6912
+g1-L1: integration commits
+3bfd866 2026-11-17 Paper & one-pager: close SK feedback points 1-5, dual AAAI/arXiv build (~1.5x appendix + S1-S4 supp), sync Rule 89
+18f529e 2026-11-17 Add 11-17 weekly update, AAAI-27 Exp 09/10/04 integration, and v25 Sanmi one-pager
+g1-L4: historical command directory exists: False ; corrected directory exists: True
+g1-L5: selected sampled-test scores, 256 replications; equal average over ties. TVD not recorded for this target.
+
+| Dataset / judge | RPS | CE (nats) | TVD | Spearman | Pearson |
+|---|---:|---:|---:|---:|---:|
+| 1 ratings/item; brier selected | 0.104050707 | 1.331926262 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; ce selected | 0.103938299 | 1.329865408 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; kendall selected | 0.133588390 | 1.984490520 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; nmse selected | 0.133588390 | 1.984490520 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; pearson selected | 0.133588390 | 1.984490520 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; rps selected | 0.104084169 | 1.332631617 | not recorded | 0.781759721 | 0.791991024 |
+| 1 ratings/item; spearman selected | 0.133588390 | 1.984490520 | not recorded | 0.781759721 | 0.791991024 |
+| 2 ratings/item; brier selected | 0.104009403 | 1.328960642 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; ce selected | 0.104009403 | 1.328960642 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; kendall selected | 0.133860619 | 1.988252929 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; nmse selected | 0.133860619 | 1.988252929 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; pearson selected | 0.133860619 | 1.988252929 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; rps selected | 0.104009403 | 1.328960642 | not recorded | 0.864226637 | 0.878114143 |
+| 2 ratings/item; spearman selected | 0.133860619 | 1.988252929 | not recorded | 0.864226637 | 0.878114143 |
+| 3 ratings/item; brier selected | 0.103692706 | 1.326472497 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; ce selected | 0.103692706 | 1.326472497 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; kendall selected | 0.133563126 | 1.986653684 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; nmse selected | 0.133563126 | 1.986653684 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; pearson selected | 0.133563126 | 1.986653684 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; rps selected | 0.103692706 | 1.326472497 | not recorded | 0.898856683 | 0.913626168 |
+| 3 ratings/item; spearman selected | 0.133563126 | 1.986653684 | not recorded | 0.898856683 | 0.913626168 |

@@ -1,0 +1,7 @@
+# Experiment 01 pytest (11-26-2026)
+Date: 11-26-2026
+Command: /usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/test_study.py experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/test_validated_scorer.py
+............                                                             [100%]
+12 passed in 1.29s
+
+Exit code: 0

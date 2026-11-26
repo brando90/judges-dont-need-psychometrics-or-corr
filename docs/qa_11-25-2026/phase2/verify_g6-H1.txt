@@ -1,0 +1,8 @@
+g6-H1 verification (11-26-2026)
+ce_raw K=3 RPS point wins 26 / 27 crossed-band wins 22 / 27
+ce_raw all-panel largest-budget crossed wins 7 / 7
+rps_raw K=3 RPS point wins 24 / 27 crossed-band wins 17 / 27
+rps_raw all-panel largest-budget crossed wins 7 / 7
+ChaosNLI/Llama B=32 RPS comparator-minus-target and saved crossed 95% band: -0.0111592342 -0.0438786205 0.0215601521
+CONFIRMED: max-budget evidence does not confirm the full registered across-budget hypothesis.
+Exit code: 0

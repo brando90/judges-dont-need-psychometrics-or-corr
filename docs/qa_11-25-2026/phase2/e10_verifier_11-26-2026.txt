@@ -1,0 +1,20 @@
+QA phase 2 test e10_verifier (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/scripts/verify_results.py
+Exit code: 1
+
+Traceback (most recent call last):
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/scripts/verify_results.py", line 245, in <module>
+    main()
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/scripts/verify_results.py", line 175, in main
+    data = load_private_dataset_and_inputs()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/scripts/common.py", line 726, in load_private_dataset_and_inputs
+    raw_ds = DATASET_PATH.read_bytes()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/private/historical_exp06/cached_v1/dataset.json'

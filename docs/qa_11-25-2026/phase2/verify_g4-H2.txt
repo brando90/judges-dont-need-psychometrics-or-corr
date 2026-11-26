@@ -1,0 +1,5 @@
+QA phase 2 g4-H2 (11-26-2026)
+RPS: CE-selected = 0.18528180107039216 Pearson-selected = 0.19600819615155723
+Pearson-selected minus CE-selected RPS = 0.010726395081165074 saved 95% interval = [0.001612285381019481, 0.01933555900118563]
+CONFIRMED contradiction: never significantly worse has a saved CE-win exception.
+LIMIT: raw human ratings, per-artifact losses, and bootstrap draws absent; interval quoted, not regenerated.

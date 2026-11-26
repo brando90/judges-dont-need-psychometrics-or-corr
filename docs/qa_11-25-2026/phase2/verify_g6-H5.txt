@@ -1,0 +1,13 @@
+g6-H5 verification (11-26-2026): held-out RPS thresholds from saved contrast bounds
+KonIQ ratings_per_item 1 CE versus Pearson threshold 6
+KonIQ ratings_per_item 3 CE versus Pearson threshold 12
+PersonaChat ratings_per_item 1 CE versus Pearson threshold 6
+PersonaChat ratings_per_item 3 CE versus Pearson threshold 6
+Topical-Chat ratings_per_item 1 CE versus Pearson threshold 6
+Topical-Chat ratings_per_item 3 CE versus Pearson threshold 12
+KonIQ crossed threshold 6
+HelpSteer2/Llama CE-calibrated versus uniform sim_lo_95 threshold 64
+HelpSteer2/Llama CE-calibrated versus uniform cross_sim_lo_95 threshold 64
+HelpSteer2/Llama B=64 crossed lower 0.00839553148176446
+CONFIRMED: four of nine transferred-summary rows contain wrong comparator-specific thresholds.
+Exit code: 0

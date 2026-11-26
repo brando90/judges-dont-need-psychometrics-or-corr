@@ -1,0 +1,5 @@
+QA phase 2 g4-H1 (11-26-2026)
+Raw A cells: 252 records: 5040
+C/D, J=1 joint RPS/CE-excess bootstrap verdicts: {'CE': 9, 'mixed': 5, 'tie': 6, 'other': 22}
+Head wins: 22 of 42
+CONFIRMED: old 22 of 40; corrected 22 of 42.

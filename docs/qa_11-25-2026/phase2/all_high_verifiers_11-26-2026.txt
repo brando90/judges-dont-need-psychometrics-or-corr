@@ -1,0 +1,138 @@
+All HIGH verifier rerun (11-26-2026)
+
+verify_g1-H1.py EXIT 0 TIME 0.84s
+QA g1-H1 (11-26-2026): CONFIRMED
+11 artifacts; positive categories each = [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+Mean absolute mean error = 0.006099765046; maximum = 0.011182902584 rating points
+RPS excess = 0.076333630945; CE = 5.039282445779; TVD = 0.711562051303; KL = 3.635311444282; Pearson = 1.000000000000
+The 0.001 category masses were normalized; no recentering operation exists.
+
+verify_g2-H1.py EXIT 0 TIME 3.88s
+QA g2-H1 (11-26-2026): CONFIRMED
+mse_fixed RPS excess 0.018541735107 CE excess 0.430482754445 TVD to truth: not recorded
+mse_valrps RPS excess 0.007590648402 CE excess 0.118372084800 TVD to truth: not recorded
+constant RPS excess 0.009551171834 CE excess 0.125033457286 TVD to truth: not recorded
+Fixed-MSE minus constant RPS: 0.008990563272 95% seed-bootstrap interval: 0.008162369356 0.009812701132
+
+verify_g2-H2.py EXIT 0 TIME 1.60s
+QA g2-H2 (11-26-2026): CONFIRMED
+pearson_head_tuned RPS excess 0.012532210319 CE excess 0.166570020473 TVD to truth: not recorded
+constant RPS excess 0.011907058734 CE excess 0.155338162658 TVD to truth: not recorded
+Tuned Pearson head minus constant RPS: 0.000625151585 95% seed-bootstrap interval: 0.000193884974 0.001265643217
+
+verify_g2-H3.py EXIT 0 TIME 5.42s
+QA g2-H3 (11-26-2026): CONFIRMED; scenario A, 100 paired seeds, 500 held-out tasks/seed
+rps_excess Kendall-trained minus CE-trained, n=8: 0.000632366683 95% interval: 0.000068241804 0.001193281966
+rps_excess CE-trained better at all tested sizes from 8 tasks
+ce_excess Kendall-trained minus CE-trained, n=8: -0.004369102997 95% interval: -0.008969781531 0.000300092721
+ce_excess CE-trained better at all tested sizes from 16 tasks
+
+verify_g4-H1.py EXIT 0 TIME 1.76s
+QA phase 2 g4-H1 (11-26-2026)
+Raw A cells: 252 records: 5040
+C/D, J=1 joint RPS/CE-excess bootstrap verdicts: {'CE': 9, 'mixed': 5, 'tie': 6, 'other': 22}
+Head wins: 22 of 42
+CONFIRMED: old 22 of 40; corrected 22 of 42.
+
+verify_g4-H2.py EXIT 0 TIME 0.06s
+QA phase 2 g4-H2 (11-26-2026)
+RPS: CE-selected = 0.18528180107039216 Pearson-selected = 0.19600819615155723
+Pearson-selected minus CE-selected RPS = 0.010726395081165074 saved 95% interval = [0.001612285381019481, 0.01933555900118563]
+CONFIRMED contradiction: never significantly worse has a saved CE-win exception.
+LIMIT: raw human ratings, per-artifact losses, and bootstrap draws absent; interval quoted, not regenerated.
+
+verify_g4-H3.py EXIT 0 TIME 0.05s
+QA phase 2 g4-H3 (11-26-2026)
+C positive H5 RPS differences: 3 / 9
+C training units 3 RPS difference 6.527959764168756e-05 saved fields {'proto': 'C', 'n_train_units': 3, 'k': 1, 'splits': 250, 'train_artifacts_mean': 12.108, 'rps_ce_selected': 0.1908242836040483, 'rps_pearson_selected': 0.19088956320168998, 'rps_rps_selected': 0.1916993227295755, 'rps_constant': 0.20496769692197866, 'pearson_minus_ce': 6.527959764168756e-05, 'ci_lo': -0.00883563966038694, 'ci_hi': 0.009854945147875226, 'pearson_minus_rpsel': -0.0008097595278855063, 'ci2_lo': -0.009288521310704165, 'ci2_hi': 0.008117416209472853, 'top_choice': {'ce': 0, 'pearson': 4, 'rps': 0}, 'top_choice_share': {'ce': 0.324, 'pearson': 0.384, 'rps': 0.344}, 'pool': 'H5'}
+M positive H5 RPS differences: 0 / 12
+M training units 4 RPS difference -0.0029037074961261733 saved fields {'proto': 'M', 'n_train_units': 4, 'k': 1, 'splits': 400, 'train_artifacts_mean': 12.0, 'rps_ce_selected': 0.19580620427162898, 'rps_pearson_selected': 0.1929024967755028, 'rps_rps_selected': 0.19459512607499235, 'rps_constant': 0.19884444444444443, 'pearson_minus_ce': -0.0029037074961261733, 'ci_lo': -0.013007431728271207, 'ci_hi': 0.005848770358037123, 'pearson_minus_rpsel': -0.0016926292994895453, 'ci2_lo': -0.01311240770811227, 'ci2_hi': 0.014749711111344578, 'top_choice': {'ce': 4, 'pearson': 4, 'rps': 0}, 'top_choice_share': {'ce': 0.32, 'pearson': 0.4725, 'rps': 0.4175}, 'pool': 'H5'}
+CONFIRMED literal sign discrepancy; the cited intervals include zero, so this is not a statistically resolved reversal.
+LIMIT: aggregate arithmetic only; private rating-level inputs absent.
+
+verify_g4-H4.py EXIT 0 TIME 0.06s
+QA phase 2 g4-H4 (11-26-2026)
+8 items, 3 ratings, mean/spread/shape: RPS-excess difference Pearson-trained minus CE-trained {'diff_corr_minus_ce': 0.0024224433022397773, 'lo': -0.0018669289149089597, 'hi': 0.006711815519388514, 'ce_better_pct': 57.49999999999999}
+Closed 5-judge pool, 3 families, all ratings: RPS CE head 0.16097162750400368 Pearson head 0.18159434985309425 recomputed difference 0.020622722349090572
+Saved contrast: {'pool': 'closed_3vote_5', 'n_train_families': 3, 'ratings_per_artifact': 'all', 'arm': 'diff_head_corr_minus_ce', 'rps': 0.020622722349090572, 'rps_lo': 0.007155529018177487, 'rps_hi': 0.0406909184501834, 'ce': -3.9639454075417833, 'ce_lo': -4.69295939161823, 'ce_hi': -3.296007111357744, 'tvd': 0.09943284197469693, 'tvd_lo': 0.08372364193047685, 'tvd_hi': 0.12203618084174997, 'mean_ae': 0.2587252983460562, 'mean_ae_lo': 0.12711603813337444, 'mean_ae_hi': 0.4553195973065985, 'mean_bias': -0.049877642174719045, 'mean_bias_lo': -0.2562539194654713, 'mean_bias_hi': 0.1516801807781247, 'var_sqerr': 4.3850514133922385, 'var_sqerr_lo': 4.018508625963834, 'var_sqerr_hi': 4.825583946160251, 'var_bias': 1.495110531605081, 'var_bias_lo': 1.4432395032868697, 'var_bias_hi': 1.5714731568425564}
+CONFIRMED blanket loss claim contradicted. LIMIT: synthetic per-seed and historical per-split outputs absent; saved intervals not regenerated.
+
+verify_g4-H5.py EXIT 0 TIME 1.47s
+QA phase 2 g4-H5 (11-26-2026): exact expectations over five Binomial targets
+Truth {'RPS': 0.095278179, 'CE': 1.2342621645979852, 'TVD': 0.0, 'Spearman': 0.9999999999999999, 'Pearson': 1.0}
+A {'RPS': 0.18909789009591801, 'CE': 1.9826869819854214, 'TVD': 0.3967096089599999, 'Spearman': 0.9999999999999999, 'Pearson': 1.0}
+B {'RPS': 0.10829322331999998, 'CE': 1.341131587631693, 'TVD': 0.169138, 'Spearman': 0.9486832980505137, 'Pearson': 0.9486832980505138}
+Uniform {'RPS': 0.1922222222222222, 'CE': 1.791759469228055, 'TVD': 0.4271839999999999, 'Spearman': None, 'Pearson': None}
+Uniform minus A RPS = 0.0031243321263041968
+CONFIRMED: A is better than uniform on RPS by 0.0031243321263041968 and worse on CE; no sampling uncertainty.
+
+verify_g6-H1.py EXIT 0 TIME 0.08s
+g6-H1 verification (11-26-2026)
+ce_raw K=3 RPS point wins 26 / 27 crossed-band wins 22 / 27
+ce_raw all-panel largest-budget crossed wins 7 / 7
+rps_raw K=3 RPS point wins 24 / 27 crossed-band wins 17 / 27
+rps_raw all-panel largest-budget crossed wins 7 / 7
+ChaosNLI/Llama B=32 RPS comparator-minus-target and saved crossed 95% band: -0.0111592342 -0.0438786205 0.0215601521
+CONFIRMED: max-budget evidence does not confirm the full registered across-budget hypothesis.
+
+verify_g6-H2.py EXIT 0 TIME 0.20s
+g6-H2 verification (11-26-2026): held-out RPS; saved aggregate inputs
+chaos3_qwen: budgets=8 b=0.8940344196 relative_RMSE=0.0903955029 cutoff=0.10 verdict=passes residual criterion
+hs2_qwen: budgets=8 b=0.7556680188 relative_RMSE=0.1232691074 cutoff=0.10 verdict=poor fit
+chaos3_llama: budgets=8 b=0.6387160741 relative_RMSE=0.1050925985 cutoff=0.10 verdict=poor fit
+CONFIRMED: two of three highlighted eight-budget RPS panels fail the stated fit criterion.
+
+verify_g6-H3.py EXIT 0 TIME 0.06s
+g6-H3 verification (11-26-2026): five-judge held-out means from saved scores
+dices350 B= 64 RPS/CE/TVD {'ce': {'rps': 0.2301516, 'ce': 0.868344, 'tvd': 0.1748154}, 'pcal': {'rps': 0.228904, 'ce': 0.8637098, 'tvd': 0.190326}} RPS calibrated-Pearson minus CE= -0.0012476
+dices350 B= 128 RPS/CE/TVD {'ce': {'rps': 0.2274666, 'ce': 0.8578934, 'tvd': 0.1673832}, 'pcal': {'rps': 0.2237614, 'ce': 0.8429106, 'tvd': 0.1745098}} RPS calibrated-Pearson minus CE= -0.0037052
+dices350 first sustained lower calibrated-Pearson RPS mean: 64
+dices990 B= 64 RPS/CE/TVD {'ce': {'rps': 0.201328, 'ce': 0.7711518, 'tvd': 0.14446599999999998}, 'pcal': {'rps': 0.20266, 'ce': 0.7736636, 'tvd': 0.158993}} RPS calibrated-Pearson minus CE= 0.0013320
+dices990 B= 128 RPS/CE/TVD {'ce': {'rps': 0.1988736, 'ce': 0.7594906, 'tvd': 0.1385914}, 'pcal': {'rps': 0.197303, 'ce': 0.7522472, 'tvd': 0.14066019999999999}} RPS calibrated-Pearson minus CE= -0.0015706
+dices990 first sustained lower calibrated-Pearson RPS mean: 128
+CONFIRMED: DICES-990 crosses at 128 ratings, not 64; no significance claim from these averages.
+
+verify_g6-H4.py EXIT 0 TIME 0.04s
+g6-H4 verification (11-26-2026)
+Source summary columns: ['dataset', 'judge', 'd', 'N_pearson', 'N_uniform', 'N_hist', 'N_pcal', 'N_raw', 'N_rps', 'N_both']
+Saved d=5 joint thresholds: [Decimal('10'), Decimal('20')] pairs: 25
+10–20 ratings at illustrative USD 5/rating: USD 50.00–100.00
+CONFIRMED: at most USD 100, not under USD 100; this is illustrative arithmetic, not spending.
+
+verify_g6-H5.py EXIT 0 TIME 0.05s
+g6-H5 verification (11-26-2026): held-out RPS thresholds from saved contrast bounds
+KonIQ ratings_per_item 1 CE versus Pearson threshold 6
+KonIQ ratings_per_item 3 CE versus Pearson threshold 12
+PersonaChat ratings_per_item 1 CE versus Pearson threshold 6
+PersonaChat ratings_per_item 3 CE versus Pearson threshold 6
+Topical-Chat ratings_per_item 1 CE versus Pearson threshold 6
+Topical-Chat ratings_per_item 3 CE versus Pearson threshold 12
+KonIQ crossed threshold 6
+HelpSteer2/Llama CE-calibrated versus uniform sim_lo_95 threshold 64
+HelpSteer2/Llama CE-calibrated versus uniform cross_sim_lo_95 threshold 64
+HelpSteer2/Llama B=64 crossed lower 0.00839553148176446
+CONFIRMED: four of nine transferred-summary rows contain wrong comparator-specific thresholds.
+
+verify_g7-H1.py EXIT 0 TIME 0.07s
+g7-H1 verification (11-26-2026)
+Source: experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/results/scores_absolute.csv
+Evidence level: re-aggregation of saved score rows, not rating-to-score replay.
+dices350 d=1 B= 64 RPS/CE/TVD: {'ce': {'rps': 0.2301516, 'ce': 0.868344, 'tvd': 0.1748154}, 'pcal': {'rps': 0.228904, 'ce': 0.8637098, 'tvd': 0.190326}} RPS calibrated-Pearson minus CE: -0.001247600
+dices350 d=1 B= 128 RPS/CE/TVD: {'ce': {'rps': 0.2274666, 'ce': 0.8578934, 'tvd': 0.1673832}, 'pcal': {'rps': 0.2237614, 'ce': 0.8429106, 'tvd': 0.1745098}} RPS calibrated-Pearson minus CE: -0.003705200
+dices350 sustained mean RPS advantage starts at 64 ratings
+dices990 d=1 B= 64 RPS/CE/TVD: {'ce': {'rps': 0.201328, 'ce': 0.7711518, 'tvd': 0.14446599999999998}, 'pcal': {'rps': 0.20266, 'ce': 0.7736636, 'tvd': 0.158993}} RPS calibrated-Pearson minus CE: 0.001332000
+dices990 d=1 B= 128 RPS/CE/TVD: {'ce': {'rps': 0.1988736, 'ce': 0.7594906, 'tvd': 0.1385914}, 'pcal': {'rps': 0.197303, 'ce': 0.7522472, 'tvd': 0.14066019999999999}} RPS calibrated-Pearson minus CE: -0.001570600
+dices990 sustained mean RPS advantage starts at 128 ratings
+Verdict: CONFIRMED; DICES-350 starts at 64, DICES-990 at 128 for d=1, averaged over five judges.
+
+verify_g7-H2.py EXIT 0 TIME 0.07s
+g7-H2 verification (11-26-2026)
+Source: experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results/analysis_summary.json
+Evidence level: aggregate field attribution and subtraction; protected ratings and family losses absent.
+exp09_verbal_6prob_pool ce_mix_train {'rps': 0.14313873196217639, 'ce': 1.629370884564132, 'tvd': 0.5962936074254288}
+exp09_verbal_6prob_pool corr_mix_pearson {'rps': 0.18480959573073585, 'ce': 1.8039072778238945, 'tvd': 0.6422128721074147}
+Pearson-trained minus CE-trained: {'rps': 0.04167086376855947, 'ce': 0.17453639325976256, 'tvd': 0.04591926468198593}
+exp14_3sample_scalar_39judges ce_mix_train {'rps': 0.28186807710859413, 'ce': 3.4800776180601094, 'tvd': 0.7418527556477366}
+exp14_3sample_scalar_39judges corr_mix_pearson {'rps': 0.32634152555963813, 'ce': 5.668318537116841, 'tvd': 0.738107143456054}
+Pearson-trained minus CE-trained: {'rps': 0.044473448451044006, 'ce': 2.1882409190567316, 'tvd': -0.003745612191682568}
+Verdict: CONFIRMED wrong comparator; verbal CE 1.629 vs 1.804, not 3.480 nats.

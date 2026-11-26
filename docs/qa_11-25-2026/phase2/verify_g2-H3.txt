@@ -1,0 +1,5 @@
+QA g2-H3 (11-26-2026): CONFIRMED; scenario A, 100 paired seeds, 500 held-out tasks/seed
+rps_excess Kendall-trained minus CE-trained, n=8: 0.000632366683 95% interval: 0.000068241804 0.001193281966
+rps_excess CE-trained better at all tested sizes from 8 tasks
+ce_excess Kendall-trained minus CE-trained, n=8: -0.004369102997 95% interval: -0.008969781531 0.000300092721
+ce_excess CE-trained better at all tested sizes from 16 tasks

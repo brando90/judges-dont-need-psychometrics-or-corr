@@ -1,0 +1,4 @@
+exp24_verifier (11-26-2026)
+VERIFICATION PASSED: protocol SHA-256 intact, 220/220 non-zero LoRA/head updates, 22/22 disk reloads < 1e-7, repo-local scores/contrasts arithmetic matched (< 1e-9); skipped raw-bundle checks (/tmp/exp24_helpsteer2_raw/prepared_bundle.json absent), zero banned terminology.
+
+Exit code: 0

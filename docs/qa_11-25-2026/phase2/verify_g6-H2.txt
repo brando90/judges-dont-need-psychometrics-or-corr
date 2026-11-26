@@ -1,0 +1,6 @@
+g6-H2 verification (11-26-2026): held-out RPS; saved aggregate inputs
+chaos3_qwen: budgets=8 b=0.8940344196 relative_RMSE=0.0903955029 cutoff=0.10 verdict=passes residual criterion
+hs2_qwen: budgets=8 b=0.7556680188 relative_RMSE=0.1232691074 cutoff=0.10 verdict=poor fit
+chaos3_llama: budgets=8 b=0.6387160741 relative_RMSE=0.1050925985 cutoff=0.10 verdict=poor fit
+CONFIRMED: two of three highlighted eight-budget RPS panels fail the stated fit criterion.
+Exit code: 0

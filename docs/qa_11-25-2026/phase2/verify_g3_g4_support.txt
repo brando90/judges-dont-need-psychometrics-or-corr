@@ -1,0 +1,47 @@
+QA phase 2 g3/g4 supporting checks (11-26-2026)
+Inventory historical individual ratings []
+Inventory synthetic E20 raw []
+Inventory public source prepared arrays []
+Inventory original source archives ['paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/deposit/ce-not-correlation-memo-sources-11-25-2026.zip']
+Experiment 09 retained raw/receipt filenames: []
+Experiment 10 retained raw/receipt filenames: []
+Experiment 16 retained raw/receipt filenames: []
+Experiment 17 retained raw/receipt filenames: ['results/raw.jsonl.gz']
+Experiment 18 retained raw/receipt filenames: ['conditional_shape_and_rating_budget/results/raw.csv.gz', 'sweep/results/rawA.jsonl.gz', 'sweep/results/rawB.jsonl.gz']
+Experiment 19 retained raw/receipt filenames: ['human_judges/bootstrap_sensitivity.py', 'human_judges/bootstrap_sensitivity.csv']
+Experiment 20 retained raw/receipt filenames: []
+Experiment 21 retained raw/receipt filenames: ['veribench/audit_tokens.py', 'runners/QWEN_INFERENCE_RECEIPT_11-21-2026.json', 'runners/CLAUDE_INFERENCE_RECEIPT_11-21-2026.json']
+Experiment 22 retained raw/receipt filenames: []
+Experiment 23 retained raw/receipt filenames: ['continuous/results/verified_draw_wins.csv', 'usr/results/topical_usr/draw_rps.csv', 'usr/results/persona_lexical/draw_rps.csv', 'usr/results/topical_lexical/draw_rps.csv', 'results/jeffreys_relevance/draw_rps.csv', 'results/image_quality/draw_rps.csv', 'results/jeffreys_consistency/draw_rps.csv', 'results/gpt4_consistency/draw_rps.csv', 'results/summary_metrics/draw_rps.csv', 'results/gpt4_relevance/draw_rps.csv']
+g3-M1 q3_4b_2507 ce_lora_val_rps_3 individual bias 0.562559753991049 artifact bias 0.4830575761199971 individual human mean 2.5538461538461537
+g3-M1 q3_4b_2507 pearson_lora_train_2 individual bias 1.585030262708373 artifact bias 1.5335545974577038 individual human mean 2.5538461538461537
+g3-M1 q25c_7b ce_lora_val_rps_3 individual bias 0.20349423249444376 artifact bias 0.13584773637519154 individual human mean 2.5538461538461537
+g3-M1 q25c_7b pearson_lora_train_2 individual bias 2.1791005441491587 artifact bias 2.114081325255144 individual human mean 2.5538461538461537
+g3-M2 aggregate RPS difference 0.04167086376855947
+g3-M3 saved repeat SD 0.017836
+g3-L5 proper scores first {'rps': 0.034074, 'ce': 0.481883, 'tvd': 1.8e-05, 'spearman': 1.0, 'pearson': 1.0}
+g3-M4 saved failure counts all {'pm': 0, 'cm': 1, 'rm': 78}
+g3-M4 saved failure counts old5 {'pm': 0, 'cm': 0, 'rm': 4}
+g3-M4 saved failure counts open {'pm': 0, 'cm': 2, 'rm': 52}
+g3-M4 per-artifact proper-score means 360 max error 0 seconds min/max/sum 2.224163770675659 20.549976348876953 84.4027009010315
+g3-M5 cells 4400 sha256 ecd3789f6d32ea84ceeeef6c94182d4e000399263b9f98ef36dfd31629dc819a
+g3-M6 aggregate RPS difference 0.019975846931532926 saved draws fraction 0.015 saved endpoints 0.001949878613362269 0.05177509701462617
+g4-M1 chronology quoted - 11-21-2026 12:20: sweeps A and B pre-registered below, then launched (`sweep/scripts/`). ## Sweep design and predictions (written 11-21-2026 12:20, before any sweep cell ran) - 11-21-2026 ~12:05: sweeps A (5,040 cells) and B (25,200 pools) and the real-data n_train sweep finished (skampere1, CPU, $0). Results, predictions scored, limits: `RESULTS_11-21-2026.md`; tables `sweep/results/tables.md`; figure `figures/fig_A_rps_vs_n.png`; analysis `sweep/scripts/analyze.py`. Real-data runs: `real_n_sweep/`.
+g4-L1 reconciliation cells 105
+g4-M2 first saved historical contrast {'train_families': '3', 'train_ratings_per_artifact': '1', 'subtrahend_selector': 'ce', 'pearson_selected_minus_other_test_rps': '0.03308146916053503', 'family_bayes_95_lo': '0.0167702033665396', 'family_bayes_95_hi': '0.057299188075486736', 'draws': '1000', 'matched_splits': '250'}
+g4-M3 historical headline aggregate {'diff_corr_minus_ce': 0.03350028135231302, 'lo': 0.031059171907978363, 'hi': 0.035941390796647675, 'ce_better_pct': 96.0}
+g4-M4 saved manifest answers 160
+g4-M5 inventory arithmetic 43050 23652
+g4-L5 matched diagnostic rows usr/results/topical_usr/diagnostics.csv 84
+g4-L5 matched diagnostic rows usr/results/persona_lexical/diagnostics.csv 84
+g4-L5 matched diagnostic rows usr/results/topical_lexical/diagnostics.csv 98
+g4-L5 matched diagnostic rows results/jeffreys_relevance/diagnostics.csv 112
+g4-L5 matched diagnostic rows results/image_quality/diagnostics.csv 154
+g4-L5 matched diagnostic rows results/jeffreys_consistency/diagnostics.csv 112
+g4-L5 matched diagnostic rows results/gpt4_consistency/diagnostics.csv 112
+g4-L5 matched diagnostic rows results/summary_metrics/diagnostics.csv 112
+g4-L5 matched diagnostic rows results/gpt4_relevance/diagnostics.csv 112
+g4-M6 per-draw RPS means 980 max difference 1.4432899320127035e-15
+Derived-view row counts, correlation identity and metric ordering verified.
+Preregisration/locked files unchanged; missing guides added.
+PASS. Aggregate-only checks do not replace unavailable original observations or execution receipts.

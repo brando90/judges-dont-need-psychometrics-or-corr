@@ -1,0 +1,17 @@
+QA phase 2 test e19_exact_verifier (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/theory_simulation/verify.py
+Exit code: 0
+
+For k=1,2 all 27 and 729 ordered data sets replayed with direct Pearson and log loss.
+All 384 exact selection rows normalized, 576 population-risk rows checked.
+All 48 law-pair/input checks satisfy the total-variation, moment and KL bounds.
+One-label error rates 2/5 and 1/5 and prevalence threshold 1/3 independently verified.
+Joint search, low spread, equal true curves: population-test mean squared error.
+ 1 training rating(s): CE 0.034666667, Pearson 0.040000000
+ 3 training rating(s): CE 0.028160000, Pearson 0.028160000
+ 6 training rating(s): CE 0.022851200, Pearson 0.023041280
+ 9 training rating(s): CE 0.019362441, Pearson 0.019599764
+12 training rating(s): CE 0.016712601, Pearson 0.016955802
+18 training rating(s): CE 0.012808597, Pearson 0.013037662
+24 training rating(s): CE 0.010031174, Pearson 0.010239773
+36 training rating(s): CE 0.006375360, Pearson 0.006542970

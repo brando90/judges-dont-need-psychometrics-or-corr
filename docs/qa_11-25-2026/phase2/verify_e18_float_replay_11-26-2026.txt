@@ -1,0 +1,4 @@
+E18 exact-string replay diagnosis (11-26-2026)
+First and last replication serialized numeric differences: 719
+Maximum absolute difference: 4.85722573273506e-16
+PASS numerical tolerance 1e-12. The original verifier still exits 1 on exact-string equality; this diagnosis does not relabel it as passing.

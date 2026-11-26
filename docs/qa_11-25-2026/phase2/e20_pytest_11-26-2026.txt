@@ -1,0 +1,6 @@
+QA phase 2 test e20_pytest (11-26-2026)
+Command: python3 -m pytest -q /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/code/test_lib20.py
+Exit code: 5
+
+
+no tests ran in 1.58s

@@ -1,0 +1,37 @@
+g7 remaining checks (11-26-2026)
+g7-M1: saved score aggregation; original labels are not reconstructed
+Point RPS wins 25 / 325 Counter({('5', '10'): 22, ('1', '4'): 3})
+Simultaneous-bound RPS wins 19 Counter({('5', '10'): 18, ('1', '4'): 1})
+g7-M2: raw record count 540 scenarios 2 sizes 9 seeds 30
+ce restart counts [1]
+rps restart counts [5]
+pearson restart counts [5]
+pearson_head restart counts derived head; no independent restart array
+spearman restart counts [5]
+kendall restart counts [5]
+pearson_spearman restart counts [5]
+g7-M3: out_real_lam0.01.json splits 250
+g7-M3: out_real_lam0.1.json splits 250
+g7-M3: out_real_lam1.0.json splits 250
+g7-M4: reconstruct all E21 contrast lower bounds from saved fold scores
+alpha=0.025: 312 lower bounds, max error 2.1445956122079224e-11
+E26 alpha=0.01 in analysis/recheck.py invocation and saved report; see g5 evidence for decision replication.
+g7-M5: largest-budget MSE-trained minus CE-trained RPS with stored crossed simultaneous bounds
+('alpha2_qwen', '1') B 1024 RPS 0.0003439523424719585 CI -0.002092847399137188 0.002780752084081105
+('chaos3_llama', '1') B 2048 RPS 0.0024939137726134224 CI -0.000657272656033226 0.005645100201260071
+('chaos3_qwen', '1') B 2048 RPS 0.0030515417956842135 CI 0.0005845245636522914 0.005518559027716136
+('chaos3_qwen', '5') B 1280 RPS 0.011596902727805775 CI 0.003938232639688715 0.019255572815922835
+('dices3_llama', '1') B 1024 RPS 0.06061936974463561 CI 0.0471606145481891 0.07407812494108212
+('dices3_qwen', '1') B 1024 RPS 0.05508000384905337 CI 0.04182484474631394 0.0683351629517928
+('hs2_qwen', '1') B 2048 RPS 0.03057999400560505 CI 0.022762099327981785 0.03839788868322831
+g7-M6: E20 aggregate match is not a per-seed reconstruction
+mean_spread_shape|nr3|lam0.01|m4|rps_excess {'diff_corr_minus_ce': -0.026825322696589257, 'lo': -0.0323703419930909, 'hi': -0.02128030340008762, 'ce_better_pct': 24.0}
+mean_spread_shape|nr3|lam0.01|m16|rps_excess {'diff_corr_minus_ce': 0.03350028135231302, 'lo': 0.031059171907978363, 'hi': 0.035941390796647675, 'ce_better_pct': 96.0}
+out_synth.json paths []
+g7-M7: searched prepared rating bundle basenames referenced by manifests
+prepared_bundle.json []
+exp25_bundle.json []
+exp29_bundle.json []
+g7-L1 current top-level numbered folders without reading guide:
+8 / 31 ['15_rater_severity_vs_item_signal_start_20Nov2026', '16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026', '17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026', '27_correlation_identification_preprint_23Nov2026', '28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026', '30_ce_vs_pearson_summary_readable_figures_start_25Nov2026', '31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026', '32_ce_vs_corr_figures_report_start_25Nov2026']
+The phase-1 baseline had 11/30 missing; current main adds experiment 34. Guides added during phase 2 alter the final count.

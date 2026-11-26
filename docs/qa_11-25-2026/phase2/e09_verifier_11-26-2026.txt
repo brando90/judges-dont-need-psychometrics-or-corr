@@ -1,0 +1,5 @@
+QA phase 2 test e09_verifier (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/scripts/verify_results.py
+Exit code: 0
+
+VERIFICATION PASSED: 693 deterministic checks succeeded.

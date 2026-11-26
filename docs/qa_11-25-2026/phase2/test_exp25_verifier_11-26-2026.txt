@@ -1,0 +1,4 @@
+exp25_verifier (11-26-2026)
+VERIFICATION PASSED: protocol SHA-256 intact, Qwen3-4B (200 runs) + Llama-3.1-8B (160 runs) non-zero LoRA/head updates, all draw-0 disk reloads < 1e-7, repo-local scores/contrasts arithmetic matched (< 1e-9); skipped raw-bundle checks (/tmp/exp25_helpsteer2_raw/exp25_bundle.json absent), 360/360 L-BFGS-B calibrator gradient norms < 1e-6, zero banned terminology.
+
+Exit code: 0

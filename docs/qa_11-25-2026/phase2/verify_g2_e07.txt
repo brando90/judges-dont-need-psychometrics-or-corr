@@ -1,0 +1,6 @@
+# Experiment 07 QA evidence (11-26-2026)
+
+Date: 11-26-2026. Read-only CPU reconstruction; no model calls.
+
+g2-M2: changed tuned fits 338 = {'0.01': 337, '0.1': 1, '1': 0, '10': 0, '100': 0} ; converged 95291 / 95291
+Historical individual refit outputs and earlier 1e-17 reproduction receipt absent; this verifies receipt arithmetic only.

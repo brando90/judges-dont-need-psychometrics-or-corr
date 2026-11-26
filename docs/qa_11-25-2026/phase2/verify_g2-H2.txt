@@ -1,0 +1,4 @@
+QA g2-H2 (11-26-2026): CONFIRMED
+pearson_head_tuned RPS excess 0.012532210319 CE excess 0.166570020473 TVD to truth: not recorded
+constant RPS excess 0.011907058734 CE excess 0.155338162658 TVD to truth: not recorded
+Tuned Pearson head minus constant RPS: 0.000625151585 95% seed-bootstrap interval: 0.000193884974 0.001265643217

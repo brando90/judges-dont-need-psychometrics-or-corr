@@ -1,0 +1,7 @@
+# Experiment 04 pytest (11-26-2026)
+Date: 11-26-2026
+Command: /usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/scripts/test_metrics.py
+.......                                                                  [100%]
+7 passed in 0.95s
+
+Exit code: 0

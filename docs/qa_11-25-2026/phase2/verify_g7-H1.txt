@@ -1,0 +1,10 @@
+g7-H1 verification (11-26-2026)
+Source: experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/results/scores_absolute.csv
+Evidence level: re-aggregation of saved score rows, not rating-to-score replay.
+dices350 d=1 B= 64 RPS/CE/TVD: {'ce': {'rps': 0.2301516, 'ce': 0.868344, 'tvd': 0.1748154}, 'pcal': {'rps': 0.228904, 'ce': 0.8637098, 'tvd': 0.190326}} RPS calibrated-Pearson minus CE: -0.001247600
+dices350 d=1 B= 128 RPS/CE/TVD: {'ce': {'rps': 0.2274666, 'ce': 0.8578934, 'tvd': 0.1673832}, 'pcal': {'rps': 0.2237614, 'ce': 0.8429106, 'tvd': 0.1745098}} RPS calibrated-Pearson minus CE: -0.003705200
+dices350 sustained mean RPS advantage starts at 64 ratings
+dices990 d=1 B= 64 RPS/CE/TVD: {'ce': {'rps': 0.201328, 'ce': 0.7711518, 'tvd': 0.14446599999999998}, 'pcal': {'rps': 0.20266, 'ce': 0.7736636, 'tvd': 0.158993}} RPS calibrated-Pearson minus CE: 0.001332000
+dices990 d=1 B= 128 RPS/CE/TVD: {'ce': {'rps': 0.1988736, 'ce': 0.7594906, 'tvd': 0.1385914}, 'pcal': {'rps': 0.197303, 'ce': 0.7522472, 'tvd': 0.14066019999999999}} RPS calibrated-Pearson minus CE: -0.001570600
+dices990 sustained mean RPS advantage starts at 128 ratings
+Verdict: CONFIRMED; DICES-350 starts at 64, DICES-990 at 128 for d=1, averaged over five judges.

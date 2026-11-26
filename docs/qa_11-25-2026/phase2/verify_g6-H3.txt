@@ -1,0 +1,18 @@
+g6-H3 verification (11-26-2026): five-judge held-out means from saved scores
+Traceback (most recent call last):
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/docs/qa_11-25-2026/phase2/verify_g6-H3.py", line 15, in <module>
+    assert all(len(v) == 5 for v in methods.values())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Exit code: 1
+
+Rerun after schema/conciseness correction (11-26-2026)
+g6-H3 verification (11-26-2026): five-judge held-out means from saved scores
+dices350 B= 64 RPS/CE/TVD {'ce': {'rps': 0.2301516, 'ce': 0.868344, 'tvd': 0.1748154}, 'pcal': {'rps': 0.228904, 'ce': 0.8637098, 'tvd': 0.190326}} RPS calibrated-Pearson minus CE= -0.0012476
+dices350 B= 128 RPS/CE/TVD {'ce': {'rps': 0.2274666, 'ce': 0.8578934, 'tvd': 0.1673832}, 'pcal': {'rps': 0.2237614, 'ce': 0.8429106, 'tvd': 0.1745098}} RPS calibrated-Pearson minus CE= -0.0037052
+dices350 first sustained lower calibrated-Pearson RPS mean: 64
+dices990 B= 64 RPS/CE/TVD {'ce': {'rps': 0.201328, 'ce': 0.7711518, 'tvd': 0.14446599999999998}, 'pcal': {'rps': 0.20266, 'ce': 0.7736636, 'tvd': 0.158993}} RPS calibrated-Pearson minus CE= 0.0013320
+dices990 B= 128 RPS/CE/TVD {'ce': {'rps': 0.1988736, 'ce': 0.7594906, 'tvd': 0.1385914}, 'pcal': {'rps': 0.197303, 'ce': 0.7522472, 'tvd': 0.14066019999999999}} RPS calibrated-Pearson minus CE= -0.0015706
+dices990 first sustained lower calibrated-Pearson RPS mean: 128
+CONFIRMED: DICES-990 crosses at 128 ratings, not 64; no significance claim from these averages.
+Exit code: 0

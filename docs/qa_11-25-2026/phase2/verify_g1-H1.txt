@@ -1,0 +1,5 @@
+QA g1-H1 (11-26-2026): CONFIRMED
+11 artifacts; positive categories each = [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+Mean absolute mean error = 0.006099765046; maximum = 0.011182902584 rating points
+RPS excess = 0.076333630945; CE = 5.039282445779; TVD = 0.711562051303; KL = 3.635311444282; Pearson = 1.000000000000
+The 0.001 category masses were normalized; no recentering operation exists.

@@ -1,0 +1,5 @@
+QA g2-H1 (11-26-2026): CONFIRMED
+mse_fixed RPS excess 0.018541735107 CE excess 0.430482754445 TVD to truth: not recorded
+mse_valrps RPS excess 0.007590648402 CE excess 0.118372084800 TVD to truth: not recorded
+constant RPS excess 0.009551171834 CE excess 0.125033457286 TVD to truth: not recorded
+Fixed-MSE minus constant RPS: 0.008990563272 95% seed-bootstrap interval: 0.008162369356 0.009812701132

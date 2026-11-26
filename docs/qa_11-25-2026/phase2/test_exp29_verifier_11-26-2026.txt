@@ -1,0 +1,4 @@
+exp29_verifier (11-26-2026)
+EXP29 VERIFICATION PASSED: protocol SHA-256 intact, 1401/1401 nonzero LoRA/head updates across 6 studies, cal grad norms < 1e-6, skipped raw-bundle checks (absent), AST & banned-word clean.
+
+Exit code: 0

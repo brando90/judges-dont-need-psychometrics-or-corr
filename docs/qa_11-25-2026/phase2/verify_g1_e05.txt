@@ -1,0 +1,11 @@
+# Experiment 05 QA evidence (11-26-2026)
+
+Date: 11-26-2026. Read-only CPU reconstruction; no model calls.
+
+g1-L8: exact population distribution panel, 11 A1 artifacts; smoothed endpoints have six positive categories and affine-transformed means.
+
+| Dataset / judge | RPS | CE (nats) | TVD | Spearman | Pearson |
+|---|---:|---:|---:|---:|---:|
+| True distribution | 0.116707954 | 1.403971001 | 0.000000000 | 1.000000000 | 1.000000000 |
+| Maximum entropy with matching mean | 0.123568696 | 1.521294513 | 0.198893418 | 1.000000000 | 1.000000000 |
+| Smoothed endpoint mixture | 0.193041585 | 5.039282446 | 0.711562051 | 1.000000000 | 1.000000000 |

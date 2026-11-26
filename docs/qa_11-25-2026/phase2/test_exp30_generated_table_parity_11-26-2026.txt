@@ -1,0 +1,10 @@
+exp30_generated_table_parity (11-26-2026)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+AssertionError
+
+Exit code: 1
+
+Corrected invocation (11-26-2026): generator writes Markdown rather than printing it; evaluated AST with write_text calls omitted.
+55 preserved table rows and full corrected report match generated Markdown.
+Exit code: 0

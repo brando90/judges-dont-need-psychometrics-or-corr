@@ -1,0 +1,26 @@
+# Experiment 04 QA evidence (11-26-2026)
+
+Date: 11-26-2026. Read-only CPU reconstruction; no model calls.
+
+g1-M4: aggregate RPS gap H0_opus minus H0_sol = 0.08222154222334213
+Aggregate ranking Kendall tau = -0.39999999999999997
+Private Phase C dataset missing; scores and 10,000-draw intervals remain aggregate-only.
+g1-L7: A1 population scores recomputed from rational probabilities; Phase C table transcribed from aggregate JSON with provenance limitation above.
+
+| Dataset / judge | RPS | CE (nats) | TVD | Spearman | Pearson |
+|---|---:|---:|---:|---:|---:|
+| A1 population / truth | 0.116707954 | 1.403971001 | 0.000000000 | 1.000000000 | 1.000000000 |
+| A1 population / forecast | 0.116726547 | 1.405603049 | 0.014755629 | 1.000000000 | 1.000000000 |
+| A1_max population / forecast | 0.133397826 | 2.397834311 | 0.445986821 | 1.000000000 | 1.000000000 |
+| Phase C test / baseline_train_marginal | 0.180477702 | 1.800402044 | 0.661538559 | not recorded | not recorded |
+| Phase C test / H0_sol | 0.190739645 | 9.132984041 | 0.672221522 | 0.593001961 | 0.663652243 |
+| Phase C test / H1_sol | 0.212220869 | 9.122740319 | 0.666665700 | 0.767431184 | 0.799192223 |
+| Phase C test / H2_sol | 0.203331998 | 8.446424404 | 0.627776978 | 0.811447672 | 0.840346874 |
+| Phase C test / H0_opus | 0.272961187 | 10.373840949 | 0.749998767 | 0.659087512 | 0.581912811 |
+| Phase C test / H2_opus | 0.195924644 | 8.709692721 | 0.638888022 | 0.839711956 | 0.861880690 |
+| Phase C all75 / baseline_train_marginal | 0.175121610 | 1.777724842 | 0.661880491 | not recorded | not recorded |
+| Phase C all75 / H0_sol | 0.185480477 | 8.276143710 | 0.606666253 | 0.548138060 | 0.616390721 |
+| Phase C all75 / H1_sol | 0.194369156 | 8.491952606 | 0.635554916 | 0.680403898 | 0.716912560 |
+| Phase C all75 / H2_sol | 0.199702411 | 8.432332759 | 0.619999413 | 0.664804775 | 0.692887867 |
+| Phase C all75 / H0_opus | 0.216887548 | 8.650340936 | 0.642221676 | 0.562136224 | 0.609330346 |
+| Phase C all75 / H2_opus | 0.179258073 | 8.097932666 | 0.599999467 | 0.769241233 | 0.777381067 |

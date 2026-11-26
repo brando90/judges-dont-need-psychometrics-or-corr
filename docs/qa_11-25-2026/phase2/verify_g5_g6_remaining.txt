@@ -1,0 +1,57 @@
+g5/g6 MEDIUM and LOW verification (11-26-2026)
+E24 raw-label bundle exists=False tracked equivalents=[]
+experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/results/predictions.npz keys 663 label/prompt/split keys []
+E25 raw-label bundle exists=False tracked equivalents=[]
+experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/results/llama31_8b_predictions.npz keys 483 label/prompt/split keys []
+experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/results/qwen3_4b_predictions.npz keys 603 label/prompt/split keys []
+E29 raw-label bundle exists=False tracked equivalents=[]
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/alpha2_qwen_predictions.npz keys 483 label/prompt/split keys []
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/chaos3_llama_predictions.npz keys 963 label/prompt/split keys []
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/chaos3_qwen_predictions.npz keys 1323 label/prompt/split keys []
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/dices3_llama_predictions.npz keys 483 label/prompt/split keys []
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/dices3_qwen_predictions.npz keys 483 label/prompt/split keys []
+experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/results/hs2_qwen_extra_predictions.npz keys 486 label/prompt/split keys []
+E24 saved headline qwen ce_calibrated RPS/CE/TVD 0.15199526741822417 1.3326451470384009 0.45561018725132135
+E24 saved headline qwen pearson_calibrated RPS/CE/TVD 0.1530916722240984 1.3416986447433228 0.4602139279267631
+E25 saved headline qwen3_4b ce_calibrated RPS/CE/TVD 0.1507992727848254 1.3230879836119025 0.4557684153135644
+E25 saved headline qwen3_4b pearson_calibrated RPS/CE/TVD 0.15089134455195347 1.328462796930046 0.45797351820093546
+E25 saved headline llama31_8b ce_calibrated RPS/CE/TVD 0.16005498463399712 1.3669118832139886 0.46836982486200707
+E25 saved headline llama31_8b pearson_calibrated RPS/CE/TVD 0.15893102567615408 1.3662585707501353 0.4699141404508538
+E26 saved RPS ce_fit 0.066027006287224
+E26 saved RPS pearson_fit 0.0843181067819244
+E26 label-like tracked files ['experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/forecasts/requests_unt_label_free.jsonl', 'experiments/32_ce_vs_corr_figures_report_start_25Nov2026/figures/fig4_exp26_homework_rps_vs_ratings_per_judge.svg', 'experiments/archive/13_toy_pearson_vs_ce_nonlinear_ratings_start_10Nov2026_end_10Nov2026/fig_excess_vs_n_with_head_labeled.png']
+g5-M4 actual scorer probability at an originally zero category:
+24 uniform-mixture weight 6e-06 category floor 1.2000000000000008e-06
+24 uniform-mixture weight 0.01 category floor 0.0020000000000000005
+25 uniform-mixture weight 6e-06 category floor 1.2000000000000008e-06
+25 uniform-mixture weight 0.01 category floor 0.0020000000000000005
+g5-L1 selected runs training_provenance.json 220
+g5-L1 selected runs qwen3_4b_provenance.json 200
+g5-L1 selected runs llama31_8b_provenance.json 160
+g5-M5 protocol count 3428357; recorded count 2641925 difference 786432
+g5-M6 PDF SHA256 6263b743236557455adad26230edaea3ebcf21626f69725fbc50260edbddf148
+g5-M6 deposited ZIP local candidates []
+g5-L2 HOW_TO_READ_RESULTS present [24, 25, 26] of 4
+g6-L5 HOW_TO_READ_RESULTS present [29, 33] of 6
+g5-L3 completed header and stale next steps both present True True
+g5-L4 exact toy results:
+K = 3; n = 3; no fitted model; exact finite illustration
+target means: 1/2, 1, 3/2
+forecast means: 1/2, 1, 3/2
+correlation: 1.0
+True distribution: TVD=0; excess RPS=0; expected RPS=49/300; CE=0.915387330 nats; excess CE=0.000000000 nats
+Changed shape, same mean: TVD=1/5; excess RPS=3/200; expected RPS=107/600; CE=1.064735095 nats; excess CE=0.149347765 nats
+All exact rational assertions passed.
+truth RPS 49/300 CE 0.9153873296489315 TVD 0 Pearson 1.0
+same-mean forecast RPS 107/600 CE 1.0647350946529013 TVD 1/5 Pearson 1.0
+g6-M1 saved joint break-even pairs Counter({'1': 25, '5': 25})
+g6-M1/M6 significant Pearson RPS wins 19 by (ratings, items) {(10, 2): 18, (4, 4): 1}
+g6-M3 unidentified 17 of 25 zero lower 6 positive lower 11
+g6-M3 MNLI Claude stored floor lower 0.130233
+g6-M4 max budget by ratings/item {'1': 256, '5': 320}
+g6-M5 saved human LOVO RPS {'chaos3': 0.11667633846564765, 'alpha2': 0.08484765533980583, 'dices3': 0.18118011928036193, 'hs2': 0.14566637200282992}
+g6-M7 finite-difference default step 1e-06
+g6-L1 correlation-only records 1950 columns ['dataset', 'judge', 'd', 'B', 'method', 'pearson_expected_vs_human_mean', 'spearman_expected_vs_human_mean']
+g6-L2 correlation-only table data rows 12
+g6-L4 figures total 66 E26 rpa1 0 E26 rpa2 15
+Limit: saved summaries and absence checks do not regenerate scores, bootstrap bands, ratings or split identity.

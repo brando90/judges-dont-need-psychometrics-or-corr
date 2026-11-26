@@ -1,0 +1,7 @@
+QA phase 2 g4-H5 (11-26-2026): exact expectations over five Binomial targets
+Truth {'RPS': 0.095278179, 'CE': 1.2342621645979852, 'TVD': 0.0, 'Spearman': 0.9999999999999999, 'Pearson': 1.0}
+A {'RPS': 0.18909789009591801, 'CE': 1.9826869819854214, 'TVD': 0.3967096089599999, 'Spearman': 0.9999999999999999, 'Pearson': 1.0}
+B {'RPS': 0.10829322331999998, 'CE': 1.341131587631693, 'TVD': 0.169138, 'Spearman': 0.9486832980505137, 'Pearson': 0.9486832980505138}
+Uniform {'RPS': 0.1922222222222222, 'CE': 1.791759469228055, 'TVD': 0.4271839999999999, 'Spearman': None, 'Pearson': None}
+Uniform minus A RPS = 0.0031243321263041968
+CONFIRMED: A is better than uniform on RPS by 0.0031243321263041968 and worse on CE; no sampling uncertainty.

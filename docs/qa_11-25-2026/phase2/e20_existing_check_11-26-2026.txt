@@ -1,0 +1,6 @@
+QA phase 2 test e20_existing_check (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/code/test_lib20.py
+Exit code: 0
+
+ce mean-train-corr 0.5407909435312181 ce 1.0849467816745368
+corr mean-train-corr 0.9999999893334457 ce 1.807457457231094

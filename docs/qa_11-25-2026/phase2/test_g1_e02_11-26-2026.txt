@@ -1,0 +1,7 @@
+# Experiment 02 pytest (11-26-2026)
+Date: 11-26-2026
+Command: /usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/scripts/test_controls.py
+.....                                                                    [100%]
+5 passed in 1.38s
+
+Exit code: 0

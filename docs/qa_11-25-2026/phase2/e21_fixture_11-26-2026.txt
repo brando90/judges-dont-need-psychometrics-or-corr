@@ -1,0 +1,5 @@
+QA phase 2 test e21_fixture (11-26-2026)
+Command: python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/verify.py --fixture
+Exit code: 0
+
+Synthetic fixture passed all 70 fold/budget cells.
