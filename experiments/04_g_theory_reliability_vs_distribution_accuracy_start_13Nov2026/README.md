@@ -1,4 +1,6 @@
-# 04: Generalizability-theory reliability versus human-rating distribution accuracy
+# 04: Generalizability-theory reliability versus human-rating distribution accuracy (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md>
 
