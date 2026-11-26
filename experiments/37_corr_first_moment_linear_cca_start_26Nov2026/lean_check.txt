@@ -1,0 +1,74 @@
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+Lake version 5.0.0-src+611c117 (Lean version 4.36.0)
+
+This library does not depend on Mathlib, so there is no Mathlib cache to fetch and nothing to recompile from scratch.
+Command: lake exe cache get
+Result: error: unknown executable cache
+(exit 1, expected: the package has no mathlib require and therefore no `cache` executable)
+
+Command: lake build
+Result: Build completed successfully.
+
+`#print axioms` for every theorem named below. No `sorry`. No custom axioms.
+Every listed theorem depends only on [propext, Classical.choice, Quot.sound].
+
+expect_indep_product
+mixture_cross_moment
+marginal_of_independent_y
+law_total_covariance
+law_total_variance
+rat_mul_lt_left
+div_neg
+div_lt_one_of_lt
+div_pos_of_pos
+spread_sqcorr_scales
+spread_factor_lt_one
+spread_shrinks_sqcorr
+cov_raw
+cov_add_const
+var_add_const
+cov_scale
+var_scale
+sqCorr_affine
+sign_flip_cov
+quadratic_cov_zero
+quadratic_vars_positive
+quadratic_not_independent
+quadratic_shift_still_zero
+quadratic_sample_cov_matches_zero
+yQuad_eq_sq
+instance_low_cross
+instance_low_mean
+instance_high_mean
+instance_total_cov
+instance_variance_split
+dot_mapply
+dot_vadd
+dot_affine
+cov_proj_affine
+var_proj_affine
+shear_preimage
+sign_flip_preimage
+swap_preimage
+mix_preimage
+shear_det
+swap_det
+mix_det
+sign_det
+cca_sq_spread
+cca_sq_collapsed
+cca_sq_strictly_increase
+brier_truth_aspect1
+brier_truth_aspect2
+brier_point_aspect1
+brier_point_aspect2
+rps_truth_aspect1
+rps_point_aspect1
+rps_truth_aspect2
+rps_point_aspect2
+truth_ce_finite_aspect1
+point_ce_not_finite_aspect1
+truth_ce_finite_aspect2
+point_ce_not_finite_aspect2
+aspect1_sqcorr_values
+aspect2_sqcorr_values

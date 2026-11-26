@@ -1,0 +1,6 @@
+name = "CorrFirstMomentCCA"
+version = "0.1.0"
+defaultTargets = ["CorrFirstMomentCCA"]
+
+[[lean_lib]]
+name = "CorrFirstMomentCCA"
