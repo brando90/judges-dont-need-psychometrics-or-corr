@@ -1,4 +1,6 @@
-# Checkpoint: Experiment 25 — HelpSteer2 LoRA Scale (`B_total <= 8,192`) and Llama-3.1-8B Replication
+# Checkpoint: Experiment 25 — HelpSteer2 LoRA Scale (`B_total <= 8,192`) and Llama-3.1-8B Replication | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/CKPT_exp25_scale_and_llama.md>
 
@@ -23,6 +25,8 @@ Last updated: 11-22-2026 11:40 PST
 - nothing
 
 ## Next steps
+
+**Status correction (11-26-2026):** verification, Drive synchronization and the completion push below were already recorded as complete on 11-22-2026; the old instruction is retained as history. Other listed actions, including email, are not verified by this QA.
 - Run `verify_exp25.py`, sync Drive Desktop, update paper + one-pager v28, run `agy` Neon Orchestrator Light QA, push to `main`, clean `/tmp`, send `[RUN DONE]` email.
 
 ## Brando to-do

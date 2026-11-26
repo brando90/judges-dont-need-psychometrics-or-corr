@@ -1,4 +1,6 @@
-# How to Read Experiment 25 Results (11-21-2026)
+# How to Read Experiment 25 Results (11-21-2026) | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/HOW_TO_READ_RESULTS.md>
 
