@@ -1,0 +1,15 @@
+---
+description: Lean-and-Python proofs, and real multi-annotator data for conference claims.
+alwaysApply: true
+---
+
+# Proofs and real-data conference standard
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/proofs-and-real-data-conference-standard.mdc>
+
+**TLDR:** Prove claims in Lean 4 and in Python. Back conference empirical claims with real multi-annotator ratings, an unbiased per-sample proper risk, prompt-level splits, and item-clustered 95% intervals.
+
+Brando, 11-26-2026. This matches the section “Proofs and conference empirical standard” in `AGENTS.md` and `CLAUDE.md`.
+
+1. Every mathematical theorem or formal claim is checked both in Lean 4 and in Python. The Lean file has zero `sorry`, uses only the standard axioms (`propext`, `Classical.choice`, `Quot.sound`), and is checked with `#print axioms`. Save the compiler output next to the proof. A claim that has not been compiled is not called a proof.
+2. Every paper or conference-facing empirical claim is backed by experiments on real multi-annotator human judging data. A synthetic law may verify a proof against a known target distribution, and is labeled as that check. The empirical report uses the unbiased per-sample proper risk at test time, a prompt-level train/validation/test split (no rater of a prompt in two splits), and item-clustered bootstrap 95% confidence intervals. The bar is a top machine-learning conference (NeurIPS, ICML, ICLR).

@@ -12,6 +12,13 @@ When Brando sends research images for an experiment, save the supplied image byt
 
 Matplotlib figures: always `ax.grid(True)` (Brando, 11-21-2026). Apply it to every axis of every figure made or regenerated in this project.
 
+## Proofs and conference empirical standard — Brando, 11-26-2026
+
+Two standing requirements for this repository:
+
+1. Every mathematical theorem or formal claim is checked both in Lean 4 and in Python. The Lean file has zero `sorry`, uses only the standard axioms (`propext`, `Classical.choice`, `Quot.sound`), and is checked with `#print axioms`. The compiler output is saved with the proof. A claim that has not been compiled is not called a proof.
+2. Every paper or conference-facing empirical claim is backed by experiments on real multi-annotator human judging data. A synthetic law may verify a proof against a known target distribution, and is labeled as that check. The empirical report uses the unbiased per-sample proper risk at test time, a prompt-level train/validation/test split (no rater of a prompt in two splits), and item-clustered bootstrap 95% confidence intervals. The bar is a top machine-learning conference (NeurIPS, ICML, ICLR).
+
 ## Human-rating identity and collection — Brando, 11-11-2026
 
 - Every active personal human-rating Google Sheet and comma-separated values (CSV) form/export begins with `rater_name`, then `rater_id`. Prefill the actual name from the verified roster on every assigned row; keep the stable ID for joins and duplicate detection. Apply this to every participant.
