@@ -1,4 +1,6 @@
-# Live Results: 09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026
+# Live Results: 09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026 — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md>
 
