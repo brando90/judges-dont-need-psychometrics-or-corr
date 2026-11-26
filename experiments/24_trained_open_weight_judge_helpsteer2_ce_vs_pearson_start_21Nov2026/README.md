@@ -1,4 +1,6 @@
-# Experiment 24 (`24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026`): Trained Open-Weight LoRA Judge (CE vs Pearson) on HelpSteer2 (11-21-2026)
+# Experiment 24 (`24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026`): Trained Open-Weight LoRA Judge (CE vs Pearson) on HelpSteer2 (11-21-2026) | QA update 11-26-2026
+
+**As of 11-26-2026:** read the [dated QA corrections and evidence limits](QA_CORRECTIONS_11-26-2026.md). Historical values and scored tables below are preserved.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/README.md>
 
