@@ -1,4 +1,6 @@
-# Experiment 17 results: flexible scalar calibrator versus the "one-dimensional bottleneck" wording
+# Experiment 17 results: flexible scalar calibrator versus the "one-dimensional bottleneck" wording — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md>
 

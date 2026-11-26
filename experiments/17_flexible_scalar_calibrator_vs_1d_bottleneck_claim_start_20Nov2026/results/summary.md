@@ -1,4 +1,8 @@
+# Experiment 17 result summary — QA corrections 11-26-2026
+
 Cells read: 4400 of 4400.
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](../QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 ## Scenario A: mean test RPS excess over truth (smaller is better; seed SE in the paired table)
 
