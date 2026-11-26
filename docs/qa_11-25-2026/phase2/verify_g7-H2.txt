@@ -1,0 +1,10 @@
+g7-H2 verification (11-26-2026)
+Source: experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results/analysis_summary.json
+Evidence level: aggregate field attribution and subtraction; protected ratings and family losses absent.
+exp09_verbal_6prob_pool ce_mix_train {'rps': 0.14313873196217639, 'ce': 1.629370884564132, 'tvd': 0.5962936074254288}
+exp09_verbal_6prob_pool corr_mix_pearson {'rps': 0.18480959573073585, 'ce': 1.8039072778238945, 'tvd': 0.6422128721074147}
+Pearson-trained minus CE-trained: {'rps': 0.04167086376855947, 'ce': 0.17453639325976256, 'tvd': 0.04591926468198593}
+exp14_3sample_scalar_39judges ce_mix_train {'rps': 0.28186807710859413, 'ce': 3.4800776180601094, 'tvd': 0.7418527556477366}
+exp14_3sample_scalar_39judges corr_mix_pearson {'rps': 0.32634152555963813, 'ce': 5.668318537116841, 'tvd': 0.738107143456054}
+Pearson-trained minus CE-trained: {'rps': 0.044473448451044006, 'ce': 2.1882409190567316, 'tvd': -0.003745612191682568}
+Verdict: CONFIRMED wrong comparator; verbal CE 1.629 vs 1.804, not 3.480 nats.
