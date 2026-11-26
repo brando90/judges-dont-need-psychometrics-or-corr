@@ -148,9 +148,9 @@ The one-rating Wasserstein-1 distance, the summed absolute gap between the CDFs,
 RPS ranks the truth first.
 
 \begin{table}[t]
-\caption{\textbf{With one rating per item, plug-in TVD and Wasserstein-1 prefer the overconfident forecast to the true distribution, and RPS does not.}
+\caption{\textbf{With one rating per item, plug-in total variation distance (TVD) and Wasserstein-1 prefer the overconfident forecast to the true distribution, and the ranked probability score (RPS) does not.}
 Raters choose rating 3 with probability 0.6 and rating 5 with probability 0.4 (constructed example, not data).
-The first two columns score each forecast against a histogram of one sampled rating, averaged over that rating's distribution: TVD is total variation distance (range 0 to 1) and W1 is the Wasserstein-1 distance (rating points).
+The first two columns score each forecast against a histogram of one sampled rating, averaged over that rating's distribution: TVD (range 0 to 1) and W1, the Wasserstein-1 distance (rating points).
 The last column is the expected RPS (range 0 to 1).
 Lower is better in every column, and the truth is the only forecast that a proper score must rank first.}
 \label{tab:rps-sparse}

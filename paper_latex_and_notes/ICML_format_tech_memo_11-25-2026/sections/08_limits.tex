@@ -24,7 +24,7 @@ We collected no new human ratings for this memo, and the intended application, a
 We could not compare the fitted floors of Section~\ref{sec:scaling} with a human leave-one-vote-out floor, because the labels are sealed outside the repository.
 For trained judges (the toy models and LoRA), Pearson objectives are not convex and we have no global-optimum certificate.
 The restarts of experiment 07 change no crossover but cannot prove that none exists; the exhaustive head search of experiments 21, 26 and 28 and the mixture fits of experiment 02 are exact within their families.
-Finally, the identification propositions concern population optimum sets and say nothing about the learning dynamics of any one optimizer.
+The identification propositions concern population optimum sets, not the learning dynamics of any one optimizer.
 
 \paragraph{Recommendations.}
 \begin{enumerate}
@@ -35,4 +35,4 @@ Finally, the identification propositions concern population optimum sets and say
 \item \textbf{Budget about eight ratings with one rating per item, or twenty with five per item, to fit a calibration head to a strong frozen judge} (the largest break-even budgets over the 25 cells of experiment 28).
 Then \textbf{do not expect a trained judge to add much once a calibrated Pearson baseline is in place}: after one shared calibration the LoRA gap shrank to $0.0002$ to $0.0043$ RPS (Section~\ref{sec:lora}).
 \end{enumerate}
-The common thread follows the blog post~\citep{miranda2026bitter}: judges pose an ordinary supervised learning problem, and loss choice, held-out data and learning curves apply to them as they do to any other model.
+The common thread follows the blog post~\citep{miranda2026bitter}: judges pose an ordinary supervised learning problem, so loss choice, held-out data and learning curves apply as they do to any other model.

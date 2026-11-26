@@ -4,6 +4,7 @@
 \Cref{tab:index} lists every experiment folder of the repository: 30 active folders and the four archived experiments 11--14, as of 11-25-2026.
 Dates are the day each folder was started (2026, month-day, America/Los\_Angeles).
 The headline column states the data and metric of the result; ``retro.'' marks studies on the 75 retrospective theorem artifacts and 195 expert ratings.
+Unless a row says otherwise, a signed difference is the held-out test RPS of the Pearson-trained judge minus that of the CE-trained judge, so positive values favor CE.
 Two folders carry the number 11, one active and one archived. Experiment 32 was created as a second experiment 30 and was renumbered on 11-25-2026 under the repository's duplicate-number rule.
 
 {\small
@@ -21,7 +22,7 @@ Exp. & Start & Question & Headline result \\
 \endfoot
 00 & 11-07 & Can a squashed judge look good under correlation? & Two synthetic judges on 2{,}000 scores, no fitting: noisy-faithful Pearson $0.900$, KL $0.001$; squashed Pearson $0.877$, KL $3.420$ (marginal histograms); one seed. \\
 01 & 11-08 & Which criteria identify a known conditional distribution among nine candidates? & CE chose the true distribution in 249/256 draws with one rating per item, Brier and RPS in 245/256, all in 256/256 with two or three ratings; Pearson, Spearman, Kendall and scaled squared error always tied the five same-mean candidates. \\
-02 & 11-09 & Matched CE versus Pearson mixtures on the retro.\ ratings & Test CE of the CE-trained minus Pearson-trained mixture $-0.260$ nats ($[-1.458,+0.198]$); test RPS $0.139$, $0.144$, constant $0.187$. \\
+02 & 11-09 & Matched CE versus Pearson mixtures on the retro.\ ratings & Test CE of the CE-trained minus Pearson-trained mixture $-0.260$ nats ($[-1.458,+0.198]$; negative favors CE); test RPS $0.139$ (CE-trained), $0.144$ (Pearson-trained), constant forecast $0.187$. \\
 04 & 11-13 & Are reliability and moment matching enough for distribution accuracy? & No: equal mean, variance and reliability give mean TVD $0.446$ and excess RPS $0.0167$; the most repeatable historical judge had the worst test RPS; decision-study allocation chose the best design in 256/256 replications in each of two configurations. \\
 05 & 11-13 & How big is the information gap between CE and correlation? & Mean-only (maximum-entropy) forecast pays $0.117$ nats on average (item range $0.020$ to $0.210$); three Pearson-1 forecasts differ by $0.117$ to $3.635$ nats of KL. \\
 06 & 11-13 & Do rank or mixed correlation objectives fix Pearson? & CE-trained beats Pearson, Spearman, Kendall and half-and-half judges on held-out RPS and CE from 12 ratings (scenario B) and 192 ratings (scenario A); synthetic. \\
@@ -32,15 +33,15 @@ Exp. & Start & Question & Headline result \\
 11 & 11-17 & Tuned heads and squared-error training against CE (toy) & Cross-fitted heads cut the small-sample spike 3--9$\times$; end-to-end CE dominates when disagreement varies (scenarios A, B); excess CE $0.118$--$0.197$ nats for squared error against $0.0066$--$0.0224$. \\
 15 & 11-20 & Rater severity versus item signal & Offsets $\approx0.1$ points, $\approx2\%$ of within-artifact variance; rankings unchanged (Kendall $\tau\ge0.995$); retro. \\
 16 & 11-20 & RPS-selected judge and probability-floor sweep & Picking one judge by RPS is no better than by CE or correlation; RPS-selected mixtures are the best fitted arm; floor lowers selected-CE from $8.9$ to $2.2$ but not below the constant; retro. \\
-17 & 11-20 & Is a scalar score a bottleneck? & Flexible head on the true mean matches or beats CE from 512 items; on a Pearson-learned score a gap remains in scenario A ($+0.0052$ RPS at 2{,}048); synthetic. \\
-18 & 11-21 & When does CE beat correlation? & Crossover 16, 32, 64 items with 10, 3, 1 ratings per item; Pearson-then-calibrate wins when spread follows the mean; real mixtures $+0.048$ to $+0.090$ RPS; single-judge Pearson as good or better. \\
+17 & 11-20 & Is a scalar score a bottleneck? & Flexible head on the true mean matches or beats CE from 512 items; with a Pearson-learned score a gap remains in scenario A: test RPS of the Pearson-trained score with a flexible head minus that of the end-to-end CE-trained judge is $+0.0052$ at 2{,}048 items; synthetic. \\
+18 & 11-21 & When does CE beat correlation? & Crossover 16, 32, 64 items with 10, 3, 1 ratings per item; Pearson-then-calibrate wins when spread follows the mean; on a 44-judge pool the Pearson-trained minus the CE-trained mixture is $+0.048$ to $+0.090$ test RPS; single-judge Pearson as good or better. \\
 19 & 11-21 & Moment recovery with few ratings & Qwen pair had lower RPS after CE than Pearson fitting at about 12 ratings; uniform beat both Qwen fits; closed pair unresolved; retro. \\
-20 & 11-21 & CE- versus Pearson-trained judge with little data & CE better from 16 items (48 ratings), $+0.034$ RPS excess ($[0.031,0.036]$); loses at 4 items ($-0.027$); real heads $+0.035$ to $+0.058$ from 7 families; synthetic and retro. \\
+20 & 11-21 & CE- versus Pearson-trained judge with little data & RPS excess of the Pearson-trained minus the CE-trained judge $+0.034$ at 16 items (48 ratings; $[0.031,0.036]$) and $-0.027$ at 4 items; on the retro.\ ratings a CE-trained head beats a Pearson-trained head by $+0.035$ to $+0.058$ test RPS from 7 training families in the closed-weight and all-59 judge pools; synthetic and retro. \\
 21 & 11-21 & Fresh task families, two frozen judges (homework) & Qwen3.5-9B: CE-fit RPS $0.1548$ against $0.2263$ at 4 ratings, passes at all seven budgets; Claude Sonnet 5 never passes; two graders, ten folds. \\
 22 & 11-21 & Non-circular evaluation protocol & No runs: held-out RPS first, metrics neither objective optimizes, public-set shortlist (ChaosNLI, DICES, HelpSteer2). \\
 23 & 11-21 & Public ordinal ratings and label cost & KonIQ: CE beats raw Pearson and uniform from 12 ratings, no sustained win over all four controls; SummEval and MovieLens: none; dialogue: calibrated Pearson lower. \\
-24 & 11-21 & LoRA judge on HelpSteer2 & Calibrated CE minus Pearson $+0.0011$ RPS at 2{,}048 ratings; raw $0.15213$ against $0.18376$; 10 draws. \\
-25 & 11-21 & HelpSteer2 scale and second model family & Qwen to 8{,}192 ratings: $+0.0001$, no sustained win; Llama: $-0.0011$ at 2{,}048; $0.15080$ against human reference $0.14567$. \\
+24 & 11-21 & LoRA judge on HelpSteer2 & Test RPS of the calibrated Pearson-trained judge minus that of the calibrated CE-trained judge $+0.0011$ at 2{,}048 ratings (positive favors CE); raw RPS $0.15213$ (CE-trained) against $0.18376$ (Pearson-trained); 10 draws. \\
+25 & 11-21 & HelpSteer2 scale and second model family & Calibrated Pearson-trained minus calibrated CE-trained test RPS: Qwen at 8{,}192 ratings $+0.0001$, no sustained win; Llama at 2{,}048 ratings $-0.0011$. Calibrated CE-trained Qwen test RPS $0.15080$ against the human leave-one-vote-out reference $0.14567$. \\
 26 & 11-23 & Five frontier judges on homework & CE-fit lower RPS in 35 of 35 cells; descending test passes for two judges (down to 8 ratings). \\
 27 & 11-23 & Identification preprint (deposited, frozen) & Propositions on affine invariance, dimension, strict propriety, moment control and recovery bounds; exact three-item example; Stanford Digital Repository DOI 10.25740/bh388th6008. \\
 28 & 11-23 & Five public multi-rater sets with five frontier judges & CE-fit beats Pearson-fit and uniform after 4--8 ratings (1/item) or 10--20 (5/item) in 25 of 25 cells; Pearson-fit better in 19 of 325 cells. \\

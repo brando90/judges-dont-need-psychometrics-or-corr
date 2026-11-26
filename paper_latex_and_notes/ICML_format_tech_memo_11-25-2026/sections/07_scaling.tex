@@ -13,7 +13,7 @@ The scaling-law literature~\citep{kaplan2020scaling,hoffmann2022training} treats
 Following it, we ask whether the curves of a CE-fit judge follow Equation~\eqref{eq:scaling} and whether those of a Pearson-fit judge do.
 We fit by weighted least squares with weights $1/\mathrm{SE}^2$ from the saved standard errors, exactly over a grid of 150 values of $b$ (floor and $a$ solved in closed form).
 For intervals we draw 2{,}000 parametric bootstrap samples per curve, each point from a normal distribution with its standard error, refit, and take a percentile 95\% interval.
-We call a curve non-monotone if any step up exceeds 1.96 standard errors of the two points, flat if its decline from first to last point is under two standard errors, and a poor fit if the root-mean-square residual exceeds 10\% of the curve's range.
+We call a curve non-monotone if any step up exceeds 1.96 standard errors of the two points. We call it flat if its decline from first to last point is under two standard errors. We call the fit poor if the root-mean-square residual exceeds 10\% of the curve's range.
 Its floor is not identified if the floor's interval is wider than that range.
 We do not fit curves with three budgets.
 

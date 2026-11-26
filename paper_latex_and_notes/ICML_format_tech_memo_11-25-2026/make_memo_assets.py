@@ -145,7 +145,7 @@ def fig_exp28(d, name, budgets_label):
         ax.set_xlabel(f"Human ratings used to fit ({budgets_label})")
         finish(ax)
     for i in (0, 3):
-        axes[i].set_ylabel("Held-out test RPS (lower is better)")
+        axes[i].set_ylabel("Held-out test ranked\nprobability score (RPS);\nlower is better")
     h, l = axes[0].get_legend_handles_labels()
     axes[5].axis("off")
     axes[5].legend(h, l, loc="center", frameon=False, title="Mean over five frontier judges")
@@ -238,7 +238,7 @@ def fig_exp26():
         ax.set_title(title, fontsize=7)
         ax.set_xlabel("Training ratings", fontsize=7)
         finish(ax)
-    axes[0].set_ylabel("Held-out test RPS")
+    axes[0].set_ylabel("Held-out test ranked\nprobability score (RPS)")
     axes[0].legend(loc="upper right", fontsize=5.5)
     fig.tight_layout(w_pad=0.4)
     save(fig, "fig_exp26_per_judge")
@@ -257,7 +257,7 @@ def e29_data():
 
 def fig_exp29_bars():
     s, _ = e29_data()
-    fig, ax = plt.subplots(figsize=(6.75, 2.1))
+    fig, ax = plt.subplots(figsize=(6.75, 2.35))
     w = 0.19
     x = np.arange(len(STUDIES29))
     for k, (meth, lab, c) in enumerate([("ce_raw", "CE", CE_C), ("rps_raw", "RPS", RPS_C), ("mse_raw", "MSE", CAL_C), ("pearson_raw", "Pearson", PE_C)]):
@@ -274,10 +274,10 @@ def fig_exp29_bars():
         ax.plot([i - 2 * w, i + 2 * w], [u, u], color="k", ls=":", lw=1.0, label="uniform forecast" if i == 0 else None)
     ax.set_xticks(x)
     ax.set_xticklabels([lab + f"\n(B={int(s[(s.study == st) & (s.depth == dep)].b_total.max())})" for st, dep, lab in STUDIES29], fontsize=6.5)
-    ax.set_ylabel("Held-out test RPS, raw forecast\n(lower is better)")
+    ax.set_ylabel("Held-out test ranked probability\nscore (RPS), raw forecast;\nlower is better")
     ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.2), frameon=False)
     finish(ax)
-    ax.grid(True, axis="x", alpha=0.0)
+    ax.grid(True, axis="x", alpha=0.15)
     fig.tight_layout()
     save(fig, "fig_exp29_four_objectives")
 
@@ -297,10 +297,10 @@ def fig_exp29_curves():
         ax.set_xlabel("Total human ratings $B$", fontsize=7)
         finish(ax)
     for i in (0, 4):
-        axes[i].set_ylabel("Held-out test RPS")
+        axes[i].set_ylabel("Held-out test ranked\nprobability score (RPS)")
     h, l = axes[0].get_legend_handles_labels()
     axes[7].axis("off")
-    axes[7].legend(h, l, loc="center", frameon=False, title="LoRA trained with")
+    axes[7].legend(h, l, loc="center", frameon=False, title="Low-rank adaptation\n(LoRA) trained with")
     fig.tight_layout(h_pad=0.6, w_pad=0.4)
     save(fig, "fig_exp29_curves")
 
@@ -356,7 +356,7 @@ def fig_lora_helpsteer():
         ax.set_title(title)
         ax.set_xlabel("Total human ratings $B_{\\rm total}$")
         finish(ax)
-    axes[0].set_ylabel("Held-out test RPS (lower is better)")
+    axes[0].set_ylabel("Held-out test ranked\nprobability score (RPS);\nlower is better")
     axes[0].legend(loc="upper right", fontsize=5.5)
     fig.tight_layout(w_pad=0.4)
     save(fig, "fig_lora_helpsteer2")
@@ -414,7 +414,7 @@ def fig_scaling():
         ax.set_xlabel("Human ratings $N$ used to fit", fontsize=7)
         finish(ax)
         log_line(f"scaling panel {pid}: CE floor {ce['floor']:.3f} [{ce.floor_lo:.3f}, {ce.floor_hi:.3f}], b {ce.b:.2f} [{ce.b_lo:.2f}, {ce.b_hi:.2f}]; Pearson b {pe.b:.2f}")
-    axes[0].set_ylabel("Held-out test RPS")
+    axes[0].set_ylabel("Held-out test ranked\nprobability score (RPS)")
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.09), frameon=False, fontsize=6.3)
     fig.tight_layout(w_pad=0.5)
@@ -470,8 +470,8 @@ E13 = sorted(ARCH.glob("13_*"))[0]
 E06, E07, E08 = (exp(n) for n in ("06", "07", "08"))
 BOOT = 10000
 SP_C, KE_C, MX_C = "#9467bd", "#8c564b", "#e377c2"
-RPS_AX = "Held-out test RPS excess over the true distribution\n(0 is best; lower is better)"
-KL_AX = "Held-out test CE excess, KL(true $\\Vert$ judge), nats\n(0 is best; lower is better)"
+RPS_AX = "Held-out test ranked\nprobability score (RPS) excess\nover the true distribution\n(0 is best; lower is better)"
+KL_AX = "Held-out test cross-entropy (CE) excess\n= Kullback\u2013Leibler (KL) divergence\nKL(true $\\Vert$ judge), nats\n(0 is best; lower is better)"
 
 
 def load_raw(folder):
@@ -530,8 +530,8 @@ def fig_exp13():
     assert len(rows) == 2200 and {r["seed"] for r in rows} == set(range(100))
     data = {m: {f: per_seed(rows, lambda r, f=f, m=m: r[f][m]) for f, _, _, _ in FIT13} for m in ("rps_excess", "ce_excess")}
     fig, axs = plt.subplots(2, 2, figsize=(6.9, 4.3), sharex=True)
-    short_rps = "Held-out test RPS excess\n(lower is better)"
-    short_kl = "Held-out test CE excess,\nKL(true $\\Vert$ judge), nats\n(lower is better)"
+    short_rps = "Held-out test ranked\nprobability score (RPS)\nexcess (lower is better)"
+    short_kl = "Held-out test cross-entropy\n(CE) excess = Kullback\u2013Leibler\n(KL) divergence KL(true $\\Vert$ judge),\nnats (lower is better)"
     summary = {}
     for i, sc in enumerate("AB"):
         for j, (m, ylab) in enumerate([("rps_excess", short_rps), ("ce_excess", short_kl)]):
@@ -867,9 +867,9 @@ def fig_forest():
     ax.set_xlim(-0.075, 0.10)
     ax.set_ylim(-0.7, len(rows) + 0.2)
     ax.set_xticks([-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06, 0.08, 0.10])
-    ax.set_xlabel("Held-out test RPS of the Pearson-trained judge minus held-out test RPS of the CE-trained judge\n(positive: the CE-trained judge is better; bars: 95% intervals)")
+    ax.set_xlabel("Held-out test ranked probability score (RPS) of the Pearson-trained judge\nminus that of the cross-entropy (CE)-trained judge\n(positive: the CE-trained judge is better; bars: 95% intervals)")
     finish(ax)
-    ax.grid(False, axis="y")
+    ax.grid(True, axis="y", alpha=0.15)
     fig.tight_layout()
     save(fig, "fig_forest")
 

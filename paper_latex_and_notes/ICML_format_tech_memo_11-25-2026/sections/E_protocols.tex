@@ -44,6 +44,6 @@ Experiments & Data and test unit & Fit and search & Budgets and draws & Interval
 \end{table*}
 
 \paragraph{How each judge was chosen.}
-For frozen judges the fit is an exhaustive search over a finite family (27 calibration settings; 216 candidate distributions for KonIQ), so it returns the exact optimum of the stated objective within that family, with ties broken toward the setting nearest the identity; for the mixture fits of experiment 02 the CE objective is convex and certified by a Frank--Wolfe gap of at most $10^{-8}$, and the Pearson objective is solved exactly on every face of the cone, with a cone-projection certificate.
+For frozen judges the fit is an exhaustive search over a finite family (27 calibration settings; 216 candidate distributions for KonIQ). It returns the exact optimum of the stated objective within that family, with ties broken toward the setting nearest the identity. For the mixture fits of experiment 02 the CE objective is convex and certified by a Frank--Wolfe gap of at most $10^{-8}$. The Pearson objective is solved exactly on every face of the cone, with a cone-projection certificate.
 For trained judges (toy softmax models and LoRA) the objectives are optimized by L-BFGS-B or AdamW from a fixed start; Pearson objectives are not convex and the result reflects that optimizer, start and budget, and not a certified global optimum.
 Model-selection data are never the test data.

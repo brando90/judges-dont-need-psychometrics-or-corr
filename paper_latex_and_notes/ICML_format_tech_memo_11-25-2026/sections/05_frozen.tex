@@ -37,11 +37,11 @@ These are the smallest budgets, where four or two training items give a correlat
 On DICES, where the Pearson-fit curve is flat, the differences are not small: at 256 ratings the mean RPS is 0.226 for CE-fit and 0.276 for Pearson-fit on DICES-350, and 0.198 against 0.261 on DICES-990.
 
 \begin{table*}[t]
-\caption{\textbf{A handful of ratings suffices to beat both baselines, but at 256 ratings the calibrated Pearson fit equals or beats CE-fit on MNLI-matched and on both DICES sets.}
-Held-out RPS at 256 human ratings (one per item) and break-even budgets, experiment 28.
+\caption{\textbf{A handful of ratings suffices to beat both baselines, but at 256 ratings the calibrated Pearson fit equals or beats the cross-entropy (CE) fit on MNLI-matched and on both DICES sets.}
+Held-out ranked probability score (RPS) at 256 human ratings (one per item) and break-even budgets, experiment 28.
 Mean over five frontier judges; RPS in $[0,1]$, lower is better.
 Unif.: uniform forecast; Raw: the judge's own forecast with no fitting; Pearson-fit+cal.: a Pearson fit followed by train-only calibration of grade frequencies in four quantile bins of the expected score.
-$N^\ast$: the smallest total number of training ratings from which the simultaneous one-sided 97.5\% lower bounds of ``test RPS of the Pearson-fit judge minus test RPS of the CE-fit judge'' and ``test RPS of the uniform forecast minus test RPS of the CE-fit judge'' both stay above zero at every larger budget (a range gives the values across the five judges; the columns headed 1/item and 5/item give the budget with one and five ratings per item).
+$N^\ast$: the smallest total number of training ratings from which the simultaneous one-sided 97.5\% lower bounds of ``test RPS of the Pearson-fit judge minus test RPS of the CE-fit judge'' and ``test RPS of the uniform forecast minus test RPS of the CE-fit judge'' both stay above zero at every larger budget. A range gives the values across the five judges; the columns 1/item and 5/item give the budget with one and five ratings per item.
 Test: held-out folds of each rating set, 200 training draws per fold, bootstrap over held-out items.}
 \label{tab:exp28}
 \centering\small
@@ -62,7 +62,7 @@ For Qwen3.5-9B the CE fit scores RPS $0.1548$ against $0.2263$ for the Pearson f
 At 256 ratings its Pearson fit has a higher held-out correlation than its CE fit ($0.620$ against $0.556$) while it predicts a mean grade of $2.79$ for a human mean of $4.31$.
 (2) On public benchmarks with a weaker judge (KonIQ-10k, SummEval, dialogue, MovieLens; experiment 23), direct CE selection beat direct Pearson selection at the largest budget on three of the four.
 The margin over strong controls is small or absent in all four, and a Pearson score calibrated into grade probabilities scored at least as well as CE at the largest budget in all four.
-(3) On the 75 retrospective theorem artifacts (195 expert ratings; experiments 02, 09, 10, 12, 14, 16, 18, 19 and 20, which form one body of evidence and not independent replications), CE-trained mixtures and heads have lower test RPS than Pearson-trained ones in most pools and sizes, by $0.003$ to $0.090$ (experiments 10, 18 and 20).
+(3) On the 75 retrospective theorem artifacts (195 expert ratings; Section~\ref{sec:limits} lists the experiments that reuse them), CE-trained mixtures and heads have lower test RPS than Pearson-trained ones in most pools and sizes, by $0.003$ to $0.090$ (experiments 10, 18 and 20).
 At three training families they tie on three pools and lose on the open-weight pool, where they tie again at seven and fifteen families (experiment 20).
 Asking judges for six-category probabilities instead of three scalar votes cut held-out CE from $3.480$ to $1.629$ nats for open models and from $5.49$ to $1.416$ nats for frontier models (experiments 09 and 10).
 Choosing a single judge from a pool depends on the pool: selection by Pearson was as good as or better than selection by CE for scalar-vote judges, while CE selection won on the three pools that contain native-probability judges.
