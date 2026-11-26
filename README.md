@@ -1,22 +1,76 @@
-# judges-dont-need-psychometrics-or-corr — QA corrections 11-26-2026
-
-**QA correction date: 11-26-2026.** See the [verified fixes and evidence limits](docs/qa_11-25-2026/phase2_11-26-2026/results.md).
-
-**Working title (Brando, Nov 24 12:20): "No Free Lunch of AI Judges."** This is the correlation vs cross-entropy (CE) repo: CE-trained judges vs correlation-trained judges, scored with the proper scores RPS, CE and TVD. The framing: no need for G theory or D theory; really just CE and lots of data (scaling laws as always).
-
-**How this differs from [correlation-is-not-trust](https://github.com/brando90/correlation-is-not-trust):** that repo asks whether a judge that correlates highly with humans still **fails trustworthy judge properties** (renaming, worse file, inserted bug, consistency, item order), i.e. bad properties despite high correlation. This repo asks **which objective to fit** (correlation vs CE) and when CE beats Pearson on held-out proper scores. Read both together.
+# judges-dont-need-psychometrics-or-corr
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/README.md>
 
-**Opinion piece (11-25-2026; the argument; the repo is the evidence):** https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html
+**TLDR:** A large language model (LLM) judge is a probabilistic predictor of the conditional human rating distribution \(p^*(y \mid x)\). Pearson correlation is unchanged by a positive affine map and, on an ordinal rating, can stay perfect while the forecast collapses to the conditional mean. The Brier score, cross-entropy (CE), and the ranked probability score (RPS) are strictly proper for that distribution.
 
-**Current status and results in one page:** [STATUS_11-23-2026.md](STATUS_11-23-2026.md) (11-23-2026; historical snapshot: [STATUS_11-20-2026.md](STATUS_11-20-2026.md)). Quick links: [tech report PDF (arXiv edition)](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf), [AAAI-27 submission PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf), [Version 29 meeting brief HTML](paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html), Stanford Digital Repository preprint (`DOI: 10.25740/bh388th6008`), the [11-25-2026 technical memo](paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/DEPOSIT_11-25-2026.md) in the same repository (`DOI: 10.25740/pr787bn6444`), and [Experiment 29 complete results](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md).
+## Thesis
 
-**Supported thesis:** correlation alone does not identify a judge’s desired conditional rating distribution. When that distribution is the target, fit and evaluate probability forecasts with proper probability losses, and retain correlations as useful diagnostics of scalar association.
+An LLM judge is ordinary probabilistic prediction. The target is \(p^*(y \mid x)\), the conditional distribution of the human rating \(y\) given the item \(x\). The fitting problem is the usual one: choose a forecast by a proper score, and evaluate it on ratings the fit did not see. Correlation remains a diagnostic of linear association. It is not the objective that identifies \(p^*\).
 
-The project’s original title expresses its research direction. The evidence does **not** establish that every psychometric method is unnecessary, or that cross-entropy always selects the best finite-sample system. Defining the human population, checking input correspondence, and studying reliability and construct validity remain separate questions.
+The supported claim is narrower than the repository title. Correlation alone does not identify the desired conditional rating distribution. In the population, CE, the Brier score, and RPS do. Mean squared error (MSE) identifies a conditional mean. The experiments do not show that every psychometric method is unnecessary, that CE wins at every finite sample size, or that a synthetic study is evidence about human raters. Reliability and construct validity remain separate questions. They are studied in [`experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026`](experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md) and [`experiments/34_g_d_theory_vs_ce_where_reliability_agrees_and_fails_start_25Nov2026`](experiments/34_g_d_theory_vs_ce_where_reliability_agrees_and_fails_start_25Nov2026/README.md).
 
-**Status (11-23-2026):** Through Experiments 23–29 (`DOI: 10.25740/bh388th6008`, public `HelpSteer2`, `ChaosNLI`, `DICES`, `KonIQ`, and `SummEval` benchmarks plus all `1,401/1,401` matched four-objective `Qwen3-4B-Instruct-2507` [`921`] and `Llama-3.1-8B-Instruct` [`480`] LoRA runs), raw proper-loss training (`CE`/`RPS`) defeats `Pearson` once budgets pass `16–80` ratings for CE (`64–1,024` for RPS crossed; `16–256` conditional) across all `7/7` setups and clears raw `MSE` crossed on `5/6` `K >= 3` panels while remaining statistically indistinguishable from `MSE` on `K = 2` (`+0.00034`, 95% crossed CI `[-0.00209,+0.00278]`). Historical `STATUS_11-20-2026.md` and frozen completed experiments remain unchanged. No venue submission is performed from automated scripts without explicit approval.
+Working title (Brando, 11-24-2026): "No Free Lunch of AI Judges." Position piece, 11-25-2026: [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html).
+
+This repository asks which objective to fit, and when a proper score beats Pearson correlation on held-out ratings. The sister repository [correlation-is-not-trust](https://github.com/brando90/correlation-is-not-trust) asks a different question: whether a judge with high human correlation still fails behavioral checks such as renaming, a worse file, an inserted bug, consistency, and item order.
+
+## Questions under investigation
+
+1. **Pearson correlation is not a proper score for \(p^*\), and it is not the Brier score or MSE.** A map \(f \mapsto af+b\) with \(a>0\) leaves Pearson correlation unchanged, so a badly scaled forecast can match the correlation of the conditional mean while its squared error grows. On an ordinal rating, two forecasts with the same conditional mean can share both the correlation and the scalar MSE while their Brier scores and RPS differ, because the correlation sees only the mean. Population checks and Lean 4 proofs: [`experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/README.md). Same-mean candidate sets: [`experiments/01_conditional_binomial_distribution_identification_start_08Nov2026`](experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/README.md). Moment identities: [`experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026`](experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/README.md).
+
+2. **Binary, ordinal, and continuous ratings are different targets.** For a binary rating the conditional mean is the full distribution, and the two-class Brier score equals twice the scalar squared error. For an ordinal rating in \(\{0,\ldots,K-1\}\) with \(K>2\), the mean does not determine the distribution: a bimodal law and a point mass at the mean are different, and scalar squared error still returns the mean. Ordinal evaluation in this project uses proper scores. Normalized individual-rating RPS is the primary held-out metric. CE and total variation distance (TVD) are secondary. The binary identity and the bimodal counterexample are in [`experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/README.md). The \(K=2\) versus \(K\ge 3\) training comparison is in [`experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026`](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md).
+
+3. **Sample complexity, label cost, and scaling under proper objectives.** Learning curves in the number of ratings, the dollar cost of expert labels, and the allocation between more items and more ratings per item are measured on public benchmarks. Scaling-law fits of held-out RPS, CE, and TVD: [`experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026`](experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md). Annotation cost and public ordinal sets: [`experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026`](experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/README.md). The [experiment index](experiments/README.md) states which comparison is synthetic, which reuses historical ratings, and which is a new public benchmark.
+
+## Directory map
+
+| Path | What it holds |
+| --- | --- |
+| [`experiments/README.md`](experiments/README.md) | Index of every numbered experiment, with start dates and the question each one asks. |
+| [`experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/README.md) | Seeded Python checks and Lean 4.36.0 proofs for Brier properness, scalar squared error, the binary identity, the MSE decomposition, and Pearson affine invariance. |
+| [`experiments/01_conditional_binomial_distribution_identification_start_08Nov2026`](experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/README.md) | Known conditional binomial population. CE, Brier, and RPS versus correlation on same-mean candidates. |
+| [`experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026`](experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/README.md) | Public ordinal ratings and label-cost comparisons. |
+| [`experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026`](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md) | Matched CE, RPS, MSE, and Pearson training, including binary \(K=2\). |
+| [`experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026`](experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md) | Scaling-law fits on saved held-out curves. |
+| [`experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026`](experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/README.md) | Numerical checks of the moment-derivation appendix. |
+| [`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL`](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md) | AAAI-27 workshop paper sources and PDFs. |
+| [`AGENTS.md`](AGENTS.md) | Agent policy. Identical to [`CLAUDE.md`](CLAUDE.md). Work is committed on `main` in experiment folders. |
+
+## Reproduce
+
+Brier, scalar squared error, and Pearson checks, from the repository root (Python 3 with NumPy, SciPy, and Matplotlib):
+
+```bash
+python3 experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/experiments.py
+```
+
+The script writes `results.txt` and `figures/brier_vs_corr.png` next to itself. The generator seed is 0.
+
+Lean 4.36.0, no Mathlib, from the experiment directory:
+
+```bash
+elan run leanprover/lean4:v4.36.0 lean BrierCorr.lean
+```
+
+A successful check prints only the standard axioms `propext`, `Classical.choice`, and `Quot.sound` for the nine theorems. The saved receipt is `lean_check.txt`.
+
+The conditional-identification study:
+
+```bash
+python3 -m unittest discover -s experiments/01_conditional_binomial_distribution_identification_start_08Nov2026 -p 'test*.py' -v
+python3 experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/verify_results.py
+python3 experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/make_report.py
+```
+
+Other experiments run as `python3 experiments/<folder>/<script>.py`, with the script named in that folder's README. New measurement runs do not overwrite completed evidence.
+
+## Current results and records
+
+**QA record, 11-26-2026:** [verified fixes and evidence limits](docs/qa_11-25-2026/phase2_11-26-2026/results.md).
+
+**Status page:** [STATUS_11-23-2026.md](STATUS_11-23-2026.md) (historical snapshot: [STATUS_11-20-2026.md](STATUS_11-20-2026.md)). Papers and briefs: [arXiv-edition PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf), [AAAI-27 submission PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf), [Version 29 meeting brief](paper_latex_and_notes/notes/correlation_vs_loss_judges_one_pager/judge-objectives-status.html), Stanford Digital Repository preprint (`DOI: 10.25740/bh388th6008`), the [11-25-2026 technical memo](paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/DEPOSIT_11-25-2026.md) (`DOI: 10.25740/pr787bn6444`), and the results of [`experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026`](experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md).
+
+**Status (11-23-2026):** Through Experiments 23–29 (`DOI: 10.25740/bh388th6008`, public `HelpSteer2`, `ChaosNLI`, `DICES`, `KonIQ`, and `SummEval` benchmarks plus all `1,401/1,401` matched four-objective `Qwen3-4B-Instruct-2507` [`921`] and `Llama-3.1-8B-Instruct` [`480`] low-rank adaptation (LoRA) runs), raw proper-loss training (`CE`/`RPS`) defeats `Pearson` once budgets pass `16–80` ratings for CE (`64–1,024` for RPS crossed; `16–256` conditional) across all `7/7` setups and clears raw `MSE` crossed on `5/6` `K >= 3` panels while remaining statistically indistinguishable from `MSE` on `K = 2` (`+0.00034`, 95% crossed confidence interval `[-0.00209,+0.00278]`). Historical `STATUS_11-20-2026.md` and frozen completed experiments remain unchanged. No venue submission is performed from automated scripts without explicit approval.
 
 **Current priority (11-09-2026):** [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) owns finding the best practical judge using method 2 (correlation training) and method 4 (proper-loss training). This repository tests the proposed inferiority of correlation-based optimization without assuming a winner. Follow the [current comparison and ownership instructions](AGENTS.md#current-priority--user-clarification-11-09-2026), including the experiment 02 comparison and its checkpoint.
 
@@ -41,6 +95,8 @@ Use the [experiment index](experiments/README.md) to distinguish the synthetic e
 
 All 768 simulation conditions and 5,376 selections completed, with zero failed selections, zero provider calls and $0 provider inference charges. These are synthetic results only. The [full report](experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/RESULTS_conditional_identification.md) gives every common test metric, 95% Monte Carlo intervals over rating replications, complete tie ranges, and the scope of each uncertainty statement. No hypothesis test was declared (p-val=n/a).
 
+[`experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/README.md) is the population algebra behind that distinction. On a balanced law on ratings 0 and 5, scalar squared error is minimized at 2.5, while the Brier score of the true law is 0.5000 and the Brier score of the two-point law at 2.5 is 1.5000. For a binary outcome the two-class Brier score is twice the scalar squared error. On 200 synthetic items, a two-point collapse with the same conditional mean matches Pearson correlation and expected MSE and raises expected Brier from 0.6058 to 1.4706. Those checks use no human ratings. The RPS in that script is the unnormalized sum of squared cumulative-distribution errors, not the normalized individual-rating RPS used as the primary held-out metric elsewhere. The Lean file proves the nine identities; the script only checks them in floating point. Details, seeds, and the order of every subtraction are in that folder's README and `HOW_TO_READ_RESULTS.md`. Companion note: <https://docs.google.com/document/d/1AkNeSm86_bk1twd_w-TidjOHqx0gOv1lRI7WS2ADO_8/edit>.
+
 ## The target and the loss
 
 Given candidate output y and reference y*, define x=(y,y*), a rating population, and its conditional distribution p_human(r|x). A probabilistic judge reports q_theta(r|x). The distributional target is
@@ -61,22 +117,12 @@ The [proper-scoring-rule literature](https://sites.stat.washington.edu/raftery/R
 
 The sister repository’s historical `06_information_loss_vs_correlation_judge_selection` did **not** establish a held-out CE advantage for CE selection over Spearman selection under either five seeded five-fold family partitions (8.868 versus 8.098; +0.770 [-0.895, 1.317]) or the original 15-validation/30-test-artifact split (9.133 versus 8.710; +0.423), and those historical ratings, test outcomes and candidate prompts had prior exposure. Its fitted probability-head comparison also had widespread Pearson-optimizer convergence failures. The [public-evidence section](experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/RESULTS_conditional_identification.md#historical-evidence-preserved) links exact source revisions, preserves the negative/null findings, and records the separately owned completed weighted-probability/stable-Pearson follow-up. No raw human ratings, private candidate artifacts or sealed data are added to public Git by these reports. The existing ignored experiment 02 store holds previously migrated historical reconstruction inputs. Fresh human returns remain the applied collection owner’s responsibility.
 
-## Reproduce and inspect
-
-```bash
-python3 -m unittest discover -s experiments/01_conditional_binomial_distribution_identification_start_08Nov2026 -p 'test*.py' -v
-python3 experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/verify_results.py
-python3 experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/make_report.py
-```
-
-The [experiment index](experiments/README.md) links the complete procedure, hashes and results. The [paper source and current PDF](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md) live together. New measurement runs refuse to overwrite completed evidence; deterministic verification uses the saved rows without new rating samples.
-
 ## Origin and scope
 
-The opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (published 11-25-2026) states the position: define the target as the distribution of expert ratings, train with CE, score with proper scores, and scale the ratings. This repository holds the experiments behind it, including the [Exp 30 results](experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/results_11-25-2026.md) and the [Exp 31 scaling-law fits](experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md) (commit [`9341110`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/commit/93411102e2148723ccf2d064af7279075da156eb)).
+The opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (published 11-25-2026) states the position: define the target as the distribution of expert ratings, train with CE, score with proper scores, and scale the ratings. This repository holds the experiments behind it, including the results in [`experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026`](experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/results_11-25-2026.md) and the scaling-law fits in [`experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026`](experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md) (commit [`9341110`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/commit/93411102e2148723ccf2d064af7279075da156eb)).
 
 The project began with the [original README formulation at commit `f2272f9`](https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/f2272f9628f1f31575ecbdaa304f33c9ad0743f1/README.md), the [11-07-2026 discussion notes](paper_latex_and_notes/notes/fathom_call_11-07-2026/notes.md), the [whiteboard](paper_latex_and_notes/notes/whiteboard_11-07-2026.png), and [handwritten selection/fitting notes received 11-08-2026](paper_latex_and_notes/notes/handwritten_corr_vs_loss_splits_received_11-08-2026/transcription.md). Those source records remain unchanged. The [research synthesis](paper_latex_and_notes/notes/correlation_vs_loss_judges_notes_11-07-2026.md) provides further historical context.
 
-The [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) project studies the applied judge problem. This repository’s new experiment isolates a distribution-identification question; it does not duplicate historical probability fitting, validate a deployed human judge, or establish natural-task generalization.
+The [trustworthy-theorem-judges](https://github.com/brando90/trustworthy-theorem-judges) project studies the applied judge problem. This repository’s identification experiments do not duplicate historical probability fitting, validate a deployed human judge, or establish natural-task generalization.
 
-**TLDR-end:** [judge objectives: conditional identification] Evaluate conditional probability forecasts when the full rating distribution is the target. Correlations and scalar errors remain informative diagnostics, but neither alone identifies distribution shape.
+**TLDR-end:** [judge objectives: conditional identification] An LLM judge targets \(p^*(y \mid x)\). Pearson correlation and scalar MSE do not identify that distribution; the Brier score, CE, and RPS do, in the population. Finite-sample training comparisons and label-cost curves are in the numbered experiment folders.

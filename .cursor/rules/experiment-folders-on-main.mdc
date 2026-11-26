@@ -1,0 +1,12 @@
+---
+description: Prefer numbered experiment folders on main over long-lived branches or GitHub issues.
+alwaysApply: true
+---
+
+# Experiment folders on main
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/experiment-folders-on-main.mdc>
+
+**TLDR:** Put each study in a numbered experiment folder and commit it on `main`. A long-lived branch or a GitHub issue is not the record.
+
+Prefer a numbered experiment folder on `main` to a long-lived branch or a GitHub issue (Brando, 11-26-2026). Design, code, numerical results, figures, and proofs live in `experiments/NN_<setup_name>_start_<DDMonYYYY>/`. Commit that folder on `main`. If a leftover branch appears, merge it into `main` without force-push, keep every experiment folder, and delete the branch. The same preference is stated in `AGENTS.md`, `CLAUDE.md`, and `.cursor/rules/merge-to-main.mdc`.

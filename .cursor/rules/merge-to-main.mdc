@@ -1,5 +1,5 @@
 ---
-description: Merge work to main; if in doubt try to merge it, then run a light QA.
+description: Merge work to main in experiment folders; do not use long-lived branches or GitHub issues.
 alwaysApply: true
 ---
 
@@ -8,3 +8,5 @@ alwaysApply: true
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/merge-to-main.mdc>
 
 Merge to main (Brando, 11-25-2026): work goes to `main`. If in doubt, try to merge it, followed by a light QA (re-read the merged files on a fresh clone, run the quick tests, check the numbers you touched). No branches or pull requests.
+
+Prefer a numbered experiment folder on `main` to a long-lived branch or a GitHub issue (Brando, 11-26-2026). Design, code, results, figures, and proofs live in `experiments/NN_<setup_name>_start_<DDMonYYYY>/`. A branch or a GitHub issue is not a substitute for that folder.

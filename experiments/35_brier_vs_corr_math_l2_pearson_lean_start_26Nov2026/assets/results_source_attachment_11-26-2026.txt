@@ -1,0 +1,74 @@
+
+==============================================================================
+PART 1  Brier score is strictly proper and converges as N -> inf
+==============================================================================
+p* = [0.3  0.05 0.05 0.1  0.15 0.35]  mean = 2.8  Bayes Brier 1-sum p^2 = 0.75
+candidate q                    E[BS(q)]   E[BS(p*)]+||q-p*||^2   abs diff
+q = p* (truth)                 0.750000               0.750000    0.0e+00
+uniform                        0.833333               0.833333    2.2e-16
+two-point at mean 2.8          1.500000               1.500000    0.0e+00
+point mass at 5                1.300000               1.300000    2.2e-16
+slightly off p*                0.750800               0.750800    0.0e+00
+random Dirichlet               0.827032               0.827032    1.1e-16
+argmin_q E[BS(q)] (numerical, softmax-param) = [0.3  0.05 0.05 0.1  0.15 0.35]  max|q-p*| = 1.9e-08
+
+Monte Carlo: q_hat_N = argmin empirical Brier = empirical frequencies p_hat_N
+      N  mean ||p_hat-p*||_2  sqrt(sum p(1-p)/N)  emp Brier(p_hat)  true E[BS(p_hat)]    Bayes
+     10              0.26256             0.27386           0.66950            0.82840  0.75000
+    100              0.08209             0.08660           0.74363            0.75763  0.75000
+   1000              0.02634             0.02739           0.74957            0.75078  0.75000
+  10000              0.00824             0.00866           0.74967            0.75008  0.75000
+ 100000              0.00246             0.00274           0.74998            0.75001  0.75000
+N=500: numerical argmin of empirical Brier vs p_hat: max abs diff = 2.4e-08
+
+==============================================================================
+PART 2  L2 loss vs 'Gaussian noise'
+==============================================================================
+P(Y=0)=P(Y=5)=0.5 (no mass at 2.5).  argmin_c E[(Y-c)^2] = 2.500000  (E[Y] = 2.5)
+  min risk = 6.2500 = Var(Y) = 6.2500
+  from 100k samples: argmin of empirical L2 = sample mean = 2.4838
+  argmin one-hot L2 (Brier) = [0.5 0.  0.  0.  0.  0.5]  -> recovers the full bimodal distribution
+  scalar L2 answer 2.5 read as a distribution (two-point) = [0.  0.  0.5 0.5 0.  0. ]  (all mass where p*=0)
+  Brier of p* = 0.5000; Brier of 'everything at 2.5'-style two-point = 1.5000
+  Gaussian MLE fit: mu = 2.484, sigma = 2.500  -> density peaks at 2.5 (where truth has 0 mass)
+
+Binary Y in {0,1}: scalar L2 (q-y)^2 vs 2-class Brier (q-y)^2+((1-q)-(1-y))^2
+  q=0.10 y=0: L2=0.0100  Brier=0.0200  ratio=2.0000
+  q=0.10 y=1: L2=0.8100  Brier=1.6200  ratio=2.0000
+  q=0.37 y=0: L2=0.1369  Brier=0.2738  ratio=2.0000
+  q=0.37 y=1: L2=0.3969  Brier=0.7938  ratio=2.0000
+  q=0.80 y=0: L2=0.6400  Brier=1.2800  ratio=2.0000
+  q=0.80 y=1: L2=0.0400  Brier=0.0800  ratio=2.0000
+  P(Y=1)=0.3: argmin scalar L2 = 0.300000 = P(Y=1) -> for binary, the mean IS the distribution
+
+==============================================================================
+PART 3a  Standardized identity and MSE decomposition
+==============================================================================
+rho = 0.492509; E[(X~-Y~)^2] = 1.0149826152; 2(1-rho) = 1.0149826152; diff = 2.2e-16
+MSE = 7.5225591204;  (mx-my)^2 + (sx-sy)^2 + 2 sx sy (1-rho) = 7.5225591204;  diff = 0.0e+00
+   terms: bias^2 = 2.3793, scale^2 = 0.1882, 'correlation' = 4.9551
+
+==============================================================================
+PART 3b  Affine invariance: Pearson is blind to shift + scale miscalibration
+==============================================================================
+judge               rho(.,E[Y|x])  rho(.,Y 1 sample)  rho(.,Y 20 samp)  E[MSE] vs Y  E[Brier]   E[RPS]
+Bayes  y*=E[Y|x]     1.0000000000       0.4281537449      0.3642743739       2.5526    1.2453   1.1715
+bad1   0.1*y*+4      1.0000000000       0.4281537449      0.3642743739       6.0788    1.3056   1.8351
+bad2   5*y*-10       1.0000000000       0.4281537449      0.3642743739       9.2940    1.3209   1.4841
+  (Brier/RPS for scalar judges use the same scalar->two-point distribution map, clipped to [0,5])
+  reference: judge that outputs full p*(y|x): E[Brier] = 0.7184, E[RPS] = 0.8447
+  ceiling: max_f rho(f,Y) = sd(E[Y|x])/sd(Y) = 0.3758, attained by EVERY a*E[Y|x]+b, a>0
+  perturbed judge E[Y|x]+N(0,.5^2): rho vs E[Y|x] = 0.7669 (<1)
+
+==============================================================================
+PART 3c  Same mean, different spread: Pearson & scalar MSE are blind, Brier/RPS are not
+==============================================================================
+max |mean_A - mean_B| over items = 0.0e+00
+judge                             rho(mean,Y)  rho(mean,E[Y|x])   E[MSE]  E[Brier]   E[RPS]  sampled Brier
+Judge A (true p*)                    0.385696          1.000000   2.9474    0.6058   0.8692         0.6163
+Judge B (collapsed, same mean)       0.385696          1.000000   2.9474    1.4706   1.4007         1.4710
+
+Toy: item with p*=50/50 on {0,4} (mean 2) vs judge saying 100% at 2 (mean 2):
+  Brier: truth 0.500 vs collapsed 2.000;  RPS: truth 1.000 vs collapsed 2.000; means identical -> rho, MSE identical
+
+Saved figure -> /workspace/brier_corr_math/brier_vs_corr.png

@@ -41,6 +41,8 @@ If you are offline, read <https://raw.githubusercontent.com/brando90/agents-conf
 
 This is a research project. Each experiment lives in its own numbered experiment folder (`experiments/NN_<setup_name>/`). Commit and push straight to `main`. Do not create branches or pull requests. If a leftover branch turns up, merge it into `main` (no force-push) and delete it. If two experiments pick the same number, keep the one already on `main` and renumber the new folder to the next free number, updating its internal references.
 
+Prefer a numbered experiment folder on `main` to a long-lived branch or a GitHub issue (Brando, 11-26-2026). The folder is the record: design, code, numerical results, figures, and proofs live in `experiments/NN_<setup_name>_start_<DDMonYYYY>/` and are committed on `main`. A branch or a GitHub issue is not a substitute for that folder, and it is not the place to leave an experiment for later consolidation.
+
 ## Merge to main, then a light QA — Brando, 11-25-2026
 
 Merge to main (Brando, 11-25-2026): work goes to `main`. If in doubt, try to merge it, followed by a light QA (re-read the merged files on a fresh clone, run the quick tests, check the numbers you touched). No branches or pull requests.
