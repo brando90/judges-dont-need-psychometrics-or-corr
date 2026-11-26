@@ -42,7 +42,9 @@ S26T = ", ".join(f"[{n}](figures/single_exp26_tvd_{k}.png)" for k, n in JUDGES)
 SBE = twos(SETS, "single_exp28_breakeven_{k}.png", "break-even")
 S29 = pairs(P29, "single_exp29_rps_{k}.png", "single_exp29_ce_{k}.png", "held-out RPS", "held-out CE")
 S29T = ", ".join(f"[{n}](figures/single_exp29_tvd_{k}.png)" for k, n in P29)
-md = f"""# Corr vs CE: current results (11-25-2026)
+md = f"""# Corr vs CE: current results (11-25-2026) | QA update 11-26-2026
+
+**As of 11-26-2026:** g6-H1 is corrected beside the historical hypothesis verdict; the [experiment 29 QA note]({E29}/QA_CORRECTIONS_11-26-2026.md) supplies reproducible counts.
 
 **Related (11-25-2026):** opinion piece [The Bitter Judges Lesson: Learn AI Judges the Way You Learn Any Other ML Task](https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html) (the argument; this repo is the evidence).
 
@@ -169,7 +171,7 @@ Under the definition of "beat" above, Exp 26 is a clean win on RPS only. Claude 
 
 {S29}
 
-The repo's own Exp 29 figures: [four objectives and K=2 control]({E29}/figures/fig1_four_objectives_and_k2_control.png), [disagreement slices and logit rescue]({E29}/figures/fig2_disagreement_slices_and_logit_rescue.png). Pre-registered hypotheses (Exp 29): H1 confirmed (raw CE and RPS beat raw Pearson in 7 of 7 panels); H2, H3 and H4 partial; details in [RESULTS_11-23-2026.md]({E29}/RESULTS_11-23-2026.md).
+The repo's own Exp 29 figures: [four objectives and K=2 control]({E29}/figures/fig1_four_objectives_and_k2_control.png), [disagreement slices and logit rescue]({E29}/figures/fig2_disagreement_slices_and_logit_rescue.png). Pre-registered hypotheses (Exp 29): H1 confirmed (raw CE and RPS beat raw Pearson in 7 of 7 panels) (11-25 text; corrected 11-26-2026: **the registered across-budget H1 is only partly supported**; 7/7 is the narrower largest-budget result, while three-category RPS wins are CE-trained 26/27 point and 22/27 crossed, RPS-trained 24/27 point and 17/27 crossed); H2, H3 and H4 partial; details in [RESULTS_11-23-2026.md]({E29}/RESULTS_11-23-2026.md).
 
 ## Exp 24 and Exp 25 (HelpSteer2 Qwen3-4B LoRA, complete Nov 21 and 22)
 
