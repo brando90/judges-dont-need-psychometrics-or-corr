@@ -2,7 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/HANDOFF_STANFORD_LIBRARY_11-25-2026.md>
 
-**TLDR:** The memo is finished, built and committed to `main`; it is not deposited. A deposit in the Stanford Digital Repository (SDR) needs an account holder, and whoever deposits uses this note. It names the two files to upload, which are committed in the `deposit/` folder next to it, with their hashes, the metadata to paste and the decisions only Brando can make.
+**Status (11-25-2026): deposited** as <https://purl.stanford.edu/pr787bn6444> (DOI 10.25740/pr787bn6444); the record is in [DEPOSIT_11-25-2026.md](DEPOSIT_11-25-2026.md). The text below is the note the deposit used, and its hashes are the deposited ones.
+
+**TLDR:** The memo is finished, built and committed to `main`. A deposit in the Stanford Digital Repository (SDR) needs an account holder, and whoever deposits uses this note. It names the two files to upload, which are committed in the `deposit/` folder next to it, with their hashes, the metadata to paste and the decisions only Brando can make.
 
 ## 1. What to upload
 
