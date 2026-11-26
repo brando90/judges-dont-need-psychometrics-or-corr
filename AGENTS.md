@@ -47,6 +47,18 @@ Prefer a numbered experiment folder on `main` to a long-lived branch or a GitHub
 
 Merge to main (Brando, 11-25-2026): work goes to `main`. If in doubt, try to merge it, followed by a light QA (re-read the merged files on a fresh clone, run the quick tests, check the numbers you touched). No branches or pull requests.
 
+## Check every proof with Lean and quick numerics — Brando, 11-26-2026
+
+Brando, 11-26-2026: "you are checking your proofs with lean (and simple/quick numerical experiments) right? ... I'm asking cuz I think some of the stuff I sent you is wrong I think." Before any proof, derivation, identity or counterexample reaches Brando (chat, a note, the paper, slides), check it both ways and say which checks were run:
+
+1. **Lean.** State the claim as a theorem and compile it with the pinned toolchain (`lean-toolchain`; `lake env lean` or `lake build`; agents-config Rule 20). Prove the general statement, not only an instance; if only an instance is proved, say so. Add one concrete instance showing the hypotheses can hold. Keep the `.lean` file, the observed compiler output and `#print axioms` (only `propext`, `Classical.choice`, `Quot.sound`; no `sorry`) in the experiment folder.
+2. **Quick numerics.** A deterministic script (fixed seed; exact fractions where the quantity is rational, a named tolerance otherwise) that tests the same claim on many random instances and tests every statement claimed false as a failing case. It prints PASS or FAIL per claim, exits nonzero on a failure and is run twice with identical output. When a check fails, find out whether the claim or the check is wrong and report which.
+3. **Audit Brando's inputs too.** Handwritten pages, printed notes and reports relayed from other agents (Cursor, Grok, ChatGPT) are claims, not facts: check each line the same way and report the wrong and imprecise ones first, with the corrected statement. Never silently repair his statement or my transcription of it.
+4. **Say what was not machine-checked.** Label a claim "numerics only" (calculus facts), "cited" (a published theorem) or "not checkable" (a question, a modelling choice). Never write "verified" or "proved" for a claim that was only argued by hand.
+5. **Order and fallback.** Run both checks before the claim is presented as established. If Lean is not available, install it (Rule 20) or mark the claim unchecked; never substitute "looks correct".
+
+Reference implementation: [`claims_audit_11-26-2026/`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/extended_checks_11-26-2026/claims_audit_11-26-2026/README.md) in experiment 35.
+
 ## Research precision (keep near the top)
 
 Read every setting, definition, number and citation from this repo (experiment READMEs, scripts, run records, the paper) before writing it. Write `unknown` only after a documented search, and never guess. **Never fabricate results or citations.** Every number in the README or paper must be printed by a script in `experiments/`. Planned work stays marked as planned.

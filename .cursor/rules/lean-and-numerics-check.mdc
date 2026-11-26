@@ -1,0 +1,20 @@
+---
+description: Check every proof, derivation and counterexample with Lean and quick numerics before it reaches Brando, and audit the math he sends.
+alwaysApply: true
+---
+
+# Check every proof with Lean and quick numerics
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/lean-and-numerics-check.mdc>
+
+**TLDR:** No proof, identity or counterexample goes to Brando unchecked. Compile it in Lean, test it with a quick deterministic script, audit the math he sends the same way, and say what was and was not machine-checked.
+
+Read `AGENTS.md`, section "Check every proof with Lean and quick numerics" (Brando, 11-26-2026). It holds the same project rule as `CLAUDE.md`. In short:
+
+1. **Lean:** state the claim as a theorem and compile it with the pinned toolchain (`lean-toolchain`, `lake env lean`; agents-config Rule 20). Prove the general statement, not only an instance, and add one concrete instance showing the hypotheses can hold. Keep the file, the compiler output and `#print axioms` (standard axioms only, no `sorry`) in the experiment folder.
+2. **Quick numerics:** a seeded script (exact fractions where possible, a named tolerance otherwise) that tests the claim on many random instances and tests every claimed-false statement as a failing case; PASS or FAIL per claim, nonzero exit on failure, identical output on a second run. If a check fails, decide whether the claim or the check is wrong and say which.
+3. **Audit his inputs:** handwritten pages, printed notes and reports from other agents are claims to check line by line. Report the wrong and imprecise items first, with the corrected statement; never silently repair his statement or the transcription.
+4. **Say what was not machine-checked:** label claims "numerics only", "cited" or "not checkable"; never write "verified" or "proved" for a claim argued only by hand.
+5. **Before presenting:** run both checks first. If Lean is missing, install it or mark the claim unchecked.
+
+Reference implementation: `experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/extended_checks_11-26-2026/claims_audit_11-26-2026/`.

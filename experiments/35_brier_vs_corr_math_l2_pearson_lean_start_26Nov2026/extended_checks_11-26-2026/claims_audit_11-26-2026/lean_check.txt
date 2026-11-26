@@ -1,0 +1,77 @@
+Lean check for AuditClaims.lean (11-26-2026)
+
+Toolchain
+  Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+  Lake version 5.0.0-src+611c117 (Lean version 4.36.0)
+  Mathlib tag v4.36.0, rev fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+
+Project
+  The Lake project of ../lean/ (lakefile.toml requires mathlib rev "v4.36.0"; lake-manifest.json pins the rev above).
+  The file was compiled in a checkout of that project whose lakefile.toml, lake-manifest.json and
+  lean-toolchain are byte-identical to ../lean/ (checked with cmp) and whose Mathlib was already built.
+
+Command (from the Lake project directory)
+  lake env lean <path-to>/claims_audit_11-26-2026/AuditClaims.lean
+
+  To reproduce from this repository:
+  cd ../lean && lake exe cache get && lake env lean ../claims_audit_11-26-2026/AuditClaims.lean
+
+Result
+  Exit code: 0; no errors, no warnings, no output (the committed file, compiled on its own).
+  Compile time: about 22 seconds once Mathlib is loaded.
+  45 theorems, 17 helper lemmas, 0 occurrences of the word sorry.
+  No proof uses an axiom beyond Lean's standard three (propext, Classical.choice, Quot.sound):
+  the 45 lines below come from compiling the committed file with one `#print axioms ClaimsAudit.<theorem>`
+  line per theorem appended (the appended copy is not committed; it also exited 0 with no warnings).
+
+sha256 of AuditClaims.lean: c904359acbb2653770ec18ffa0aa7698c71d73c78b2b8353db3fead23d4b32c9
+
+#print axioms output (all 45 theorems)
+'ClaimsAudit.cov_eq_raw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.var_eq_raw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.E_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.E_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.sqdiff_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.boxed_raw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.raw_three_levels' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.centered_sqdiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.E_Z' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.E_Z_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.E_ZZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.std_sqdiff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.slip_missing_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.slip_agrees_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.var_Z' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.scribbled_line_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.three_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.momMap_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.finrank_ker_momMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.four_free_directions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.three_after_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.none_after_five_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.two_ratings_mean_is_distribution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.uniform_in_the_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.fixed_pairing_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.condmean_unique_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.same_conditional_mean_same_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.coins_same_conditional_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.coins_irreducible_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.cov_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.sqdiff_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.zero_sqdiff_forces_equal_laws' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.indep_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.indep_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.indep_truthful' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.truthful_not_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.gibbs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.linear_score_improper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.square_score_improper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.bayes_rule_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.masses_preserved_under_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.sqdiff_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.instance_hypotheses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.instance_slip_differs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ClaimsAudit.instance_scribbled_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+theorems whose axiom list differs from the standard three: 0
+lines mentioning sorryAx: 0

@@ -21,3 +21,5 @@ Part of experiment 35's extended checks ([`../README.md`](../README.md)). The ha
 ## Reproduce
 
 From this folder: `python3 -I check_squared_difference_vs_distribution.py` (about 1 s) and `python3 -I make_figures.py`. Lean: `cd ../lean && lake exe cache get && lake env lean ../squared_difference_vs_distribution_11-26-2026/MeanMatching.lean` (about 20 s once Mathlib is built).
+
+General Lean statements (conditional-mean decomposition, lower bound over couplings, independent-draws formula, degrees-of-freedom count) were added later the same day in [`../claims_audit_11-26-2026/AuditClaims.lean`](../claims_audit_11-26-2026/AuditClaims.lean); `MeanMatching.lean` here still covers concrete instances only.

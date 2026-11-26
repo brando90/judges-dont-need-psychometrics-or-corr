@@ -1,0 +1,38 @@
+PASS  C1a page 1 right margin Cov = E[XY]-E[X]E[Y], exact on 300 random joint laws
+PASS  C1b page 1/2 Var[X] = E[X^2]-mu^2 = E[X]^2 form, exact
+PASS  C1c page 1 small notes E[X^2]=sigma^2+mu^2 and E[XY]=cov+mu_X mu_Y, exact
+PASS  C1d page 1 E[(X-Y)^2] = E[X^2]+E[Y^2]-2E[XY], exact
+PASS  C1e page 1 boxed (and page 3) E[(X-Y)^2] = s_X^2+s_Y^2-2cov+mu_X^2+mu_Y^2-2mu_X mu_Y, exact
+PASS  C1f location gap plus centered squared difference, exact
+PASS  C2a page 2 E[X~] = (1/sigma)(E[X]-mu) = 0 for the z-score: max |E[Z_X]| = 1.3e-15
+PASS  C2b page 2 Var[X~] = E[(X-mu)^2]/sigma^2 = 1: max gaps 4.4e-16, 4.4e-16
+PASS  C2c page 1 boxed E[(Z_X-Z_Y)^2] = 2(1-corr): max gap 1.3e-15 on 300 laws
+PASS  C2d page 2 line (a+b)^2 = ... with unit second moments: E[(Z_X+Z_Y)^2] = 2(1+corr): 1.3e-15
+PASS  C2e three-term identity (mu gap)^2+(sigma gap)^2+2 s_X s_Y (1-rho): max gap 3.6e-15
+PASS  C3a page 2 first expansion as written (cross term -X~Y~, no factor 2) equals 2 - rho, not 2(1-rho): max |value-(2-rho)| = 8.9e-16; it differs from 2(1-rho) on 300 of 300 laws (exactly when rho != 0)
+PASS  C3b page 2 scribbled line Var[X~] = Var[X-mu]/sqrt(Var[X~]) is false: right side is Var[X], not 1: false on 300 of 300 laws (true only when Var[X] = 1); correct divisor is sigma^2
+PASS  C3c after the PS (tilde = centered) page 1's boxed line would be wrong if the tilde were kept: E[(Xc-Yc)^2] = var_X+var_Y-2cov != 2(1-rho): differs on 300 of 300 laws; the standardized variable needs its own symbol Z
+PASS  C4a page 3 '6 degrees of freedom, 1 equation': free directions after normalization and j moments = K-1-j (exact rank, K=2..10, every j): K=6, j=1..5 gives [4, 3, 2, 1, 0]; K=2, j=1 gives 0
+PASS  C4b page 3: six ratings, normalization plus the mean leave four free directions, not six
+PASS  C4c page 3: infinitely many laws share a mean: four explicit pmfs, all with mean 5/2, pairwise different
+PASS  C5a page 3 squared difference with a fixed pairing: E[(X-f(Z))^2] = E[Var(X|Z)] + E[(E[X|Z]-f(Z))^2], exact on 200 random tables
+PASS  C5b the conditional mean is the unique minimizer
+PASS  C5c the two coins have the same conditional mean 5/2 (same minimizer) and irreducible errors 25/4 and 1/4
+PASS  C6a for every coupling E[(X-Y)^2] >= (mu_X-mu_Y)^2 + (sigma_X-sigma_Y)^2: smallest gap 0.00e+00 on 300 laws
+PASS  C6b equality holds exactly when rho = 1 (Y = 2X+1 example)
+PASS  C6c page 3 'if X = Y the squared difference is zero too' and conversely zero forces equal laws
+PASS  C6d two coins (0 or 5 against 2 or 3): minimum squared difference over all couplings is 4 (cost 9-10a, a<=1/2)
+PASS  C7a independent draws: E[(X-Y)^2] = sigma_p^2 + sigma_q^2 + (mu_p-mu_q)^2, exact on 300 random pairs
+PASS  C7b against a point mass y: E[(X-y)^2] = sigma_p^2 + (y-mu_p)^2
+PASS  C7c the truthful report q = p is beaten by a point mass unless p lives on its nearest rating(s): strict improvement on 300 of 300 random laws
+PASS  C7d p = half on 0, half on 5: truthful report scores 25/2; point masses at 0..5 score 25/2, 17/2, 13/2, 13/2, 17/2, 25/2
+PASS  C8a Gibbs: expected log-loss of any report q is at least the truth's, on 2000 random pairs
+PASS  C8b K=2, truth p=(0.6,0.4), scores that are one-to-one in q(x): the best report for q(x) and for q(x)^2 is the corner q=1, for sqrt q(x) it is 9/13 = 0.692 (exaggerates the mode); only log q(x) and the local Brier form -(1-q(x))^2 are best at the truth 0.6: best report q: identity q(x): 1.0000, square q(x)^2: 1.0000, sqrt q(x): 0.6923, log q(x): 0.6000, Brier-type -(1-q(x))^2: 0.6000
+PASS  C9 6.437 top-right margin: the per-observation posterior-cost argmin minimizes expected cost over all rules (200 random problems, 50 rival rules each)
+PASS  C10a page 1 question: squared error is the Gaussian negative log-likelihood up to constants; its minimizer is the sample mean
+PASS  C10b page 2 'or integral (p*(x)-q^(x))^2 dx': expected quadratic-score gap equals the integrated squared difference of the densities: 0.0906823959 vs 0.0906823959 (closed form 0.0906823959)
+PASS  C11a pmf: masses are preserved under an injective map (support relabelled): {0,1,2} -> {-7,-4,-1} with masses 1/4,1/2,1/4
+PASS  C11b pdf: the standardized Uniform[0,1] has density sigma = 0.2887 (support (-1.732, 1.732)), not the original height 1: rescaling changes pdf heights, translation only moves them: density near 0 is 0.2887, near -1.1 is 0.2887; sigma = 0.2887
+PASS  C11c change of variables pdf_Z(z) = sigma * pdf_U(mu + sigma z) = sigma on the support, and the area is 1
+
+36 of 36 checks PASS
