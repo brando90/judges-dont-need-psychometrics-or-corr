@@ -1,0 +1,3486 @@
+{
+  "protocol": {
+    "split": "prompt group, fractions 0.6/0.2/0.2, seed 0",
+    "bootstrap": "item-clustered percentile 95%, B=1000, seed 20261126",
+    "proper_risk": "mean over test prompts of the mean loss inside the prompt",
+    "judge": "CE-trained softmax linear head, temperature chosen on validation CE",
+    "veribench_note": "VeriBench functional semantic correctness scores from trustworthy-theorem-judges experiment 09 native-main CSVs, column final_score_0_5, integer grades 0 through 5. Clone commit 460466dd10b735c5ff25f9e9cb21f0441fcf960b. No artifact in that clone is named R_v1; this is the live experiment 09 numeric collection, not a frozen file called R_v1. Scored rows kept: 250. rater_id is the roster id stored with rater_name. Split group is item_id. The same person can rate items that land in different splits."
+  },
+  "datasets": {
+    "summeval_expert_coherence": {
+      "summary": {
+        "name": "summeval_expert_coherence",
+        "kind": "ordinal",
+        "n_items": 1600,
+        "n_ratings": 4800,
+        "ratings_per_item_min": 3,
+        "ratings_per_item_median": 3.0,
+        "ratings_per_item_max": 3,
+        "n_classes": 5,
+        "class_values": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ],
+        "notes": "SummEval expert, aspect coherence only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+      },
+      "n_train": 960,
+      "n_val": 320,
+      "n_test": 320,
+      "fit": {
+        "success": true,
+        "nit": 17,
+        "fun": 1.5188337969666832,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 0.75,
+        "validation_ce": 1.4995956585287356
+      },
+      "rbf_gamma_frozen_on_identity_logits": 24.026767603073957,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.008696451786627623,
+          "normalized_opd": 1.3473466651700998,
+          "cca_sq": 0.07756648419966995,
+          "pearson_expected_rating": 0.09262006596638456,
+          "rbf_cka": 0.031415549768345166,
+          "proper": {
+            "ce": {
+              "mean": 1.5392502999317745,
+              "lo": 1.5033684255879138,
+              "hi": 1.5739581344348443,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7750258522850588,
+              "lo": 0.7636446084229969,
+              "hi": 0.7857466958100568,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.696820228083198,
+              "lo": 0.6687417736515784,
+              "hi": 0.7277700127725621,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.8347575864184751,
+              "lo": 0.8177663307635409,
+              "hi": 0.8530943746109547,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.008696451786627623,
+          "normalized_opd": 1.3473466651700998,
+          "cca_sq": 0.07756648419966995,
+          "pearson_expected_rating": -0.07830300668417431,
+          "rbf_cka": 0.031415549768345166,
+          "proper": {
+            "ce": {
+              "mean": 2.103612655411806,
+              "lo": 2.0662693425607683,
+              "hi": 2.1406812413788057,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.051462139173808,
+              "lo": 1.0326129940986015,
+              "hi": 1.0680881091874788,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.19224900196887,
+              "lo": 1.134490830360297,
+              "hi": 1.252076999640236,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.091901553240433,
+              "lo": 1.065124794762672,
+              "hi": 1.118962464941572,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.008696451786627623,
+          "normalized_opd": 1.3473466651700998,
+          "cca_sq": 0.07756648420025698,
+          "pearson_expected_rating": -0.09262006596638339,
+          "rbf_cka": 0.03141554976834533,
+          "proper": {
+            "ce": {
+              "mean": 1.8669834230493527,
+              "lo": 1.8090836788632139,
+              "hi": 1.9239908566572885,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.8604119857193805,
+              "lo": 0.8447459381786239,
+              "hi": 0.8764767218438004,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.9006951333444146,
+              "lo": 0.8552245793945324,
+              "hi": 0.9475061792598688,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9490495947759604,
+              "lo": 0.9247835307960007,
+              "hi": 0.9733992897276307,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.008696451786627623,
+          "normalized_opd": 1.3473466651700998,
+          "cca_sq": 0.0775664842004972,
+          "pearson_expected_rating": 0.071660204660557,
+          "rbf_cka": 0.0314155497683451,
+          "proper": {
+            "ce": {
+              "mean": 1.8497095197820186,
+              "lo": 1.790091222572861,
+              "hi": 1.9075788502023305,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.858571313291175,
+              "lo": 0.843131114229843,
+              "hi": 0.8734726823850898,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.834881126759457,
+              "lo": 0.7941191589903793,
+              "hi": 0.8745515693354556,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9137182972664261,
+              "lo": 0.8911336364888222,
+              "hi": 0.9351746189734317,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.008696451786627627,
+          "normalized_opd": 1.3473466651700998,
+          "cca_sq": 0.07756648419991416,
+          "pearson_expected_rating": -0.035622390858964965,
+          "rbf_cka": 0.0314155497683451,
+          "proper": {
+            "ce": {
+              "mean": 1.9719173536705508,
+              "lo": 1.9368352485151048,
+              "hi": 2.0033820780825473,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.9772956599921212,
+              "lo": 0.9623704222182347,
+              "hi": 0.9903738379783465,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.0346983091929545,
+              "lo": 0.9867493101780039,
+              "hi": 1.0831740988762721,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.0172012137197608,
+              "lo": 0.9933525523907534,
+              "hi": 1.0407565010167834,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.008039451264984229,
+          "normalized_opd": 1.3500253873399284,
+          "cca_sq": 0.07756648420129586,
+          "pearson_expected_rating": 0.09483408323973802,
+          "rbf_cka": 0.03076485853450008,
+          "proper": {
+            "ce": {
+              "mean": 1.5866508134866677,
+              "lo": 1.5296614175645744,
+              "hi": 1.6405151642353029,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7895869599816755,
+              "lo": 0.771612438675322,
+              "hi": 0.8075654016870883,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.7272146580948325,
+              "lo": 0.6858855628315247,
+              "hi": 0.7679950209818831,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.8527688186694167,
+              "lo": 0.8281820792886284,
+              "hi": 0.8763532370324821,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 299,
+        "n_prompts": 320,
+        "linear_cka_uncollapsed": 6.713430651986723e-06,
+        "linear_cka_collapsed": 0.006159927542440223,
+        "normalized_opd_uncollapsed": 1.412380239964413,
+        "normalized_opd_collapsed": 1.3575822583676918,
+        "pearson_uncollapsed": 0.0025910288790337178,
+        "pearson_collapsed": 0.07848520588263895,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 1.5392502999317745,
+            "lo": 1.5033684255879138,
+            "hi": 1.5739581344348443,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.7750258522850588,
+            "lo": 0.7636446084229969,
+            "hi": 0.7857466958100568,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.696820228083198,
+            "lo": 0.6687417736515784,
+            "hi": 0.7277700127725621,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.8347575864184751,
+            "lo": 0.8177663307635409,
+            "hi": 0.8530943746109547,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 1.4208333333333334,
+            "lo": 1.3666145833333332,
+            "hi": 1.4729166666666669,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 1.0197916666666669,
+            "lo": 0.9655989583333333,
+            "hi": 1.070859375,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 1.009847348200047,
+            "lo": 0.9826489462071956,
+            "hi": 1.0348233515089609,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "SummEval expert, aspect coherence only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+    },
+    "summeval_expert_consistency": {
+      "summary": {
+        "name": "summeval_expert_consistency",
+        "kind": "ordinal",
+        "n_items": 1600,
+        "n_ratings": 4800,
+        "ratings_per_item_min": 3,
+        "ratings_per_item_median": 3.0,
+        "ratings_per_item_max": 3,
+        "n_classes": 5,
+        "class_values": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ],
+        "notes": "SummEval expert, aspect consistency only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+      },
+      "n_train": 960,
+      "n_val": 320,
+      "n_test": 320,
+      "fit": {
+        "success": true,
+        "nit": 11,
+        "fun": 0.5637019606738258,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 0.6048275228136601
+      },
+      "rbf_gamma_frozen_on_identity_logits": 157.34923215441208,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.002050861909775171,
+          "normalized_opd": 1.3728679841445524,
+          "cca_sq": 0.07023178575140922,
+          "pearson_expected_rating": 0.036704428618421894,
+          "rbf_cka": 0.010243272908470826,
+          "proper": {
+            "ce": {
+              "mean": 0.5461239815690222,
+              "lo": 0.44719492158271523,
+              "hi": 0.6480144681936029,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.23024037147084292,
+              "lo": 0.17836230365064784,
+              "hi": 0.2835306735888232,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.27901941938014396,
+              "lo": 0.2078169459974949,
+              "hi": 0.3516273779392706,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5282228879745215,
+              "lo": 0.45586943910624866,
+              "hi": 0.5929817671275388,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.002050861909775171,
+          "normalized_opd": 1.3728679841445524,
+          "cca_sq": 0.07023178575140922,
+          "pearson_expected_rating": -0.048815502457765524,
+          "rbf_cka": 0.010243272908470826,
+          "proper": {
+            "ce": {
+              "mean": 4.306517275404214,
+              "lo": 4.203024543456013,
+              "hi": 4.404968771311033,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.1789201006088343,
+              "lo": 1.164886176042501,
+              "hi": 1.192530949828163,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.555355700303711,
+              "lo": 1.5165114428998112,
+              "hi": 1.5906854494144727,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.2471390060068328,
+              "lo": 1.2314671911476451,
+              "hi": 1.261223790368991,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.002050861909775171,
+          "normalized_opd": 1.3728679841445524,
+          "cca_sq": 0.07023178575137068,
+          "pearson_expected_rating": -0.03670442861842208,
+          "rbf_cka": 0.010243272908476634,
+          "proper": {
+            "ce": {
+              "mean": 3.407517031457831,
+              "lo": 3.3649547764034007,
+              "hi": 3.442360621300025,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.6663878042897196,
+              "lo": 1.64600434325078,
+              "hi": 1.6844052038810486,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 3.0840608751213603,
+              "lo": 3.0068343739179575,
+              "hi": 3.160588761039268,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.756149445554495,
+              "lo": 1.7340225986363293,
+              "hi": 1.7778044776531685,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.002050861909775171,
+          "normalized_opd": 1.3728679841445526,
+          "cca_sq": 0.07023178575090482,
+          "pearson_expected_rating": 0.03870097994876502,
+          "rbf_cka": 0.010243272908477225,
+          "proper": {
+            "ce": {
+              "mean": 3.3966418394698947,
+              "lo": 3.357268142389492,
+              "hi": 3.4284124878349296,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.6609472759755963,
+              "lo": 1.6419150575625336,
+              "hi": 1.676231531258828,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.9913758060697967,
+              "lo": 0.964515723660219,
+              "hi": 1.0175486363787514,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9956785656374233,
+              "lo": 0.982097614117744,
+              "hi": 1.0087361579612042,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.002050861909775181,
+          "normalized_opd": 1.3728679841445524,
+          "cca_sq": 0.07023178575282121,
+          "pearson_expected_rating": 0.024962921620338988,
+          "rbf_cka": 0.010243272908468382,
+          "proper": {
+            "ce": {
+              "mean": 3.046474213708298,
+              "lo": 3.0079635064973473,
+              "hi": 3.081665609679735,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.5571124994230456,
+              "lo": 1.5393810722419676,
+              "hi": 1.5716608128662388,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.9684799971498169,
+              "lo": 0.9431019774751647,
+              "hi": 0.9936100969331255,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9841138131079235,
+              "lo": 0.9711343759305768,
+              "hi": 0.9967999281858039,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.001988147649667254,
+          "normalized_opd": 1.3738702830324523,
+          "cca_sq": 0.07023178575121619,
+          "pearson_expected_rating": 0.03536355965306454,
+          "rbf_cka": 0.010959668324090286,
+          "proper": {
+            "ce": {
+              "mean": 0.5580998416688626,
+              "lo": 0.4491070772562979,
+              "hi": 0.6714609964770074,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.23112298647235185,
+              "lo": 0.17757218742305783,
+              "hi": 0.28670269288443573,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.2795416901969367,
+              "lo": 0.2053225385892243,
+              "hi": 0.355190206928266,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5287170227985256,
+              "lo": 0.4531252993646523,
+              "hi": 0.5959783607936286,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 319,
+        "n_prompts": 320,
+        "linear_cka_uncollapsed": 3.341423658322553e-07,
+        "linear_cka_collapsed": 0.001233619225044275,
+        "normalized_opd_uncollapsed": 1.413804759868017,
+        "normalized_opd_collapsed": 1.3891559192883716,
+        "pearson_uncollapsed": 0.0005780504872692828,
+        "pearson_collapsed": 0.03512291595303948,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 0.5461239815690222,
+            "lo": 0.44719492158271523,
+            "hi": 0.6480144681936029,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.23024037147084292,
+            "lo": 0.17836230365064784,
+            "hi": 0.2835306735888232,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.27901941938014396,
+            "lo": 0.2078169459974949,
+            "hi": 0.3516273779392706,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.5282228879745215,
+            "lo": 0.45586943910624866,
+            "hi": 0.5929817671275388,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.25,
+            "lo": 0.1875,
+            "hi": 0.3145833333333333,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.309375,
+            "lo": 0.2197916666666667,
+            "hi": 0.40002604166666667,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.5562148865321748,
+            "lo": 0.4688194393011735,
+            "hi": 0.6324761063928034,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "SummEval expert, aspect consistency only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+    },
+    "summeval_expert_fluency": {
+      "summary": {
+        "name": "summeval_expert_fluency",
+        "kind": "ordinal",
+        "n_items": 1600,
+        "n_ratings": 4800,
+        "ratings_per_item_min": 3,
+        "ratings_per_item_median": 3.0,
+        "ratings_per_item_max": 3,
+        "n_classes": 5,
+        "class_values": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ],
+        "notes": "SummEval expert, aspect fluency only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+      },
+      "n_train": 960,
+      "n_val": 320,
+      "n_test": 320,
+      "fit": {
+        "success": true,
+        "nit": 12,
+        "fun": 0.6409112104591158,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 0.7077349746160497
+      },
+      "rbf_gamma_frozen_on_identity_logits": 71.82183754452134,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.01527232292253813,
+          "normalized_opd": 1.3291665360079854,
+          "cca_sq": 0.07395280385973348,
+          "pearson_expected_rating": -0.11667350241993892,
+          "rbf_cka": 0.029989166939431915,
+          "proper": {
+            "ce": {
+              "mean": 0.6264979363549058,
+              "lo": 0.5390544640921444,
+              "hi": 0.7194406623195087,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.28263091512449856,
+              "lo": 0.23698763371607234,
+              "hi": 0.33261627614474226,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.27407686296568573,
+              "lo": 0.21643772597472677,
+              "hi": 0.3306858836164291,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.523523507557861,
+              "lo": 0.46522866932274887,
+              "hi": 0.5750529395144056,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.01527232292253813,
+          "normalized_opd": 1.3291665360079854,
+          "cca_sq": 0.07395280385973348,
+          "pearson_expected_rating": -0.07980201991812362,
+          "rbf_cka": 0.029989166939431915,
+          "proper": {
+            "ce": {
+              "mean": 4.475220688572124,
+              "lo": 4.383422679781696,
+              "hi": 4.563495252421165,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.326460695551758,
+              "lo": 1.3133026147363485,
+              "hi": 1.3392169872459454,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 2.460448718584344,
+              "lo": 2.4000448585881613,
+              "hi": 2.5183235182348502,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.5685817538733338,
+              "lo": 1.549207815741166,
+              "hi": 1.5869226564867154,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.01527232292253813,
+          "normalized_opd": 1.3291665360079854,
+          "cca_sq": 0.07395280385910193,
+          "pearson_expected_rating": 0.11667350241993821,
+          "rbf_cka": 0.029989166939429348,
+          "proper": {
+            "ce": {
+              "mean": 4.249670682813326,
+              "lo": 4.191303318797014,
+              "hi": 4.310687572279873,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.6569170424610953,
+              "lo": 1.6427763643066027,
+              "hi": 1.669337507045649,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 3.1186769862213555,
+              "lo": 3.049606356647921,
+              "hi": 3.1845655857622504,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.765977629026301,
+              "lo": 1.7463122157535933,
+              "hi": 1.7845351175480457,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.015272322922538127,
+          "normalized_opd": 1.3291665360079854,
+          "cca_sq": 0.07395280385832856,
+          "pearson_expected_rating": -0.11947717884231593,
+          "rbf_cka": 0.029989166939430927,
+          "proper": {
+            "ce": {
+              "mean": 4.117355244704781,
+              "lo": 4.039548972437163,
+              "hi": 4.187390938140879,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.5935037094625895,
+              "lo": 1.5695358769297094,
+              "hi": 1.6145639052286376,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.9709534688448087,
+              "lo": 0.9487057573466781,
+              "hi": 0.9944603147114007,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9853697117553435,
+              "lo": 0.9740152757196323,
+              "hi": 0.9972263098539255,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.015272322922538098,
+          "normalized_opd": 1.3291665360079856,
+          "cca_sq": 0.07395280385551044,
+          "pearson_expected_rating": -0.1409739152147255,
+          "rbf_cka": 0.029989166939433265,
+          "proper": {
+            "ce": {
+              "mean": 3.6711720295788055,
+              "lo": 3.6129547098119286,
+              "hi": 3.723490954081566,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.416378521047055,
+              "lo": 1.3968927931567956,
+              "hi": 1.433457360036304,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.077646654121183,
+              "lo": 1.0591294262262054,
+              "hi": 1.0950169465646427,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.038097613002353,
+              "lo": 1.029140139108192,
+              "hi": 1.046430574153781,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.014527254090856371,
+          "normalized_opd": 1.3301361369143778,
+          "cca_sq": 0.07395280386302298,
+          "pearson_expected_rating": -0.12109152586810915,
+          "rbf_cka": 0.029377268746307538,
+          "proper": {
+            "ce": {
+              "mean": 0.6587028145803432,
+              "lo": 0.5493323435270744,
+              "hi": 0.7736672532521344,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.2854024326193918,
+              "lo": 0.23611357838320723,
+              "hi": 0.33957845127160174,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.2776141728767215,
+              "lo": 0.21489320123957922,
+              "hi": 0.3396132363213592,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5268910445971933,
+              "lo": 0.46356572192340595,
+              "hi": 0.5827634419024357,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 319,
+        "n_prompts": 320,
+        "linear_cka_uncollapsed": 6.074333405040534e-06,
+        "linear_cka_collapsed": 0.011267345918144957,
+        "normalized_opd_uncollapsed": 1.412469740362977,
+        "normalized_opd_collapsed": 1.3370506683553018,
+        "pearson_uncollapsed": -0.0024646162794724324,
+        "pearson_collapsed": -0.10614775512532028,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 0.6264979363549058,
+            "lo": 0.5390544640921444,
+            "hi": 0.7194406623195087,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.28263091512449856,
+            "lo": 0.23698763371607234,
+            "hi": 0.33261627614474226,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.27407686296568573,
+            "lo": 0.21643772597472677,
+            "hi": 0.3306858836164291,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.523523507557861,
+            "lo": 0.46522866932274887,
+            "hi": 0.5750529395144056,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.3145833333333333,
+            "lo": 0.25625,
+            "hi": 0.3771354166666666,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.3104166666666667,
+            "lo": 0.2375,
+            "hi": 0.38541666666666663,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.557150488348226,
+            "lo": 0.48733971724044817,
+            "hi": 0.6208193510729725,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "SummEval expert, aspect fluency only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+    },
+    "summeval_expert_relevance": {
+      "summary": {
+        "name": "summeval_expert_relevance",
+        "kind": "ordinal",
+        "n_items": 1600,
+        "n_ratings": 4800,
+        "ratings_per_item_min": 3,
+        "ratings_per_item_median": 3.0,
+        "ratings_per_item_max": 3,
+        "n_classes": 5,
+        "class_values": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ],
+        "notes": "SummEval expert, aspect relevance only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+      },
+      "n_train": 960,
+      "n_val": 320,
+      "n_test": 320,
+      "fit": {
+        "success": true,
+        "nit": 15,
+        "fun": 1.3587794421007344,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 1.3591988221274158
+      },
+      "rbf_gamma_frozen_on_identity_logits": 30.074593377701976,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.027112838810964348,
+          "normalized_opd": 1.3084325390527687,
+          "cca_sq": 0.1053756502518052,
+          "pearson_expected_rating": 0.19488750031130772,
+          "rbf_cka": 0.031706722816093734,
+          "proper": {
+            "ce": {
+              "mean": 1.3314857967324039,
+              "lo": 1.2954002613912694,
+              "hi": 1.3675961573536142,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7117395417060075,
+              "lo": 0.6988156780141621,
+              "hi": 0.7247793211592555,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.5236212486526577,
+              "lo": 0.4981641882407632,
+              "hi": 0.5502203305102302,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.7236167830092511,
+              "lo": 0.70580747212627,
+              "hi": 0.741768380552633,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.027112838810964348,
+          "normalized_opd": 1.3084325390527687,
+          "cca_sq": 0.1053756502518052,
+          "pearson_expected_rating": -0.22230059960270707,
+          "rbf_cka": 0.031706722816093734,
+          "proper": {
+            "ce": {
+              "mean": 2.925620348300229,
+              "lo": 2.8883799143750286,
+              "hi": 2.961990251118564,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.3972724184206764,
+              "lo": 1.3852900421189698,
+              "hi": 1.4082521026783674,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.9349841498233211,
+              "lo": 1.8704713743239811,
+              "hi": 2.0017308553224273,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.3910370770843317,
+              "lo": 1.367651773671408,
+              "hi": 1.414825376760796,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.027112838810964348,
+          "normalized_opd": 1.3084325390527687,
+          "cca_sq": 0.10537565025150984,
+          "pearson_expected_rating": -0.19488750031130775,
+          "rbf_cka": 0.03170672281609395,
+          "proper": {
+            "ce": {
+              "mean": 2.4038794911840897,
+              "lo": 2.322037156644569,
+              "hi": 2.4858535272000837,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.9990580263210284,
+              "lo": 0.9797167270900915,
+              "hi": 1.0179850778478716,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.2186579786509029,
+              "lo": 1.1623055674743215,
+              "hi": 1.2745794016845224,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.1039284300401466,
+              "lo": 1.0781027629350257,
+              "hi": 1.1289727184188292,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.027112838810964348,
+          "normalized_opd": 1.3084325390527687,
+          "cca_sq": 0.10537565025145006,
+          "pearson_expected_rating": 0.18235929105172216,
+          "rbf_cka": 0.03170672281609393,
+          "proper": {
+            "ce": {
+              "mean": 1.9907332539587899,
+              "lo": 1.909887487354502,
+              "hi": 2.0771087421206524,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.8473177497048276,
+              "lo": 0.8285882630182515,
+              "hi": 0.8660607866627527,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.811764773902332,
+              "lo": 0.7737057552675148,
+              "hi": 0.8501606175239649,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9009798965028754,
+              "lo": 0.8796054540414168,
+              "hi": 0.9220415448263459,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.027112838810964362,
+          "normalized_opd": 1.308432539052769,
+          "cca_sq": 0.10537565024948113,
+          "pearson_expected_rating": -0.0860598339138499,
+          "rbf_cka": 0.0317067228160937,
+          "proper": {
+            "ce": {
+              "mean": 2.5028066027296054,
+              "lo": 2.4508048321530502,
+              "hi": 2.5551719195088447,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.2315319190706289,
+              "lo": 1.2204533447936472,
+              "hi": 1.2412055104610495,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.586834094086419,
+              "lo": 1.5313673458481971,
+              "hi": 1.6440113484062386,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.2596960324167172,
+              "lo": 1.237484281048967,
+              "hi": 1.2821900591233686,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.028331040518885766,
+          "normalized_opd": 1.306600951496514,
+          "cca_sq": 0.10537565025240249,
+          "pearson_expected_rating": 0.1845777768987115,
+          "rbf_cka": 0.03141736513792588,
+          "proper": {
+            "ce": {
+              "mean": 1.419636018355898,
+              "lo": 1.345705382495387,
+              "hi": 1.493973162744789,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7348171386716487,
+              "lo": 0.7099287760612908,
+              "hi": 0.7592103497988585,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.5449366276760479,
+              "lo": 0.5066222832453505,
+              "hi": 0.5836999229610259,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.7381982306102121,
+              "lo": 0.7117740391864426,
+              "hi": 0.7640025673451932,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 313,
+        "n_prompts": 320,
+        "linear_cka_uncollapsed": 2.9249829212688108e-05,
+        "linear_cka_collapsed": 0.024181343639635196,
+        "normalized_opd_uncollapsed": 1.4103841241846986,
+        "normalized_opd_collapsed": 1.2996126219097772,
+        "pearson_uncollapsed": 0.005408311123880366,
+        "pearson_collapsed": 0.15550351648639718,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 1.3314857967324039,
+            "lo": 1.2954002613912694,
+            "hi": 1.3675961573536142,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.7117395417060075,
+            "lo": 0.6988156780141621,
+            "hi": 0.7247793211592555,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.5236212486526577,
+            "lo": 0.4981641882407632,
+            "hi": 0.5502203305102302,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.7236167830092511,
+            "lo": 0.70580747212627,
+            "hi": 0.741768380552633,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 1.2333333333333332,
+            "lo": 1.1686979166666667,
+            "hi": 1.2917187499999998,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.7260416666666666,
+            "lo": 0.6780989583333333,
+            "hi": 0.7760416666666666,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.8520807864672614,
+            "lo": 0.8234676366289164,
+            "hi": 0.8809322713277489,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "SummEval expert, aspect relevance only. SummEval expert annotations on four aspects (coherence, consistency, fluency, relevance), native grades 1\u20135 stored as class values [1,2,3,4,5]. Every summary has [3] expert annotation records. The jsonl does not publish a stable rater id, so rater_id is the within-item vote index, not a person. Split group is the source article (filepath), so every system and aspect of one article stays in one split. Binary views use the pre-registered cut grade \u2265 4."
+    },
+    "chaosNLI_snli": {
+      "summary": {
+        "name": "chaosNLI_snli",
+        "kind": "multiclass",
+        "n_items": 1514,
+        "n_ratings": 151400,
+        "ratings_per_item_min": 100,
+        "ratings_per_item_median": 100.0,
+        "ratings_per_item_max": 100,
+        "n_classes": 3,
+        "class_values": [
+          0.0,
+          1.0,
+          2.0
+        ],
+        "notes": "ChaosNLI SNLI or MNLI-matched, 3 classes, 100 votes per item in the author files. label_count order is entailment, neutral, contradiction. Ranked probability score uses that order as an imposed order (entailment < neutral < contradiction); it is not a native Likert scale. rater_id is a within-item vote index expanded from the counts, not a person. Each uid is its own split group."
+      },
+      "n_train": 908,
+      "n_val": 302,
+      "n_test": 304,
+      "fit": {
+        "success": true,
+        "nit": 16,
+        "fun": 1.0274284327529692,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 1.0412343064927174
+      },
+      "rbf_gamma_frozen_on_identity_logits": 31.452043481614336,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.01570844736747992,
+          "normalized_opd": 1.3467510713059465,
+          "cca_sq": 0.029304985733655867,
+          "pearson_expected_rating": 0.12084816233839099,
+          "rbf_cka": 0.02861028928483676,
+          "proper": {
+            "ce": {
+              "mean": 1.0002281901576329,
+              "lo": 0.9772716463360525,
+              "hi": 1.0239385293386614,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.6005543253150748,
+              "lo": 0.5847006732713922,
+              "hi": 0.6172705439456637,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.3509432392976159,
+              "lo": 0.335142746505403,
+              "hi": 0.3673312793117868,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5924046246423266,
+              "lo": 0.5789151438901619,
+              "hi": 0.6060786081784679,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.01570844736747992,
+          "normalized_opd": 1.3467510713059465,
+          "cca_sq": 0.029304985733655867,
+          "pearson_expected_rating": -0.10970979916417462,
+          "rbf_cka": 0.02861028928483676,
+          "proper": {
+            "ce": {
+              "mean": 1.3308245643645882,
+              "lo": 1.3065772760413081,
+              "hi": 1.3542423998447495,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.809964495427861,
+              "lo": 0.7952459344026348,
+              "hi": 0.8234904669045439,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.44870572391843927,
+              "lo": 0.43520066539396185,
+              "hi": 0.4619975796837221,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6698550021597505,
+              "lo": 0.6596974041734017,
+              "hi": 0.6797040377364558,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.01570844736747992,
+          "normalized_opd": 1.3467510713059465,
+          "cca_sq": 0.029304985733756603,
+          "pearson_expected_rating": -0.12084816233839095,
+          "rbf_cka": 0.0286102892848368,
+          "proper": {
+            "ce": {
+              "mean": 1.054331125262917,
+              "lo": 1.0245376299718405,
+              "hi": 1.0863013212284223,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.627726801468413,
+              "lo": 0.6084820479056774,
+              "hi": 0.6487552601271275,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.37811571545095407,
+              "lo": 0.3583589961108789,
+              "hi": 0.399253567158508,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6149111443541694,
+              "lo": 0.598630934765166,
+              "hi": 0.6318651492361052,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.01570844736747992,
+          "normalized_opd": 1.3467510713059465,
+          "cca_sq": 0.02930498573272423,
+          "pearson_expected_rating": -0.11355023467740857,
+          "rbf_cka": 0.028610289284836745,
+          "proper": {
+            "ce": {
+              "mean": 1.2581174787508342,
+              "lo": 1.2269339654501057,
+              "hi": 1.2876303537714942,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.763616317849895,
+              "lo": 0.7431169910365393,
+              "hi": 0.7836782719474286,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.4095366052875957,
+              "lo": 0.3983499151515545,
+              "hi": 0.42160900550303815,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6399504709644299,
+              "lo": 0.631149677277631,
+              "hi": 0.6493142578824426,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.015708447367479922,
+          "normalized_opd": 1.3467510713059465,
+          "cca_sq": 0.029304985731975597,
+          "pearson_expected_rating": 0.11790016975144416,
+          "rbf_cka": 0.028610289284836766,
+          "proper": {
+            "ce": {
+              "mean": 1.2924265428425097,
+              "lo": 1.2610946698942482,
+              "hi": 1.321017130912974,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7732008600391839,
+              "lo": 0.7543967278410025,
+              "hi": 0.790596472724664,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.40857963085584426,
+              "lo": 0.4021119761492244,
+              "hi": 0.416111797879704,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.63920233952626,
+              "lo": 0.6341229976495834,
+              "hi": 0.6450672815539299,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.015462598914475432,
+          "normalized_opd": 1.3474040611581772,
+          "cca_sq": 0.029304985732154166,
+          "pearson_expected_rating": 0.12310665786572185,
+          "rbf_cka": 0.028600762126165243,
+          "proper": {
+            "ce": {
+              "mean": 1.0044857616582066,
+              "lo": 0.9803743837268933,
+              "hi": 1.0297681785355441,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.602747092825324,
+              "lo": 0.5851970698565402,
+              "hi": 0.6208447766881451,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.35322142378691135,
+              "lo": 0.33680334527487255,
+              "hi": 0.3704030352032343,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5943243422466484,
+              "lo": 0.5803476070048219,
+              "hi": 0.6086074557007815,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 304,
+        "n_prompts": 304,
+        "linear_cka_uncollapsed": 1.5003555158688206e-05,
+        "linear_cka_collapsed": 0.008335261951393244,
+        "normalized_opd_uncollapsed": 1.4114719676366025,
+        "normalized_opd_collapsed": 1.348111526704988,
+        "pearson_uncollapsed": 0.0038734422880285957,
+        "pearson_collapsed": 0.09129765578257332,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 1.0002281901576329,
+            "lo": 0.9772716463360525,
+            "hi": 1.0239385293386614,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.6005543253150748,
+            "lo": 0.5847006732713922,
+            "hi": 0.6172705439456637,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.3509432392976159,
+            "lo": 0.335142746505403,
+            "hi": 0.3673312793117868,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.5924046246423266,
+            "lo": 0.5789151438901619,
+            "hi": 0.6060786081784679,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.9404605263157894,
+            "lo": 0.873279605263158,
+            "hi": 1.0126990131578948,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.4702302631578947,
+            "lo": 0.436639802631579,
+            "hi": 0.5063495065789474,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.6857333761440336,
+            "lo": 0.6607872593261886,
+            "hi": 0.7115823961888922,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "ChaosNLI SNLI or MNLI-matched, 3 classes, 100 votes per item in the author files. label_count order is entailment, neutral, contradiction. Ranked probability score uses that order as an imposed order (entailment < neutral < contradiction); it is not a native Likert scale. rater_id is a within-item vote index expanded from the counts, not a person. Each uid is its own split group."
+    },
+    "chaosNLI_mnli_m": {
+      "summary": {
+        "name": "chaosNLI_mnli_m",
+        "kind": "multiclass",
+        "n_items": 1599,
+        "n_ratings": 159900,
+        "ratings_per_item_min": 100,
+        "ratings_per_item_median": 100.0,
+        "ratings_per_item_max": 100,
+        "n_classes": 3,
+        "class_values": [
+          0.0,
+          1.0,
+          2.0
+        ],
+        "notes": "ChaosNLI SNLI or MNLI-matched, 3 classes, 100 votes per item in the author files. label_count order is entailment, neutral, contradiction. Ranked probability score uses that order as an imposed order (entailment < neutral < contradiction); it is not a native Likert scale. rater_id is a within-item vote index expanded from the counts, not a person. Each uid is its own split group."
+      },
+      "n_train": 959,
+      "n_val": 319,
+      "n_test": 321,
+      "fit": {
+        "success": true,
+        "nit": 17,
+        "fun": 1.0547191161315699,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 1.0595070093220704
+      },
+      "rbf_gamma_frozen_on_identity_logits": 68.76746633849189,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.000754957945024544,
+          "normalized_opd": 1.39487799543823,
+          "cca_sq": 0.008281165796596605,
+          "pearson_expected_rating": 0.01749387032690917,
+          "rbf_cka": 0.018604910055310456,
+          "proper": {
+            "ce": {
+              "mean": 1.0552823893147225,
+              "lo": 1.0391898034201825,
+              "hi": 1.0730083154195251,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.6401423473542381,
+              "lo": 0.6307115673583878,
+              "hi": 0.6505753990844891,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.4023778575834997,
+              "lo": 0.39120182831706624,
+              "hi": 0.413912157848087,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.634332608009,
+              "lo": 0.6254612923747506,
+              "hi": 0.6433600530372696,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.000754957945024544,
+          "normalized_opd": 1.39487799543823,
+          "cca_sq": 0.008281165796596605,
+          "pearson_expected_rating": -0.014298794197920474,
+          "rbf_cka": 0.018604910055310456,
+          "proper": {
+            "ce": {
+              "mean": 1.23873631590174,
+              "lo": 1.2205918493233288,
+              "hi": 1.2550687065632358,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7676671223814129,
+              "lo": 0.7550150718788557,
+              "hi": 0.7792250035012235,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.5125343988764677,
+              "lo": 0.49644867542793814,
+              "hi": 0.5288699867713662,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.7159150779781549,
+              "lo": 0.7045911406013942,
+              "hi": 0.7272344765476014,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.0007549579450245438,
+          "normalized_opd": 1.39487799543823,
+          "cca_sq": 0.008281165796526992,
+          "pearson_expected_rating": -0.017493870326909165,
+          "rbf_cka": 0.018604910055310533,
+          "proper": {
+            "ce": {
+              "mean": 1.1971923512962837,
+              "lo": 1.1758617151927104,
+              "hi": 1.2193426154226819,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.7236650184974489,
+              "lo": 0.7110589175163448,
+              "hi": 0.7364827125816199,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.48590052872671036,
+              "lo": 0.4695576948949782,
+              "hi": 0.5025445882811018,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.69706565596557,
+              "lo": 0.6852427999575235,
+              "hi": 0.7089037917214561,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.0007549579450245438,
+          "normalized_opd": 1.39487799543823,
+          "cca_sq": 0.008281165796396968,
+          "pearson_expected_rating": -0.02878971798454574,
+          "rbf_cka": 0.018604910055310522,
+          "proper": {
+            "ce": {
+              "mean": 1.185206711294315,
+              "lo": 1.1701201924870857,
+              "hi": 1.201004273050331,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.716971594490136,
+              "lo": 0.7083314594213458,
+              "hi": 0.726204049765442,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.4452198718140865,
+              "lo": 0.4394658884840915,
+              "hi": 0.4506272937868402,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6672479837467375,
+              "lo": 0.6629222340913629,
+              "hi": 0.6712877875720573,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.000754957945024543,
+          "normalized_opd": 1.39487799543823,
+          "cca_sq": 0.008281165795473762,
+          "pearson_expected_rating": 0.017860594926921814,
+          "rbf_cka": 0.018604910055310512,
+          "proper": {
+            "ce": {
+              "mean": 1.1127887114980908,
+              "lo": 1.0904716573405016,
+              "hi": 1.1332768212449231,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.6745227624198016,
+              "lo": 0.6587998582650271,
+              "hi": 0.6892177611885968,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.41387505514817674,
+              "lo": 0.40367677280553155,
+              "hi": 0.4249856651592523,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6433312172964847,
+              "lo": 0.6353556270351716,
+              "hi": 0.6519092459576447,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.0007445811696560133,
+          "normalized_opd": 1.394960538595415,
+          "cca_sq": 0.008281165795733517,
+          "pearson_expected_rating": 0.018052547786657616,
+          "rbf_cka": 0.018875501387289027,
+          "proper": {
+            "ce": {
+              "mean": 1.063244508861344,
+              "lo": 1.049258901900994,
+              "hi": 1.0779437243640215,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.6462887405102913,
+              "lo": 0.6379538976814592,
+              "hi": 0.6549671368888519,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.40592538440859344,
+              "lo": 0.39533052319663775,
+              "hi": 0.41581112266308035,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6371227388883507,
+              "lo": 0.6287531496513922,
+              "hi": 0.6448341823001087,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 321,
+        "n_prompts": 321,
+        "linear_cka_uncollapsed": 2.1688172690884664e-07,
+        "linear_cka_collapsed": 0.00013140578261505086,
+        "normalized_opd_uncollapsed": 1.4138842204207622,
+        "normalized_opd_collapsed": 1.4060844667857817,
+        "pearson_uncollapsed": 0.0004657056225866794,
+        "pearson_collapsed": 0.011463236131871786,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 1.0552823893147225,
+            "lo": 1.0391898034201825,
+            "hi": 1.0730083154195251,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.6401423473542381,
+            "lo": 0.6307115673583878,
+            "hi": 0.6505753990844891,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.4023778575834997,
+            "lo": 0.39120182831706624,
+            "hi": 0.413912157848087,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.634332608009,
+            "lo": 0.6254612923747506,
+            "hi": 0.6433600530372696,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 1.2205607476635512,
+            "lo": 1.1708411214953272,
+            "hi": 1.267297507788162,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.6102803738317756,
+            "lo": 0.5854205607476636,
+            "hi": 0.633648753894081,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.7812044379237586,
+            "lo": 0.7651278068059372,
+            "hi": 0.7960205736416495,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "ChaosNLI SNLI or MNLI-matched, 3 classes, 100 votes per item in the author files. label_count order is entailment, neutral, contradiction. Ranked probability score uses that order as an imposed order (entailment < neutral < contradiction); it is not a native Likert scale. rater_id is a within-item vote index expanded from the counts, not a person. Each uid is its own split group."
+    },
+    "chaosnli_alpha": {
+      "summary": {
+        "name": "chaosnli_alpha",
+        "kind": "binary",
+        "n_items": 1532,
+        "n_ratings": 153200,
+        "ratings_per_item_min": 100,
+        "ratings_per_item_median": 100.0,
+        "ratings_per_item_max": 100,
+        "n_classes": 2,
+        "class_values": [
+          1.0,
+          2.0
+        ],
+        "notes": "ChaosNLI abductive NLI, native two-option labels. The release stores counts, not person ids; rater_id is the within-item vote index obtained by expanding label_count. Order is option 1 then option 2. Each item is its own split group."
+      },
+      "n_train": 919,
+      "n_val": 306,
+      "n_test": 307,
+      "fit": {
+        "success": true,
+        "nit": 6,
+        "fun": 0.6902480775210011,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 0.75,
+        "validation_ce": 0.6914929522306223
+      },
+      "rbf_gamma_frozen_on_identity_logits": 119.61217019248632,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.005088118912653048,
+          "normalized_opd": 1.3628418459030383,
+          "cca_sq": 0.01338563744619974,
+          "pearson_expected_rating": -0.07129389092093666,
+          "rbf_cka": 0.021342026246108804,
+          "proper": {
+            "ce": {
+              "mean": 0.6966030560126314,
+              "lo": 0.692464805026412,
+              "hi": 0.7009007087939911,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.5034449774258685,
+              "lo": 0.49931629781033326,
+              "hi": 0.5077305174664061,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.2517224887129343,
+              "lo": 0.24965814890516663,
+              "hi": 0.25386525873320304,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5017195319229004,
+              "lo": 0.49965803195789327,
+              "hi": 0.5038504328793167,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.005088118912653048,
+          "normalized_opd": 1.3628418459030383,
+          "cca_sq": 0.01338563744619974,
+          "pearson_expected_rating": 0.07129389092093635,
+          "rbf_cka": 0.021342026246108804,
+          "proper": {
+            "ce": {
+              "mean": 0.6920728355239119,
+              "lo": 0.6877770720767258,
+              "hi": 0.6961064717799612,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.49892836245969757,
+              "lo": 0.49464439866827276,
+              "hi": 0.5029519122149059,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.24946418122984879,
+              "lo": 0.24732219933413638,
+              "hi": 0.25147595610745294,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.49946389382001255,
+              "lo": 0.4973149900529582,
+              "hi": 0.5014737840677304,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.005088118912653048,
+          "normalized_opd": 1.3628418459030383,
+          "cca_sq": 0.013385637446103623,
+          "pearson_expected_rating": 0.07129389092093635,
+          "rbf_cka": 0.021342026246108804,
+          "proper": {
+            "ce": {
+              "mean": 0.6920728355239119,
+              "lo": 0.6877770720767258,
+              "hi": 0.6961064717799612,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.49892836245969757,
+              "lo": 0.49464439866827276,
+              "hi": 0.5029519122149059,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.24946418122984879,
+              "lo": 0.24732219933413638,
+              "hi": 0.25147595610745294,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.49946389382001255,
+              "lo": 0.4973149900529582,
+              "hi": 0.5014737840677304,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.005088118912653048,
+          "normalized_opd": 1.3628418459030383,
+          "cca_sq": 0.013385637446103623,
+          "pearson_expected_rating": 0.07129389092093635,
+          "rbf_cka": 0.021342026246108804,
+          "proper": {
+            "ce": {
+              "mean": 0.6920728355239119,
+              "lo": 0.6877770720767258,
+              "hi": 0.6961064717799612,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.49892836245969757,
+              "lo": 0.49464439866827276,
+              "hi": 0.5029519122149059,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.24946418122984879,
+              "lo": 0.24732219933413638,
+              "hi": 0.25147595610745294,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.49946389382001255,
+              "lo": 0.4973149900529582,
+              "hi": 0.5014737840677304,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.0050881189126530425,
+          "normalized_opd": 1.3628418459030383,
+          "cca_sq": 0.013385637446170112,
+          "pearson_expected_rating": -0.07132465980707776,
+          "rbf_cka": 0.0213420262461088,
+          "proper": {
+            "ce": {
+              "mean": 0.6936278519019801,
+              "lo": 0.6928379724449749,
+              "hi": 0.6944524444833302,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.5004806167336304,
+              "lo": 0.4996908007680787,
+              "hi": 0.501305122224828,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.25024030836681516,
+              "lo": 0.24984540038403935,
+              "hi": 0.250652561112414,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5002402506464421,
+              "lo": 0.4998453764754555,
+              "hi": 0.5006521358312207,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.005088073350685282,
+          "normalized_opd": 1.3628420802475787,
+          "cca_sq": 0.013385637446320738,
+          "pearson_expected_rating": -0.07131082923760536,
+          "rbf_cka": 0.02145684600390538,
+          "proper": {
+            "ce": {
+              "mean": 0.6955161242468695,
+              "lo": 0.6924068193912668,
+              "hi": 0.698738963338827,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.502364765098651,
+              "lo": 0.4992593602664544,
+              "hi": 0.505582494588959,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.2511823825493255,
+              "lo": 0.2496296801332272,
+              "hi": 0.2527912472944795,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.5011809878171014,
+              "lo": 0.499629542894609,
+              "hi": 0.5027834994211217,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 307,
+        "n_prompts": 307,
+        "linear_cka_uncollapsed": 7.482717568537366e-06,
+        "linear_cka_collapsed": 0.003301579648560368,
+        "normalized_opd_uncollapsed": 1.4122779785567348,
+        "normalized_opd_collapsed": 1.3729826117643673,
+        "pearson_uncollapsed": -0.0027354556418515297,
+        "pearson_collapsed": -0.057459373896348434,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 0.6966030560126314,
+            "lo": 0.692464805026412,
+            "hi": 0.7009007087939911,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.5034449774258685,
+            "lo": 0.49931629781033326,
+            "hi": 0.5077305174664061,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.2517224887129343,
+            "lo": 0.24965814890516663,
+            "hi": 0.25386525873320304,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.5017195319229004,
+            "lo": 0.49965803195789327,
+            "hi": 0.5038504328793167,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 1.0781107491856676,
+            "lo": 0.9910456026058632,
+            "hi": 1.1675912052117263,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.5390553745928338,
+            "lo": 0.4955228013029316,
+            "hi": 0.5837956026058632,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.7342039053238779,
+            "lo": 0.7039338016269705,
+            "hi": 0.7640651789765498,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "ChaosNLI abductive NLI, native two-option labels. The release stores counts, not person ids; rater_id is the within-item vote index obtained by expanding label_count. Order is option 1 then option 2. Each item is its own split group."
+    },
+    "dices990": {
+      "summary": {
+        "name": "dices990",
+        "kind": "ordinal",
+        "n_items": 990,
+        "n_ratings": 64886,
+        "ratings_per_item_min": 60,
+        "ratings_per_item_median": 66.0,
+        "ratings_per_item_max": 69,
+        "n_classes": 3,
+        "class_values": [
+          0.0,
+          1.0,
+          2.0
+        ],
+        "notes": "DICES-990 rater-level Q_overall. Yes means unsafe (DICES-990 README; DICES-350 uses the same question family). Order for ranked probability score: No < Unsure < Yes, values 0,1,2. Dropped 7217 rows whose rater_id is in the README quality-filter list (12 raters). rater_id is the released person id. Split group is item_id. Raters are crossed, so the same person can appear in train and test on different conversations; no conversation's raters are split."
+      },
+      "n_train": 594,
+      "n_val": 198,
+      "n_test": 198,
+      "fit": {
+        "success": true,
+        "nit": 13,
+        "fun": 0.7303810215998655,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 0.7432448320986941
+      },
+      "rbf_gamma_frozen_on_identity_logits": 52.6496539048906,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.07579936642998529,
+          "normalized_opd": 1.2074256054087722,
+          "cca_sq": 0.10687379563339454,
+          "pearson_expected_rating": 0.2772435024825479,
+          "rbf_cka": 0.04298824398517973,
+          "proper": {
+            "ce": {
+              "mean": 0.7429607819421891,
+              "lo": 0.7098669438208896,
+              "hi": 0.776892732538474,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.44214586160340685,
+              "lo": 0.4166770865756253,
+              "hi": 0.46799610943248054,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.39382932692372824,
+              "lo": 0.37036811877385234,
+              "hi": 0.4178478089299904,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6275582259230837,
+              "lo": 0.6085787694908739,
+              "hi": 0.6464114855394816,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.07579936642998529,
+          "normalized_opd": 1.2074256054087722,
+          "cca_sq": 0.10687379563339454,
+          "pearson_expected_rating": -0.29126203229976083,
+          "rbf_cka": 0.04298824398517973,
+          "proper": {
+            "ce": {
+              "mean": 2.5060433975939,
+              "lo": 2.4698257951865235,
+              "hi": 2.541063453537537,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.4091228312551374,
+              "lo": 1.3991988739598002,
+              "hi": 1.4190388831455107,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.8220463548217519,
+              "lo": 0.8140070491857276,
+              "hi": 0.8298616393648631,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.906667720182952,
+              "lo": 0.9022233920584528,
+              "hi": 0.9109674194799254,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.0757993664299853,
+          "normalized_opd": 1.2074256054087722,
+          "cca_sq": 0.1068737956333976,
+          "pearson_expected_rating": -0.2772435024825477,
+          "rbf_cka": 0.04298824398518036,
+          "proper": {
+            "ce": {
+              "mean": 1.2363247693658306,
+              "lo": 1.2065563997442408,
+              "hi": 1.2653695125036928,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.8677918124197247,
+              "lo": 0.8418614528121962,
+              "hi": 0.8932645532912665,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.819475277740046,
+              "lo": 0.7924620517123278,
+              "hi": 0.8462948163815676,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9052487380494082,
+              "lo": 0.8902033765070423,
+              "hi": 0.9199428330856204,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.0757993664299853,
+          "normalized_opd": 1.2074256054087722,
+          "cca_sq": 0.10687379563297836,
+          "pearson_expected_rating": -0.2709880916561056,
+          "rbf_cka": 0.042988243985179975,
+          "proper": {
+            "ce": {
+              "mean": 2.264737362140246,
+              "lo": 2.192469515328334,
+              "hi": 2.335053363883027,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.1176430433849414,
+              "lo": 1.0824115319729375,
+              "hi": 1.151279079606248,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 1.0314218089118796,
+              "lo": 0.9943933309071732,
+              "hi": 1.0669520269305852,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 1.0155893899169486,
+              "lo": 0.9971927243852435,
+              "hi": 1.0329336979463095,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.07579936642998521,
+          "normalized_opd": 1.2074256054087722,
+          "cca_sq": 0.10687379563060506,
+          "pearson_expected_rating": 0.2886268542222469,
+          "rbf_cka": 0.042988243985181245,
+          "proper": {
+            "ce": {
+              "mean": 1.7524498949360454,
+              "lo": 1.7167672168562462,
+              "hi": 1.7915939725573007,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.1335442606320132,
+              "lo": 1.123325511201859,
+              "hi": 1.1444641646657523,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.6498634571575548,
+              "lo": 0.6406466936472133,
+              "hi": 0.6595887160339841,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.8061410901061642,
+              "lo": 0.8004040814750737,
+              "hi": 0.8121506732244558,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.076177153524066,
+          "normalized_opd": 1.2068797057750673,
+          "cca_sq": 0.10687379563417958,
+          "pearson_expected_rating": 0.27389475235727345,
+          "rbf_cka": 0.043014159286042866,
+          "proper": {
+            "ce": {
+              "mean": 0.7518129848624039,
+              "lo": 0.7205382560182495,
+              "hi": 0.7833881244989773,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.4444857944065288,
+              "lo": 0.4200490363660058,
+              "hi": 0.46935113979274684,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.3951040282661993,
+              "lo": 0.3724573816929458,
+              "hi": 0.41850295618335126,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.6285730094954756,
+              "lo": 0.6102928654243832,
+              "hi": 0.6469180443513696,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 198,
+        "n_prompts": 198,
+        "linear_cka_uncollapsed": 5.7545668142323246e-05,
+        "linear_cka_collapsed": 0.016069048564796917,
+        "normalized_opd_uncollapsed": 1.4088393193586624,
+        "normalized_opd_collapsed": 1.3215417125547093,
+        "pearson_uncollapsed": 0.007585886114510502,
+        "pearson_collapsed": 0.1267637509889831,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 0.7429607819421891,
+            "lo": 0.7098669438208896,
+            "hi": 0.776892732538474,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.44214586160340685,
+            "lo": 0.4166770865756253,
+            "hi": 0.46799610943248054,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.39382932692372824,
+            "lo": 0.37036811877385234,
+            "hi": 0.4178478089299904,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.6275582259230837,
+            "lo": 0.6085787694908739,
+            "hi": 0.6464114855394816,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 1.5697077160305186,
+            "lo": 1.4779231704333566,
+            "hi": 1.6601499409694902,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.8213285670640935,
+            "lo": 0.7812787564686469,
+            "hi": 0.8603220085837465,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.9062717953594791,
+            "lo": 0.8838997432180601,
+            "hi": 0.9275354486925742,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "DICES-990 rater-level Q_overall. Yes means unsafe (DICES-990 README; DICES-350 uses the same question family). Order for ranked probability score: No < Unsure < Yes, values 0,1,2. Dropped 7217 rows whose rater_id is in the README quality-filter list (12 raters). rater_id is the released person id. Split group is item_id. Raters are crossed, so the same person can appear in train and test on different conversations; no conversation's raters are split."
+    },
+    "veribench_fsc_exp09": {
+      "summary": {
+        "name": "veribench_fsc_exp09",
+        "kind": "ordinal",
+        "n_items": 100,
+        "n_ratings": 250,
+        "ratings_per_item_min": 2,
+        "ratings_per_item_median": 2.0,
+        "ratings_per_item_max": 4,
+        "n_classes": 6,
+        "class_values": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ],
+        "notes": "VeriBench functional semantic correctness scores from trustworthy-theorem-judges experiment 09 native-main CSVs, column final_score_0_5, integer grades 0 through 5. Clone commit 460466dd10b735c5ff25f9e9cb21f0441fcf960b. No artifact in that clone is named R_v1; this is the live experiment 09 numeric collection, not a frozen file called R_v1. Scored rows kept: 250. rater_id is the roster id stored with rater_name. Split group is item_id. The same person can rate items that land in different splits."
+      },
+      "n_train": 60,
+      "n_val": 20,
+      "n_test": 20,
+      "fit": {
+        "success": true,
+        "nit": 35,
+        "fun": 0.6991797234634146,
+        "convex_in_weights": true,
+        "optimizer": "L-BFGS-B",
+        "start": "zero",
+        "maxiter": 40,
+        "l2": 0.01,
+        "optimum_guaranteed": false,
+        "svd_components": 24,
+        "temperature": 1.0,
+        "validation_ce": 0.9248400980688123
+      },
+      "rbf_gamma_frozen_on_identity_logits": 1.1591867825434103,
+      "transforms": {
+        "identity": {
+          "linear_cka": 0.40644919618737385,
+          "normalized_opd": 0.8984331639568007,
+          "cca_sq": 0.9736389216837753,
+          "pearson_expected_rating": 0.5531197576780963,
+          "rbf_cka": 0.40174055688609794,
+          "proper": {
+            "ce": {
+              "mean": 0.46260831143960407,
+              "lo": 0.29235028055680784,
+              "hi": 0.6506671672739455,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.22734263242423927,
+              "lo": 0.11344489898645509,
+              "hi": 0.35100834738519465,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.13859153804660662,
+              "lo": 0.0733003457110944,
+              "hi": 0.21123525437762397,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.37227884447898274,
+              "lo": 0.2707403658448215,
+              "hi": 0.4596033283644649,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "sign_flip": {
+          "linear_cka": 0.40644919618737385,
+          "normalized_opd": 0.8984331639568007,
+          "cca_sq": 0.9736389216837753,
+          "pearson_expected_rating": 0.07471738883280891,
+          "rbf_cka": 0.40174055688609794,
+          "proper": {
+            "ce": {
+              "mean": 16.916965754709075,
+              "lo": 16.62252686846616,
+              "hi": 17.197939501954636,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.9999844055955378,
+              "lo": 1.9999841451423859,
+              "hi": 1.999984695627812,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 4.816634966863898,
+              "lo": 4.658301687690693,
+              "hi": 4.949968312750377,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 2.194683340909093,
+              "lo": 2.15830991465329,
+              "hi": 2.224852424937523,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "reversal_permutation": {
+          "linear_cka": 0.4064491961873738,
+          "normalized_opd": 0.898433163956801,
+          "cca_sq": 0.9736389216857413,
+          "pearson_expected_rating": -0.5531197576780961,
+          "rbf_cka": 0.401740556886084,
+          "proper": {
+            "ce": {
+              "mean": 15.20830289742906,
+              "lo": 13.432002355847727,
+              "hi": 16.760816755018734,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.6270722515294156,
+              "lo": 1.5515114139785138,
+              "hi": 1.6933041927986405,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 4.103611202542591,
+              "lo": 3.8212930001293595,
+              "hi": 4.346306883626222,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 2.025737199772614,
+              "lo": 1.9548127787871705,
+              "hi": 2.0847798162595743,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "cycle_permutation": {
+          "linear_cka": 0.40644919618737385,
+          "normalized_opd": 0.8984331639568006,
+          "cca_sq": 0.9736389216832713,
+          "pearson_expected_rating": 0.5531197727235266,
+          "rbf_cka": 0.40174055688608973,
+          "proper": {
+            "ce": {
+              "mean": 14.764578450465407,
+              "lo": 12.65153797912487,
+              "hi": 16.60849183733817,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 1.455831121620752,
+              "lo": 1.287868722315354,
+              "hi": 1.610933136322181,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.9248659884572072,
+              "lo": 0.8277413087098195,
+              "hi": 1.011595448507307,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.9616995312763791,
+              "lo": 0.9098028935216936,
+              "hi": 1.0057810123246091,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "orthogonal": {
+          "linear_cka": 0.40644919618737385,
+          "normalized_opd": 0.8984331639568005,
+          "cca_sq": 0.9736389216733052,
+          "pearson_expected_rating": 0.6439554160695556,
+          "rbf_cka": 0.4017405568860915,
+          "proper": {
+            "ce": {
+              "mean": 1.6921371618280279,
+              "lo": 0.6452542138711963,
+              "hi": 2.8873574597613865,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.297976861296384,
+              "lo": 0.12108455386861436,
+              "hi": 0.49931352649040905,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.24823085126739267,
+              "lo": 0.13110889477010346,
+              "hi": 0.38573912798487764,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.4982277102564576,
+              "lo": 0.3620896225300258,
+              "hi": 0.621078995691576,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        },
+        "shear": {
+          "linear_cka": 0.40310562370712666,
+          "normalized_opd": 0.901657509781168,
+          "cca_sq": 0.9736389216794821,
+          "pearson_expected_rating": 0.6795356535991569,
+          "rbf_cka": 0.39994186618967387,
+          "proper": {
+            "ce": {
+              "mean": 0.4189814713492028,
+              "lo": 0.2529037162694666,
+              "hi": 0.6042516951622975,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "brier": {
+              "mean": 0.22052466466981085,
+              "lo": 0.10595569031267535,
+              "hi": 0.34774683371761134,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "rps": {
+              "mean": 0.12564096436721753,
+              "lo": 0.05733662129178383,
+              "hi": 0.20357681644674747,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile",
+              "unit": "test prompt"
+            },
+            "sqrt_rps": {
+              "mean": 0.35445869204636177,
+              "lo": 0.23945066523687455,
+              "hi": 0.4511947971293709,
+              "draws": 1000,
+              "level": 0.95,
+              "interval": "item-clustered percentile of sqrt(mean RPS)"
+            }
+          }
+        }
+      },
+      "collapse": {
+        "n_prompts_with_orthogonal_residual": 18,
+        "n_prompts": 20,
+        "linear_cka_uncollapsed": 0.01034353518527666,
+        "linear_cka_collapsed": 0.1824796138574865,
+        "normalized_opd_uncollapsed": 1.3403707159193847,
+        "normalized_opd_collapsed": 1.0703491706686674,
+        "pearson_uncollapsed": 0.10170317195287795,
+        "pearson_collapsed": 0.42717632642444797,
+        "proper_uncollapsed": {
+          "ce": {
+            "mean": 0.46260831143960407,
+            "lo": 0.29235028055680784,
+            "hi": 0.6506671672739455,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.22734263242423927,
+            "lo": 0.11344489898645509,
+            "hi": 0.35100834738519465,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.13859153804660662,
+            "lo": 0.0733003457110944,
+            "hi": 0.21123525437762397,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.37227884447898274,
+            "lo": 0.2707403658448215,
+            "hi": 0.4596033283644649,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        },
+        "proper_pointmass": {
+          "ce": {
+            "mean": Infinity,
+            "lo": null,
+            "hi": null,
+            "draws": 1000,
+            "unit": "test prompt"
+          },
+          "brier": {
+            "mean": 0.4666666666666666,
+            "lo": 0.16666666666666666,
+            "hi": 0.7833333333333332,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "rps": {
+            "mean": 0.2333333333333333,
+            "lo": 0.08333333333333333,
+            "hi": 0.3916666666666666,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile",
+            "unit": "test prompt"
+          },
+          "sqrt_rps": {
+            "mean": 0.48304589153964794,
+            "lo": 0.28867513459481287,
+            "hi": 0.6258327785172862,
+            "draws": 1000,
+            "level": 0.95,
+            "interval": "item-clustered percentile of sqrt(mean RPS)"
+          }
+        }
+      },
+      "notes": "VeriBench functional semantic correctness scores from trustworthy-theorem-judges experiment 09 native-main CSVs, column final_score_0_5, integer grades 0 through 5. Clone commit 460466dd10b735c5ff25f9e9cb21f0441fcf960b. No artifact in that clone is named R_v1; this is the live experiment 09 numeric collection, not a frozen file called R_v1. Scored rows kept: 250. rater_id is the roster id stored with rater_name. Split group is item_id. The same person can rate items that land in different splits."
+    }
+  }
+}

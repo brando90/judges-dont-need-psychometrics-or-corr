@@ -1,0 +1,6 @@
+name = "CkaOpd"
+version = "0.1.0"
+defaultTargets = ["CkaOpd"]
+
+[[lean_lib]]
+name = "CkaOpd"

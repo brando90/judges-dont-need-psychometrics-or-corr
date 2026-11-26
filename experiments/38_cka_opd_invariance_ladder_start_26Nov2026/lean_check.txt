@@ -1,0 +1,100 @@
+toolchain: Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+date: 2026-11-26
+note: CkaOpd.lean is core Lean 4. It does not depend on Mathlib, so `lake exe cache get` does not apply and Mathlib was not built.
+command: lake build && lean CkaOpd.lean
+--- lake build ---
+⚠ [2/4] Built CkaOpd (1.4s)
+info: CkaOpd.lean:398:0: 'mul_assoc' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:399:0: 'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:475:0: 'ckaSq_right_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:476:0: 'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:477:0: 'gram_self_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: CkaOpd.lean:563:34: Variable name `h1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: CkaOpd.lean:584:36: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: CkaOpd.lean:584:49: Variable name `hsq` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hsq
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: CkaOpd.lean:652:16: Variable name `q2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _q2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: CkaOpd.lean:739:0: 'linearCKA1d_eq_sqPearson' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:740:0: 'sqPearson_scale_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:741:0: 'ckaSq_shift_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:742:0: 'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:743:0: 'perm_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:744:0: 'reversal_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:745:0: 'reversal_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:746:0: 'transposition_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:747:0: 'transposition_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:748:0: 'local_score_worsens' depends on axioms: [propext, Quot.sound]
+info: CkaOpd.lean:749:0: 'collapse_cka_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:750:0: 'collapse_pointmass_brier' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:751:0: 'collapse_pointmass_rps' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:752:0: 'opdSq_anti' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:753:0: 'corr_lt_of_sq_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: CkaOpd.lean:754:0: 'instance_perfect_correlation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (4 jobs).
+LAKE_EXIT:0
+--- lean CkaOpd.lean (includes #print axioms) ---
+'mul_assoc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ckaSq_right_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gram_self_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+CkaOpd.lean:563:34: warning: Variable name `h1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+CkaOpd.lean:584:36: warning: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+CkaOpd.lean:584:49: warning: Variable name `hsq` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hsq
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+CkaOpd.lean:652:16: warning: Variable name `q2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _q2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'linearCKA1d_eq_sqPearson' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sqPearson_scale_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ckaSq_shift_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'perm_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reversal_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reversal_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transposition_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transposition_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'local_score_worsens' depends on axioms: [propext, Quot.sound]
+'collapse_cka_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_pointmass_brier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_pointmass_rps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'opdSq_anti' depends on axioms: [propext, Classical.choice, Quot.sound]
+'corr_lt_of_sq_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'instance_perfect_correlation' depends on axioms: [propext, Classical.choice, Quot.sound]
+LEAN_EXIT:0
