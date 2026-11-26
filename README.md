@@ -1,4 +1,6 @@
-# judges-dont-need-psychometrics-or-corr
+# judges-dont-need-psychometrics-or-corr — QA corrections 11-26-2026
+
+**QA correction date: 11-26-2026.** See the [verified fixes and evidence limits](docs/qa_11-25-2026/phase2_11-26-2026/results.md).
 
 **Working title (Brando, Nov 24 12:20): "No Free Lunch of AI Judges."** This is the correlation vs cross-entropy (CE) repo: CE-trained judges vs correlation-trained judges, scored with the proper scores RPS, CE and TVD. The framing: no need for G theory or D theory; really just CE and lots of data (scaling laws as always).
 
@@ -24,7 +26,7 @@ The project’s original title expresses its research direction. The evidence do
 
 The general objective-comparison work now lives here: the earlier experiment 06 package remains within experiment 02, while completed experiments 11–14 are grouped in the [archive guide](experiments/archive/README.md). They examine different training rules, split procedures, synthetic constructions or judge pools; most empirical variants reuse the same human ratings. They are not independent new rating collections. The duplicate experiment 06 tree in trustworthy-theorem-judges is retired.
 
-Every experiment folder has a `HOW_TO_READ_RESULTS.md` that says, for each reported number, which data it was computed on (train, validation or held-out test), which metric it is and what each difference subtracts from what.
+Every experiment folder has a `HOW_TO_READ_RESULTS.md` (earlier claim; corrected 11-26-2026, findings g4-L6/g5-L2/g6-L5/g7-L1: this filename is not universal; consult the experiment README and dated QA companions where absent) that says, for each reported number, which data it was computed on (train, validation or held-out test), which metric it is and what each difference subtracts from what.
 
 Use the [experiment index](experiments/README.md) to distinguish the synthetic examples from historical human-rating comparisons. The applied repository continues to own packet preparation, collection, its practical judge and sample-size planning. The migration preserves scientific files and changes no outcome or acceptance criterion.
 

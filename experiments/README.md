@@ -1,4 +1,14 @@
-# Experiments
+# Experiments — QA corrections 11-26-2026
+
+**QA corrections: 11-26-2026.** The original index rows remain beside these dated qualifications:
+
+- **g2-M1, experiment 08:** Old: “correlation training wins at low data only in scenario A.” Corrected: that statement compares fixed-ridge CE with fixed-ridge Pearson. Against validation-tuned CE, fixed Pearson also has a lower test RPS in D at four tasks (tuned CE minus fixed Pearson +0.002887664; paired 95% seed-bootstrap interval [0.001029390, 0.005053901]).
+- **g5-L1, experiments 24/25:** Old status: “Active.” Clarified: the folders retain their active lifecycle location; experiment 24's training run is frozen and experiment 25's run is complete. The checkpoints and provenance record completion. No folder lifecycle or protocol is changed.
+- **g7-H1, experiment 28:** Old: “Pearson-then-calibration beats CE-fit on DICES from 64 ratings.” Corrected: the five-judge mean test-RPS advantage at one rating/item is sustained from 64 ratings for DICES-350 and 128 for DICES-990; DICES-990 at 64 gives 0.202660 versus CE-fit 0.201328.
+- **g7-M1, experiment 28:** The index's existing “significantly better in 19/325” is correct; 25/325 is the distinct point-estimate-win count.
+- **g6-H1, experiment 29:** The registered across-budget H1 is partly supported; its narrower largest-budget RPS comparison holds in 7/7 panels. See the dated experiment 29 correction companion.
+
+Full findings and reproducible checks: [QA phase 2 (11-26-2026)](../docs/qa_11-25-2026/phase2_11-26-2026/results.md).
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/README.md>
 
