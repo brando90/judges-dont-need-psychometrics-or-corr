@@ -89,19 +89,19 @@ $$
 \mathbb{E}[(X-Y)^2]=(\mu_X-\mu_Y)^2+(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y\bigl(1-\mathrm{Corr}(X,Y)\bigr).
 $$
 
-The first term is squared bias. The second is the squared gap of scales. The third is the standardized discrepancy of Section 2, restored to the original product of standard deviations. In `BrierCorr.lean`, `mse_decomposition` is this identity for length-$n$ rational vectors: $s_x$ and $s_y$ are any positive rationals whose squares equal the $1/n$ variances, and the correlation is the $1/n$ covariance divided by $s_x s_y$.
+The first term is squared bias. The second is the squared gap of scales. The third is the standardized discrepancy of Section 2, restored to the original product of standard deviations. In `BrierCorr.lean`, `mse_decomposition` is this identity for rational vectors of length $n$: $s_x$ and $s_y$ are any positive rationals whose squares equal the $1/n$ variances, and the correlation is the $1/n$ covariance divided by $s_x s_y$.
 
 ## 4. Distributional Brier risk and scalar comparison
 
 Let $p^{\ast}$ be a probability distribution on a finite set and let $\hat q$ be a forecast of the same coordinates, with $\sum_y p^{\ast}(y)=1$. The Brier score of a forecast $q$ on a realized class is the squared Euclidean distance from $q$ to the corresponding one-hot vector. Its excess over the Bayes score depends on the forecast only through the probability vectors:
 
 $$
-D_{\mathrm{Brier}}(p^{\ast}\|\hat q)
+D_{\mathrm{Brier}}(p^{\ast}\Vert\hat q)
 =\mathbb{E}_{p^{\ast}}[\mathrm{BS}(\hat q)]-\mathbb{E}_{p^{\ast}}[\mathrm{BS}(p^{\ast})]
 =\sum_y\bigl(p^{\ast}(y)-\hat q(y)\bigr)^2.
 $$
 
-The same squared distance is $\int (p^{\ast}(y)-\hat q(y))^2\,dy$ when the objects being compared are densities and the integral exists. Either form scores the forecast at the level of the whole distribution.
+The same squared distance is $\int (p^{\ast}(y)-\hat q(y))^2\ dy$ when the objects being compared are densities and the integral exists. Either form scores the forecast at the level of the whole distribution.
 
 $\mathbb{E}[(X-Y)^2]$ and $\mathbb{E}[(Z_X-Z_Y)^2]$ score pairs of scalar values. Pearson correlation is the scalar cross moment that remains after those values are centered and scaled. Excess Brier risk can be positive for two distributional forecasts that share a mean, because the sum runs over every coordinate of $p^{\ast}-\hat q$.
 

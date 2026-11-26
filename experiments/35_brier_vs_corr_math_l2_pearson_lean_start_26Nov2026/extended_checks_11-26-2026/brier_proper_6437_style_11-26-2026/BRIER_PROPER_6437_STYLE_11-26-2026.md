@@ -25,7 +25,7 @@ Two facts replace Gibbs' inequality. Because the expectation is taken with respe
 $$
 \begin{aligned}
 \mathbb{E}[C(x,q)\mid y=y]
-&= A\sum_a \Bigl(q(a)^2-2q(a)\,\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace\mid y]+\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace^2\mid y]\Bigr)+\mathbb{E}[B(x)\mid y] && (5')\\
+&= A\sum_a \Bigl(q(a)^2-2q(a)\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace\mid y]+\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace^2\mid y]\Bigr)+\mathbb{E}[B(x)\mid y] && (5')\\
 &= A\sum_a \bigl(q(a)^2-2q(a)p(a)+p(a)\bigr)+\mathbb{E}[B(x)\mid y] \\
 &= A\sum_a \bigl(q(a)-p(a)\bigr)^2 + A\Bigl(1-\sum_a p(a)^2\Bigr)+\mathbb{E}[B(x)\mid y] && (6')\\
 &\ge A\Bigl(1-\sum_a p(a)^2\Bigr)+\mathbb{E}[B(x)\mid y]. && (7')
@@ -38,11 +38,11 @@ With $A=1$ and $B=0$ the proof gives the exact identity
 
 $$\mathbb{E}[\mathrm{Brier}(x,q)\mid y]=\lVert q-p\rVert^2+\bigl(1-\lVert p\rVert^2\bigr). \tag{8'}$$
 
-The second term is the best attainable expected cost, the Brier analogue of the entropy. The excess of any report over that floor is exactly the squared Euclidean distance $\lVert q-p\rVert^2$. For log-loss, the excess over the entropy is $\mathrm{KL}(p\,\Vert\,q)$, and Gibbs' inequality is the statement that it is nonnegative.
+The second term is the best attainable expected cost, the Brier analogue of the entropy. The excess of any report over that floor is exactly the squared Euclidean distance $\lVert q-p\rVert^2$. For log-loss, the excess over the entropy is $\mathrm{KL}(p\Vert q)$, and Gibbs' inequality is the statement that it is nonnegative.
 
-**The same proof as bias plus variance.** For any number $f$ and random variable $Z$, $\mathbb{E}(f-Z)^2=(f-\mathbb{E}Z)^2+\mathrm{Var}\,Z$. Apply it to each indicator $Z_a=\mathbb{1}\lbrace x=a\rbrace$ with $f=q(a)$. Then $\mathbb{E}Z_a=p(a)$ and $\mathrm{Var}\,Z_a=p(a)(1-p(a))$, and summing over $a$ gives (8′), since $\sum_a p(a)(1-p(a))=1-\lVert p\rVert^2$. The Brier score is squared error on each one-hot coordinate, and squared error is minimised by the mean, which for an indicator is a probability.
+**The same proof as bias plus variance.** For any number $f$ and random variable $Z$, $\mathbb{E}(f-Z)^2=(f-\mathbb{E}Z)^2+\mathrm{Var}(Z)$. Apply it to each indicator $Z_a=\mathbb{1}\lbrace x=a\rbrace$ with $f=q(a)$. Then $\mathbb{E}Z_a=p(a)$ and $\mathrm{Var}(Z_a)=p(a)(1-p(a))$, and summing over $a$ gives (8′), since $\sum_a p(a)(1-p(a))=1-\lVert p\rVert^2$. The Brier score is squared error on each one-hot coordinate, and squared error is minimised by the mean, which for an indicator is a probability.
 
-**Empirical version.** Replace $p$ by the frequency vector $f$ of $N$ observed ratings $x_1,\dots,x_N$ of the item. Since $f$ is a probability vector, (8′) with $p\to f$ reads $\tfrac1N\sum_i\mathrm{Brier}(x_i,q)=\lVert q-f\rVert^2+1-\lVert f\rVert^2$, so the empirical minimiser is $f$ itself. Its error is $\mathbb{E}\lVert f-p\rVert^2=\sum_a\mathrm{Var}\,f(a)=\sum_a p(a)(1-p(a))/N=(1-\lVert p\rVert^2)/N$, so the distance shrinks like $1/\sqrt N$.
+**Empirical version.** Replace $p$ by the frequency vector $f$ of $N$ observed ratings $x_1,\dots,x_N$ of the item. Since $f$ is a probability vector, (8′) with $p\to f$ reads $\tfrac1N\sum_i\mathrm{Brier}(x_i,q)=\lVert q-f\rVert^2+1-\lVert f\rVert^2$, so the empirical minimiser is $f$ itself. Its error is $\mathbb{E}\lVert f-p\rVert^2=\sum_a\mathrm{Var}(f(a))=\sum_a p(a)(1-p(a))/N=(1-\lVert p\rVert^2)/N$, so the distance shrinks like $1/\sqrt N$.
 
 ## 3. Locality: proper, but local only for two outcomes
 
