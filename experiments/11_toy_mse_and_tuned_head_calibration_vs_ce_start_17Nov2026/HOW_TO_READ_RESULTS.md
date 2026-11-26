@@ -1,4 +1,6 @@
-# How to read the results of experiment 11
+# How to read the results of experiment 11 (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/HOW_TO_READ_RESULTS.md>
 
