@@ -21,8 +21,8 @@ Budgets run from 4 to 256 ratings with one rating per item and from 10 to 320 ra
 \includegraphics[width=\textwidth]{figures/fig_exp28.pdf}
 \caption{\textbf{CE-fit passes the uniform forecast and Pearson-fit after a handful of ratings and then follows the lower envelope; the Pearson-fit curve stays flat on DICES.}
 Learning curves of frozen judges with a calibration head on five public rating sets.
-Vertical axis: held-out test RPS, mean over the five frontier judges (0--1; lower is better); horizontal axis: number of human ratings spent on fitting, one rating per item.
-Test data: held-out folds of ChaosNLI (SNLI, MNLI-matched, alphaNLI) and DICES (350 and 990 conversations), each item scored against its full empirical human distribution; 200 training draws per fold.
+Vertical axis: held-out test ranked probability score (RPS), mean over the five frontier judges (0--1; lower is better); horizontal axis: number of human ratings spent on fitting, one rating per item.
+Test data: held-out folds of ChaosNLI (SNLI, MNLI-matched, alphaNLI) and DICES (DICES-350 with 350 conversations, DICES-990 with a 400-conversation sample), each item scored against its full empirical human distribution; 200 training draws per fold.
 Blue: CE-fit; red: Pearson-fit; orange dashed: Pearson-fit followed by distribution calibration on the same ratings; dotted gray: uniform forecast; dash-dotted green: the judge's raw forecast with no fitting.
 Both fits search the same 27 calibration settings exhaustively (ties to the setting nearest the identity), so each is the exact optimum within that family.}
 \label{fig:exp28}
@@ -42,7 +42,7 @@ Held-out ranked probability score (RPS) at 256 human ratings (one per item) and 
 Mean over five frontier judges; RPS in $[0,1]$, lower is better.
 Unif.: uniform forecast; Raw: the judge's own forecast with no fitting; Pearson-fit+cal.: a Pearson fit followed by train-only calibration of grade frequencies in four quantile bins of the expected score.
 $N^\ast$: the smallest total number of training ratings from which the simultaneous one-sided 97.5\% lower bounds of ``test RPS of the Pearson-fit judge minus test RPS of the CE-fit judge'' and ``test RPS of the uniform forecast minus test RPS of the CE-fit judge'' both stay above zero at every larger budget. A range gives the values across the five judges; the columns 1/item and 5/item give the budget with one and five ratings per item.
-Test: held-out folds of each rating set, 200 training draws per fold, bootstrap over held-out items.}
+Test: held-out folds of each rating set, 200 training draws per fold; 4{,}000 bootstrap resamples of held-out items; both fits search the same 27 calibration settings exhaustively.}
 \label{tab:exp28}
 \centering\small
 \input{tables/tab_exp28}
@@ -50,19 +50,19 @@ Test: held-out folds of each rating set, 200 training draws per fold, bootstrap 
 
 \paragraph{CE is one way to fit the shape, not the only way.}
 Against the unfitted judge the picture is mixed: CE-fit has a sustained win, with the lower bound above zero at every larger budget, in only some cells, because strong frontier judges already forecast the distribution well on ChaosNLI.
-A Pearson fit followed by calibration into grade frequencies, itself a proper-loss step, has the lower mean RPS than CE-fit on both DICES sets from 64 ratings and on MNLI-matched by 256 ratings (\Cref{tab:exp28}).
-At 256 ratings it scores 0.221 against 0.226 on DICES-350, 0.194 against 0.198 on DICES-990 and 0.161 against 0.163 on MNLI-matched.
+A Pearson fit followed by calibration into grade frequencies, itself a proper-loss step, has lower mean RPS than CE-fit, with one rating per item, from 64 ratings on DICES-350 and from 128 ratings on DICES-990 and MNLI-matched, by margins of a few thousandths of RPS at 256 ratings (\Cref{tab:exp28}).
 We read this as support for the argument and not as a counterexample: what fails is selection or training by correlation \emph{alone}, and any step that fits the shape with a proper loss repairs it.
 
 \paragraph{Other human ratings agree in direction and are mixed in size.}
 \appref{app:extra} gives details and tables.
 (1) On 160 student homework answers graded twice, CE-fit has lower held-out RPS than Pearson-fit for each of five frontier judges at every one of seven budgets (35 of 35 cells).
 The preregistered descending test passes down to 8 ratings for two judges and fails at 256 for the other three (experiments 21 and 26).
-For Qwen3.5-9B the CE fit scores RPS $0.1548$ against $0.2263$ for the Pearson fit at 4 ratings.
-At 256 ratings its Pearson fit has a higher held-out correlation than its CE fit ($0.620$ against $0.556$) while it predicts a mean grade of $2.79$ for a human mean of $4.31$.
-(2) On public benchmarks with a weaker judge (KonIQ-10k, SummEval, dialogue, MovieLens; experiment 23), direct CE selection beat direct Pearson selection at the largest budget on three of the four.
+For Qwen3.5-9B at 256 ratings the Pearson fit has a higher held-out correlation than the CE fit ($0.620$ against $0.556$) while it predicts a mean grade of $2.79$ for a human mean of $4.31$.
+(2) On public benchmarks with a weaker judge (KonIQ-10k, SummEval, dialogue, MovieLens; experiment 23), direct CE selection beat direct Pearson selection at the largest budget on three of the four, not on SummEval.
 The margin over strong controls is small or absent in all four, and a Pearson score calibrated into grade probabilities scored at least as well as CE at the largest budget in all four.
 (3) On the 75 retrospective theorem artifacts (195 expert ratings; Section~\ref{sec:limits} lists the experiments that reuse them), CE-trained mixtures and heads have lower test RPS than Pearson-trained ones in most pools and sizes, by $0.003$ to $0.090$ (experiments 10, 18 and 20).
-At three training families they tie on three pools and lose on the open-weight pool, where they tie again at seven and fifteen families (experiment 20).
+At three training families CE ties on three pools and loses on the open-weight pool, where it ties again at seven and fifteen families (experiment 20).
 Asking judges for six-category probabilities instead of three scalar votes cut held-out CE from $3.480$ to $1.629$ nats for open models and from $5.49$ to $1.416$ nats for frontier models (experiments 09 and 10).
-Choosing a single judge from a pool depends on the pool: selection by Pearson was as good as or better than selection by CE for scalar-vote judges, while CE selection won on the three pools that contain native-probability judges.
+Choosing a single judge depends on the pool.
+Selection by Pearson matched or beat selection by CE on the 44 historical scalar-vote judges, whereas selection by CE won on the 15 closed-weight judges with native probabilities, the 39 open-weight judges with three scalar votes and the combined 59 (experiment 20).
+Pool format and model weights are confounded, so the data cannot say which one matters.

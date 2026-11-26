@@ -4,8 +4,8 @@ Usage (from the repository root):
     python3 -I paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/check_numbers.py [--verbose]
 
 The memo sources hold one sentence per line.  For each line the script collects its decimals and its integers of 100 or
-more, and looks for a single human-readable file (.md, .txt, .tex under experiments/ and paper_latex_and_notes/, the memo's
-assets_log.txt and tables/*.tex) that contains ALL of them, either as the same digits or as a number that rounds to the token
+more, and looks for a single human-readable file (.md, .txt, .tex under experiments/ and paper_latex_and_notes/, plus the memo's
+assets_log.txt; the generated tables/*.tex and the memo's own sources are excluded) that contains ALL of them, either as the same digits or as a number that rounds to the token
 at the token's own precision.  A line passes if one file covers all its numbers.  Other lines are listed with the best file
 and the numbers that file lacks, for a manual check against the experiment folder.
 It checks that the numbers exist together in one report, not that the sentence draws the right conclusion from them.
@@ -45,7 +45,6 @@ for r in (os.path.join(ROOT, "experiments"), os.path.join(ROOT, "paper_latex_and
             if f.endswith((".md", ".txt", ".tex")):
                 files.append(os.path.join(dp, f))
 files.append(os.path.join(HERE, "assets_log.txt"))
-files += [os.path.join(HERE, "tables", f) for f in sorted(os.listdir(os.path.join(HERE, "tables")))]
 
 index = {}
 for p in files:
@@ -71,7 +70,9 @@ print(f"indexed {len(index)} report files")
 
 def has(p, tok):
     exact, fl = index[p]
-    if tok in exact or tok.rstrip("0").rstrip(".") in exact:
+    if tok in exact:
+        return True
+    if "." in tok and tok.rstrip("0").rstrip(".") in exact:  # strip trailing zeros of decimals only, never of integers
         return True
     if "." not in tok or len(fl) == 0:
         return False
@@ -109,7 +110,8 @@ for src in sources:
         for t in lack:
             where[t] = [os.path.relpath(p, ROOT) for p in index if has(p, t)][:2]
         print(f"\nCHECK {os.path.relpath(src, HERE)}:{ln}  tokens {toks}")
-        print(f"   text: {re.sub(r'\s+', ' ', line).strip()[:230]}")
+        shown = re.sub(r"\s+", " ", line).strip()[:230]
+        print(f"   text: {shown}")
         print(f"   best file ({best_n}/{len(toks)}): {os.path.relpath(best, ROOT)}; it lacks {lack}")
         for t, w in where.items():
             print(f"   {t}: {w if w else 'no report file contains it'}")

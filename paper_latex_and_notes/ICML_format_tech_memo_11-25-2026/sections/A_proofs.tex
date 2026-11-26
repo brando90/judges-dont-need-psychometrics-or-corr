@@ -3,7 +3,7 @@
 
 Notation follows Section~\ref{sec:identification}: $P_i$ and $q_i$ are distributions on $\{0,\dots,K-1\}$ with means $t_i$ and $m_i$, $F_q(k)=\sum_{r\le k}q(r)$ for $k=0,\dots,K-2$, and $d_k=F_P(k)-F_q(k)$.
 Logarithms are natural; entropy $H$, cross-entropy $\CE$ and $\KL$ are in nats.
-The statements are those of the identification preprint~\citep{miranda2026correlation}; proofs are repeated here so that the memo is self-contained.
+The statements are those of the identification preprint~\citep{miranda2026correlation}; we repeat the proofs so that the memo is self-contained.
 
 \subsection{Pearson depends on means up to a positive affine map (Proposition~\ref{prop:affine})}
 Since $\sum_i(t_i-\bar t)=0$, $\sum_i(m_i-\bar m)(t_i-\bar t)=\sum_i m_i(t_i-\bar t)=\sum_i(t_i-\bar t)\sum_r r\,q_i(r)$.
@@ -15,7 +15,7 @@ The map $x\mapsto m(x)$ is unrestricted: the statement is about the output vecto
 \subsection{Dimension of the unidentified set (Proposition~\ref{prop:dimension})}
 For $K=2$, $q(1)=m$ and $q(0)=1-m$.
 For general $K$ the constraints $\sum_rq(r)=1$ and $\sum_rr\,q(r)=m$ have linearly independent coefficient vectors, so their common affine solution set has dimension $K-2$; every interior mean $m\in(0,K-1)$ has an all-positive solution (the exponential family of \Cref{app:ce-gap}), so positivity adds no local equality constraint.
-For $n$ items with free means the dimensions add to $n(K-2)$.
+For $n$ items with prescribed interior means the dimensions add to $n(K-2)$.
 In $m=a\mathbf 1+bt$ the columns $\mathbf 1$ and $t$ are independent because $t$ is nonconstant, which adds the two free parameters $(a,b)$ on the all-positive stratum, giving $n(K-2)+2$.
 For binary ratings and correlation-one means $m_i=a+bt_i$, the Brier convention gives excess RPS $n^{-1}\sum_i(a+(b-1)t_i)^2$ and excess CE $n^{-1}\sum_i\KL(\mathrm{Bern}(t_i)\|\mathrm{Bern}(a+bt_i))$, so binary ratings keep level and scale ambiguity (the squared-error-over-both-categories convention would double the first expression).
 For $K=3$ and mean one, the family $q_s=(s,1-2s,s)$, $0\le s\le\tfrac12$, has variance $2s$ at fixed mean.
@@ -55,7 +55,7 @@ The triangle inequality gives $d\le\TVD(P_0,q)+\TVD(q,P_1)$, so $\max_j\TVD(P_j,
 Let $v_j=(F_{P_j}(k))_k$ and $u=(F_q(k))_k$.
 The Euclidean identity $\tfrac12(\|v_0-u\|^2+\|v_1-u\|^2)=\|u-\tfrac12(v_0+v_1)\|^2+\tfrac14\|v_0-v_1\|^2$ and the RPS identity of the previous section give $\tfrac12(\mathcal E_{P_0}(q)+\mathcal E_{P_1}(q))\ge D(P_0,P_1)/(4(K-1))$.
 For the $j$ attaining the maximum TVD, Pinsker gives $\KL(P_j\|q)\ge2(d/2)^2=d^2/2$.
-The first two bounds are attained by the mixture $\tfrac12(P_0+P_1)$ when it is a feasible forecast.
+The mixture $\tfrac12(P_0+P_1)$ attains the total variation bound and the average excess RPS bound when it is a feasible forecast.
 These are information bounds for a rule that receives only the mean; they do not bound an estimator that also sees individual ratings, features or shape restrictions.
 
 \subsection{Gradients}
@@ -87,7 +87,7 @@ Locally, $\KL(q_{\eta_t}\|q_{\eta_m})=(m-t)^2/(2A''(\eta_t))+o((m-t)^2)$, the co
 \begin{table}[h]
 \caption{\textbf{Identical means and Pearson correlation 1, different variances and distributions.}
 Exact counterexample, $K=3$, $n=3$.
-$P_i$: human distribution; $Q_i$: forecast; means and variances of the ratings 0, 1, 2; $\TVD_i$: total variation distance between $P_i$ and $Q_i$ (0--1); excess RPS$_i$, the excess ranked probability score (RPS) of item $i$: the expected RPS of $Q_i$ minus that of $P_i$ under $P_i$ (0--1).
+$P_i$: human distribution; $Q_i$: forecast; means and variances of the ratings 0, 1, 2; $\TVD_i$: total variation distance between $P_i$ and $Q_i$ (0--1); excess ranked probability score (RPS) of item $i$, written excess RPS$_i$: the expected RPS of $Q_i$ minus that of $P_i$ under $P_i$ (0--1).
 Averages over the three items: mean TVD $1/5$; excess RPS $3/200$; true RPS $49/300$, forecast RPS $107/600$; cross-entropy (CE) $0.915387$ for $P$ and $1.064735$ nats for $Q$.}
 \label{tab:example}
 \centering\small
@@ -108,7 +108,7 @@ In every item the mean term of Equation~\eqref{eq:rps-decomp} is zero, so the wh
 \label{app:finite}
 If each held-out item has $k$ conditionally independent ratings with mean $\hat t_I=t_I+\varepsilon_I$, $\E[\varepsilon_I\mid I]=0$ and $\Var(\varepsilon_I\mid I)=\sigma_I^2/k$, and the forecast mean $m_I$ is independent of the test-rating noise, then $\Cov(m_I,\hat t_I)=\Cov(m_I,t_I)$ and $\Var(\hat t_I)=\Var(t_I)+\E[\sigma_I^2]/k$.
 The correlation with the observed mean is thus attenuated by $\sqrt{\Var(t_I)/(\Var(t_I)+\E[\sigma_I^2]/k)}$, which is why the same judge looks worse against one rating per item than against five.
-For a well-specified parametric conditional model with $P$ identifiable parameters, an efficient consistent maximum-likelihood estimator, nonsingular Fisher information and expected Taylor remainder $o(N^{-1})$, the expected excess CE is $\E[R(\hat\theta)-R(\theta^\ast)]=P/(2N)+o(N^{-1})$ nats per fresh observation.
+For a well-specified parametric conditional model with $P$ identifiable parameters, an efficient consistent maximum-likelihood estimator whose scaled error $\sqrt N(\hat\theta-\theta^\ast)$ has converging second moments, nonsingular Fisher information and expected Taylor remainder $o(N^{-1})$, the expected excess CE is $\E[R(\hat\theta)-R(\theta^\ast)]=P/(2N)+o(N^{-1})$ nats per fresh observation.
 If a specified procedure converges to a forecast with positive excess CE $B$, comparing $P/(2N)$ with $B$ suggests the heuristic scale $N\approx P/(2B)$.
 It requires both risks in CE nats and the asymptotic assumptions to hold; it fails when $N$ is comparable to $P$, near a boundary, under misspecification or strong regularization, and an RPS gap cannot replace $B$.
 Properness describes the optimizer of population loss, not the order of finite-sample estimators, so neither $B>0$ nor a universal crossover follows from the invariances of Proposition~\ref{prop:affine}.

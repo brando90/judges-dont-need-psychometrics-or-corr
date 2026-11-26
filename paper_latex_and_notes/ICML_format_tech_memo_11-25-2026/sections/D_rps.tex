@@ -55,7 +55,7 @@ A point mass $d$ ratings away from the observed rating scores $d/5$: 0.0, 0.2, 0
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.62\textwidth]{figures/fig_rps_staircase.pdf}
-\caption{\textbf{RPS adds the squared gaps between the judge's cumulative probabilities and the observed rating's step.}
+\caption{\textbf{Ranked probability score (RPS) adds the squared gaps between the judge's cumulative probabilities and the observed rating's step.}
 Constructed example, not data: the judge's forecast over ratings 0 to 5 is $(0,0,0.1,0.3,0.4,0.2)$ and the human rating is 4.
 Horizontal axis: the five thresholds $j$; vertical axis: cumulative probability.
 Blue bars: the judge's $Q_j=\Pr[\text{rating}\le j]$; black staircase: the observed rating's step $\Ind\{4\le j\}$; red: the gap, with its square printed above.
@@ -64,7 +64,7 @@ RPS $=(0.01+0.16+0.04)/5=0.042$ (range 0 to 1, lower is better; a perfect foreca
 \end{figure}
 
 \begin{table}[t]
-\caption{\textbf{Only RPS scores a near miss better than a far miss.}
+\caption{\textbf{Only the ranked probability score (RPS) scores a near miss better than a far miss.}
 Scores of four forecasts against one human rating $r=4$ (lower is better for all three scores).
 RPS: ranked probability score, range 0 to 1.
 Brier: categorical Brier score $\sum_k(q_k-\Ind\{r=k\})^2$, range 0 to 2.
@@ -90,6 +90,7 @@ For integer ratings, RPS has an absolute-error form, the discrete case of the id
 \label{eq:rps-abs}
 \end{equation}
 where $R$ and $R'$ are independent draws from $q$.
+Five times the normalized score is therefore in rating points.
 The first term is the expected distance, in rating points, between a rating sampled from the judge and the human rating.
 The second term subtracts half of the judge's own spread, so the score does not penalize a judge merely for spreading its probability.
 To see \Cref{eq:rps-abs}, write $|a-r|=\sum_{j=0}^{4}\bigl|\Ind\{a\le j\}-\Ind\{r\le j\}\bigr|$ for integers $a$ and $r$; taking the expectation over $a\sim q$ gives $\E_q|R-r|=\sum_j[Q_j+o_j(1-2Q_j)]$ with $o_j=\Ind\{r\le j\}$, and $\E_q|R-R'|=2\sum_jQ_j(1-Q_j)$, so the right-hand side of \Cref{eq:rps-abs} equals $\sum_j(Q_j-o_j)^2$ because $o_j^2=o_j$.
@@ -177,13 +178,15 @@ That term cancels in expected differences between judges, and observed paired di
 
 If we knew the human distribution $p$, the excess term of \Cref{eq:rps-decomposition} would be $\frac15\sum_j(Q_j-P_j)^2$, one fifth of the squared $\ell_2$ distance between the two CDFs on the integer scale.
 The $\ell_2$ distance between CDFs is the Cramér distance of \citet{bellemare2017cramer}, so $\sqrt{5\times\text{excess}}$ is a Cramér distance.
-On this scale the excess also equals one tenth of the energy distance $2\E|X-Y|-\E|X-X'|-\E|Y-Y'|$ for independent draws from $q$ and $p$~\citep{szekely2013energy}; the script checks this to $2.2\times10^{-15}$.
+On this scale the excess also equals one tenth of the energy distance $2\E|X-Y|-\E|X-X'|-\E|Y-Y'|$ for independent draws $X\sim q$ and $Y\sim p$~\citep{szekely2013energy}.
+To see this, average \Cref{eq:rps-abs} over the human rating $r\sim p$ and subtract the same average for $q=p$: five times the excess equals $\E|X-Y|-\tfrac12\E|X-X'|-\tfrac12\E|Y-Y'|$, half the energy distance.
+The script also checks the identity to $2.2\times10^{-15}$.
 The square root of the excess is a true metric between rating distributions, a principled ``root RPS''.
 In practice $p$ is unknown.
 With one rating per item and no further assumptions we cannot separate the excess from the disagreement floor, but the floor is the same for every judge.
 Differences in mean RPS between two judges are therefore unbiased estimates of the differences in their squared CDF gaps to the human distributions, scaled by $\frac15$.
 Here ``root RPS'' means the square root of the excess, not of the observed individual-rating loss: taking the square root of a mean RPS leaves the ranking of judges unchanged, but taking it per rating before averaging would lose the unbiasedness.
-\citet{bellemare2017cramer} also show that, unlike the Wasserstein distance, the Cramér distance has unbiased sample gradients, which makes RPS usable as a training loss as well as an evaluation metric.
+\citet{bellemare2017cramer} also show that, unlike the Wasserstein distance, the squared Cramér distance has unbiased sample gradients, which makes RPS usable as a training loss as well as an evaluation metric; the square root keeps the metric property but not this gradient property.
 
 \subsection{Why RPS is the primary metric for ordinal human ratings}
 \label{app:rps-why}
@@ -193,15 +196,14 @@ We use RPS as the primary and common selection metric of the prospective evaluat
 \item \textbf{Order matters.} Ratings are ordered, and RPS charges more for larger misses, while CE and the categorical Brier score treat ratings as unordered labels.
 \item \textbf{It targets the whole distribution.} RPS is strictly proper (\appref{app:rps-proper}), so only the true conditional rating distribution minimizes it. Correlation ignores calibration and spread, and mean squared error identifies only the conditional mean (\Cref{app:rps-mean}).
 \item \textbf{It works with sparse ratings.} Each observed rating is scored directly through the CDF, so items with one to three ratings contribute without a histogram estimate, and empty rating categories do not distort the score (\appref{app:rps-sparse}).
-\item \textbf{It is bounded.} RPS lies in $[0,1]$, so a single rating that received near-zero probability cannot dominate it. CE can be dominated this way. In archived experiment 11 (75 theorem artifacts from 25 tasks; repeated five-fold task-grouped cross-validation with 20 repeats; out-of-fold scores), the CE-trained mixture of judges has higher out-of-fold CE than a constant forecast of the training ratings: 5.427 against 1.848 nats (lower is better). The $10^{-6}$ probability floor dominates CE on histograms of three ratings. Yet the mixture's out-of-fold RPS is lower, 0.1367 against 0.1829. The paired difference of out-of-fold RPS, the CE-trained mixture minus the constant forecast, is $-0.0462$ (95\% task-bootstrap interval $[-0.0937,-0.0005]$, 10{,}000 draws); negative favors the mixture.
-\item \textbf{It is interpretable.} The absolute-error form (\Cref{eq:rps-abs}) is in rating points, and \Cref{eq:rps-decomposition} separates the judge's error from the noise floor set by rater disagreement.
+\item \textbf{It is bounded.} RPS lies in $[0,1]$, so a single rating that received near-zero probability cannot dominate it. CE can be dominated this way. In archived experiment 11 (75 theorem artifacts from 25 tasks; repeated five-fold task-grouped cross-validation with 20 repeats; out-of-fold scores), the CE-trained mixture of judges has higher out-of-fold CE than a constant forecast of the training ratings: 5.427 against 1.848 nats (lower is better). The $10^{-6}$ probability floor dominates CE when a judge's histogram of three calls gives zero probability to a rating that the two or three human raters then choose. Yet the mixture's out-of-fold RPS is lower, 0.1367 against 0.1829. The paired difference of out-of-fold RPS, the CE-trained mixture minus the constant forecast, is $-0.0462$ (95\% task-bootstrap interval $[-0.0937,-0.0005]$, 10{,}000 draws); negative favors the mixture.
+\item \textbf{It is interpretable.} Five times RPS in its absolute-error form (\Cref{eq:rps-abs}) is in rating points, and \Cref{eq:rps-decomposition} separates the judge's error from the noise floor set by rater disagreement.
 \end{enumerate}
 
 \subsection{Limitations}
 \label{app:rps-limits}
 
-RPS assumes equally spaced ratings: a miss from 0 to 1 costs the same as a miss from 4 to 5.
-It weights all thresholds equally.
+RPS uses the category order and weights all thresholds equally, so a miss from 0 to 1 costs the same as a miss from 4 to 5; reading five times the score as a distance in rating points also assumes equal spacing between the labels.
 It is less sensitive than CE to the probability that a forecast gives to rare ratings, which is why we keep CE as a secondary metric.
 With $n_i>1$ independent ratings, $\frac{n_i}{n_i-1}\hat P_{ij}(1-\hat P_{ij})$ is an unbiased but noisy estimate of the disagreement at a threshold, so we compare judges by paired differences on the same items.
 

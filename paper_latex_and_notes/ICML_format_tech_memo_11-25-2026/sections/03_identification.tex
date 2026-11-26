@@ -46,7 +46,8 @@ For $m_j(q,x)=\E_q[(R/(K-1))^j\mid x]$ and every integer $j\ge1$,
 \]
 \end{proposition}
 
-A model that lowers population CE toward its minimum therefore recovers the mean, variance, skewness and every other moment at the same time, whereas Pearson correlation constrains only the first.
+A model that lowers population CE toward its minimum therefore recovers every normalized raw moment at the same time, and with it the variance, whereas Pearson correlation constrains only the first moment.
+Standardized skewness divides by a power of the variance, which this bound does not control.
 The next result states the converse.
 
 \begin{proposition}[Means alone cannot recover shape]
@@ -64,12 +65,12 @@ With shared parameters, correlation can still change the shape indirectly, so th
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_counterexample.pdf}
-\caption{\textbf{A forecast with Pearson correlation exactly 1 can still have the wrong distribution, and CE and RPS separate the two forecasts.}
+\caption{\textbf{A forecast with Pearson correlation exactly 1 can still have the wrong distribution, and cross-entropy (CE) and ranked probability score (RPS) separate the two forecasts.}
 Exact counterexample ($K=3$ ratings 0, 1, 2; $n=3$ items).
 Purple bars: the human rating distribution $P_i$; red bars: the judge's forecast $q_i$.
 Both have the same item means ($\tfrac12$, $1$, $\tfrac32$), so the Pearson correlation between forecast means and human means is exactly 1.
 The forecast is nevertheless wrong in shape. Its mean total variation distance to the human distributions is $0.20$ (lower is better, range 0--1), its excess RPS is $3/200=0.015$ (range 0--1, lower is better), and its cross-entropy is $1.065$ nats against $0.915$ nats for the true distributions (the CE of $P$ against itself is its entropy).
-Every number is exact; no ratings are sampled.}
+Every number is an exact calculation (cross-entropies rounded to three decimals); no ratings are sampled.}
 \label{fig:counterexample}
 \end{figure*}
 
@@ -79,7 +80,6 @@ The forecast matches every item mean, so $\rho=1$, yet its rating variances are 
 
 \paragraph{What this does not say.}
 The propositions concern the set of population optima.
-They do not say that every correlation-trained judge lands on a wrong shape; initialization, regularization, tie rules and model restrictions can select the true distribution from the optimum set, and a nonlinear judge may recover it from features.
-They also give no universal break-even sample size.
-The heuristic $N\approx P/(2B)$, from the regular asymptotic excess CE $P/(2N)$ of a $P$-parameter maximum-likelihood fit against a fixed excess CE $B$ of the competitor, holds only in CE nats under its asymptotic assumptions and cannot take an RPS gap in place of $B$.
+They do not say that every correlation-trained judge lands on a wrong shape: initialization, regularization, tie rules and model restrictions can select the true distribution from the optimum set, and a nonlinear judge may recover it from features.
+They give no universal break-even sample size either; the heuristic $N\approx P/(2B)$, from the asymptotic excess CE $P/(2N)$ of a $P$-parameter maximum-likelihood fit against a competitor's fixed excess CE $B$, holds only in CE nats under its asymptotic assumptions and cannot take an RPS gap in place of $B$.
 How many ratings a cross-entropy fit needs is therefore an empirical question, and the rest of the memo measures it.

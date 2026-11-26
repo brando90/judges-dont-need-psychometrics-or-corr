@@ -45,7 +45,7 @@ Both versions factor through the conditional mean.
 
 \begin{proposition}[Correlation with individual ratings factors through the mean]
 \label{prop:tower}
-Let $m(X)$ be any forecast mean with $\Var m(X)>0$, and let $\eta=\sqrt{\Var\mu(X)/\Var R}$.
+Let $m(X)$ be any forecast mean with $\Var m(X)>0$, assume $\Var\mu(X)>0$ and let $\eta=\sqrt{\Var\mu(X)/\Var R}$.
 Then
 \begin{equation}
 \operatorname{Corr}\bigl(m(X),R\bigr)=\operatorname{Corr}\bigl(m(X),\mu(X)\bigr)\,\eta,
@@ -64,6 +64,7 @@ Divide the covariance by $\operatorname{sd}(m(X))\operatorname{sd}(R)$ and write
 Cauchy--Schwarz bounds $\operatorname{Corr}(m(X),\mu(X))$ by one, with equality exactly for positive affine $m$.
 \end{proof}
 
+If $\Var\mu(X)=0$, for example an independent fair-coin rating, every forecast has zero correlation with $R$ and Equation~\eqref{eq:tower} does not apply; if $R=\mu(X)$ almost surely, $\eta=1$.
 Only $\mu$ enters Equation~\eqref{eq:tower}.
 Two forecasts with the same mean function have the same correlation however their variance, skewness or tails differ.
 Even the true distribution $p$ scores $\eta$, not one.
@@ -133,7 +134,8 @@ The population bounds held in all 5,000 random populations.
 \label{prop:vander}
 On $K$ rating values the linear map $p\mapsto(\E_pR^j)_{j=0}^{K-1}$ is injective.
 Its matrix $V=(r^j)_{r,j=0}^{K-1}$ has determinant $\prod_{k=1}^{K-1}k!$, which equals $34{,}560$ for $K=6$.
-Matching the moments $j=0,\dots,s$ leaves an affine set of dimension $K-1-s$; matching the mean alone ($s=1$) leaves $K-2$ free directions.
+Matching the moments $j=0,\dots,s$ leaves an affine subspace of $\mathbb R^K$ of dimension $K-1-s$; matching the mean alone ($s=1$) leaves $K-2$ free directions.
+Within the probability simplex the set has this dimension when the matched moments are interior to their feasible set, and it is smaller on the boundary (for $K=3$ and mean $0$ only $(1,0,0)$ remains).
 \end{proposition}
 
 \begin{proof}
@@ -174,7 +176,9 @@ Its gradient is $\E_{q_\theta}T$ and its Hessian is the covariance of $T$ under 
 With $T(r)=\bigl((r/(K-1))^j\bigr)_{j=1}^{K-1}$ the family contains every positive distribution, because the matrix of the monomials $1,\dots,(r/(K-1))^{K-1}$ is a Vandermonde matrix and $\log q$ can therefore be any vector up to a constant.
 Stationarity then asks for $K-1$ moment equations.
 The calibration head of Equation~\eqref{eq:head} is the same construction with $T=(u_k,u_k^2)$ at fixed temperature $t$.
-For one observed rating $y$ its intercept and curvature gradients are $\E_qu-u(y)$ and $\E_qu^2-u(y)^2$, so the head matches the first two moments of the centered category index to the rating.
+For one observed rating $y$ its intercept and curvature gradients are $\E_qu-u(y)$ and $\E_qu^2-u(y)^2$.
+A continuous fit of $(b,c)$ at fixed temperature that reaches an interior stationary point therefore matches the average first two moments of the centered category index to the training ratings.
+The memo's head instead searches 27 discrete settings exhaustively, so its choice need not satisfy these equations; the identity describes the gradient and not the chosen setting.
 
 \begin{proposition}[Logit gradients of the objectives]
 \label{prop:grad}
@@ -205,7 +209,7 @@ Pearson & $-\rho(m,t)$ & $-g_i\,q_i(r)(r-m_i)$ & $m=a+b\mu$, $b>0$ \\
 
 The MSE and Pearson gradients are scalar multiples of $(q(r)(r-m))_r$, the gradient of the item's mean itself.
 A gradient step on either loss therefore changes an item's logits only along the one direction that changes its mean.
-The CE gradient $q-e_y$ ranges over the whole $(K-1)$-dimensional space of logit directions, and averaged over the ratings of one item it equals $q-\hat p$, the gap to the empirical rating histogram.
+The CE gradient $q-e_y$ takes one of $K$ values as $y$ varies, and these values span the whole $(K-1)$-dimensional space of logit directions modulo constants, of which only $K-2$ directions leave the item's mean unchanged; averaged over the ratings of one item it equals $q-\hat p$, the gap to the empirical rating histogram.
 These are statements about logits.
 A network shares parameters across items and categories, its Jacobian mixes these directions, and a correlation gradient can therefore move shape indirectly; Sections~\ref{sec:controlled}--\ref{sec:scaling} measure whether it does.
 
@@ -256,7 +260,7 @@ CE has the lower expected error exactly when $\pi>t_L/(t_L+t_H)$.
 \end{proposition}
 
 \begin{proof}
-For $D=\pm1$ we have $(t_H\mp m)/2>(t_L\mp m)/2$, so the high spread has the larger likelihood, and for $D=0$ we have $1-t_H<1-t_L$.
+For $D=\pm1$ the probability is $(t\pm m)/2$, so $(t_H\pm m)/2>(t_L\pm m)/2$ and the high spread has the larger likelihood, and for $D=0$ we have $1-t_H<1-t_L$.
 The CE error $(1-\pi)t_L+\pi(1-t_H)$ is below $\pi$ if and only if $t_L<\pi(t_L+t_H)$.
 \end{proof}
 
@@ -264,7 +268,7 @@ For $t_L=0.4$ and $t_H=0.8$ the threshold is $1/3$, with $e_L=0.4$ and $e_H=0.2$
 Wrongly picking the spread costs a squared variance error of $(t_H-t_L)^2=0.16$.
 At $\pi=1/3$ both rules lose $0.0533$ in expectation.
 At $\pi=0.3$ the mean-only rule loses $0.0480$ against $0.0544$ for CE, and at $\pi=0.4$ CE loses $0.0512$ against $0.0640$ for the mean-only rule.
-This is the break-even logic of Section~\ref{sec:controlled} at the smallest scale: with one rating and a prior that strongly favors one shape, ignoring shape is competitive, and once at least a third of the items have the high spread, CE wins.
+This is the break-even logic of Section~\ref{sec:controlled} at the smallest scale: with one rating and a prior that strongly favors one shape, ignoring shape is competitive, and once more than a third of the items have the high spread, CE wins (at exactly a third the two risks are equal).
 The example is exact for one rating only.
 
 \paragraph{Check.}

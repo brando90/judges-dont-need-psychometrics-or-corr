@@ -3,13 +3,14 @@
 
 \paragraph{Source and build.}
 This memo was built from the repository \url{https://github.com/brando90/judges-dont-need-psychometrics-or-corr} on 11-25-2026.
-Every experiment result it reads was committed at or before commit \texttt{6225bed}, and the memo's own files are in the commit that carries this PDF.
+Every experiment result it reads was committed at or before commit \texttt{2bd73d9}, and the memo's own files are in the commit that carries this PDF.
 They sit in \texttt{paper\_latex\_and\_notes/ICML\_format\_tech\_memo\_11-25-2026/}.
 Running \texttt{python3 -I make\_memo\_assets.py} there regenerates every figure and table of this memo from committed result files and writes \texttt{assets\_log.txt}; \texttt{make} then runs \texttt{pdflatex} and \texttt{bibtex}.
 Neither step calls a model.
 
 \paragraph{Where each number comes from.}
-Every number in the text is printed by a script committed under \texttt{experiments/} or by \texttt{make\_memo\_assets.py}.
+We typed each number in the text from a result file or script output committed under \texttt{experiments/}, or from the log of \texttt{make\_memo\_assets.py}, and \texttt{check\_numbers.py} compares them with those sources.
+The checker is a screening aid: it accepts a number that appears anywhere in the sources and does not confirm what the number refers to.
 \Cref{tab:index} names the folder of each experiment; the folders hold the frozen protocol, the run receipts, request hashes and a reading guide that states which data, metric and comparison each number uses.
 
 \paragraph{Data.}
@@ -19,7 +20,7 @@ No new human ratings were collected for the memo.
 
 \paragraph{Prior exposure and sealed data.}
 Results on the 75 theorem artifacts are not fresh: experiments 02, 09, 10, 12, 14, 16, 18, 19 and 20 reuse them (Section~\ref{sec:limits}).
-The ratings that would let the fitted floors be compared with a human leave-one-vote-out floor are sealed outside the repository and were not used.
+The per-item vote counts that a human leave-one-vote-out floor needs for the frozen-judge panels are not saved in the repository, so the memo estimates no such floor; it quotes the reference scores that experiment 29 saved for its test sets as descriptive values.
 
 \paragraph{Cost.}
 The scaling-law analysis of experiment 31, the figures and the tables of this memo are free CPU computations on saved results.

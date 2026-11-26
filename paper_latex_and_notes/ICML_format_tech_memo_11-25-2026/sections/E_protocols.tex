@@ -10,8 +10,8 @@ Brier $=\sum_r(q(r)-\mathbf 1\{y=r\})^2\in[0,2]$;
 normalized mean squared error is the mean of $((m-y)/(K-1))^2$.
 Scores are averaged over the individual ratings of an item and then equally over items.
 Pearson, Spearman and Kendall correlations are computed across items between the expected score of the forecast and the mean human rating.
-A probability floor $q\leftarrow(1-K\epsilon)q+\epsilon$ with $\epsilon=10^{-6}$ is applied before CE unless stated (experiment 25 uses $6\times10^{-6}$ for test CE; experiment 16 sweeps $10^{-6}$ to $5\times10^{-2}$).
-An all-undefined Pearson fit (every candidate gives a constant score, as with two distinct training means) keeps the identity setting.
+A probability floor $q\leftarrow(1-K\epsilon)q+\epsilon$ with $\epsilon=10^{-6}$ is applied before CE unless stated (experiments 24 and 25 mix the uniform forecast in with weight $6\times10^{-6}$ for test CE, experiment 29 clips probabilities at $6\times10^{-6}$, and experiment 16 sweeps $10^{-6}$ to $5\times10^{-2}$).
+A Pearson fit is undefined when the training target is constant or a candidate's scores are constant; if every candidate is undefined, the fit keeps the identity setting.
 
 \paragraph{Differences.}
 Every difference subtracts the same metric on the same data for two procedures named by how they were trained, and says which sign favors which.
@@ -19,7 +19,7 @@ In particular ``test RPS of the Pearson-trained judge minus test RPS of the CE-t
 
 \begin{table*}[t]
 \caption{\textbf{Protocols by experiment family.}
-Every study uses the same two-judge design: identical except for the training objective, with the same training ratings, the same search space and the same test items.
+Within each study the two judges differ only in the training objective and share the training ratings, the search space and the test items; the search, the scoring rule and the failure counts differ between studies and appear in the rows.
 Intervals: simultaneous (maximum-$t$) one-sided or two-sided bands as stated; ``crossed'' bands resample training draws and held-out units together, ``conditional'' bands condition on the matched training draws.
 Frozen protocols and hashes are in each experiment folder.}
 \label{tab:protocols}
@@ -33,17 +33,17 @@ Experiments & Data and test unit & Fit and search & Budgets and draws & Interval
 04, 05 & Synthetic populations (11 artifacts); exact expectations & Closed-form forecasts; exact rational vertex enumeration for the worst case; REML for design allocation (Phase B) & Phase B: 256 replications; A1 finite sample 4{,}000 & Student-$t$ 95\%; Wilson 95\% for counts; no $p$-values \\
 06, 07, 08, 11, 13, 17 & Synthetic judges on known distributions (scenarios A--D); fresh test tasks scored against the truth & L-BFGS-B with 400 iterations; experiment 07: 5$\times$ budget and best of five starts; validation-tuned ridge (08, 11) & 4 to 2{,}048 tasks; seeds as in each folder & Over seeds \\
 18, 20 & Synthetic (6 features, softmax-linear) and the 75 retrospective artifacts (task-grouped splits) & Same head and optimizer, only the objective differs; heads on judge scores; single-judge selection & Synthetic 4 to 512 items, 200 seeds (20); sweeps of 252 cells (18); 400 real splits & 95\% over seeds (synthetic); see folders for real-data intervals \\
-02, 12, 14, 16, 19 & 75 artifacts, 25 tasks, 19 families, 195 expert ratings; task-family folds & Simplex mixtures (SLSQP with a Frank--Wolfe certificate for CE; exhaustive faces for Pearson); single-judge picks & 5 partitions $\times$ 5 folds (02); 1{,}000 task-grouped 20/5 splits (12, 14, 16) & Task-family bootstrap, 1{,}000 draws, 95\% percentile (02); see folders for the others \\
+02, 12, 14, 16, 19 & 75 artifacts, 25 tasks, 19 families, 195 expert ratings; task-family folds & Simplex mixtures (SLSQP with a Frank--Wolfe certificate for CE; exhaustive faces for Pearson); single-judge picks & 5 partitions $\times$ 5 folds (02); 1{,}000 task-grouped 20/5 splits (12, 14, 16) & Task-family bootstrap, 1{,}000 attempted draws of which 998 were usable, 95\% percentile (02); experiment 14 uses nonnegative least squares for the Pearson mixture and keeps the 4 of 1{,}000 (open pool) and 3 of 1{,}000 (combined pool) splits whose optimizer certificate failed; see folders for the others \\
 21, 26 & 160 homework answers, 67 questions, two graders; one 16-answer assignment held out per fold & 27-setting head, exhaustive, ties to the identity setting; CE, Pearson, training histogram, uniform & 4 to 256 ratings, 2 per answer (and 1 per answer); 200 draws per assignment & Overlap-adjusted paired $t$ over ten assignments; descending test at level 0.01 \\
-23 & SummEval (40 articles, 1{,}920 grades), KonIQ-10k (2{,}015 held-out images, 215{,}415 votes), dialogue, MovieLens & 27 or 216 candidate forecasts, exhaustive; CE, Pearson, RPS fits and calibrated comparators & 6 to 768 (SummEval), 6 to 6{,}144 (KonIQ); 64 matched draws & Simultaneous 97.5\% bands; 4{,}000 bootstraps of articles or images \\
+23 & SummEval (40 articles, 1{,}920 grades), KonIQ-10k (2{,}015 held-out images, 215{,}415 votes), dialogue, MovieLens & 27 or 216 transformed forecasts plus the uniform forecast (28 or 217 candidates), exhaustive; CE, Pearson, RPS fits and calibrated comparators & 6 to 768 (SummEval), 6 to 6{,}144 (KonIQ); 64 matched draws & Simultaneous 97.5\% bands; 4{,}000 bootstraps of articles or images \\
 28 & ChaosNLI (SNLI 600, MNLI-matched 600, alphaNLI 400 items; 100 labels) and DICES (350 and 400 items); five frontier judges & 27-setting head, exhaustive, ties to the identity setting & 4 to 256 ratings (1 per item) and 10 to 320 (5 per item); 200 draws per fold & Simultaneous one-sided 97.5\%, 4{,}000 bootstrap of held-out items \\
-24, 25, 29 & HelpSteer2 (1{,}038 responses, 519 prompts), ChaosNLI, DICES, alphaNLI & LoRA (rank 8, $\alpha=16$, top four blocks), AdamW, learning-rate grid, validation-RPS checkpoint; 1D or $(K+2)$ logit calibration & 16 to 8{,}192 total ratings; 10 or 20 nested draws & Simultaneous max-$t$ 95\%, 4{,}000 draws, conditional and crossed \\
+24, 25, 29 & HelpSteer2 (1{,}038 responses, 519 prompts), ChaosNLI, DICES, alphaNLI & LoRA (rank 8, $\alpha=16$, top four blocks), AdamW, three learning rates, validation-RPS selection among four checkpoints; 1D or $(K+2)$ logit calibration & 16 to 8{,}192 development ratings (in experiment 29, half train the weights and a quarter each select the checkpoint and calibrate); 10 or 20 nested draws & Simultaneous max-$t$ 95\%, 4{,}000 draws, conditional and crossed \\
 31 & Saved results of 26, 28 and 29 & Weighted least squares over a 150-value grid of $b\in[0.02,3]$ & 2{,}000 parametric bootstrap draws per curve & Percentile 95\% \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 \paragraph{How each judge was chosen.}
-For frozen judges the fit is an exhaustive search over a finite family (27 calibration settings; 216 candidate distributions for KonIQ). It returns the exact optimum of the stated objective within that family, with ties broken toward the setting nearest the identity. For the mixture fits of experiment 02 the CE objective is convex and certified by a Frank--Wolfe gap of at most $10^{-8}$. The Pearson objective is solved exactly on every face of the cone, with a cone-projection certificate.
+For frozen judges the fit is an exhaustive search over a finite family (27 calibration settings; 216 candidate distributions for KonIQ; experiment 01 selects among nine fixed candidates). It returns the exact optimum of the stated objective within that family, with ties broken toward the setting nearest the identity. For the mixture fits of experiment 02 the CE objective is convex and certified by a Frank--Wolfe gap of at most $10^{-8}$. The Pearson objective is solved exactly on every face of the cone, with a cone-projection certificate.
 For trained judges (toy softmax models and LoRA) the objectives are optimized by L-BFGS-B or AdamW from a fixed start; Pearson objectives are not convex and the result reflects that optimizer, start and budget, and not a certified global optimum.
 Model-selection data are never the test data.

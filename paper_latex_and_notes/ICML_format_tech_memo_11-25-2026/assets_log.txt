@@ -15,6 +15,11 @@ exp28 ChaosNLI MNLI-m @256 d=1: CE-fit RPS/CE/TVD [0.163, 0.911, 0.208]  Pearson
 exp28 alphaNLI (two classes) @256 d=1: CE-fit RPS/CE/TVD [0.12, 0.396, 0.125]  Pearson-fit [0.125, 0.454, 0.131]
 exp28 DICES-350 @256 d=1: CE-fit RPS/CE/TVD [0.226, 0.851, 0.163]  Pearson-fit [0.276, 1.272, 0.314]
 exp28 DICES-990 @256 d=1: CE-fit RPS/CE/TVD [0.198, 0.757, 0.138]  Pearson-fit [0.261, 1.047, 0.315]
+exp28 ChaosNLI SNLI: Pearson-fit+cal. lower mean RPS than CE-fit from B=None through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.11846, Pearson-fit+cal. 0.13050; at 128: CE-fit 0.11615, Pearson-fit+cal. 0.12663
+exp28 ChaosNLI MNLI-m: Pearson-fit+cal. lower mean RPS than CE-fit from B=128 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.16536, Pearson-fit+cal. 0.16797; at 128: CE-fit 0.16372, Pearson-fit+cal. 0.16349
+exp28 alphaNLI (two classes): Pearson-fit+cal. lower mean RPS than CE-fit from B=None through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.12294, Pearson-fit+cal. 0.13149; at 128: CE-fit 0.12114, Pearson-fit+cal. 0.12742
+exp28 DICES-350: Pearson-fit+cal. lower mean RPS than CE-fit from B=64 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.23015, Pearson-fit+cal. 0.22890; at 128: CE-fit 0.22747, Pearson-fit+cal. 0.22376
+exp28 DICES-990: Pearson-fit+cal. lower mean RPS than CE-fit from B=128 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.20133, Pearson-fit+cal. 0.20266; at 128: CE-fit 0.19887, Pearson-fit+cal. 0.19730
 wrote figures/fig_exp26_per_judge.pdf
 exp26 GPT-6 Astra: @256 CE-fit 0.0660 Pearson-fit 0.0843 diff 0.0183; uncal 0.0858; hist 0.1049; descending test passes down to 8
 exp26 Claude Opus 5.5: @256 CE-fit 0.0639 Pearson-fit 0.0675 diff 0.0037; uncal 0.0788; hist 0.1049; descending test passes down to none (fails at 256)
@@ -45,6 +50,20 @@ scaling panel 28_chaosnli_mnli_d1: CE floor 0.160 [0.147, 0.165], b 0.64 [0.28, 
 scaling panel 29_chaos3_qwen_d1: CE floor 0.148 [0.146, 0.149], b 0.89 [0.76, 0.99]; Pearson b 0.09
 scaling panel 29_hs2_qwen_d1: CE floor 0.151 [0.149, 0.152], b 0.76 [0.64, 0.89]; Pearson b 0.05
 wrote figures/fig_scaling.pdf
+scaling panels on RPS (11 panels): CE-fit/CE-LoRA verdicts {'fits': 9, 'poor': 2}; Pearson-fit/Pearson-LoRA verdicts {'poor': 8, 'flat': 2, 'fits': 1}
+scaling 28_chaosnli_snli_d1: CE b 0.33 rel_rmse 0.035 floor_identified False; Pearson b 0.024 floor 0.000 rel_rmse 0.264
+scaling 28_chaosnli_mnli_d1: CE b 0.64 rel_rmse 0.014 floor_identified True; Pearson b 0.023 floor 0.001 rel_rmse 0.144
+scaling 28_chaosnli_alphanli_d1: CE b 0.54 rel_rmse 0.034 floor_identified False; Pearson b 0.059 floor 0.000 rel_rmse 0.173
+scaling 28_dices350_d1: CE b 0.60 rel_rmse 0.008 floor_identified False; Pearson b 0.02 floor 0.084 rel_rmse 0.158
+scaling 28_dices990_d1: CE b 0.58 rel_rmse 0.031 floor_identified True; Pearson b nan floor 0.260 rel_rmse nan
+scaling 29_chaos3_qwen_d1: CE b 0.89 rel_rmse 0.090 floor_identified True; Pearson b 0.091 floor 0.002 rel_rmse 0.067
+scaling 29_chaos3_llama_d1: CE b 0.64 rel_rmse 0.105 floor_identified True; Pearson b 0.456 floor 0.189 rel_rmse 0.145
+scaling 29_alpha2_qwen_d1: CE b 0.56 rel_rmse 0.007 floor_identified True; Pearson b 0.488 floor 0.200 rel_rmse 0.177
+scaling 29_dices3_qwen_d1: CE b 0.71 rel_rmse 0.021 floor_identified True; Pearson b 0.024 floor 0.000 rel_rmse 0.274
+scaling 29_dices3_llama_d1: CE b 0.89 rel_rmse 0.004 floor_identified True; Pearson b 0.361 floor 0.232 rel_rmse 0.131
+scaling 29_hs2_qwen_d1: CE b 0.76 rel_rmse 0.123 floor_identified True; Pearson b 0.05 floor 0.000 rel_rmse 0.107
+scaling exp28 cells on RPS, CE: 25 cells, verdicts {'fits': 25}, floor identified 8
+scaling exp28 cells on RPS, Pearson: 25 cells, verdicts {'poor': 16, 'flat': 9}, floor identified 5
 scaling median b, CE-fit, exp28 cells d=1 with identified floor, rps: 0.66 over 8 cells (all CE cells 25)
 scaling median b, CE-fit, exp28 cells d=1 with identified floor, ce: 0.82 over 20 cells (all CE cells 25)
 scaling median b, CE-fit, exp28 cells d=1 with identified floor, tvd: 0.59 over 10 cells (all CE cells 25)

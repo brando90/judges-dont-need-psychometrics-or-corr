@@ -18,10 +18,11 @@ Synthetic intervals are 95\% percentile bootstrap intervals over seeds with 10{,
 Each study fixes a model of the human ratings and asks which of its features each objective recovers (\Cref{tab:learn}).
 For a one-parameter family such as $\mathrm{Bin}(5,t)$ the mean is sufficient, so a correct mean gives a correct distribution.
 We assume no such family for human ratings.
-Rater disagreement is extra information that only the full rating counts carry, and only proper losses use it: through $\E[R]=\sum_{j=0}^{K-2}\Pr[R>j]$, every mean-based objective compresses those counts to one number per item.
+Rater disagreement is extra information that only the full rating counts carry.
+Proper losses use it, whereas every mean-based objective compresses those counts to one number per item, since $\E[R]=\sum_{j=0}^{K-2}\Pr[R>j]$.
 
 \begin{table}[h]
-\caption{\textbf{Mean-based objectives learn one number per item, and proper losses learn the whole distribution.}
+\caption{\textbf{Mean-based objectives identify one number per item, and proper losses identify the whole distribution when the model family contains it.}
 Pearson correlation identifies the conditional mean $\mu(x)$ only up to a positive affine map (Proposition~\ref{prop:affine}), and squared error identifies $\mu(x)$ exactly (Proposition~\ref{prop:losses}); the proper losses cross-entropy (CE) and ranked probability score (RPS) identify $q(\cdot\mid x)$.
 Experiment 01 uses exact scoring on synthetic items and archived experiment 13 a fitted judge; experiment 02 and archived experiments 11, 12 and 14 use judges of theorem ratings without a known truth.}
 \label{tab:learn}
@@ -78,7 +79,7 @@ We use 100 seeds at each of 11 training sizes from 4 to 2{,}048 tasks, so 12 to 
 \paragraph{How each judge was chosen.}
 We fit each judge by L-BFGS-B with analytic gradients, at most 400 iterations and 600 function evaluations, with ridge weight $1/n$.
 The start reproduces the training-set marginal histogram at every $x$ (the intercept row holds its logarithm, clipped below at 0.001). It adds seeded Gaussian noise with standard deviation 0.01 to every weight. The noise breaks the tie of a constant score, for which Pearson correlation is undefined.
-The softmax CE objective with ridge is convex in $W$, so the CE-trained judge has a global optimum, which the solver reaches (\appref{app:controlled-budget}).
+The softmax CE objective with ridge is convex in $W$, so its minimizer is global, but the frozen implementation clips probabilities and returns an inconsistent gradient where the clip is active, and the solver supplies no optimality certificate; a rerun with the exact objective reproduces the reported scores (\appref{app:controlled-budget}).
 The RPS and correlation objectives are not convex and we have no certificate of global optimality, so every curve of a judge trained on them reflects this optimizer, start and budget.
 
 \subsection{Learning curves: CE overtakes Pearson after twelve ratings when the mean is informative}
@@ -100,7 +101,7 @@ The RPS-trained judge matches the CE-trained judge on RPS excess (0.0009 against
 \includegraphics[width=0.96\textwidth]{figures/fig_exp13_curves.pdf}
 \caption{\textbf{The CE-trained judge's error falls with more ratings, while the Pearson-trained judge's error stays flat or rises.}
 Data: synthetic tasks with known rating distributions (experiment 13), 100 seeds per size, scored on 500 fresh tasks per seed.
-Left column: held-out test RPS excess, the RPS of the forecast minus the RPS of the true distribution (0 is best; lower is better; log scale).
+Left column: held-out test ranked probability score (RPS) excess, the RPS of the forecast minus the RPS of the true distribution (0 is best; lower is better; log scale).
 Right column: held-out test CE excess, $\mathrm{KL}(\text{true}\,\|\,\text{judge})$ in nats (0 is best; lower is better; log scale).
 Horizontal axis: training ratings, three per task.
 Rows: scenario A (nearly constant mean) and B (informative mean).
@@ -145,8 +146,9 @@ The CE objective is convex and the Pearson objective is not, so the orange bars 
 \end{figure}
 
 \paragraph{High correlation with a large distributional error, even without sampling noise.}
-We also fit each objective on a dense 4{,}000-point grid of true distributions with near-zero ridge and the same optimizer and start, which removes sampling noise; this is a numerical reference, not a proven large-sample limit, and the correlation fits are not certified optimal.
-The Pearson-trained judge reaches test Pearson correlation 0.9987 with the true mean in scenario A and 0.9988 in B, and its RPS excess is still 0.0872 and 0.0281.
+We also fit each objective on a dense 4{,}000-point grid of true distributions with near-zero ridge and the same optimizer and start, which removes sampling noise.
+The same grid scores every fit, so each value in this paragraph is an in-sample numerical reference, not a held-out result or a proven large-sample limit, and the correlation fits are not certified optimal.
+On the grid the Pearson-trained judge reaches Pearson correlation 0.9987 with the true mean in scenario A and 0.9988 in B, and its RPS excess is still 0.0872 and 0.0281.
 The CE-trained judge has lower correlation (0.9395 and 0.9704) and far lower RPS excess (0.0003 and 0.0035).
 With a calibrated head the Pearson-trained judge's RPS excess falls to 0.0072 and 0.0057 (correlation 0.9987 and 0.9946), which is still above the CE-trained judge's in both scenarios.
 
@@ -165,7 +167,7 @@ The half-and-half objective stays close to Pearson alone, so the tested equal-we
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/fig_exp06_rank.pdf}
-\caption{\textbf{No tested correlation objective reaches the CE-trained judge's RPS excess, and in scenario A the rank objectives are worse than Pearson.}
+\caption{\textbf{No tested correlation objective reaches the cross-entropy (CE)-trained judge's ranked probability score (RPS) excess, and in scenario A the rank objectives are worse than Pearson.}
 Data: synthetic tasks with known distributions (experiments 06 and 13; identical training and test tasks), 100 seeds per size, 500 fresh test tasks per seed.
 Vertical axis: held-out test RPS excess over the true distribution (0 is best; lower is better; log scale); horizontal axis: training ratings, three per task.
 We chose each judge by L-BFGS-B (at most 400 iterations) from the training-histogram start with ridge weight $1/n$; rank objectives use smooth surrogates (temperature 0.1).
@@ -175,12 +177,12 @@ Bands: 95\% percentile bootstrap intervals over seeds (10{,}000 draws).}
 \end{figure}
 
 \paragraph{Even on correlation, training on correlation buys little.}
-In scenario A no correlation-trained judge has a higher mean test correlation on its own metric than the CE-trained judge at any tested size. At 2{,}048 tasks the CE-trained judge's test Pearson correlation with the true mean is 0.89, against 0.75 to 0.85 for the correlation-trained judges.
+In scenario A no correlation-trained judge has a higher mean test correlation than the CE-trained judge at any tested size, measured by Pearson correlation for the Pearson-trained and half-and-half judges and by Spearman correlation for the Spearman-trained and Kendall-trained judges (we did not evaluate Kendall's $\tau$ itself). At 2{,}048 tasks the CE-trained judge's test Pearson correlation with the true mean is 0.89, against 0.75 to 0.85 for the correlation-trained judges.
 In scenario B the lead is just as wide at small sizes: at 16 tasks (48 ratings) the CE-trained judge's test Pearson correlation is 0.69, against 0.09 to 0.57 for the four correlation-trained judges.
-The correlation-trained judges overtake on their own metric only with plenty of data.
-None has a higher mean correlation below 128 tasks.
-The differences become significant (paired lower bound above 0 at every larger size) from 256 tasks (768 ratings) for the Spearman-trained and Kendall-trained judges on test Spearman correlation, and from 512 tasks (1{,}536 ratings) for the Pearson-trained and half-and-half judges on test Pearson correlation.
-At 2{,}048 tasks the Spearman-trained judge's test Spearman correlation is 0.982 against 0.948 for the CE-trained judge, yet its RPS excess is 16.7 times as large.
+The correlation-trained judges overtake on that correlation only with plenty of data.
+In scenario B none has a higher mean correlation below 128 tasks.
+In scenario B the differences become significant (paired lower bound above 0 at every larger size) from 256 tasks (768 ratings) for the Spearman-trained and Kendall-trained judges on test Spearman correlation, and from 512 tasks (1{,}536 ratings) for the Pearson-trained and half-and-half judges on test Pearson correlation.
+In scenario B at 2{,}048 tasks the Spearman-trained judge's test Spearman correlation is 0.982 against 0.948 for the CE-trained judge, yet its RPS excess is 16.7 times as large.
 A likely reason for the small-sample gap, which we did not test, is that the CE-trained judge learns from every rating, while a correlation-trained judge sees one noisy mean per task.
 
 \subsection{The crossovers survive larger optimizer budgets and restarts (experiment 07)}
@@ -197,11 +199,10 @@ The CE reference has one start per budget, and we refit each calibrated head onc
 \centering
 \includegraphics[width=0.96\textwidth]{figures/fig_exp07_restarts.pdf}
 \caption{\textbf{Best-of-five restarts with a larger budget improve the correlation fits only slightly, and the CE-trained judge's lead remains.}
-Data: synthetic tasks with known distributions (experiment 07), 30 seeds per size, 500 fresh test tasks per seed.
-Vertical axis: held-out test RPS excess over the true distribution (0 is best; lower is better; log scale); horizontal axis: training ratings, three per task.
-Dashed lines with bands: the best of five starts (the original start and four random ones), each with 2{,}000 L-BFGS-B iterations and 4{,}000 function evaluations, chosen by the penalized training objective. Dotted line: the original single start with 400 iterations. Blue: the CE-trained judge with one long start.
+Data: synthetic tasks with known distributions (experiment 07), 30 seeds per size, 500 fresh test tasks per seed. Vertical axis: held-out test ranked probability score (RPS) excess over the true distribution (0 is best; lower is better; log scale); horizontal axis: training ratings, three per task.
+Every curve has a 95\% percentile bootstrap band over seeds. Solid red and the solid Spearman-trained curve: the best of five starts (the original start and four random ones), each with 2{,}000 L-BFGS-B iterations and 4{,}000 function evaluations, chosen by the penalized training objective; dashed: the same for the half-and-half Pearson and Spearman objective. Dotted red: the original single Pearson start with 400 iterations. Solid blue: the CE-trained judge with one long start.
 The CE objective is convex; the correlation objectives are not, and no global optimum was certified.
-Bands: 95\% percentile bootstrap intervals over seeds (10{,}000 draws).}
+Bootstrap: 10{,}000 draws.}
 \label{fig:exp07}
 \end{figure}
 
@@ -264,14 +265,16 @@ What survives of the conjecture is narrow.
 When the target's structure lies in higher moments and the mean carries little signal, a judge that matches the mean and keeps the average spread does well in small samples, and scenario A is consistent with that explanation, which we did not test directly.
 What fails: in B, C and D the CE-trained judge has lower test RPS from the smallest tested size.
 The ratings needed therefore depend on \emph{where} the target's information lies, not on its complexity alone: scenario B has A's varying disagreement plus an informative mean, and it crosses at 12 ratings.
-Which scenario human ratings resemble is open, and small-sample gains for correlation on human ratings remain untested.
+Which scenario human ratings resemble is open.
+On the human-rating sets of experiment 28 the Pearson fit has lower held-out RPS than the CE fit, by a simultaneous one-sided 97.5\% bound, in 19 of 325 cells: 18 at 10 ratings with five per item and one at 4 ratings with one per item (Section~\ref{sec:frozen}).
+We did not test small-sample gains for correlation on other human ratings.
 
 \subsection{Why correlation is the wrong primary metric}
 \label{app:controlled-metric}
 
 We give four reasons to report a proper score first and correlation second.
 \begin{enumerate}
-\item \textbf{Even on correlation, training on correlation buys little.} Below 128 training tasks no correlation-trained judge has a higher mean held-out correlation on its own metric than the CE-trained judge, and in scenario A none does at any tested size. The correlation-trained judges overtake only with plenty of data in scenario B (\appref{app:controlled-rank}), while their rating distributions stay far worse (\Cref{fig:exp06-rank}).
+\item \textbf{Even on correlation, training on correlation buys little.} Below 128 training tasks no correlation-trained judge has a higher mean held-out correlation than the CE-trained judge, by the correlation reported for it (Pearson for the Pearson-trained and half-and-half judges, Spearman for the Spearman-trained and Kendall-trained judges), and in scenario A none does at any tested size. The correlation-trained judges overtake only with plenty of data in scenario B (\appref{app:controlled-rank}), while their rating distributions stay far worse (\Cref{fig:exp06-rank}).
 \item \textbf{Correlation cannot see what matters.} Maximizing Pearson correlation minimizes the squared error between z-scored judge ratings and z-scored human ratings, so any shift or positive rescaling of the judge's ratings leaves it unchanged; these are exactly the bias and scale terms of squared error (\appref{app:moments-squared}). Any increasing transform leaves Spearman correlation unchanged. Both see one number per item, the mean, so neither identifies scale, signed bias or the pattern of rater disagreement. Correlation ties five different distributions in every replication of experiment 01. In experiment 00 (one seed, 2{,}000 synthetic human scores uniform on 0 to 5), a squashed judge that outputs only 4 or 5 has Pearson correlation 0.877 and Spearman correlation 0.878, against 0.900 and 0.900 for a noisy faithful judge. Its KL divergence to the human marginal histogram (Laplace-smoothed) is 3.420 nats, against 0.001 for the noisy faithful judge.
 \item \textbf{Correlation is not a proper scoring rule.} It does not reward reporting the true rating distribution. Its value also depends on how spread out the test items are, not only on the judge, so one cannot average it item by item or compare it across test sets.
 \item \textbf{What correlation is still good for.} If the only use is ranking items, Spearman correlation is a reasonable secondary diagnostic. To choose or train a judge that must reproduce human ratings, use a proper loss such as RPS and report correlations alongside it.
@@ -293,9 +296,9 @@ Each entry is the test RPS of the Pearson-trained judge minus that of the CE-tra
 \caption{\textbf{On the 75 retrospective theorem artifacts, the CE-trained mixture is better only for the larger judge pools, and selecting a single judge by Pearson correlation is better for the 44-judge pool.}
 Data: held-out test artifacts from 25 tasks and 195 expert ratings, all used in earlier studies, so the comparison is retrospective and not a fresh test set.
 Archived experiments 12 and 14 use 1{,}000 random splits with 20 training and 5 test tasks; experiment 02 uses five-fold task-family splits repeated over five partitions.
-Horizontal axis: held-out test RPS of the Pearson-trained judge minus held-out test RPS of the CE-trained judge (0 means no difference; positive means the CE-trained judge is better; RPS ranges from 0 to 1 and lower is better).
+Horizontal axis: held-out test ranked probability score (RPS) of the Pearson-trained judge minus held-out test RPS of the CE-trained judge (0 means no difference; positive means the CE-trained judge is better; RPS ranges from 0 to 1 and lower is better).
 Right column: mean test RPS of the Pearson-trained and the CE-trained judge.
-Dots: mean differences; bars: 95\% percentile bootstrap intervals (10{,}000 draws over 25 tasks for archived experiments 12 and 14; 1{,}000 task-family draws with refitting for experiment 02).
+Dots: mean differences; bars: 95\% percentile bootstrap intervals (10{,}000 draws over 25 tasks for archived experiments 12 and 14; 1{,}000 attempted task-family draws with refitting for experiment 02, of which 998 were usable).
 Blue: CE-trained judge better; red: Pearson-trained judge better; gray: the interval includes 0.
 Mixture weights over the base judges' rating histograms were fitted on the training tasks by an exact Pearson solver or by a convex CE solver with a suboptimality certificate, and single judges by exhaustive search over the pool (\appref{app:protocols}).}
 \label{fig:forest}

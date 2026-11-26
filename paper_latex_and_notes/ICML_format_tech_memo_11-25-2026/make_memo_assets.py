@@ -98,7 +98,7 @@ def fig_counterexample():
     cdf = lambda p: np.cumsum([float(v) for v in p])[:-1]
     ex = float(np.mean([np.sum((cdf(q) - cdf(p)) ** 2) / 2 for p, q in zip(P, Q)]))
     log_line(f"counterexample: mean TVD {tvd:.4f}, CE true {ce_true:.6f}, CE forecast {ce_fc:.6f}, excess RPS {ex:.6f} (= 3/200 = {3/200})")
-    fig, axes = plt.subplots(1, 3, figsize=(6.75, 1.65), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(6.75, 1.5), sharey=True)
     x = np.arange(3)
     for i, ax in enumerate(axes):
         ax.bar(x - 0.19, [float(v) for v in P[i]], 0.38, color=HIST_C, label="human distribution $p$")
@@ -131,7 +131,7 @@ def fig_exp28(d, name, budgets_label):
     s, raw, _ = e28_data()
     s = s[s.d == d]
     m = s.groupby(["dataset", "method", "B"]).rps.mean()
-    fig, axes = plt.subplots(2, 3, figsize=(6.75, 3.5))
+    fig, axes = plt.subplots(2, 3, figsize=(6.75, 3.2))
     axes = axes.ravel()
     handles = None
     for ax, (ds, title) in zip(axes, SETS28):
@@ -187,6 +187,15 @@ def tab_exp28():
     m3 = s[(s.d == 1) & (s.B == 256) & s.method.isin(["ce", "pearson"])].groupby(["dataset", "method"])[["rps", "ce", "tvd"]].mean()
     for ds, title in SETS28:
         log_line(f"exp28 {title} @256 d=1: CE-fit RPS/CE/TVD {m3.loc[(ds, 'ce')].round(3).tolist()}  Pearson-fit {m3.loc[(ds, 'pearson')].round(3).tolist()}")
+    # smallest budget from which Pearson-fit + calibration has the lower mean RPS than CE-fit at every larger budget (one rating per item, mean over five judges)
+    mj = s[s.d == 1].groupby(["dataset", "B", "method"]).rps.mean().unstack("method")
+    for ds, title in SETS28:
+        g = mj.loc[ds]
+        ok = (g["pcal"] < g["ce"]).to_numpy()
+        Bs = list(g.index)
+        first = next((Bs[i] for i in range(len(Bs)) if ok[i:].all()), None)
+        log_line(f"exp28 {title}: Pearson-fit+cal. lower mean RPS than CE-fit from B={first} through {Bs[-1]} (one rating per item, mean over five judges); "
+                 f"at 64: CE-fit {g.loc[64, 'ce']:.5f}, Pearson-fit+cal. {g.loc[64, 'pcal']:.5f}; at 128: CE-fit {g.loc[128, 'ce']:.5f}, Pearson-fit+cal. {g.loc[128, 'pcal']:.5f}")
 
 
 # ----------------------------------------------------------------------------- experiment 26
@@ -257,7 +266,7 @@ def e29_data():
 
 def fig_exp29_bars():
     s, _ = e29_data()
-    fig, ax = plt.subplots(figsize=(6.75, 2.35))
+    fig, ax = plt.subplots(figsize=(6.75, 1.9))
     w = 0.19
     x = np.arange(len(STUDIES29))
     for k, (meth, lab, c) in enumerate([("ce_raw", "CE", CE_C), ("rps_raw", "RPS", RPS_C), ("mse_raw", "MSE", CAL_C), ("pearson_raw", "Pearson", PE_C)]):
@@ -274,10 +283,9 @@ def fig_exp29_bars():
         ax.plot([i - 2 * w, i + 2 * w], [u, u], color="k", ls=":", lw=1.0, label="uniform forecast" if i == 0 else None)
     ax.set_xticks(x)
     ax.set_xticklabels([lab + f"\n(B={int(s[(s.study == st) & (s.depth == dep)].b_total.max())})" for st, dep, lab in STUDIES29], fontsize=6.5)
-    ax.set_ylabel("Held-out test ranked probability\nscore (RPS), raw forecast;\nlower is better")
+    ax.set_ylabel("Held-out test ranked probability\nscore (RPS), raw forecast")
     ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.2), frameon=False)
     finish(ax)
-    ax.grid(True, axis="x", alpha=0.15)
     fig.tight_layout()
     save(fig, "fig_exp29_four_objectives")
 
@@ -377,7 +385,7 @@ def fig_scaling():
     s29, _ = e29_data()
     panels = [("28_dices990_d1", "dices990", "Exp. 28, DICES-990 (1/item)", 28), ("28_chaosnli_mnli_d1", "chaosnli_mnli", "Exp. 28, ChaosNLI MNLI-m (1/item)", 28),
               ("29_chaos3_qwen_d1", ("chaos3_qwen", 1), "Exp. 29, ChaosNLI, Qwen3-4B LoRA", 29), ("29_hs2_qwen_d1", ("hs2_qwen", 1), "Exp. 29, HelpSteer2, Qwen3-4B LoRA", 29)]
-    fig, axes = plt.subplots(1, 4, figsize=(6.75, 1.95))
+    fig, axes = plt.subplots(1, 4, figsize=(6.75, 1.85))
     for ax, (pid, key, title, which) in zip(axes, panels):
         fr = f[(f.panel_id == pid) & (f.metric == "rps")]
         ce, pe = fr[fr.objective == "CE"].iloc[0], fr[fr.objective == "Pearson"].iloc[0]
@@ -423,33 +431,56 @@ def fig_scaling():
 
 def tab_scaling():
     f = e31_fits()
-    names28 = dict(SETS28)
     rows = []
     for ds, title in SETS28:
-        rows.append((f"Exp.\\ 28, {title}", f"28_{ds}_d1", 256))
+        rows.append((f"Exp.\\ 28, {title}", f"28_{ds}_d1"))
     for st, title in [("chaos3_qwen", "ChaosNLI, Qwen3-4B"), ("chaos3_llama", "ChaosNLI, Llama-3.1-8B"), ("alpha2_qwen", "alphaNLI, Qwen3-4B"),
                       ("dices3_qwen", "DICES, Qwen3-4B"), ("dices3_llama", "DICES, Llama-3.1-8B"), ("hs2_qwen", "HelpSteer2, Qwen3-4B")]:
-        rows.append((f"Exp.\\ 29, {title}", f"29_{st}_d1", None))
-    lines = [r"\begin{tabular}{lrrrccl}", r"\toprule",
-             r"Panel (held-out test RPS) & $N_{\max}$ & CE-fit at $N_{\max}$ & Pearson-fit at $N_{\max}$ & CE-fit floor [95\%] & CE-fit $b$ [95\%] & Pearson-fit curve (experiment 31 verdict) \\", r"\midrule"]
-    for title, pid, _ in rows:
+        rows.append((f"Exp.\\ 29, {title}", f"29_{st}_d1"))
+
+    def kind(v):
+        v = str(v)
+        return "flat" if v.startswith("flat") else "poor" if v.startswith("poor") else "fits" if v.startswith("fits") else "other"
+
+    def short(r, with_b):
+        v = str(r.verdict)
+        out = {"flat": "flat", "poor": "poor fit", "fits": "fits", "other": v}[kind(v)]
+        if with_b and out in ("fits", "poor fit") and not pd.isna(r.b):
+            out += f" ($b={r.b:.2f}$)"
+        if "floor not identified" in v:
+            out += ", floor open"
+        if "floor is an extrapolation" in v:
+            out += ", floor extrapolated"
+        if "4 points" in v:
+            out += r"$^\dagger$"
+        return out
+
+    lines = [r"\begin{tabular}{lrrrccll}", r"\toprule",
+             r" & & \multicolumn{2}{c}{Test RPS at $N_{\max}$} & \multicolumn{2}{c}{Fitted CE curve [95\% interval]} & \multicolumn{2}{c}{Verdict on the power law} \\",
+             r"\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}",
+             r"Panel & $N_{\max}$ & CE-fit & Pearson-fit & Floor & Exponent $b$ & CE curve & Pearson curve \\", r"\midrule"]
+    ces, pes = [], []
+    for title, pid in rows:
         fr = f[(f.panel_id == pid) & (f.metric == "rps")]
         ce, pe = fr[fr.objective == "CE"].iloc[0], fr[fr.objective == "Pearson"].iloc[0]
-        pv = str(pe.verdict)
-        if pv.startswith("flat"):
-            short = "flat"
-        elif "b <= 0.2" in pv:
-            short = r"slow decline, floor not identified"
-        elif pv.startswith("poor"):
-            short = "poor power-law fit"
-        elif pv.startswith("non"):
-            short = "non-monotone"
-        else:
-            short = pv
+        ces.append(kind(ce.verdict)); pes.append(kind(pe.verdict))
+        dag = r"$^\dagger$" if "4 points" in str(ce.verdict) else ""
         lines.append(f"{title} & {int(ce.N_max)} & {ce['last']:.3f} & {pe['last']:.3f} & {ce.floor:.3f} [{ce.floor_lo:.3f}, {ce.floor_hi:.3f}] & "
-                     f"{ce.b:.2f} [{ce.b_lo:.2f}, {ce.b_hi:.2f}] & {short} \\\\")
+                     f"{ce.b:.2f} [{ce.b_lo:.2f}, {ce.b_hi:.2f}] & {short(ce, False)} & {short(pe, True)} \\\\")
     lines += [r"\bottomrule", r"\end{tabular}"]
     (TAB / "tab_scaling.tex").write_text("\n".join(lines) + "\n")
+    from collections import Counter
+    log_line(f"scaling panels on RPS ({len(rows)} panels): CE-fit/CE-LoRA verdicts {dict(Counter(ces))}; Pearson-fit/Pearson-LoRA verdicts {dict(Counter(pes))}")
+    # per-panel Pearson exponent and CE residuals quoted in the text
+    for title, pid in rows:
+        fr = f[(f.panel_id == pid) & (f.metric == "rps")]
+        ce, pe = fr[fr.objective == "CE"].iloc[0], fr[fr.objective == "Pearson"].iloc[0]
+        log_line(f"scaling {pid}: CE b {ce.b:.2f} rel_rmse {ce.rel_rmse:.3f} floor_identified {ce.floor_identified}; Pearson b {pe.b if pd.isna(pe.b) else round(float(pe.b), 3)} floor {float(pe.floor):.3f} rel_rmse {pe.rel_rmse if pd.isna(pe.rel_rmse) else round(float(pe.rel_rmse), 3)}")
+    # judge-by-set cells of experiment 28 (one rating per item), RPS
+    c = f[(f.exp == 28) & (f.level == "cell") & (f.panel_id.str.endswith("_d1")) & (f.metric == "rps")]
+    for obj in ("CE", "Pearson"):
+        o = c[c.objective == obj]
+        log_line(f"scaling exp28 cells on RPS, {obj}: {len(o)} cells, verdicts {dict(Counter(kind(v) for v in o.verdict))}, floor identified {int((o.floor_identified.astype(str) == 'True').sum())}")
     # medians quoted in the text (CE-fit, judge-by-set cells of experiment 28, 1 rating per item, floor identified)
     c = f[(f.exp == 28) & (f.level == "cell") & (f.objective == "CE") & (f.panel_id.str.endswith("_d1"))]
     for metric in ("rps", "ce", "tvd"):
@@ -755,7 +786,7 @@ def tab_exp08():
     lines = [r"\begin{tabular}{@{}p{0.27\columnwidth}p{0.17\columnwidth}p{0.17\columnwidth}p{0.17\columnwidth}@{}}", r"\toprule",
              r"Scenario & Pearson-trained better at & CE-trained better from & Tuned CE better from \\", r"\midrule"]
     names = {"A": "A: mean nearly constant, spread varies", "B": "B: informative mean, spread varies",
-             "C": "C: nonlinear mean, constant spread", "D": "D: linear mean, constant spread"}
+             "C": "C: nonlinear mean, constant concentration", "D": "D: linear mean, constant concentration"}
     fmt = lambda c: f"{ratings(c)} ratings" if c else "never"
     for sc in "ABCD":
         d_f = paired_summary(pe_f, ce_f, ns, sc, rng)           # Pearson-trained minus CE-trained, fixed ridge
@@ -869,7 +900,6 @@ def fig_forest():
     ax.set_xticks([-0.06, -0.04, -0.02, 0, 0.02, 0.04, 0.06, 0.08, 0.10])
     ax.set_xlabel("Held-out test ranked probability score (RPS) of the Pearson-trained judge\nminus that of the cross-entropy (CE)-trained judge\n(positive: the CE-trained judge is better; bars: 95% intervals)")
     finish(ax)
-    ax.grid(True, axis="y", alpha=0.15)
     fig.tight_layout()
     save(fig, "fig_forest")
 
@@ -898,7 +928,7 @@ def fig_rps_staircase():
     ax.set_ylabel("Cumulative probability")
     ax.set_ylim(0, 1.32)
     handles = [Patch(color=CE_C, alpha=0.45), Line2D([0], [0], color="k", lw=1.6), Patch(color=PE_C, alpha=0.6)]
-    labels = [r"judge: $Q_j=\Pr[\mathrm{rating}\leq j]$", r"observed rating 4: $\mathbf{1}\{4\leq j\}$", "squared gap (value printed above)"]
+    labels = [r"judge: $Q_j=\Pr[\mathrm{rating}\leq j]$", r"observed rating 4: $\mathbf{1}\{4\leq j\}$", r"gap $|Q_j-\mathbf{1}\{4\leq j\}|$ (its square printed above)"]
     ax.legend(handles, labels, loc="upper left", fontsize=6.5, frameon=False)
     finish(ax)
     fig.tight_layout()
