@@ -36,7 +36,7 @@ Line (6′) completes the square: $q^2-2qp+p=(q-p)^2+p-p^2$, and $\sum_a p(a)=1$
 
 With $A=1$ and $B=0$ the proof gives the exact identity
 
-$$\mathbb{E}[\mathrm{Brier}(x,q)\mid y]=\lVert q-p\rVert^2+\bigl(1-\lVert p\rVert^2\bigr). \tag{8'}$$
+$$\mathbb{E}[\mathrm{Brier}(x,q)\mid y]=\lVert q-p\rVert^2+\bigl(1-\lVert p\rVert^2\bigr).\qquad\text{(8')}$$
 
 The second term is the best attainable expected cost, the Brier analogue of the entropy. The excess of any report over that floor is exactly the squared Euclidean distance $\lVert q-p\rVert^2$. For log-loss, the excess over the entropy is $\mathrm{KL}(p\Vert q)$, and Gibbs' inequality is the statement that it is nonnegative.
 
@@ -66,7 +66,7 @@ Same outcome, same $q(x)$, different costs, so no $\varphi$ exists.
 Ratings are ordinal. With $F_q(k)=\sum_{a\le k}q(a)$, the ranked probability score (RPS) is
 $$\mathrm{RPS}(x,q)=\sum_{k=0}^{K-2}\bigl(F_q(k)-\mathbb{1}\lbrace x\le k\rbrace\bigr)^2 ,$$
 and the repository's normalised RPS divides this by $K-1$. Each term is a binary Brier score (up to the factor 2 of Section 3) on the nested event $\lbrace x\le k\rbrace$, so RPS is a sum of $K-1$ binary Brier scores. Apply the bias plus variance step to $Z_k=\mathbb{1}\lbrace x\le k\rbrace$, whose mean is $F_p(k)$:
-$$\mathbb{E}[\mathrm{RPS}(x,q)\mid y]=\sum_{k=0}^{K-2}\bigl(F_q(k)-F_p(k)\bigr)^2+\sum_{k=0}^{K-2}F_p(k)\bigl(1-F_p(k)\bigr). \tag{9'}$$
+$$\mathbb{E}[\mathrm{RPS}(x,q)\mid y]=\sum_{k=0}^{K-2}\bigl(F_q(k)-F_p(k)\bigr)^2+\sum_{k=0}^{K-2}F_p(k)\bigl(1-F_p(k)\bigr).\qquad\text{(9')}$$
 The second sum does not depend on $q$. The first vanishes only if $F_q(k)=F_p(k)$ for every $k$, and the map $q\mapsto(F_q(0),\dots,F_q(K-2))$ is injective: $q(0)=F(0)$, $q(k)=F(k)-F(k-1)$ and $q(K-1)=1-F(K-2)$. So RPS is strictly proper. It is not local: with $K=3$, outcome $x$ the first label, $(\tfrac12,\tfrac12,0)$ scores $\tfrac14$ and $(\tfrac12,0,\tfrac12)$ scores $\tfrac12$. Dividing by $K-1$ changes neither conclusion.
 
 ## 5. Intuition
