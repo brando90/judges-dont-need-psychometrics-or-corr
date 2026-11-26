@@ -1,4 +1,6 @@
-# Why did single-judge selection by Pearson look as good as CE in one run and worse in another? Reconciliation, experiment 18 (11-21-2026)
+# Why did single-judge selection by Pearson look as good as CE in one run and worse in another? Reconciliation, experiment 18 (11-21-2026) — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](../QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 *Dated 11-21-2026. Written by ultimate_brando9 (Brando's AI assistant); code written with Claude Code, Claude Sonnet 5.5; every number below is printed by the Python in this folder (CPU only, $0, no model calls, no new ratings). Runs on skampere1; ratings stay private, only aggregates are in this folder.*
 

@@ -1,4 +1,6 @@
-# Gemini Carbon High reviewer response (11-21-2026)
+# Gemini Carbon High reviewer response (11-21-2026) — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](../../QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 Date: 11-21-2026
 
@@ -28,7 +30,7 @@ Model response with Markdown whitespace normalized. The [archived packet](carbon
 
 3. **Protocol-specified descriptive contrast to the constant baseline omitted from code and report**
    - **Files:** `historical_rating_budget/PROTOCOL_11-21-2026.md` (`## Fixed comparisons and metrics`) vs. `historical_rating_budget/analyze.py` (lines 137, 179–187) and `historical_rating_budget/RESULTS_11-21-2026.md` (line 36).
-   - **Issue:** `PROTOCOL_11-21-2026.md` states: *"Also report the contrast to RPS selection and the constant on identical test artifacts as descriptive controls."* However, `analyze.py` tracks `estimates` only for `OBJECTIVES = ("ce", "pearson", "rps")` and writes `paired_rps.csv` only for `subtrahend_selector` in `("ce", "rps")`, omitting any paired difference against `constant`. Meanwhile, `RESULTS_11-21-2026.md` reports only absolute RPS columns for `RPS-selected` and `Constant` in its table while labeling the link `[All paired RPS contrasts](paired_rps.csv)`.
+   - **Issue:** `PROTOCOL_11-21-2026.md` states: *"Also report the contrast to RPS selection and the constant on identical test artifacts as descriptive controls."* However, `analyze.py` tracks `estimates` only for `OBJECTIVES = ("ce", "pearson", "rps")` and writes `paired_rps.csv` only for `subtrahend_selector` in `("ce", "rps")`, omitting any paired difference against `constant`. Meanwhile, `RESULTS_11-21-2026.md` reports only absolute RPS columns for `RPS-selected` and `Constant` in its table while labeling the link `[All paired RPS contrasts](../historical_rating_budget/paired_rps.csv)`.
    - **Correction:** Either add the paired descriptive contrast against `constant` to `analyze.py` / `paired_rps.csv` (and report the descriptive contrasts to RPS selection and constant in `RESULTS_11-21-2026.md`, noting whether constant is unweighted descriptive only or family-reweighted on both train and test), or explicitly document the protocol deviation in `RESULTS_11-21-2026.md`.
 
 4. **Minor denominator-wording ambiguity on unequal-$k_i$ test splits (clarification recommended)**
