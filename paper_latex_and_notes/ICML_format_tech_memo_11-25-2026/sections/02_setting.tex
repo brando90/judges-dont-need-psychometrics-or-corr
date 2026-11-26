@@ -28,7 +28,7 @@ The primary metric is the normalized individual-rating ranked probability score,
 \label{eq:rps}
 \end{equation}
 where $F_q$ is the cumulative distribution of $q$.
-It lies in $[0,1]$, lower is better, and it is strictly proper~\citep{epstein1969scoring,gneiting2007strictly}.
+It lies in $[0,1]$, lower is better, and it is strictly proper~\citep{epstein1969scoring,gneiting2007strictly} (\appref{app:rps}).
 We pair it with CE in nats (lower is better) and with total variation distance $\TVD=\tfrac12\sum_r|h(r)-q(r)|$ to each item's empirical human distribution $h$, averaged equally over items.
 TVD is a diagnostic of the whole distribution, not a proper score for individual ratings.
 Every table lists reference forecasts: a uniform forecast, the judge's raw output, and where relevant the training histogram.

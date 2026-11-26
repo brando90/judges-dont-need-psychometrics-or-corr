@@ -52,4 +52,190 @@ scaling exp29 chaos3_qwen CE-LoRA b 0.89 [0.76, 0.99]
 scaling exp29 hs2_qwen CE-LoRA b 0.76 [0.64, 0.89]
 scaling exp29 chaos3_llama CE-LoRA b 0.64 [0.49, 0.78]
 scaling: removed share per doubling at b=0.66: 0.367
+exp13 A rps_excess: CE-trained significantly better than Pearson-trained from 64 tasks (192 ratings) (paired 95% bootstrap lower bound above 0 at every larger n)
+exp13 A ce_excess: CE-trained significantly better than Pearson-trained from 64 tasks (192 ratings) (paired 95% bootstrap lower bound above 0 at every larger n)
+exp13 B rps_excess: CE-trained significantly better than Pearson-trained from 4 tasks (12 ratings) (paired 95% bootstrap lower bound above 0 at every larger n)
+exp13 B ce_excess: CE-trained significantly better than Pearson-trained from 4 tasks (12 ratings) (paired 95% bootstrap lower bound above 0 at every larger n)
+wrote figures/fig_exp13_curves.pdf
+exp13 A 2048 tasks (6144 ratings) CE-trained rps_excess mean 0.0007
+exp13 A 2048 tasks (6144 ratings) CE-trained ce_excess mean 0.0065
+exp13 A 2048 tasks (6144 ratings) RPS-trained rps_excess mean 0.0009
+exp13 A 2048 tasks (6144 ratings) RPS-trained ce_excess mean 0.0134
+exp13 A 2048 tasks (6144 ratings) Pearson-trained rps_excess mean 0.0251
+exp13 A 2048 tasks (6144 ratings) Pearson-trained ce_excess mean 0.3937
+exp13 A 2048 tasks (6144 ratings) Pearson-trained + calibrated head rps_excess mean 0.0080
+exp13 A 2048 tasks (6144 ratings) Pearson-trained + calibrated head ce_excess mean 0.1190
+exp13 B 2048 tasks (6144 ratings) CE-trained rps_excess mean 0.0037
+exp13 B 2048 tasks (6144 ratings) CE-trained ce_excess mean 0.0222
+exp13 B 2048 tasks (6144 ratings) RPS-trained rps_excess mean 0.0038
+exp13 B 2048 tasks (6144 ratings) RPS-trained ce_excess mean 0.0372
+exp13 B 2048 tasks (6144 ratings) Pearson-trained rps_excess mean 0.0951
+exp13 B 2048 tasks (6144 ratings) Pearson-trained ce_excess mean 0.5957
+exp13 B 2048 tasks (6144 ratings) Pearson-trained + calibrated head rps_excess mean 0.0073
+exp13 B 2048 tasks (6144 ratings) Pearson-trained + calibrated head ce_excess mean 0.1091
+exp13 A 2048 tasks: Pearson-trained RPS excess / CE-trained RPS excess = 36.7
+exp13 B 2048 tasks: Pearson-trained RPS excess / CE-trained RPS excess = 25.5
+exp13 table A n=4: CE 0.0106 Pearson 0.0096 diff -0.0010 [-0.0013, -0.0006]
+exp13 table B n=4: CE 0.0740 Pearson 0.0901 diff +0.0161 [+0.0145, +0.0178]
+exp13 table A n=8: CE 0.0116 Pearson 0.0096 diff -0.0020 [-0.0025, -0.0015]
+exp13 table B n=8: CE 0.0616 Pearson 0.0897 diff +0.0281 [+0.0261, +0.0302]
+exp13 table A n=16: CE 0.0123 Pearson 0.0096 diff -0.0027 [-0.0034, -0.0021]
+exp13 table B n=16: CE 0.0454 Pearson 0.0898 diff +0.0444 [+0.0423, +0.0466]
+exp13 table A n=32: CE 0.0111 Pearson 0.0098 diff -0.0013 [-0.0019, -0.0007]
+exp13 table B n=32: CE 0.0292 Pearson 0.0897 diff +0.0606 [+0.0591, +0.0621]
+exp13 table A n=64: CE 0.0085 Pearson 0.0102 diff +0.0017 [+0.0012, +0.0022]
+exp13 table B n=64: CE 0.0156 Pearson 0.0902 diff +0.0747 [+0.0736, +0.0756]
+exp13 table A n=128: CE 0.0055 Pearson 0.0116 diff +0.0061 [+0.0055, +0.0069]
+exp13 table B n=128: CE 0.0102 Pearson 0.0915 diff +0.0813 [+0.0805, +0.0821]
+exp13 table A n=2048: CE 0.0007 Pearson 0.0251 diff +0.0244 [+0.0217, +0.0277]
+exp13 table B n=2048: CE 0.0037 Pearson 0.0951 diff +0.0914 [+0.0894, +0.0936]
+wrote tables/tab_exp13.tex
+exp13 distributions x=-0.7: true mean 2.22, true P(0)+P(5) 0.66, CE-trained P(0)+P(5) 0.62, head P(0)+P(5) 0.34; TVD to truth: CE-trained 0.07, head 0.32
+exp13 distributions x=0: true mean 2.50, true P(0)+P(5) 0.08, CE-trained P(0)+P(5) 0.07, head P(0)+P(5) 0.34; TVD to truth: CE-trained 0.04, head 0.26
+exp13 distributions x=0.5: true mean 2.70, true P(0)+P(5) 0.51, CE-trained P(0)+P(5) 0.53, head P(0)+P(5) 0.34; TVD to truth: CE-trained 0.05, head 0.18
+wrote figures/fig_exp13_distributions.pdf
+exp06 check: a CE refit on the regenerated tasks (seed 0 in each of 22 scenario-by-size cells) differs from experiment 13's saved CE fit by at most 7.6e-15 in RPS excess
+exp06 A: CE-trained significantly better than Pearson-trained on RPS excess from 64 tasks (192 ratings)
+exp06 A: CE-trained significantly better than Spearman-trained on RPS excess from 64 tasks (192 ratings)
+exp06 A: CE-trained significantly better than Kendall-trained on RPS excess from 8 tasks (24 ratings)
+exp06 A: CE-trained significantly better than ½ Pearson + ½ Spearman-trained on RPS excess from 64 tasks (192 ratings)
+exp06 A 2048 tasks: pearson RPS excess 0.0251, CE 0.0007, ratio 36.7
+exp06 A 2048 tasks: spearman RPS excess 0.0289, CE 0.0007, ratio 42.3
+exp06 A 2048 tasks: kendall RPS excess 0.0313, CE 0.0007, ratio 45.8
+exp06 A 2048 tasks: pearson_spearman RPS excess 0.0249, CE 0.0007, ratio 36.5
+exp06 B: CE-trained significantly better than Pearson-trained on RPS excess from 4 tasks (12 ratings)
+exp06 B: CE-trained significantly better than Spearman-trained on RPS excess from 4 tasks (12 ratings)
+exp06 B: CE-trained significantly better than Kendall-trained on RPS excess from 4 tasks (12 ratings)
+exp06 B: CE-trained significantly better than ½ Pearson + ½ Spearman-trained on RPS excess from 4 tasks (12 ratings)
+exp06 B 2048 tasks: pearson RPS excess 0.0951, CE 0.0037, ratio 25.5
+exp06 B 2048 tasks: spearman RPS excess 0.0623, CE 0.0037, ratio 16.7
+exp06 B 2048 tasks: kendall RPS excess 0.0330, CE 0.0037, ratio 8.8
+exp06 B 2048 tasks: pearson_spearman RPS excess 0.0851, CE 0.0037, ratio 22.8
+wrote figures/fig_exp06_rank.pdf
+wrote figures/fig_exp07_restarts.pdf
+exp07 A pearson orig: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 A pearson best: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 A spearman orig: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 A spearman best: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 A pearson_spearman orig: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 A pearson_spearman best: CE-trained (long) significantly better on RPS excess from 64 tasks (192 ratings)
+exp07 B pearson orig: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 B pearson best: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 B spearman orig: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 B spearman best: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 B pearson_spearman orig: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 B pearson_spearman best: CE-trained (long) significantly better on RPS excess from 4 tasks (12 ratings)
+exp07 ce, 32 or more tasks: original fit converged in 100% of fits; long fit hit its 2000-iteration budget in 0% of fits
+exp07 rps, 32 or more tasks: original fit converged in 100% of fits; long fit hit its 2000-iteration budget in 0% of fits
+exp07 pearson, 32 or more tasks: original fit converged in 0% of fits; long fit hit its 2000-iteration budget in 91% of fits
+exp07 pearson_head, 32 or more tasks: original fit converged in 100% of fits; long fit hit its 2000-iteration budget in 0% of fits
+exp07 spearman, 32 or more tasks: original fit converged in 28% of fits; long fit hit its 2000-iteration budget in 51% of fits
+exp07 kendall, 32 or more tasks: original fit converged in 98% of fits; long fit hit its 2000-iteration budget in 0% of fits
+exp07 pearson_spearman, 32 or more tasks: original fit converged in 1% of fits; long fit hit its 2000-iteration budget in 89% of fits
+exp07: share of fits where the best of 5 starts lowers the penalized training objective by more than 1e-6 relative to the first long fit, over the three correlation objectives and nine sizes: 57% to 90%
+exp07 A 1024 tasks: Pearson-trained RPS excess 0.0183 (original) -> 0.0173 (best of 5); CE-trained 0.0011
+exp07 B 1024 tasks: Pearson-trained RPS excess 0.0949 (original) -> 0.0918 (best of 5); CE-trained 0.0042
+exp08 A: Pearson-trained significantly better at tasks [4, 8, 16, 20, 32]; CE-trained (fixed ridge) better from 64 tasks; tuned CE better than tuned Pearson from 32 tasks
+exp08 A: Pearson-trained judge (fixed ridge) has significantly higher test RPS excess than the constant forecast (paired 95% lower bound above 0) at every tested n from 128 tasks (384 ratings); at 2048 tasks the paired difference is +0.016 [+0.013, +0.019]
+exp08 A 2048 tasks: Pearson-trained held-out Pearson correlation with the true mean 0.85
+exp08 A: Pearson-trained judge (fixed ridge) has significantly higher held-out test Pearson correlation than the CE-trained judge from never
+exp08 B: Pearson-trained significantly better at tasks []; CE-trained (fixed ridge) better from 4 tasks; tuned CE better than tuned Pearson from 4 tasks
+exp08 B: Pearson-trained judge (fixed ridge) has significantly higher test RPS excess than the constant forecast (paired 95% lower bound above 0) at every tested n from 8 tasks (24 ratings); at 2048 tasks the paired difference is +0.028 [+0.026, +0.030]
+exp08 B 2048 tasks: Pearson-trained held-out Pearson correlation with the true mean 0.99
+exp08 B: Pearson-trained judge (fixed ridge) has significantly higher held-out test Pearson correlation than the CE-trained judge from 512 tasks (1536 ratings)
+exp08 C: Pearson-trained significantly better at tasks []; CE-trained (fixed ridge) better from 4 tasks; tuned CE better than tuned Pearson from 4 tasks
+exp08 C: Pearson-trained judge (fixed ridge) has significantly higher test RPS excess than the constant forecast (paired 95% lower bound above 0) at every tested n from 16 tasks (48 ratings); at 2048 tasks the paired difference is +0.025 [+0.024, +0.027]
+exp08 C 2048 tasks: Pearson-trained held-out Pearson correlation with the true mean 0.99
+exp08 C: Pearson-trained judge (fixed ridge) has significantly higher held-out test Pearson correlation than the CE-trained judge from 512 tasks (1536 ratings)
+exp08 D: Pearson-trained significantly better at tasks []; CE-trained (fixed ridge) better from 4 tasks; tuned CE better than tuned Pearson from 16 tasks
+exp08 D: Pearson-trained judge (fixed ridge) has significantly higher test RPS excess than the constant forecast (paired 95% lower bound above 0) at every tested n from 256 tasks (768 ratings); at 2048 tasks the paired difference is +0.007 [+0.006, +0.009]
+exp08 D 2048 tasks: Pearson-trained held-out Pearson correlation with the true mean 0.98
+exp08 D: Pearson-trained judge (fixed ridge) has significantly higher held-out test Pearson correlation than the CE-trained judge from 1024 tasks (3072 ratings)
+wrote tables/tab_exp08.tex
+exp08 gradient check: ce_fixed rows 4400 with metric difference above 1e-9: 0; ce_valrps rows 4400 with such a difference: 338, largest test RPS excess change 0.00023; exact CE fits 95291 converged 95291
+forest Exp. 02: 5 frontier judges (5-fold, by task family): Pearson-trained minus CE-trained test RPS +0.0046 [-0.0100, +0.0356]; mean test RPS Pearson-trained 0.1436, CE-trained 0.1391
+forest Exp. 12: 5 frontier judges (1,000 splits): Pearson-trained minus CE-trained test RPS +0.0056 [-0.0059, +0.0181]; mean test RPS Pearson-trained 0.1419, CE-trained 0.1362
+forest Exp. 14: 39 open-weight judges: Pearson-trained minus CE-trained test RPS +0.0502 [+0.0238, +0.0754]; mean test RPS Pearson-trained 0.3274, CE-trained 0.2773
+forest Exp. 14: 44 judges, frontier and open-weight: Pearson-trained minus CE-trained test RPS +0.0405 [+0.0237, +0.0575]; mean test RPS Pearson-trained 0.2063, CE-trained 0.1658
+forest Exp. 12: 5 frontier judges: Pearson-trained minus CE-trained test RPS -0.0254 [-0.0570, +0.0005]; mean test RPS Pearson-trained 0.1797, CE-trained 0.2051
+forest Exp. 14: 39 open-weight judges: Pearson-trained minus CE-trained test RPS +0.0529 [+0.0137, +0.0911]; mean test RPS Pearson-trained 0.3680, CE-trained 0.3151
+forest Exp. 14: 44 judges, frontier and open-weight: Pearson-trained minus CE-trained test RPS -0.0317 [-0.0638, -0.0047]; mean test RPS Pearson-trained 0.1797, CE-trained 0.2114
+wrote figures/fig_forest.pdf
+rps staircase figure: r = 4, forecast [0.0, 0.0, 0.1, 0.3, 0.4, 0.2], cumulative probabilities [0.0, 0.0, 0.1, 0.4, 0.8], squared gaps [0.0, 0.0, 0.01, 0.16, 0.04], sum 0.21, RPS 0.042
+wrote figures/fig_rps_staircase.pdf
+exp13 design: kappa(x) ranges from 0.50 to 40.4; the judge has 78 weights (13 features times 6 logits)
+exp13 design scenario A: true mean rating ranges from 2.1 to 2.9; true variance from 1.37 to 4.54
+exp13 design scenario B: true mean rating ranges from 0.5 to 4.5; true variance from 0.78 to 4.25
+exp13 population limit scenario A CE-trained: RPS excess 0.0003, CE excess (KL) 0.0014 nats, TVD 0.012, test Pearson with the true mean 0.9395, test Spearman 0.9474
+exp13 population limit scenario A RPS-trained: RPS excess 0.0002, CE excess (KL) 0.0021 nats, TVD 0.017, test Pearson with the true mean 0.9508, test Spearman 0.9551
+exp13 population limit scenario A Pearson-trained: RPS excess 0.0872, CE excess (KL) 5.7374 nats, TVD 0.658, test Pearson with the true mean 0.9987, test Spearman 0.9988
+exp13 population limit scenario A Pearson-trained + calibrated head: RPS excess 0.0072, CE excess (KL) 0.1153 nats, TVD 0.195, test Pearson with the true mean 0.9987, test Spearman 0.9988
+exp13 population limit scenario B CE-trained: RPS excess 0.0035, CE excess (KL) 0.0172 nats, TVD 0.037, test Pearson with the true mean 0.9704, test Spearman 0.9479
+exp13 population limit scenario B RPS-trained: RPS excess 0.0017, CE excess (KL) 0.4552 nats, TVD 0.093, test Pearson with the true mean 0.9929, test Spearman 0.9842
+exp13 population limit scenario B Pearson-trained: RPS excess 0.0281, CE excess (KL) 3.6023 nats, TVD 0.418, test Pearson with the true mean 0.9988, test Spearman 0.9961
+exp13 population limit scenario B Pearson-trained + calibrated head: RPS excess 0.0057, CE excess (KL) 0.1011 nats, TVD 0.173, test Pearson with the true mean 0.9946, test Spearman 0.9962
+exp13 scenario A: test RPS of the true distribution (the floor that RPS excess is measured from) 0.187
+exp13 scenario B: test RPS of the true distribution (the floor that RPS excess is measured from) 0.136
+exp13 population limit (fit on a 4000-point grid of true distributions, near-zero ridge) scenario A: Pearson-trained + calibrated head has test Pearson 0.9987 and RPS excess 0.0072; CE-trained RPS excess 0.0003
+exp13 population limit (fit on a 4000-point grid of true distributions, near-zero ridge) scenario B: Pearson-trained + calibrated head has test Pearson 0.9946 and RPS excess 0.0057; CE-trained RPS excess 0.0035
+exp13 A: the calibrated head beats the raw Pearson-trained judge (paired 95% lower bound above 0 at every larger size) from 512 tasks (1536 ratings); its mean RPS excess is below the CE-trained judge's at sizes none
+exp13 B: the calibrated head beats the raw Pearson-trained judge (paired 95% lower bound above 0 at every larger size) from 64 tasks (192 ratings); its mean RPS excess is below the CE-trained judge's at sizes none
+exp06/13 scenario A, 2048 tasks (6144 ratings): held-out test Pearson correlation with the true mean: CE-trained 0.89; correlation-trained judges 0.75 to 0.85
+exp06/13 scenario B, 16 tasks (48 ratings): held-out test Pearson correlation with the true mean: CE-trained 0.69; correlation-trained judges 0.09 to 0.57
+exp06/13 scenario B, 2048 tasks (6144 ratings): test Spearman of the Spearman-trained judge 0.982 against 0.948 for the CE-trained judge
+exp01 mixtures q_lambda with lambda in 0, 0.25, 0.5, 0.75, 0.95 and t from 0.1 to 0.9: mean equals 5t (max absolute error 8.9e-16); variance equals 5t(1-t)(1+4 lambda) (max absolute error 4.4e-15)
+exp13 A mean test RPS excess by training size: 4 tasks: head 0.1248, CE-trained 0.0106, Pearson-trained 0.0096; 16 tasks: head 0.1628, CE-trained 0.0123, Pearson-trained 0.0096; 64 tasks: head 0.0375, CE-trained 0.0085, Pearson-trained 0.0102; 512 tasks: head 0.0104, CE-trained 0.0018, Pearson-trained 0.0155; 2048 tasks: head 0.0080, CE-trained 0.0007, Pearson-trained 0.0251
+exp13 B mean test RPS excess by training size: 4 tasks: head 0.2034, CE-trained 0.0740, Pearson-trained 0.0901; 16 tasks: head 0.1975, CE-trained 0.0454, Pearson-trained 0.0898; 64 tasks: head 0.0319, CE-trained 0.0156, Pearson-trained 0.0902; 512 tasks: head 0.0096, CE-trained 0.0052, Pearson-trained 0.0918; 2048 tasks: head 0.0073, CE-trained 0.0037, Pearson-trained 0.0951
+exp06/13 A: Pearson-trained judge has significantly higher held-out test Pearson correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from never
+exp06/13 A: Spearman-trained judge has significantly higher held-out test Spearman correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from never
+exp06/13 A: Kendall-trained judge has significantly higher held-out test Spearman correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from never
+exp06/13 A: 1/2 Pearson + 1/2 Spearman-trained judge has significantly higher held-out test Pearson correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from never
+exp06/13 B: Pearson-trained judge has significantly higher held-out test Pearson correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from 512 tasks (1536 ratings)
+exp06/13 B: Spearman-trained judge has significantly higher held-out test Spearman correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from 256 tasks (768 ratings)
+exp06/13 B: Kendall-trained judge has significantly higher held-out test Spearman correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from 256 tasks (768 ratings)
+exp06/13 B: 1/2 Pearson + 1/2 Spearman-trained judge has significantly higher held-out test Pearson correlation than the CE-trained judge (paired 95% lower bound above 0 at every larger size) from 512 tasks (1536 ratings)
+exp06/13 A: sizes (tasks) at which the Pearson-trained judge has a higher mean held-out test Pearson correlation than the CE-trained judge: none
+exp06/13 A: sizes (tasks) at which the Spearman-trained judge has a higher mean held-out test Spearman correlation than the CE-trained judge: none
+exp06/13 A: sizes (tasks) at which the Kendall-trained judge has a higher mean held-out test Spearman correlation than the CE-trained judge: none
+exp06/13 A: sizes (tasks) at which the 1/2 Pearson + 1/2 Spearman-trained judge has a higher mean held-out test Pearson correlation than the CE-trained judge: none
+exp06/13 B: sizes (tasks) at which the Pearson-trained judge has a higher mean held-out test Pearson correlation than the CE-trained judge: [512, 1024, 2048]
+exp06/13 B: sizes (tasks) at which the Spearman-trained judge has a higher mean held-out test Spearman correlation than the CE-trained judge: [256, 512, 1024, 2048]
+exp06/13 B: sizes (tasks) at which the Kendall-trained judge has a higher mean held-out test Spearman correlation than the CE-trained judge: [128, 256, 512, 1024, 2048]
+exp06/13 B: sizes (tasks) at which the 1/2 Pearson + 1/2 Spearman-trained judge has a higher mean held-out test Pearson correlation than the CE-trained judge: [512, 1024, 2048]
+exp08 A: sizes (tasks) at which the validation-tuned CE-trained judge has significantly higher test RPS excess than the fixed-ridge Pearson-trained judge (paired 95% lower bound above 0): [4, 8, 16]
+exp08 B: sizes (tasks) at which the validation-tuned CE-trained judge has significantly higher test RPS excess than the fixed-ridge Pearson-trained judge (paired 95% lower bound above 0): none
+exp08 C: sizes (tasks) at which the validation-tuned CE-trained judge has significantly higher test RPS excess than the fixed-ridge Pearson-trained judge (paired 95% lower bound above 0): none
+exp08 D: sizes (tasks) at which the validation-tuned CE-trained judge has significantly higher test RPS excess than the fixed-ridge Pearson-trained judge (paired 95% lower bound above 0): [4]
+exp13 frozen rerun on this machine versus saved rows: CE rows differing above 1e-9: 0 of 2200; RPS rows: 0; Pearson rows: 2198 of 2200 (largest RPS excess change in one row 0.0082); Pearson-plus-head rows: 2198 (largest RPS excess change 0.40)
+exp08 numerical check: validation-tuned CE rows that moved 338 of 4400; ridge choices that changed 1; share choosing c = 0.01 in scenario C at 256 tasks 0.01 (69%) to 0.01 (68%)
+rps_appendix_examples.py: Single human rating r = 4:
+rps_appendix_examples.py: all mass on 4          RPS=0.000  Brier=0.0  q(4)=1.0
+rps_appendix_examples.py: all mass on 5          RPS=0.200  Brier=2.0  q(4)=0.0
+rps_appendix_examples.py: all mass on 0          RPS=0.800  Brier=2.0  q(4)=0.0
+rps_appendix_examples.py: half on 3, half on 5   RPS=0.100  Brier=1.5  q(4)=0.0
+rps_appendix_examples.py: Staircase example, r = 4, q = [0.0, 0.0, 0.1, 0.3, 0.4, 0.2]
+rps_appendix_examples.py: Q_j = [0.0, 0.0, 0.1, 0.4, 0.8]  squared gaps = [0.0, 0.0, 0.01, 0.16, 0.04]  RPS = 0.042
+rps_appendix_examples.py: Raters split 50/50 between 3 and 5:
+rps_appendix_examples.py: forecast = human distribution:  expected RPS = 0.10
+rps_appendix_examples.py: forecast = all mass on 4 (mean): expected RPS = 0.20
+rps_appendix_examples.py: forecast = uniform on 0..5:      expected RPS = 0.206
+rps_appendix_examples.py: both first two forecasts have mean rating 4.0 and 4.0
+rps_appendix_examples.py: survival S_j, j=0..4: human distribution [1.0, 1.0, 1.0, 0.5, 0.5]  all mass on 4 [1.0, 1.0, 1.0, 1.0, 0.0]
+rps_appendix_examples.py: sums (= mean ratings): 4.0 and 4.0; gaps [0.0, 0.0, 0.0, 0.5, -0.5] sum to 0.0; squared gaps / 5 = 0.10 = excess expected RPS
+rps_appendix_examples.py: E[R] = sum_j S_j on 1,000 random forecasts: max absolute error 2.2e-15
+rps_appendix_examples.py: Range: RPS(all mass on 0, r=5) = 1.0
+rps_appendix_examples.py: Identity checks on 2,000 random forecasts: max absolute error 1.8e-15
+rps_appendix_examples.py: Excess RPS = mean squared CDF gap = energy distance / 10: max absolute error 2.2e-15
+rps_appendix_examples.py: CDF sampling check, 1 independent ratings: variance 0.240; expected empirical threshold floor 0.000; expected individual RPS 0.096
+rps_appendix_examples.py: CDF sampling check, 2 independent ratings: variance 0.120; expected empirical threshold floor 0.120; expected individual RPS 0.096
+rps_appendix_examples.py: CDF sampling check, 3 independent ratings: variance 0.080; expected empirical threshold floor 0.160; expected individual RPS 0.096
+rps_appendix_examples.py: Raters choose 3 w.p. 0.6 and 5 w.p. 0.4:
+rps_appendix_examples.py: truth's expected TVD to its own 1/2/3-rating histogram: [np.float64(0.48), np.float64(0.288), np.float64(0.23)]
+rps_appendix_examples.py: truth          one-rating TVD=0.48  one-rating W1=0.96  expected RPS=0.096
+rps_appendix_examples.py: all mass on 3  one-rating TVD=0.40  one-rating W1=0.80  expected RPS=0.160
+rps_appendix_examples.py: all mass on 4  one-rating TVD=1.00  one-rating W1=1.00  expected RPS=0.200
+rps_appendix_examples.py: Raters spread (0.2, 0.2, 0.2, 0.2, 0.1, 0.1); forecast (0, 0, 0.9, 0.1, 0, 0):
+rps_appendix_examples.py: squared-absolute RPS: truth 0.680, concentrated forecast 0.498
+rps_appendix_examples.py: RPS:                  truth 0.178, concentrated forecast 0.246
+rps_appendix_examples.py: Point mass d ratings away from r = 4, RPS: [0.0, 0.2, 0.4, 0.6, 0.8]
 copied figures/fig_ratings_needed.pdf from the AAAI paper folder (printed there by experiment 08's make_paper_figure.py)
