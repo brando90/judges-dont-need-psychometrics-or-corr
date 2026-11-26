@@ -1,4 +1,6 @@
-# Experiment 16 results: RPS-selected arm and probability-floor sweep
+# Experiment 16 results: RPS-selected arm and probability-floor sweep — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md>
 
