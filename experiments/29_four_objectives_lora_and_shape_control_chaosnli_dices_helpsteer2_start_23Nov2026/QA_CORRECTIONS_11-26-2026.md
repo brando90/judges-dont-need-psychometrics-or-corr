@@ -1,0 +1,11 @@
+# Experiment 29: registered-hypothesis correction and QA limits (11-26-2026)
+
+As of 11-26-2026. Findings g6-H1 and g6-M2; CPU source/output verification, no model calls.
+
+**g6-H1.** Old Results wording: “Pre-Registered H1: Raw CE & RPS beat raw Pearson at max budget — Confirmed.” Corrected 11-26-2026: **the narrower largest-budget result is supported, but the complete registered H1 is only partly supported**. The frozen protocol says “across budgets” on the three-category corpora and also includes comparisons with mean squared error (MSE) training. Replacing that hypothesis with a largest-budget claim changed its scope.
+
+On held-out ranked probability score (RPS), lower-is-better, the 27 three-category study-by-depth-by-budget comparisons give **26/27 point wins and 22/27 crossed-band wins for CE-trained versus Pearson-trained LoRA**, and **24/27 point wins and 17/27 crossed-band wins for RPS-trained versus Pearson-trained LoRA**. At ChaosNLI/Llama budget 32, test RPS of Pearson-trained minus CE-trained is **−0.0111592342**, with saved crossed simultaneous 95% interval **[−0.0438786205, +0.0215601521]**. The largest-budget comparison remains **7/7 crossed-band wins for each proper-loss-trained objective** across all reported panels. These counts do not establish the full across-budget and MSE/disagreement-slice hypothesis. The protocol and historical verdict table are preserved; this dated correction governs their interpretation.
+
+**g6-M2.** Old summary claims include prior overlap **265/713, 110/412, 172/300** and held-out RPS **0.14902 versus 0.16223**. The saved outputs agree with the displayed values. Corrected evidence label 11-26-2026: the required `/tmp/exp29_public_raw/exp29_bundle.json` is absent and prediction archives contain probabilities without label counts, split IDs or bootstrap groups. Scores, bands, prior-overlap fractions, split-vote/leave-one-vote-out references and parity RPS therefore remain unverified from raw ratings here. Counting recorded runs or comparing probabilities does not independently verify label-dependent outcomes.
+
+Evidence: [H1 verification script](../../docs/qa_11-25-2026/phase2/verify_g6-H1.py), [printed H1 output](../../docs/qa_11-25-2026/phase2/verify_g6-H1.txt), and [raw-input inventory](../../docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt).
