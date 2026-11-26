@@ -1,4 +1,6 @@
-# Experiment 22: non-circular evaluation protocol for CE-trained vs correlation-trained judges (started 11-21-2026)
+# Experiment 22: non-circular evaluation protocol for CE-trained vs correlation-trained judges (started 11-21-2026) — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 **Status as of 11-21-2026:** protocol written and frozen before any new data were looked at; nothing run except a 40-line numeric illustration of the algebra. **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md>
 
