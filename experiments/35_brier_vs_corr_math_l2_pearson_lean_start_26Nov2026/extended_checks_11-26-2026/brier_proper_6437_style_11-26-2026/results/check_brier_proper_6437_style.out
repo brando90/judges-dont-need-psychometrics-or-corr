@@ -1,0 +1,59 @@
+[PASS] (i) E[Brier|y] = ||q-p||^2 + 1 - ||p||^2
+       K= 2: 10,000 random (p, q), max |E[Brier|y] - (||q-p||^2 + 1 - ||p||^2)| = 8.88e-16
+       K= 3: 10,000 random (p, q), max |E[Brier|y] - (||q-p||^2 + 1 - ||p||^2)| = 8.88e-16
+       K= 6: 10,000 random (p, q), max |E[Brier|y] - (||q-p||^2 + 1 - ||p||^2)| = 8.88e-16
+       K=10: 10,000 random (p, q), max |E[Brier|y] - (||q-p||^2 + 1 - ||p||^2)| = 6.66e-16
+
+[PASS] (ii) A*Brier + B(x): E = A||q-p||^2 + A(1-||p||^2) + E[B(x)|y]
+       K= 2: A~U(0.01,10), B~N(0,25): max identity gap 7.11e-15, max |excess - A||q-p||^2| 5.33e-15, min excess 1.289e-08
+       K= 3: A~U(0.01,10), B~N(0,25): max identity gap 7.11e-15, max |excess - A||q-p||^2| 5.33e-15, min excess 6.093e-05
+       K= 6: A~U(0.01,10), B~N(0,25): max identity gap 5.33e-15, max |excess - A||q-p||^2| 5.33e-15, min excess 4.180e-04
+       K=10: A~U(0.01,10), B~N(0,25): max identity gap 1.07e-14, max |excess - A||q-p||^2| 4.88e-15, min excess 7.378e-04
+
+[PASS] (iii) p minimises expected Brier over the simplex
+       K= 3: E[Brier] at p = 0.523243; 20,000 perturbations q != p: min increase 7.915e-12 (all > 0: True)
+       K= 6: E[Brier] at p = 0.773512; 20,000 perturbations q != p: min increase 4.939e-13 (all > 0: True)
+       K=10: E[Brier] at p = 0.879442; 20,000 perturbations q != p: min increase 3.550e-12 (all > 0: True)
+       K= 3 grid step 1/200 (20301 points), p = (0.2, 0.5, 0.3): argmin = (0.200, 0.500, 0.300), min = 0.620000, next-smallest = 0.620050 (gap 5.00e-05 = 2/200^2 = 5.00e-05)
+
+[PASS] (iv) empirical Brier minimiser = frequencies; E||f-p||^2 = (1-||p||^2)/N
+       N=500 sample from p=(0.05, 0.10, 0.20, 0.30, 0.25, 0.10): frequencies f = (0.036, 0.084, 0.186, 0.302, 0.256, 0.136)
+         empirical Brier identity (||q-f||^2 + 1 - ||f||^2) max gap 6.66e-16; empirical Brier at f = 0.781816; random q beating f: 0 of 5,000
+       E||f-p||^2 vs (1-||p||^2)/N, 1-||p||^2 = 0.7850; 5 seeds x 2,000 replications each
+         N=       10: mean 7.8816e-02  predicted 7.8500e-02  ratio 1.0040  (seed ratios 0.978, 1.006, 1.022, 1.013, 1.000)
+         N=      100: mean 7.8926e-03  predicted 7.8500e-03  ratio 1.0054  (seed ratios 1.001, 1.000, 1.019, 0.990, 1.017)
+         N=    1,000: mean 7.9408e-04  predicted 7.8500e-04  ratio 1.0116  (seed ratios 0.998, 1.010, 0.989, 1.023, 1.037)
+         N=   10,000: mean 7.9407e-05  predicted 7.8500e-05  ratio 1.0116  (seed ratios 1.020, 1.021, 0.995, 0.997, 1.024)
+         N=  100,000: mean 7.9165e-06  predicted 7.8500e-06  ratio 1.0085  (seed ratios 1.027, 1.010, 0.988, 0.999, 1.019)
+         N=1,000,000: mean 7.9124e-07  predicted 7.8500e-07  ratio 1.0079  (seed ratios 1.026, 1.000, 1.002, 0.983, 1.029)
+
+[PASS] (v) E[RPS|y] = sum_k (F_q(k)-F_p(k))^2 + sum_k F_p(k)(1-F_p(k)), K=6
+       10,000 random (p, q): max identity gap 1.11e-15 (normalized by K-1: 2.22e-16); min excess E[RPS(q)] - E[RPS(p)] = 1.039e-03
+
+[PASS] (vi) locality: Brier local at K=2, not local at K>=3
+       K=2: 10,000 random (x, q): max |Brier(x,q) - 2(1-q(x))^2| = 4.44e-16  (local)
+       K=3, x = first outcome: q = (1/2, 1/2, 0) -> Brier = 1/2; q' = (1/2, 1/4, 1/4) -> Brier = 3/8; q(x) = q'(x) = 1/2  (not local)
+       K=6, x = 2, q(x) = 0.4 fixed, 1,000 random q: Brier ranges 0.4327 to 0.6218  (= (1-q(x))^2 + sum_(a!=x) q(a)^2)
+       RPS (unnormalized), K=3, x = first outcome: q = (1/2, 1/2, 0) -> 1/4; q'' = (1/2, 0, 1/2) -> 1/2  (not local)
+
+[PASS] (vii) negative controls: local costs (1-q(x))^2 and 1-q(x) are not proper at K=3
+       p = (0.20, 0.50, 0.30)
+         C = (1-q(x))^2: water-filling q = (0.0323, 0.6129, 0.3548), c = 0.1935; grid (step 1/400) argmin = (0.0325, 0.6125, 0.3550)
+            expected cost at water-filling q = 0.387097 < at p = 0.400000
+         C = 1 - q(x): grid argmin = (0.0000, 1.0000, 0.0000) (the vertex at argmax p); expected cost 0.5000 < at p 0.6200
+       p = (0.60, 0.30, 0.10)
+         C = (1-q(x))^2: water-filling q = (0.6667, 0.3333, 0.0000), c = 0.2000; grid (step 1/400) argmin = (0.6675, 0.3325, 0.0000)
+            expected cost at water-filling q = 0.300000 < at p = 0.324000
+         C = 1 - q(x): grid argmin = (1.0000, 0.0000, 0.0000) (the vertex at argmax p); expected cost 0.4000 < at p 0.5400
+       p = (0.40, 0.35, 0.25)
+         C = (1-q(x))^2: water-filling q = (0.4656, 0.3893, 0.1450), c = 0.2137; grid (step 1/400) argmin = (0.4650, 0.3900, 0.1450)
+            expected cost at water-filling q = 0.427481 < at p = 0.432500
+         C = 1 - q(x): grid argmin = (1.0000, 0.0000, 0.0000) (the vertex at argmax p); expected cost 0.6000 < at p 0.6550
+
+[PASS] worked example (K=2, p=(0.7,0.3))
+       true p = (0.7, 0.3); expected Brier = sum (q-p)^2 + 1 - ||p||^2; log-loss in nats
+       q = (0.7, 0.3): E[Brier] = 0.4200 (exact 21/50), excess 0.0000; E[log-loss] = 0.6109 nats, excess = KL(p||q) = 0.0000
+       q = (0.5, 0.5): E[Brier] = 0.5000 (exact 1/2), excess 0.0800; E[log-loss] = 0.6931 nats, excess = KL(p||q) = 0.0823
+       q = (0.9, 0.1): E[Brier] = 0.5000 (exact 1/2), excess 0.0800; E[log-loss] = 0.7645 nats, excess = KL(p||q) = 0.1537
+
+SUMMARY: 8 PASS, 0 FAIL of 8 checks

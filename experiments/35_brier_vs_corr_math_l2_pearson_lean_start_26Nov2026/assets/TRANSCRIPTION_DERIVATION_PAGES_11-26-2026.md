@@ -30,9 +30,9 @@ Top line, with two scribbled-out marks at the left margin before it:
 Below it, three struck-through lines. Parts are covered by a mass of overlapping scribbled ovals and cannot be read:
 
 ```text
-[struck: Putnam Axiom: -> [scribbled out] ... hard at college level, to [?]]
-[struck: [mass of overlapping ovals over two lines of writing, not legible] -> MATH, GSM8K [?]]
-[struck: -> functional variations show that the models do not generalize even outside variables (except that at [?] the individual question).]
+[struck: Putnam Axiom: -> [new?] data that's [harder?] at college level, [to?]]
+[struck: [mass of overlapping ovals over two lines of writing, not legible] -> MATH, GSM8K [?] [it's?]]
+[struck: -> functional variations show that the models do not generalize even outside variables (except[?] at the individual question).]
 ```
 
 Left margin and right side, around the same height as the struck lines (their exact pairing is not clear):
@@ -79,7 +79,7 @@ Z_X = X~ = (X - mu_X*) / sigma_X          E[X~] = E_X[(X - mu_X*)] / sqrt( E_X[(
 Var_X[X~] = Var_X[(X - mu_X*)] / sqrt( Var[X~] )  =  [scribbled out]
 ```
 
-The next line has two small annotations written above it, `x^2 - 2 mu* x + mu*^2` above the first expectation and `x^2 - mu^2` above the second, and a short remark to its right:
+The next line has two small annotations written above it, `x^2 - 2 mu* x + mu*^2` above the first expectation and `x^2 - mu^2` above the second, and a short remark just below its right end:
 
 ```text
 [scribbled-out mark] Var[X] = E_X[(X - mu_X*)^2] = E[X^2] - E[X]^2
