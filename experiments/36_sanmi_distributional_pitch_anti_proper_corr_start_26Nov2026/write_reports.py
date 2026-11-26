@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from pitch_addenda import COT, ELICITATION, POWER
+
 G_THEORY = r"""## Why not psychometrics (G-theory / D-theory)?
 
 **G-theory.** Generalizability theory (Cronbach, Gleser, Nanda, and Rajaratnam, 1972) writes a scalar rating as an additive variance split: prompt variance \(\sigma^2_c\), rater variance \(\sigma^2_r\), and the prompt-by-rater residual \(\sigma^2_{cr}\). The generalizability coefficient \(G\) is a multi-facet form of an intraclass correlation. Like Pearson correlation, it is a second-moment summary. The usual analysis of variance treats the components as additive and homoscedastic. On a bounded 0–5 or 1–5 rubric that summary does not score calibration, and it does not see a second mode. It is not a divergence from \(p^*(y \mid c)\).
@@ -223,6 +225,8 @@ Dataset `{payload['rollout']['dataset']}`. The Monte Carlo histograms use a \(10
 
 {roll_lines}
 
+{COT}
+
 ## Within-prompt oracle (not a held-out judge)
 
 Dataset `{oracle.get('dataset')}`. Half the raters of a test prompt estimate the distribution; the other half are scored. Sampled-judge correlation {_f(oracle.get('corr_sampled_halfA'), 3)}. Collapsed affine correlation {_f(oracle.get('corr_collapsed_affine'), 3)}. Distributional half CE {_f(oracle.get('mean_ce_distributional'))}. Collapsed half CE {_f(oracle.get('mean_ce_collapsed'))}.
@@ -238,6 +242,8 @@ Dataset `{oracle.get('dataset')}`. Half the raters of a test prompt estimate the
 ![Single pass versus rollouts](figures/single_pass_vs_rollout.png)
 
 ![Iso-budget](figures/iso_budget_chaosnli.png)
+
+![Test-set power on DICES-990](figures/eval_power_mdd_dices990.png)
 
 ## Ready-to-send note to Sanmi
 
@@ -257,7 +263,9 @@ Happy to walk through the Lean file (no sorry; axioms are propext, Classical.cho
 
 **Paper 1 — Target and evaluation protocol.** Define the target as \(p^*(y\\mid c)\), not a correlation with a scalar. State the output-space taxonomy (binary, finite ordinal, continuous). Fix the test estimator as the unbiased per-sample proper risk, the split as prompt-level, and the interval as an item-clustered bootstrap. Keep Pearson, Spearman, and Kendall as diagnostics. Put Krippendorff-style agreement in the human-consensus section, not in the judge-fidelity section. Lead with RPS as distance-from-the-realized-rating.
 
-**Paper 2 — Training, scaling, and dollars.** Train the same family by cross-entropy, Brier, RPS, Pearson, and MSE. Report the anti-proper collapse. Show the single-pass logit readout against M-sample rollouts. Plot held-out proper scores against \(k\) and against dollars, crowd and expert, and the iso-budget cut \(B=N\\times k\). The scaling claim is that correlation saturates once the conditional mean is ranked, while a proper loss keeps fitting the conditional distribution.
+**Paper 2 — Training, scaling, and dollars.** Train the same family by cross-entropy, Brier, RPS, Pearson, and MSE. Report the anti-proper collapse. Show the single-pass logit readout against M-sample rollouts, and keep a chain-of-thought sample distinct from the marginal over rationales. Plot held-out proper scores against \(k\) and against dollars, crowd and expert, and the iso-budget cut \(B=N\\times k\). A second planned axis is model size \(P\), recorded in `scripts/snap_lora_train.py` and not measured in this folder. The scaling claim is that correlation saturates once the conditional mean is ranked, while a proper loss keeps fitting the conditional distribution.
+
+{ELICITATION}
 
 {G_THEORY}
 
@@ -323,9 +331,13 @@ The identities in the bottom line are not estimated from human ratings. The Mont
 
 Kohli reports metric-dependent annotation saturation for soft-label NLI training: on ChaosNLI, KL is largely in place by about 10 annotators (paper table: 91±3% of the hard-to-soft-100 KL improvement) while entropy correlation keeps moving through roughly 20–50 annotators; the DICES-990 exploratory table is 90% versus 62% at 3 annotators for those two metrics. This experiment does not repeat that fine-tune. It compares objectives on a shared head and scores held-out proper risk. Experiment 28 remains the frontier-judge break-even (CE-fit ahead of Pearson-fit on held-out RPS after 4–8 ratings at one per item, or 10–20 at five per item, across its 25 dataset-by-judge cells). The shaded band on the new curves cites that result. The heads here are hashed-text linear heads, not those frontier judges.
 
+{POWER}
+
 ## GPU scripts not run
 
 `scripts/snap_lora_train.py` and `scripts/snap_llm_logit_readout.py` are ready for SNAP or Sherlock. This VM has no GPU (`nvidia-smi` absent). No LoRA number in this folder comes from a run.
+
+{ELICITATION}
 
 {G_THEORY}
 
@@ -372,7 +384,7 @@ Exit code 0, no `sorry`. The captured compiler output is `lean_check.txt`.
 | `SanmiPitch.lean`, `lean_check.txt` | Formal proofs and the compiler receipt |
 | `proofs_numeric.py` | Numerical twins of the Lean claims |
 | `metrics.py`, `data_io.py`, `fit_eval.py`, `run_all.py` | Estimators, loaders, heads, driver |
-| `figures/` | Matrix, crossover, high-k, rollout, iso-budget |
+| `figures/` | Matrix, crossover, high-k, rollout, iso-budget, DICES-990 test-set power |
 | `tables/` | Markdown tables copied from the run |
 | `scripts/snap_lora_train.py`, `scripts/snap_llm_logit_readout.py` | Not run here |
 | `tests/test_hygiene.py` | Unbiased risk, prompt split, metric identities |

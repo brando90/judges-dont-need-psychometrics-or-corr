@@ -3,9 +3,14 @@
 
 Not run in experiment 36 (no GPU, no local open-weight checkpoint).
 
-The single pass is: tokenize the prompt, read the logits at the vocabulary ids
-of the rating strings (for example "0".."5" or "1".."5"), and softmax those K
-logits. That vector is q_hat(c). It is not an average of generations.
+The single pass with no rationale is: tokenize the prompt, read the logits at
+the vocabulary ids of the rating strings (for example "0".."5" or "1".."5"),
+and softmax those K logits. That vector is q(y | c).
+
+If the prompt asks for a chain-of-thought rationale r first, the rating-token
+logits at the end of that text are q(y | c, r), one sampled trajectory. They
+are not the marginal sum_r q(r | c) q(y | c, r). Estimate that marginal either
+by the no-rationale forward pass or by averaging M chain-of-thought samples.
 
 The Monte Carlo arm draws M completions, parses a rating token, and averages
 the one-hots. M in {1, 5, 20} matches the linear-head stand-in already reported

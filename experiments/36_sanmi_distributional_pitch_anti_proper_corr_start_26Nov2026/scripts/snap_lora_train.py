@@ -6,10 +6,17 @@ Trains the same prompt-level objective contrast as experiment 36 on an open-weig
 surrogate on the expected rating. The data loader expects a JSONL of
 {item_id, text, ratings: [int, ...]} already split by item_id.
 
+Two axes, neither of which was measured in experiment 36. The data budget is
+B = N x k, prompts times ratings per prompt, as in the DICES and ChaosNLI
+curves. The model-size axis is P. The planned grid, not a result, is
+Qwen/Qwen3-4B-Instruct-2507 and an 8B Llama-3.1 instruct checkpoint. Pass
+--n-params so the manifest records which point on that axis a future run is.
+
 Example (do not launch from this CPU VM):
 
     python3 scripts/snap_lora_train.py \
         --model Qwen/Qwen3-4B-Instruct-2507 \
+        --n-params 4000000000 \
         --train data/train.jsonl --test data/test.jsonl \
         --objective ce --output runs/ce
 
@@ -35,6 +42,10 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--lora-r", type=int, default=16)
     parser.add_argument("--steps", type=int, default=400)
+    parser.add_argument(
+        "--n-params", type=int, default=None,
+        help="Planned model-size axis P. Not a measured result in experiment 36.",
+    )
     args = parser.parse_args()
     try:
         import torch  # noqa: F401
@@ -51,6 +62,9 @@ def main():
         "objective": args.objective,
         "lora_r": args.lora_r,
         "steps": args.steps,
+        "n_params_axis_P": args.n_params,
+        "planned_P_grid": ["Qwen/Qwen3-4B-Instruct-2507", "Llama-3.1-8B-Instruct"],
+        "data_budget": "B = N x k, not run here",
         "train": args.train,
         "test": args.test,
         "status": "ready_not_a_result",

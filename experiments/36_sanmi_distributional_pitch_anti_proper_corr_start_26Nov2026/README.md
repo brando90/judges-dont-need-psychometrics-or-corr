@@ -37,7 +37,7 @@ Exit code 0, no `sorry`. The captured compiler output is `lean_check.txt`.
 | `SanmiPitch.lean`, `lean_check.txt` | Formal proofs and the compiler receipt |
 | `proofs_numeric.py` | Numerical twins of the Lean claims |
 | `metrics.py`, `data_io.py`, `fit_eval.py`, `run_all.py` | Estimators, loaders, heads, driver |
-| `figures/` | Matrix, crossover, high-k, rollout, iso-budget |
+| `figures/` | Matrix, crossover, high-k, rollout, iso-budget, DICES-990 test-set power |
 | `tables/` | Markdown tables copied from the run |
 | `scripts/snap_lora_train.py`, `scripts/snap_llm_logit_readout.py` | Not run here |
 | `tests/test_hygiene.py` | Unbiased risk, prompt split, metric identities |
