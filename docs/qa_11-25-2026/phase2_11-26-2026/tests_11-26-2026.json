@@ -1,0 +1,458 @@
+[
+  {
+    "topic": "experiment-01",
+    "command": "/usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/test_study.py experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/test_validated_scorer.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt"
+  },
+  {
+    "topic": "experiment-02",
+    "command": "/usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/scripts/test_controls.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt"
+  },
+  {
+    "topic": "experiment-04",
+    "command": "/usr/bin/python3 -B -m pytest -q -p no:cacheprovider experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/scripts/test_metrics.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt"
+  },
+  {
+    "topic": "experiment-04",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt",
+    "note": "Explicitly asserts all recorded Boolean checks; original pytest functions record failures without raising."
+  },
+  {
+    "topic": "experiment-05",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g1-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g1-H1.txt"
+  },
+  {
+    "topic": "experiment-11",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g2-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2-H1.txt"
+  },
+  {
+    "topic": "experiment-11",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g2-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2-H2.txt"
+  },
+  {
+    "topic": "experiment-07",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g2-H3.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2-H3.txt"
+  },
+  {
+    "topic": "experiment-01",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 1",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-02",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 2",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-04",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 4",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g1_e04.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-05",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 5",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g1_e05.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-06",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 6",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-07",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 7",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2_e07.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-08",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 8",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-11",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 11",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "topic": "experiment-15",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py 15",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+    "note": "CPU checks/read-only panel reconstruction; experiment 11 runs gradient and marginal-limit portion of smoke script only."
+  },
+  {
+    "name": "e09_verifier",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/scripts/verify_results.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/e09_verifier_11-26-2026.txt",
+    "output_tail": "VERIFICATION PASSED: 693 deterministic checks succeeded.\n",
+    "limitation": "693 checks passed; rating reconstruction silently skipped because hard-coded private dataset path is absent. Generated receipt copied into QA folder and original receipt restored byte-for-byte."
+  },
+  {
+    "name": "e10_verifier",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/scripts/verify_results.py",
+    "exit_code": 1,
+    "log": "docs/qa_11-25-2026/phase2/e10_verifier_11-26-2026.txt",
+    "output_tail": "thlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/brandomiranda/judges-dont-need-psychometrics-or-corr/experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/private/historical_exp06/cached_v1/dataset.json'\n"
+  },
+  {
+    "name": "e18_conditional_verifier",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/scripts/verify.py",
+    "exit_code": 1,
+    "log": "docs/qa_11-25-2026/phase2/e18_conditional_verifier_11-26-2026.txt",
+    "output_tail": "dule>\n    verify()\n  File \"/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/scripts/verify.py\", line 68, in verify\n    assert actual == {key:str(value) for key, value in regenerated.items()}\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "limitation": "Exact-string replay fails; 719 numeric serialization differences over first/last replications, maximum 4.85722573273506e-16. No scientific discrepancy at 1e-12 tolerance; original exit code remains 1."
+  },
+  {
+    "name": "e19_exact_verifier",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/theory_simulation/verify.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/e19_exact_verifier_11-26-2026.txt",
+    "output_tail": "ating(s): CE 0.028160000, Pearson 0.028160000\n 6 training rating(s): CE 0.022851200, Pearson 0.023041280\n 9 training rating(s): CE 0.019362441, Pearson 0.019599764\n12 training rating(s): CE 0.016712601, Pearson 0.016955802\n18 training rating(s): CE 0.012808597, Pearson 0.013037662\n24 training rating(s): CE 0.010031174, Pearson 0.010239773\n36 training rating(s): CE 0.006375360, Pearson 0.006542970\n"
+  },
+  {
+    "name": "e20_pytest",
+    "command": "python3 -m pytest -q /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/code/test_lib20.py",
+    "exit_code": 5,
+    "log": "docs/qa_11-25-2026/phase2/e20_pytest_11-26-2026.txt",
+    "output_tail": "\nno tests ran in 1.58s\n",
+    "limitation": "Existing test_lib20.py contains top-level calculations but no pytest test functions, so pytest exits 5; direct script execution exits 0."
+  },
+  {
+    "name": "e20_existing_check",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/code/test_lib20.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/e20_existing_check_11-26-2026.txt",
+    "output_tail": "ce mean-train-corr 0.5407909435312181 ce 1.0849467816745368\ncorr mean-train-corr 0.9999999893334457 ce 1.807457457231094\n"
+  },
+  {
+    "name": "e21_fixture",
+    "command": "python3 /lfs/skampere1/0/brando9/judges_qa2/repo/experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/verify.py --fixture",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/e21_fixture_11-26-2026.txt",
+    "output_tail": "Synthetic fixture passed all 70 fold/budget cells.\n"
+  },
+  {
+    "name": "verify_g4-H1",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g4-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g4-H1.txt"
+  },
+  {
+    "name": "verify_g4-H2",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g4-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g4-H2.txt"
+  },
+  {
+    "name": "verify_g4-H3",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g4-H3.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g4-H3.txt"
+  },
+  {
+    "name": "verify_g4-H4",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g4-H4.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g4-H4.txt"
+  },
+  {
+    "name": "verify_g4-H5",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g4-H5.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g4-H5.txt"
+  },
+  {
+    "name": "verify_g3_g4_support",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g3_g4_support.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt"
+  },
+  {
+    "name": "verify_e18_float_replay",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_e18_float_replay_11-26-2026.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_e18_float_replay_11-26-2026.txt"
+  },
+  {
+    "name": "exp24_verifier",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/scripts/verify.py"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp24_verifier_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp25_verifier",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/scripts/verify_exp25.py"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp25_verifier_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp29_verifier",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/scripts/verify_exp29.py"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp29_verifier_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp27_exact",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/27_correlation_identification_preprint_23Nov2026/experiments/exact_counterexample/reproduce.py"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp27_exact_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp27_identities",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/27_correlation_identification_preprint_23Nov2026/experiments/verify_identities.py"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp27_identities_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp33_seven_checks_without_writes",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "-c",
+      "import runpy; n=runpy.run_path('/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/verify_moment_derivation.py',run_name='qa_checks'); print('finite difference step',n['fd'].__defaults__); n['check_tower'](); n['check_bounds'](); n['check_vandermonde'](); n['check_polynomial_family'](); n['check_gradients'](); n['check_pearson_squared'](); n['check_threshold']()"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp33_seven_checks_without_writes_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp30_generated_table_parity",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "-c",
+      "import subprocess,pathlib; p=pathlib.Path('/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026'); r=subprocess.run(['python3',str(p/'build_results_md.py')],capture_output=True,text=True,check=True); tables=lambda s:[l for l in s.splitlines() if l.startswith('|')]; assert tables(r.stdout)==tables((p/'results_11-25-2026.md').read_text()); print('Generated scored table rows match preserved report:',len(tables(r.stdout)))"
+    ],
+    "exit_code": 1,
+    "log": "docs/qa_11-25-2026/phase2/test_exp30_generated_table_parity_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp31_generated_table_parity",
+    "date": "11-26-2026",
+    "command": [
+      "python3",
+      "-c",
+      "import subprocess,pathlib; p=pathlib.Path('/lfs/skampere1/0/brando9/judges_qa2/repo/experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026'); r=subprocess.run(['python3',str(p/'build_results_md.py')],capture_output=True,text=True,check=True); tables=lambda s:[l for l in s.splitlines() if l.startswith('|')]; assert tables(r.stdout)==tables((p/'results_11-25-2026.md').read_text()); print('Generated scored table rows match preserved report:',len(tables(r.stdout)))"
+    ],
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp31_generated_table_parity_11-26-2026.txt",
+    "note": "Existing CPU check; no raw outputs overwritten."
+  },
+  {
+    "name": "exp30_generated_table_parity_corrected_invocation",
+    "date": "11-26-2026",
+    "command": "In-memory AST execution of build_results_md.py with write_text expressions omitted; compare scope[md] with saved report",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/test_exp30_generated_table_parity_11-26-2026.txt",
+    "note": "Initial stdout-based invocation failed (exit 1) because E30 generator writes files. Corrected in-memory invocation passes without writes. All scored rows preserved."
+  },
+  {
+    "name": "verify_g1-H1",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g1-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g2-H1",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g2-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g2-H2",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g2-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g2-H3",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g2-H3.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g4-H1",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g4-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g4-H2",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g4-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g4-H3",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g4-H3.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g4-H4",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g4-H4.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g4-H5",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g4-H5.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g6-H1",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g6-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g6-H2",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g6-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g6-H3",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g6-H3.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g6-H4",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g6-H4.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g6-H5",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g6-H5.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g7-H1",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g7-H1.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "verify_g7-H2",
+    "command": "python3 -B docs/qa_11-25-2026/phase2/verify_g7-H2.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt"
+  },
+  {
+    "name": "AAAI initial build",
+    "command": "make -C paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/",
+    "exit_code": 2,
+    "log": "docs/qa_11-25-2026/phase2/aaai_build_11-26-2026.log",
+    "note": "Missing newtxtext.sty; recovered using workspace-local CTAN package."
+  },
+  {
+    "name": "AAAI font-map retry",
+    "command": "make with workspace-local newtx",
+    "exit_code": 2,
+    "log": "docs/qa_11-25-2026/phase2/aaai_build_retry_11-26-2026.log",
+    "note": "Font map missing; next configuration fixed it."
+  },
+  {
+    "name": "AAAI map-name retry",
+    "command": "make with explicit font maps",
+    "exit_code": 2,
+    "log": "docs/qa_11-25-2026/phase2/aaai_build_fonts_11-26-2026.log",
+    "note": "Incorrect map basename; fixed to newtx.map."
+  },
+  {
+    "name": "AAAI dual PDF build",
+    "command": "make with workspace-local newtx.map wrapper",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/aaai_build_verified_11-26-2026.log",
+    "note": "Both PDFs built; 11/19 pages match baseline; Conclusion page 4; no final undefined-reference or overfull warnings."
+  },
+  {
+    "name": "g7 remaining checks",
+    "command": "python3 docs/qa_11-25-2026/phase2/verify_g7_remaining.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt"
+  },
+  {
+    "name": "g7 verifier draft failures",
+    "command": "Initial g7-H1 and g7_remaining schema checks",
+    "exit_code": 1,
+    "log": "docs/qa_11-25-2026/phase2_11-26-2026/verifier_development_failures_11-26-2026.txt",
+    "note": "Drafts assumed different saved method keys; corrected. All final HIGH scripts pass. No result files altered."
+  },
+  {
+    "name": "E02 historical pytest",
+    "command": "python3 -B -m pytest -q -p no:cacheprovider experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/historical_exp06/scripts/test_metrics.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2_11-26-2026/e02_historical_pytest_11-26-2026.txt",
+    "note": "Seven additional tests passed; 31 pytest tests passed across E01/E02/E04."
+  },
+  {
+    "name": "preservation/link/date/secret-pattern check",
+    "command": "python3 docs/qa_11-25-2026/phase2/check_preservation_11-26-2026.py",
+    "exit_code": 0,
+    "log": "docs/qa_11-25-2026/phase2/preservation_11-26-2026.txt",
+    "note": "All original table blocks and protected evidence unchanged; all newly introduced local Markdown links resolve."
+  }
+]

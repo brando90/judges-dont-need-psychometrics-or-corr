@@ -1,0 +1,18 @@
+Verifier development failures (11-26-2026)
+
+Initial g7-H1 script: exit 1, StopIteration while looking for a method whose name contained pearson and cal. The stored method is pcal; corrected script exits 0. This receipt records the observed tool traceback rather than a rerun of the discarded draft.
+
+Initial remaining-check script output (exit 1):
+g7 remaining checks (11-26-2026)
+g7-M1: saved score aggregation; original labels are not reconstructed
+Point RPS wins 25 / 325 Counter({('5', '10'): 22, ('1', '4'): 3})
+Simultaneous-bound RPS wins 19 Counter({('5', '10'): 18, ('1', '4'): 1})
+g7-M2: raw record count 540 scenarios 2 sizes 9 seeds 30
+ce restart counts [1]
+rps restart counts [5]
+pearson restart counts [5]
+Traceback (most recent call last):
+  File "/lfs/skampere1/0/brando9/judges_qa2/repo/docs/qa_11-25-2026/phase2/verify_g7_remaining.py", line 30, in <module>
+    print(method,'restart counts',sorted({len(r['fits'][method]['restart_train_obj']) for r in raw}))
+                                              ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'restart_train_obj'

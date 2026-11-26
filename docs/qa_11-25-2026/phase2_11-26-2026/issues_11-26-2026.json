@@ -1,0 +1,2095 @@
+[
+  {
+    "id": "g1-H1",
+    "severity": "HIGH",
+    "file_line": "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md:18",
+    "old": "Two-point forecast on {0,5} with the human mean.",
+    "verified": "RPS excess 0.076333630945; CE 5.039282445779; TVD 0.711562051303; 6 positive categories each of 11 artifacts; mean absolute mean error 0.006099765046, max 0.011182902584; KL 3.635311444282; Pearson 1.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated adjacent correction: smoothed endpoint mixture, mean=(human_mean+0.015)/1.006; old description preserved.",
+    "files": [
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e05.txt",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/verify_g1-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g1-H1.txt"
+    ],
+    "topic": "experiment-05",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e05.txt; docs/qa_11-25-2026/phase2/verify_g1-H1.py; docs/qa_11-25-2026/phase2/verify_g1-H1.txt",
+    "commits": [
+      "74cba38fbe4647d33546c994e001465ebdae54d2"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md:17",
+    "old": "With no sampled test ratings.",
+    "verified": "9 test trace records; 6,912 candidate rows contain sampled-test CE.",
+    "verdict": "CONFIRMED",
+    "fix": "Exact population metrics and separate sampled-test diagnostics both exist; test ratings never enter selection.",
+    "files": [
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py"
+    ],
+    "topic": "experiment-01",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e01.txt; docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt; docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py",
+    "commits": [
+      "bf54d9c858334d9ab6b91d90a3da530c6ab5be83"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md:5; RESULTS_comparison.md:62",
+    "old": "CE difference -0.260401 [-1.457729,0.198472].",
+    "verified": "CE difference from five partitions -0.260401278759; all quoted endpoints match aggregate JSON, not independently reconstructed.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat labels 136 main-panel endpoints aggregate-only; estimates preserved.",
+    "files": [
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt"
+    ],
+    "topic": "experiment-02",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Private ratings/predictions and per-bootstrap held-out scores absent; interval quantiles cannot be reconstructed.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e02.txt; docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt",
+    "commits": [
+      "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/historical_exp06/RESULTS.md:16; followup_11-07-2026/RESULTS.md:15; training_followup_11-08-2026/RESULTS_training.md:4",
+    "old": "Historical CE +0.770 [-0.895,1.317]; Wasserstein +0.023822 [-0.036327,0.053333]; weighted loss -0.010409 [-0.061911,0.005933].",
+    "verified": "CE point difference +0.769587959519 and weighted point difference -0.010409135349 recomputed from partitions; saved intervals match summaries.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat preserves old numbers and distinguishes aggregate agreement from unavailable rating/bootstrap reconstruction.",
+    "files": [
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt"
+    ],
+    "topic": "experiment-02",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Private ratings/predictions/bootstrap draws absent; distance follow-up also lacks per-partition metric outputs.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e02.txt; docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt",
+    "commits": [
+      "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md:19; RESULTS_reliability_vs_accuracy.md:113",
+    "old": "Phase C RPS gap +0.082 [0.004,0.168].",
+    "verified": "Aggregate RPS difference +0.082221542223; ranking Kendall -0.4.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat: aggregate subtraction/ranking verified; original human scores and intervals are not reconstructed.",
+    "files": [
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e04.txt",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt"
+    ],
+    "topic": "experiment-04",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Private Phase C/experiment 02 dataset absent, so original scores and 10,000-draw interval cannot be reconstructed.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e04.txt; docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt",
+    "commits": [
+      "4e943cca38b9041788d65d3dec2740223217706e"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L1",
+    "severity": "LOW",
+    "file_line": "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md:3,14; RESULTS_conditional_identification.md:3",
+    "old": "Main publication pending / PENDING.",
+    "verified": "Integration commits 3bfd866 and 18f529e exist and record paper integration 11-17-2026.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated update: paper integration complete 11-17; no inference that all reviews or venue publication completed.",
+    "files": [
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py"
+    ],
+    "topic": "experiment-01",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e01.txt; docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt; docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py",
+    "commits": [
+      "bf54d9c858334d9ab6b91d90a3da530c6ab5be83"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L2",
+    "severity": "LOW",
+    "file_line": "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md:16; RESULTS_comparison.md:120",
+    "old": "Still needs paper-integration decision; paper remains unchanged.",
+    "verified": "Experiment index and integrated paper record completed integration on 11-17-2026.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated note updates integration status; historical prose retained.",
+    "files": [
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt"
+    ],
+    "topic": "experiment-02",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e02.txt; docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt",
+    "commits": [
+      "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L3",
+    "severity": "LOW",
+    "file_line": "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md:69; results.md:5",
+    "old": "Decide whether to add main-body cross-reference / remains optional.",
+    "verified": "Main-body reference exists in 3-problem.tex:21, consistent with 11-17-2026 index record.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated note says main-body reliability reference is already integrated; harder Phase B remains unrun.",
+    "files": [
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e04.txt",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt"
+    ],
+    "topic": "experiment-04",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e04.txt; docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt",
+    "commits": [
+      "4e943cca38b9041788d65d3dec2740223217706e"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L4",
+    "severity": "LOW",
+    "file_line": "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/RESULTS_conditional_identification.md:179",
+    "old": "Reproduction commands use experiments/02_conditional_binomial_distribution_identification/.",
+    "verified": "Old directory absent; actual experiments/01_conditional_binomial_distribution_identification_start_08Nov2026 exists.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated correction supplies working paths beside preserved historical commands.",
+    "files": [
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py"
+    ],
+    "topic": "experiment-01",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e01.txt; docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt; docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py",
+    "commits": [
+      "bf54d9c858334d9ab6b91d90a3da530c6ab5be83"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L5",
+    "severity": "LOW",
+    "file_line": "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/RESULTS_conditional_identification.md:112",
+    "old": "Sampled-test table starts Pearson then Spearman/Kendall without proper scores.",
+    "verified": "All 21 criterion/rating-count groups reconstructed from 6,912 candidate rows and 5,376 selections; sampled RPS/CE available, TVD unrecorded.",
+    "verdict": "CONFIRMED",
+    "fix": "Companion panel reports sampled RPS, CE, explicit unavailable TVD, then Spearman/Pearson on matching data; historical table preserved.",
+    "files": [
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py"
+    ],
+    "topic": "experiment-01",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e01.txt; docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt; docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py",
+    "commits": [
+      "bf54d9c858334d9ab6b91d90a3da530c6ab5be83"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L6",
+    "severity": "LOW",
+    "file_line": "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/RESULTS_comparison.md:21,84; historical_exp06/RESULTS.md:39,121,135",
+    "old": "Training/within-fold/correlation-only tables omit matched proper-score panel.",
+    "verified": "Available held-out RPS/CE/TVD and secondary correlations re-averaged over saved partitions; complete matching training proper-score panel absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Companion held-out RPS/CE/TVD-first panel for each saved method; separate training correlations explicitly diagnostics with unavailable training scores, no split mixing.",
+    "files": [
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt"
+    ],
+    "topic": "experiment-02",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e02.txt; docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt",
+    "commits": [
+      "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L7",
+    "severity": "LOW",
+    "file_line": "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/RESULTS_reliability_vs_accuracy.md:36,113",
+    "old": "A1 puts correlations first; Phase C puts repeatability first.",
+    "verified": "A1 exact RPS/CE/TVD recomputed from rational forecasts; Phase C aggregate values agree with saved JSON.",
+    "verdict": "CONFIRMED",
+    "fix": "Companion panel presents RPS/CE/TVD before Spearman/Pearson; exact population versus aggregate-only historical rows labeled.",
+    "files": [
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e04.txt",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt"
+    ],
+    "topic": "experiment-04",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e04.txt; docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py; docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt",
+    "commits": [
+      "4e943cca38b9041788d65d3dec2740223217706e"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g1-L8",
+    "severity": "LOW",
+    "file_line": "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md:16",
+    "old": "A1 forecast rows report Pearson before CE.",
+    "verified": "Exact population RPS/CE/TVD recomputed for all three forecasts over 11 artifacts.",
+    "verdict": "CONFIRMED",
+    "fix": "Companion panel orders RPS, CE, TVD, then Spearman/Pearson; original scored rows preserved.",
+    "files": [
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g1_e05.txt",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md"
+    ],
+    "topic": "experiment-05",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g1_e05.txt",
+    "commits": [
+      "74cba38fbe4647d33546c994e001465ebdae54d2"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-H1",
+    "severity": "HIGH",
+    "file_line": "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md:7,15; README.md:23",
+    "old": "Fixed and tuned MSE baseline verdict Confirmed; MSE beats constant in all four scenarios, range 0.0076-0.0118.",
+    "verified": "A,n=2048 fixed-MSE RPS excess 0.018541735107 vs constant 0.009551171834; difference +0.008990563272, exact published 95% CI [0.008162369356,0.009812701132].",
+    "verdict": "CONFIRMED",
+    "fix": "Joint verdict partly supported; fixed MSE loses to constant in A. Winning range applies only to validation-tuned MSE. Original verdict retained.",
+    "files": [
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.txt"
+    ],
+    "topic": "experiment-11",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e11.txt; docs/qa_11-25-2026/phase2/verify_g2-H1.py; docs/qa_11-25-2026/phase2/verify_g2-H1.txt; docs/qa_11-25-2026/phase2/verify_g2-H2.py; docs/qa_11-25-2026/phase2/verify_g2-H2.txt",
+    "commits": [
+      "2a2e5ad3391eb27f3341a8151d3d61740ae2ef35"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-H2",
+    "severity": "HIGH",
+    "file_line": "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md:7,14; README.md:22",
+    "old": "Mostly confirmed; eliminates spike by n=32; no interval computed.",
+    "verified": "A,n=32 head RPS excess 0.012532210319 vs constant 0.011907058734; difference +0.000625151585; exact published 95% CI [0.000193884974,0.001265643217].",
+    "verdict": "CONFIRMED",
+    "fix": "Reduction supported; elimination by n=32 not established. Interval was computed and is reproduced from raw seed scores; old wording preserved.",
+    "files": [
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.txt"
+    ],
+    "topic": "experiment-11",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e11.txt; docs/qa_11-25-2026/phase2/verify_g2-H1.py; docs/qa_11-25-2026/phase2/verify_g2-H1.txt; docs/qa_11-25-2026/phase2/verify_g2-H2.py; docs/qa_11-25-2026/phase2/verify_g2-H2.txt",
+    "commits": [
+      "2a2e5ad3391eb27f3341a8151d3d61740ae2ef35"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-H3",
+    "severity": "HIGH",
+    "file_line": "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/README.md:9",
+    "old": "Lower test RPS and CE excess in A from 8 tasks for Kendall.",
+    "verified": "RPS crossover 8 tasks; CE crossover 16. At n=8 Kendall minus CE-trained CE -0.004369102997, exact published CI [-0.008969781531,0.000300092721].",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated correction separates RPS=8 from CE=16; locked premeasurement README unchanged.",
+    "files": [
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e07.txt",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results.md",
+      "docs/qa_11-25-2026/phase2/verify_g2-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H3.txt"
+    ],
+    "topic": "experiment-07",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e07.txt; docs/qa_11-25-2026/phase2/verify_g2-H3.py; docs/qa_11-25-2026/phase2/verify_g2-H3.txt",
+    "commits": [
+      "e73d8ab2785b2cb6bd26f6f95ecd9ec6384296da"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results.md:7,58; experiments/README.md:51",
+    "old": "Correlation wins only in A; CE better from four tasks in B,C,D.",
+    "verified": "D,n=4 tuned CE RPS excess 0.048103634 vs fixed Pearson 0.045215969; difference +0.002887664 CI [0.001029390,0.005053901] (independent seed-0 bootstrap).",
+    "verdict": "CONFIRMED",
+    "fix": "Qualify fixed-ridge CE versus fixed-ridge Pearson; include tuned-CE exception in D,n=4. Original broad wording preserved.",
+    "files": [
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results.md"
+    ],
+    "topic": "experiment-08",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+    "commits": [
+      "e7b02280e5415e28176fbcbfc5f34d8c10b76618",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results.md:16; experiment 07 results.md:12,18; experiment 08 results.md:13,25",
+    "old": "Exact CE refits preserved results; prior reproduction about 1e-17.",
+    "verified": "Aggregate receipt 337+1=338 moved tuned fits, one ridge change, 95,291/95,291 converged fits; no individual historical refit outputs.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated evidence-limit notes in experiments 06/07/08 preserve assurances but label aggregate-only arithmetic.",
+    "files": [
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results.md"
+    ],
+    "topic": "experiment-06",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Earlier reproduction samples/receipts and individual exact-CE refit outputs absent; cannot independently reconstruct historical precision.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+    "commits": [
+      "d8ca930ad8f75ad72c3ecf5bd9465a9829457b01"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/README.md:5; results.md:13; experiments/README.md:25",
+    "old": "Pre-registration written before executing; historical check_grad <=2.41e-7.",
+    "verified": "README and raw sweep first added together in 06054e3. Current gradients 1.68e-7,2.49e-7,8.82e-8 and marginal limit 1.09e-9 pass.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent caveat distinguishes current passing checks from unverified historical freeze timing/2.41e-7; locked pre-registration unchanged.",
+    "files": [
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md"
+    ],
+    "topic": "experiment-11",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "No earlier freeze/smoke/launch receipt; current values cannot establish or refute the historical claim.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+    "commits": [
+      "2a2e5ad3391eb27f3341a8151d3d61740ae2ef35"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md:9,19-30; STATUS_11-20-2026.md:12",
+    "old": "Rater estimates, intervals, variance components, ICC, concordance and overlaps.",
+    "verified": "Aggregate rows match; variance share 0.021001799072, residual SD 0.697695966032, offset SD 0.127191893522; 75 artifacts,195 ratings.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat distinguishes aggregate arithmetic from unavailable individual-rating/interval reconstruction.",
+    "files": [
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md"
+    ],
+    "topic": "experiment-15",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Private items.jsonl and 44-judge pool absent; artifact SD and rating-bootstrap intervals not independently reconstructable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+    "commits": [
+      "7185111aeec139d46675a1552e57e49685dbbf96"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-M5",
+    "severity": "MEDIUM",
+    "file_line": "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md:5,13",
+    "old": "200-draw smoke; 22:24-22:25,25 s; run.log and launcher.log.",
+    "verified": "Named logs and smoke receipt absent; saved compute runtime 21.820522069931 s.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat labels historical timing unavailable; preserves 25s claim as possibly distinct wall-clock boundary.",
+    "files": [
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md"
+    ],
+    "topic": "experiment-15",
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "No launch/smoke logs or historical receipt; exact timing and 200-draw execution cannot be verified.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+    "commits": [
+      "7185111aeec139d46675a1552e57e49685dbbf96"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-L1",
+    "severity": "LOW",
+    "file_line": "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results/tables.md:95,111,205,221",
+    "old": "Standalone test Spearman and Pearson tables.",
+    "verified": "132 matched scenario/size/judge rows recomputed from experiment 06 plus archived 13 raw seed records; all RPS/CE metrics available, TVD to truth unrecorded.",
+    "verdict": "CONFIRMED",
+    "fix": "Full companion panel orders RPS excess, CE excess, explicit unavailable TVD, then Spearman/Pearson; original scored tables preserved.",
+    "files": [
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results.md"
+    ],
+    "topic": "experiment-06",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+    "commits": [
+      "d8ca930ad8f75ad72c3ecf5bd9465a9829457b01"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-L2",
+    "severity": "LOW",
+    "file_line": "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results/tables.md:47,120,193,266",
+    "old": "Four test-Pearson-only tables.",
+    "verified": "All saved judge/scenario/size cells re-averaged from 4,400 raw rows; RPS/CE available; TVD to truth unrecorded (TVD from constant is a different target).",
+    "verdict": "CONFIRMED",
+    "fix": "Full companion proper-score-first panel includes matching secondary correlations without relabeling TVD from constant.",
+    "files": [
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results.md"
+    ],
+    "topic": "experiment-08",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+    "commits": [
+      "e7b02280e5415e28176fbcbfc5f34d8c10b76618"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g2-L3",
+    "severity": "LOW",
+    "file_line": "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md:32",
+    "old": "Ranking Kendall tau: RPS ranking 1.000; Spearman ranking 0.996; Pearson ranking 0.998. Original headline ordered correlations first and omitted proper-score values.",
+    "verified": "RPS ranking tau 1.000000000; H2_opus RPS 0.143104707 raw/adjusted; secondary Spearman/Pearson taus 0.995771670190/0.997885835095.",
+    "verdict": "CONFIRMED",
+    "fix": "RPS first with best-judge value and full 44-judge companion panel; CE/TVD explicitly unavailable, secondary correlations after RPS.",
+    "files": [
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md"
+    ],
+    "topic": "experiment-15",
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+    "commits": [
+      "7185111aeec139d46675a1552e57e49685dbbf96"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/RESULTS_open_weight_ce_vs_corr.md:143; :166",
+    "old": "Individual-rating label; Qwen3 biases +0.48/+1.53, Qwen2.5 +0.14/+2.11; human mean 2.63",
+    "verified": "Saved individual-rating biases +0.562560/+1.585030 and +0.203494/+2.179101; individual human mean 2.553846. Original values are artifact weighted.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated correction distinguishes artifact-weighted means/bias from individual-rating correlations and gives corrected individual-rating values; old paragraph retained.",
+    "files": [
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/RESULTS_open_weight_ce_vs_corr.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md"
+    ],
+    "topic": "experiment_09",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1da6ca67273c4197179b7858884d4d126ca45871"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md:5; :15; :25\u201332; RESULTS_open_weight_ce_vs_corr.md:47\u201348",
+    "old": "Human scores, intervals, p-values and verification/GPU timing cannot be independently reproduced",
+    "verified": "Aggregate RPS difference 0.04167086376855947; original ratings/family loss vectors/repeats/timestamped GPU receipts absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated evidence limit added at top-linked correction note.",
+    "files": [
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/RESULTS_open_weight_ce_vs_corr.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md"
+    ],
+    "topic": "experiment_09",
+    "fixed": false,
+    "open_reason": "Original individual ratings, family loss vectors, repeat observations and timestamped execution/GPU receipts unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1da6ca67273c4197179b7858884d4d126ca45871"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md:18\u201321; README.md:84",
+    "old": "Repeat SD 0.0178, native CE 1.416 and prompt difference +0.0418 [\u22120.0200,+0.1813] are aggregate-only",
+    "verified": "Saved repeat SD 0.017836; original ratings/raw repeats/fitted per-split forecasts/bootstrap draws absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated aggregate-only verification clarification added.",
+    "files": [
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md"
+    ],
+    "topic": "experiment_10",
+    "fixed": false,
+    "open_reason": "Private individual ratings and original smoke/repeat/per-split/bootstrap records unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "87357fa3fa07b1bd6ef6d5ea950c3839f7fca645"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md:7; :21\u201323; :58; ../../STATUS_11-20-2026.md:20\u201340",
+    "old": "Correlation/failure counts 4/52/78 and 22:14\u201322:16 / 21\u2013100s not replayable",
+    "verified": "Failure counts remain saved aggregates; 12 seconds fields min 2.224164, max 20.549976, sum 84.402701; 360 proper-score means match per-artifact arrays exactly.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated scope limit differentiates reproducible proper scores from unavailable correlation/solver/timing receipts.",
+    "files": [
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md"
+    ],
+    "topic": "experiment_16",
+    "fixed": false,
+    "open_reason": "Split correlation records, solver receipts and run/launcher timestamps unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1598852fcbf64434ad8ba029bcde8ef58c82ddfa"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M5",
+    "severity": "MEDIUM",
+    "file_line": "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md:7; README.md:3",
+    "old": "22:46\u201323:12 / 1,508s / execution environment lack original receipts",
+    "verified": "4,400 unique raw cells; uncompressed SHA-256 ecd3789f6d32ea84ceeeef6c94182d4e000399263b9f98ef36dfd31629dc819a; no timestamp/environment receipts.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated run-provenance limit added; preregistered README preserved.",
+    "files": [
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results/summary.md"
+    ],
+    "topic": "experiment_17",
+    "fixed": false,
+    "open_reason": "Original run log and execution-environment receipts unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "244ac598bc64085c9ba08db02f6eb72effa4d3c3"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-M6",
+    "severity": "MEDIUM",
+    "file_line": "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/README.md:42\u201347; human_judges/RESULTS_11-21-2026.md:72",
+    "old": "Human RPS +0.01998 [+0.00195,+0.05178], 15/1000 not rating-level reproducible",
+    "verified": "Aggregate subtraction 0.231598394614 \u2212 0.211622547682 = 0.019975846932; saved 15/1000 = 1.5%.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated human-evidence limit added; synthetic exact verification kept separate.",
+    "files": [
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/README.md",
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/human_judges/RESULTS_11-21-2026.md"
+    ],
+    "topic": "experiment_19",
+    "fixed": false,
+    "open_reason": "Original individual ratings and bootstrap draws unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "a4cff096cb5e37d89d6d007286b983fd3e8178e1"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-L1",
+    "severity": "LOW",
+    "file_line": "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/README.md:11",
+    "old": "Relative experiment-14 link resolves inside E16",
+    "verified": "Original target absent; ../archive/14_open_weight_judge_pool_corr_vs_ce_80_20_start_10Nov2026_end_10Nov2026/README.md exists.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated correction supplies working experiment-14 link; original preregistered README preserved.",
+    "files": [
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md"
+    ],
+    "topic": "experiment_16",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1598852fcbf64434ad8ba029bcde8ef58c82ddfa"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-L2",
+    "severity": "LOW",
+    "file_line": "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md:3",
+    "old": "Stage 3 report uses absent /Users/... worktree path",
+    "verified": "Report exists as qa3_codex_vals.md beside the link.",
+    "verdict": "CONFIRMED",
+    "fix": "Link repaired to qa3_codex_vals.md, with old absolute target retained as dated provenance.",
+    "files": [
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/RESULTS_open_weight_ce_vs_corr.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md"
+    ],
+    "topic": "experiment_09",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1da6ca67273c4197179b7858884d4d126ca45871"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-L3",
+    "severity": "LOW",
+    "file_line": "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md:19",
+    "old": "Standalone Spearman/Pearson-only table",
+    "verified": "Saved same-condition RPS/CE/TVD available in results JSON.",
+    "verdict": "CONFIRMED",
+    "fix": "Added full matched RPS/CE/TVD/Spearman/Pearson display for all 30 pool-method rows; old scored table retained.",
+    "files": [
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md"
+    ],
+    "topic": "experiment_16",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "1598852fcbf64434ad8ba029bcde8ef58c82ddfa"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-L4",
+    "severity": "LOW",
+    "file_line": "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md:135; results/summary.md:115",
+    "old": "Spearman/Pearson before CE excess",
+    "verified": "Raw seed records provide RPS, CE excess and TVD from constant, plus correlations.",
+    "verdict": "CONFIRMED",
+    "fix": "Added 16-row seed-derived display ordered RPS/CE excess/TVD from constant/Spearman/Pearson; explicitly labels TVD target; old tables retained.",
+    "files": [
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results/summary.md"
+    ],
+    "topic": "experiment_17",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "244ac598bc64085c9ba08db02f6eb72effa4d3c3"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g3-L5",
+    "severity": "LOW",
+    "file_line": "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md:31; :33; results.md:18",
+    "old": "Sanity table/heading leads with correlation",
+    "verified": "Label-in-prompt saved RPS 0.034074, CE 0.481883, TVD 0.000018, Spearman/Pearson 1.",
+    "verdict": "CONFIRMED",
+    "fix": "Added proper-score-first matched diagnostic display; original table retained.",
+    "files": [
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md"
+    ],
+    "topic": "experiment_10",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "87357fa3fa07b1bd6ef6d5ea950c3839f7fca645"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-H1",
+    "severity": "HIGH",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md:17",
+    "old": "Head beats CE in 22 of 40 J=1 C/D cells",
+    "verified": "Raw 5,040-record replay: 22 head wins of 42 cells (9 CE, 6 tie, 5 mixed).",
+    "verdict": "CONFIRMED",
+    "fix": "22 of 40 retained; dated correction says 22 of 42 and explains 2\u00d77\u00d73 denominator.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "docs/qa_11-25-2026/phase2/verify_g4-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H1.txt"
+    ],
+    "topic": "experiment_18",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g4-H1.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-H2",
+    "severity": "HIGH",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md:10",
+    "old": "Pearson selection never significantly worse",
+    "verified": "Saved RPS 0.196008196152 \u2212 0.185281801070 = +0.010726395081; saved interval [+0.001612285381,+0.019335559001].",
+    "verdict": "CONFIRMED",
+    "fix": "Dated correction identifies CE-win exception at 44 judges/floor 0.05/four training tasks; old wording retained.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "docs/qa_11-25-2026/phase2/verify_g4-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H2.txt"
+    ],
+    "topic": "experiment_18",
+    "fixed": true,
+    "open_reason": "Rating-level interval not independently regenerated; raw private inputs absent.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g4-H2.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-H3",
+    "severity": "HIGH",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md:9",
+    "old": "Changing split protocol never flips a sign",
+    "verified": "H5, k=1: C/3 families +0.000065279598; M/4 tasks \u22120.002903707496. Positive estimates 3/9 C, 0/12 M; both cited intervals include zero.",
+    "verdict": "CONFIRMED",
+    "fix": "Literal sign claim qualified; no statistically resolved reversal or isolated causal split effect claimed.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "docs/qa_11-25-2026/phase2/verify_g4-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H3.txt"
+    ],
+    "topic": "experiment_18",
+    "fixed": true,
+    "open_reason": "Aggregate arithmetic verified; original private rating/split inputs unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g4-H3.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-H4",
+    "severity": "HIGH",
+    "file_line": "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/README.md:7",
+    "old": "CE loses at 4 to 8 items or 3 families",
+    "verified": "8 items/3 ratings RPS difference +0.002422443302 [\u22120.001866928915,+0.006711815519] unresolved; closed-five/3 families +0.020622722349 [+0.007155529018,+0.040690918450] favors CE on RPS.",
+    "verdict": "CONFIRMED",
+    "fix": "Blanket claim qualified by target/pool/depth in dated correction; old wording retained.",
+    "files": [
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/README.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "docs/qa_11-25-2026/phase2/verify_g4-H4.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H4.txt"
+    ],
+    "topic": "experiment_20",
+    "fixed": true,
+    "open_reason": "Raw synthetic per-seed and historical per-split outputs absent; saved intervals not replayed.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g4-H4.txt",
+    "commits": [
+      "efc06674790af945ac33734087d206325eae53ea"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-H5",
+    "severity": "HIGH",
+    "file_line": "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/EVAL_PROTOCOL_11-21-2026.md:47; :7",
+    "old": "A no better than uniform on RPS",
+    "verified": "Exact expected RPS A 0.189097890096 vs uniform 0.192222222222; A better by 0.003124332126.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated correction says A slightly better on RPS, worse on CE; locked protocol unchanged.",
+    "files": [
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "docs/qa_11-25-2026/phase2/verify_g4-H5.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H5.txt"
+    ],
+    "topic": "experiment_22",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g4-H5.txt",
+    "commits": [
+      "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/README.md:19; :21; :45",
+    "old": "Preregistered 12:20 before cells; finished about 12:05",
+    "verified": "Written chronology contradicts preregistration precedence by approximately 15 minutes.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated note states chronology unresolved and qualifies before-run claim; no timestamp guessed.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_18",
+    "fixed": false,
+    "open_reason": "Original run/protocol timestamp evidence needed to establish which time is wrong.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md:19; RESULTS_11-21-2026.md:10; reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md:7",
+    "old": "Historical CE-selected RPS 0.15005 and contrast interval [+0.01677,+0.05730] lack raw inputs",
+    "verified": "Saved contrast +0.03308146916053503 and interval [+0.0167702033665396,+0.057299188075486736]; no original rating/per-split/bootstrap inputs.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated aggregate-only verification limit covers all three historical groups.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_18",
+    "fixed": false,
+    "open_reason": "Original ratings, fitted forecasts and resampling draws unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/RESULTS_11-21-2026.md:9; README.md:15",
+    "old": "Synthetic +0.034 [0.031,0.036], 96%/200 seeds and historical scores lack raw output",
+    "verified": "Saved synthetic RPS contrast +0.03350028135231302 [0.031059171907978363,0.035941390796647675], 96%; per-seed file explicitly uncommitted.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated limit states saved aggregates, no historical-training replay.",
+    "files": [
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/README.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_20",
+    "fixed": false,
+    "open_reason": "48 MB raw synthetic output and private historical rating/per-split data unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "efc06674790af945ac33734087d206325eae53ea"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/RESULTS_11-21-2026.md:5; veribench/STATUS_11-21-2026.md:5; :11\u201323; :46",
+    "old": "320 homework grades, 2,800 draw conditions, 14 archive members, 0/3,400 sheet rows, 1,377,379 tokens unverifiable",
+    "verified": "Public manifest has 160 answers; original 320 grades/private archives/per-request token audit/live-sheet receipts absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated source-evidence limit added to both result/status entry points.",
+    "files": [
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/results/proper_scores_first_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/RESULTS_11-21-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/veribench/STATUS_11-21-2026.md"
+    ],
+    "topic": "experiment_21",
+    "fixed": false,
+    "open_reason": "Original grades, private registration/archive, token audit and historical live-sheet receipt unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "6116b2f84553e1485cd03211284cb4c2623b073b"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M5",
+    "severity": "MEDIUM",
+    "file_line": "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/EVAL_PROTOCOL_11-21-2026.md:134\u2013136",
+    "old": "External inventories ChaosNLI 4,645; DICES 43,050/72,103; HelpSteer2 23,652 cannot be locally replayed",
+    "verified": "Full releases absent; 350\u00d7123=43,050 and disagreement multiplicities sum to 23,652 only confirm arithmetic.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated evidence-limit note; frozen protocol unchanged.",
+    "files": [
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_22",
+    "fixed": false,
+    "open_reason": "Full original source releases absent from checkout; external inventory not re-downloaded.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-M6",
+    "severity": "MEDIUM",
+    "file_line": "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/RESULTS_11-21-2026.md:9\u201312; :20\u201325; :33; :54",
+    "old": "SummEval/KonIQ/USR/MovieLens source counts and CE/TVD/intervals unverifiable",
+    "verified": "980 saved per-draw RPS means reproduce with max absolute error 1.4433e-15; original archives/prepared arrays/per-item losses absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated limitation distinguishes available downstream RPS checks from missing source-level scoring and uncertainty.",
+    "files": [
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/image_quality/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/summary_metrics/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/persona_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_usr/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/RESULTS_11-21-2026.md"
+    ],
+    "topic": "experiment_23",
+    "fixed": false,
+    "open_reason": "Original four source collections, prepared arrays and per-test-item losses unavailable.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "6f893308cf99c4cff227e3cab1835f5a461c5f1b"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L1",
+    "severity": "LOW",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md:11",
+    "old": "Not reconciled",
+    "verified": "Reconciliation report and 105 saved aggregate cells exist.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated correction marks reconciliation complete and links report; old status retained.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_18",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L2",
+    "severity": "LOW",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md:31",
+    "old": "paired_rps.csv relative link points into review/",
+    "verified": "Actual file exists at ../historical_rating_budget/paired_rps.csv.",
+    "verdict": "CONFIRMED",
+    "fix": "Broken link repaired; old/new target retained in dated note.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_18",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L3",
+    "severity": "LOW",
+    "file_line": "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/results/diagnostics.csv:1",
+    "old": "Standalone correlations omit proper scores",
+    "verified": "1,300 diagnostics rows uniquely join to 1,300 assignment-level loss rows.",
+    "verdict": "CONFIRMED",
+    "fix": "Additive proper-score-first display includes RPS/CE/TVD/Spearman/Pearson for every row; original CSV unchanged.",
+    "files": [
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/results/proper_scores_first_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/RESULTS_11-21-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/veribench/STATUS_11-21-2026.md"
+    ],
+    "topic": "experiment_21",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "6116b2f84553e1485cd03211284cb4c2623b073b"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L4",
+    "severity": "LOW",
+    "file_line": "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/EVAL_PROTOCOL_11-21-2026.md:40",
+    "old": "Pearson before RPS/CE/TVD",
+    "verified": "All four toy forecasts deterministically recompute.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent corrected toy display orders RPS/CE/TVD/Pearson; locked table preserved.",
+    "files": [
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment_22",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L5",
+    "severity": "LOW",
+    "file_line": "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/image_quality/diagnostics.csv:1 and eight companion exports",
+    "old": "Nine standalone tables omit RPS/CE/TVD",
+    "verified": "980 diagnostic rows across all nine exports uniquely match saved same-dataset score rows.",
+    "verdict": "CONFIRMED",
+    "fix": "Added nine complete RPS/CE/TVD/Spearman/Pearson displays; originals unchanged.",
+    "files": [
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/image_quality/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/summary_metrics/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/persona_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_usr/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/RESULTS_11-21-2026.md"
+    ],
+    "topic": "experiment_23",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "6f893308cf99c4cff227e3cab1835f5a461c5f1b"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g4-L6",
+    "severity": "LOW",
+    "file_line": "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/../../README.md:27",
+    "old": "Every experiment folder has HOW_TO_READ_RESULTS.md",
+    "verified": "E18 top-level, E20 and E22 guides were absent before this edit.",
+    "verdict": "CONFIRMED",
+    "fix": "Added dated top-level guides in E18/E20/E22; root README qualification handled by root agent.",
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "repo_reading_guides",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+    "commits": [
+      "21c615a5cd51b7f148eca0985753d09313c98fd4",
+      "efc06674790af945ac33734087d206325eae53ea",
+      "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g5-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/RESULTS_11-21-2026.md:11",
+    "old": "RPS 0.15200 vs 0.15309; 9/10 wins; 519 prompts / 3,610 votes.",
+    "verified": "Saved RPS 0.1519952674 vs 0.1530916722 agrees; label/prompt/draw bundle absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated note distinguishes saved-score agreement from raw-rating verification.",
+    "files": [
+      "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment24",
+    "fixed": false,
+    "open_reason": "Raw human ratings, prompt identities and sampled-vote schedules are absent; scores/bands/draw wins cannot be independently regenerated.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "1d52bf48d7dd8a5d53ec053c11c5ff95c4d941a7"
+    ]
+  },
+  {
+    "id": "g5-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/RESULTS_11-21-2026.md:9",
+    "old": "Qwen RPS 0.15080 vs 0.15089; Llama 0.16005 vs 0.15893.",
+    "verified": "Saved RPS Qwen 0.1507992728 vs 0.1508913446; Llama 0.1600549846 vs 0.1589310257; bundle absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated note preserves scores and documents unavailable label/split/draw inputs.",
+    "files": [
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment25",
+    "fixed": false,
+    "open_reason": "Missing labeled exp25 bundle prevents independent score, interval and draw-win recomputation.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "9a4341ac1b0bf498b7a607d48d534f771e9122e0"
+    ]
+  },
+  {
+    "id": "g5-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/METHOD_AND_RESULTS_11-23-2026.md:95",
+    "old": "GPT-6 Astra RPS 0.0660 vs 0.0843; difference +0.0183 and interval.",
+    "verified": "Saved RPS 0.066027006287224 vs 0.0843181067819244 agrees; required ID-to-ratings JSONL and new-five per-fold losses absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated limitation note and report pointer.",
+    "files": [
+      "experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment26",
+    "fixed": false,
+    "open_reason": "Missing ID-to-human-ratings mapping and new-five fold outputs prevent raw-label score/interval/fold-win replication.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "7f52baf85efacf4e7a6770d19eced749c402c98e"
+    ]
+  },
+  {
+    "id": "g5-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/PROTOCOL_11-21-2026.md:76",
+    "old": "CE probability floor 6e-6; sensitivity floor 1e-2 (also E25 guide).",
+    "verified": "Executing both scorer CE functions on a zero category gives floors 0.0000012 and 0.002; 6e-6 and 1e-2 are uniform-mixture weights.",
+    "verdict": "CONFIRMED",
+    "fix": "Old floor terminology preserved; dated notes define mixture weights and category floors; frozen protocols unchanged.",
+    "files": [
+      "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment24",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "1d52bf48d7dd8a5d53ec053c11c5ff95c4d941a7",
+      "9a4341ac1b0bf498b7a607d48d534f771e9122e0"
+    ]
+  },
+  {
+    "id": "g5-M5",
+    "severity": "MEDIUM",
+    "file_line": "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/PROTOCOL_11-21-2026.md:28",
+    "old": "Llama trainable parameters 3,428,357.",
+    "verified": "Provenance and sanity receipt: 2,641,925, difference 786,432; checkpoint already explains grouped-query dimensions.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated protocol-adjacent note retains both counts and records existing correction; tensor recount remains unavailable.",
+    "files": [
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment25",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "9a4341ac1b0bf498b7a607d48d534f771e9122e0"
+    ]
+  },
+  {
+    "id": "g5-M6",
+    "severity": "MEDIUM",
+    "file_line": "experiments/27_correlation_identification_preprint_23Nov2026/DEPOSIT_11-23-2026.md:15",
+    "old": "Public Stanford deposit and source ZIP SHA256 67814aa5\u2026 .",
+    "verified": "Local PDF SHA256 exactly 6263b743236557455adad26230edaea3ebcf21626f69725fbc50260edbddf148; ZIP absent; public web checks returned tool-access errors.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated note distinguishes local PDF integrity from unverified remote publication/ZIP claims.",
+    "files": [
+      "experiments/27_correlation_identification_preprint_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment27",
+    "fixed": false,
+    "open_reason": "Remote publication and source ZIP hash not verified; tool access errors do not prove unavailable deposit.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "4c39aaf0103340c7e6e2ba34eb99ca22dd178bf1"
+    ]
+  },
+  {
+    "id": "g5-L1",
+    "severity": "LOW",
+    "file_line": "experiments/README.md:35",
+    "old": "E24 and E25 status Active is stale.",
+    "verified": "220/220 E24, 200/200 Qwen E25 and 160/160 Llama E25 runs recorded complete; index defines Active until archive, so Active is also a valid lifecycle state.",
+    "verdict": "PARTLY",
+    "fix": "Root annotation preserves Active and clarifies completed/frozen run status, dated 11-26-2026.",
+    "files": [
+      "experiments/README.md"
+    ],
+    "topic": "repository_navigation",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ]
+  },
+  {
+    "id": "g5-L2",
+    "severity": "LOW",
+    "file_line": "README.md:27",
+    "old": "Every experiment folder has HOW_TO_READ_RESULTS.md.",
+    "verified": "Only 3/4 of E24\u201327 contain that named file; E27 lacks it.",
+    "verdict": "CONFIRMED",
+    "fix": "Root narrows universal navigation claim; frozen E27 receives an adjacent dated reading/correction note.",
+    "files": [
+      "README.md",
+      "experiments/27_correlation_identification_preprint_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "repository_navigation",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "4c39aaf0103340c7e6e2ba34eb99ca22dd178bf1",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ]
+  },
+  {
+    "id": "g5-L3",
+    "severity": "LOW",
+    "file_line": "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/CKPT_exp25_scale_and_llama.md:26",
+    "old": "Run verify_exp25.py, sync Drive Desktop, push main.",
+    "verified": "Same checkpoint/receipt records completion and Git completion commit 59e97d4 exists.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated next-step clarification marks those tasks historical/completed while retaining old list; email completion not asserted.",
+    "files": [
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/CKPT_exp25_scale_and_llama.md"
+    ],
+    "topic": "experiment25",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "9a4341ac1b0bf498b7a607d48d534f771e9122e0"
+    ]
+  },
+  {
+    "id": "g5-L4",
+    "severity": "LOW",
+    "file_line": "experiments/27_correlation_identification_preprint_23Nov2026/PAPER_11-23-2026.md:911",
+    "old": "Forecast / Pearson / TVD / Excess RPS / CE.",
+    "verified": "Exact toy: expected RPS 49/300 vs 107/600; CE 0.9153873296 vs 1.0647350947; TVD 0 vs 1/5; Pearson 1.",
+    "verdict": "CONFIRMED",
+    "fix": "Frozen table preserved; adjacent dated companion presents RPS, CE, TVD before Pearson.",
+    "files": [
+      "experiments/27_correlation_identification_preprint_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment27",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "4c39aaf0103340c7e6e2ba34eb99ca22dd178bf1"
+    ]
+  },
+  {
+    "id": "g6-H1",
+    "severity": "HIGH",
+    "file_line": "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md:11",
+    "old": "Registered H1 Confirmed using largest-budget 7/7.",
+    "verified": "K=3 across-budget RPS: CE-trained 26/27 point,22/27 crossed; RPS-trained 24/27 point,17/27 crossed. Largest-budget crossed wins 7/7 each. ChaosNLI/Llama B32 difference \u22120.0111592342 [\u22120.0438786205,+0.0215601521].",
+    "verdict": "CONFIRMED",
+    "fix": "Full registered H1 only partly supported; narrower largest-budget result remains supported. Old verdict table retained; dated correction added to E29 and E30; root updates STATUS.",
+    "files": [
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md",
+      "experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/results_11-25-2026.md",
+      "experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/build_results_md.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H1.txt"
+    ],
+    "topic": "experiment29",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g6-H1.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "f4fe4cf0e91d094ea1e81371ee2734f4ff82774a",
+      "adb51e55be18619f7a7f9a2182a6a0e2f35a7116",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ]
+  },
+  {
+    "id": "g6-H2",
+    "severity": "HIGH",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:9",
+    "old": "CE-LoRA errors fall as an ordinary saturating power law.",
+    "verified": "Independent RPS fit relative RMSE: ChaosNLI/Qwen .0903955029; HelpSteer2/Qwen .1232691074; ChaosNLI/Llama .1050925985; latter two exceed .10 cutoff.",
+    "verdict": "CONFIRMED",
+    "fix": "New qualified bottom line; old headline clearly marked historical; template synchronized.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md",
+      "docs/qa_11-25-2026/phase2/verify_g6-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H2.txt"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g6-H2.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-H3",
+    "severity": "HIGH",
+    "file_line": "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md:38",
+    "old": "Pearson plus calibration has lower mean than CE-fit on DICES from64 ratings.",
+    "verified": "DICES990 d1 B64 RPS pcal .2026600 vs CE .2013280 (+.0013320 worse); B128 .1973030 vs .1988736. Sustained mean crossing DICES35064, DICES990128.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated old/new correction at main claim and caveat; means distinguished from significance.",
+    "files": [
+      "docs/qa_11-25-2026/phase2/verify_g6-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H3.txt",
+      "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md"
+    ],
+    "topic": "experiment32",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g6-H3.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "d00bf1defbbbb616d3f230e47aff16dfe446d8a9"
+    ]
+  },
+  {
+    "id": "g6-H4",
+    "severity": "HIGH",
+    "file_line": "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/report/REPORT_11-23-2026.md:5",
+    "old": "At $5 a rating, 10\u201320 ratings is under $100.",
+    "verified": "20\u00d7$5=$100; cost range $50\u2013$100.",
+    "verdict": "CONFIRMED",
+    "fix": "Old headline retained beside corrected at most $100; dated companion records arithmetic.",
+    "files": [
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/report/REPORT_11-23-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g6-H4.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H4.txt"
+    ],
+    "topic": "experiment28",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g6-H4.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "6e580556a220c9a6cca2ea03b442990f512edee3"
+    ]
+  },
+  {
+    "id": "g6-H5",
+    "severity": "HIGH",
+    "file_line": "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/report/REPORT_11-23-2026.md:94",
+    "old": "Table6 RPS-v-Pearson: KonIQ12 (cross24,d3 48), Persona48(d3 96),Topical none; Llama-v-uniform none.",
+    "verified": "RPS thresholds KonIQ6 (cross6,d3 12), Persona6(d3 6),Topical6(d3 12); calibrated Llama-v-uniform64 conditional/crossed, B64 crossed lower+.00839553148176446.",
+    "verdict": "CONFIRMED",
+    "fix": "Preserved scored table marked historical; adjacent dated four-row corrections distinguish comparators.",
+    "files": [
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/report/REPORT_11-23-2026.md",
+      "docs/qa_11-25-2026/phase2/verify_g6-H5.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H5.txt"
+    ],
+    "topic": "experiment28",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g6-H5.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "6e580556a220c9a6cca2ea03b442990f512edee3"
+    ]
+  },
+  {
+    "id": "g6-M1",
+    "severity": "MEDIUM",
+    "file_line": "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/README.md:7",
+    "old": "25/25 break-even and19/325 Pearson wins; catalog counts from downloaded rows.",
+    "verified": "Stored thresholds yield25/25 pairs per depth and19 RPS wins; raw label table and original downloaded catalog rating rows absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated note qualifies empirical score/band/catalog verification; README/catalog pointers.",
+    "files": [
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment28",
+    "fixed": false,
+    "open_reason": "Original label and catalog source rows unavailable, preventing raw computation of scores/bands/population counts.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "6e580556a220c9a6cca2ea03b442990f512edee3"
+    ]
+  },
+  {
+    "id": "g6-M2",
+    "severity": "MEDIUM",
+    "file_line": "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md:3",
+    "old": "Prior overlap265/713,110/412,172/300; RPS .14902vs.16223.",
+    "verified": "Summaries agree, but exp29_bundle.json absent; prediction archives lack human ratings/split IDs/bootstrap groups.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated evidence limitation; no change to scores, overlap counts or frozen protocol.",
+    "files": [
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "topic": "experiment29",
+    "fixed": false,
+    "open_reason": "Missing raw ratings/IDs prevent independent scores,bands,LOVO,prior-overlap and parity-RPS reconstruction.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "f4fe4cf0e91d094ea1e81371ee2734f4ff82774a"
+    ]
+  },
+  {
+    "id": "g6-M3",
+    "severity": "MEDIUM",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:236",
+    "old": "17/25 unidentified floors, so floor interval reaches0.",
+    "verified": "17/25 unidentified under width rule;6/17 zero lower endpoint and11/17 positive; MNLI/Claude lower .130233 at CSV precision.",
+    "verdict": "CONFIRMED",
+    "fix": "Old wording retained beside width-versus-zero correction in report/template.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-M4",
+    "severity": "MEDIUM",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:244",
+    "old": "N stops at256 ratings (E26,E28).",
+    "verified": "E28 max B256 atd1;320 atd5, and320 observations fitted.",
+    "verdict": "CONFIRMED",
+    "fix": "Report/template old maximum qualified by depth with11-26-2026 date.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-M5",
+    "severity": "MEDIUM",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:242",
+    "old": "Human LOVO RPS unavailable until computed on labels.",
+    "verified": "E29 saved test LOVO RPS: ChaosNLI .1166763385;alphaNLI .0848476553;DICES .1811801193;HelpSteer2 .1456663720.",
+    "verdict": "CONFIRMED",
+    "fix": "Existing references cited beside old statement; missing raw-label recomputation still disclosed; references not asserted asymptotic floors.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-M6",
+    "severity": "MEDIUM",
+    "file_line": "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md:80",
+    "old": "With2\u20134 training ratings Pearson sometimes better (19/325).",
+    "verified": "18 significant RPS wins at10 ratings on2 items;1 at4 ratings on4 items;no2-rating condition.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated old/new corrections in opening,caveat,and closing prose.",
+    "files": [
+      "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md"
+    ],
+    "topic": "experiment32",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "d00bf1defbbbb616d3f230e47aff16dfe446d8a9"
+    ]
+  },
+  {
+    "id": "g6-M7",
+    "severity": "MEDIUM",
+    "file_line": "experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/HOW_TO_READ_RESULTS.md:6",
+    "old": "Finite-difference step about1e-9.",
+    "verified": "fd default h=1e-6; discrepancies around1e-9 are errors, not step.",
+    "verdict": "CONFIRMED",
+    "fix": "Old description retained beside actual1e-6 step; all seven CPU check routines pass.",
+    "files": [
+      "experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "topic": "experiment33",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "f7c9a32e87d2e14cc40cfe685af5d03fb218c4ba"
+    ]
+  },
+  {
+    "id": "g6-L1",
+    "severity": "LOW",
+    "file_line": "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/results/correlations.csv:1",
+    "old": "Standalone1,950-row table lists only Pearson/Spearman.",
+    "verified": "1,950 rows, proper scores omitted; exact-key join to scores_absolute complete.",
+    "verdict": "CONFIRMED",
+    "fix": "Original CSV preserved; new complete1,950-row RPS,CE,TVD,Spearman,Pearson companion linked.",
+    "files": [
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_METRIC_PANEL_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/render_g6_metric_companions.py"
+    ],
+    "topic": "experiment28",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "6e580556a220c9a6cca2ea03b442990f512edee3"
+    ]
+  },
+  {
+    "id": "g6-L2",
+    "severity": "LOW",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:199",
+    "old": "12-row Table5 only Pearson/Spearman.",
+    "verified": "12 panels; paired method rows joined to source scores produce24-row full metric panel.",
+    "verdict": "CONFIRMED",
+    "fix": "Historical scored table preserved; linked companion orders RPS,CE,TVD,Spearman,Pearson.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_METRIC_PANEL_11-26-2026.md",
+      "docs/qa_11-25-2026/phase2/render_g6_metric_companions.py"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-L3",
+    "severity": "LOW",
+    "file_line": "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md:24",
+    "old": "Figure1 caption leads with Pearson1.",
+    "verified": "Toy RPS107/600vs49/300;CE1.0647350947vs.9153873296;TVD .20vs0;Pearson1.",
+    "verdict": "CONFIRMED",
+    "fix": "New caption presents RPS,CE,TVD then Pearson; old caption explicitly preserved as historical.",
+    "files": [
+      "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md"
+    ],
+    "topic": "experiment32",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "d00bf1defbbbb616d3f230e47aff16dfe446d8a9"
+    ]
+  },
+  {
+    "id": "g6-L4",
+    "severity": "LOW",
+    "file_line": "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md:254",
+    "old": "E26 single-rating plots included as files.",
+    "verified": "0 rpa1 plots;15 rpa2;66 overall;single-rating fit CSV rows exist.",
+    "verdict": "CONFIRMED",
+    "fix": "Old prose corrected inline in report/template; no figure regeneration.",
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md"
+    ],
+    "topic": "experiment31",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "a3852368d5f273252631763284cc97cbd22692a5"
+    ]
+  },
+  {
+    "id": "g6-L5",
+    "severity": "LOW",
+    "file_line": "README.md:27",
+    "old": "Every folder has HOW_TO_READ_RESULTS.md.",
+    "verified": "2/6 scoped folders have guide: E29,E33;missing E28,E30,E31,E32.",
+    "verdict": "CONFIRMED",
+    "fix": "Root narrows universal navigation claim rather than changing frozen sources.",
+    "files": [
+      "README.md"
+    ],
+    "topic": "repository_navigation",
+    "fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+    "date": "11-26-2026",
+    "commits": [
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ]
+  },
+  {
+    "id": "g7-H1",
+    "severity": "HIGH",
+    "file_line": "STATUS_11-23-2026.md:13,28; experiments/README.md:39; paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study.tex:14",
+    "old": "Pearson+cal wins DICES from 64 ratings.",
+    "verified": "RPS at DICES-990/d=1/B=64: calibrated 0.202660 vs CE-fit 0.201328; difference +0.001332. Five-judge mean sustained thresholds: DICES-350 64, DICES-990 128.",
+    "verdict": "CONFIRMED",
+    "fix": "Keep old 64 claim beside dataset-specific 64/128 thresholds, point-estimate scope and recomputed scores.",
+    "topic": "shared-summaries",
+    "files": [
+      "STATUS_11-23-2026.md",
+      "experiments/README.md",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study.tex",
+      "docs/qa_11-25-2026/phase2/verify_g7-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g7-H1.txt"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7-H1.txt",
+    "commits": [
+      "1526df73e01e9e7038861aa9662cdd2f19506ccc",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-H2",
+    "severity": "HIGH",
+    "file_line": "experiments/weekly_update/79738882_11-17-2026_judges_ce_vs_corr_and_g_theory/judges_ce_vs_corr_and_g_theory_11-17-2026.md:17",
+    "old": "RPS 0.1431 vs 0.1848; CE 1.629 vs 3.480 nats for verbal mixtures.",
+    "verified": "Verbal RPS 0.143138732 vs 0.184809596; CE 1.629370885 vs 1.803907278; TVD 0.596293607 vs 0.642212872. CE 3.480077618 is scalar-vote CE-trained.",
+    "verdict": "CONFIRMED",
+    "fix": "Old 3.480 retained; corrected comparator 1.804, including repeated AAAI prose. Aggregate attribution confirmed; private ratings not rescored.",
+    "topic": "weekly-update",
+    "files": [
+      "experiments/weekly_update/79738882_11-17-2026_judges_ce_vs_corr_and_g_theory/judges_ce_vs_corr_and_g_theory_11-17-2026.md",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study.tex",
+      "docs/qa_11-25-2026/phase2/verify_g7-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g7-H2.txt"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7-H2.txt",
+    "commits": [
+      "3cb11b0bdb0706a032748c4cbed6ef684c0bc858",
+      "1526df73e01e9e7038861aa9662cdd2f19506ccc"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M1",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/F_index.tex:47; STATUS_11-23-2026.md:13",
+    "old": "Pearson-fit is better in 19 of 325 cells.",
+    "verified": "RPS point wins 25/325 (22+3); significant saved-bound wins 19/325 (18+1).",
+    "verdict": "CONFIRMED",
+    "fix": "Qualify 19 as simultaneous-bound wins; show distinct 25 point wins beside old wording.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md",
+      "STATUS_11-23-2026.md"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M2",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/9b-appendix-concordance-and-calibration.tex:36,43,47",
+    "old": "Best-of-9 restarts; 100 seeds.",
+    "verified": "540 records = 2 scenarios \u00d7 9 sizes \u00d7 30 seeds; five starts per correlation objective; one CE start.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated correction immediately beside preserved captions: five starts and 30 seeds; both PDFs rebuilt.",
+    "topic": "aaai-paper",
+    "files": [
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/9b-appendix-concordance-and-calibration.tex",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "1526df73e01e9e7038861aa9662cdd2f19506ccc"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M3",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/E_protocols.tex:35",
+    "old": "Combined experiments 18/20: 400 real splits.",
+    "verified": "E18 400; all three E20 out_real_lam*.json files record 250.",
+    "verdict": "CONFIRMED",
+    "fix": "Adjacent dated memo correction separates E18 400 and E20 250; deposit unchanged.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M4",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/E_protocols.tex:37",
+    "old": "Combined experiments 21/26: descending alpha 0.01.",
+    "verified": "E21 alpha 0.025; 312 recomputed fold-based lower bounds within 2.15e-11; E26 alpha 0.01.",
+    "verdict": "CONFIRMED",
+    "fix": "Separate per-judge levels in dated memo companion; locked protocols and deposited table unchanged.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M5",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/F_index.tex:48",
+    "old": "MSE matches CE at K=2 and trails it at K>=3.",
+    "verified": "RPS MSE-minus-CE K=2 +0.000343952, crossed 95% CI [-0.002092847,+0.002780752]; no equivalence margin. K>=3 five/six pass; Llama/Chaos +0.002493914 [-0.000657273,+0.005645100].",
+    "verdict": "CONFIRMED",
+    "fix": "Replace unqualified interpretation with unresolved binary difference and five-of-six crossed criterion; retain old wording in dated memo companion.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M6",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/04_controlled.tex:23\u201324",
+    "old": "E20 +0.034 [0.031,0.036],96%; -0.027 [-0.032,-0.021],24%.",
+    "verified": "Saved RPS differences +0.033500281 and -0.026825323 match rounding; out_synth.json absent.",
+    "verdict": "CONFIRMED",
+    "fix": "Add evidence caveat: per-seed scores, paired-seed t intervals and seed-win fractions not independently reproduced.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Synthetic per-seed out_synth.json is not committed; aggregate-only checks cannot recover independent uncertainty.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-M7",
+    "severity": "MEDIUM",
+    "file_line": "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/sections/05_frozen.tex:32\u201337,58\u201365; sections/06_lora.tex:30,43\u201347; sections/F_index.tex:31\u201332,38,53",
+    "old": "Empirical RPS differences +0.0132 to +0.0761 and human RPS reference 0.14567, with score/interval claims.",
+    "verified": "Saved score/contrast arithmetic agrees; prepared rating bundles and resampling inputs absent for E24/25/29 and labels for E26/28.",
+    "verdict": "CONFIRMED",
+    "fix": "Dated caveat distinguishes aggregate verification from raw-rating and bootstrap replication; no invented rescores.",
+    "topic": "memo",
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "fixed": false,
+    "documentation_fixed": true,
+    "open_reason": "Missing original rating, split and resampling inputs; existing aggregates cannot independently validate these scores/intervals.",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f"
+    ],
+    "date": "11-26-2026"
+  },
+  {
+    "id": "g7-L1",
+    "severity": "LOW",
+    "file_line": "README.md:27; paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md:34",
+    "old": "Every experiment folder has HOW_TO_READ_RESULTS.md.",
+    "verified": "11/30 reading guides missing at phase1; 11/31 at phase2 start; 8/31 after adding E18/E20/E22 guides. Universal availability claim is false.",
+    "verdict": "CONFIRMED",
+    "fix": "Preserve universal claim beside correction: filename availability varies; use experiment README and QA companions where absent.",
+    "topic": "shared-summaries",
+    "files": [
+      "README.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "fixed": true,
+    "documentation_fixed": true,
+    "open_reason": "",
+    "evidence": "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt",
+    "commits": [
+      "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f",
+      "e95a2c7f1968b099144a0b73d341b2c934150a13"
+    ],
+    "date": "11-26-2026"
+  }
+]

@@ -1,0 +1,738 @@
+[
+  {
+    "date": "11-26-2026",
+    "topic": "verification",
+    "sha": "c435ecb52457e708ce07fe64454f59e377d45bec",
+    "before": "3cb11b0bdb0706a032748c4cbed6ef684c0bc858",
+    "ids": [
+      "g1-H1",
+      "g1-L1",
+      "g1-L2",
+      "g1-L3",
+      "g1-L4",
+      "g1-L5",
+      "g1-L6",
+      "g1-L7",
+      "g1-L8",
+      "g1-M1",
+      "g1-M2",
+      "g1-M3",
+      "g1-M4",
+      "g2-H1",
+      "g2-H2",
+      "g2-H3",
+      "g2-L1",
+      "g2-L2",
+      "g2-L3",
+      "g2-M1",
+      "g2-M2",
+      "g2-M3",
+      "g2-M4",
+      "g2-M5",
+      "g3-L1",
+      "g3-L2",
+      "g3-L3",
+      "g3-L4",
+      "g3-L5",
+      "g3-M1",
+      "g3-M2",
+      "g3-M3",
+      "g3-M4",
+      "g3-M5",
+      "g3-M6",
+      "g4-H1",
+      "g4-H2",
+      "g4-H3",
+      "g4-H4",
+      "g4-H5",
+      "g4-L1",
+      "g4-L2",
+      "g4-L3",
+      "g4-L4",
+      "g4-L5",
+      "g4-L6",
+      "g4-M1",
+      "g4-M2",
+      "g4-M3",
+      "g4-M4",
+      "g4-M5",
+      "g4-M6",
+      "g5-L1",
+      "g5-L2",
+      "g5-L3",
+      "g5-L4",
+      "g5-M1",
+      "g5-M2",
+      "g5-M3",
+      "g5-M4",
+      "g5-M5",
+      "g5-M6",
+      "g6-H1",
+      "g6-H2",
+      "g6-H3",
+      "g6-H4",
+      "g6-H5",
+      "g6-L1",
+      "g6-L2",
+      "g6-L3",
+      "g6-L4",
+      "g6-L5",
+      "g6-M1",
+      "g6-M2",
+      "g6-M3",
+      "g6-M4",
+      "g6-M5",
+      "g6-M6",
+      "g6-M7",
+      "g7-H1",
+      "g7-H2",
+      "g7-L1",
+      "g7-M1",
+      "g7-M2",
+      "g7-M3",
+      "g7-M4",
+      "g7-M5",
+      "g7-M6",
+      "g7-M7"
+    ],
+    "files": [
+      "docs/qa_11-25-2026/phase2/all_high_verifiers_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/check_preservation_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/e09_verification_receipt_11-26-2026.json",
+      "docs/qa_11-25-2026/phase2/e09_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e10_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e18_conditional_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e19_exact_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e20_existing_check_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e20_pytest_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/e21_fixture_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/g3_g4_preservation_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/preservation_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/render_g6_metric_companions.py",
+      "docs/qa_11-25-2026/phase2/render_g6_metric_companions_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/run_g5_g6_checks_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/test_exp24_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp25_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp27_exact_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp27_identities_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp29_verifier_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp30_generated_table_parity_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp31_generated_table_parity_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_exp33_seven_checks_without_writes_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e01_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e02_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/test_g1_e04_recorded_checks_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_e18_float_replay_11-26-2026.py",
+      "docs/qa_11-25-2026/phase2/verify_e18_float_replay_11-26-2026.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g1-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_e01.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_e02.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_e04.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_e05.txt",
+      "docs/qa_11-25-2026/phase2/verify_g1_g2_remaining.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H2.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g2-H3.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2_e06.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2_e07.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2_e08.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2_e11.txt",
+      "docs/qa_11-25-2026/phase2/verify_g2_e15.txt",
+      "docs/qa_11-25-2026/phase2/verify_g3_g4_support.py",
+      "docs/qa_11-25-2026/phase2/verify_g3_g4_support.txt",
+      "docs/qa_11-25-2026/phase2/verify_g4-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g4-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H2.txt",
+      "docs/qa_11-25-2026/phase2/verify_g4-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H3.txt",
+      "docs/qa_11-25-2026/phase2/verify_g4-H4.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H4.txt",
+      "docs/qa_11-25-2026/phase2/verify_g4-H5.py",
+      "docs/qa_11-25-2026/phase2/verify_g4-H5.txt",
+      "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.py",
+      "docs/qa_11-25-2026/phase2/verify_g5_g6_remaining.txt",
+      "docs/qa_11-25-2026/phase2/verify_g6-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g6-H2.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H2.txt",
+      "docs/qa_11-25-2026/phase2/verify_g6-H3.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H3.txt",
+      "docs/qa_11-25-2026/phase2/verify_g6-H4.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H4.txt",
+      "docs/qa_11-25-2026/phase2/verify_g6-H5.py",
+      "docs/qa_11-25-2026/phase2/verify_g6-H5.txt",
+      "docs/qa_11-25-2026/phase2/verify_g7-H1.py",
+      "docs/qa_11-25-2026/phase2/verify_g7-H1.txt",
+      "docs/qa_11-25-2026/phase2/verify_g7_remaining.py",
+      "docs/qa_11-25-2026/phase2/verify_g7_remaining.txt"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-01",
+    "sha": "bf54d9c858334d9ab6b91d90a3da530c6ab5be83",
+    "before": "c435ecb52457e708ce07fe64454f59e377d45bec",
+    "ids": [
+      "g1-L1",
+      "g1-L4",
+      "g1-L5",
+      "g1-M1"
+    ],
+    "files": [
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/01_conditional_binomial_distribution_identification_start_08Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-02",
+    "sha": "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f",
+    "before": "bf54d9c858334d9ab6b91d90a3da530c6ab5be83",
+    "ids": [
+      "g1-L2",
+      "g1-L6",
+      "g1-M2",
+      "g1-M3"
+    ],
+    "files": [
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/README.md",
+      "experiments/02_exp06_ce_vs_pearson_matched_budget_start_09Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-04",
+    "sha": "4e943cca38b9041788d65d3dec2740223217706e",
+    "before": "2bc2c3f9fb2cd029e9c95dcee711ae119a11698f",
+    "ids": [
+      "g1-L3",
+      "g1-L7",
+      "g1-M4"
+    ],
+    "files": [
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/README.md",
+      "experiments/04_g_theory_reliability_vs_distribution_accuracy_start_13Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-05",
+    "sha": "74cba38fbe4647d33546c994e001465ebdae54d2",
+    "before": "4e943cca38b9041788d65d3dec2740223217706e",
+    "ids": [
+      "g1-H1",
+      "g1-L8"
+    ],
+    "files": [
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/05_cross_entropy_vs_correlation_information_gap_start_13Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-06",
+    "sha": "d8ca930ad8f75ad72c3ecf5bd9465a9829457b01",
+    "before": "74cba38fbe4647d33546c994e001465ebdae54d2",
+    "ids": [
+      "g2-L1",
+      "g2-M2"
+    ],
+    "files": [
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/06_toy_rank_and_mixed_correlation_objectives_vs_ce_start_13Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-07",
+    "sha": "e73d8ab2785b2cb6bd26f6f95ecd9ec6384296da",
+    "before": "d8ca930ad8f75ad72c3ecf5bd9465a9829457b01",
+    "ids": [
+      "g2-H3"
+    ],
+    "files": [
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/07_toy_optimizer_restarts_and_budget_for_nonconvex_objectives_start_13Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-08",
+    "sha": "e7b02280e5415e28176fbcbfc5f34d8c10b76618",
+    "before": "e73d8ab2785b2cb6bd26f6f95ecd9ec6384296da",
+    "ids": [
+      "g2-L2",
+      "g2-M1"
+    ],
+    "files": [
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/08_toy_target_complexity_and_tuned_regularization_vs_ratings_needed_start_14Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-09",
+    "sha": "1da6ca67273c4197179b7858884d4d126ca45871",
+    "before": "e7b02280e5415e28176fbcbfc5f34d8c10b76618",
+    "ids": [
+      "g3-L2",
+      "g3-M1",
+      "g3-M2"
+    ],
+    "files": [
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/RESULTS_open_weight_ce_vs_corr.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/qa/mega_qa_11-16-2026/qa3_codex_vals.md",
+      "experiments/09_open_weight_real_judges_native_prob_ce_vs_corr_start_16Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-10",
+    "sha": "87357fa3fa07b1bd6ef6d5ea950c3839f7fca645",
+    "before": "1da6ca67273c4197179b7858884d4d126ca45871",
+    "ids": [
+      "g3-L5",
+      "g3-M3"
+    ],
+    "files": [
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/RESULTS_frontier_ce_vs_corr.md",
+      "experiments/10_frontier_ai_judges_native_prob_and_prompt_search_ce_vs_corr_start_16Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-11",
+    "sha": "2a2e5ad3391eb27f3341a8151d3d61740ae2ef35",
+    "before": "87357fa3fa07b1bd6ef6d5ea950c3839f7fca645",
+    "ids": [
+      "g2-H1",
+      "g2-H2",
+      "g2-M3"
+    ],
+    "files": [
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/11_toy_mse_and_tuned_head_calibration_vs_ce_start_17Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-15",
+    "sha": "7185111aeec139d46675a1552e57e49685dbbf96",
+    "before": "2a2e5ad3391eb27f3341a8151d3d61740ae2ef35",
+    "ids": [
+      "g2-L3",
+      "g2-M4",
+      "g2-M5"
+    ],
+    "files": [
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/15_rater_severity_vs_item_signal_start_20Nov2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-16",
+    "sha": "1598852fcbf64434ad8ba029bcde8ef58c82ddfa",
+    "before": "7185111aeec139d46675a1552e57e49685dbbf96",
+    "ids": [
+      "g3-L1",
+      "g3-L3",
+      "g3-M4"
+    ],
+    "files": [
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/16_rps_selected_arm_and_probability_floor_on_scalar_pools_start_20Nov2026/results.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-17",
+    "sha": "244ac598bc64085c9ba08db02f6eb72effa4d3c3",
+    "before": "1598852fcbf64434ad8ba029bcde8ef58c82ddfa",
+    "ids": [
+      "g3-L4",
+      "g3-M5"
+    ],
+    "files": [
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results.md",
+      "experiments/17_flexible_scalar_calibrator_vs_1d_bottleneck_claim_start_20Nov2026/results/summary.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-18",
+    "sha": "21c615a5cd51b7f148eca0985753d09313c98fd4",
+    "before": "244ac598bc64085c9ba08db02f6eb72effa4d3c3",
+    "ids": [
+      "g4-H1",
+      "g4-H2",
+      "g4-H3",
+      "g4-L1",
+      "g4-L2",
+      "g4-L6",
+      "g4-M1",
+      "g4-M2"
+    ],
+    "files": [
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/historical_rating_budget/RESULTS_11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/conditional_shape_and_rating_budget/review/carbon-high-response-11-21-2026.md",
+      "experiments/18_when_does_ce_beat_correlation_notebook_page_math_and_sweep_start_21Nov2026/reconcile_single_judge_selection_21Nov2026/RECONCILE_11-21-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-19",
+    "sha": "a4cff096cb5e37d89d6d007286b983fd3e8178e1",
+    "before": "21c615a5cd51b7f148eca0985753d09313c98fd4",
+    "ids": [
+      "g3-M6"
+    ],
+    "files": [
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/README.md",
+      "experiments/19_small_data_moment_recovery_open_and_closed_judges_start_21Nov2026/human_judges/RESULTS_11-21-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-20",
+    "sha": "efc06674790af945ac33734087d206325eae53ea",
+    "before": "a4cff096cb5e37d89d6d007286b983fd3e8178e1",
+    "ids": [
+      "g4-H4",
+      "g4-L6",
+      "g4-M3"
+    ],
+    "files": [
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/README.md",
+      "experiments/20_trained_judge_ce_vs_pearson_limited_data_synthetic_and_59_judge_pools_start_21Nov2026/RESULTS_11-21-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-21",
+    "sha": "6116b2f84553e1485cd03211284cb4c2623b073b",
+    "before": "efc06674790af945ac33734087d206325eae53ea",
+    "ids": [
+      "g4-L3",
+      "g4-M4"
+    ],
+    "files": [
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/RESULTS_11-21-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/short_answers/results/proper_scores_first_11-26-2026.md",
+      "experiments/21_fresh_task_families_matched_open_closed_judges_start_21Nov2026/veribench/STATUS_11-21-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-22",
+    "sha": "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37",
+    "before": "6116b2f84553e1485cd03211284cb4c2623b073b",
+    "ids": [
+      "g4-H5",
+      "g4-L4",
+      "g4-L6",
+      "g4-M5"
+    ],
+    "files": [
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/22_non_circular_evaluation_protocol_and_public_rating_sets_start_21Nov2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-23",
+    "sha": "6f893308cf99c4cff227e3cab1835f5a461c5f1b",
+    "before": "ad0cfb3044d923e33a3ffee2fa4f6d6267fffe37",
+    "ids": [
+      "g4-L5",
+      "g4-M6"
+    ],
+    "files": [
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/RESULTS_11-21-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/gpt4_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/image_quality/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_consistency/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/jeffreys_relevance/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/results/summary_metrics/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/persona_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_lexical/proper_scores_first_11-26-2026.md",
+      "experiments/23_public_ordinal_judge_ratings_and_label_cost_start_21Nov2026/usr/results/topical_usr/proper_scores_first_11-26-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-24",
+    "sha": "1d52bf48d7dd8a5d53ec053c11c5ff95c4d941a7",
+    "before": "6f893308cf99c4cff227e3cab1835f5a461c5f1b",
+    "ids": [
+      "g5-M1",
+      "g5-M4"
+    ],
+    "files": [
+      "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/24_trained_open_weight_judge_helpsteer2_ce_vs_pearson_start_21Nov2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-25",
+    "sha": "9a4341ac1b0bf498b7a607d48d534f771e9122e0",
+    "before": "1d52bf48d7dd8a5d53ec053c11c5ff95c4d941a7",
+    "ids": [
+      "g5-L3",
+      "g5-M2",
+      "g5-M4",
+      "g5-M5"
+    ],
+    "files": [
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/CKPT_exp25_scale_and_llama.md",
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/HOW_TO_READ_RESULTS.md",
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/25_helpsteer2_lora_scale_and_second_family_ce_vs_pearson_start_21Nov2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-26",
+    "sha": "7f52baf85efacf4e7a6770d19eced749c402c98e",
+    "before": "9a4341ac1b0bf498b7a607d48d534f771e9122e0",
+    "ids": [
+      "g5-M3"
+    ],
+    "files": [
+      "experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/METHOD_AND_RESULTS_11-23-2026.md",
+      "experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/26_five_new_frontier_judges_on_fresh_homework_and_independent_recheck_start_23Nov2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-27",
+    "sha": "4c39aaf0103340c7e6e2ba34eb99ca22dd178bf1",
+    "before": "7f52baf85efacf4e7a6770d19eced749c402c98e",
+    "ids": [
+      "g5-L2",
+      "g5-L4",
+      "g5-M6"
+    ],
+    "files": [
+      "experiments/27_correlation_identification_preprint_23Nov2026/QA_CORRECTIONS_11-26-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-28",
+    "sha": "6e580556a220c9a6cca2ea03b442990f512edee3",
+    "before": "4c39aaf0103340c7e6e2ba34eb99ca22dd178bf1",
+    "ids": [
+      "g6-H4",
+      "g6-H5",
+      "g6-L1",
+      "g6-M1"
+    ],
+    "files": [
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/CATALOG_11-23-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/QA_METRIC_PANEL_11-26-2026.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/README.md",
+      "experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/report/REPORT_11-23-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-29",
+    "sha": "f4fe4cf0e91d094ea1e81371ee2734f4ff82774a",
+    "before": "6e580556a220c9a6cca2ea03b442990f512edee3",
+    "ids": [
+      "g6-H1",
+      "g6-M2"
+    ],
+    "files": [
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/README.md",
+      "experiments/29_four_objectives_lora_and_shape_control_chaosnli_dices_helpsteer2_start_23Nov2026/RESULTS_11-23-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-30",
+    "sha": "adb51e55be18619f7a7f9a2182a6a0e2f35a7116",
+    "before": "f4fe4cf0e91d094ea1e81371ee2734f4ff82774a",
+    "ids": [
+      "g6-H1"
+    ],
+    "files": [
+      "experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/build_results_md.py",
+      "experiments/30_ce_vs_pearson_summary_readable_figures_start_25Nov2026/results_11-25-2026.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-31",
+    "sha": "a3852368d5f273252631763284cc97cbd22692a5",
+    "before": "adb51e55be18619f7a7f9a2182a6a0e2f35a7116",
+    "ids": [
+      "g6-H2",
+      "g6-L2",
+      "g6-L4",
+      "g6-M3",
+      "g6-M4",
+      "g6-M5"
+    ],
+    "files": [
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_CORRECTIONS_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/QA_METRIC_PANEL_11-26-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_11-25-2026.md",
+      "experiments/31_scaling_laws_for_judges_ce_vs_pearson_start_25Nov2026/results_template.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-32",
+    "sha": "d00bf1defbbbb616d3f230e47aff16dfe446d8a9",
+    "before": "a3852368d5f273252631763284cc97cbd22692a5",
+    "ids": [
+      "g6-H3",
+      "g6-L3",
+      "g6-M6"
+    ],
+    "files": [
+      "experiments/32_ce_vs_corr_figures_report_start_25Nov2026/REPORT.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "experiment-33",
+    "sha": "f7c9a32e87d2e14cc40cfe685af5d03fb218c4ba",
+    "before": "d00bf1defbbbb616d3f230e47aff16dfe446d8a9",
+    "ids": [
+      "g6-M7"
+    ],
+    "files": [
+      "experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/HOW_TO_READ_RESULTS.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "aaai-paper",
+    "sha": "1526df73e01e9e7038861aa9662cdd2f19506ccc",
+    "before": "f7c9a32e87d2e14cc40cfe685af5d03fb218c4ba",
+    "ids": [
+      "g7-H1",
+      "g7-H2",
+      "g7-M2"
+    ],
+    "files": [
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.pdf",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_arxiv.pdf",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study.tex",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/9b-appendix-concordance-and-calibration.tex",
+      "paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "memo",
+    "sha": "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f",
+    "before": "1526df73e01e9e7038861aa9662cdd2f19506ccc",
+    "ids": [
+      "g7-L1",
+      "g7-M1",
+      "g7-M3",
+      "g7-M4",
+      "g7-M5",
+      "g7-M6",
+      "g7-M7"
+    ],
+    "files": [
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/QA_CORRECTIONS_11-26-2026.md",
+      "paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md"
+    ],
+    "push_verified": true
+  },
+  {
+    "date": "11-26-2026",
+    "topic": "shared-summaries",
+    "sha": "e95a2c7f1968b099144a0b73d341b2c934150a13",
+    "before": "5b0dd061e207e74b51e85e694f7fa4efe9c81a9f",
+    "ids": [
+      "g2-M1",
+      "g4-L6",
+      "g5-L1",
+      "g5-L2",
+      "g6-H1",
+      "g6-L5",
+      "g7-H1",
+      "g7-L1",
+      "g7-M1"
+    ],
+    "files": [
+      "README.md",
+      "STATUS_11-23-2026.md",
+      "experiments/README.md"
+    ],
+    "push_verified": true
+  }
+]

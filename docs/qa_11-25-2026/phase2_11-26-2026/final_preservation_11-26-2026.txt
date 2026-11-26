@@ -1,0 +1,6 @@
+Preservation and documentation check (11-26-2026)
+Baseline: 4ce401c4711cc5eb944c86ea0e5cac862ed02356
+Changed existing files: 67 original Markdown table blocks retained: 146
+Known credential-pattern scan files: 1665 candidate locations: []
+Problems: []
+No secret values are printed. Pattern scanning does not prove absence of every possible secret.
