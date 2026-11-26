@@ -8,6 +8,10 @@
 
 **Google Doc:** <https://docs.google.com/document/d/1AkNeSm86_bk1twd_w-TidjOHqx0gOv1lRI7WS2ADO_8/edit>
 
+## Derivation
+
+The notebook derivation is in [DERIVATION.md](DERIVATION.md): standardized squared error equals \(2(1-\operatorname{Corr}(X,Y))\), unstandardized mean squared error (MSE) adds the squared bias and the squared scale gap, and excess Brier risk is the squared distance between distributions. That note names the Lean theorems `standardized_mse_corr`, `mse_decomposition`, `pearson_affine_invariant`, `brier_decomposition`, and `binary_brier_eq_two_l2`.
+
 ## Question
 
 When the target is a conditional rating distribution `p*(y | x)`, which functionals identify it? This folder checks three facts that the training experiments use:
