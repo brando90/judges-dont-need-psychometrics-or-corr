@@ -12,7 +12,7 @@
 
 ## Derivation
 
-The notebook derivation is in [DERIVATION.md](DERIVATION.md): standardized squared error equals \(2(1-\operatorname{Corr}(X,Y))\), unstandardized mean squared error (MSE) adds the squared bias and the squared scale gap, and excess Brier risk is the squared distance between distributions. That note names the Lean theorems `standardized_mse_corr`, `mse_decomposition`, `pearson_affine_invariant`, `brier_decomposition`, and `binary_brier_eq_two_l2`. Its notation follows the PS on notebook page 1 (11-26-2026): a tilde marks the centered variable and Z the standardized variable.
+The notebook derivation is in [DERIVATION.md](DERIVATION.md): standardized squared error equals $2(1-\mathrm{Corr}(X,Y))$, unstandardized mean squared error (MSE) adds the squared bias and the squared scale gap, and excess Brier risk is the squared distance between distributions. That note names the Lean theorems `standardized_mse_corr`, `mse_decomposition`, `pearson_affine_invariant`, `brier_decomposition`, and `binary_brier_eq_two_l2`. Its notation follows the PS on notebook page 1 (11-26-2026): a tilde marks the centered variable and Z the standardized variable.
 
 ## Question
 

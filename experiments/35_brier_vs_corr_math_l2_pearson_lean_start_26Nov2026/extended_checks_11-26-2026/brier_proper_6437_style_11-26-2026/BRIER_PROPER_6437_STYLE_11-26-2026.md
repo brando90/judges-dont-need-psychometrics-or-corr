@@ -6,7 +6,7 @@
 
 **Where this sits.** The identity itself is already claim C1 of [`../DERIVATIONS.md`](../DERIVATIONS.md) and Lean theorem `brier_excess` in [`../lean/ProperScoring/Basic.lean`](../lean/ProperScoring/Basic.lean). RPS properness is C3 there (`rps_strictly_proper`), and the distribution-level reading is Section 4 of [`../../DERIVATION.md`](../../DERIVATION.md). This note adds four things: the proof written step for step in the style of the 6.437 notes; the affine family $A\cdot\mathrm{Brier}+B(x)$; the locality question; and negative controls showing that local costs other than log-loss are not proper.
 
-**Notation.** As in the parent notes, $x\in\{0,\dots,K-1\}$ is a rating ($K=6$ in this project, $L=K$ in the 6.437 notation), $y$ is the item being rated, $p=p_{x|y}(\cdot\mid y)$ is the true rating distribution of that item, and $q$ is the distribution a judge reports. $\lVert v\rVert^2=\sum_a v(a)^2$. All expectations are over $x\sim p$ with $y$ held fixed.
+**Notation.** As in the parent notes, $x\in\lbrace0,\dots,K-1\rbrace$ is a rating ($K=6$ in this project, $L=K$ in the 6.437 notation), $y$ is the item being rated, $p=p_{x|y}(\cdot\mid y)$ is the true rating distribution of that item, and $q$ is the distribution a judge reports. $\lVert v\rVert^2=\sum_a v(a)^2$. All expectations are over $x\sim p$ with $y$ held fixed.
 
 ## 1. Statement
 
@@ -15,17 +15,17 @@ $p_{x|y}(\cdot\mid y)=\arg\min_{q\ge 0,\ \sum_a q(a)=1}\ \mathbb{E}[C(x,q)\mid y
 It is *strictly* proper when this minimiser is unique.
 
 **Claim 1′.** The Brier cost
-$$C(x,q)=A\sum_{a}\bigl(q(a)-\mathbb{1}\{x=a\}\bigr)^2+B(x),\qquad A>0,\ B\ \text{arbitrary},$$
+$$C(x,q)=A\sum_{a}\bigl(q(a)-\mathbb{1}\lbrace x=a\rbrace\bigr)^2+B(x),\qquad A>0,\ B\ \text{arbitrary},$$
 is strictly proper.
 
 ## 2. Proof, in the style of (5) and (6)
 
-Two facts replace Gibbs' inequality. Because the expectation is taken with respect to $p_{x|y}$, $\mathbb{E}[\mathbb{1}\{x=a\}\mid y=y]=p(a)$. And an indicator squared is itself, $\mathbb{1}\{x=a\}^2=\mathbb{1}\{x=a\}$. Then
+Two facts replace Gibbs' inequality. Because the expectation is taken with respect to $p_{x|y}$, $\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace\mid y=y]=p(a)$. And an indicator squared is itself, $\mathbb{1}\lbrace x=a\rbrace^2=\mathbb{1}\lbrace x=a\rbrace$. Then
 
 $$
 \begin{aligned}
 \mathbb{E}[C(x,q)\mid y=y]
-&= A\sum_a \Bigl(q(a)^2-2q(a)\,\mathbb{E}[\mathbb{1}\{x=a\}\mid y]+\mathbb{E}[\mathbb{1}\{x=a\}^2\mid y]\Bigr)+\mathbb{E}[B(x)\mid y] && (5')\\
+&= A\sum_a \Bigl(q(a)^2-2q(a)\,\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace\mid y]+\mathbb{E}[\mathbb{1}\lbrace x=a\rbrace^2\mid y]\Bigr)+\mathbb{E}[B(x)\mid y] && (5')\\
 &= A\sum_a \bigl(q(a)^2-2q(a)p(a)+p(a)\bigr)+\mathbb{E}[B(x)\mid y] \\
 &= A\sum_a \bigl(q(a)-p(a)\bigr)^2 + A\Bigl(1-\sum_a p(a)^2\Bigr)+\mathbb{E}[B(x)\mid y] && (6')\\
 &\ge A\Bigl(1-\sum_a p(a)^2\Bigr)+\mathbb{E}[B(x)\mid y]. && (7')
@@ -40,9 +40,9 @@ $$\mathbb{E}[\mathrm{Brier}(x,q)\mid y]=\lVert q-p\rVert^2+\bigl(1-\lVert p\rVer
 
 The second term is the best attainable expected cost, the Brier analogue of the entropy. The excess of any report over that floor is exactly the squared Euclidean distance $\lVert q-p\rVert^2$. For log-loss, the excess over the entropy is $\mathrm{KL}(p\,\Vert\,q)$, and Gibbs' inequality is the statement that it is nonnegative.
 
-**The same proof as bias plus variance.** For any number $f$ and random variable $Z$, $\mathbb{E}(f-Z)^2=(f-\mathbb{E}Z)^2+\operatorname{Var}Z$. Apply it to each indicator $Z_a=\mathbb{1}\{x=a\}$ with $f=q(a)$. Then $\mathbb{E}Z_a=p(a)$ and $\operatorname{Var}Z_a=p(a)(1-p(a))$, and summing over $a$ gives (8′), since $\sum_a p(a)(1-p(a))=1-\lVert p\rVert^2$. The Brier score is squared error on each one-hot coordinate, and squared error is minimised by the mean, which for an indicator is a probability.
+**The same proof as bias plus variance.** For any number $f$ and random variable $Z$, $\mathbb{E}(f-Z)^2=(f-\mathbb{E}Z)^2+\mathrm{Var}\,Z$. Apply it to each indicator $Z_a=\mathbb{1}\lbrace x=a\rbrace$ with $f=q(a)$. Then $\mathbb{E}Z_a=p(a)$ and $\mathrm{Var}\,Z_a=p(a)(1-p(a))$, and summing over $a$ gives (8′), since $\sum_a p(a)(1-p(a))=1-\lVert p\rVert^2$. The Brier score is squared error on each one-hot coordinate, and squared error is minimised by the mean, which for an indicator is a probability.
 
-**Empirical version.** Replace $p$ by the frequency vector $f$ of $N$ observed ratings $x_1,\dots,x_N$ of the item. Since $f$ is a probability vector, (8′) with $p\to f$ reads $\tfrac1N\sum_i\mathrm{Brier}(x_i,q)=\lVert q-f\rVert^2+1-\lVert f\rVert^2$, so the empirical minimiser is $f$ itself. Its error is $\mathbb{E}\lVert f-p\rVert^2=\sum_a\operatorname{Var}f(a)=\sum_a p(a)(1-p(a))/N=(1-\lVert p\rVert^2)/N$, so the distance shrinks like $1/\sqrt N$.
+**Empirical version.** Replace $p$ by the frequency vector $f$ of $N$ observed ratings $x_1,\dots,x_N$ of the item. Since $f$ is a probability vector, (8′) with $p\to f$ reads $\tfrac1N\sum_i\mathrm{Brier}(x_i,q)=\lVert q-f\rVert^2+1-\lVert f\rVert^2$, so the empirical minimiser is $f$ itself. Its error is $\mathbb{E}\lVert f-p\rVert^2=\sum_a\mathrm{Var}\,f(a)=\sum_a p(a)(1-p(a))/N=(1-\lVert p\rVert^2)/N$, so the distance shrinks like $1/\sqrt N$.
 
 ## 3. Locality: proper, but local only for two outcomes
 
@@ -51,9 +51,9 @@ The second term is the best attainable expected cost, the Brier analogue of the 
 Expanding the square splits the Brier cost into a part about the outcome and a part about everything else:
 $$\mathrm{Brier}(x,q)=\bigl(1-q(x)\bigr)^2+\sum_{a\ne x}q(a)^2 .$$
 
-*Two outcomes ($L=2$).* The other coordinate is $1-q(x)$, so $\mathrm{Brier}(x,q)=2(1-q(x))^2$ and $\varphi(x,\nu)=2(1-\nu)^2$. The Brier score is local.
+*Two outcomes* ($L=2$). The other coordinate is $1-q(x)$, so $\mathrm{Brier}(x,q)=2(1-q(x))^2$ and $\varphi(x,\nu)=2(1-\nu)^2$. The Brier score is local.
 
-*Three or more outcomes ($L\ge3$).* The second term depends on how the remaining mass is spread, so the Brier score is not local. An exact counterexample with $L=3$, outcome $x$ = the first label, and $q(x)=\tfrac12$ in both reports:
+*Three or more outcomes* ($L\ge3$). The second term depends on how the remaining mass is spread, so the Brier score is not local. An exact counterexample with $L=3$, outcome $x$ = the first label, and $q(x)=\tfrac12$ in both reports:
 $$q=(\tfrac12,\tfrac12,0):\ \ \tfrac14+\tfrac14+0=\tfrac12,\qquad q'=(\tfrac12,\tfrac14,\tfrac14):\ \ \tfrac14+\tfrac1{16}+\tfrac1{16}=\tfrac38 .$$
 Same outcome, same $q(x)$, different costs, so no $\varphi$ exists.
 
@@ -64,10 +64,10 @@ Same outcome, same $q(x)$, different costs, so no $\varphi$ exists.
 ## 4. Corollary: the ranked probability score (RPS)
 
 Ratings are ordinal. With $F_q(k)=\sum_{a\le k}q(a)$, the ranked probability score (RPS) is
-$$\mathrm{RPS}(x,q)=\sum_{k=0}^{K-2}\bigl(F_q(k)-\mathbb{1}\{x\le k\}\bigr)^2 ,$$
-and the repository's normalised RPS divides this by $K-1$. Each term is a binary Brier score (up to the factor 2 of Section 3) on the nested event $\{x\le k\}$, so RPS is a sum of $K-1$ binary Brier scores. Apply the bias plus variance step to $Z_k=\mathbb{1}\{x\le k\}$, whose mean is $F_p(k)$:
+$$\mathrm{RPS}(x,q)=\sum_{k=0}^{K-2}\bigl(F_q(k)-\mathbb{1}\lbrace x\le k\rbrace\bigr)^2 ,$$
+and the repository's normalised RPS divides this by $K-1$. Each term is a binary Brier score (up to the factor 2 of Section 3) on the nested event $\lbrace x\le k\rbrace$, so RPS is a sum of $K-1$ binary Brier scores. Apply the bias plus variance step to $Z_k=\mathbb{1}\lbrace x\le k\rbrace$, whose mean is $F_p(k)$:
 $$\mathbb{E}[\mathrm{RPS}(x,q)\mid y]=\sum_{k=0}^{K-2}\bigl(F_q(k)-F_p(k)\bigr)^2+\sum_{k=0}^{K-2}F_p(k)\bigl(1-F_p(k)\bigr). \tag{9'}$$
-The second sum does not depend on $q$. The first vanishes only if $F_q(k)=F_p(k)$ for every $k$, and the map $q\mapsto(F_q(0),\dots,F_q(K-2))$ is injective ($q(0)=F(0)$, $q(k)=F(k)-F(k-1)$, $q(K-1)=1-F(K-2)$). So RPS is strictly proper. It is not local: with $K=3$, outcome $x$ the first label, $(\tfrac12,\tfrac12,0)$ scores $\tfrac14$ and $(\tfrac12,0,\tfrac12)$ scores $\tfrac12$. Dividing by $K-1$ changes neither conclusion.
+The second sum does not depend on $q$. The first vanishes only if $F_q(k)=F_p(k)$ for every $k$, and the map $q\mapsto(F_q(0),\dots,F_q(K-2))$ is injective: $q(0)=F(0)$, $q(k)=F(k)-F(k-1)$ and $q(K-1)=1-F(K-2)$. So RPS is strictly proper. It is not local: with $K=3$, outcome $x$ the first label, $(\tfrac12,\tfrac12,0)$ scores $\tfrac14$ and $(\tfrac12,0,\tfrac12)$ scores $\tfrac12$. Dividing by $K-1$ changes neither conclusion.
 
 ## 5. Intuition
 
@@ -93,7 +93,7 @@ All numbers are printed by [`check_brier_proper_6437_style.py`](check_brier_prop
 
 ## 6. Checks and formal proofs
 
-The script runs eight checks, all PASS: (i) identity (8′) on 10,000 random pairs for each $K\in\{2,3,6,10\}$, maximum gap $8.9\times10^{-16}$; (ii) the $A,B$ family; (iii) for $K=3$, 6 and 10, each of 20,000 random perturbations of $p$ raises the expected Brier score, and a grid of step 1/200 on the $K=3$ simplex has its minimum exactly at $p=(0.2,0.5,0.3)$; (iv) the empirical minimiser is the frequency vector, and $\mathbb{E}\lVert f-p\rVert^2$ over $(1-\lVert p\rVert^2)/N$ is between 1.004 and 1.012 for $N=10$ to $10^6$; (v) identity (9′) at $K=6$; (vi) locality at $K=2$ and the exact counterexamples at $K=3$; (vii) the two negative controls; and the worked example.
+The script runs eight checks, all PASS: (i) identity (8′) on 10,000 random pairs for each $K\in\lbrace2,3,6,10\rbrace$, maximum gap $8.9\times10^{-16}$; (ii) the $A,B$ family; (iii) for $K=3$, 6 and 10, each of 20,000 random perturbations of $p$ raises the expected Brier score, and a grid of step 1/200 on the $K=3$ simplex has its minimum exactly at $p=(0.2,0.5,0.3)$; (iv) the empirical minimiser is the frequency vector, and $\mathbb{E}\lVert f-p\rVert^2$ over $(1-\lVert p\rVert^2)/N$ is between 1.004 and 1.012 for $N=10$ to $10^6$; (v) identity (9′) at $K=6$; (vi) locality at $K=2$ and the exact counterexamples at $K=3$; (vii) the two negative controls; and the worked example.
 
 [`Brier6437.lean`](Brier6437.lean) proves in Lean 4.36.0 with Mathlib v4.36.0, with no `sorry`: identity (8′) (`expBrier_identity`), strict propriety (`brier_proper`), the $A,B$ family (`affine_brier_proper`), $\mathrm{Brier}=2(1-q(x))^2$ and locality at $L=2$ (`brier_two_eq`, `brier_two_local`), and the $L=3$ counterexample together with the statement that no $\varphi$ exists (`brier_three_not_local`). The receipt is [`lean_check.txt`](lean_check.txt).
 

@@ -8,9 +8,9 @@ Part of experiment 35's extended checks ([`../README.md`](../README.md)). The pa
 
 ## Notation (the PS on page one)
 
-Following the PS on page one: $\tilde X=X-\mu_X$ is the **centered** variable and $Z_X=\tilde X/\sigma_X$ is the **standardized** variable, with $\sigma_X>0$; $\rho=\operatorname{corr}(X,Y)$. The earlier pages used the tilde for the standardized variable; `../../DERIVATION.md` was changed to the new convention and this note uses it throughout.
+Following the PS on page one: $\tilde X=X-\mu_X$ is the **centered** variable and $Z_X=\tilde X/\sigma_X$ is the **standardized** variable, with $\sigma_X>0$; $\rho=\mathrm{corr}(X,Y)$. The earlier pages used the tilde for the standardized variable; `../../DERIVATION.md` was changed to the new convention and this note uses it throughout.
 
-$p_X$ and $p_Y$ are the laws of $X$ and $Y$. **Distribution matching** means $p_X=p_Y$. A **coupling** is a joint law of $(X,Y)$ with those two marginals. A **fixed pairing** means the coupling is set by the data, as in a judge-training set where each judge output is paired with the human rating of the same item. Ratings live on $\{0,\dots,K-1\}$; $K=6$ is the 0 to 5 scale.
+$p_X$ and $p_Y$ are the laws of $X$ and $Y$. **Distribution matching** means $p_X=p_Y$. A **coupling** is a joint law of $(X,Y)$ with those two marginals. A **fixed pairing** means the coupling is set by the data, as in a judge-training set where each judge output is paired with the human rating of the same item. Ratings live on $\lbrace0,\dots,K-1\rbrace$; $K=6$ is the 0 to 5 scale.
 
 ## What page three asks
 
@@ -20,27 +20,27 @@ Show that optimizing a difference of random variables does not yield the "optima
 
 **R1 (page one's identity, two terms longer).** For $X,Y$ with finite positive variances,
 
-$$E[(X-Y)^2]=(\mu_X-\mu_Y)^2+E[(\tilde X-\tilde Y)^2],\qquad E[(\tilde X-\tilde Y)^2]=\sigma_X^2+\sigma_Y^2-2\operatorname{cov}(X,Y)=(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y(1-\rho),$$
+$$E[(X-Y)^2]=(\mu_X-\mu_Y)^2+E[(\tilde X-\tilde Y)^2],\qquad E[(\tilde X-\tilde Y)^2]=\sigma_X^2+\sigma_Y^2-2\mathrm{cov}(X,Y)=(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y(1-\rho),$$
 
 and $E[(Z_X-Z_Y)^2]=2(1-\rho)$. Hence
 
 $$E[(X-Y)^2]=\underbrace{(\mu_X-\mu_Y)^2}_{\text{location gap}}+\underbrace{(\sigma_X-\sigma_Y)^2}_{\text{scale gap}}+\underbrace{2\sigma_X\sigma_Y(1-\rho)}_{\text{coupling term}}.$$
 
-*Proof.* Write $X-Y=(\tilde X-\tilde Y)+(\mu_X-\mu_Y)$; the cross term vanishes because $E[\tilde X-\tilde Y]=0$. Expand $E[(\tilde X-\tilde Y)^2]=\sigma_X^2+\sigma_Y^2-2\operatorname{cov}(X,Y)$ and use $\operatorname{cov}=\rho\sigma_X\sigma_Y$. Dividing $\tilde X-\tilde Y$ by the scales gives the standardized form as on page one. $\square$
+*Proof.* Write $X-Y=(\tilde X-\tilde Y)+(\mu_X-\mu_Y)$; the cross term vanishes because $E[\tilde X-\tilde Y]=0$. Expand $E[(\tilde X-\tilde Y)^2]=\sigma_X^2+\sigma_Y^2-2\mathrm{cov}(X,Y)$ and use $\mathrm{cov}=\rho\sigma_X\sigma_Y$. Dividing $\tilde X-\tilde Y$ by the scales gives the standardized form as on page one. $\square$
 
 So the squared difference depends on the pair through five numbers: two means, two standard deviations and one correlation. No moment of order three or higher of either marginal appears.
 
-**R2 (mean difference; counting).** $E[X-Y]=0$ if and only if $\mu_X=\mu_Y$, a single equation. The pmfs on $\{0,\dots,K-1\}$ with a given mean $m$ are the solutions of $\sum_r q(r)=1$ and $\sum_r r\,q(r)=m$ with $q\ge 0$. The two equations are linearly independent for $K\ge2$, so the solution set has dimension $K-2$, and for $0<m<K-1$ it contains strictly positive pmfs, so it is a $(K-2)$-dimensional polytope: four directions for $K=6$, none for $K=2$. More generally, matching normalization and the first $j$ moments leaves $K-1-j$ free directions (the rows $(r^k)_{r=0,\dots,K-1}$ are independent because the nodes are distinct); for $K=6$ that is $4,3,2,1,0$ for $j=1,\dots,5$. Matching a mean and a variance together still leaves three. An example with the same mean $5/2$: $p=(\tfrac12,0,0,0,0,\tfrac12)$ and $q=(0,0,\tfrac12,\tfrac12,0,0)$ have variances $25/4$ and $1/4$, total variation distance $1$ and Brier distance $\sum_r(p(r)-q(r))^2=1$.
+**R2 (mean difference; counting).** $E[X-Y]=0$ if and only if $\mu_X=\mu_Y$, a single equation. The pmfs on $\lbrace0,\dots,K-1\rbrace$ with a given mean $m$ are the solutions of $\sum_r q(r)=1$ and $\sum_r r\,q(r)=m$ with $q\ge 0$. The two equations are linearly independent for $K\ge2$, so the solution set has dimension $K-2$, and for $0<m<K-1$ it contains strictly positive pmfs, so it is a $(K-2)$-dimensional polytope: four directions for $K=6$, none for $K=2$. More generally, matching normalization and the first $j$ moments leaves $K-1-j$ free directions (the rows $(r^k)_{r=0,\dots,K-1}$ are independent because the nodes are distinct); for $K=6$ that is $4,3,2,1,0$ for $j=1,\dots,5$. Matching a mean and a variance together still leaves three. An example with the same mean $5/2$: $p=(\tfrac12,0,0,0,0,\tfrac12)$ and $q=(0,0,\tfrac12,\tfrac12,0,0)$ have variances $25/4$ and $1/4$, total variation distance $1$ and Brier distance $\sum_r(p(r)-q(r))^2=1$.
 
-**R3 (standardized difference = correlation).** $E[(Z_X-Z_Y)^2]=2(1-\rho)=0$ if and only if $\rho=1$ if and only if $Y=\mu_Y+(\sigma_Y/\sigma_X)(X-\mu_X)$ almost surely. So $p_Y$ is the law of a positive affine image of $X$. That equals $p_X$ only if the scale ratio is $1$ and the means agree, since a different scale changes the variance and a different location changes the mean. Example: $X\sim(\tfrac14,\tfrac12,\tfrac14,0,0)$ on $\{0,\dots,4\}$ and $Y=2X\sim(\tfrac14,0,\tfrac12,0,\tfrac14)$: $\rho=1$, $Z_X=Z_Y$ exactly, yet the Brier distance between the laws is $3/8$ and the total variation distance is $1/2$.
+**R3 (standardized difference = correlation).** $E[(Z_X-Z_Y)^2]=2(1-\rho)=0$ if and only if $\rho=1$ if and only if $Y=\mu_Y+(\sigma_Y/\sigma_X)(X-\mu_X)$ almost surely. So $p_Y$ is the law of a positive affine image of $X$. That equals $p_X$ only if the scale ratio is $1$ and the means agree, since a different scale changes the variance and a different location changes the mean. Example: $X\sim(\tfrac14,\tfrac12,\tfrac14,0,0)$ on $\lbrace0,\dots,4\rbrace$ and $Y=2X\sim(\tfrac14,0,\tfrac12,0,\tfrac14)$: $\rho=1$, $Z_X=Z_Y$ exactly, yet the Brier distance between the laws is $3/8$ and the total variation distance is $1/2$.
 
 **R4 (fixed pairing identifies only the conditional mean).** Let $Z$ be the item, $X$ the human rating (random given $Z$) and $f(Z)$ a judge's single number. Then
 
-$$E[(X-f(Z))^2]=E[\operatorname{Var}(X\mid Z)]+E\big[(E[X\mid Z]-f(Z))^2\big].$$
+$$E[(X-f(Z))^2]=E[\mathrm{Var}(X\mid Z)]+E\big[(E[X\mid Z]-f(Z))^2\big].$$
 
 *Proof.* Add and subtract $E[X\mid Z]$; the cross term has conditional expectation zero given $Z$ (tower property). $\square$
 
-Consequences: the minimizer is $f^\star(Z)=E[X\mid Z]$; the minimum is $E[\operatorname{Var}(X\mid Z)]$, which is positive unless the human rating is deterministic given the item, so the squared difference cannot reach $0$ here; and any two rating laws with the same conditional mean give the same minimizer. For the pair in R2 the best single number is $5/2$ for both laws, with irreducible squared error $25/4$ for $p$ and $1/4$ for $q$: the judge never learns which law it faces.
+Consequences: the minimizer is $f^\star(Z)=E[X\mid Z]$; the minimum is $E[\mathrm{Var}(X\mid Z)]$, which is positive unless the human rating is deterministic given the item, so the squared difference cannot reach $0$ here; and any two rating laws with the same conditional mean give the same minimizer. For the pair in R2 the best single number is $5/2$ for both laws, with irreducible squared error $25/4$ for $p$ and $1/4$ for $q$: the judge never learns which law it faces.
 
 **R5 (a free coupling does see the law).** Over all couplings of two marginals with finite variances,
 
@@ -50,7 +50,7 @@ where $\rho_{\max}$ is the largest correlation any coupling attains (the comonot
 
 *Proof.* R1 with $\rho$ replaced by the coupling's correlation: minimizing the squared difference maximizes $\rho$. The minimum is zero only if the means agree, the standard deviations agree and $\rho_{\max}=1$. A correlation of one means $Y=a+bX$ almost surely with $b>0$; equal means and standard deviations force $b=1$ and $a=0$, so $p_Y=p_X$. The converse takes $Y=X$. $\square$
 
-So the claim "a squared difference can never do distribution matching" needs the qualifier *when the pairing is fixed by the data*. If the coupling is itself a decision variable (optimal transport), the minimum sees location, scale and shape. A judge trained on paired data does not choose the coupling. Even the minimum over couplings can be driven purely by shape: the laws $(\tfrac14,0,\tfrac12,0,\tfrac14)$ and $(\tfrac18,\tfrac38,\tfrac18,\tfrac18,\tfrac14)$ on $\{0,\dots,4\}$ share mean $2$ and variance $2$ and still have minimum squared difference $1/2$.
+So the claim "a squared difference can never do distribution matching" needs the qualifier *when the pairing is fixed by the data*. If the coupling is itself a decision variable (optimal transport), the minimum sees location, scale and shape. A judge trained on paired data does not choose the coupling. Even the minimum over couplings can be driven purely by shape: the laws $(\tfrac14,0,\tfrac12,0,\tfrac14)$ and $(\tfrac18,\tfrac38,\tfrac18,\tfrac18,\tfrac14)$ on $\lbrace0,\dots,4\rbrace$ share mean $2$ and variance $2$ and still have minimum squared difference $1/2$.
 
 **R6 (independent draws reward collapse).** If a stochastic judge draws $Y\sim q$ independently of the human rating $X\sim p$, then
 
@@ -82,7 +82,7 @@ Picture the human ratings for one item as a coin that lands on zero or on five. 
 ## Checks, figures and Lean
 
 - [`check_squared_difference_vs_distribution.py`](check_squared_difference_vs_distribution.py): ten deterministic checks (exact fractions; one linear program), output in [`results/check_squared_difference_vs_distribution.out`](results/check_squared_difference_vs_distribution.out): (1) the moment expansion R1; (2) zero squared difference forces $X=Y$; (3) the equal-mean pair; (4) free directions after matching moments; (5) correlation one with different laws; (6) the minimum over couplings against a linear program; (7) the fixed-pairing decomposition R4; (8) independent draws R6; (9) excess Brier equals the squared distance; (10) raw, centered and standardized identities.
-- [`MeanMatching.lean`](MeanMatching.lean): Lean 4 and Mathlib proofs of the concrete facts (equal means, different laws, Brier distance, independent-draw scores, $\operatorname{cov}^2=\operatorname{var}\operatorname{var}$ for $Y=2X$).
+- [`MeanMatching.lean`](MeanMatching.lean): Lean 4 and Mathlib proofs of the concrete facts (equal means, different laws, Brier distance, independent-draw scores, $\mathrm{cov}^2=\mathrm{var}\,\mathrm{var}$ for $Y=2X$).
 - Figures: [`figures/fig1_equal_mean_different_laws.png`](figures/fig1_equal_mean_different_laws.png) (the six-rating pair and the $K=3$ simplex with the mean-1 line coloured by Brier distance) and [`figures/fig2_standardized_and_independent_draws.png`](figures/fig2_standardized_and_independent_draws.png) (the $Y=2X$ pair; expected squared difference between independent draws for seven reports).
 - [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md): data, metrics, differences, uncertainty and how reports were chosen.
 
