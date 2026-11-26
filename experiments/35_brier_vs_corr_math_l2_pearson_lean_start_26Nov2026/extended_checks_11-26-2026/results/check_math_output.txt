@@ -1,0 +1,46 @@
+PASS N1 Brier decomposition (2000 random K=6 pairs): max abs err 8.88e-16
+PASS N2 CE = H + KL (2000 random pairs): max abs err 1.33e-15
+PASS N3 RPS decomposition; excess>0 for q!=p (2000 pairs): max abs err 2.78e-16; smallest excess 3.684e-04
+PASS N4 no random forecast beats the truth (100000 draws): smallest excess Brier 1.46e-03, CE 6.44e-03, RPS 1.66e-04
+PASS N5 empirical Brier = ||q - phat||^2 + const (50 samples x 100 q): max abs err 7.77e-16
+PASS N6 mean TVD(phat_N, p) over 200 reps decreases in N: N=10: 0.2568; N=30: 0.1525; N=100: 0.0853; N=300: 0.0468; N=1000: 0.0263; N=3000: 0.0153; N=10000: 0.0082; N=100000: 0.0027
+PASS N7 misspecified Binomial(2,theta) class, truth (0.5,0.1,0.4): best theta differs by score: theta_CE=0.450000 (exact 0.45), theta_Brier=0.243454, theta_RPS=0.418473
+PASS N8 K=2 propriety curves: grid argmin of expected Brier and CE is the truth 0.3: argmin Brier 0.3000, argmin CE 0.3000
+PASS N9 E(f-Y)^2 = (f-mu)^2 + Var Y (2000 random finite laws): max abs err 2.84e-14
+PASS N10 L2 ERM recovers the mean without Gaussian noise: skewed exponential(1)-1: |fhat-mu| at N=1e2,1e4,1e6 = 0.0619,0.0144,0.0001 | bimodal 0.5N(-2,0.25)+0.5N(2,0.25): |fhat-mu| at N=1e2,1e4,1e6 = 0.1759,0.0100,0.0008 | heavy-tailed Student t(3): |fhat-mu| at N=1e2,1e4,1e6 = 0.3353,0.0253,0.0011
+PASS N11 unimodal N(0,1) and the true bimodal law get identical L2 score; log score separates them: L2 both 4.2519 (exact 4.25); log score truth 1.4205 vs N(0,1) 3.0449 nats
+PASS N12 L2 on one-hot vector equals Brier (1000 draws): max abs err 4.44e-16
+PASS N13 6-point equal-mean example: same L2 risk, different Brier/RPS/CE (exact): means 5/2,5/2; L2 risk 5/4 both; Brier 73/100 vs 109/100; RPS 3/25 vs 24/125; CE 1.4950 vs 2.6625 nats
+PASS N14 MSE = bias^2 + scale^2 + 2 sx sy (1-rho), and 2(1-rho) when standardized (2000 samples): max rel err 2.83e-15, 1.35e-15
+PASS N15 corr(aX+b, Y) = corr(X, Y) for a>0 (1000 draws): max abs err 4.00e-15
+PASS N16 max_f corr(f(X),Y) = correlation ratio eta, attained by 3*E[Y|X]-7 (200 laws x 200 f): attainment err 1.57e-15; smallest eta - corr(f) 1.13e-04
+PASS N17 oracle affine recalibration: min MSE = Var(Y)(1-rho^2) (1000 samples): max abs err 7.99e-15
+PASS N18 same change to item 1 (forecast 0.2->0.9, rating 0) shifts corr by context-dependent amounts: delta corr in context A -0.6513, in context B -0.6600
+PASS N19 calibrated vs squashed judge 0.5+0.1(t-0.5): both corr 1, Brier and CE differ (exact): corr^2 1,1; mean expected Brier 17/50=0.3400 vs 587/1250=0.4696; CE 0.5130 vs 0.6627 nats
+PASS N20 judge C corr 1 > judge D corr <1, yet C has worse Brier (exact): corr C=1, corr D^2=81/85 (corr 0.976187); expected Brier C 481/1000=0.4810 > D 81/200=0.4050
+PASS N21 6-point ordinal: judge C (corr 1 of means) has worse mean expected RPS than judge D (corr<1): true means ['1', '4', '5/2']; C means ['47/20', '53/20', '5/2']; D means ['1', '4', '13/5']; corr D=0.999260; RPS truth 193/1500=0.12867, C 6823/37500=0.18195, D 97/750=0.12933
+PASS N25 Pearson gradient in mean space is orthogonal to level (1) and scale (m - mean m) (1000 draws): max |<grad,1>|, |<grad,m-mbar>| = 1.62e-15
+  INFO Q4 well-specified CE-trained test mean TVD median[min,max] over 6 runs: N=10:0.431[0.393,0.469], N=30:0.230[0.164,0.298], N=100:0.094[0.074,0.115], N=300:0.050[0.047,0.052], N=1000:0.039[0.028,0.051], N=3000:0.018[0.014,0.021], N=10000:0.011[0.011,0.011], N=100000:0.004[0.003,0.004]
+  INFO Q4 well-specified CE-trained test RMSE of mean rating vs true mean (median): N=10:0.588, N=30:0.226, N=100:0.106, N=300:0.075, N=1000:0.046, N=3000:0.027, N=10000:0.013, N=100000:0.006
+  INFO Q4 well-specified Brier-trained test mean TVD median[min,max] over 6 runs: N=10:0.547[0.496,0.627], N=30:0.406[0.318,0.527], N=100:0.169[0.158,0.180], N=300:0.073[0.066,0.080], N=1000:0.036[0.023,0.050], N=3000:0.020[0.019,0.022], N=10000:0.011[0.011,0.011], N=100000:0.004[0.003,0.006]
+  INFO Q4 well-specified Brier-trained test RMSE of mean rating vs true mean (median): N=10:0.643, N=30:0.492, N=100:0.274, N=300:0.096, N=1000:0.041, N=3000:0.031, N=10000:0.013, N=100000:0.007
+  INFO Q4 well-specified MSE-trained (mean only) test mean TVD median[min,max] over 6 runs: N=10:0.593[0.578,0.675], N=30:0.516[0.372,0.549], N=100:0.495[0.346,0.528], N=300:0.540[0.394,0.584], N=1000:0.423[0.359,0.564], N=3000:0.444[0.253,0.473], N=10000:0.377[0.307,0.412], N=100000:0.396[0.383,0.442]
+  INFO Q4 well-specified MSE-trained (mean only) test RMSE of mean rating vs true mean (median): N=10:0.832, N=30:0.343, N=100:0.270, N=300:0.163, N=1000:0.045, N=3000:0.040, N=10000:0.014, N=100000:0.006
+  INFO Q4 well-specified Pearson-trained test mean TVD median[min,max] over 6 runs: N=10:0.611[0.525,0.773], N=30:0.680[0.534,0.773], N=100:0.688[0.658,0.750], N=300:0.660[0.530,0.818], N=1000:0.470[0.419,0.721], N=3000:0.491[0.423,0.593], N=10000:0.491[0.425,0.537], N=100000:0.478[0.420,0.524]
+  INFO Q4 well-specified Pearson-trained test RMSE of mean rating vs true mean (median): N=10:1.192, N=30:1.434, N=100:1.540, N=300:1.270, N=1000:0.994, N=3000:1.051, N=10000:1.094, N=100000:1.030
+  INFO Q4 well-specified Pearson-trained + held-out affine mean recal. test mean TVD median[min,max] over 6 runs: N=10:0.622[0.500,0.655], N=30:0.614[0.570,0.759], N=100:0.656[0.387,0.725], N=300:0.428[0.394,0.562], N=1000:0.396[0.272,0.540], N=3000:0.351[0.298,0.621], N=10000:0.342[0.312,0.395], N=100000:0.342[0.306,0.383]
+  INFO Q4 well-specified Pearson-trained + held-out affine mean recal. test RMSE of mean rating vs true mean (median): N=10:1.234, N=30:0.797, N=100:0.710, N=300:0.305, N=1000:0.077, N=3000:0.054, N=10000:0.021, N=100000:0.008
+  INFO Q4 mis-specified CE-trained test mean TVD median[min,max] over 6 runs: N=10:0.518[0.372,0.670], N=30:0.238[0.173,0.303], N=100:0.133[0.111,0.154], N=300:0.110[0.104,0.116], N=1000:0.083[0.082,0.084], N=3000:0.082[0.081,0.083], N=10000:0.079[0.079,0.079], N=100000:0.079[0.079,0.079]
+  INFO Q4 mis-specified CE-trained test RMSE of mean rating vs true mean (median): N=10:0.665, N=30:0.412, N=100:0.282, N=300:0.176, N=1000:0.178, N=3000:0.182, N=10000:0.165, N=100000:0.167
+  INFO Q4 mis-specified Brier-trained test mean TVD median[min,max] over 6 runs: N=10:0.649[0.374,0.714], N=30:0.424[0.319,0.442], N=100:0.195[0.186,0.204], N=300:0.119[0.109,0.128], N=1000:0.083[0.082,0.084], N=3000:0.076[0.074,0.078], N=10000:0.071[0.069,0.072], N=100000:0.070[0.070,0.070]
+  INFO Q4 mis-specified Brier-trained test RMSE of mean rating vs true mean (median): N=10:0.751, N=30:0.656, N=100:0.412, N=300:0.198, N=1000:0.192, N=3000:0.170, N=10000:0.147, N=100000:0.150
+  INFO Q4 mis-specified MSE-trained (mean only) test mean TVD median[min,max] over 6 runs: N=10:0.690[0.587,0.816], N=30:0.612[0.561,0.685], N=100:0.639[0.558,0.729], N=300:0.541[0.470,0.609], N=1000:0.477[0.364,0.614], N=3000:0.518[0.393,0.660], N=10000:0.485[0.318,0.558], N=100000:0.384[0.269,0.541]
+  INFO Q4 mis-specified MSE-trained (mean only) test RMSE of mean rating vs true mean (median): N=10:0.872, N=30:0.515, N=100:0.396, N=300:0.223, N=1000:0.095, N=3000:0.089, N=10000:0.032, N=100000:0.008
+  INFO Q4 mis-specified Pearson-trained test mean TVD median[min,max] over 6 runs: N=10:0.737[0.569,0.793], N=30:0.742[0.587,0.810], N=100:0.562[0.437,0.764], N=300:0.638[0.409,0.740], N=1000:0.524[0.380,0.669], N=3000:0.493[0.411,0.658], N=10000:0.457[0.377,0.542], N=100000:0.455[0.393,0.518]
+  INFO Q4 mis-specified Pearson-trained test RMSE of mean rating vs true mean (median): N=10:1.388, N=30:1.385, N=100:1.252, N=300:1.033, N=1000:1.083, N=3000:0.943, N=10000:0.773, N=100000:0.724
+  INFO Q4 mis-specified Pearson-trained + held-out affine mean recal. test mean TVD median[min,max] over 6 runs: N=10:0.640[0.605,0.715], N=30:0.597[0.516,0.707], N=100:0.433[0.301,0.580], N=300:0.536[0.291,0.825], N=1000:0.357[0.306,0.496], N=3000:0.369[0.285,0.564], N=10000:0.375[0.305,0.613], N=100000:0.376[0.300,0.418]
+  INFO Q4 mis-specified Pearson-trained + held-out affine mean recal. test RMSE of mean rating vs true mean (median): N=10:1.517, N=30:0.719, N=100:0.341, N=300:0.279, N=1000:0.069, N=3000:0.075, N=10000:0.039, N=100000:0.017
+PASS N22 well-specified: CE- and Brier-ERM TVD to truth < 0.02 at N=1e5; Pearson-trained TVD stays large: N=1e5 median TVD CE 0.0037, Brier 0.0044; Pearson range over runs [0.420,0.524]
+PASS N23 misspecified: CE- and Brier-ERM plateau at a positive TVD (best-in-class != truth): N=1e5 median TVD CE 0.0792, Brier 0.0699, RPS not trained
+PASS N24 Pearson + held-out affine recalibration fixes the mean (RMSE small) but not the distribution: N=1e5 RMSE of mean: Pearson 1.030, Pearson+recal 0.008; TVD Pearson+recal 0.342 vs CE 0.0037
+SUMMARY 25 PASS, 0 FAIL out of 25 checks

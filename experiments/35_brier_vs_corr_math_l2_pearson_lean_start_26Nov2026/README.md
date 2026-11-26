@@ -8,6 +8,8 @@
 
 **Google Doc:** <https://docs.google.com/document/d/1AkNeSm86_bk1twd_w-TidjOHqx0gOv1lRI7WS2ADO_8/edit>
 
+**Extended checks (same day):** [`extended_checks_11-26-2026/`](extended_checks_11-26-2026/README.md) adds 25 exact and numeric checks with 18 main Lean theorems over Mathlib, a training demonstration, a plain-language explainer on discrete means and language models, and a sample-size rule-of-thumb check. Its ranked probability score (RPS) is normalized to [0, 1]; the RPS printed by this folder's `experiments.py` is not divided by K - 1, so do not compare the two scales. The two handwritten derivation pages behind `DERIVATION.md` are transcribed in [`assets/TRANSCRIPTION_DERIVATION_PAGES_11-26-2026.md`](assets/TRANSCRIPTION_DERIVATION_PAGES_11-26-2026.md), with the photographs beside it; the encrypted record of private source files is described in [`assets/ARCHIVE_11-26-2026.md`](assets/ARCHIVE_11-26-2026.md).
+
 ## Derivation
 
 The notebook derivation is in [DERIVATION.md](DERIVATION.md): standardized squared error equals \(2(1-\operatorname{Corr}(X,Y))\), unstandardized mean squared error (MSE) adds the squared bias and the squared scale gap, and excess Brier risk is the squared distance between distributions. That note names the Lean theorems `standardized_mse_corr`, `mse_decomposition`, `pearson_affine_invariant`, `brier_decomposition`, and `binary_brier_eq_two_l2`.

@@ -1,0 +1,26 @@
+check_id,name,pass,detail
+N1,Brier decomposition (2000 random K=6 pairs),True,max abs err 8.88e-16
+N2,CE = H + KL (2000 random pairs),True,max abs err 1.33e-15
+N3,RPS decomposition; excess>0 for q!=p (2000 pairs),True,max abs err 2.78e-16; smallest excess 3.684e-04
+N4,no random forecast beats the truth (100000 draws),True,"smallest excess Brier 1.46e-03, CE 6.44e-03, RPS 1.66e-04"
+N5,empirical Brier = ||q - phat||^2 + const (50 samples x 100 q),True,max abs err 7.77e-16
+N6,"mean TVD(phat_N, p) over 200 reps decreases in N",True,N=10: 0.2568; N=30: 0.1525; N=100: 0.0853; N=300: 0.0468; N=1000: 0.0263; N=3000: 0.0153; N=10000: 0.0082; N=100000: 0.0027
+N7,"misspecified Binomial(2,theta) class, truth (0.5,0.1,0.4): best theta differs by score",True,"theta_CE=0.450000 (exact 0.45), theta_Brier=0.243454, theta_RPS=0.418473"
+N8,K=2 propriety curves: grid argmin of expected Brier and CE is the truth 0.3,True,"argmin Brier 0.3000, argmin CE 0.3000"
+N9,E(f-Y)^2 = (f-mu)^2 + Var Y (2000 random finite laws),True,max abs err 2.84e-14
+N10,L2 ERM recovers the mean without Gaussian noise,True,"skewed exponential(1)-1: |fhat-mu| at N=1e2,1e4,1e6 = 0.0619,0.0144,0.0001 | bimodal 0.5N(-2,0.25)+0.5N(2,0.25): |fhat-mu| at N=1e2,1e4,1e6 = 0.1759,0.0100,0.0008 | heavy-tailed Student t(3): |fhat-mu| at N=1e2,1e4,1e6 = 0.3353,0.0253,0.0011"
+N11,"unimodal N(0,1) and the true bimodal law get identical L2 score; log score separates them",True,"L2 both 4.2519 (exact 4.25); log score truth 1.4205 vs N(0,1) 3.0449 nats"
+N12,L2 on one-hot vector equals Brier (1000 draws),True,max abs err 4.44e-16
+N13,"6-point equal-mean example: same L2 risk, different Brier/RPS/CE (exact)",True,"means 5/2,5/2; L2 risk 5/4 both; Brier 73/100 vs 109/100; RPS 3/25 vs 24/125; CE 1.4950 vs 2.6625 nats"
+N14,"MSE = bias^2 + scale^2 + 2 sx sy (1-rho), and 2(1-rho) when standardized (2000 samples)",True,"max rel err 2.83e-15, 1.35e-15"
+N15,"corr(aX+b, Y) = corr(X, Y) for a>0 (1000 draws)",True,max abs err 4.00e-15
+N16,"max_f corr(f(X),Y) = correlation ratio eta, attained by 3*E[Y|X]-7 (200 laws x 200 f)",True,attainment err 1.57e-15; smallest eta - corr(f) 1.13e-04
+N17,oracle affine recalibration: min MSE = Var(Y)(1-rho^2) (1000 samples),True,max abs err 7.99e-15
+N18,"same change to item 1 (forecast 0.2->0.9, rating 0) shifts corr by context-dependent amounts",True,"delta corr in context A -0.6513, in context B -0.6600"
+N19,"calibrated vs squashed judge 0.5+0.1(t-0.5): both corr 1, Brier and CE differ (exact)",True,"corr^2 1,1; mean expected Brier 17/50=0.3400 vs 587/1250=0.4696; CE 0.5130 vs 0.6627 nats"
+N20,"judge C corr 1 > judge D corr <1, yet C has worse Brier (exact)",True,"corr C=1, corr D^2=81/85 (corr 0.976187); expected Brier C 481/1000=0.4810 > D 81/200=0.4050"
+N21,6-point ordinal: judge C (corr 1 of means) has worse mean expected RPS than judge D (corr<1),True,"true means ['1', '4', '5/2']; C means ['47/20', '53/20', '5/2']; D means ['1', '4', '13/5']; corr D=0.999260; RPS truth 193/1500=0.12867, C 6823/37500=0.18195, D 97/750=0.12933"
+N25,Pearson gradient in mean space is orthogonal to level (1) and scale (m - mean m) (1000 draws),True,"max |<grad,1>|, |<grad,m-mbar>| = 1.62e-15"
+N22,well-specified: CE- and Brier-ERM TVD to truth < 0.02 at N=1e5; Pearson-trained TVD stays large,True,"N=1e5 median TVD CE 0.0037, Brier 0.0044; Pearson range over runs [0.420,0.524]"
+N23,misspecified: CE- and Brier-ERM plateau at a positive TVD (best-in-class != truth),True,"N=1e5 median TVD CE 0.0792, Brier 0.0699, RPS not trained"
+N24,Pearson + held-out affine recalibration fixes the mean (RMSE small) but not the distribution,True,"N=1e5 RMSE of mean: Pearson 1.030, Pearson+recal 0.008; TVD Pearson+recal 0.342 vs CE 0.0037"

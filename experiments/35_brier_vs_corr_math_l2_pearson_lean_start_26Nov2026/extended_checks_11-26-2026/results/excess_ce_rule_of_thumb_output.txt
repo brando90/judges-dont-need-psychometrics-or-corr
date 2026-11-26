@@ -1,0 +1,19 @@
+Excess cross-entropy (KL divergence) of a Laplace-smoothed per-item histogram, synthetic data
+K = 6 ratings (0 to 5); 6 random true distributions; 40000 draws per (truth, n); seed 20261126
+Metric: KL(q || p_hat) in nats; lower is better; reference = (K - 1) / (2 n)
+
+     n  measured mean  rule (K-1)/(2n)   ratio  SE of mean
+    20        0.08142          0.12500   0.651    0.000110
+    50        0.04236          0.05000   0.847    0.000057
+   200        0.01205          0.01250   0.964    0.000016
+  1000        0.00248          0.00250   0.993    0.000003
+  5000        0.00050          0.00050   0.998    0.000001
+
+Per-truth ratios (measured / predicted), rows = truths, columns = n
+           20      50     200    1000    5000
+truth1   0.642   0.828   0.960   0.990   0.995
+truth2   0.656   0.858   0.969   0.995   0.996
+truth3   0.647   0.831   0.960   0.990   1.003
+truth4   0.657   0.855   0.965   0.995   0.998
+truth5   0.654   0.860   0.967   0.993   0.999
+truth6   0.651   0.852   0.963   0.993   0.998

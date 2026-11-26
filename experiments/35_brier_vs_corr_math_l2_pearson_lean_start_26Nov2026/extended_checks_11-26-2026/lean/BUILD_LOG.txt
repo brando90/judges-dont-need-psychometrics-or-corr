@@ -1,0 +1,68 @@
+Lean 4.36.0 (commit 611c117), Mathlib tag v4.36.0 (rev fc4f59e577feb1a4956671bc04ac18aaaf8cd842)
+lake build: exit 0, 0 errors (warnings only: deprecated/unused-simp-arg linters)
+⚠ [18250/18256] Replayed ProperScoring.Basic
+warning: ProperScoring/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ProperScoring/Basic.lean:144:82: This simp argument is unused:
+  ← Finset.sum_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [h, Finset.sum_add_distrib, Finset.sum_sub_distrib, ← Finset.mul_sum]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ProperScoring/Basic.lean:171:42: Variable name `hw` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hw
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [18251/18256] Ran ProperScoring.Basic:irArts
+warning: ProperScoring/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [18252/18256] Built ProperScoring.Counterexamples (21s)
+warning: ProperScoring/Counterexamples.lean:25:45: This simp argument is unused:
+  Fin.sum_univ_five
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [w5]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ProperScoring/Counterexamples.lean:25:65: Unused tactic linter: there are no goals left for `try norm_num`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ProperScoring/Counterexamples.lean:50:45: This simp argument is unused:
+  Fin.sum_univ_four
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [w4]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ProperScoring/Counterexamples.lean:50:65: Unused tactic linter: there are no goals left for `try norm_num`.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [18254/18256] Built ProperScoring (16s)
+Build completed successfully (18256 jobs).
+
+real	0m49.052s
+user	0m17.102s
+sys	0m20.358s
+
+== lake env lean Axioms.lean ==
+'ProperScoring.brier_excess' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.brier_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.l2_onehot_eq_brier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.l2_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.l2_unique_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.mse_cov_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.mse_corr_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.standardized_mse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.corr_affine_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.corr_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.oracle_affine_mse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.thr_excess' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.rps_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.N19_equal_corr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.N19_different_brier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.N20_corr_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.N20_corr_D_lt_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ProperScoring.N20_brier_reversal' depends on axioms: [propext, Classical.choice, Quot.sound]
