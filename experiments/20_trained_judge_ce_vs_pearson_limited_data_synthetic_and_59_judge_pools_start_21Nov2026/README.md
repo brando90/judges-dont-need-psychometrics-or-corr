@@ -1,4 +1,6 @@
-# Experiment 20: a judge trained with cross-entropy (CE) vs one trained on correlation, also with little data (started 11-21-2026)
+# Experiment 20: a judge trained with cross-entropy (CE) vs one trained on correlation, also with little data (started 11-21-2026) — QA corrections 11-26-2026
+
+**QA correction (11-26-2026):** Read the [dated correction and evidence limits](QA_CORRECTIONS_11-26-2026.md) before the historical text below; original scored tables remain unchanged.
 
 **Status as of 11-21-2026:** done (synthetic sweep, real-data sweep on five judge pools, independent cross-check of experiment 19). [Results with tables](RESULTS_11-21-2026.md).
 
