@@ -1,0 +1,13 @@
+{
+  "n_rows": 35200,
+  "seconds": 32.201982498168945,
+  "software": {
+    "generator": "numpy PCG64 via SeedSequence([seed, scenario, n_train, replication, stream])",
+    "matplotlib": "3.11.2",
+    "n_replications": 400,
+    "numpy": "2.5.5",
+    "python": "3.12.3",
+    "scipy": "1.18.1",
+    "seed": 20261125
+  }
+}

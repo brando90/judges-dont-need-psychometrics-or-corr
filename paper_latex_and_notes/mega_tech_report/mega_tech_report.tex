@@ -1,0 +1,17 @@
+% Mega tech report: all results of this repo, one section per result, in chronological order (Rule 93).
+% Do not list results here by hand: build_mega_report.py regenerates mega_results.tex from results/*.tex.
+\documentclass[11pt]{article}
+\input{mega_preamble}
+\input{mega_meta}
+\title{Mega tech report: all results in chronological order}
+\author{Brando Miranda}
+\date{Built \MegaBuilt\ ($\MegaCount$ results)}
+\begin{document}
+\maketitle
+\noindent Result fragments in the order each result first landed on \texttt{main}. As of this build the fragment
+set is experiment 34. Earlier experiments are not backfilled into this file. Each section is one file in
+\texttt{results/}; the experiment's \texttt{results.md} and Google Doc stay the working record. Metrics: RPS, CE and TVD
+(lower is better) come first, Spearman and Pearson are secondary.
+\bigskip
+\input{mega_results}
+\end{document}

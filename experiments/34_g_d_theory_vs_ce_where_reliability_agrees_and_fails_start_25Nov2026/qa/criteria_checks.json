@@ -1,0 +1,505 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.0001811615431030716,
+        "lo": -0.0001936372019943609,
+        "mean": -0.00018739937254871625,
+        "n": 400,
+        "n_train": 256,
+        "order": "binomial_projection minus add_one_ce",
+        "p_value": 2.4300092724679596e-199,
+        "positive_means": "binomial_projection is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s0_binomial",
+        "se": 3.1729705664027185e-06
+      },
+      "name": "s0_agreement_interval_inside_pm_0.01_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.07520931107346901,
+        "lo": -0.0752311751740754,
+        "mean": -0.0752202431237722,
+        "n": 400,
+        "n_train": 256,
+        "order": "add_one_ce minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "add_one_ce is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s0_binomial",
+        "se": 5.56076022031933e-06
+      },
+      "name": "s0_add_one_ce_beats_constant_by_0.03_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.07539808463152356,
+        "lo": -0.07541720036111829,
+        "mean": -0.07540764249632093,
+        "n": 400,
+        "n_train": 256,
+        "order": "binomial_projection minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "binomial_projection is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s0_binomial",
+        "se": 4.861759037174448e-06
+      },
+      "name": "s0_binomial_projection_beats_constant_by_0.03_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.021815720724032123,
+          "k": 3,
+          "lo": 0.0025538891952499396,
+          "n": 400,
+          "proportion": 0.0075
+        },
+        "hi": -0.01651209192976764,
+        "lo": -0.017622031278985168,
+        "mean": -0.017067061604376405,
+        "n": 400,
+        "n_train": 4,
+        "order": "binomial_projection minus add_one_ce",
+        "p_value": 5.496343367284379e-203,
+        "positive_means": "binomial_projection is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s0_binomial",
+        "se": 0.00028229409895283176
+      },
+      "name": "s0_projection_better_than_add_one_at_4",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.0677616214595862,
+        "lo": 0.06358465936946484,
+        "mean": 0.06567314041452552,
+        "n": 400,
+        "n_train": 4,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 1.7939917915072421e-206,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s1_leniency",
+        "se": 0.0010623389020510013
+      },
+      "name": "s1_lenient_point_worse_rps_than_constant_at_4",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "erho2",
+        "hi": 1.0,
+        "lo": 1.0,
+        "mean": 1.0,
+        "method": "lenient_point",
+        "n": 400,
+        "n_train": 4,
+        "p_value": null,
+        "scenario": "s1_leniency",
+        "se": 0.0
+      },
+      "name": "s1_lenient_point_erho2_is_1_at_4",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.050622420295694574,
+        "lo": 0.04774270178678185,
+        "mean": 0.049182561041238214,
+        "n": 400,
+        "n_train": 16,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 1.4837947165844627e-219,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s1_leniency",
+        "se": 0.000732407173675209
+      },
+      "name": "s1_lenient_point_worse_rps_than_constant_at_16",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "erho2",
+        "hi": 1.0,
+        "lo": 1.0,
+        "mean": 1.0,
+        "method": "lenient_point",
+        "n": 400,
+        "n_train": 16,
+        "p_value": null,
+        "scenario": "s1_leniency",
+        "se": 0.0
+      },
+      "name": "s1_lenient_point_erho2_is_1_at_16",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.04524693515778421,
+        "lo": 0.043328851020699506,
+        "mean": 0.04428789308924186,
+        "n": 400,
+        "n_train": 64,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 1.4505600298097833e-268,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s1_leniency",
+        "se": 0.0004878319104334515
+      },
+      "name": "s1_lenient_point_worse_rps_than_constant_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "erho2",
+        "hi": 1.0,
+        "lo": 1.0,
+        "mean": 1.0,
+        "method": "lenient_point",
+        "n": 400,
+        "n_train": 64,
+        "p_value": null,
+        "scenario": "s1_leniency",
+        "se": 0.0
+      },
+      "name": "s1_lenient_point_erho2_is_1_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.044218567923167015,
+        "lo": 0.042713855362226036,
+        "mean": 0.043466211642696526,
+        "n": 400,
+        "n_train": 256,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 6.304397689057758e-306,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s1_leniency",
+        "se": 0.0003826979166684121
+      },
+      "name": "s1_lenient_point_worse_rps_than_constant_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "erho2",
+        "hi": 1.0,
+        "lo": 1.0,
+        "mean": 1.0,
+        "method": "lenient_point",
+        "n": 400,
+        "n_train": 256,
+        "p_value": null,
+        "scenario": "s1_leniency",
+        "se": 0.0
+      },
+      "name": "s1_lenient_point_erho2_is_1_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.02054075334116877,
+        "lo": 0.020475575137168807,
+        "mean": 0.020508164239168788,
+        "n": 400,
+        "n_train": 256,
+        "order": "binomial_projection minus add_one_ce",
+        "p_value": 0.0,
+        "positive_means": "binomial_projection is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s2_shape",
+        "se": 1.657696195968177e-05
+      },
+      "name": "s2_projection_worse_than_add_one_by_more_than_0.01_at_256",
+      "pass": true
+    },
+    {
+      "detail": 0.0205761776339086,
+      "name": "s2_population_gap",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.1547970127370035,
+        "lo": 0.153007432612396,
+        "mean": 0.15390222267469975,
+        "n": 400,
+        "n_train": 64,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s3_multifacet",
+        "se": 0.0004551491116484137
+      },
+      "name": "s3_sharp_lenient_worse_than_constant_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.05211834283349046,
+        "lo": -0.0521292093147479,
+        "mean": -0.05212377607411918,
+        "n": 400,
+        "n_train": 64,
+        "order": "add_one_ce minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "add_one_ce is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s3_multifacet",
+        "se": 2.7637037442808803e-06
+      },
+      "name": "s3_add_one_better_than_constant_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.9999999999999999,
+          "k": 400,
+          "lo": 0.9904877056657034,
+          "n": 400,
+          "proportion": 1.0
+        },
+        "hi": 0.15209114498531667,
+        "lo": 0.15079765704180736,
+        "mean": 0.15144440101356202,
+        "n": 400,
+        "n_train": 256,
+        "order": "lenient_point minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "lenient_point is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s3_multifacet",
+        "se": 0.00032897654612995054
+      },
+      "name": "s3_sharp_lenient_worse_than_constant_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "field": "rps",
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.05228282326268508,
+        "lo": -0.05228542949894379,
+        "mean": -0.052284126380814436,
+        "n": 400,
+        "n_train": 256,
+        "order": "add_one_ce minus pooled_laplace",
+        "p_value": 0.0,
+        "positive_means": "add_one_ce is worse when the field is RPS, smoothed CE, or TVD",
+        "scenario": "s3_multifacet",
+        "se": 6.628516385414786e-07
+      },
+      "name": "s3_add_one_better_than_constant_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "harsh": 0.5361085886353174,
+        "lenient": 0.5871696692315783,
+        "lenient_point": 1.0,
+        "marginal": 0.4134152023391017,
+        "neutral": 0.6179775280898876
+      },
+      "name": "s3_population_max_erho2_stochastic_is_neutral",
+      "pass": true
+    },
+    {
+      "detail": {
+        "constant": 0.19192333637761563,
+        "neutral": 0.14380371488893742
+      },
+      "name": "s3_population_neutral_beats_constant",
+      "pass": true
+    },
+    {
+      "detail": {
+        "add_one_ce": 10,
+        "binomial_projection": 390
+      },
+      "name": "s1_validation_rps_picks_lenient_point_under_5_percent",
+      "pass": true
+    },
+    {
+      "detail": {
+        "fraction_positive": {
+          "hi": 0.009512294334296508,
+          "k": 0,
+          "lo": 8.673617379884035e-19,
+          "n": 400,
+          "proportion": 0.0
+        },
+        "hi": -0.07195964752560485,
+        "lo": -0.07229339918123012,
+        "mean": -0.07212652335341749,
+        "n": 400,
+        "p_value": 0.0,
+        "se": 8.488402809142094e-05
+      },
+      "name": "s1_validation_rps_selection_beats_constant",
+      "pass": true
+    },
+    {
+      "detail": {
+        "lenient_point": 400
+      },
+      "name": "s1_erho2_selection_picks_lenient_point",
+      "pass": true
+    },
+    {
+      "detail": {
+        "hi": 0.9999999999999999,
+        "k": 400,
+        "lo": 0.9904877056657034,
+        "n": 400,
+        "proportion": 1.0
+      },
+      "name": "s3_stochastic_selection_neutral_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "hi": 0.9999999999999999,
+        "k": 400,
+        "lo": 0.9904877056657034,
+        "n": 400,
+        "proportion": 1.0
+      },
+      "name": "s3_sharp_selected_at_64",
+      "pass": true
+    },
+    {
+      "detail": {
+        "hi": 0.9999999999999999,
+        "k": 400,
+        "lo": 0.9904877056657034,
+        "n": 400,
+        "proportion": 1.0
+      },
+      "name": "s3_stochastic_selection_neutral_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "hi": 0.9999999999999999,
+        "k": 400,
+        "lo": 0.9904877056657034,
+        "n": 400,
+        "proportion": 1.0
+      },
+      "name": "s3_sharp_selected_at_256",
+      "pass": true
+    },
+    {
+      "detail": {
+        "hi": 5.496799697138593e-05,
+        "lo": -0.0005779077561310831,
+        "mean": -0.0002614698795798486,
+        "n": 400,
+        "p_value": 0.10507399807546348,
+        "se": 0.000160961128729335
+      },
+      "name": "evaluator_sample_rps_matches_exact_rps_at_n16",
+      "pass": true
+    }
+  ],
+  "seconds": 31.255223035812378,
+  "software": {
+    "generator": "numpy PCG64 via SeedSequence([seed, scenario, n_train, replication, stream])",
+    "matplotlib": "3.11.2",
+    "n_replications": 400,
+    "numpy": "2.5.5",
+    "python": "3.12.3",
+    "scipy": "1.18.1",
+    "seed": 20261125
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "add_one_item_6": [
+    0.090909,
+    0.045455,
+    0.318182,
+    0.227273,
+    0.227273,
+    0.090909
+  ],
+  "item_index_6_theta": 0.5,
+  "lenient_point_item_6": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0
+  ],
+  "note": "Item index 6 has theta 0.5. The add-one row uses only that item's 16 training counts. The lenient point mass is placed at round-half-up of the training mean, plus 1.",
+  "train_counts_item_6": [
+    1,
+    0,
+    6,
+    4,
+    4,
+    1
+  ],
+  "true_pmf_item_6": [
+    0.03125,
+    0.15625,
+    0.3125,
+    0.3125,
+    0.15625,
+    0.03125
+  ]
+}

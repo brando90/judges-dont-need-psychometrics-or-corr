@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[margin=1in]{geometry}
+\title{Generalizability coefficients and cross-entropy\\
+\large Experiment 34 derivation, 11-25-2026}
+\author{}
+\date{As of 11-25-2026}
+\begin{document}
+\maketitle
+
+\section*{What this does and does not show}
+
+A generalizability coefficient and a dependability coefficient are functions of the means and variances of the scores in the panel they are given. They do not determine the rest of a six-category conditional distribution. Cross-entropy on that distribution does, up to the usual finite-sample gap of a categorical model. A coefficient can still rank noisy but calibrated sources in the same order as a proper score, and a decision study can still choose how many raters to collect. Those are different questions. The numerical examples below are the population values and the Monte Carlo means from experiment 34. They are synthetic. They are not estimates on human ratings.
+
+\section{Objects}
+
+Ratings lie in $\{0,1,2,3,4,5\}$. For item $i$, the conditional distribution is a probability vector $p_i$. A forecast is a probability vector $q_i$. The item set is fixed. There is no held-out item.
+
+The normalized individual-rating ranked probability score is
+\begin{equation}
+\operatorname{RPS}(q,y)=\frac15\sum_{k=0}^{4}\bigl(F_q(k)-\mathbf{1}\{y\le k\}\bigr)^2,
+\qquad F_q(k)=\sum_{y=0}^{k} q(y).
+\end{equation}
+Its range is $[0,1]$. Lower is better. The expectation under $y\sim p$ is minimized uniquely at $q=p$, and the excess over that minimum is
+\begin{equation}
+\mathbb{E}_{y\sim p}\operatorname{RPS}(q,y)-\mathbb{E}_{y\sim p}\operatorname{RPS}(p,y)
+=\frac15\sum_{k=0}^{4}\bigl(F_q(k)-F_p(k)\bigr)^2.
+\end{equation}
+Cross-entropy $\mathbb{E}_{y\sim p}[-\ln q(y)]$ is likewise minimized uniquely at $q=p$ among strictly positive forecasts, and the excess equals the Kullback--Leibler divergence $\mathrm{KL}(p\|q)$. Total variation distance is $\tfrac12\sum_y|q(y)-p(y)|$, in $[0,1]$, lower better. It is not a proper score. It is reported because the project uses it as a secondary distance to the known $p$.
+
+On the twelve binomial items of the experiment, the true distribution has expected RPS $0.102440$ and unsmoothed cross-entropy $1.312262$ nats. The equal-weight mixture of those twelve distributions, the population constant forecast, has expected RPS $0.178049$.
+
+\section{What the coefficients use}
+
+Let $m_i=\sum_y y\,p_i(y)$ and $v_i=\sum_y(y-m_i)^2 p_i(y)$. With $N$ items and divisor $N$,
+\begin{equation}
+v_u=\frac1N\sum_{i=1}^N (m_i-\bar m)^2,
+\qquad v_e=\frac1N\sum_{i=1}^N v_i.
+\end{equation}
+The generalizability coefficient of one source, for a single rating, is
+\begin{equation}
+E\rho^2=\frac{v_u}{v_u+v_e}
+\end{equation}
+when the denominator is positive, and is undefined when it is zero. The absolute dependability coefficient of that same one-source panel equals $E\rho^2$, because there is no second source whose level can shift. A point-mass forecast has $v_i=0$ for every item. If the locations are not all equal, then $v_e=0$, $v_u>0$, and $E\rho^2=\Phi=1$. That identity uses none of the human conditional distribution.
+
+For two sources with means $\mu_{iH}$, $\mu_{iJ}$ and variances $v_{iH}$, $v_{iJ}$, the universe score is the average of the two source means. The source main effect is the average level of a source minus the grand mean. Relative error excludes that main effect. Absolute error includes it. Write $v_{\mathrm{source}}$ for the mean square of the two source effects, $v_{\mathrm{ia}}$ for the mean square of the item-by-source interaction, and $v_e$ for the average within-source variance. For one draw from a random source,
+\begin{equation}
+E\rho^2=\frac{v_u}{v_u+v_{\mathrm{ia}}+v_e},
+\qquad
+\Phi=\frac{v_u}{v_u+v_{\mathrm{ia}}+v_e+v_{\mathrm{source}}}.
+\end{equation}
+A constant shift of every judge mean, with no change in spread, raises $v_{\mathrm{source}}$ and leaves the relative numerator and the interaction at the values implied by the centered means. Then $\Phi<E\rho^2$. In the experiment's interior shift-by-one identity, the joint coefficients are $E\rho^2=0.240486$ and $\Phi=0.207536$. The judge-only coefficient of a shifted distribution does not contain $v_{\mathrm{source}}$ at all.
+
+\section{Binomial agreement}
+
+If $p_i=\mathrm{Binomial}(5,\theta_i)$, then $\theta_i=m_i/5$ and $v_i=m_i(1-m_i/5)$. The conditional distribution is a function of the mean. The maximum-likelihood projection onto the binomial family is that same $\theta$. At the true mean, the projection's expected RPS equals the oracle's, $0.102440$. An unrestricted six-category model has five free probabilities per item. Its add-one estimator,
+\begin{equation}
+q_i(y)=\frac{n_{iy}+1}{n+6},
+\end{equation}
+is the unique minimizer of categorical cross-entropy plus a Dirichlet$(1)$ penalty. It is consistent for $p_i$, and it is less efficient than the one-parameter estimator when the binomial law is true.
+
+At 4 training ratings per item, 400 replications, expected RPS of the projection minus expected RPS of add-one is $-0.017067$ $[-0.017622,-0.016512]$. Negative means the projection is better. At 256 ratings the difference is $-0.000187$ $[-0.000194,-0.000181]$. Both sit about $0.075$ below the pooled add-one forecast. The coefficients and the proper scores agree here in the only sense that matters for a decision: both learners recover the conditional distribution, and the coefficient of a calibrated stochastic forecast moves with its noise.
+
+\section{Leniency}
+
+Let $\lambda_i$ be the integer in $\{0,\ldots,5\}$ nearest to $m_i$ with ties rounded up, plus one, clipped to the scale. The forecast is a point mass at $\lambda_i$. Then $v_e=0$ and $E\rho^2=\Phi=1$ on the judge's own scores. The population bias, forecast mean minus true mean, is $+1.011905$ (means $3.333333$ and $2.321429$). Expected RPS is $0.226209$, which is $0.048160$ above the pooled frequency $0.178049$. Pearson of the twelve means is $0.974928$, Spearman $0.977008$, Kendall $\tau$-b $0.921132$. Unsmoothed cross-entropy is infinite because the point mass assigns zero probability to ratings that $p_i$ assigns positive probability.
+
+At 16 training ratings the Monte Carlo bias is $+0.998155$ $[0.988017,1.008292]$ and the RPS gap versus the pooled Laplace forecast is $+0.049183$ $[0.047743,0.050622]$, positive in all 400 replications. Smoothed cross-entropy, using the floor $10^{-6}$, differs by $+8.574$ nats, and total variation distance differs by $+0.365$. Putting the human source and the point mass in one panel drops the one-draw coefficients from 1 to $E\rho^2=0.764852$ and $\Phi=0.681426$. Absolute $\Phi$ notices the level shift only because the human ratings were included. It still does not equal a proper score.
+
+Selecting the candidate with the largest judge-only $E\rho^2$ selects the point mass in 400 of 400 replications. Selecting by validation RPS on 16 disjoint ratings selects it in 0 of 400, and the selected forecast beats the pooled forecast by $0.072127$ RPS.
+
+\section{Same first two moments}
+
+The map $q\mapsto (1,\sum yq(y),\sum y^2 q(y))$ is linear. Its kernel has dimension 3 inside the probability simplex. Imposing a floor of $1/100$ and setting three coordinates to that floor produces a vertex. There are $\binom{6}{3}=20$ candidates. The RPS excess is a convex function of $q$, so its maximum on the polytope is attained at a vertex. The experiment takes, for each of eight interior items, the feasible vertex with the largest excess over the binomial that shares its mean.
+
+Those two distributions have the same $m_i$ and the same $v_i$, hence the same $v_u$, $v_e$, $E\rho^2$, and one-source $\Phi$. They do not have the same RPS. The mean excess is $0.020576$: shaped truth $0.083473$, matching binomial $0.104049$, pooled frequency of the shaped items $0.149040$. At 256 training ratings, projection minus add-one is $+0.020508$ $[0.020476,0.020541]$ in RPS, $+0.689846$ $[0.689685,0.690007]$ in smoothed cross-entropy, and $+0.486076$ $[0.485578,0.486575]$ in total variation distance. The projection still beats the constant forecast. Matching the variance is enough to track the mean and not enough to identify $p_i$.
+
+\section{Six raters}
+
+Four raters use the binomial. One rater's score is clipped two categories higher, one two categories lower. The target $p_i$ is the equal mixture of the six laws. Population own-source coefficients: neutral $0.617978$, lenient $0.587170$, harsh $0.536109$, point mass at the lenient mean $1$. Population expected RPS against the mixture: neutral $0.143804$, constant $0.191923$, lenient facet $0.288927$, lenient point mass $0.347638$. The highest coefficient among stochastic sources agrees with the proper score. The lenient facet's coefficient is still high, and that facet loses to the constant forecast. Replacing the facet by its mean makes the coefficient perfect and the RPS worse: at 64 ratings per rater the point-mass gap versus the pooled forecast is $+0.153902$ $[0.153007,0.154797]$.
+
+\section*{Summary}
+
+\begin{itemize}
+\item $E\rho^2$ and one-source $\Phi$ are functions of $\{m_i,v_i\}$ only.
+\item A point mass with non-constant locations has $E\rho^2=\Phi=1$, regardless of bias.
+\item $\Phi<E\rho^2$ for a constant source shift when both sources are in the panel.
+\item If $p_i$ is not a function of $(m_i,v_i)$, two forecasts can share every coefficient and differ by a positive RPS excess. In this design that excess is $0.020576$.
+\item Cross-entropy and RPS are minimized at $q=p$. Add-one cross-entropy is the closed-form penalized minimizer and is consistent for a six-category $p$.
+\end{itemize}
+
+\end{document}

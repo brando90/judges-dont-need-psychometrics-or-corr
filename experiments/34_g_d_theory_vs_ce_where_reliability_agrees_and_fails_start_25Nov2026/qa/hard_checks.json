@@ -1,0 +1,108 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "detail": {
+        "published": 0.11670795387394607,
+        "recomputed": 0.11670795387394604
+      },
+      "name": "experiment_04_oracle_rps_reproduced",
+      "pass": true
+    },
+    {
+      "detail": 0.10244017418996615,
+      "name": "independent_rps_matches",
+      "pass": true
+    },
+    {
+      "detail": {
+        "oracle": 0.123046875,
+        "worst_other": 0.5
+      },
+      "name": "proper_rps_oracle_is_best_on_traced_item",
+      "pass": true
+    },
+    {
+      "detail": 4.440892098500626e-16,
+      "name": "s2_means_match",
+      "pass": true
+    },
+    {
+      "detail": 4.440892098500626e-16,
+      "name": "s2_variances_match",
+      "pass": true
+    },
+    {
+      "detail": 1.1102230246251565e-16,
+      "name": "s2_coefficients_match",
+      "pass": true
+    },
+    {
+      "detail": [
+        0.01639799228658481,
+        0.021638429434408024,
+        0.01779395224077593,
+        0.02197593688382471,
+        0.025394791666666666,
+        0.02197593688382471,
+        0.01779395224077593,
+        0.021638429434408024
+      ],
+      "name": "s2_every_item_gap_above_0.01",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "s0_projection_is_the_truth",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "pmfs_sum_to_one",
+      "pass": true
+    },
+    {
+      "detail": {
+        "erho2_one_random_source": 0.6179775280898876,
+        "phi_one_random_source": 0.6179775280898876,
+        "source_effect_human": 0.0,
+        "source_effect_judge": 0.0,
+        "v_e": 0.9396258503401361,
+        "v_interaction": 0.0,
+        "v_source": 0.0,
+        "v_u": 1.5199829931972788
+      },
+      "name": "joint_identity_when_sources_match",
+      "pass": true
+    },
+    {
+      "detail": {
+        "erho2_one_random_source": 0.2404858984027332,
+        "phi_one_random_source": 0.20753552116555454,
+        "source_effect_human": -0.48132149178913597,
+        "source_effect_judge": 0.4813214917891355,
+        "v_e": 1.107892673281286,
+        "v_interaction": 0.00035900770806188836,
+        "v_source": 0.23167037845811905,
+        "v_u": 0.3509071136382726
+      },
+      "name": "constant_shift_lowers_phi_and_not_erho2",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "seed_repeat_identical",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "seed_next_replication_differs",
+      "pass": true
+    },
+    {
+      "detail": true,
+      "name": "fit_ignores_test_array",
+      "pass": true
+    }
+  ]
+}
