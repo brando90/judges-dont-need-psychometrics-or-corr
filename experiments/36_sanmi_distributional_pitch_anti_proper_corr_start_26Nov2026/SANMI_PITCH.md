@@ -245,6 +245,37 @@ Happy to walk through the Lean file (no sorry; axioms are propext, Classical.cho
 
 **Paper 2 — Training, scaling, and dollars.** Train the same family by cross-entropy, Brier, RPS, Pearson, and MSE. Report the anti-proper collapse. Show the single-pass logit readout against M-sample rollouts. Plot held-out proper scores against \(k\) and against dollars, crowd and expert, and the iso-budget cut \(B=N\times k\). The scaling claim is that correlation saturates once the conditional mean is ranked, while a proper loss keeps fitting the conditional distribution.
 
+## Why not psychometrics (G-theory / D-theory)?
+
+**G-theory.** Generalizability theory (Cronbach, Gleser, Nanda, and Rajaratnam, 1972) writes a scalar rating as an additive variance split: prompt variance \(\sigma^2_c\), rater variance \(\sigma^2_r\), and the prompt-by-rater residual \(\sigma^2_{cr}\). The generalizability coefficient \(G\) is a multi-facet form of an intraclass correlation. Like Pearson correlation, it is a second-moment summary. The usual analysis of variance treats the components as additive and homoscedastic. On a bounded 0–5 or 1–5 rubric that summary does not score calibration, and it does not see a second mode. It is not a divergence from \(p^*(y \mid c)\).
+
+**D-studies.** A decision study pushes those variance components forward and asks how many raters \(k\) would bring \(G\) to a threshold such as \(0.80\). Under a proper scoring rule the same allocation question is the held-out risk \(R(N, k)\) of a judge trained on \(N\) prompts with \(k\) ratings each. The curves in this folder answer it in held-out cross-entropy, in the square root of the ranked probability score (RPS), and in Brier score, and they convert \(B = N \times k\) into dollars at a stated price. They do not pass through a Gaussian analysis of variance.
+
+**Where a generalizability coefficient still helps.** It is an optional diagnostic of the human panel. A large rater main effect is harshness or leniency. A large residual is disagreement about the item or the rubric. That diagnosis plans the annotation. It is not a training loss for the judge, and it is not the test metric.
+
+**What the \((N, k)\) curves cost on the sets this folder actually scored.** Two unit prices, both labeled as assumptions. \(\$0.05\) per rating is the published POPQUORN crowd rate, used here as a unit price. It is not a wage we observed for SummEval, ChaosNLI, or DICES. \(\$5\) per rating is an assumed expert rate. POPQUORN ratings were not loaded. CertJudge / VeriBench functional semantic correctness ratings were not on this machine. Neither appears in the table.
+
+Train sizes are the prompt-level split, seed 0: SummEval crowd \(N=3840\) items (same article split as the expert matrix), DICES-990 \(N=594\), ChaosNLI SNLI+MNLI \(N=1867\), ChaosNLI abductive NLI \(N=919\). The \(k\)-sweep trained a cross-entropy head and a Pearson head. On SummEval crowd (grades 1–5), DICES-990, and ChaosNLI SNLI+MNLI, the cross-entropy head has lower held-out cross-entropy, lower sqrt(RPS), and lower Brier at \(k=1\), the smallest budget we trained, and it stays lower at every larger \(k\) through 4 or through 32. There is no later \(k\) at which the Pearson head becomes the better proper-score trainer.
+
+| Dataset | \(k\) at which CE is ahead on CE, sqrt(RPS), and Brier | Train ratings \(B=N k\) | Crowd dollars at \$0.05 | Expert dollars at \$5 | Held-out CE, CE-trained vs Pearson-trained |
+| --- | --- | --- | --- | --- | --- |
+| SummEval crowd, grades 1–5 | 1 (also 2 and 4) | 3,840 | \$192 | \$19,200 | 1.328 vs 8.651 |
+| DICES-990, three-level | 1 (through 32) | 594 | \$29.70 | \$2,970 | 0.747 vs 1.053 |
+| ChaosNLI SNLI+MNLI, three-class | 1 (through 32) | 1,867 | \$93.35 | \$9,335 | 1.053 vs 4.926 |
+| ChaosNLI abductive NLI, binary | point estimates differ by about 0.002; both heads sit on \(\log 2 \approx 0.693\) | 919 | \$45.95 | \$4,595 | 0.697 vs 0.699 |
+| POPQUORN | not scored |  |  |  |  |
+| CertJudge / VeriBench FSC, 0–5 | not scored |  |  |  |  |
+
+At \(k=1\) the other two proper scores move with cross-entropy. DICES-990 sqrt(RPS) is 0.629 versus 0.688 and Brier is 0.445 versus 0.525. SummEval crowd sqrt(RPS) is 0.719 versus 1.012 and Brier is 0.708 versus 1.240. ChaosNLI SNLI+MNLI sqrt(RPS) is 0.627 versus 0.710 and Brier is 0.637 versus 0.939. The abductive panel is the negative control: the hash does not predict the task, so that row is not a budget recommendation.
+
+The iso-budget cut holds \(B=1024\) ratings on ChaosNLI SNLI+MNLI, which is \$51.20 at \$0.05 and \$5,120 at \$5. Held-out cross-entropy of the cross-entropy head is 1.054 at \((N,k)=(1024,1)\), 1.056 at \((256,4)\), 1.062 at \((64,16)\), and 1.101 at \((32,32)\). The Pearson head on the same four cells is 4.580, 5.004, 6.051, and 5.874. Inside this grid, spending the fixed bill on more prompts with one rating beats fewer prompts with many ratings.
+
+The \(k\)-sweep did not train the mean-squared-error head. On the full training ratings, that head's two-point readout has infinite held-out cross-entropy on SummEval expert, on ChaosNLI SNLI+MNLI, and on DICES-990, because a rating off the two adjacent scores has probability 0. SummEval expert uses all 3 grades on each of 3,840 train items (11,520 grades). ChaosNLI SNLI+MNLI uses all 100 votes on each of 1,867 train items (186,700 votes). DICES-990 uses every filtered rating on each of 594 train conversations. The file has 60–69 ratings per conversation and 64,886 ratings in total. The train-slice total was not stored as its own field.
+
+This driver finished in about 105 seconds on CPU and spent \$0 on model calls. Researcher salary was not metered, so this note does not invent one. A generalizability coefficient computed on the same ratings would still not be a held-out cross-entropy, Brier score, or RPS. That is the distinction the dollar rows are buying. On known synthetic ordinal laws, not on these human sets, experiment 34 already recorded a lenient point-mass judge with generalizability coefficient 1 and Pearson 0.961 whose expected RPS was worse than a constant forecast by 0.0492 [0.0477, 0.0506].
+
+
+
 ## Complete Sanmi Transcript Coverage
 
 As of 11-26-2026. These five points are the ones the 11-25 call left open. The table is the taxonomy; the sentences under it are the boundaries.
