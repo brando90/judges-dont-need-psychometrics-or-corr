@@ -1,4 +1,6 @@
-# Conditional-distribution study: live results
+# Conditional-distribution study: live results (QA annotation 11-26-2026)
+
+**QA correction (11-26-2026):** Current verified corrections, evidence limits and score-first companion panels are in [QA_CORRECTIONS_11-26-2026.md](QA_CORRECTIONS_11-26-2026.md). Original wording and scored tables below are retained as the historical record.
 
 **Status:** implementation complete; parent multi-provider review and main publication pending.
 **Last updated:** 11-08-2026 21:18 PST
