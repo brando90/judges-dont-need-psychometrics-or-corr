@@ -1,4 +1,6 @@
-# Technical memo, 11-25-2026: cross-entropy, not correlation, for AI judges
+# Technical memo, 11-25-2026: cross-entropy, not correlation, for AI judges — QA corrections 11-26-2026
+
+**QA corrections: 11-26-2026.** Read the [dated correction companion](QA_CORRECTIONS_11-26-2026.md) with the deposited memo. It preserves the earlier claims beside verified corrections and records missing-input limits.
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md>
 
@@ -31,4 +33,4 @@ The standalone source archive (this folder without the repository) rebuilds the 
 
 ## How to read the numbers
 
-Every reported number follows this repository's reporting rule: the data (train, validation or held-out test), the metric with its definition and direction, what a difference subtracts from what, the interval and how the judge was chosen. Differences are written as "test RPS of the Pearson-trained judge minus test RPS of the CE-trained judge; positive means the CE-trained judge is better". Appendix E states the metric definitions and protocols; each experiment folder has its own `HOW_TO_READ_RESULTS.md`.
+Every reported number follows this repository's reporting rule: the data (train, validation or held-out test), the metric with its definition and direction, what a difference subtracts from what, the interval and how the judge was chosen. Differences are written as "test RPS of the Pearson-trained judge minus test RPS of the CE-trained judge; positive means the CE-trained judge is better". Appendix E states the metric definitions and protocols; each experiment folder has its own `HOW_TO_READ_RESULTS.md` (earlier claim; corrected 11-26-2026: that file is not universal; consult the experiment README and dated QA companions where absent).
