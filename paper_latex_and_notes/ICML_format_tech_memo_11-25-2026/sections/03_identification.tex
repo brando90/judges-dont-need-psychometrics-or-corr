@@ -58,9 +58,8 @@ Then $\max_j\TVD(P_j,q)\ge d/2$, $\max_j\KL(P_j\|q)\ge d^2/2$ and $\tfrac12(\mat
 
 \paragraph{Gradients.}
 For $q_i=\mathrm{softmax}(u_i)$, $\partial\rho/\partial u_i(r)=g_iq_i(r)(r-m_i)$ with $g_i=(\zeta_i-\rho z_i)/(ns_m)$, while $\partial\sum_j\CE(P_j,q_j)/\partial u_i(r)=q_i(r)-P_i(r)$.
-A shape output that is parameterized apart from the mean receives no direct correlation gradient.
-With shared parameters, correlation can still change the shape indirectly, so the identification statements do not predict how a trained judge behaves, and we test it below.
-\appref{app:moments} derives the factorization of correlation through the mean, a bound that ties the CE gap to every bounded moment and the gradient of every objective; \expref{33} checks each statement numerically.
+A shape output that is parameterized apart from the mean receives no direct correlation gradient, but with shared parameters correlation can still change the shape indirectly, so the identification statements do not predict how a trained judge behaves, and we test it below.
+\appref{app:moments} derives the factorization of correlation through the mean, the moment bound and the gradient of every objective; \expref{33} checks each statement numerically.
 
 \begin{figure*}[t]
 \centering
@@ -81,5 +80,5 @@ The forecast matches every item mean, so $\rho=1$, yet its rating variances are 
 \paragraph{What this does not say.}
 The propositions concern the set of population optima.
 They do not say that every correlation-trained judge lands on a wrong shape: initialization, regularization, tie rules and model restrictions can select the true distribution from the optimum set, and a nonlinear judge may recover it from features.
-They give no universal break-even sample size either; the heuristic $N\approx P/(2B)$, from the asymptotic excess CE $P/(2N)$ of a $P$-parameter maximum-likelihood fit against a competitor's fixed excess CE $B$, holds only in CE nats under its asymptotic assumptions and cannot take an RPS gap in place of $B$.
+They give no universal break-even sample size either: the heuristic $N\approx P/(2B)$, from the asymptotic excess CE $P/(2N)$ of a $P$-parameter maximum-likelihood fit against a competitor's fixed excess CE $B$, holds only in CE nats.
 How many ratings a cross-entropy fit needs is therefore an empirical question, and the rest of the memo measures it.

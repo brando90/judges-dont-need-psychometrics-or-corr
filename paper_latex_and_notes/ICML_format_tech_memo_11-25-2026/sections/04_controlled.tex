@@ -4,7 +4,7 @@
 % Provenance: experiments 01, 04, 05, 06, 07, 08, 11, 13 (archived), 15, 17, 18, 20. Every number below is printed by the script in that folder.
 Synthetic items have a known $p(r\mid x)$, so we can score every forecast exactly against the truth.
 These studies cannot show that the findings transfer to human ratings; they show which mechanisms exist, and their sign and size, before real data enter.
-Each study trains two judges that differ only in the objective and scores them on fresh items by RPS excess, the RPS of the forecast minus the RPS of the true distribution (zero is best).
+Each study trains two judges that differ only in the objective and scores them on fresh items by RPS excess, the ranked probability score (RPS) of the forecast minus the RPS of the true distribution (zero is best).
 
 \paragraph{Proper losses separate what means cannot (experiments 01, 04, 05).}
 Among nine fixed candidate forecasts, CE picked the true distribution in 249 of 256 draws with one sampled rating per validation item.
@@ -19,18 +19,16 @@ Variance-component tools remain useful for what they measure (\appref{app:extra}
 \Cref{tab:controlled} lists where the CE-trained judge starts to beat correlation-trained judges on held-out RPS excess.
 With informative means, CE training wins from about a dozen ratings.
 When the mean says little and the spread carries the signal (scenario A of experiment 08), the Pearson-trained judge wins up to 96 ratings.
-In experiment 20, CE wins from 16 items with three ratings each.
-The test RPS excess of the Pearson-trained judge minus that of the CE-trained judge is $+0.034$ at 16 items ($95\%$ interval $[0.031,0.036]$; CE better in 96\% of 200 seeds). It is $-0.027$ at 4 items ($[-0.032,-0.021]$; CE better in 24\% of seeds). Positive means the CE-trained judge is better.
+The test RPS excess of the Pearson-trained judge minus that of the CE-trained judge is $+0.034$ at 16 items ($95\%$ $t$ interval over 200 paired seeds $[0.031,0.036]$; CE better in 96\% of them). It is $-0.027$ at 4 items ($[-0.032,-0.021]$; CE better in 24\% of seeds). Positive means the CE-trained judge is better.
 At 4 items CE loses because it overfits, while the Pearson-trained judge stays near a uniform forecast: the test CE of the CE-trained judge is 6.14 nats against 1.83 nats for the Pearson-trained judge.
 A rank correlation or a half-and-half mix of Pearson and Spearman does not change the picture (experiment 06).
-Larger optimizer budgets with best-of-five restarts find a better training objective in 57--90\% of the Pearson, Spearman and mixed fits, and every held-out RPS crossover stays where it was (experiment 07).
-Pearson objectives are not convex and we have no global-optimum certificate, but within the budgets we tried the gap is not an optimizer artifact.
+Larger optimizer budgets with best-of-five restarts find a better training objective in 57--90\% of the Pearson, Spearman and mixed fits, and every held-out RPS crossover stays where it was (experiment 07); Pearson objectives are not convex and we have no global-optimum certificate, but within the budgets we tried the gap is not an optimizer artifact.
 
 \begin{table}[t]
-\caption{\textbf{Cross-entropy (CE)-trained judges overtake correlation-trained judges after about a dozen ratings when the mean is informative and after more than 96 when it is not.}
+\caption{\textbf{Cross-entropy (CE)-trained judges overtake correlation-trained judges after about a dozen ratings when the mean is informative and after 192 when it is not.}
 Data: fresh synthetic items with known distributions, held out from training; training sizes 4 to 2,048 tasks or items.
 Metric: held-out ranked probability score (RPS) excess, the RPS of the forecast minus the RPS of the true distribution (0 is best; lower is better); experiment 18 counts a crossover only when the CE-trained judge also wins on CE excess.
-Rows read ``CE-trained better from'' the training size listed, with ratings counted in total (3 per task in experiments 06 and 08).
+Rows read ``CE-trained better from'' the training size listed: the smallest size from which the 95\% interval of the Pearson-trained minus the CE-trained RPS excess lies above zero at every larger size (paired bootstrap in experiments 06 and 08, over seeds in 18 and 20); ratings are counted in total (3 per task in experiments 06 and 08).
 Pearson objectives are not convex, so each crossover reflects the optimizer, start and budget of its experiment (\appref{app:protocols}).}
 \label{tab:controlled}
 \centering\small
@@ -39,7 +37,7 @@ Pearson objectives are not convex, so each crossover reflects the optimizer, sta
 Study & CE-trained better from \\
 \midrule
 Exp.\ 08, scenarios B, C, D & 12 ratings (4 tasks) \\
-Exp.\ 08, scenario A (mean uninformative) & more than 96 ratings; Pearson wins to 32 tasks \\
+Exp.\ 08, scenario A (mean uninformative) & 192 ratings (64 tasks); Pearson wins to 32 tasks \\
 Exp.\ 06, scenario B, vs.\ Spearman, Kendall, mixed & 12 ratings (4 tasks) \\
 Exp.\ 06, scenario A, vs.\ Spearman, mixed & 192 ratings (64 tasks) \\
 Exp.\ 06, scenario A, vs.\ Kendall & 24 ratings (8 tasks) \\
@@ -52,8 +50,8 @@ Exp.\ 18, vs.\ Pearson-trained & 16 items (10 ratings each), 32 (3), 64 (1), med
 
 \paragraph{A calibrated head closes much of the gap (experiments 11, 15, 17, 18).}
 Squared-error training fixes Pearson's drift in level and scale, and a calibration head after a Pearson score fixes the rest of what a scalar can fix.
-Squared error still leaves conditional higher moments unconstrained: at 2{,}048 items it trails the validation-selected CE fit by $0.0069$ to $0.0087$ RPS excess, with all intervals above zero (experiment 11).
+Squared error still leaves conditional higher moments unconstrained: at 2{,}048 items it trails the validation-selected CE fit by $0.0069$ to $0.0087$ RPS excess, with all paired 95\% percentile-bootstrap intervals (100 seeds, 10{,}000 draws) above zero (experiment 11).
 A flexible calibrator on the \emph{true} mean matches or beats end-to-end CE from 512 items (experiment 17).
-At 512 items, a Pearson score followed by a calibrated affine head beat the CE-trained judge on RPS excess and CE excess in 14 of 18 cells of scenarios C and D and lost to it in 13 of 18 cells of scenarios A and B (experiment 18; a cell is a scenario, a model size and a number of ratings per item).
+At 512 items, a Pearson score followed by a calibrated affine head beat the CE-trained judge on RPS excess and CE excess in 14 of 18 cells of scenarios C and D and lost to it in 13 of 18 cells of scenarios A and B (experiment 18; a cell is a scenario, model size and number of ratings per item).
 The shape has to be fitted, and CE is one way to fit it.
 \appref{app:controlled} gives the design and every table of these studies, and \appref{app:extra-controlled} the rest, including rater severity (experiment 15), which does not change the picture.

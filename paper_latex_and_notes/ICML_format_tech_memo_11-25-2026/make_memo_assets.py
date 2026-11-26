@@ -56,6 +56,16 @@ def log_line(s):
     print(s)
 
 
+def bold_min(vals, nd):
+    """Format one row of scores to nd decimals and bold every entry equal to the row minimum at the printed precision.
+
+    Lower is better for every score table of the memo, so bold always marks the lowest value in the row and ties at the
+    printed precision are all bold (each table caption says so)."""
+    txt = [f"{float(v):.{nd}f}" for v in vals]
+    lo = min(float(t) for t in txt)
+    return [f"\\textbf{{{t}}}" if float(t) == lo else t for t in txt]
+
+
 def finish(ax):
     """Every axis of every figure carries a grid (Brando, 11-21-2026); log axes also get faint minor lines."""
     ax.grid(True, which="major", alpha=0.35)
@@ -131,7 +141,7 @@ def fig_exp28(d, name, budgets_label):
     s, raw, _ = e28_data()
     s = s[s.d == d]
     m = s.groupby(["dataset", "method", "B"]).rps.mean()
-    fig, axes = plt.subplots(2, 3, figsize=(6.75, 3.2))
+    fig, axes = plt.subplots(2, 3, figsize=(6.75, 3.0))
     axes = axes.ravel()
     handles = None
     for ax, (ds, title) in zip(axes, SETS28):
@@ -169,7 +179,8 @@ def tab_exp28():
     lines = [r"\begin{tabular}{lrrrrrcc}", r"\toprule",
              r"Rating set & Unif. & Raw & CE-fit & Pearson-fit & Pearson-fit+cal. & $N^\ast$ (1/item) & $N^\ast$ (5/item) \\", r"\midrule"]
     for r in rows:
-        lines.append(f"{r[0]} & {r[1]:.3f} & {r[2]:.3f} & \\textbf{{{r[3]:.3f}}} & {r[4]:.3f} & {r[5]:.3f} & {r[6]} & {r[7]} \\\\")
+        u, w, c, p, pc = bold_min(r[1:6], 3)
+        lines.append(f"{r[0]} & {u} & {w} & {c} & {p} & {pc} & {r[6]} & {r[7]} \\\\")
     lines += [r"\bottomrule", r"\end{tabular}"]
     (TAB / "tab_exp28.tex").write_text("\n".join(lines) + "\n")
     # counts quoted in the text
@@ -194,8 +205,26 @@ def tab_exp28():
         ok = (g["pcal"] < g["ce"]).to_numpy()
         Bs = list(g.index)
         first = next((Bs[i] for i in range(len(Bs)) if ok[i:].all()), None)
-        log_line(f"exp28 {title}: Pearson-fit+cal. lower mean RPS than CE-fit from B={first} through {Bs[-1]} (one rating per item, mean over five judges); "
+        when = f"lower mean RPS than CE-fit from B={first} through {Bs[-1]}" if first is not None else f"never lower than CE-fit at every budget up to {Bs[-1]}"
+        log_line(f"exp28 {title}: Pearson-fit+cal. {when} (one rating per item, mean over five judges); "
                  f"at 64: CE-fit {g.loc[64, 'ce']:.5f}, Pearson-fit+cal. {g.loc[64, 'pcal']:.5f}; at 128: CE-fit {g.loc[128, 'ce']:.5f}, Pearson-fit+cal. {g.loc[128, 'pcal']:.5f}")
+    # the unfitted judge against CE-fit (contrasts.csv: comparator raw = unfitted minus CE-fit RPS, raw_reverse = the negation; lower_gt_0 = simultaneous one-sided 97.5% lower bound above zero)
+    ct = pd.read_csv(E28 / "results/contrasts.csv")
+    ct = ct[ct.metric == "rps"]
+    rv, rw = ct[ct.comparator == "raw_reverse"], ct[ct.comparator == "raw"]
+    sig = rv.groupby("dataset").lower_gt_0.sum().astype(int).to_dict()
+    chaos = sum(v for k, v in sig.items() if k.startswith("chaosnli"))
+    log_line(f"exp28 unfitted judge significantly lower RPS than CE-fit in {int(rv.lower_gt_0.sum())} of {len(rv)} cells, {chaos} of them on ChaosNLI (by set: {sig})")
+    e8 = rv[(rv.d == 1) & (rv.B == 8)]
+    log_line(f"exp28 at 8 ratings, one per item: unfitted judge lower mean RPS than CE-fit in {int((e8.mean_comparator_minus_ce > 0).sum())} of {len(e8)} cells, "
+             f"significantly in {int(e8.lower_gt_0.sum())}")
+    sustained, total = {}, {}
+    for (ds, jd, dd), g in rw.groupby(["dataset", "judge", "d"]):
+        flags = g.sort_values("B").lower_gt_0.astype(bool).tolist()
+        total[ds] = total.get(ds, 0) + 1
+        sustained[ds] = sustained.get(ds, 0) + int(any(all(flags[i:]) for i in range(len(flags))))
+    log_line(f"exp28 CE-fit sustained win over the unfitted judge (lower bound above zero at every larger budget from some budget on): "
+             f"{sum(sustained.values())} of {sum(total.values())} judge-by-set-by-condition cells (by set: {sustained}, of {total})")
 
 
 # ----------------------------------------------------------------------------- experiment 26
@@ -221,7 +250,8 @@ def tab_exp26():
                 break
         down = f"{min(passed)}" if passed else "none (fails at 256)"
         diff = g["pearson_fit"] - g["ce_fit"]
-        lines.append(f"{title} & {g['identity']:.4f} & {g['train_hist']:.4f} & \\textbf{{{g['ce_fit']:.4f}}} & {g['pearson_fit']:.4f} & +{diff:.4f} & {down} \\\\")
+        ui, th, cf, pf = bold_min([g["identity"], g["train_hist"], g["ce_fit"], g["pearson_fit"]], 4)
+        lines.append(f"{title} & {ui} & {th} & {cf} & {pf} & +{diff:.4f} & {down} \\\\")
         log_line(f"exp26 {title}: @256 CE-fit {g['ce_fit']:.4f} Pearson-fit {g['pearson_fit']:.4f} diff {diff:.4f}; uncal {g['identity']:.4f}; hist {g['train_hist']:.4f}; descending test passes down to {down}")
         allb = s[(s.judge == j) & s.method.isin(["ce_fit", "pearson_fit"])].pivot_table(index="training_ratings", columns="method", values="mean")
         pooled.append(int((allb.ce_fit < allb.pearson_fit).sum()))
@@ -330,7 +360,8 @@ def tab_exp29():
         lo, hi = cc.cross_sim_lo_95, cc.cross_sim_hi_95
         allpos &= bool(lo > 0)
         label = f"{names[st]}{', 5/item' if dep == 5 else ''}, {plain[st]}"
-        lines.append(f"{label} & {b} & \\textbf{{{v['ce_raw']:.4f}}} & {v['rps_raw']:.4f} & {v['mse_raw']:.4f} & {v['pearson_raw']:.4f} & "
+        bc, br, bm, bp = bold_min([v["ce_raw"], v["rps_raw"], v["mse_raw"], v["pearson_raw"]], 4)
+        lines.append(f"{label} & {b} & {bc} & {br} & {bm} & {bp} & "
                      f"+{cc.diff_comparator_minus_target:.4f} & [{lo:+.4f}, {hi:+.4f}] \\\\")
         log_line(f"exp29 {st} d={dep} B={b}: raw RPS CE {v['ce_raw']:.4f} RPS {v['rps_raw']:.4f} MSE {v['mse_raw']:.4f} Pearson {v['pearson_raw']:.4f}; "
                  f"Pearson-minus-CE {cc.diff_comparator_minus_target:+.4f} crossed sim 95% [{lo:+.4f}, {hi:+.4f}]")

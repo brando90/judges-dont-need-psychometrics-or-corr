@@ -2,13 +2,14 @@
 \label{sec:limits}
 
 \paragraph{Where correlation holds up.}
-Five results argue against a blanket preference for CE.
+Six results argue against a blanket preference for CE.
 (1) With very few ratings the Pearson-fit judge sometimes wins.
-In experiment 28 it has the lower mean RPS in 25 of 325 cells, significantly so in 19, all at the smallest budgets (Section~\ref{sec:frozen}), and in the synthetic studies a CE-trained judge overfits at 4 items (Section~\ref{sec:controlled}).
+In experiment 28 it has the lower mean ranked probability score (RPS) in 25 of 325 cells, significantly so in 19, all at the smallest budgets (Section~\ref{sec:frozen}), and in the synthetic studies a CE-trained judge overfits at 4 items (Section~\ref{sec:controlled}).
 (2) When the mean says little and the spread carries the signal, the order reverses in the synthetic studies (scenario A), up to 96 ratings.
 (3) Selecting a single judge by Pearson matched or beat selecting it by CE among the 44 historical scalar-vote theorem judges, though not in the other three pools (Section~\ref{sec:frozen}; experiment 20).
-(4) A Pearson score followed by a proper-loss calibration into grade probabilities equals or beats the CE fit on DICES, KonIQ, SummEval, dialogue and MovieLens, and after one shared calibration the LoRA gap shrinks to $0.0002$ to $0.0043$ RPS.
+(4) A Pearson score followed by a proper-loss calibration into grade probabilities equals or beats the CE fit on DICES, KonIQ, SummEval, dialogue and MovieLens, and after one shared one-dimensional calibration the LoRA gap shrinks to $0.0002$ to $0.0043$ RPS.
 (5) Three of the five frontier judges on the homework answers do not clear the preregistered descending test at 256 ratings, and Claude Sonnet 5 never passes it.
+(6) A strong frozen judge's own forecast is hard to beat with a fitted head: in experiment 28 it has significantly lower RPS than the CE-fit head in 156 of 325 cells and in 17 of 25 at eight ratings with one per item (Section~\ref{sec:frozen}).
 Where a distribution is needed, correlation alone was the weaker training signal in most of our comparisons; the gain comes from fitting the distribution with a proper loss, by whichever route.
 
 \paragraph{What the evidence does not show.}
@@ -17,9 +18,8 @@ Experiments 02, 09, 10, 12, 14, 16, 18, 19 and 20 reuse the same 75 theorem arti
 Experiment 29's HelpSteer2 CE and Pearson curves reuse experiment 24's predictions, and its test items overlap experiment 28's frontier-scored items (265 of 713 ChaosNLI, 110 of 412 alphaNLI and 172 of 300 DICES items), although the LoRA judges never trained on them.
 We do not know whether a pretrained model saw a public benchmark.
 The bands condition on the training draws and, for experiment 28, on the item subsample; ten homework assignments in one course with two graders are ten dependent folds.
-Pearson and RPS both inherit the ordinal coding of the NLI and DICES categories, which is an assumption, and SNLI and MNLI-matched keep only items with non-unanimous original labels.
+The ordinal coding of the NLI and DICES categories is an assumption (Section~\ref{sec:frozen}).
 We collected no new human ratings for this memo, and the intended application, a theorem-judge rating collection owned by the sister repository, has no fresh ratings yet.
-We estimate no human leave-one-vote-out floor for the fitted curves (Section~\ref{sec:scaling}).
 For trained judges (the toy models and LoRA), Pearson objectives are not convex and we have no global-optimum certificate: the restarts of experiment 07 change no crossover but cannot prove that none exists, whereas the exhaustive head search of experiments 21, 26 and 28 and the mixture fits of experiment 02 are exact within their families.
 The identification propositions concern population optimum sets, not the learning dynamics of any one optimizer.
 
@@ -29,6 +29,7 @@ The identification propositions concern population optimum sets, not the learnin
 \item \textbf{Keep the baselines in every table:} the uniform forecast, the training histogram and the unfitted judge.
 \item \textbf{Calibrate the distribution even when you select by ranking.} A ranking-selected score with a calibrated head is a strong, cheap comparator.
 \item \textbf{Report learning curves with simultaneous intervals} and name the data, the metric and the direction of every difference; do not report one correlation.
-\item \textbf{Budget about eight ratings with one rating per item, or twenty with five per item, to fit a calibration head to a strong frozen judge} (the largest break-even budgets over the 25 cells of experiment 28), then \textbf{treat the training objective as a second-order choice once the output is calibrated}: after one shared calibration the CE-trained and Pearson-trained LoRA judges differ by $0.0002$ to $0.0043$ RPS (Section~\ref{sec:lora}).
+\item \textbf{Eight ratings with one rating per item (twenty with five per item) suffice for a CE-fit head to beat a Pearson fit and the uniform forecast on a strong frozen judge} (the largest break-even budgets in experiment 28), but \textbf{keep the judge's raw forecast unless the head beats it on held-out ratings}: at eight ratings it did not in 21 of 25 cells.
+Once the output is calibrated, \textbf{the training objective is a second-order choice}: the CE-trained and Pearson-trained LoRA judges differ by $0.0002$ to $0.0043$ RPS after one shared one-dimensional calibration (Section~\ref{sec:lora}).
 \end{enumerate}
-The common thread follows the blog post~\citep{miranda2026bitter}: judges pose an ordinary supervised learning problem, so loss choice, held-out data and learning curves apply as they do to any other model.
+As the blog post argues~\citep{miranda2026bitter}, judges pose an ordinary supervised learning problem: choose a proper loss, hold out data and fit the learning curve.

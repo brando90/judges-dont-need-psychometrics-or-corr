@@ -188,7 +188,7 @@ For $n$ items the Pearson gradient is $\partial\rho/\partial u_i(r)=g_i\,q_i(r)(
 \end{proposition}
 
 \begin{table}[h]
-\caption{\textbf{Mean squared error (MSE) and Pearson move an item's logits only along the direction that changes its mean; the cross-entropy (CE), Brier and ranked probability score (RPS) gradients span all $K-1$ shape directions.}
+\caption{\textbf{Mean squared error (MSE) and Pearson move an item's logits only along the direction that changes its mean; the cross-entropy (CE), Brier and ranked probability score (RPS) gradients span all $K-1$ logit directions, including the $K-2$ that leave the mean unchanged.}
 Notation for one item and one observed rating $y$: $q=\mathrm{softmax}(u)$, $F_k=\sum_{s\le k}q(s)$, $e_y(r)=\Ind\{r=y\}$ and $a_r=\tfrac{2}{K-1}\sum_{k=r}^{K-2}(F_k-\Ind\{y\le k\})$.
 The population optimum is the forecast that minimizes the expected loss (maximizes $\rho$ for Pearson); $\mu$ is the true conditional mean.}
 \label{tab:losses}

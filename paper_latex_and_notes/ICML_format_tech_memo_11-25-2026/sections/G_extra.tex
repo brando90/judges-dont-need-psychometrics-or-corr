@@ -119,6 +119,7 @@ Both objectives use one optimizer, one schedule and the validation-RPS checkpoin
 \caption{\textbf{The Pearson-trained judge is worse than the cross-entropy (CE)-trained judge in all seven setups, and the interval excludes zero in each.}
 Four low-rank adaptation (LoRA) objectives at the largest budget (experiment 29).
 Held-out test ranked probability score (RPS) of the raw forecasts (0--1; lower is better) of LoRA judges trained with CE, RPS, mean squared error (MSE) or Pearson correlation under a development budget of $B$ human ratings: half train the weights, a quarter select the checkpoint and a quarter calibrate the calibrated variants. One rating per item except where noted. Models: Qwen3-4B-Instruct-2507 or Llama-3.1-8B-Instruct. Ten nested training draws per budget.
+Bold marks the lowest raw RPS in the row.
 The Pearson-trained judge has the highest raw RPS of the four objectives in six setups; on DICES with Llama-3.1-8B the MSE-trained judge is higher ($0.267$ against $0.251$).
 ``Pearson$-$CE'' is the test RPS of the Pearson-trained judge minus the test RPS of the CE-trained judge on the same held-out items; positive favors the CE-trained judge.
 The band is a two-way crossed simultaneous max-$t$ 95\% band over budgets, from 4{,}000 paired cluster-bootstrap draws that resample training draws and held-out units together.
@@ -141,6 +142,14 @@ Judges are chosen as in \Cref{fig:scaling}; exhaustive search for the head, Adam
 \setlength{\tabcolsep}{3pt}
 \input{tables/tab_scaling}
 \end{table*}
+
+\paragraph{What the scaling fits cannot say (Section~\ref{sec:scaling}).}
+The saved intervals of experiment 26 are too wide to identify any law: every judge is flat within noise.
+Our own intervals are approximate: the standard errors that experiment 28 saved belong to the difference between the uniform forecast and the CE-fit, the fit ignores covariance across nested budgets and methods, and experiment 26's standard errors are its $t$ intervals divided by $3.92$.
+We read them as indications and draw no conclusion that needs paired coverage.
+We estimate no human leave-one-vote-out floor, because the per-item vote counts of the frozen-judge panels are not saved in the repository; the reference scores that experiment 29 saved for its four test sets (see \Cref{fig:lora-hs2}) are reference values and not lower bounds, and we fit nothing against them.
+We have no judge-size axis within one model family and observe nothing beyond 320 ratings (experiments 26 and 28) or $2{,}048$ (experiment 29), so the dotted extrapolations in \Cref{fig:scaling} are extrapolations.
+The exponents describe five rating sets, two model families and two training methods and are not universal constants.
 
 \begin{figure}[t]
 \centering

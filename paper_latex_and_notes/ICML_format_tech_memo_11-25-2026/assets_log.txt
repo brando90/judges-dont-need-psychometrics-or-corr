@@ -15,11 +15,14 @@ exp28 ChaosNLI MNLI-m @256 d=1: CE-fit RPS/CE/TVD [0.163, 0.911, 0.208]  Pearson
 exp28 alphaNLI (two classes) @256 d=1: CE-fit RPS/CE/TVD [0.12, 0.396, 0.125]  Pearson-fit [0.125, 0.454, 0.131]
 exp28 DICES-350 @256 d=1: CE-fit RPS/CE/TVD [0.226, 0.851, 0.163]  Pearson-fit [0.276, 1.272, 0.314]
 exp28 DICES-990 @256 d=1: CE-fit RPS/CE/TVD [0.198, 0.757, 0.138]  Pearson-fit [0.261, 1.047, 0.315]
-exp28 ChaosNLI SNLI: Pearson-fit+cal. lower mean RPS than CE-fit from B=None through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.11846, Pearson-fit+cal. 0.13050; at 128: CE-fit 0.11615, Pearson-fit+cal. 0.12663
+exp28 ChaosNLI SNLI: Pearson-fit+cal. never lower than CE-fit at every budget up to 256 (one rating per item, mean over five judges); at 64: CE-fit 0.11846, Pearson-fit+cal. 0.13050; at 128: CE-fit 0.11615, Pearson-fit+cal. 0.12663
 exp28 ChaosNLI MNLI-m: Pearson-fit+cal. lower mean RPS than CE-fit from B=128 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.16536, Pearson-fit+cal. 0.16797; at 128: CE-fit 0.16372, Pearson-fit+cal. 0.16349
-exp28 alphaNLI (two classes): Pearson-fit+cal. lower mean RPS than CE-fit from B=None through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.12294, Pearson-fit+cal. 0.13149; at 128: CE-fit 0.12114, Pearson-fit+cal. 0.12742
+exp28 alphaNLI (two classes): Pearson-fit+cal. never lower than CE-fit at every budget up to 256 (one rating per item, mean over five judges); at 64: CE-fit 0.12294, Pearson-fit+cal. 0.13149; at 128: CE-fit 0.12114, Pearson-fit+cal. 0.12742
 exp28 DICES-350: Pearson-fit+cal. lower mean RPS than CE-fit from B=64 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.23015, Pearson-fit+cal. 0.22890; at 128: CE-fit 0.22747, Pearson-fit+cal. 0.22376
 exp28 DICES-990: Pearson-fit+cal. lower mean RPS than CE-fit from B=128 through 256 (one rating per item, mean over five judges); at 64: CE-fit 0.20133, Pearson-fit+cal. 0.20266; at 128: CE-fit 0.19887, Pearson-fit+cal. 0.19730
+exp28 unfitted judge significantly lower RPS than CE-fit in 156 of 325 cells, 134 of them on ChaosNLI (by set: {'chaosnli_alphanli': 50, 'chaosnli_mnli': 33, 'chaosnli_snli': 51, 'dices350': 9, 'dices990': 13})
+exp28 at 8 ratings, one per item: unfitted judge lower mean RPS than CE-fit in 21 of 25 cells, significantly in 17
+exp28 CE-fit sustained win over the unfitted judge (lower bound above zero at every larger budget from some budget on): 28 of 50 judge-by-set-by-condition cells (by set: {'chaosnli_alphanli': 2, 'chaosnli_mnli': 6, 'chaosnli_snli': 2, 'dices350': 10, 'dices990': 8}, of {'chaosnli_alphanli': 10, 'chaosnli_mnli': 10, 'chaosnli_snli': 10, 'dices350': 10, 'dices990': 10})
 wrote figures/fig_exp26_per_judge.pdf
 exp26 GPT-6 Astra: @256 CE-fit 0.0660 Pearson-fit 0.0843 diff 0.0183; uncal 0.0858; hist 0.1049; descending test passes down to 8
 exp26 Claude Opus 5.5: @256 CE-fit 0.0639 Pearson-fit 0.0675 diff 0.0037; uncal 0.0788; hist 0.1049; descending test passes down to none (fails at 256)

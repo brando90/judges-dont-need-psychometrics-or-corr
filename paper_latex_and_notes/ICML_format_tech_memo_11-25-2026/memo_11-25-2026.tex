@@ -77,10 +77,10 @@ It cannot tell a judge with the right means and the wrong rating distributions f
 We treat a judge as a probability model of human ratings, fit it with cross-entropy and score it with proper scores, chiefly the ranked probability score (RPS).
 An exact three-item example matches every conditional mean, so Pearson correlation is 1, yet it has mean total variation distance 0.20 and cross-entropy 1.065 against 0.915 nats.
 Across synthetic targets and human ratings of theorems, homework, images, dialogue, helpfulness and inference, cross-entropy fitting usually beats Pearson fitting on held-out RPS (lower is better); SummEval summaries are the exception, where at 768 ratings the cross-entropy fit selects the uniform forecast (RPS 0.284) and the Pearson fit scores 0.144.
-Frozen frontier judges with a calibration head cross over at 4--8 ratings, one per item, in all 25 judge-by-dataset cells.
-Matched low-rank adaptation (LoRA) of Qwen3-4B and Llama-3.1-8B favors cross-entropy in all seven setups at the largest budget, by 0.013 to 0.076 RPS on raw forecasts and 0.0002 to 0.0043 after one shared calibration.
-A saturating power law fits the held-out RPS curve of cross-entropy-fit judges in 9 of 11 panels (median exponent 0.66 on RPS and 0.82 on cross-entropy where the floor is identified) and that of Pearson-fit judges in 1 of 11 (exponent 0.09, extrapolated floor).
-Correlation remains competitive below about eight ratings, when the mean barely varies, and for choosing a single judge from some pools.
+Frozen frontier judges with a cross-entropy-fit calibration head beat the Pearson fit and the uniform forecast after 4--8 ratings, one per item, in all 25 judge-by-dataset cells, but the unfitted judge is significantly better than the fitted head in 156 of 325 cells.
+Matched low-rank adaptation (LoRA) of Qwen3-4B and Llama-3.1-8B favors cross-entropy in all seven setups at the largest budget, by 0.013 to 0.076 RPS on raw forecasts and, in point estimate, by 0.0002 to 0.0043 after one shared one-dimensional calibration (sustained under the crossed band in two setups).
+A saturating power law fits the held-out RPS curve of cross-entropy-fit judges in 9 of 11 panels and of Pearson-fit judges in 1 of 11; in the frozen-judge cells with an identified floor, the median exponent is 0.66 on RPS (8 of 25 cells) and 0.82 on cross-entropy (20 of 25).
+Correlation remains competitive below about eight ratings with one rating per item (ten with five), when the mean barely varies, and for choosing a single judge from some pools.
 Judges are an ordinary supervised learning problem: choose a proper loss, hold out data and fit the learning curve.
 \end{abstract}
 
@@ -94,7 +94,7 @@ Judges are an ordinary supervised learning problem: choose a proper loss, hold o
 \input{sections/08_limits}
 
 \section*{Acknowledgments}
-We thank Sanmi Koyejo for repeated technical feedback that shaped experiments 11, 15--17 and 22.
+We thank Sanmi Koyejo for repeated technical feedback that shaped experiments 11, 15, 16 and 22.
 
 \bibliography{memo_refs}
 \bibliographystyle{icml2026}

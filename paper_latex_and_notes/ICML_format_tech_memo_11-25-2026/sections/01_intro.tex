@@ -22,13 +22,13 @@ How many human ratings does a cross-entropy-fitted judge need before it beats a 
 This memo consolidates every experiment in the repository (30 active folders and four archived ones, numbered 00--33; \appref{app:index}) and builds on the identification preprint~\citep{miranda2026correlation}.
 We make five contributions.
 \begin{enumerate}
-\item \textbf{Identification.} We prove what Pearson correlation, mean squared error, cross-entropy and the ranked probability score identify, bound moment recovery by cross-entropy, and give an exact three-item example with equal means and different distributions (Section~\ref{sec:identification}; derivations in \appref{app:moments}).
-\item \textbf{Controlled studies.} On synthetic ratings with known distributions, cross-entropy training beats Pearson training from 12 ratings when the mean carries the signal (experiment 08, three ratings per task) and from 48 in a second toy whose spread and shape also vary (experiment 20, where it loses at 12).
-When the mean says little, it needs 192 ratings against Pearson, Spearman and mixed objectives and 24 against Kendall (experiment 06, scenario A; Section~\ref{sec:controlled}).
-\item \textbf{Frozen judges on human ratings.} With five frontier judges and a 27-setting calibration head, cross-entropy fitting clears Pearson fitting and a uniform forecast after 4--8 ratings, one per item, in all 25 dataset-by-judge cells of ChaosNLI and DICES (Section~\ref{sec:frozen}).
+\item \textbf{Identification.} We prove what Pearson correlation, mean squared error, cross-entropy and the ranked probability score (RPS) identify, bound moment recovery by cross-entropy, and give an exact three-item example with equal means and different distributions (Section~\ref{sec:identification}).
+\item \textbf{Controlled studies.} On synthetic ratings with known distributions, cross-entropy training beats Pearson training from 12 ratings when the mean carries the signal and from 48 in a second toy whose spread and shape also vary (where it loses at 12).
+When the mean says little, it needs 192 ratings against Pearson, Spearman and mixed objectives and 24 against Kendall (Section~\ref{sec:controlled}).
+\item \textbf{Frozen judges on human ratings.} With five frontier judges and a 27-setting calibration head, cross-entropy fitting clears Pearson fitting and a uniform forecast after 4--8 ratings, one per item, in all 25 dataset-by-judge cells of ChaosNLI and DICES, but the unfitted judge is significantly better than the fitted head in 156 of 325 cells (Section~\ref{sec:frozen}).
 \item \textbf{Trained judges.} In matched LoRA fine-tuning with four objectives, Pearson-trained judges have higher raw RPS than CE-trained judges in all seven setups at the largest budget.
 Squared error and CE differ by $0.0003$ RPS at $K=2$ (interval includes zero), and CE beats squared error on five of six panels with $K\ge3$ (Section~\ref{sec:lora}).
-\item \textbf{Scaling laws.} A floor plus $aN^{-b}$ fits the held-out RPS curves of cross-entropy-fit judges in 9 of 11 panels (median $b=0.66$ where the floor is identified) and those of Pearson-fit judges in 1 of 11 (Section~\ref{sec:scaling}).
+\item \textbf{Scaling laws.} A floor plus $aN^{-b}$ fits the held-out RPS curves of cross-entropy-fit judges in 9 of 11 panels and those of Pearson-fit judges in 1 of 11; across the frozen-judge cells with an identified floor the median $b$ is $0.66$ on RPS (Section~\ref{sec:scaling}).
 \end{enumerate}
 
 \paragraph{Related work.}

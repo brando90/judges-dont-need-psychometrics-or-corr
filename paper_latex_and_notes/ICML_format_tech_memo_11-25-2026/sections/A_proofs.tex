@@ -67,10 +67,10 @@ For a differentiable shared-parameter model, $D\rho(\theta)[v]=\sum_ig_iDM_i(\th
 
 \subsection{The exponential family, the signed CE decomposition and the entropy gap}
 \label{app:ce-gap}
-Let $q_\eta(r)=e^{\eta r-A(\eta)}$ on $\{0,\dots,K-1\}$ with $A(\eta)=\log\sum_re^{\eta r}$.
-Then $A'(\eta)=m(\eta)$ and $A''(\eta)=\Var_{q_\eta}(R)>0$, so the mean map is a strictly increasing bijection from $\mathbb R$ onto $(0,K-1)$.
-For a target $P$ with interior mean $t$, $\CE(P,q_\eta)=-\eta t+A(\eta)$ is strictly convex in $\eta$ with derivative $m(\eta)-t$, so its unique minimizer is the mean-matching member $q_t$.
-For any $P$ with mean $t$, $\KL(P\|q_t)=-H(P)-\eta t+A(\eta)=H(q_t)-H(P)$, so $q_t$ is the unique maximum-entropy distribution with mean $t$.
+Let $q_\gamma(r)=e^{\gamma r-A(\gamma)}$ on $\{0,\dots,K-1\}$ with $A(\gamma)=\log\sum_re^{\gamma r}$.
+Then $A'(\gamma)=m(\gamma)$ and $A''(\gamma)=\Var_{q_\gamma}(R)>0$, so the mean map is a strictly increasing bijection from $\mathbb R$ onto $(0,K-1)$.
+For a target $P$ with interior mean $t$, $\CE(P,q_\gamma)=-\gamma t+A(\gamma)$ is strictly convex in $\gamma$ with derivative $m(\gamma)-t$, so its unique minimizer is the mean-matching member $q_t$.
+For any $P$ with mean $t$, $\KL(P\|q_t)=-H(P)-\gamma t+A(\gamma)=H(q_t)-H(P)$, so $q_t$ is the unique maximum-entropy distribution with mean $t$.
 Define the gap $G(P)=H(q_t)-H(P)\ge0$: it is the excess CE of the best forecast that is log-affine in the rating.
 For any $q$ positive on every category, adding and subtracting $\CE(q_t,q)=H(q_t)+\KL(q_t\|q)$ gives
 \[
@@ -79,7 +79,7 @@ For any $q$ positive on every category, adding and subtracting $\CE(q_t,q)=H(q_t
 The cross term vanishes when $\log q(r)=\alpha+\beta r$, because $P$ and $q_t$ share total mass and mean, and it can be negative: at $q=P$, $C(P,P)=-G(P)-\KL(q_t\|P)$.
 The gap is therefore a restriction cost for the log-affine family and not an unavoidable penalty on every forecast.
 In the 11-artifact population of experiment 04 ($p_x=0.9\,\mathrm{Binomial}(5,j/12)+0.1\,\mathrm{Uniform}$), the mean gap is $0.117$ nats (item range $0.020$ to $0.210$), against the largest possible entropy $\log6=1.792$ nats.
-Locally, $\KL(q_{\eta_t}\|q_{\eta_m})=(m-t)^2/(2A''(\eta_t))+o((m-t)^2)$, the cost of a mean miscalibration inside the family.
+Locally, $\KL(q_{\gamma_t}\|q_{\gamma_m})=(m-t)^2/(2A''(\gamma_t))+o((m-t)^2)$, the cost of a mean miscalibration inside the family.
 
 \subsection{The exact example}
 \label{app:example}

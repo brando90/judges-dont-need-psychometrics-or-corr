@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/paper_latex_and_notes/ICML_format_tech_memo_11-25-2026/README.md>
 
-**TLDR:** One ICML-format memo that consolidates the results of every experiment folder in this repository (00 to 33, archived 11 to 14 included): a nine-page main text, references, then Appendices A to H with the proofs, a self-contained derivation that correlation sees one moment and cross-entropy sees all of them, the controlled studies in detail, the ranked probability score (RPS), the protocols, an index of all experiments, extra tables and figures, and provenance. `memo_11-25-2026.pdf` is the compiled memo and `HANDOFF_STANFORD_LIBRARY_11-25-2026.md` holds what a depositor needs. Every experiment result it reads was committed at or before commit `2bd73d9`. It has not been deposited in the Stanford Digital Repository; that is a human step.
+**TLDR:** One ICML-format memo that consolidates the results of every experiment folder in this repository (00 to 33, archived 11 to 14 included): a nine-page main text, references, then Appendices A to H with the proofs, a self-contained derivation that correlation sees one moment and cross-entropy sees all of them, the controlled studies in detail, the ranked probability score (RPS), the protocols, an index of all experiments, extra tables and figures, and provenance. `memo_11-25-2026.pdf` is the compiled memo. Every experiment result it reads was committed at or before commit `2bd73d9`. The memo is deposited in the Stanford Digital Repository at <https://purl.stanford.edu/pr787bn6444> (DOI 10.25740/pr787bn6444).
 
 **Title:** Learn Judges Like Any Other Model: Cross-Entropy, Not Correlation, for Predicting Human Rating Distributions. Brando Miranda, Stanford University. 11-25-2026.
 
@@ -14,7 +14,7 @@
 - `assets_log.txt`: the values the script printed for the figures and tables.
 - `memo_refs.bib`, `icml2026.sty`, `icml2026.bst` and the helper style files: bibliography and ICML kit.
 - `check_numbers.py`: a screening aid. For each memo line it collects the decimals and the integers of 100 or more (integers below 100 are not checked) and passes the line when one report file under `experiments/` or `paper_latex_and_notes/`, or `assets_log.txt`, holds all of them. It ignores the generated tables and the memo's own sources, and it checks that the numbers exist, not that the sentence draws the right conclusion from them. Lines it cannot match are listed for a manual check against the experiment folder; the last run listed three, and all three matched their experiment folders (a comma-separated ridge grid read as one number, and two counts in experiments 18 and 23).
-- `HANDOFF_STANFORD_LIBRARY_11-25-2026.md`: title, abstract, keywords, license, file hashes and the open decisions for the deposit.
+- `HANDOFF_STANFORD_LIBRARY_11-25-2026.md` (in the repository only, not in the deposited archive): title, abstract, keywords, license, file hashes and the decisions for the deposit.
 
 ## Build and check
 
