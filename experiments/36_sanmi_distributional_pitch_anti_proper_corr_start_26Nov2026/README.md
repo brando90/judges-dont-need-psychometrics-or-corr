@@ -2,15 +2,16 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026/README.md>
 
-**TLDR:** Pearson correlation is affine-invariant and, for a judge sampled independently of the human given the prompt, strictly anti-proper relative to the true conditional distribution. Brier and ranked probability score (RPS) are strictly proper. The human-data half is a linear head on SummEval, ChaosNLI, and DICES. Read `HOW_TO_READ_RESULTS.md` before quoting a number.
+**TLDR:** Pearson correlation is affine-invariant and, for a judge sampled independently of the human given the prompt, strictly anti-proper relative to the true conditional distribution. Brier and ranked probability score (RPS) are strictly proper. Real multi-annotator heads are scored across SummEval, ChaosNLI, DICES, POPQUORN (Offensiveness & Politeness), and VeriBench FSC (`R_v1`, live-synced `native_main`, and pooled), alongside real LLM judge panels bridged from CertJudge (Experiments 63, 39, 67). Read `HOW_TO_READ_RESULTS.md` before quoting a number.
 
-**Status:** run complete on this machine (11-26-2026) for every dataset that could be downloaded. No GPU. Cost $0 of new model calls. Raw downloads are cached under `data_cache/` and are not committed.
+**Status:** complete on this machine (11-26-2026) across all downloaded/local multi-annotator sets and CertJudge panels. No GPU (SNAP scripts ready). Cost $0 of new model calls. Raw downloads are cached under `data_cache/` and are not committed.
 
 ## Reproduce
 
-From the repository root, with Python 3, NumPy, SciPy, and Matplotlib:
+From the repository root, with Python 3, NumPy, SciPy, Matplotlib, and pytest:
 
 ```bash
+python3 experiments/36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026/eval_power_mdd.py
 python3 experiments/36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026/run_all.py
 python3 -m pytest experiments/36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026/tests -q
 ```
@@ -29,18 +30,18 @@ Exit code 0, no `sorry`. The captured compiler output is `lean_check.txt`.
 | Path | Role |
 | --- | --- |
 | `SANMI_PITCH.md` | Four-step pitch, note to Sanmi, two-paper roadmap, transcript coverage |
-| `RESULTS_SUMMARY.md` | Proved claims, held-out tables, Kohli positioning, transcript coverage |
+| `RESULTS_SUMMARY.md` | Proved claims, held-out tables, CertJudge real LLM judge bridge, power & G-theory |
 | `HOW_TO_READ_RESULTS.md` | Data, metric, difference, interval, and how the head was chosen |
 | `results.md` | Live ledger |
-| `results.json`, `results.txt` | Exact metrics |
-| `PROTOCOL.md` | Measurement contract, written as the pre-registered choices |
+| `results.json`, `results.txt`, `results_power_mdd.json` | Exact metrics & power/MDD grids |
+| `PROTOCOL.md` | Pre-registered measurement contract + Amendment 1 (11-26-2026) |
 | `SanmiPitch.lean`, `lean_check.txt` | Formal proofs and the compiler receipt |
 | `proofs_numeric.py` | Numerical twins of the Lean claims |
-| `metrics.py`, `data_io.py`, `fit_eval.py`, `run_all.py` | Estimators, loaders, heads, driver |
-| `figures/` | Matrix, crossover, high-k, rollout, iso-budget, DICES-990 test-set power |
-| `tables/` | Markdown tables copied from the run |
-| `scripts/snap_lora_train.py`, `scripts/snap_llm_logit_readout.py` | Not run here |
-| `tests/test_hygiene.py` | Unbiased risk, prompt split, metric identities |
+| `metrics.py`, `data_io.py`, `fit_eval.py`, `run_all.py`, `eval_power_mdd.py` | Estimators, loaders, heads, drivers |
+| `figures/` | Matrices, crossovers, CertJudge real panels, rollout, iso-budget, test-set power |
+| `tables/` | Markdown and LaTeX tables copied from the run |
+| `scripts/snap_lora_train.py`, `scripts/snap_llm_logit_readout.py` | Ready for SNAP/Sherlock GPU runs (not run here) |
+| `tests/test_hygiene.py` | Unbiased risk, prompt/task splits, dataset loaders, metric identities |
 
 ## Data that was scored
 
@@ -48,8 +49,10 @@ Exit code 0, no `sorry`. The captured compiler output is `lean_check.txt`.
 - **chaosnli.** downloaded from the author checksums on Hugging Face earino/chaosnli
 - **dices350.** downloaded from google-research-datasets/dices-dataset
 - **dices990.** downloaded from google-research-datasets/dices-dataset
-- **popquorn.** NOT LOADED. huggingface dataset search returned no POPQUORN card, https://github.com/Jiaxin-Pei/POPQUORN returned 404, and that user's public repos contain Stanford-politeness model code rather than POPQUORN ratings. The Stanford politeness corpus was not substituted.
-- **veribench_fsc.** NOT IN THIS REPOSITORY AND NOT ON THIS MACHINE. A search of this repo for FSC / R_v1 / functional semantic correctness ratings found no table. AGENTS.md assigns the shared VeriBench human-rating collection to trustworthy-theorem-judges experiment 09; that repo is not cloned here, so CertJudge / VeriBench FSC R_v1 (0–5, about 5 experts, 343 items) was not scored.
+- **popquorn.** downloaded from Jiaxin-Pei/Potato-Prolific-Dataset@dbb118c2 (offensiveness 1,500 items / 13,036 ratings; politeness_rating 3,718 items / 25,042 ratings; 1-5 scale)
+- **veribench_fsc_rv1.** loaded from brando90/veribench@d1c47355 Exp 100 items.jsonl (75 items, 25 tasks, 0-5 scale; all5 345 ratings, expert3 195 ratings)
+- **veribench_fsc_native_main.** loaded from brando90/trustworthy-theorem-judges@460466dd Exp 09 live-synced 11-26-2026 (100 items, 25 tasks, 0-5 scale; 250 non-coordinator numeric ratings across 6 active raters; T30 HTTP 401 unverified)
+- **certjudge_real_panels.** loaded from brando90/cert-judge@f6047849 Exp 68 Study A (E63 6 Qwen3-8B arms) & Study B (E39 56 LLM configs) + Exp 67 interim (3 judges on 100 native files)
 
 ## Verified numerical snapshot
 

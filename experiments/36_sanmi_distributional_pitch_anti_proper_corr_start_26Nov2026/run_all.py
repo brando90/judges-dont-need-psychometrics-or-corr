@@ -19,10 +19,9 @@ import numpy as np
 from data_io import (
     assert_no_prompt_leakage,
     availability,
-    binarize,
     load_all,
+    load_certjudge_real_panels,
     load_chaos_alpha,
-    load_chaos_3way,
     load_summeval,
     split_by_group,
 )
@@ -36,7 +35,7 @@ from fit_eval import (
     predict_distributions,
     rollout_from_probs,
 )
-from metrics import brier_one, ce_one, pearson_from_sums, rps_one
+from metrics import brier_one, ce_one, rps_one
 from proofs_numeric import check_all
 
 HERE = Path(__file__).resolve().parent
@@ -54,13 +53,6 @@ def _jsonable(obj):
         return obj.tolist()
     if isinstance(obj, np.generic):
         return _jsonable(obj.item())
-    if isinstance(obj, (np.floating,)):
-        v = float(obj)
-        if np.isnan(v) or np.isinf(v):
-            return None if np.isnan(v) else ("inf" if v > 0 else "-inf")
-        return v
-    if isinstance(obj, (np.integer,)):
-        return int(obj)
     if isinstance(obj, float):
         if np.isnan(obj) or np.isinf(obj):
             return None if np.isnan(obj) else ("inf" if obj > 0 else "-inf")
@@ -166,7 +158,6 @@ def _trace(data, prep, pack):
 def crossover(data, label):
     print(f"[crossover] {label}", flush=True)
     prep = prepare(data)
-    max_k = int(min(r.size for r in data.ratings))
     # Use a high percentile if the minimum is 1 because of a thin item, but never exceed the median.
     ks_avail = [int(np.median([r.size for r in data.ratings]))]
     cap = int(np.percentile([r.size for r in data.ratings], 20))
@@ -187,14 +178,14 @@ def crossover(data, label):
     return {"label": label, "k_cap_p20": cap, "median_k": ks_avail[0], "curves": curves}
 
 
-def iso_budget(data):
+def iso_budget(data, ks=(1, 4, 16, 32)):
     print("[iso-budget]", data.name, flush=True)
     prep = prepare(data)
     n_train = int(prep["train"].size)
     # Exact products B = N * k inside the train pool.
     budget = 1024 if n_train >= 1024 else max(64, (n_train // 16) * 16)
     plans = []
-    for k in (1, 4, 16, 32):
+    for k in ks:
         n = budget // k
         if n >= 30 and n <= n_train and k <= int(np.percentile([r.size for r in data.ratings], 20)):
             plans.append((n, k, n * k))
@@ -278,7 +269,7 @@ def one_hot_round(mu, values):
     return one_hot(len(values), idx, floor=1e-6)
 
 
-def rollout_experiment(pack, x_test, ratings, test_idx, values):
+def rollout_experiment(pack, x_test, ratings, test_idx):
     prob, _mu = predict_distributions(pack, x_test, pack["objective"])
     rng = np.random.default_rng(9)
     rows = []
@@ -327,8 +318,14 @@ def main():
     by_name = {s.name: s for s in sets}
     print("[data]", {k: v.summary()["n_items"] for k, v in by_name.items()}, flush=True)
     matrix_names = ["summeval_expert", "chaosnli_alpha"] if SMOKE else [
-        "summeval_expert", "summeval_expert_binary", "chaosnli_snli_mnli",
-        "chaosnli_alpha", "dices990", "dices990_binary_yes",
+        "summeval_expert", "summeval_expert_binary",
+        "chaosnli_snli_mnli", "chaosnli_alpha",
+        "dices990", "dices990_binary_yes",
+        "popquorn_offensiveness", "popquorn_offensiveness_binary",
+        "popquorn_politeness", "popquorn_politeness_binary",
+        "veribench_fsc_rv1", "veribench_fsc_rv1_expert3", "veribench_fsc_rv1_binary",
+        "veribench_fsc_native_main",
+        "veribench_fsc_pooled", "veribench_fsc_pooled_binary",
     ]
     matrices = {}
     for name in matrix_names:
@@ -339,11 +336,20 @@ def main():
         curves["ordinal_summeval_crowd"] = crossover(by_name["summeval_crowd"], "SummEval crowd Likert 1-5")
         curves["ordinal_dices990"] = crossover(by_name["dices990"], "DICES-990 3-level ordinal")
         curves["chaos_3way"] = crossover(by_name["chaosnli_snli_mnli"], "ChaosNLI SNLI+MNLI 3-class")
+        curves["ordinal_popquorn_offensiveness"] = crossover(by_name["popquorn_offensiveness"], "POPQUORN offensiveness 1-5")
+        curves["ordinal_popquorn_politeness"] = crossover(by_name["popquorn_politeness"], "POPQUORN politeness 1-5")
+        curves["ordinal_veribench_fsc_rv1"] = crossover(by_name["veribench_fsc_rv1"], "VeriBench FSC R_v1 (0-5, all5)")
+        curves["ordinal_veribench_fsc_pooled"] = crossover(by_name["veribench_fsc_pooled"], "VeriBench FSC pooled (0-5)")
         iso = iso_budget(by_name["chaosnli_snli_mnli"])
+        iso_extra = {
+            "popquorn_offensiveness": iso_budget(by_name["popquorn_offensiveness"], ks=(1, 2, 4, 8)),
+            "popquorn_politeness": iso_budget(by_name["popquorn_politeness"], ks=(1, 2, 4)),
+        }
     else:
         curves["binary_alpha"] = crossover(by_name["chaosnli_alpha"], "ChaosNLI alphaNLI binary")
         curves["ordinal_summeval"] = crossover(by_name["summeval_expert"], "SummEval expert")
         iso = {"budget_target": None, "rows": []}
+        iso_extra = {}
     # Rollout and within-prompt on the first matrix that has a CE pack.
     primary = "summeval_expert"
     roll = rollout_experiment(
@@ -351,10 +357,14 @@ def main():
         matrices[primary]["_prep"]["x_test"],
         by_name[primary].ratings,
         matrices[primary]["_prep"]["test"],
-        by_name[primary].class_values,
     )
+    oracles_all = {}
+    for o_name in ("dices990", "popquorn_offensiveness", "popquorn_politeness", "veribench_fsc_rv1", "veribench_fsc_pooled"):
+        if o_name in by_name:
+            oracles_all[o_name] = within_prompt(by_name[o_name])
     oracle_name = "dices990" if "dices990" in by_name else primary
-    oracle = within_prompt(by_name[oracle_name])
+    oracle = oracles_all[oracle_name] if oracle_name in oracles_all else within_prompt(by_name[oracle_name])
+    certjudge_panels = load_certjudge_real_panels()
     # Drop non-serializable handles.
     for block in matrices.values():
         block.pop("_prep", None)
@@ -368,8 +378,11 @@ def main():
         "matrices": matrices,
         "crossover": curves,
         "iso_budget": iso,
+        "iso_budget_extra": iso_extra,
         "rollout": {"dataset": primary, "rows": roll, "floor_on_monte_carlo": 1e-6},
         "within_prompt_oracle": {"dataset": oracle_name, **oracle},
+        "within_prompt_oracles": oracles_all,
+        "certjudge_real_panels": certjudge_panels,
         "seconds": time.time() - t0,
     }
     text = json.dumps(_jsonable(payload), indent=2)

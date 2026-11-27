@@ -1,4 +1,9 @@
-"""Static sections added after the main run. Numbers in POWER are copied from results_power_mdd.json."""
+"""Static & dynamically formatted sections added after the main run."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
 
 ELICITATION = r"""## Elicitation hierarchy
 
@@ -26,15 +31,54 @@ One rationale does not return that sum. Two procedures do. A direct forward pass
 A second scaling axis is model size \(P\), beside the annotation budget \(B = N \times k\). The GPU script records a planned grid, Qwen3-4B and Llama-3.1-8B, and does not run it. No held-out number in this folder is a function of \(P\).
 """
 
-POWER = r"""## Test-set power and minimum detectable difference (DICES-990)
 
-This complements the unbiased test risk at one rating per prompt. The two judges are fixed: the cross-entropy head and the Pearson head, trained once on the DICES-990 train split (594 conversations, seed 0). Only the test design changes. A cell is \(N_{\mathrm{test}}\) held-out conversations and \(k_{\mathrm{test}}\) ratings from each. There are 200 random subsets. Each subset gets an item-clustered percentile 95% interval from 200 resamples of its conversations. Power is the fraction of subsets whose interval excludes 0. The minimum detectable difference is the median half-width of those intervals.
+def build_power_section(folder: Path) -> str:
+    """Format the test-set power & MDD section directly from results_power_mdd.json."""
+    power_path = folder / "results_power_mdd.json"
+    if not power_path.is_file():
+        return "## Test-set power and minimum detectable difference\n\nRun `eval_power_mdd.py` to populate `results_power_mdd.json`.\n"
+    data = json.loads(power_path.read_text())
 
-For cross-entropy, Brier, and sqrt(RPS), the difference is the Pearson-trained head minus the cross-entropy-trained head. Positive means the cross-entropy head is better. For Pearson \(r\), the difference is the cross-entropy head's correlation minus the Pearson head's correlation.
+    def _fmt_summary(block, label):
+        s = block["summary"]
+        rows = block["rows"]
+        n_avail = block["n_test_available"]
+        lines = [f"### {label} (`N_test` max = {n_avail})", ""]
+        for metric, mlabel in (("ce", "Cross-entropy"), ("brier", "Brier"), ("sqrt_rps", "sqrt(RPS)"), ("pearson_r", "Pearson r")):
+            k1_rows = [r for r in rows if r["k_test"] == 1 and r["metric"] == metric]
+            max_r = max(k1_rows, key=lambda r: r["n_test"]) if k1_rows else None
+            hit = s[metric].get("smallest_n_at_k1_power80")
+            if hit:
+                desc = f"hits power ≥ 0.80 at `N_test = {hit['n_test']}` (power {hit['power']:.2f}, MDD {hit['mdd']:.4f})"
+            elif max_r:
+                desc = f"does NOT reach 0.80 at `k_test = 1` (at `N_test = {max_r['n_test']}`, power {max_r['power']:.2f}, MDD {max_r['mdd']:.4f}, median diff {max_r['median_difference']:.4f})"
+            else:
+                desc = "not evaluated"
+            lines.append(f"- **{mlabel} at `k_test = 1`:** {desc}.")
+        return "\n".join(lines)
 
-At one test rating per prompt, cross-entropy reaches power 0.80 between 50 prompts (power 0.77, minimum detectable difference 0.440 nats) and 100 prompts (power 0.96, minimum detectable difference 0.317). Brier reaches it at 150 prompts (power 0.84, minimum detectable difference 0.070). sqrt(RPS) reaches it at all 198 prompts (power 0.90, minimum detectable difference 0.048). Pearson \(r\) does not. At \(k_{\mathrm{test}}=1\) and \(N_{\mathrm{test}}=198\) its power is 0.62 and its minimum detectable difference is 0.023, while the median correlation gap in those subsets is 0.028. Correlation first reaches power 0.80 at \(k_{\mathrm{test}}=4\) with all 198 prompts (power 0.82), or at \(k_{\mathrm{test}}=8\) with 150 prompts (power 0.85).
+    dices_txt = _fmt_summary(data, "DICES-990")
+    extra = data.get("extra_datasets", {})
+    extra_parts = []
+    if "popquorn_offensiveness" in extra:
+        extra_parts.append(_fmt_summary(extra["popquorn_offensiveness"], "POPQUORN Offensiveness"))
+    if "popquorn_politeness" in extra:
+        extra_parts.append(_fmt_summary(extra["popquorn_politeness"], "POPQUORN Politeness"))
+    extra_block = "\n\n".join(extra_parts)
 
-The proper scores separate these two heads with fewer test ratings than the correlation does, because the proper-score gaps are large and the correlation gap is small. The figure is `figures/eval_power_mdd_dices990.png`. The full grid is `tables/eval_power_mdd_dices990.md`.
+    return f"""## Test-set power and minimum detectable difference
+
+This complements the unbiased test risk at one rating per prompt. The two judges are fixed: the cross-entropy head and the Pearson head, trained once on the train split (seed 0). Only the test design changes. A cell is \\(N_{{\\mathrm{{test}}}}\\) held-out items and \\(k_{{\\mathrm{{test}}}}\\) ratings from each. There are {data['n_outer_subsets']} random subsets, each scored with an {data['interval']} interval from {data['n_inner_bootstrap']} item-clustered resamples. Power is the fraction of subsets whose interval excludes 0; minimum detectable difference (MDD) is the median half-width of those intervals.
+
+For proper scores, the difference is `{data['difference_proper']}`. For Pearson \\(r\\), `{data['difference_correlation']}`.
+
+{dices_txt}
+
+{extra_block}
+
+The proper scores separate these two heads at \\(k_{{\\mathrm{{test}}}} = 1\\) with far fewer test prompts than correlation needs, because the proper-score gaps are large and the correlation gap is small. Figures: `figures/eval_power_mdd_dices990.png` and `figures/eval_power_mdd_popquorn_offensiveness.png`. Full DICES-990 grid: `tables/eval_power_mdd_dices990.md`.
 
 ![Test-set power on DICES-990](figures/eval_power_mdd_dices990.png)
+
+![Test-set power on POPQUORN Offensiveness](figures/eval_power_mdd_popquorn_offensiveness.png)
 """

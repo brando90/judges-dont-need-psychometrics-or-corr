@@ -30,7 +30,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from data_io import _load_dices
+from data_io import _load_dices, load_popquorn
 from fit_eval import fit_objective, predict_distributions
 from metrics import brier_one, ce_one, pearson_from_sums, rps_one
 from run_all import prepare
@@ -161,12 +161,15 @@ def _style(ax):
     ax.set_axisbelow(True)
 
 
-def _figure(rows, path):
+def _figure_dataset(rows, title_prefix, path, right_k=8):
     fig, axes = plt.subplots(1, 2, figsize=(11.2, 4.6))
     colors = {"ce": "#0072B2", "brier": "#E69F00", "sqrt_rps": "#009E73", "pearson_r": "#D55E00"}
+    avail_ks = sorted({r["k_test"] for r in rows})
+    if right_k not in avail_ks:
+        right_k = max(avail_ks)
     for ax, k, title in (
-        (axes[0], 1, "One test rating per prompt"),
-        (axes[1], 8, "Eight test ratings per prompt"),
+        (axes[0], 1, "One test rating per prompt (k_test = 1)"),
+        (axes[1], right_k, f"{right_k} test ratings per prompt (k_test = {right_k})"),
     ):
         for metric, label in (
             ("ce", "Cross-entropy"),
@@ -185,14 +188,14 @@ def _figure(rows, path):
             )
         ax.axhline(0.80, color="0.4", linestyle=":", linewidth=1, label="Power 0.80")
         ax.set_ylim(-0.05, 1.05)
-        ax.set_xlabel("Held-out test prompts N_test")
-        ax.set_ylabel("Power to exclude 0 at 95% (item-clustered)")
+        ax.set_xlabel("Held-out test prompts N_test (higher = more prompts)")
+        ax.set_ylabel("Power to exclude 0 at 95% (item-clustered, higher = stronger)")
         ax.set_title(title)
         _style(ax)
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="lower center", ncol=5, fontsize=8, bbox_to_anchor=(0.5, -0.12))
     fig.suptitle(
-        "DICES-990: power to separate the CE-trained head from the Pearson-trained head",
+        f"{title_prefix}: held-out test power to separate CE-trained from Pearson-trained head",
         fontsize=11,
     )
     fig.tight_layout()
@@ -207,16 +210,14 @@ def _smallest(rows, metric, k, threshold=0.80):
     return min(hits, key=lambda r: (r["n_test"], r["k_test"]))
 
 
-def main():
-    data = _load_dices("990")
+def _run_dataset_power(data, n_grid, k_grid, seed=SEED):
     prep = prepare(data)
     packs = {}
     for obj in ("ce", "pearson"):
         packs[obj] = fit_objective(
             prep["x_train"], data.ratings, prep["train"], data.class_values, obj, None, seed=0,
         )
-    probs = {}
-    mus = {}
+    probs, mus = {}, {}
     for obj, pack in packs.items():
         prob, mu = predict_distributions(pack, prep["x_test"], obj)
         probs[obj] = prob
@@ -229,73 +230,75 @@ def main():
         ratings = np.asarray(data.ratings[i], dtype=int)
         a = _item_losses(probs["ce"][row], ratings, values)
         b = _item_losses(probs["pearson"][row], ratings, values)
-        ce_a.append(a[0])
-        br_a.append(a[1])
-        rp_a.append(a[2])
-        y.append(a[3])
-        ce_b.append(b[0])
-        br_b.append(b[1])
-        rp_b.append(b[2])
-    s_a = mus["ce"]
-    s_b = mus["pearson"]
-    rng = np.random.default_rng(SEED)
-    # One offset per item, reused across N so k-subsamples share a rating draw.
+        ce_a.append(a[0]); br_a.append(a[1]); rp_a.append(a[2]); y.append(a[3])
+        ce_b.append(b[0]); br_b.append(b[1]); rp_b.append(b[2])
+    s_a, s_b = mus["ce"], mus["pearson"]
+    rng = np.random.default_rng(seed)
     offsets = np.array([rng.integers(0, ce_a[i].size) for i in range(len(ce_a))])
     rows = []
-    for k in K_GRID:
+    for k in k_grid:
         m_ce, m_br, _m_rp, stats_a, stats_b = _subset_metrics(
             ce_a, ce_b, br_a, br_b, rp_a, rp_b, y, s_a, s_b, offsets, k,
         )
-        for n_take in N_GRID:
+        for n_take in n_grid:
             if n_take > len(ce_a):
                 continue
-            for metric, vec, proper in (
-                ("ce", m_ce, True),
-                ("brier", m_br, True),
-            ):
-                cell_rng = np.random.default_rng(SEED + 1000 * k + n_take + (0 if metric == "ce" else 17))
+            for metric, vec in (("ce", m_ce), ("brier", m_br)):
+                cell_rng = np.random.default_rng(seed + 1000 * k + n_take + (0 if metric == "ce" else 17))
                 out = _power_one(vec, stats_a, stats_b, n_take, cell_rng, proper=True)
                 rows.append({"metric": metric, "k_test": k, "n_test": n_take, **out})
-            cell_rng = np.random.default_rng(SEED + 1000 * k + n_take + 29)
+            cell_rng = np.random.default_rng(seed + 1000 * k + n_take + 29)
             out = _sqrt_rps_power(rp_a, rp_b, offsets, k, n_take, cell_rng)
             rows.append({"metric": "sqrt_rps", "k_test": k, "n_test": n_take, **out})
-            cell_rng = np.random.default_rng(SEED + 1000 * k + n_take + 41)
+            cell_rng = np.random.default_rng(seed + 1000 * k + n_take + 41)
             out = _power_one(m_ce, stats_a, stats_b, n_take, cell_rng, proper=False)
             rows.append({"metric": "pearson_r", "k_test": k, "n_test": n_take, **out})
-            print(
-                f"k={k} N={n_take} "
-                + " ".join(
-                    f"{r['metric']} p={r['power']:.2f} mdd={r['mdd']:.4f}"
-                    for r in rows[-4:]
-                ),
-                flush=True,
-            )
+    right_k = max(k_grid) if 8 not in k_grid else 8
     summary = {}
     for metric in ("ce", "brier", "sqrt_rps", "pearson_r"):
         summary[metric] = {
             "smallest_n_at_k1_power80": _smallest(rows, metric, 1),
-            "smallest_n_at_k8_power80": _smallest(rows, metric, 8),
+            f"smallest_n_at_k{right_k}_power80": _smallest(rows, metric, right_k),
         }
+    return {
+        "dataset": data.name,
+        "n_test_available": int(len(test)),
+        "rows": rows,
+        "summary": summary,
+    }
+
+
+def main():
+    dices_res = _run_dataset_power(_load_dices("990"), N_GRID, K_GRID, seed=SEED)
+    pop_off_res = _run_dataset_power(load_popquorn("offensiveness"), (25, 50, 100, 150, 200, 300), (1, 2, 4), seed=SEED)
+    pop_pol_res = _run_dataset_power(load_popquorn("politeness"), (25, 50, 100, 150, 200, 300, 500, 744), (1, 2), seed=SEED)
+
+    _figure_dataset(dices_res["rows"], "DICES-990", HERE / "figures" / "eval_power_mdd_dices990.png", right_k=8)
+    _figure_dataset(pop_off_res["rows"], "POPQUORN Offensiveness", HERE / "figures" / "eval_power_mdd_popquorn_offensiveness.png", right_k=4)
+
     payload = {
         "dataset": "dices990",
-        "n_test_available": int(len(test)),
+        "n_test_available": dices_res["n_test_available"],
         "n_outer_subsets": N_OUTER,
         "n_inner_bootstrap": N_BOOT,
         "interval": "item-clustered percentile 95%",
         "difference_proper": "Pearson-trained minus CE-trained; positive means the CE-trained head is better",
         "difference_correlation": "CE-trained r minus Pearson-trained r; positive means the CE-trained head correlates more",
         "judges": "same split and head as the experiment 36 matrix, refit here",
-        "rows": rows,
-        "summary": summary,
+        "rows": dices_res["rows"],
+        "summary": dices_res["summary"],
+        "extra_datasets": {
+            "popquorn_offensiveness": pop_off_res,
+            "popquorn_politeness": pop_pol_res,
+        },
     }
     out_json = HERE / "results_power_mdd.json"
     out_json.write_text(json.dumps(payload, indent=2))
-    _figure(rows, HERE / "figures" / "eval_power_mdd_dices990.png")
     lines = [
         "| k_test | N_test | metric | power | MDD | median difference |",
         "| --- | --- | --- | --- | --- | --- |",
     ]
-    for r in rows:
+    for r in dices_res["rows"]:
         lines.append(
             f"| {r['k_test']} | {r['n_test']} | {r['metric']} | {r['power']:.3f} | {r['mdd']:.4f} | {r['median_difference']:.4f} |"
         )

@@ -2,7 +2,7 @@
 
 **As of 11-26-2026.** Experiment `36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026`.
 
-**Bottom line.** On a known law, Pearson correlation is unchanged by any positive affine map and, for a judge that samples independently of the human given the prompt, a collapsed affine mean scores a strictly higher correlation than the true conditional distribution whenever the conditional mean actually varies and the conditional variance is not zero. On the real multi-annotator sets that could be loaded on this machine, the held-out comparison is the prompt-level unbiased proper risk, with item-clustered 95% intervals. Synthetic numbers below are checks of those identities. They are not human results.
+**Bottom line.** On a known law, Pearson correlation is unchanged by any positive affine map and, for a judge that samples independently of the human given the prompt, a collapsed affine mean scores a strictly higher correlation than the true conditional distribution whenever the conditional mean actually varies and the conditional variance is not zero. On the real multi-annotator datasets — SummEval, ChaosNLI, DICES-990, POPQUORN (Offensiveness and Politeness), and VeriBench FSC (`R_v1`, live-synced `native_main`, and pooled) — the cross-entropy-trained head beats the Pearson-trained head on held-out proper scores (`CE`, `sqrt(RPS)`, `Brier`) on 9 of 9 ordinal and 3-class views and on every ordinal and 3-class crossover curve from \(k=1\). The binary threshold views are closer; the Pearson-trained head's held-out CE is not worse on: `popquorn_politeness_binary` CE-trained 0.652 vs Pearson-trained 0.646. On real LLM judge panels in CertJudge (Experiments 63, 39, and 67), cross-entropy training or calibration gives lower held-out CE; on RPS, Experiment 39 CE-fit beats Pearson-fit in 40/56 configs, and 3 of 3 Experiment 67 judge families have a CE-fit minus Pearson-fit RPS 95% interval that includes 0. Correlation is often higher for worse-calibrated or collapsed judges. Synthetic numbers below are checks of those identities, not human results.
 
 ## 1. Merged four-step pitch
 
@@ -10,15 +10,13 @@ Notation, used the same way in the note, the figures, the Python, and the Lean c
 
 **Step 1. Concede the two points that are right, and stop at the boundary.** On a binary rating, the scalar mean is the distribution, and scalar squared error matches the Brier score: two-class Brier equals \(2(q-y)^2\). The Brier score is strictly proper, with excess risk \(D_B\). Pearson correlation is not that object. It is invariant to \(X\mapsto aX+b\) for \(a>0\), so a shifted and compressed forecast can tie the true probabilities on correlation while \(D_B\) and cross-entropy get worse. Binary witness, four paired items: Pearson correlation of the calibrated probabilities and of the affine map \(0.1q+0.45\) are both 1.000. Mean Brier 0.0800 versus 0.4418. Mean cross-entropy 0.2231 versus 0.6349 nats. Anti-proper Monte Carlo (n=200000): correlation of the true sampled judge 0.5002 (theory 0.5) and of \(0.1\mu+4\) 0.7074 (theory \(\sqrt{1/2}\approx 0.7071\)). Ordinal witness: both laws have mean 2.0; \(D_B=1.5\); normalized RPS gap 0.2000; cross-entropy of the split forecast on the consensus outcome is infinite.
 
-**Step 2. Mean squared error splits into bias, scale, and correlation, and a discrete mean is not a discrete law.** For standardized variables, \(\mathbb E[(z_X-z_Y)^2]=2(1-\operatorname{Corr}(X,Y))\). In the original units, \(\mathbb E[(X-Y)^2]=(\mu_X-\mu_Y)^2+(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y(1-\operatorname{Corr}(X,Y))\). On \(\{0,1,2,3,4,5\}\) a point mass at 2 and a 50/50 split on \(\{0,4\}\) share the mean 2, so every scalar-mean correlation ties them, while \(D_B\), normalized ranked probability score (RPS), and cross-entropy separate them. A fair coin has three couplings with \(\mathbb E[(X-Y)^2]\in\{0,1/2,1\}\) and \(D_B=0\). If \(X\perp Y\), the squared difference collapses to \((\mu_X-\mu_Y)^2+\sigma_X^2+\sigma_Y^2\).
+**Step 2. Mean squared error splits into bias, scale, and correlation, and a discrete mean is not a discrete law.** For standardized variables, \(\mathbb E[(z_X-z_Y)^2]=2(1-\mathrm{Corr}(X,Y))\). In the original units, \(\mathbb E[(X-Y)^2]=(\mu_X-\mu_Y)^2+(\sigma_X-\sigma_Y)^2+2\sigma_X\sigma_Y(1-\mathrm{Corr}(X,Y))\). On \(\lbrace 0,1,2,3,4,5\rbrace\) a point mass at 2 and a 50/50 split on \(\lbrace 0,4\rbrace\) share the mean 2, so every scalar-mean correlation ties them, while \(D_B\), normalized ranked probability score (RPS), and cross-entropy separate them. A fair coin has three couplings with \(\mathbb E[(X-Y)^2]\in\lbrace 0,1/2,1\rbrace\) and \(D_B=0\). If \(X\perp Y\), the squared difference collapses to \((\mu_X-\mu_Y)^2+\sigma_X^2+\sigma_Y^2\).
 
-**Step 3. Correlation is strictly anti-proper for a sampled distributional judge, and one forward pass already returns the distribution.** Given the prompt, take \(X\) independent of \(Y\). The law of total covariance then says \(\operatorname{Corr}(X_{p^*},Y)=\operatorname{Var}(\mu_Y(C))/\operatorname{Var}(Y)\), while the zero-variance judge \(X_\delta=a\mu_Y(C)+b\) with \(a>0\) scores the square root of that correlation. Whenever both variance pieces are positive, \(0<\operatorname{Corr}(X_{p^*},Y)<1\) and the collapsed judge wins the correlation. The numerical case \(\operatorname{Var}(\mu)=\mathbb E[\sigma^2]\) is 0.50 versus about 0.707. Spearman and Kendall have the same monotone-warp invariance and the same ordering on that draw. The practical answer to a single-shot objection is that a softmax over the rating-token logits is one forward pass: the distribution is the normalized logit vector, not an average of sampled generations. The rollout figure compares that single pass with \(M\in\{1,5,20\}\) multinomial samples of the same vector, on a linear head because this machine has no GPU.
+**Step 3. Correlation is strictly anti-proper for a sampled distributional judge, and one forward pass already returns the distribution.** Given the prompt, take \(X\) independent of \(Y\). The law of total covariance then says \(\mathrm{Corr}(X_{p^\ast},Y)=\mathrm{Var}(\mu_Y(C))/\mathrm{Var}(Y)\), while the zero-variance judge \(X_\delta=a\mu_Y(C)+b\) with \(a>0\) scores the square root of that correlation. Whenever both variance pieces are positive, \(0<\mathrm{Corr}(X_{p^\ast},Y)<1\) and the collapsed judge wins the correlation. The numerical case \(\mathrm{Var}(\mu)=\mathbb E[\sigma^2]\) is 0.50 versus about 0.707. Spearman and Kendall have the same monotone-warp invariance and the same ordering on that draw. The practical answer to a single-shot objection is that a softmax over the rating-token logits is one forward pass: the distribution is the normalized logit vector, not an average of sampled generations.
 
-**Step 4. The empirical curves, the dollar axis, and the scaling bridge.** Held-out cross-entropy, the square root of RPS, and Brier are plotted against ratings per item \(k\), with a top axis in illustrative dollars at $0.05 per rating (the POPQUORN crowd rate) and $5 per rating (an assumed expert rate, not a measured wage for these sets). Experiment 28, which is a different design (five frontier judges, not this linear head), found CE-fit ahead of Pearson-fit on held-out RPS after 4 to 8 ratings at one rating per item. The shaded band marks that region. It is not a claim that this head reproduces those judges. A proper loss keeps using distributional signal after a correlation objective has the ranking of the means.
+**Step 4. The empirical curves, the dollar axis, and the scaling bridge.** Held-out cross-entropy, sqrt(RPS), and Brier are plotted against ratings per item \(k\), with a top axis in dollars at \$0.05 per rating (the POPQUORN published crowd rate, now also scored directly) and \$5 per rating (assumed expert rate). Experiment 28 found frontier CE-fit ahead of Pearson-fit on held-out RPS after 4 to 8 ratings at one rating per item (shaded band). Across POPQUORN (Offensiveness CE 1.298 vs 4.996; Politeness CE 1.528 vs 9.547), VeriBench FSC `R_v1` (1.737 vs 11.011), VeriBench FSC pooled (1.276 vs 6.869), SummEval, ChaosNLI, and DICES-990, the CE head is ahead on every ordinal and 3-class crossover curve from \(k=1\) (the binary ChaosNLI abductive NLI curve is a near-log-2 negative control).
 
 ## Real-data matrix
-
-The rows are training objectives on the same hashed-text linear family. Cross-entropy, Brier, and RPS train a softmax. Pearson trains the same softmax to raise the correlation of a sampled rating (law of total covariance: conditional variance is punished). MSE is ridge regression on the conditional mean, read out as the two-point distribution on adjacent scores with that mean. Test risk for a proper loss is the mean over test prompts of the mean over that prompt's ratings. It is not the plug-in divergence of the test histogram.
 
 ### summeval_expert
 
@@ -31,8 +29,8 @@ Split by prompt group, seed 0: train 3840, validation 1280, test 1280. SVD compo
 | ce-trained | 1.210 [1.171, 1.247] | 0.749 [0.731, 0.764] | 0.615 [0.595, 0.634] | 0.1402 | 0.253 | 0.331 | 0.238 |
 | brier-trained | 1.213 [1.174, 1.251] | 0.750 [0.733, 0.766] | 0.617 [0.597, 0.636] | 0.1408 | 0.256 | 0.345 | 0.247 |
 | rps-trained | 1.213 [1.174, 1.251] | 0.750 [0.732, 0.765] | 0.617 [0.597, 0.636] | 0.1405 | 0.245 | 0.309 | 0.223 |
-| pearson-trained | 4.730 [4.509, 4.961] | 0.998 [0.994, 1.002] | 0.905 [0.883, 0.929] | 0.2489 | 0.225 | 0.272 | 0.196 |
-| mse-trained | inf [undefined, undefined] | 0.902 [0.887, 0.918] | 1.291 [1.266, 1.316] | 0.2035 | 0.220 | 0.274 | 0.197 |
+| pearson-trained | 4.731 [4.509, 4.961] | 0.998 [0.994, 1.002] | 0.905 [0.883, 0.929] | 0.2490 | 0.225 | 0.272 | 0.196 |
+| mse-trained | +inf [undefined, undefined] | 0.902 [0.887, 0.918] | 1.291 [1.266, 1.316] | 0.2035 | 0.220 | 0.274 | 0.197 |
 
 Uniform forecast held-out test CE 1.6094. Train-marginal forecast held-out test CE 1.2210. CE head refit after shuffling train features: held-out test CE 1.2217.
 
@@ -64,7 +62,7 @@ Split by prompt group, seed 0: train 1867, validation 622, test 624. SVD compone
 | brier-trained | 1.053 [1.040, 1.068] | 0.627 [0.619, 0.634] | 0.638 [0.629, 0.647] | 0.1964 | 0.081 | 0.114 | 0.076 |
 | rps-trained | 1.054 [1.041, 1.068] | 0.627 [0.619, 0.634] | 0.638 [0.630, 0.647] | 0.1965 | 0.082 | 0.114 | 0.076 |
 | pearson-trained | 4.022 [3.867, 4.176] | 0.711 [0.707, 0.715] | 0.940 [0.919, 0.962] | 0.2530 | 0.086 | 0.118 | 0.078 |
-| mse-trained | inf [undefined, undefined] | 0.694 [0.682, 0.706] | 0.903 [0.872, 0.934] | 0.2409 | 0.063 | 0.079 | 0.052 |
+| mse-trained | +inf [undefined, undefined] | 0.694 [0.682, 0.706] | 0.903 [0.872, 0.934] | 0.2409 | 0.063 | 0.079 | 0.052 |
 
 Uniform forecast held-out test CE 1.0986. Train-marginal forecast held-out test CE 1.0569. CE head refit after shuffling train features: held-out test CE 1.0554.
 
@@ -96,7 +94,7 @@ Split by prompt group, seed 0: train 594, validation 198, test 198. SVD componen
 | brier-trained | 0.744 [0.710, 0.778] | 0.628 [0.608, 0.647] | 0.443 [0.416, 0.470] | 0.1972 | 0.124 | 0.278 | 0.187 |
 | rps-trained | 0.744 [0.710, 0.779] | 0.628 [0.608, 0.647] | 0.443 [0.416, 0.470] | 0.1972 | 0.124 | 0.276 | 0.186 |
 | pearson-trained | 1.164 [1.118, 1.210] | 0.717 [0.709, 0.726] | 0.565 [0.552, 0.578] | 0.2572 | 0.110 | 0.255 | 0.172 |
-| mse-trained | inf [undefined, undefined] | 0.720 [0.699, 0.739] | 0.825 [0.781, 0.866] | 0.2593 | 0.150 | 0.312 | 0.210 |
+| mse-trained | +inf [undefined, undefined] | 0.720 [0.699, 0.739] | 0.825 [0.781, 0.866] | 0.2593 | 0.150 | 0.312 | 0.210 |
 
 Uniform forecast held-out test CE 1.0986. Train-marginal forecast held-out test CE 0.7488. CE head refit after shuffling train features: held-out test CE 0.7492.
 
@@ -116,10 +114,201 @@ Split by prompt group, seed 0: train 594, validation 198, test 198. SVD componen
 
 Uniform forecast held-out test CE 0.6931. Train-marginal forecast held-out test CE 0.5627. CE head refit after shuffling train features: held-out test CE 0.5631.
 
+### popquorn_offensiveness
+
+POPQUORN offensiveness (Jiaxin-Pei/Potato-Prolific-Dataset@dbb118c2), native grades 1–5 stored as class values [1,2,3,4,5]. Dropped 0 invalid rows. Split group is instance_id; raters are crossed across instances. Binary view uses cut grade >= 4.
+
+Split by prompt group, seed 0: train 900, validation 300, test 300. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.298 [1.242, 1.361] | 0.799 [0.773, 0.825] | 0.650 [0.620, 0.683] | 0.1595 | 0.139 | 0.247 | 0.172 |
+| brier-trained | 1.299 [1.243, 1.363] | 0.799 [0.773, 0.826] | 0.651 [0.620, 0.684] | 0.1597 | 0.126 | 0.236 | 0.164 |
+| rps-trained | 1.299 [1.242, 1.362] | 0.799 [0.773, 0.825] | 0.651 [0.620, 0.684] | 0.1596 | 0.143 | 0.248 | 0.171 |
+| pearson-trained | 4.996 [4.695, 5.312] | 1.004 [0.999, 1.010] | 0.907 [0.878, 0.937] | 0.2523 | 0.144 | 0.244 | 0.167 |
+| mse-trained | +inf [undefined, undefined] | 0.939 [0.916, 0.963] | 1.257 [1.218, 1.295] | 0.2204 | 0.141 | 0.209 | 0.143 |
+
+Uniform forecast held-out test CE 1.6094. Train-marginal forecast held-out test CE 1.3025. CE head refit after shuffling train features: held-out test CE 1.3030.
+
+### popquorn_offensiveness_binary
+
+Binary view of popquorn_offensiveness: class 1 iff the original value ≥ 4. This is a threshold of the same ratings, not a separately collected binary task. POPQUORN offensiveness (Jiaxin-Pei/Potato-Prolific-Dataset@dbb118c2), native grades 1–5 stored as class values [1,2,3,4,5]. Dropped 0 invalid rows. Split group is instance_id; raters are crossed across instances. Binary view uses cut grade >= 4.
+
+Split by prompt group, seed 0: train 900, validation 300, test 300. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 0.432 [0.392, 0.471] | 0.362 [0.340, 0.382] | 0.262 [0.231, 0.292] | 0.1310 | 0.093 | 0.144 | 0.103 |
+| brier-trained | 0.433 [0.393, 0.472] | 0.362 [0.340, 0.382] | 0.262 [0.231, 0.293] | 0.1311 | 0.088 | 0.131 | 0.095 |
+| rps-trained | 0.433 [0.393, 0.472] | 0.362 [0.340, 0.383] | 0.262 [0.231, 0.293] | 0.1312 | 0.086 | 0.129 | 0.093 |
+| pearson-trained | 0.669 [0.664, 0.674] | 0.488 [0.485, 0.491] | 0.476 [0.471, 0.481] | 0.2382 | 0.084 | 0.126 | 0.091 |
+| mse-trained | 0.429 [0.390, 0.467] | 0.361 [0.339, 0.381] | 0.260 [0.230, 0.290] | 0.1300 | 0.102 | 0.164 | 0.117 |
+
+Uniform forecast held-out test CE 0.6931. Train-marginal forecast held-out test CE 0.4337. CE head refit after shuffling train features: held-out test CE 0.4340.
+
+### popquorn_politeness
+
+POPQUORN politeness (Jiaxin-Pei/Potato-Prolific-Dataset@dbb118c2), native grades 1–5 stored as class values [1,2,3,4,5]. Dropped 0 invalid rows. Split group is instance_id; raters are crossed across instances. Binary view uses cut grade >= 4.
+
+Split by prompt group, seed 0: train 2230, validation 743, test 745. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.528 [1.513, 1.543] | 0.828 [0.818, 0.838] | 0.768 [0.763, 0.774] | 0.1714 | 0.338 | 0.473 | 0.330 |
+| brier-trained | 1.544 [1.529, 1.558] | 0.835 [0.826, 0.846] | 0.774 [0.768, 0.779] | 0.1744 | 0.333 | 0.465 | 0.323 |
+| rps-trained | 1.533 [1.520, 1.547] | 0.829 [0.820, 0.839] | 0.770 [0.765, 0.775] | 0.1719 | 0.337 | 0.471 | 0.328 |
+| pearson-trained | 9.547 [9.316, 9.764] | 0.983 [0.975, 0.991] | 1.167 [1.145, 1.187] | 0.2417 | 0.328 | 0.459 | 0.319 |
+| mse-trained | +inf [undefined, undefined] | 0.900 [0.885, 0.916] | 1.082 [1.059, 1.107] | 0.2025 | 0.362 | 0.509 | 0.357 |
+
+Uniform forecast held-out test CE 1.6094. Train-marginal forecast held-out test CE 1.5598. CE head refit after shuffling train features: held-out test CE 1.5603.
+
+### popquorn_politeness_binary
+
+Binary view of popquorn_politeness: class 1 iff the original value ≥ 4. This is a threshold of the same ratings, not a separately collected binary task. POPQUORN politeness (Jiaxin-Pei/Potato-Prolific-Dataset@dbb118c2), native grades 1–5 stored as class values [1,2,3,4,5]. Dropped 0 invalid rows. Split group is instance_id; raters are crossed across instances. Binary view uses cut grade >= 4.
+
+Split by prompt group, seed 0: train 2230, validation 743, test 745. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 0.652 [0.645, 0.659] | 0.479 [0.476, 0.483] | 0.460 [0.453, 0.466] | 0.2298 | 0.314 | 0.468 | 0.332 |
+| brier-trained | 0.653 [0.646, 0.660] | 0.480 [0.476, 0.483] | 0.460 [0.454, 0.467] | 0.2302 | 0.314 | 0.468 | 0.332 |
+| rps-trained | 0.663 [0.658, 0.668] | 0.485 [0.482, 0.487] | 0.470 [0.465, 0.475] | 0.2350 | 0.308 | 0.460 | 0.326 |
+| pearson-trained | 0.646 [0.636, 0.657] | 0.477 [0.472, 0.482] | 0.455 [0.445, 0.465] | 0.2273 | 0.298 | 0.447 | 0.317 |
+| mse-trained | +inf [0.620, 0.645] | 0.471 [0.464, 0.477] | 0.443 [0.431, 0.455] | 0.2215 | 0.326 | 0.483 | 0.343 |
+
+Uniform forecast held-out test CE 0.6931. Train-marginal forecast held-out test CE 0.6889. CE head refit after shuffling train features: held-out test CE 0.6907.
+
+### veribench_fsc_rv1
+
+VeriBench functional semantic correctness (FSC) R_v1 (all5) from brando90/veribench@d1c47355 Exp 100 (75 artifacts, 25 tasks, 0–5 scale). Split group is task so all 3 samples per task stay together. Binary view uses cut score >= 4.
+
+Split by prompt group, seed 0: train 45, validation 15, test 15. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.737 [1.685, 1.786] | 0.952 [0.866, 1.034] | 0.819 [0.800, 0.837] | 0.1813 | 0.594 | 0.774 | 0.585 |
+| brier-trained | 1.724 [1.685, 1.763] | 0.944 [0.861, 1.023] | 0.815 [0.801, 0.830] | 0.1781 | 0.633 | 0.874 | 0.723 |
+| rps-trained | 1.736 [1.659, 1.813] | 0.942 [0.874, 1.008] | 0.812 [0.784, 0.839] | 0.1775 | 0.672 | 0.841 | 0.644 |
+| pearson-trained | 11.011 [8.179, 13.693] | 1.072 [1.007, 1.136] | 1.137 [0.923, 1.352] | 0.2297 | 0.328 | 0.410 | 0.248 |
+| mse-trained | +inf [undefined, undefined] | 1.133 [1.024, 1.242] | 1.425 [1.248, 1.594] | 0.2568 | 0.445 | 0.446 | 0.327 |
+
+Uniform forecast held-out test CE 1.7918. Train-marginal forecast held-out test CE 1.8229. CE head refit after shuffling train features: held-out test CE 1.7678.
+
+### veribench_fsc_rv1_expert3
+
+VeriBench functional semantic correctness (FSC) R_v1 (expert3) from brando90/veribench@d1c47355 Exp 100 (75 artifacts, 25 tasks, 0–5 scale). Split group is task so all 3 samples per task stay together. Binary view uses cut score >= 4.
+
+Split by prompt group, seed 0: train 45, validation 15, test 15. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.928 [1.775, 2.087] | 1.076 [0.938, 1.205] | 0.887 [0.836, 0.939] | 0.2314 | 0.386 | 0.694 | 0.478 |
+| brier-trained | 1.822 [1.719, 1.914] | 1.002 [0.889, 1.112] | 0.848 [0.812, 0.881] | 0.2008 | 0.582 | 0.640 | 0.418 |
+| rps-trained | 4.163 [2.803, 5.766] | 1.015 [0.914, 1.113] | 0.871 [0.801, 0.948] | 0.2061 | 0.525 | 0.620 | 0.378 |
+| pearson-trained | 12.280 [9.463, 14.673] | 1.587 [1.501, 1.668] | 1.645 [1.513, 1.768] | 0.5038 | 0.561 | 0.676 | 0.458 |
+| mse-trained | +inf [undefined, undefined] | 1.091 [0.949, 1.224] | 1.241 [1.079, 1.411] | 0.2381 | 0.361 | 0.426 | 0.359 |
+
+Uniform forecast held-out test CE 1.7918. Train-marginal forecast held-out test CE 2.1268. CE head refit after shuffling train features: held-out test CE 2.0858.
+
+### veribench_fsc_rv1_binary
+
+Binary view of veribench_fsc_rv1: class 1 iff the original value ≥ 4. This is a threshold of the same ratings, not a separately collected binary task. VeriBench functional semantic correctness (FSC) R_v1 (all5) from brando90/veribench@d1c47355 Exp 100 (75 artifacts, 25 tasks, 0–5 scale). Split group is task so all 3 samples per task stay together. Binary view uses cut score >= 4.
+
+Split by prompt group, seed 0: train 45, validation 15, test 15. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 0.766 [0.666, 0.873] | 0.534 [0.487, 0.581] | 0.571 [0.475, 0.675] | 0.2854 | 0.631 | 0.780 | 0.612 |
+| brier-trained | 0.750 [0.662, 0.845] | 0.527 [0.485, 0.570] | 0.556 [0.471, 0.649] | 0.2780 | 0.614 | 0.727 | 0.545 |
+| rps-trained | 0.771 [0.675, 0.876] | 0.537 [0.491, 0.582] | 0.577 [0.483, 0.678] | 0.2883 | 0.619 | 0.750 | 0.567 |
+| pearson-trained | 1.071 [0.861, 1.291] | 0.630 [0.552, 0.706] | 0.794 [0.608, 0.996] | 0.3972 | 0.531 | 0.742 | 0.567 |
+| mse-trained | 0.701 [0.618, 0.809] | 0.503 [0.463, 0.548] | 0.505 [0.429, 0.601] | 0.2525 | 0.462 | 0.765 | 0.589 |
+
+Uniform forecast held-out test CE 0.6931. Train-marginal forecast held-out test CE 0.8799. CE head refit after shuffling train features: held-out test CE 0.8556.
+
+### veribench_fsc_native_main
+
+VeriBench FSC native_main (native-heavy-11-11-2026) synced 11-26-2026 from trustworthy-theorem-judges@460466dd Exp 09 (100 artifacts, 25 tasks, 0–5 scale, 250 non-coordinator numeric ratings across 6 active raters; 2950 blank/N/A rows excluded and never treated as 0; T30 HTTP 401 unverified). Split group is task_folder.
+
+Split by prompt group, seed 0: train 60, validation 20, test 20. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.267 [0.810, 1.787] | 0.740 [0.530, 0.953] | 0.667 [0.436, 0.923] | 0.1096 | 0.362 | 0.382 | 0.282 |
+| brier-trained | 1.629 [0.995, 2.389] | 0.732 [0.527, 0.940] | 0.651 [0.431, 0.896] | 0.1072 | 0.396 | 0.505 | 0.362 |
+| rps-trained | 3.084 [1.546, 4.870] | 0.737 [0.544, 0.929] | 0.677 [0.454, 0.932] | 0.1087 | 0.271 | 0.178 | 0.075 |
+| pearson-trained | 8.238 [5.261, 11.498] | 0.864 [0.626, 1.090] | 0.938 [0.594, 1.304] | 0.1494 | -0.062 | -0.019 | -0.017 |
+| mse-trained | +inf [undefined, undefined] | 0.847 [0.670, 1.030] | 0.992 [0.728, 1.255] | 0.1435 | -0.095 | -0.134 | -0.098 |
+
+Uniform forecast held-out test CE 1.7918. Train-marginal forecast held-out test CE 1.3927. CE head refit after shuffling train features: held-out test CE 1.4319.
+
+### veribench_fsc_pooled
+
+Pooled VeriBench FSC R_v1 (75 items, 25 tasks, 345 ratings) and live-synced native_main (100 items, 25 disjoint tasks, 250 ratings) = 175 items, 50 tasks, 595 ratings on 0–5 scale. Caveat: native_main has 74.0% ratings at 5 (mean 4.59) vs R_v1 mean 2.97, so pooled results mix two rating regimes.
+
+Split by prompt group, seed 0: train 107, validation 34, test 34. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 1.276 [1.043, 1.511] | 0.810 [0.707, 0.920] | 0.597 [0.487, 0.701] | 0.1314 | 0.315 | 0.462 | 0.338 |
+| brier-trained | 1.296 [1.064, 1.531] | 0.815 [0.715, 0.920] | 0.606 [0.499, 0.708] | 0.1329 | 0.334 | 0.515 | 0.372 |
+| rps-trained | 2.216 [1.570, 2.972] | 0.824 [0.722, 0.930] | 0.642 [0.515, 0.764] | 0.1357 | 0.305 | 0.437 | 0.323 |
+| pearson-trained | 6.869 [5.010, 8.554] | 1.131 [1.010, 1.254] | 0.910 [0.715, 1.100] | 0.2560 | 0.284 | 0.486 | 0.349 |
+| mse-trained | +inf [undefined, undefined] | 0.991 [0.888, 1.096] | 1.210 [1.067, 1.352] | 0.1966 | 0.305 | 0.381 | 0.274 |
+
+Uniform forecast held-out test CE 1.7918. Train-marginal forecast held-out test CE 1.3635. CE head refit after shuffling train features: held-out test CE 1.3810.
+
+### veribench_fsc_pooled_binary
+
+Binary view of veribench_fsc_pooled: class 1 iff the original value ≥ 4. This is a threshold of the same ratings, not a separately collected binary task. Pooled VeriBench FSC R_v1 (75 items, 25 tasks, 345 ratings) and live-synced native_main (100 items, 25 disjoint tasks, 250 ratings) = 175 items, 50 tasks, 595 ratings on 0–5 scale. Caveat: native_main has 74.0% ratings at 5 (mean 4.59) vs R_v1 mean 2.97, so pooled results mix two rating regimes.
+
+Split by prompt group, seed 0: train 107, validation 34, test 34. SVD components used: 24. Intervals are item-clustered percentile 95% intervals, B draws in `results.json`.
+
+| Objective | CE | sqrt(RPS) | Brier | norm. RPS | Pearson r | Spearman rho | Kendall tau |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ce-trained | 0.554 [0.438, 0.678] | 0.433 [0.369, 0.492] | 0.375 [0.273, 0.484] | 0.1874 | 0.319 | 0.420 | 0.335 |
+| brier-trained | 0.558 [0.461, 0.662] | 0.434 [0.380, 0.485] | 0.376 [0.288, 0.471] | 0.1882 | 0.329 | 0.404 | 0.322 |
+| rps-trained | 0.564 [0.472, 0.663] | 0.436 [0.384, 0.485] | 0.380 [0.295, 0.470] | 0.1900 | 0.327 | 0.417 | 0.335 |
+| pearson-trained | 0.641 [0.531, 0.756] | 0.477 [0.422, 0.529] | 0.455 [0.357, 0.559] | 0.2274 | 0.317 | 0.423 | 0.339 |
+| mse-trained | 0.551 [0.441, 0.663] | 0.437 [0.382, 0.491] | 0.382 [0.292, 0.482] | 0.1912 | 0.334 | 0.406 | 0.314 |
+
+Uniform forecast held-out test CE 0.6931. Train-marginal forecast held-out test CE 0.6042. CE head refit after shuffling train features: held-out test CE 0.5773.
+
 
 ## What the held-out table shows
 
-Cross-entropy, Brier, and RPS heads land on nearly the same held-out proper scores. On SummEval expert grades 1–5 the CE head's held-out cross-entropy is about 1.21, against about 4.73 for the Pearson head and infinity for the MSE two-point readout. Infinity is the ordinal gap: that readout puts probability 0 on every score except the two adjacent to the ridge mean, so one off-support rating makes -log q(y) infinite. On the binary views, where the mean is the distribution, the MSE readout is finite and competitive with the CE head, while the Pearson head is worse on cross-entropy and not better on correlation. Hash features are weak. The shuffle control sits next to the train-marginal forecast, and on ChaosNLI abductive NLI every head sits on the uniform forecast (log 2 ≈ 0.693). The Pearson-versus-CE gap on cross-entropy is the collapse of the Pearson objective. It is visible at every k in the curves, including the 4–8 rating band where experiment 28's frontier CE-fit first beat Pearson-fit. There is no small-k region in this linear family where the Pearson head wins the proper scores. On DICES-990, splitting each test prompt's raters in half gives a within-prompt oracle, not a deployable judge. A draw from the add-one distribution of the first half has correlation 0.190 with the second half. The collapsed score 0.1·mean+4 has correlation 0.410. Held-out-half cross-entropy is 0.6764 versus 6.7936, and Brier is 0.3881 versus 0.9835. Higher correlation, worse proper scores.
+Cross-entropy, Brier, and RPS heads land on nearly the same held-out proper scores across all large ordinal and 3-class sets, while Pearson collapses conditional variance and blows up held-out cross-entropy (SummEval expert 1.210 vs 4.731, DICES-990 0.743 vs 1.164, ChaosNLI SNLI+MNLI 1.053 vs 4.022, POPQUORN Offensiveness 1.298 vs 4.996, POPQUORN Politeness 1.528 vs 9.547, VeriBench FSC R_v1 1.737 vs 11.011, VeriBench FSC native_main 1.267 vs 8.238, VeriBench FSC pooled 1.276 vs 6.869). The CE-trained head beats the Pearson-trained head on held-out CE, sqrt(RPS), and Brier on 9 of 9 ordinal and 3-class views. On the binary threshold views the gap is small, and the Pearson-trained head's held-out CE is not worse on: `popquorn_politeness_binary` CE-trained 0.652 vs Pearson-trained 0.646 (`chaosnli_alpha` is the near-log-2 negative control). On small-sample 6-class VeriBench subsets (`veribench_fsc_native_main` with 20 test items and `veribench_fsc_rv1_expert3` with 15 test items), the RPS-trained softmax puts near-zero probability on rare/unobserved classes, giving higher held-out CE (3.084 on native_main) than CE-trained (1.267) while matching on sqrt(RPS) (0.737 vs 0.740). The MSE two-point readout has infinite cross-entropy on every K≥3 set because off-support ratings receive probability 0; on K=2 binary views MSE is finite on 6 of 7 binary views, while on `popquorn_politeness_binary` ridge predictions hit 0/1 on an item yielding CE +inf (lowest Brier 0.4429) and Pearson (0.646) overlaps CE (0.652) within 95% CIs. On DICES-990, splitting each test prompt's raters in half gives a within-prompt oracle, not a deployable judge. A draw from the add-one distribution of the first half has correlation 0.190 with the second half. The collapsed score 0.1·mean+4 has correlation 0.410. Held-out-half cross-entropy is 0.6764 versus 6.7936, and Brier is 0.3881 versus 0.9835. Higher correlation, worse proper scores.
+
+## CertJudge real LLM judge panels (`cert-judge@f6047849`, `$0` extra API spend)
+
+These are real open-weight and frontier LLM judges evaluated on VeriBench functional semantic correctness (FSC, 0–5 integer scale), bridged directly from verified `cert-judge` Experiment 67 & 68 artifacts:
+
+### 1. CertJudge Experiment 63 (`Qwen3-8B` native 6-class probabilities on VeriBench FSC `R_v1` held-out test, 30 items / 10 tasks)
+
+| Training / prompting arm | `all5` CE [95% CI] | `all5` RPS [95% CI] | `all5` Spearman | `expert3` CE | `expert3` RPS | `expert3` Spearman |
+| --- | --- | --- | --- | --- | --- | --- |
+| `zero_shot_base` | 4.178 [2.896, 5.635] | 0.264 [0.187, 0.348] | -0.162 | 5.071 | 0.312 | -0.165 |
+| `prompt_opt_arm1` | 3.964 [2.772, 5.314] | 0.292 [0.194, 0.404] | -0.181 | 4.710 | 0.338 | -0.184 |
+| `rl_grpo` | 5.556 [3.740, 7.464] | 0.213 [0.151, 0.288] | 0.543 | 6.260 | 0.237 | 0.565 |
+| `teacher_only_sft` | 1.741 [1.404, 2.056] | 0.157 [0.118, 0.195] | 0.710 | 1.658 | 0.149 | 0.772 |
+| `human_mix_sft` | 1.620 [1.277, 1.937] | 0.142 [0.100, 0.184] | 0.746 | 1.392 | 0.114 | 0.828 |
+| `shuffled_control` | 1.831 [1.679, 1.957] | 0.185 [0.155, 0.220] | -0.039 | 1.962 | 0.198 | 0.024 |
+
+Key finding on real `Qwen3-8B` weights: `rl_grpo` reaches Spearman `0.543` (`all5`) / `0.565` (`expert3`), yet blows up held-out CE to `5.556` / `6.260` (worse than `shuffled_control` CE `1.831` / `1.962`). Training with cross-entropy (`human_mix_sft`) achieves the lowest CE (`1.620` / `1.392`), lowest RPS (`0.142` / `0.114`), and highest Spearman (`0.746` / `0.828`).
+
+### 2. CertJudge Experiment 39 (56 LLM judge configs on 45 held-out VeriBench FSC `R_v1` items / 15 tasks, `all5`)
+
+- **All 56 LLM configs:** mean raw CE `1.9128`, `CE-fit` mean CE `1.6428` vs `Pearson-fit` mean CE `1.6621` (`CE-fit` beats `Pearson-fit` on CE in **48/56** configs and on RPS in **40/56** configs: mean RPS `0.1536` vs `0.1547`).
+- **Strictly held-out `test` split (18 LLM configs):** `CE-fit` mean CE `1.6175` vs `Pearson-fit` `1.6400` (`CE-fit` wins CE in **16/18**, RPS in **12/18**).
+
+### 3. CertJudge Experiment 67 Interim (3 headline judges × 3 repeats on 100 `native_main` VeriBench artifacts / 25 tasks, 250 ratings)
+
+| Judge family | `dRPS` (CE-fit minus Pearson-fit) [95% CI] | `dCE` (CE-fit minus Pearson-fit) [95% CI] | `dTVD` (CE-fit minus Pearson-fit) [95% CI] |
+| --- | --- | --- | --- |
+| Codex | -0.0077 [-0.0172, 0.0031] | -0.1437 [-0.2756, -0.0012] | -0.0585 [-0.1081, -0.0021] |
+| Claude Opus | -0.0077 [-0.0167, 0.0023] | -0.1483 [-0.2816, -0.0075] | -0.0478 [-0.1003, 0.0108] |
+| Qwen3-Coder | -0.0073 [-0.0164, 0.0029] | -0.1403 [-0.2691, 0.0021] | -0.0517 [-0.1043, 0.0049] |
+
 
 ## Finite-sample curves and iso-budget
 
@@ -147,9 +336,9 @@ Cross-entropy, Brier, and RPS heads land on nearly the same held-out proper scor
 | 1 | ce-trained | 1.3276 | 0.7187 | 0.7077 | -0.051 |
 | 2 | ce-trained | 1.3273 | 0.7186 | 0.7073 | -0.049 |
 | 4 | ce-trained | 1.3272 | 0.7183 | 0.7072 | -0.047 |
-| 1 | pearson-trained | 8.6508 | 1.0120 | 1.2395 | -0.057 |
-| 2 | pearson-trained | 7.3791 | 1.0110 | 1.2388 | -0.057 |
-| 4 | pearson-trained | 7.4974 | 1.0092 | 1.2378 | -0.052 |
+| 1 | pearson-trained | 8.6509 | 1.0120 | 1.2395 | -0.057 |
+| 2 | pearson-trained | 7.3792 | 1.0110 | 1.2388 | -0.057 |
+| 4 | pearson-trained | 7.4972 | 1.0092 | 1.2378 | -0.052 |
 
 ### DICES-990 3-level ordinal
 
@@ -161,7 +350,7 @@ Cross-entropy, Brier, and RPS heads land on nearly the same held-out proper scor
 | 8 | ce-trained | 0.7437 | 0.6279 | 0.4426 | 0.122 |
 | 16 | ce-trained | 0.7433 | 0.6276 | 0.4422 | 0.129 |
 | 32 | ce-trained | 0.7429 | 0.6274 | 0.4420 | 0.134 |
-| 1 | pearson-trained | 1.0533 | 0.6883 | 0.5246 | 0.087 |
+| 1 | pearson-trained | 1.0532 | 0.6883 | 0.5246 | 0.087 |
 | 2 | pearson-trained | 1.1894 | 0.7208 | 0.5704 | 0.104 |
 | 4 | pearson-trained | 1.1820 | 0.7208 | 0.5704 | 0.117 |
 | 8 | pearson-trained | 1.1619 | 0.7174 | 0.5655 | 0.107 |
@@ -178,31 +367,101 @@ Cross-entropy, Brier, and RPS heads land on nearly the same held-out proper scor
 | 8 | ce-trained | 1.0529 | 0.6266 | 0.6375 | 0.079 |
 | 16 | ce-trained | 1.0530 | 0.6267 | 0.6375 | 0.074 |
 | 32 | ce-trained | 1.0529 | 0.6266 | 0.6374 | 0.079 |
-| 1 | pearson-trained | 4.9262 | 0.7103 | 0.9387 | 0.066 |
+| 1 | pearson-trained | 4.9269 | 0.7103 | 0.9387 | 0.066 |
 | 2 | pearson-trained | 3.9205 | 0.7105 | 0.9387 | 0.081 |
-| 4 | pearson-trained | 4.3048 | 0.7112 | 0.9399 | 0.089 |
-| 8 | pearson-trained | 3.7622 | 0.7112 | 0.9396 | 0.087 |
+| 4 | pearson-trained | 4.3045 | 0.7112 | 0.9399 | 0.089 |
+| 8 | pearson-trained | 3.7623 | 0.7112 | 0.9396 | 0.087 |
 | 16 | pearson-trained | 3.9491 | 0.7105 | 0.9389 | 0.084 |
-| 32 | pearson-trained | 4.3641 | 0.7107 | 0.9392 | 0.087 |
+| 32 | pearson-trained | 4.3640 | 0.7107 | 0.9392 | 0.087 |
+
+### POPQUORN offensiveness 1-5
+
+| k | objective | CE | sqrt(RPS) | Brier | Pearson r |
+| --- | --- | --- | --- | --- | --- |
+| 1 | ce-trained | 1.3076 | 0.8026 | 0.6541 | 0.120 |
+| 2 | ce-trained | 1.3004 | 0.7994 | 0.6512 | 0.116 |
+| 4 | ce-trained | 1.3008 | 0.7996 | 0.6516 | 0.125 |
+| 8 | ce-trained | 1.2983 | 0.7986 | 0.6503 | 0.134 |
+| 1 | pearson-trained | 5.1142 | 0.9938 | 0.8973 | 0.112 |
+| 2 | pearson-trained | 4.3290 | 1.0021 | 0.9048 | 0.124 |
+| 4 | pearson-trained | 4.1808 | 1.0053 | 0.9078 | 0.129 |
+| 8 | pearson-trained | 4.1948 | 1.0053 | 0.9078 | 0.139 |
+
+### POPQUORN politeness 1-5
+
+| k | objective | CE | sqrt(RPS) | Brier | Pearson r |
+| --- | --- | --- | --- | --- | --- |
+| 1 | ce-trained | 1.5286 | 0.8277 | 0.7682 | 0.339 |
+| 2 | ce-trained | 1.5296 | 0.8286 | 0.7687 | 0.339 |
+| 4 | ce-trained | 1.5283 | 0.8281 | 0.7682 | 0.339 |
+| 1 | pearson-trained | 8.9809 | 0.9829 | 1.1669 | 0.329 |
+| 2 | pearson-trained | 9.9721 | 0.9821 | 1.1659 | 0.328 |
+| 4 | pearson-trained | 9.2428 | 0.9830 | 1.1668 | 0.328 |
+
+### VeriBench FSC R_v1 (0-5, all5)
+
+| k | objective | CE | sqrt(RPS) | Brier | Pearson r |
+| --- | --- | --- | --- | --- | --- |
+| 1 | ce-trained | 1.9172 | 0.9951 | 0.8524 | 0.643 |
+| 2 | ce-trained | 1.7854 | 0.9830 | 0.8289 | 0.659 |
+| 4 | ce-trained | 1.7304 | 0.9512 | 0.8153 | 0.533 |
+| 1 | pearson-trained | 11.5095 | 1.1302 | 1.1710 | 0.505 |
+| 2 | pearson-trained | 10.5257 | 1.1161 | 1.1627 | 0.425 |
+| 4 | pearson-trained | 10.8509 | 1.1195 | 1.1648 | 0.292 |
+
+### VeriBench FSC pooled (0-5)
+
+| k | objective | CE | sqrt(RPS) | Brier | Pearson r |
+| --- | --- | --- | --- | --- | --- |
+| 1 | ce-trained | 1.2946 | 0.8151 | 0.6042 | 0.325 |
+| 2 | ce-trained | 1.2659 | 0.8109 | 0.5938 | 0.313 |
+| 1 | pearson-trained | 6.8135 | 1.1577 | 0.9312 | 0.294 |
+| 2 | pearson-trained | 7.7680 | 1.1965 | 0.9640 | 0.282 |
 
 
-### Iso-budget on ChaosNLI SNLI+MNLI
+### Iso-budget comparisons
+
+#### ChaosNLI SNLI+MNLI (B ≈ 1024)
 
 | N | k | B | objective | held-out test CE | sqrt(RPS) | Brier |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1024 | 1 | 1024 | ce | 1.0543 | 0.6270 | 0.6385 |
-| 1024 | 1 | 1024 | pearson | 4.5795 | 0.7175 | 0.9490 |
+| 1024 | 1 | 1024 | pearson | 4.5794 | 0.7175 | 0.9490 |
 | 256 | 4 | 1024 | ce | 1.0560 | 0.6278 | 0.6400 |
-| 256 | 4 | 1024 | pearson | 5.0037 | 0.7167 | 0.9478 |
+| 256 | 4 | 1024 | pearson | 5.0033 | 0.7167 | 0.9478 |
 | 64 | 16 | 1024 | ce | 1.0615 | 0.6290 | 0.6423 |
-| 64 | 16 | 1024 | pearson | 6.0508 | 0.7092 | 0.9372 |
+| 64 | 16 | 1024 | pearson | 6.0408 | 0.7092 | 0.9372 |
 | 32 | 32 | 1024 | ce | 1.1013 | 0.6445 | 0.6660 |
-| 32 | 32 | 1024 | pearson | 5.8740 | 0.7363 | 0.9764 |
+| 32 | 32 | 1024 | pearson | 5.8777 | 0.7363 | 0.9764 |
+
+#### popquorn_offensiveness (B ≈ 896)
+
+| N | k | B | objective | held-out test CE | sqrt(RPS) | Brier |
+| --- | --- | --- | --- | --- | --- | --- |
+| 896 | 1 | 896 | ce | 1.2994 | 0.7994 | 0.6502 |
+| 896 | 1 | 896 | pearson | 5.2877 | 1.0252 | 0.9263 |
+| 448 | 2 | 896 | ce | 1.3017 | 0.7992 | 0.6518 |
+| 448 | 2 | 896 | pearson | 5.3503 | 1.0073 | 0.9097 |
+| 224 | 4 | 896 | ce | 1.3087 | 0.8016 | 0.6554 |
+| 224 | 4 | 896 | pearson | 5.2153 | 0.9606 | 0.8683 |
+| 112 | 8 | 896 | ce | 1.3025 | 0.8012 | 0.6530 |
+| 112 | 8 | 896 | pearson | 5.5343 | 0.9269 | 0.8406 |
+
+#### popquorn_politeness (B ≈ 1024)
+
+| N | k | B | objective | held-out test CE | sqrt(RPS) | Brier |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1024 | 1 | 1024 | ce | 1.5279 | 0.8273 | 0.7686 |
+| 1024 | 1 | 1024 | pearson | 9.4588 | 0.9826 | 1.1696 |
+| 512 | 2 | 1024 | ce | 1.5314 | 0.8279 | 0.7697 |
+| 512 | 2 | 1024 | pearson | 8.5475 | 0.9782 | 1.1665 |
+| 256 | 4 | 1024 | ce | 1.5369 | 0.8310 | 0.7724 |
+| 256 | 4 | 1024 | pearson | 9.2112 | 0.9817 | 1.1661 |
 
 
 ## Single pass versus Monte Carlo rollouts
 
-Dataset `summeval_expert`. The Monte Carlo histograms use a \(10^{-6}\) floor so a single unlucky sample does not make cross-entropy infinite. The single pass does not need that floor.
+Dataset `summeval_expert`. The Monte Carlo histograms use a \(10^{-6}\) floor so a single unlucky sample does not make cross-entropy infinite.
 
 - single_pass: held-out test CE 1.2097, Brier 0.6149, sqrt(RPS) 0.7488 (the softmax itself, no floor)
 - M1: held-out test CE 9.6059, Brier 1.2516, sqrt(RPS) 1.0679 (mean over 8 floored histograms; one unlucky draw can still put a zero on a realized class)
@@ -220,43 +479,85 @@ One rationale does not return that sum. Two procedures do. A direct forward pass
 A second scaling axis is model size \(P\), beside the annotation budget \(B = N \times k\). The GPU script records a planned grid, Qwen3-4B and Llama-3.1-8B, and does not run it. No held-out number in this folder is a function of \(P\).
 
 
-## Within-prompt oracle (not a held-out judge)
+## Within-prompt oracles (not held-out judges)
 
-Dataset `dices990`. Half the raters of a test prompt estimate the distribution; the other half are scored. Sampled-judge correlation 0.190. Collapsed affine correlation 0.410. Distributional half CE 0.6764. Collapsed half CE 6.7936.
+| Dataset | Items (`k>=4`) | Pairs | Sampled half-A `r` | Collapsed `0.1*mu+4` `r` | `sqrt_gap` | Distributional CE | Collapsed CE |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `dices990` | 198 | 6534 | 0.190 | 0.410 | True | 0.6764 | 6.7936 |
+| `popquorn_offensiveness` | 300 | 1394 | 0.143 | 0.464 | True | 1.3229 | 7.9385 |
+| `popquorn_politeness` | 745 | 2768 | 0.159 | 0.557 | True | 1.4893 | 8.7096 |
+| `veribench_fsc_rv1` | 15 | 39 | 0.042 | 0.583 | True | 1.6009 | 9.5646 |
+| `veribench_fsc_pooled` | 18 | 42 | 0.004 | 0.558 | True | 1.7671 | 9.8682 |
 
 ## Figures
 
-![Wrong-objective matrix](figures/wrong_objective_matrix.png)
+![Wrong-objective matrix (SummEval, ChaosNLI, DICES)](figures/wrong_objective_matrix.png)
+
+![Wrong-objective matrix (POPQUORN and VeriBench FSC)](figures/wrong_objective_matrix_popquorn_veribench.png)
 
 ![Finite-sample crossover, binary versus ordinal Likert](figures/finite_sample_crossover_binary_vs_ordinal.png)
 
 ![High-k crossover, DICES-990 and ChaosNLI](figures/high_k_crossover_dices_chaos.png)
 
+![Crossover on POPQUORN and VeriBench FSC](figures/crossover_popquorn_veribench.png)
+
+![CertJudge real LLM judge panels](figures/certjudge_real_panels_proper_vs_corr.png)
+
 ![Single pass versus rollouts](figures/single_pass_vs_rollout.png)
 
 ![Iso-budget](figures/iso_budget_chaosnli.png)
 
+## Test-set power and minimum detectable difference
+
+This complements the unbiased test risk at one rating per prompt. The two judges are fixed: the cross-entropy head and the Pearson head, trained once on the train split (seed 0). Only the test design changes. A cell is \(N_{\mathrm{test}}\) held-out items and \(k_{\mathrm{test}}\) ratings from each. There are 200 random subsets, each scored with an item-clustered percentile 95% interval from 200 item-clustered resamples. Power is the fraction of subsets whose interval excludes 0; minimum detectable difference (MDD) is the median half-width of those intervals.
+
+For proper scores, the difference is `Pearson-trained minus CE-trained; positive means the CE-trained head is better`. For Pearson \(r\), `CE-trained r minus Pearson-trained r; positive means the CE-trained head correlates more`.
+
+### DICES-990 (`N_test` max = 198)
+
+- **Cross-entropy at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 100` (power 0.96, MDD 0.3172).
+- **Brier at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 150` (power 0.84, MDD 0.0703).
+- **sqrt(RPS) at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 198` (power 0.90, MDD 0.0476).
+- **Pearson r at `k_test = 1`:** does NOT reach 0.80 at `k_test = 1` (at `N_test = 198`, power 0.62, MDD 0.0232, median diff 0.0283).
+
+### POPQUORN Offensiveness (`N_test` max = 300)
+
+- **Cross-entropy at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 25` (power 1.00, MDD 1.7280).
+- **Brier at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 25` (power 0.95, MDD 0.0877).
+- **sqrt(RPS) at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 50` (power 0.97, MDD 0.1107).
+- **Pearson r at `k_test = 1`:** does NOT reach 0.80 at `k_test = 1` (at `N_test = 300`, power 0.06, MDD 0.0278, median diff 0.0006).
+
+### POPQUORN Politeness (`N_test` max = 745)
+
+- **Cross-entropy at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 25` (power 1.00, MDD 2.4417).
+- **Brier at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 25` (power 0.89, MDD 0.2260).
+- **sqrt(RPS) at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 50` (power 0.91, MDD 0.0834).
+- **Pearson r at `k_test = 1`:** hits power ≥ 0.80 at `N_test = 500` (power 0.87, MDD 0.0085).
+
+The proper scores separate these two heads at \(k_{\mathrm{test}} = 1\) with far fewer test prompts than correlation needs, because the proper-score gaps are large and the correlation gap is small. Figures: `figures/eval_power_mdd_dices990.png` and `figures/eval_power_mdd_popquorn_offensiveness.png`. Full DICES-990 grid: `tables/eval_power_mdd_dices990.md`.
+
 ![Test-set power on DICES-990](figures/eval_power_mdd_dices990.png)
+
+![Test-set power on POPQUORN Offensiveness](figures/eval_power_mdd_popquorn_offensiveness.png)
+
 
 ## Ready-to-send note to Sanmi
 
-Sanmi — three mathematical facts, then the empirical picture.
+Sanmi — three mathematical facts, then the empirical picture (now including POPQUORN and VeriBench FSC / CertJudge).
 
-On binary ratings you are right that the mean is the distribution and that scalar squared error matches Brier. Brier is strictly proper. Correlation is not. Corr(aX+b, Y) = Corr(X, Y) for any a>0, so a compressed forecast ties the true probabilities on correlation while Brier and cross-entropy get worse (in the four-item witness, correlation stays 1 while mean Brier moves from 0.0800 to 0.4418 and cross-entropy from 0.2231 to 0.6349 nats).
+On binary ratings you are right that the mean is the distribution and that scalar squared error matches Brier. Brier is strictly proper. Correlation is not: Corr(aX+b, Y) = Corr(X, Y) for any a>0, so a compressed forecast ties the true probabilities on correlation while Brier and cross-entropy get worse (in the four-item witness, correlation stays 1 while mean Brier moves from 0.0800 to 0.4418 and cross-entropy from 0.2231 to 0.6349 nats).
 
-On a 0–5 rubric the mean is not the law. A point mass at 2 and a 50/50 split on {0, 4} have the same mean and different Brier, RPS, and cross-entropy. RPS is the squared CDF gap: it charges distance from the realized rating, over the whole distribution, not a ranking of items.
+On a 0–5 or 1–5 rubric the mean is not the law. A point mass at 2 and a 50/50 split on {0, 4} have the same mean and different Brier, RPS, and cross-entropy. If the judge samples independently of the human given the prompt, correlation is strictly anti-proper (true distribution scores Var(mean)/Var(Y), collapsed a·mean+b scores the square root; 0.50 vs ~0.707 when variance pieces are equal).
 
-If the judge samples independently of the human given the prompt, correlation is strictly anti-proper. The true distribution scores Corr = Var(mean)/Var(Y). A collapsed judge a·mean+b scores the square root. When the two variance pieces are equal, that is 0.50 versus about 0.707. Spearman and Kendall do the same thing under a monotone warp. One forward pass already returns the distribution: softmax of the rating-token logits. Samples are a Monte Carlo estimate of that vector, not a requirement.
+Across SummEval, DICES-990, ChaosNLI, POPQUORN (Offensiveness & Politeness), and VeriBench FSC (`R_v1` + live-synced `native_main` + pooled), CE-trained heads beat Pearson-trained heads on held-out CE, sqrt(RPS), and Brier on every ordinal and 3-class view from k=1 rating/item; the binary threshold views are closer (Pearson-trained CE not worse on: `popquorn_politeness_binary` CE-trained 0.652 vs Pearson-trained 0.646). On real LLM judges in CertJudge (Experiment 63 `Qwen3-8B`), RL-GRPO gets Spearman 0.543 yet blows up CE to 5.556 (worse than shuffled control 1.831), while CE-trained `human_mix_sft` gets CE 1.620, RPS 0.142, and Spearman 0.746; across 56 LLM judge configs in Experiment 39, CE calibration beats Pearson calibration on CE in 48/56 configs. And on test-set statistical power (DICES-990, k_test=1), CE separates the heads at N=100 prompts (power 0.96) while Pearson correlation has power 0.62 even at N=198.
 
-The curves plot held-out cross-entropy, sqrt(RPS), and Brier against ratings per item, with a top axis at $0.05/rating (POPQUORN's crowd rate) and $5/rating (an assumed expert rate). Experiment 28's frontier-judge break-even sat near 4–8 ratings; the band on the figure marks that earlier result, which is a different model family. Continuous densities are the case where your nonparametric sample-size warning applies. Finite rubrics are ordinary K-way classification, with an O(K/N) multinomial rate. Tightening the rubric and matching p* are complementary. The failure mode is treating a spread-out target as if it had variance zero.
-
-Happy to walk through the Lean file (no sorry; axioms are propext, Classical.choice, Quot.sound) or the held-out tables.
+Happy to walk through the Lean file (no sorry; axioms are propext, Classical.choice, Quot.sound) or any table.
 
 ## Two-paper roadmap
 
-**Paper 1 — Target and evaluation protocol.** Define the target as \(p^*(y\mid c)\), not a correlation with a scalar. State the output-space taxonomy (binary, finite ordinal, continuous). Fix the test estimator as the unbiased per-sample proper risk, the split as prompt-level, and the interval as an item-clustered bootstrap. Keep Pearson, Spearman, and Kendall as diagnostics. Put Krippendorff-style agreement in the human-consensus section, not in the judge-fidelity section. Lead with RPS as distance-from-the-realized-rating.
+**Paper 1 — Target and evaluation protocol.** Define the target as \(p^*(y\mid c)\), not correlation with a scalar. State the output-space taxonomy (binary, finite ordinal, continuous). Fix the test estimator as the unbiased per-sample proper risk, the split as prompt/task-level, and the interval as an item-clustered bootstrap.
 
-**Paper 2 — Training, scaling, and dollars.** Train the same family by cross-entropy, Brier, RPS, Pearson, and MSE. Report the anti-proper collapse. Show the single-pass logit readout against M-sample rollouts, and keep a chain-of-thought sample distinct from the marginal over rationales. Plot held-out proper scores against \(k\) and against dollars, crowd and expert, and the iso-budget cut \(B=N\times k\). A second planned axis is model size \(P\), recorded in `scripts/snap_lora_train.py` and not measured in this folder. The scaling claim is that correlation saturates once the conditional mean is ranked, while a proper loss keeps fitting the conditional distribution.
+**Paper 2 — Training, scaling, and dollars.** Train the same family by cross-entropy, Brier, RPS, Pearson, and MSE. Report the anti-proper collapse, single-pass logit readout vs M-sample rollouts, and held-out proper scores against \(k\) and dollars (`$0.05` crowd / `$5` expert) and iso-budget \(B=N\times k\).
 
 ## Elicitation hierarchy
 
@@ -281,27 +582,22 @@ Sanmi's question was what accuracy, cross-entropy, and moments each identify. Th
 
 **Where a generalizability coefficient still helps.** It is an optional diagnostic of the human panel. A large rater main effect is harshness or leniency. A large residual is disagreement about the item or the rubric. That diagnosis plans the annotation. It is not a training loss for the judge, and it is not the test metric.
 
-**What the \((N, k)\) curves cost on the sets this folder actually scored.** Two unit prices, both labeled as assumptions. \(\$0.05\) per rating is the published POPQUORN crowd rate, used here as a unit price. It is not a wage we observed for SummEval, ChaosNLI, or DICES. \(\$5\) per rating is an assumed expert rate. POPQUORN ratings were not loaded. CertJudge / VeriBench functional semantic correctness ratings were not on this machine. Neither appears in the table.
+**What the \((N, k)\) curves cost on all scored sets.** Two unit prices: \(\$0.05\) per rating is POPQUORN's published crowd rate (now measured directly in the POPQUORN rows below, and used as an illustrative crowd rate on the other sets), and \(\$5\) per rating is an assumed expert rate. On every ordinal and 3-class set with signal (SummEval crowd, DICES-990, ChaosNLI SNLI+MNLI, POPQUORN offensiveness, POPQUORN politeness, VeriBench FSC R_v1, and VeriBench FSC pooled), the cross-entropy head beats the Pearson head on held-out cross-entropy, sqrt(RPS), and Brier already at \(k=1\), and stays ahead through every larger \(k\).
 
-Train sizes are the prompt-level split, seed 0: SummEval crowd \(N=3840\) items (same article split as the expert matrix), DICES-990 \(N=594\), ChaosNLI SNLI+MNLI \(N=1867\), ChaosNLI abductive NLI \(N=919\). The \(k\)-sweep trained a cross-entropy head and a Pearson head. On SummEval crowd (grades 1–5), DICES-990, and ChaosNLI SNLI+MNLI, the cross-entropy head has lower held-out cross-entropy, lower sqrt(RPS), and lower Brier at \(k=1\), the smallest budget we trained, and it stays lower at every larger \(k\) through 4 or through 32. There is no later \(k\) at which the Pearson head becomes the better proper-score trainer.
-
-| Dataset | \(k\) at which CE is ahead on CE, sqrt(RPS), and Brier | Train ratings \(B=N k\) | Crowd dollars at \$0.05 | Expert dollars at \$5 | Held-out CE, CE-trained vs Pearson-trained |
+| Dataset | \(k\) at which CE is ahead on CE, sqrt(RPS), and Brier | Train ratings \(B=N k\) | Crowd dollars at \$0.05 | Expert dollars at \$5 | Held-out CE & sqrt(RPS) at \(k=1\), CE-trained vs Pearson-trained |
 | --- | --- | --- | --- | --- | --- |
-| SummEval crowd, grades 1–5 | 1 (also 2 and 4) | 3,840 | \$192 | \$19,200 | 1.328 vs 8.651 |
-| DICES-990, three-level | 1 (through 32) | 594 | \$29.70 | \$2,970 | 0.747 vs 1.053 |
-| ChaosNLI SNLI+MNLI, three-class | 1 (through 32) | 1,867 | \$93.35 | \$9,335 | 1.053 vs 4.926 |
-| ChaosNLI abductive NLI, binary | point estimates differ by about 0.002; both heads sit on \(\log 2 \approx 0.693\) | 919 | \$45.95 | \$4,595 | 0.697 vs 0.699 |
-| POPQUORN | not scored |  |  |  |  |
-| CertJudge / VeriBench FSC, 0–5 | not scored |  |  |  |  |
+| SummEval crowd, grades 1–5 | 1 (through 4) | 3,840 | \$192.00 | \$19,200 | 1.328 vs 8.651 (sqrtRPS 0.719 vs 1.012) |
+| DICES-990, three-level | 1 (through 32) | 594 | \$29.70 | \$2,970 | 0.747 vs 1.053 (sqrtRPS 0.629 vs 0.688) |
+| ChaosNLI SNLI+MNLI, three-class | 1 (through 32) | 1,867 | \$93.35 | \$9,335 | 1.053 vs 4.927 (sqrtRPS 0.627 vs 0.710) |
+| ChaosNLI abductive NLI, binary (negative control) | both sit near log 2 ≈ 0.693 | 919 | \$45.95 | \$4,595 | 0.697 vs 0.699 (sqrtRPS 0.502 vs 0.503) |
+| POPQUORN offensiveness, 1–5 | 1 (through 8) | 900 | \$45.00 | \$4,500 | 1.308 vs 5.114 (sqrtRPS 0.803 vs 0.994) |
+| POPQUORN politeness, 1–5 | 1 (through 4) | 2,230 | \$111.50 | \$11,150 | 1.529 vs 8.981 (sqrtRPS 0.828 vs 0.983) |
+| VeriBench FSC R_v1, 0–5 (25 tasks) | 1 (through 4) | 45 | \$2.25 | \$225 | 1.917 vs 11.509 (sqrtRPS 0.995 vs 1.130) |
+| VeriBench FSC pooled (R_v1 + native_main), 0–5 (50 tasks) | 1 (through 2) | 107 | \$5.35 | \$535 | 1.295 vs 6.814 (sqrtRPS 0.815 vs 1.158) |
 
-At \(k=1\) the other two proper scores move with cross-entropy. DICES-990 sqrt(RPS) is 0.629 versus 0.688 and Brier is 0.445 versus 0.525. SummEval crowd sqrt(RPS) is 0.719 versus 1.012 and Brier is 0.708 versus 1.240. ChaosNLI SNLI+MNLI sqrt(RPS) is 0.627 versus 0.710 and Brier is 0.637 versus 0.939. The abductive panel is the negative control: the hash does not predict the task, so that row is not a budget recommendation.
+The iso-budget cut holds \(B=1024\) ratings on ChaosNLI SNLI+MNLI (\$51.20 at \$0.05 and \$5,120 at \$5). Held-out cross-entropy of the CE head is 1.054 at (1024,1), 1.056 at (256,4), 1.061 at (64,16), 1.101 at (32,32); the Pearson head on the same cells is 4.579 at (1024,1), 5.003 at (256,4), 6.041 at (64,16), 5.878 at (32,32). Inside this grid, spending the fixed bill on more prompts with one rating beats fewer prompts with many ratings.
 
-The iso-budget cut holds \(B=1024\) ratings on ChaosNLI SNLI+MNLI, which is \$51.20 at \$0.05 and \$5,120 at \$5. Held-out cross-entropy of the cross-entropy head is 1.054 at \((N,k)=(1024,1)\), 1.056 at \((256,4)\), 1.062 at \((64,16)\), and 1.101 at \((32,32)\). The Pearson head on the same four cells is 4.580, 5.004, 6.051, and 5.874. Inside this grid, spending the fixed bill on more prompts with one rating beats fewer prompts with many ratings.
-
-The \(k\)-sweep did not train the mean-squared-error head. On the full training ratings, that head's two-point readout has infinite held-out cross-entropy on SummEval expert, on ChaosNLI SNLI+MNLI, and on DICES-990, because a rating off the two adjacent scores has probability 0. SummEval expert uses all 3 grades on each of 3,840 train items (11,520 grades). ChaosNLI SNLI+MNLI uses all 100 votes on each of 1,867 train items (186,700 votes). DICES-990 uses every filtered rating on each of 594 train conversations. The file has 60–69 ratings per conversation and 64,886 ratings in total. The train-slice total was not stored as its own field.
-
-This driver finished in about 105 seconds on CPU and spent \$0 on model calls. Researcher salary was not metered, so this note does not invent one. A generalizability coefficient computed on the same ratings would still not be a held-out cross-entropy, Brier score, or RPS. That is the distinction the dollar rows are buying. On known synthetic ordinal laws, not on these human sets, experiment 34 already recorded a lenient point-mass judge with generalizability coefficient 1 and Pearson 0.961 whose expected RPS was worse than a constant forecast by 0.0492 [0.0477, 0.0506].
-
+On known synthetic ordinal laws, experiment 34 already recorded a lenient point-mass judge with generalizability coefficient 1 and Pearson 0.961 whose expected RPS was worse than a constant forecast by 0.0492 [0.0477, 0.0506].
 
 
 ## Complete Sanmi Transcript Coverage
@@ -310,22 +606,20 @@ As of 11-26-2026. These five points are the ones the 11-25 call left open. The t
 
 | Point | Output space or claim | What is true | Where it is checked |
 | --- | --- | --- | --- |
-| 1a | Binary, \(K=2\) | One degree of freedom. The scalar mean is the full probability mass function, and scalar \(L_2\) equals the Brier score (two-class Brier is twice scalar squared error). Pearson correlation still fails calibration, because \(\operatorname{Corr}(aX+b,Y)=\operatorname{Corr}(X,Y)\) for \(a>0\), and it is strictly anti-proper for a sampled judge: \(\sqrt{\rho}>\rho\). | Lean `binary_brier_eq_two_l2`, `pearson_affine_invariant`, `binary_witness_corr_tie`, `anti_proper_from_parts`. Python `binary_l2`, `binary_affine_witness`, `anti_proper`. Real binary panels: SummEval cut at grade \(\ge 4\), ChaosNLI abductive NLI, DICES Yes-versus-not. |
-| 1b | Finite categorical or ordinal, \(K\ge 3\) (a 0–5 rubric is this case) | \(K-1\) degrees of freedom. This is ordinary discrete classification. The multinomial frequency error is \(\mathcal{O}(K/N)\), from \(\mathbb{E}[\|\hat q_N-p^*\|_2^2]=(1/N)(1-\|p^*\|_2^2)\), not a nonparametric curse of dimensionality. A scalar mean drops spread and multimodality. Cross-entropy, Brier, and ranked probability score (RPS) see them. | Lean `empirical_l2_rate`, `plugin_DB_bias`, `ordinal_same_mean_different_law`. Python `empirical_rate`, `mean_ne_pmf`. Real panels: SummEval grades 1–5 and DICES-990 three-level `Q_overall`. VeriBench functional semantic correctness (0–5) was not on this machine. |
+| 1a | Binary, \(K=2\) | One degree of freedom. The scalar mean is the full probability mass function, and scalar \(L_2\) equals the Brier score (two-class Brier is twice scalar squared error). Pearson correlation still fails calibration, because \(\mathrm{Corr}(aX+b,Y)=\mathrm{Corr}(X,Y)\) for \(a>0\), and it is strictly anti-proper for a sampled judge: \(\sqrt{\rho}>\rho\). | Lean `binary_brier_eq_two_l2`, `pearson_affine_invariant`, `binary_witness_corr_tie`, `anti_proper_from_parts`. Python `binary_l2`, `binary_affine_witness`, `anti_proper`. Real binary panels: SummEval cut at grade \(\ge 4\), ChaosNLI abductive NLI, DICES Yes-versus-not, POPQUORN cut \(\ge 4\), VeriBench FSC cut \(\ge 4\). |
+| 1b | Finite categorical or ordinal, \(K\ge 3\) (a 0–5 rubric is this case) | \(K-1\) degrees of freedom. This is ordinary discrete classification. The multinomial frequency error is \(\mathcal{O}(K/N)\), from \(\mathbb{E}[\Vert\hat q_N-p^{\ast}\Vert_2^2]=(1/N)(1-\Vert p^{\ast}\Vert_2^2)\), not a nonparametric curse of dimensionality. A scalar mean drops spread and multimodality. Cross-entropy, Brier, and ranked probability score (RPS) see them. | Lean `empirical_l2_rate`, `plugin_DB_bias`, `ordinal_same_mean_different_law`. Python `empirical_rate`, `mean_ne_pmf`. Real panels: SummEval 1–5, DICES-990 3-level, POPQUORN offensiveness & politeness 1–5, VeriBench FSC (`R_v1`, `native_main`, pooled) 0–5, and CertJudge real LLM judge panels (`E63`, `E39`, `Exp 67`). |
 | 1c | Continuous, \(Y\in\mathbb{R}\) | The target is an infinite-dimensional density \(p^*(y\mid c)\). Sanmi's nonparametric sample-complexity warning applies here. A usable judge then needs a parametric head (Gaussian, Beta, or quantiles), the continuous ranked probability score (CRPS), or a discretization into \(K\) bins. | Conceded. This folder does not estimate a continuous density. |
-| 2 | Paired versus unpaired; agreement versus fidelity | Correlation has one narrow use as an unpaired or arbitrary-scale diagnostic. Inter-rater agreement, for example Krippendorff's \(\alpha\), measures human-to-human consensus when no target distribution has been defined. A proper scoring rule measures judge fidelity to a defined target \(p^*(y\mid c)\). Those are different questions. | The experiments in this folder score fidelity on held-out prompts. They do not report Krippendorff's \(\alpha\). |
-| 3 | Sanmi's RPS framing | RPS is the squared distance between forecast and realized cumulative probabilities. It charges an ordering of how wrong the forecast is — distance from the realized rating — over the whole distribution. It is not a ranking of items. | Lean `bernoulli_square_excess` (one threshold) and `ordinal_same_mean_different_law` (the 0–5 gap). The reported column is the square root of the unbiased mean per-sample RPS; normalized RPS (divided by \(K-1\)) is stored beside it. |
-| 4 | Surrogate-loss literature | Proper scoring rules and surrogate losses are classic: Brier (1950), Epstein (1969) for the ranked probability score, Gneiting and Raftery (2007). What is new here is the application to an LLM-as-a-judge, the strict anti-properness \(\sqrt{\rho}>\rho\) for independent sampled judges, the single-pass token-logit readout, and the rating-budget and dollar scaling curves. | This note, `SanmiPitch.lean`, and the figures under `figures/`. |
+| 2 | Paired versus unpaired; agreement versus fidelity | Correlation has one narrow use as an unpaired or arbitrary-scale diagnostic. Inter-rater agreement, for example Krippendorff's \(\alpha\), measures human-to-human consensus when no target distribution has been defined. A proper scoring rule measures judge fidelity to a defined target \(p^*(y\mid c)\). Those are different questions. | The experiments in this folder score fidelity on held-out prompts. |
+| 3 | Sanmi's RPS framing | RPS is the squared distance between forecast and realized cumulative probabilities. It charges an ordering of how wrong the forecast is — distance from the realized rating — over the whole distribution. It is not a ranking of items. | Lean `bernoulli_square_excess` (one threshold) and `ordinal_same_mean_different_law` (the 0–5 gap). Reported column is sqrt(RPS); normalized RPS (divided by \(K-1\)) is stored beside it. |
+| 4 | Surrogate-loss literature | Proper scoring rules and surrogate losses are classic: Brier (1950), Epstein (1969) for RPS, Gneiting and Raftery (2007). What is new here is the application to an LLM-as-a-judge, the strict anti-properness \(\sqrt{\rho}>\rho\) for independent sampled judges, the single-pass token-logit readout, and the rating-budget and dollar scaling curves. | This note, `SanmiPitch.lean`, CertJudge real LLM judge bridge, and `figures/`. |
 | 5 | Sharpen the rubric versus match \(p^*\) | Tightening a rubric so that \(p^*(y\mid c)\) becomes peakier, and training a judge to match \(p^*(y\mid c)\), are complementary. What fails is pretending a non-peaky target has zero conditional variance. | Proof B (consensus on 2 versus a 50/50 split on \(\{0,4\}\), same mean 2) and Proof C (the collapsed judge \(X_\delta=a\mu_Y(C)+b\)). |
 
 
+## What remains unrun on this CPU-only machine
 
-## What this machine did not run
-
-- POPQUORN: NOT LOADED. huggingface dataset search returned no POPQUORN card, https://github.com/Jiaxin-Pei/POPQUORN returned 404, and that user's public repos contain Stanford-politeness model code rather than POPQUORN ratings. The Stanford politeness corpus was not substituted.
-- VeriBench FSC: NOT IN THIS REPOSITORY AND NOT ON THIS MACHINE. A search of this repo for FSC / R_v1 / functional semantic correctness ratings found no table. AGENTS.md assigns the shared VeriBench human-rating collection to trustworthy-theorem-judges experiment 09; that repo is not cloned here, so CertJudge / VeriBench FSC R_v1 (0–5, about 5 experts, 343 items) was not scored.
-- No GPU is present, so no LoRA fine-tune and no live LLM logit extraction were run. Ready scripts: `scripts/snap_lora_train.py` and `scripts/snap_llm_logit_readout.py`.
+- No GPU is present, so `scripts/snap_lora_train.py` (Qwen3-4B / Llama-3.1-8B model-size grid) and `scripts/snap_llm_logit_readout.py` remain ready for SNAP/Sherlock.
+- In `trustworthy-theorem-judges` Experiment 09, `T30` (Max Sieb) Google Sheet remains unverified (HTTP 401 without renewed OAuth); all 33 public sheets synced cleanly on 11-26-2026 (`250` non-coordinator main ratings).
 
 ## Kohli et al. 2026
 
-Guneet Kohli, arXiv:2605.29797, studies how many annotators a soft-label NLI model needs. On ChaosNLI (SNLI+MNLI, 3,113 items, 100 annotations), KL divergence to the full human distribution captures about 91% (the paper's table: 91±3%) of the hard-label-to-100-annotator improvement by 10 annotators, while entropy correlation needs on the order of 20–50. On DICES-990 the paper's exploratory table gives 90% of the KL improvement at 3 annotators and 62% of the entropy-correlation improvement. That is a saturation result about annotation count for one training loss. This folder asks a different question: which training objective, on a shared linear head, wins held-out proper scores. The two results sit next to each other. They are not the same measurement, and this folder does not re-run those DeBERTa fine-tunes.
+Guneet Kohli, arXiv:2605.29797, studies how many annotators a soft-label NLI model needs (on ChaosNLI, KL captures ~91±3% of improvement by 10 annotators while entropy correlation needs 20–50; DICES-990 exploratory 90% vs 62% at 3 annotators). That is annotation saturation for one training loss; here we compare training objectives on held-out proper risk.
