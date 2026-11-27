@@ -1,0 +1,99 @@
+configs 552 x temperatures 5
+  fit 100/552 best primary val RPS 0.0529 h2 rps
+  fit 200/552 best primary val RPS 0.0493 h2_h3 rps
+  fit 300/552 best primary val RPS 0.0493 h2_h3 rps
+  fit 400/552 best primary val RPS 0.0493 h2_h3 rps
+  fit 500/552 best primary val RPS 0.0493 h2_h3 rps
+PRIMARY {
+  "family": "ordinal",
+  "feature_set": "h2_h3",
+  "objective": "rps",
+  "alpha": 0.0,
+  "mix": 0.25,
+  "const_mode": "pooled",
+  "set_aware": false,
+  "features": [
+    "astra",
+    "opus",
+    "h3_score",
+    "h3_expected"
+  ],
+  "sources": [],
+  "temperature": 2.0,
+  "val_rps": 0.04930416979202743,
+  "val_ce": 0.9900277021441655,
+  "val_tvd": 0.31360128850511454,
+  "optimizer_success": false,
+  "primary_eligible": true
+}
+BEST CE ORDINAL {
+  "family": "ordinal",
+  "feature_set": "h2_h3_h4_struct",
+  "objective": "ce",
+  "alpha": 0.1,
+  "mix": 0.0,
+  "const_mode": "pooled",
+  "set_aware": false,
+  "features": [
+    "astra",
+    "opus",
+    "h3_expected",
+    "h4_astra",
+    "h4_argon",
+    "h4_opus",
+    "thm_ratio",
+    "excess_thm_log",
+    "ident_jaccard",
+    "edit_similarity"
+  ],
+  "sources": [],
+  "temperature": 0.5,
+  "val_rps": 0.05002123828745366,
+  "val_ce": 0.7704028251258659,
+  "val_tvd": 0.31699094508325537,
+  "optimizer_success": true,
+  "primary_eligible": true
+}
+BEST RPS ORDINAL {
+  "family": "ordinal",
+  "feature_set": "h2_h3",
+  "objective": "rps",
+  "alpha": 0.0,
+  "mix": 0.25,
+  "const_mode": "pooled",
+  "set_aware": false,
+  "features": [
+    "astra",
+    "opus",
+    "h3_score",
+    "h3_expected"
+  ],
+  "sources": [],
+  "temperature": 2.0,
+  "val_rps": 0.04930416979202743,
+  "val_ce": 0.9900277021441655,
+  "val_tvd": 0.31360128850511454,
+  "optimizer_success": false,
+  "primary_eligible": true
+}
+BEST SET-AWARE {
+  "family": "cohort_specific",
+  "feature_set": "h2_by_cohort",
+  "objective": "rps",
+  "alpha": 0.0,
+  "mix": 0.25,
+  "const_mode": "cohort_specific",
+  "set_aware": true,
+  "features": [
+    "astra",
+    "opus"
+  ],
+  "sources": [],
+  "temperature": 0.75,
+  "val_rps": 0.044266483477547344,
+  "val_ce": 0.7322971675787787,
+  "val_tvd": 0.2817622403671685,
+  "optimizer_success": true,
+  "primary_eligible": false
+}
+F8 val 0.05730858839995353 const set 0.10072413872660033

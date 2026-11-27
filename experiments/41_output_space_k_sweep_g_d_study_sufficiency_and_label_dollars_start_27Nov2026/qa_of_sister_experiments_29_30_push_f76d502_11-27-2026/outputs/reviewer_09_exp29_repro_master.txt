@@ -1,0 +1,12 @@
+=== 19:44:05 RUN: python3 -B scripts/build_snapshot.py
+=== 19:44:05 EXIT 0 : python3 -B scripts/build_snapshot.py
+=== 19:44:05 RUN: python3 -B -m unittest tests/test_heads_and_join.py
+=== 19:44:06 EXIT 0 : python3 -B -m unittest tests/test_heads_and_join.py
+=== 19:44:06 RUN: python3 -B scripts/run_experiment.py --stage select
+=== 19:44:46 EXIT 0 : python3 -B scripts/run_experiment.py --stage select
+=== 19:44:46 RUN: python3 -B scripts/run_experiment.py --stage eval
+=== 19:44:47 EXIT 0 : python3 -B scripts/run_experiment.py --stage eval
+=== 19:44:47 RUN: python3 -B scripts/run_experiment.py --stage nested
+=== 19:45:30 EXIT 0 : python3 -B scripts/run_experiment.py --stage nested
+=== 19:45:30 DEVIATION: restore committed selection JSON and rerun eval
+=== 19:45:48 EXIT 0 : eval with committed selection

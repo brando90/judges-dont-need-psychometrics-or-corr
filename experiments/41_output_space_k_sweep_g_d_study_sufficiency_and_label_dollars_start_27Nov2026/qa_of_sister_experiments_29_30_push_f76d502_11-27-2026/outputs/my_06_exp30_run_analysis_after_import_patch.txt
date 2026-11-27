@@ -1,0 +1,104 @@
+{
+ "align27": {
+  "point": -0.03489545865066687,
+  "lo": -0.07596048970019906,
+  "hi": 0.002442800524680177
+ },
+ "align27_ok": true,
+ "align25_ok": true,
+ "f8_445": {
+  "point": -0.035132147076785476,
+  "lo": -0.07636552109590386,
+  "hi": 0.0020111178125465567,
+  "p_ge0_plus1": 0.0326967303269673
+ },
+ "f8_levels_rps": {
+  "point": 0.07368169295290695,
+  "lo": 0.046215031252725775,
+  "hi": 0.10616942152711205
+ },
+ "constant_rps": {
+  "point": 0.10881384002969245,
+  "lo": 0.07252889477816286,
+  "hi": 0.15025069362111837
+ },
+ "crossing_tasks": 23,
+ "forward_shift": 0.0007951154370898468,
+ "forward_cross": false,
+ "policy_gap": 0.0009773557529306387,
+ "top25_five": 0.3442622950819672,
+ "bottom25_five": 0.9428571428571428,
+ "active_five": 0.454,
+ "uniform_five": 0.48224999999999996,
+ "spearman_five": -0.6171876208469291,
+ "top5": [
+  {
+   "rank": 1,
+   "item": "native-heavy-11-11-2026__item045",
+   "task": "task_01_heap_sort",
+   "n_ratings": 3,
+   "five_rate": 0.3333333333333333,
+   "rank_score": 1.3625693430840158,
+   "disagreement_std": 0.7894868586620045,
+   "ceiling_mass": 0.3,
+   "non_ceiling_uncertainty": 0.44808248442201126
+  },
+  {
+   "rank": 2,
+   "item": "native-heavy-11-11-2026__item066",
+   "task": "task_01_heap_sort",
+   "n_ratings": 3,
+   "five_rate": 0.3333333333333333,
+   "rank_score": 1.3023895796136964,
+   "disagreement_std": 0.6949769513897297,
+   "ceiling_mass": 0.23777777777777773,
+   "non_ceiling_uncertainty": 0.48241262822396674
+  },
+  {
+   "rank": 3,
+   "item": "native-heavy-11-11-2026__item047",
+   "task": "task_01_heap_sort",
+   "n_ratings": 2,
+   "five_rate": 0.5,
+   "rank_score": 1.2866303182732968,
+   "disagreement_std": 0.610862792983704,
+   "ceiling_mass": 0.18055555555555555,
+   "non_ceiling_uncertainty": 0.509100858622926
+  },
+  {
+   "rank": 4,
+   "item": "native-heavy-11-11-2026__item091",
+   "task": "task_10_lower_median",
+   "n_ratings": 2,
+   "five_rate": 0.0,
+   "rank_score": 1.2470990066325058,
+   "disagreement_std": 0.655131666155743,
+   "ceiling_mass": 0.3283333333333333,
+   "non_ceiling_uncertainty": 0.4253006738100961
+  },
+  {
+   "rank": 5,
+   "item": "native-heavy-11-11-2026__item031",
+   "task": "task_18_topological_sorting",
+   "n_ratings": 3,
+   "five_rate": 0.0,
+   "rank_score": 1.046958793391178,
+   "disagreement_std": 0.35816262083439554,
+   "ceiling_mass": 0.0018333333333333335,
+   "non_ceiling_uncertainty": 0.5637961725567824
+  }
+ ],
+ "predictions": {
+  "1_experiment_27_alignment": true,
+  "2_experiment_25_alignment": true,
+  "3_forward_never_crosses_and_shift_under_0.01": true,
+  "3_policy_gap_under_0.005": true,
+  "3_max_abs_shift_of_median_upper": 0.0007951154370898468,
+  "3_any_median_upper_below_zero": false,
+  "3_max_policy_gap": 0.0009773557529306387,
+  "4_extrapolated_task_count_between_22_and_40": true,
+  "4_extrapolated_task_count": 23,
+  "5_top25_five_rate_below_bottom25": true,
+  "5_active_revealed_five_rate_below_uniform": true
+ }
+}

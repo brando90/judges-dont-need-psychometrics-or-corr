@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/tmp/qa2930/repo/experiments/30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026/scripts/run_analysis.py", line 829, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/qa2930/repo/experiments/30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026/scripts/run_analysis.py", line 661, in main
+    h2_calls = load_h2_calls(EXP28 / "data_11-26-2026/judge_scores_h2_11-26-2026.csv")
+  File "/tmp/qa2930/repo/experiments/30_rank_next_human_ratings_by_judge_ensemble_uncertainty_and_power_curve_for_the_held_out_rps_gain_start_27Nov2026/scripts/run_analysis.py", line 191, in load_h2_calls
+    calls = defaultdict(lambda: defaultdict(list))
+            ^^^^^^^^^^^
+NameError: name 'defaultdict' is not defined
+--- exit and time:
+EXIT=1
+
+real	0m0.673s
+user	0m0.585s
+sys	0m0.056s

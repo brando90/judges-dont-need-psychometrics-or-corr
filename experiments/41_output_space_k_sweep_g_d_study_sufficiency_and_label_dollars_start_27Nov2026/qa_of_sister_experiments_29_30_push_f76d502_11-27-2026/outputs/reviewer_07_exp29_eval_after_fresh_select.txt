@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/tmp/qa2930/repo/experiments/29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026/scripts/run_experiment.py", line 399, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/qa2930/repo/experiments/29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026/scripts/run_experiment.py", line 382, in main
+    reports = {"all": evaluate(load_artifacts("all"), "all", selection)}
+                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/qa2930/repo/experiments/29_refit_cumulative_logit_heads_ce_versus_rps_on_445_ratings_start_27Nov2026/scripts/run_experiment.py", line 236, in evaluate
+    "best_converged_primary": selection["best_converged_primary"],
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'best_converged_primary'

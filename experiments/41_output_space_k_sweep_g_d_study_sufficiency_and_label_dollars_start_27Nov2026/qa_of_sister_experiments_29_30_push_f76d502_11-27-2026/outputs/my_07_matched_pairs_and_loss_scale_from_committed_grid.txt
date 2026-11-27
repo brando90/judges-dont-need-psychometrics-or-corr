@@ -1,0 +1,16 @@
+grid rows: 2760 | matched keys with both objectives: 1380
+Validation RPS of the RPS-fit head minus validation RPS of the CE-fit head, matched pairs (positive: the CE-fit head is better).
+  family cohort_specific  alpha 0.0   pairs  75 | RPS-fit head lower in  26 | median +0.0045
+  family cohort_specific  alpha 0.1   pairs  75 | RPS-fit head lower in   1 | median +0.0157
+  family cohort_specific  alpha 1.0   pairs  75 | RPS-fit head lower in   0 | median +0.0173
+  family cohort_specific  alpha 10.0  pairs  75 | RPS-fit head lower in   0 | median +0.0026
+  family logpool          alpha 0.0   pairs  45 | RPS-fit head lower in  19 | median +0.0001
+  family logpool          alpha 0.1   pairs  45 | RPS-fit head lower in   7 | median +0.0028
+  family logpool          alpha 1.0   pairs  45 | RPS-fit head lower in   3 | median +0.0212
+  family logpool          alpha 10.0  pairs  45 | RPS-fit head lower in   0 | median +0.0515
+  family ordinal          alpha 0.0   pairs 225 | RPS-fit head lower in 129 | median -0.0019
+  family ordinal          alpha 0.1   pairs 225 | RPS-fit head lower in   0 | median +0.0213
+  family ordinal          alpha 1.0   pairs 225 | RPS-fit head lower in   0 | median +0.0300
+  family ordinal          alpha 10.0  pairs 225 | RPS-fit head lower in   6 | median +0.0050
+Loss scale: median validation RPS of RPS-fit rows 0.1014, median validation CE of CE-fit rows 1.0637, ratio 10.5
+The L2 term is added to the mean loss (lib29.py line 169: score.mean() + 0.5 * alpha * (w @ w)), so one alpha weighs about that many times more against the RPS loss than against CE.

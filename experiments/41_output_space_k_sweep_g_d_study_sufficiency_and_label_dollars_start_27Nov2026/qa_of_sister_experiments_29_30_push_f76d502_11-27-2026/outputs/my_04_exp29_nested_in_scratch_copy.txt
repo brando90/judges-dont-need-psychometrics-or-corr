@@ -1,0 +1,7 @@
+nested menu 48 configs x 2 temperatures
+fold 0 chose h2_h4_struct ce a=0.0 m=0.25 T=1.0 inner RPS 0.0726
+fold 1 chose h2_h4_struct rps a=0.0 m=0.0 T=1.0 inner RPS 0.0669
+fold 2 chose h2_h4_struct ce a=0.0 m=0.25 T=1.0 inner RPS 0.0732
+fold 3 chose h2_h4_struct ce a=0.0 m=0.0 T=1.0 inner RPS 0.0645
+fold 4 chose h2_h4_struct ce a=0.0 m=0.25 T=1.0 inner RPS 0.0679
+NESTED works {'point': -0.05020566016563919, 'ci95': [-0.07255476121961252, -0.029035415637045123], 'p_ge0': 9.999000099990002e-05}

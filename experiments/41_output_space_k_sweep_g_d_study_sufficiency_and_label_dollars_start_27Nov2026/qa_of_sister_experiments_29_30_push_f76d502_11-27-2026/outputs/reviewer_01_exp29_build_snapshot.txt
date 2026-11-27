@@ -1,0 +1,21 @@
+{
+  "n_new_numeric_ratings": 250,
+  "new_percent_fives": 0.74,
+  "attestation_counts_on_250_scored_rows": {
+    "partial": 100,
+    "yes": 118,
+    "blank": 32
+  },
+  "candidate_file_anomalies": [
+    {
+      "item": "native-heavy-11-11-2026__item020",
+      "rater_id": "T06",
+      "candidate_file_is_lean_path": false,
+      "score": 5,
+      "known_inspected_edit": true
+    }
+  ],
+  "n_new_artifacts_whose_multiset_changes_if_blank_attestations_drop": 32,
+  "n_new_artifacts_with_zero_schema_attestations": 0,
+  "matches_experiment_28_all_score_histograms": true
+}
