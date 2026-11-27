@@ -1,0 +1,21 @@
+PASS v_Delta(8x2) at t=0 got=23/80 want=23/80
+PASS v_Delta(4x4) at t=0 got=31/80 want=31/80
+PASS v_Delta(2x8) at t=0 got=53/80 want=53/80
+PASS v_Delta(8x2) at t=1/2 got=19/40 want=19/40
+PASS v_Delta(4x4) at t=1/2 got=31/80 want=31/80
+PASS v_Delta(2x8) at t=1/2 got=19/40 want=19/40
+PASS v_Delta(8x2) at t=1 got=53/80 want=53/80
+PASS v_Delta(4x4) at t=1 got=31/80 want=31/80
+PASS v_Delta(2x8) at t=1 got=23/80 want=23/80
+PASS v_Delta(8x2) at t=4/15 got=31/80 want=31/80
+PASS v_Delta(4x4) at t=4/15 got=31/80 want=31/80
+PASS v_Delta(2x8) at t=4/15 got=9/16 want=9/16
+PASS v_Delta(8x2) at t=11/15 got=9/16 want=9/16
+PASS v_Delta(4x4) at t=11/15 got=31/80 want=31/80
+PASS v_Delta(2x8) at t=11/15 got=31/80 want=31/80
+PASS t=1/2 uniquely prefers 4x4 {(8, 2): '19/40', (4, 4): '31/80', (2, 8): '19/40'}
+PASS crossover 8x2 vs 4x4 at t=4/15 31/80
+PASS crossover 4x4 vs 2x8 at t=11/15 31/80
+PASS 8x2 best at t=0 
+PASS 2x8 best at t=1 
+n_fail 0
