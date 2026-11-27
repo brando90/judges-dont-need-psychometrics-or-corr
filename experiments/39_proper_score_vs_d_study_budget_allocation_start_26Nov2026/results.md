@@ -1,6 +1,6 @@
 # Experiment 39: Proper-score design versus D-study budget allocation
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/results.md>
+**Doc link:** <https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit>
 
 **Folder.** `experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/`.
 
@@ -151,12 +151,4 @@ Left: fraction of replications in which REML chose the oracle design, with Wilso
 - Candidate grids are coarse ($n_{i}\in\lbrace 16,32,64\rbrace$, $n_{r}\in\lbrace 2,4,8,16\rbrace$). Finer grids would not change the qualitative opposition of “max raters” vs. “max items.”
 - Study A deployment draws ratings with replacement from each item’s empirical pool, which is the right model for ChaosNLI counts and for incomplete DICES-990, but is an approximation to sampling a new rater on DICES-350.
 - Study B uses new seeds, so it is a qualitative / interval-overlap reproduction of Experiment 04, not a bit-exact replay. The protocol typo about equal $v_{\Delta}$ at $t=1/2$ is documented above; oracles used the true components.
-- No result here was extrapolated beyond the measured datasets, budgets, and $t$-grid. Singleton budgets ($B=32,1024$) are not counted as wins.
-
-## What was not committed
-
-Raw ChaosNLI jsonl, DICES CSVs, the Experiment 28 forecast cache, the processed `.npz` bundle, and PNG copies of the figures are not in git (see `data/README.md` and this folder's `.gitignore`). Frozen splits, SHA-256 checksums, numerical summaries (`results/study_a_summary.json`, `results/study_b_summary.json`), SVG figures, and the per-replication CSVs are committed when present under `results/`. Official numbers in this report are taken from those summaries.
-
-## What this does and does not show
-
-Proper losses (CE train, RPS/CE/TVD eval) are the right tools for choosing and evaluating a *distributional* judge of $p(y\mid x)$. Under that target, a fixed rating budget is better spent on more items than on more replicate raters, and a proper-score selector recovers that split. The same data also show that this is *not* the split that minimizes per-item universe-score error. D-study remains the right tool when the official target is the precision of a mean, and a grand-mean D-study already agrees with the proper-score selector when the official target is new-item RPS. The honest statement is complementarity of tools after the target is named, not “we no longer need G/D-theory.”
+- No result here was extrapolated beyond the measured datasets, budgets, and $t$-grid. Singleton budget[+1268 bytes at .content[1].resource.text]
