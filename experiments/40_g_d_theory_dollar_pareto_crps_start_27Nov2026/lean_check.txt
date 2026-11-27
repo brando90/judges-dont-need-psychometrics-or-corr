@@ -1,0 +1,19 @@
+theory/GTheory.lean:141:36: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+theory/GTheory.lean:462:11: warning: Variable name `j` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _j
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'brier_risk_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'brier_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rps_risk_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rps_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'g_theory_blindness_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ce_gap_rational_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rps_refines_middle_cut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'witness_probabilities_hold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'dstudy_depends_only_on_k' depends on axioms: [propext, Classical.choice, Quot.sound]

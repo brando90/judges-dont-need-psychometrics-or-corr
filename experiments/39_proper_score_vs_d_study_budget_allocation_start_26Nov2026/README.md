@@ -1,6 +1,6 @@
 # Experiment 39: Proper-score design versus D-study budget allocation
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/README.md>
+**Doc link:** <https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit>
 
 **TLDR:** A CPU head-to-head of proper-score design and G/D-theory allocation on ChaosNLI SNLI, MNLI-m, and alphaNLI, and on DICES-350 and DICES-990, plus the harder Phase B of experiment 04. The two targets do not share the same optimal split of a fixed rating budget. Proper-score design does not replace D-theory. Results: [results.md](results.md). Reading guide: [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md).
 

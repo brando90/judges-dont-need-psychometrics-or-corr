@@ -1,6 +1,6 @@
 # Experiment 39: Proper-score design versus D-study budget allocation
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/results.md>
+**Doc link:** <https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit>
 
 **Folder.** `experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/`.
 

@@ -1,0 +1,7 @@
+.lake/
+__pycache__/
+data_cache/
+*.olean
+*.ilean
+*.c
+*.setup.json
