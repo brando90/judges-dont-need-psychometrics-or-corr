@@ -1,0 +1,11 @@
+chaosnli_snli B=64: item MSE U1 obs 0.05684 vs analytic 0.05773; U2 obs 0.10878 vs 0.11310 | grand MSE U1 obs 0.02487 vs 0.02064; U2 obs 0.00960 vs 0.01171
+chaosnli_snli B=512: item MSE U1 obs 0.01649 vs analytic 0.01649; U2 obs 0.02971 vs 0.03012 | grand MSE U1 obs 0.00732 vs 0.00868; U2 obs 0.00449 vs 0.00421
+chaosnli_mnli B=64: item MSE U1 obs 0.08335 vs analytic 0.08269; U2 obs 0.16145 vs 0.16201 | grand MSE U1 obs 0.01927 vs 0.01914; U2 obs 0.01125 vs 0.01177
+chaosnli_mnli B=512: item MSE U1 obs 0.02428 vs analytic 0.02363; U2 obs 0.04345 vs 0.04314 | grand MSE U1 obs 0.00696 vs 0.00742; U2 obs 0.00356 vs 0.00374
+chaosnli_alphanli B=64: item MSE U1 obs 0.02243 vs analytic 0.02252; U2 obs 0.04296 vs 0.04411 | grand MSE U1 obs 0.01035 vs 0.01100; U2 obs 0.00577 vs 0.00588
+chaosnli_alphanli B=512: item MSE U1 obs 0.00610 vs analytic 0.00643; U2 obs 0.01173 vs 0.01175 | grand MSE U1 obs 0.00507 vs 0.00470; U2 obs 0.00222 vs 0.00214
+dices350 B=64: item MSE U1 obs 0.17524 vs analytic 0.17782; U2 obs 0.35759 vs 0.34976 | grand MSE U1 obs 0.02260 vs 0.02081; U2 obs 0.01758 vs 0.01542
+dices350 B=512: item MSE U1 obs 0.04858 vs analytic 0.04944; U2 obs 0.09314 vs 0.09200 | grand MSE U1 obs 0.00593 vs 0.00601; U2 obs 0.00311 vs 0.00331
+dices990 B=64: item MSE U1 obs 0.16929 vs analytic 0.17043; U2 obs 0.32814 vs 0.33123 | grand MSE U1 obs 0.01655 vs 0.01900; U2 obs 0.01473 vs 0.01425
+dices990 B=512: item MSE U1 obs 0.05318 vs analytic 0.05161; U2 obs 0.08920 vs 0.09047 | grand MSE U1 obs 0.00650 vs 0.00544; U2 obs 0.00320 vs 0.00306
+cells: 20; analytic ordering (U1<U2 on item MSE and U2<U1 on grand MSE) holds in 20/20; max relative gap observed vs analytic item-MSE mean: 5.1%

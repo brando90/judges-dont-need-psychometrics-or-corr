@@ -1,0 +1,7 @@
+pol_K5 L2 0.01: CE raw 0.1714 cal 0.1647 (nit 18) | Pearson raw 0.2417 cal 0.1657 (nit 23, success True) | raw gap +0.0703 matched gap +0.0010
+pol_K5 L2 0.0001: CE raw 0.1622 cal 0.1625 (nit 60) | Pearson raw 0.3332 cal 0.1649 (nit 31, success True) | raw gap +0.1710 matched gap +0.0024
+pol_K3 L2 0.01: CE raw 0.2085 cal 0.2031 (nit 11) | Pearson raw 0.2338 cal 0.2048 (nit 20, success True) | raw gap +0.0252 matched gap +0.0016
+pol_K3 L2 0.0001: CE raw 0.2004 cal 0.2011 (nit 25) | Pearson raw 0.3048 cal 0.2037 (nit 29, success True) | raw gap +0.1044 matched gap +0.0025
+pol_K2 L2 0.01: CE raw 0.2298 cal 0.2234 (nit 6) | Pearson raw 0.2273 cal 0.2259 (nit 7, success True) | raw gap -0.0025 matched gap +0.0025
+pol_K2 L2 0.0001: CE raw 0.2215 cal 0.2215 (nit 11) | Pearson raw 0.2815 cal 0.2243 (nit 22, success True) | raw gap +0.0601 matched gap +0.0028
+exit 0

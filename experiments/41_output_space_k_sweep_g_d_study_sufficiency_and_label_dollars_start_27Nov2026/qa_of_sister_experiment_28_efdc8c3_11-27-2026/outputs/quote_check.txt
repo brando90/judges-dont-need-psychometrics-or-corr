@@ -1,0 +1,115 @@
+exp27.constant_set_aware {'RPS': 0.1088, 'CE': 1.1585, 'TVD': 0.4794, 'Brier': 0.5476, 'ICC_A1': 0.6314, 'Bias': 0.055, 'Mean_Judge': 3.755, 'Mean_Human': 3.7}
+   vs_const dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+   vs_f8 dRPS 0.0351 [-0.0029, 0.0747] p= 0.0662 n_ge0= 9669
+   vs_f3 dRPS 0.0333 [-0.0054, 0.0738] p= 0.0896 n_ge0= 9552
+exp27.exp27_f3_h3free {'RPS': 0.0755, 'CE': 0.9518, 'TVD': 0.3716, 'Brier': 0.4681, 'ICC_A1': 0.8604, 'Bias': 0.1918, 'Mean_Judge': 3.8918, 'Mean_Human': 3.7}
+   vs_const dRPS -0.0333 [-0.0738, 0.0054] p= 0.0896 n_ge0= 448
+   vs_f8 dRPS 0.0018 [-0.0034, 0.0076] p= 0.522 n_ge0= 7390
+   vs_f3 dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+exp27.exp27_f8_refit250 {'RPS': 0.0737, 'CE': 0.9432, 'TVD': 0.3588, 'Brier': 0.4676, 'ICC_A1': 0.8738, 'Bias': 0.2135, 'Mean_Judge': 3.9135, 'Mean_Human': 3.7}
+   vs_const dRPS -0.0351 [-0.0747, 0.0029] p= 0.0662 n_ge0= 331
+   vs_f8 dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+   vs_f3 dRPS -0.0018 [-0.0076, 0.0034] p= 0.522 n_ge0= 2610
+exp27.exp27_f9_selected {'RPS': 0.0706, 'CE': 0.9458, 'TVD': 0.3506, 'Brier': 0.4532, 'ICC_A1': 0.8568, 'Bias': 0.1838, 'Mean_Judge': 3.8838, 'Mean_Human': 3.7}
+   vs_const dRPS -0.0382 [-0.0724, -0.0071] p= 0.0154 n_ge0= 77
+   vs_f8 dRPS -0.0031 [-0.0129, 0.0057] p= 0.5092 n_ge0= 2546
+   vs_f3 dRPS -0.0049 [-0.0147, 0.0042] p= 0.3006 n_ge0= 1503
+exp27.exp27_f9_f8hp {'RPS': 0.0659, 'CE': 0.8736, 'TVD': 0.3302, 'Brier': 0.445, 'ICC_A1': 0.9043, 'Bias': 0.1847, 'Mean_Judge': 3.8847, 'Mean_Human': 3.7}
+   vs_const dRPS -0.043 [-0.0792, -0.0097] p= 0.0108 n_ge0= 54
+   vs_f8 dRPS -0.0078 [-0.0145, -0.0021] p= 0.0058 n_ge0= 29
+   vs_f3 dRPS -0.0096 [-0.0192, -0.0015] p= 0.015 n_ge0= 75
+exp27.winner_global {'RPS': 0.0729, 'CE': 0.9359, 'TVD': 0.3528, 'Brier': 0.4613, 'ICC_A1': 0.8709, 'Bias': 0.1755, 'Mean_Judge': 3.8755, 'Mean_Human': 3.7}
+   vs_const dRPS -0.036 [-0.0746, 0.0011] p= 0.056 n_ge0= 280
+   vs_f8 dRPS -0.0008 [-0.0086, 0.0064] p= 0.8526 n_ge0= 4263
+   vs_f3 dRPS -0.0027 [-0.0105, 0.0048] p= 0.5116 n_ge0= 2558
+exp27.winner_set_aware {'RPS': 0.0728, 'CE': 0.9391, 'TVD': 0.3515, 'Brier': 0.4652, 'ICC_A1': 0.8762, 'Bias': 0.171, 'Mean_Judge': 3.871, 'Mean_Human': 3.7}
+   vs_const dRPS -0.036 [-0.0754, 0.0018] p= 0.0616 n_ge0= 308
+   vs_f8 dRPS -0.0009 [-0.0082, 0.0062] p= 0.8144 n_ge0= 4072
+   vs_f3 dRPS -0.0027 [-0.0097, 0.0043] p= 0.4442 n_ge0= 2221
+exp27.c9b_zero_opus_fallback {'RPS': 0.0708, 'CE': 0.9237, 'TVD': 0.3475, 'Brier': 0.4549, 'ICC_A1': 0.8785, 'Bias': 0.145, 'Mean_Judge': 3.845, 'Mean_Human': 3.7}
+   vs_const dRPS -0.038 [-0.075, -0.0034] p= 0.0322 n_ge0= 161
+   vs_f8 dRPS -0.0029 [-0.0118, 0.0054] p= 0.51 n_ge0= 2550
+   vs_f3 dRPS -0.0047 [-0.0137, 0.0035] p= 0.2804 n_ge0= 1402
+exp27.frontier_global_selected {'RPS': 0.0752, 'CE': 0.9573, 'TVD': 0.3581, 'Brier': 0.472, 'ICC_A1': 0.8656, 'Bias': 0.1872, 'Mean_Judge': 3.8872, 'Mean_Human': 3.7}
+   vs_const dRPS -0.0336 [-0.0737, 0.0055] p= 0.0872 n_ge0= 436
+   vs_f8 dRPS 0.0015 [-0.0059, 0.009] p= 0.686 n_ge0= 6570
+   vs_f3 dRPS -0.0003 [-0.0064, 0.0065] p= 0.9078 n_ge0= 4539
+exp27.frontier_set_c7_std3 {'RPS': 0.0726, 'CE': 0.9358, 'TVD': 0.3522, 'Brier': 0.465, 'ICC_A1': 0.8769, 'Bias': 0.1722, 'Mean_Judge': 3.8722, 'Mean_Human': 3.7}
+   vs_const dRPS -0.0362 [-0.0751, 0.0013] p= 0.0564 n_ge0= 282
+   vs_f8 dRPS -0.0011 [-0.0082, 0.0058] p= 0.777 n_ge0= 3885
+   vs_f3 dRPS -0.0029 [-0.0092, 0.0036] p= 0.3736 n_ge0= 1868
+   winner_global seed24 vs const dRPS -0.036 [-0.0755, 0.0001] p= 0.0516 n_ge0= 258
+  C7-F9sel {'point': 0.0022, 'p_val_two_sided': 0.6966} [-0.009018292518211884, 0.013701239059588349]
+  C7-F9f8hp 0.006913248860382901 [-0.0020818611174324053, 0.017009478828766276] 0.1344
+cv5.constant_set_aware {'RPS': 0.1186, 'CE': 1.308, 'TVD': 0.492, 'Brier': 0.6159, 'ICC_A1': 0.5841, 'Bias': -0.0254, 'Mean_Judge': 3.7165, 'Mean_Human': 3.7419}
+   vs_const dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+   vs_f8 dRPS 0.0439 [0.0194, 0.0702] p= 0.0002 n_ge0= 9999
+   vs_f3 dRPS 0.0407 [0.0154, 0.068] p= 0.001 n_ge0= 9995
+cv5.exp27_f3_h3free {'RPS': 0.078, 'CE': 1.0198, 'TVD': 0.3762, 'Brier': 0.5134, 'ICC_A1': 0.8485, 'Bias': 0.0068, 'Mean_Judge': 3.7488, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0407 [-0.068, -0.0154] p= 0.001 n_ge0= 5
+   vs_f8 dRPS 0.0032 [-0.0002, 0.007] p= 0.0622 n_ge0= 9689
+   vs_f3 dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+cv5.exp27_f8_h3_exposed {'RPS': 0.0747, 'CE': 0.9907, 'TVD': 0.3643, 'Brier': 0.5078, 'ICC_A1': 0.8681, 'Bias': 0.0043, 'Mean_Judge': 3.7462, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0439 [-0.0702, -0.0194] p= 0.0002 n_ge0= 1
+   vs_f8 dRPS 0.0 [0.0, 0.0] p= 1.0 n_ge0= 10000
+   vs_f3 dRPS -0.0032 [-0.007, 0.0002] p= 0.0622 n_ge0= 311
+cv5.nested_winner_global {'RPS': 0.0704, 'CE': 0.9135, 'TVD': 0.3371, 'Brier': 0.4682, 'ICC_A1': 0.863, 'Bias': -0.0212, 'Mean_Judge': 3.7207, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0483 [-0.0724, -0.0258] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.0044 [-0.0098, 0.0012] p= 0.115 n_ge0= 575
+   vs_f3 dRPS -0.0076 [-0.0145, -0.0006] p= 0.0364 n_ge0= 182
+cv5.nested_frontier_global {'RPS': 0.0685, 'CE': 0.9142, 'TVD': 0.3403, 'Brier': 0.4707, 'ICC_A1': 0.8776, 'Bias': -0.0013, 'Mean_Judge': 3.7406, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0501 [-0.0753, -0.0266] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.0062 [-0.0127, -0.0007] p= 0.0214 n_ge0= 107
+   vs_f3 dRPS -0.0095 [-0.0181, -0.0027] p= 0.0036 n_ge0= 18
+cv5.nested_winner_set_aware {'RPS': 0.0719, 'CE': 0.9292, 'TVD': 0.3446, 'Brier': 0.4726, 'ICC_A1': 0.8556, 'Bias': -0.0406, 'Mean_Judge': 3.7013, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0467 [-0.0707, -0.0248] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.0028 [-0.0082, 0.0031] p= 0.318 n_ge0= 1590
+   vs_f3 dRPS -0.006 [-0.0127, 0.001] p= 0.0888 n_ge0= 444
+cv5.nested_frontier_set_aware {'RPS': 0.0718, 'CE': 0.9316, 'TVD': 0.3496, 'Brier': 0.4763, 'ICC_A1': 0.8567, 'Bias': -0.0329, 'Mean_Judge': 3.709, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0469 [-0.0715, -0.0241] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.003 [-0.008, 0.0024] p= 0.259 n_ge0= 1295
+   vs_f3 dRPS -0.0062 [-0.0123, 0.0003] p= 0.0608 n_ge0= 304
+cv5.exploratory_fixed_hp_winner_global {'RPS': 0.0705, 'CE': 0.9191, 'TVD': 0.3399, 'Brier': 0.4698, 'ICC_A1': 0.8625, 'Bias': -0.0113, 'Mean_Judge': 3.7306, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0482 [-0.0731, -0.0248] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.0043 [-0.0094, 0.0007] p= 0.0954 n_ge0= 477
+   vs_f3 dRPS -0.0075 [-0.0144, -0.001] p= 0.0276 n_ge0= 138
+cv5.exploratory_fixed_hp_winner_set_aware {'RPS': 0.0689, 'CE': 0.9216, 'TVD': 0.3463, 'Brier': 0.4745, 'ICC_A1': 0.8782, 'Bias': -0.0136, 'Mean_Judge': 3.7283, 'Mean_Human': 3.7419}
+   vs_const dRPS -0.0497 [-0.0755, -0.0256] p= 0.0 n_ge0= 0
+   vs_f8 dRPS -0.0058 [-0.0124, -0.0004] p= 0.0322 n_ge0= 161
+   vs_f3 dRPS -0.009 [-0.0179, -0.0022] p= 0.0068 n_ge0= 34
+exp27_head.ce {'RPS': 0.0665, 'CE': 0.8776, 'TVD': 0.3257, 'Brier': 0.4475, 'ICC_A1': 0.9009, 'Bias': 0.1747, 'Mean_Judge': 3.8747, 'Mean_Human': 3.7}
+exp27_head.rps {'RPS': 0.073, 'CE': 0.9563, 'TVD': 0.365, 'Brier': 0.473, 'ICC_A1': 0.8772, 'Bias': 0.1377, 'Mean_Judge': 3.8377, 'Mean_Human': 3.7}
+exp27_head.pearson {'RPS': 0.081, 'CE': 1.0603, 'TVD': 0.3502, 'Brier': 0.5066, 'ICC_A1': 0.8454, 'Bias': 0.3244, 'Mean_Judge': 4.0244, 'Mean_Human': 3.7}
+   exp27_head CE-Pear dRPS -0.0144 [-0.0258, -0.0056] p= 0.0004 n_ge0= 2
+   exp27_head CE-Pear dCE -0.1826 [-0.2986, -0.0788] p= 0.0 n_ge0= 0
+   exp27_head CE-Pear dTVD -0.0245 [-0.0588, 0.0095] p= 0.1564 n_ge0= 782
+   exp27_head RPS-Pear dRPS -0.0079 [-0.0202, 0.002] p= 0.1324 n_ge0= 662
+cv5_c7.ce {'RPS': 0.0683, 'CE': 0.912, 'TVD': 0.3255, 'Brier': 0.4789, 'ICC_A1': 0.8895, 'Bias': 0.0045, 'Mean_Judge': 3.7464, 'Mean_Human': 3.7419}
+cv5_c7.rps {'RPS': 0.0703, 'CE': 0.9537, 'TVD': 0.3476, 'Brier': 0.4903, 'ICC_A1': 0.8852, 'Bias': -0.0227, 'Mean_Judge': 3.7192, 'Mean_Human': 3.7419}
+cv5_c7.pearson {'RPS': 0.0734, 'CE': 1.0056, 'TVD': 0.3571, 'Brier': 0.5146, 'ICC_A1': 0.8747, 'Bias': 0.0271, 'Mean_Judge': 3.769, 'Mean_Human': 3.7419}
+   cv5_c7 CE-Pear dRPS -0.0051 [-0.0111, 0.0006] p= 0.0786 n_ge0= 393
+   cv5_c7 CE-Pear dCE -0.0936 [-0.1689, -0.0293] p= 0.0014 n_ge0= 7
+   cv5_c7 CE-Pear dTVD -0.0316 [-0.0592, -0.0064] p= 0.0094 n_ge0= 47
+   cv5_c7 RPS-Pear dRPS -0.0031 [-0.0091, 0.0024] p= 0.2728 n_ge0= 1364
+cv5_g9.ce {'RPS': 0.0715, 'CE': 0.9247, 'TVD': 0.3363, 'Brier': 0.4743, 'ICC_A1': 0.8595, 'Bias': 0.0061, 'Mean_Judge': 3.748, 'Mean_Human': 3.7419}
+cv5_g9.rps {'RPS': 0.073, 'CE': 0.9674, 'TVD': 0.344, 'Brier': 0.4877, 'ICC_A1': 0.8543, 'Bias': 0.0047, 'Mean_Judge': 3.7466, 'Mean_Human': 3.7419}
+cv5_g9.pearson {'RPS': 0.0782, 'CE': 1.0517, 'TVD': 0.3521, 'Brier': 0.5045, 'ICC_A1': 0.8143, 'Bias': 0.1089, 'Mean_Judge': 3.8508, 'Mean_Human': 3.7419}
+   cv5_g9 CE-Pear dRPS -0.0068 [-0.0152, 0.0009] p= 0.086 n_ge0= 430
+   cv5_g9 CE-Pear dCE -0.1271 [-0.2258, -0.0395] p= 0.0046 n_ge0= 23
+   cv5_g9 CE-Pear dTVD -0.0158 [-0.0421, 0.0086] p= 0.217 n_ge0= 1085
+   cv5_g9 RPS-Pear dRPS -0.0053 [-0.0139, 0.0038] p= 0.2262 n_ge0= 1131
+   lora exp27_test CE-Pear dRPS -0.0662 [-0.1152, -0.0257] p= 0.0002 n_ge0= 1
+   lora exp27_test CE-Pear dCE -2.8132 [-4.5648, -1.3695] p= 0.0 n_ge0= 0
+   lora exp27_test RPS-Pear dRPS 0.0069 [-0.0048, 0.0188] p= 0.2524 n_ge0= 8738
+   lora cv5_oof CE-Pear dRPS -0.0597 [-0.092, -0.0307] p= 0.0002 n_ge0= 1
+   lora cv5_oof CE-Pear dCE -3.7 [-4.8309, -2.6568] p= 0.0 n_ge0= 0
+   lora cv5_oof RPS-Pear dRPS -0.0338 [-0.0572, -0.0115] p= 0.0026 n_ge0= 13
+nested selections (global, frontier_global):
+  fold 0 G11_hybrid_struct_global ce 0.3 | FG8_3fam_struct ce 0.3 | set: C7_h4_3fam_uncert
+  fold 1 G11_hybrid_struct_global ce 0.3 | FG8_3fam_struct ce 0.3 | set: C9b_h4_astra_argon_q8b
+  fold 2 G11_hybrid_struct_global ce 0.3 | FG8_3fam_struct ce 0.3 | set: C7_h4_3fam_uncert
+  fold 3 G11_hybrid_struct_global ce 0.3 | FG8_3fam_struct ce 0.3 | set: C10_h4_3fam_q8b_q4b
+  fold 4 G9_h4_3fam_q8b_global ce 0.3 | FG8_3fam_struct ce 0.3 | set: C7_h4_3fam_uncert
+pearson head HPs by fold c7: [(0.0001, 0.12, False), (0.0001, 0.12, True), (0.0001, 0.12, True), (0.0001, 0.12, False), (0.01, 0.0, True)]
+ce head HPs by fold c7: [(0.01, 0.0, True), (0.0001, 0.05, True), (0.0001, 0.05, True), (0.0001, 0.05, True), (0.01, 0.05, False)]
+exp27 head HPs: {'ce': (0.01, 0.0), 'rps': (0.01, 0.0), 'pearson': (0.0001, 0.12)}

@@ -1,0 +1,123 @@
+n tests (D vs oracle, excluding identical cells): 41 ; largest-B family: 5
+
+== summeval_expert: k*=2 n_test=1280 test groups=20 repro_err=3.0e-08
+   full-train test CE 1.2097; constant train-marginal 1.2210; full minus marginal -0.0113 ['-0.0130', '-0.0096']
+   fits=24 success=False: 1 at 35-iteration cap: 1
+   B=   32 Dk=2 ok=3 vk=3 ties=0 match=True | D-O 0.0602 item['0.0482', '0.0720'] group['0.0404', '0.0834'] p=0.0002 selbias=-0.0001 biascorr=0.0603 | D-V 0.0602 item['0.0482', '0.0720'] group['0.0404', '0.0834']
+   B=   64 Dk=2 ok=1 vk=1 ties=0 match=True | D-O 0.0187 item['0.0103', '0.0272'] group['0.0060', '0.0325'] p=0.0002 selbias=-0.0000 biascorr=0.0187 | D-V 0.0187 item['0.0103', '0.0272'] group['0.0060', '0.0325']
+   B=  128 Dk=2 ok=1 vk=1 ties=0 match=True | D-O 0.3802 item['0.2908', '0.4662'] group['0.2322', '0.5543'] p=0.0002 selbias=-0.0015 biascorr=0.3817 | D-V 0.3802 item['0.2908', '0.4662'] group['0.2322', '0.5543']
+   B=  256 Dk=2 ok=2 vk=2 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=-0.0000 biascorr=0.0000 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B=  512 Dk=2 ok=3 vk=2 ties=0 match=True | D-O 0.0025 item['-0.0026', '0.0075'] group['-0.0074', '0.0108'] p=0.3298 selbias=0.0003 biascorr=0.0022 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B= 1024 Dk=2 ok=3 vk=3 ties=0 match=True | D-O 0.0025 item['-0.0004', '0.0055'] group['-0.0014', '0.0065'] p=0.0850 selbias=0.0001 biascorr=0.0024 | D-V 0.0025 item['-0.0004', '0.0055'] group['-0.0014', '0.0065']
+   B= 2048 Dk=2 ok=2 vk=2 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=0.0000 biascorr=-0.0000 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B= 4096 Dk=2 ok=2 vk=3 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=0.0003 biascorr=-0.0003 | D-V -0.0005 item['-0.0026', '0.0017'] group['-0.0024', '0.0017']
+
+== summeval_crowd: k*=5 n_test=1280 test groups=20 repro_err=8.6e-08
+   full-train test CE 1.3265; constant train-marginal 1.3256; full minus marginal +0.0008 ['-0.0006', '0.0022']
+   fits=40 success=False: 3 at 35-iteration cap: 3
+   B=   32 Dk=5 ok=1 vk=1 ties=0 match=True | D-O 0.1431 item['0.0816', '0.2192'] group['0.0432', '0.2777'] p=0.0002 selbias=-0.0003 biascorr=0.1434 | D-V 0.1431 item['0.0816', '0.2192'] group['0.0432', '0.2777']
+   B=   64 Dk=5 ok=2 vk=1 ties=0 match=True | D-O 0.1582 item['0.1089', '0.2191'] group['0.0790', '0.2752'] p=0.0002 selbias=0.0006 biascorr=0.1576 | D-V 0.1520 item['0.1011', '0.2136'] group['0.0667', '0.2673']
+   B=  128 Dk=5 ok=4 vk=2 ties=0 match=True | D-O 0.1719 item['0.1231', '0.2332'] group['0.0853', '0.2950'] p=0.0002 selbias=0.0004 biascorr=0.1716 | D-V 0.1663 item['0.1148', '0.2271'] group['0.0843', '0.2890']
+   B=  256 Dk=5 ok=1 vk=4 ties=0 match=True | D-O 0.0028 item['-0.0072', '0.0127'] group['-0.0165', '0.0234'] p=0.5827 selbias=0.0010 biascorr=0.0019 | D-V -0.0022 item['-0.0068', '0.0025'] group['-0.0113', '0.0067']
+   B=  512 Dk=5 ok=1 vk=1 ties=0 match=True | D-O 0.0148 item['0.0065', '0.0229'] group['-0.0022', '0.0315'] p=0.0004 selbias=-0.0002 biascorr=0.0150 | D-V 0.0148 item['0.0065', '0.0229'] group['-0.0022', '0.0315']
+   B= 1024 Dk=5 ok=3 vk=1 ties=0 match=True | D-O 0.0038 item['0.0012', '0.0063'] group['-0.0000', '0.0084'] p=0.0046 selbias=0.0001 biascorr=0.0037 | D-V 0.0006 item['-0.0050', '0.0057'] group['-0.0062', '0.0083']
+   B= 2048 Dk=5 ok=3 vk=1 ties=0 match=True | D-O 0.0020 item['-0.0005', '0.0044'] group['-0.0020', '0.0062'] p=0.1076 selbias=0.0003 biascorr=0.0017 | D-V 0.0006 item['-0.0029', '0.0043'] group['-0.0051', '0.0075']
+   B= 4096 Dk=5 ok=3 vk=1 ties=0 match=True | D-O 0.0010 item['-0.0006', '0.0025'] group['-0.0021', '0.0043'] p=0.2248 selbias=0.0001 biascorr=0.0008 | D-V -0.0005 item['-0.0033', '0.0025'] group['-0.0062', '0.0061']
+
+== popquorn_offensiveness: k*=10 n_test=300 test groups=300 repro_err=4.8e-08
+   full-train test CE 1.2983; constant train-marginal 1.3023; full minus marginal -0.0040 ['-0.0066', '-0.0011']
+   fits=51 success=False: 1 at 35-iteration cap: 1
+   B=32: D-study infeasible; oracle k=4 val k=4
+   B=   64 Dk=10 ok=1 vk=1 ties=0 match=True | D-O 0.0365 item['0.0147', '0.0603'] group['0.0145', '0.0595'] p=0.0012 selbias=0.0004 biascorr=0.0361 | D-V 0.0365 item['0.0147', '0.0603'] group['0.0145', '0.0595']
+   B=  128 Dk=10 ok=2 vk=2 ties=0 match=True | D-O 0.0254 item['0.0098', '0.0416'] group['0.0092', '0.0411'] p=0.0012 selbias=0.0003 biascorr=0.0252 | D-V 0.0254 item['0.0098', '0.0416'] group['0.0092', '0.0411']
+   B=  256 Dk=10 ok=5 vk=4 ties=0 match=True | D-O 0.0062 item['-0.0056', '0.0169'] group['-0.0054', '0.0177'] p=0.2566 selbias=0.0014 biascorr=0.0048 | D-V 0.0046 item['-0.0080', '0.0163'] group['-0.0081', '0.0171']
+   B=  512 Dk=10 ok=8 vk=10 ties=0 match=True | D-O 0.0023 item['-0.0042', '0.0085'] group['-0.0039', '0.0091'] p=0.4794 selbias=0.0011 biascorr=0.0012 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B= 1024 Dk=10 ok=2 vk=2 ties=0 match=True | D-O 0.0059 item['0.0009', '0.0112'] group['0.0002', '0.0115'] p=0.0290 selbias=0.0009 biascorr=0.0050 | D-V 0.0059 item['0.0009', '0.0112'] group['0.0002', '0.0115']
+   B= 2048 Dk=10 ok=3 vk=8 ties=0 match=True | D-O 0.0010 item['-0.0022', '0.0042'] group['-0.0023', '0.0044'] p=0.5721 selbias=0.0007 biascorr=0.0003 | D-V 0.0004 item['-0.0031', '0.0038'] group['-0.0029', '0.0037']
+   B= 4096 Dk=10 ok=10 vk=4 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=0.0005 biascorr=-0.0005 | D-V -0.0010 item['-0.0041', '0.0019'] group['-0.0041', '0.0020']
+
+== popquorn_politeness: k*=6 n_test=745 test groups=745 repro_err=2.8e-07
+   full-train test CE 1.5281; constant train-marginal 1.5597; full minus marginal -0.0316 ['-0.0363', '-0.0270']
+   fits=55 success=False: 0 at 35-iteration cap: 0
+   B=   32 Dk=6 ok=4 vk=4 ties=0 match=True | D-O 0.2873 item['0.2536', '0.3248'] group['0.2497', '0.3244'] p=0.0002 selbias=0.0013 biascorr=0.2860 | D-V 0.2873 item['0.2536', '0.3248'] group['0.2497', '0.3244']
+   B=   64 Dk=6 ok=4 vk=4 ties=0 match=True | D-O 0.0345 item['0.0219', '0.0493'] group['0.0213', '0.0475'] p=0.0002 selbias=0.0006 biascorr=0.0339 | D-V 0.0345 item['0.0219', '0.0493'] group['0.0213', '0.0475']
+   B=  128 Dk=6 ok=5 vk=5 ties=0 match=True | D-O 0.0186 item['0.0018', '0.0347'] group['0.0027', '0.0347'] p=0.0284 selbias=0.0005 biascorr=0.0181 | D-V 0.0186 item['0.0018', '0.0347'] group['0.0027', '0.0347']
+   B=  256 Dk=6 ok=4 vk=5 ties=0 match=True | D-O 0.0020 item['-0.0038', '0.0078'] group['-0.0046', '0.0081'] p=0.5135 selbias=0.0022 biascorr=-0.0001 | D-V -0.0023 item['-0.0111', '0.0062'] group['-0.0113', '0.0073']
+   B=  512 Dk=6 ok=1 vk=1 ties=0 match=True | D-O 0.0016 item['-0.0044', '0.0079'] group['-0.0049', '0.0075'] p=0.6007 selbias=0.0009 biascorr=0.0007 | D-V 0.0016 item['-0.0044', '0.0079'] group['-0.0049', '0.0075']
+   B= 1024 Dk=6 ok=6 vk=6 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=0.0008 biascorr=-0.0008 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B= 2048 Dk=6 ok=5 vk=2 ties=0 match=True | D-O 0.0016 item['-0.0018', '0.0053'] group['-0.0022', '0.0050'] p=0.4074 selbias=0.0004 biascorr=0.0012 | D-V 0.0001 item['-0.0040', '0.0045'] group['-0.0042', '0.0043']
+   B= 4096 Dk=6 ok=2 vk=2 ties=0 match=True | D-O 0.0018 item['-0.0012', '0.0049'] group['-0.0013', '0.0048'] p=0.2490 selbias=0.0002 biascorr=0.0017 | D-V 0.0018 item['-0.0012', '0.0049'] group['-0.0013', '0.0048']
+
+== dices990: k*=17 n_test=198 test groups=198 repro_err=1.8e-08
+   full-train test CE 0.7430; constant train-marginal 0.7488; full minus marginal -0.0059 ['-0.0094', '-0.0024']
+   fits=63 success=False: 0 at 35-iteration cap: 0
+   B=32: D-study infeasible; oracle k=5 val k=5
+   B=64: D-study infeasible; oracle k=16 val k=16
+   B=  128 Dk=17 ok=17 vk=17 ties=0 match=True | D-O 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000'] p=1.0000 selbias=0.0011 biascorr=-0.0011 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+   B=  256 Dk=17 ok=2 vk=32 ties=0 match=True | D-O 0.0030 item['-0.0039', '0.0103'] group['-0.0042', '0.0104'] p=0.4008 selbias=0.0013 biascorr=0.0017 | D-V -0.0008 item['-0.0061', '0.0051'] group['-0.0064', '0.0047']
+   B=  512 Dk=17 ok=3 vk=4 ties=0 match=True | D-O 0.0062 item['0.0013', '0.0118'] group['0.0010', '0.0117'] p=0.0264 selbias=0.0007 biascorr=0.0055 | D-V 0.0059 item['0.0009', '0.0113'] group['0.0009', '0.0109']
+   B= 1024 Dk=17 ok=8 vk=8 ties=0 match=True | D-O 0.0016 item['-0.0035', '0.0064'] group['-0.0038', '0.0063'] p=0.5339 selbias=0.0012 biascorr=0.0004 | D-V 0.0016 item['-0.0035', '0.0064'] group['-0.0038', '0.0063']
+   B= 2048 Dk=17 ok=5 vk=16 ties=0 match=True | D-O 0.0014 item['-0.0027', '0.0052'] group['-0.0027', '0.0053'] p=0.4976 selbias=0.0009 biascorr=0.0005 | D-V 0.0007 item['-0.0002', '0.0016'] group['-0.0002', '0.0016']
+   B= 4096 Dk=17 ok=8 vk=17 ties=0 match=True | D-O 0.0000 item['-0.0034', '0.0034'] group['-0.0033', '0.0039'] p=0.9897 selbias=0.0009 biascorr=-0.0009 | D-V 0.0000 item['0.0000', '0.0000'] group['0.0000', '0.0000']
+
+== chaosnli_snli_mnli: k*=5 n_test=624 test groups=624 repro_err=1.9e-08
+   full-train test CE 1.0529; constant train-marginal 1.0569; full minus marginal -0.0040 ['-0.0073', '-0.0007']
+   fits=60 success=False: 0 at 35-iteration cap: 0
+   B=   32 Dk=5 ok=1 vk=2 ties=0 match=True | D-O 0.0403 item['0.0222', '0.0588'] group['0.0234', '0.0586'] p=0.0002 selbias=0.0006 biascorr=0.0397 | D-V 0.0274 item['0.0085', '0.0456'] group['0.0109', '0.0438']
+   B=   64 Dk=5 ok=2 vk=2 ties=0 match=True | D-O 0.0340 item['0.0202', '0.0471'] group['0.0211', '0.0477'] p=0.0002 selbias=0.0000 biascorr=0.0340 | D-V 0.0340 item['0.0202', '0.0471'] group['0.0211', '0.0477']
+   B=  128 Dk=5 ok=2 vk=2 ties=0 match=True | D-O 0.0072 item['-0.0058', '0.0215'] group['-0.0059', '0.0207'] p=0.3066 selbias=0.0010 biascorr=0.0062 | D-V 0.0072 item['-0.0058', '0.0215'] group['-0.0059', '0.0207']
+   B=  256 Dk=5 ok=1 vk=1 ties=0 match=True | D-O 0.0114 item['0.0011', '0.0222'] group['0.0005', '0.0219'] p=0.0300 selbias=0.0002 biascorr=0.0113 | D-V 0.0114 item['0.0011', '0.0222'] group['0.0005', '0.0219']
+   B=  512 Dk=5 ok=2 vk=1 ties=0 match=True | D-O 0.0063 item['-0.0004', '0.0127'] group['-0.0010', '0.0132'] p=0.0652 selbias=0.0005 biascorr=0.0058 | D-V 0.0046 item['-0.0023', '0.0111'] group['-0.0023', '0.0116']
+   B= 1024 Dk=5 ok=3 vk=2 ties=0 match=True | D-O 0.0075 item['0.0029', '0.0120'] group['0.0029', '0.0123'] p=0.0028 selbias=0.0002 biascorr=0.0073 | D-V 0.0064 item['0.0002', '0.0123'] group['-0.0004', '0.0132']
+   B= 2048 Dk=5 ok=8 vk=1 ties=0 match=True | D-O 0.0005 item['-0.0031', '0.0042'] group['-0.0030', '0.0041'] p=0.8133 selbias=0.0010 biascorr=-0.0006 | D-V -0.0003 item['-0.0039', '0.0030'] group['-0.0033', '0.0033']
+   B= 4096 Dk=5 ok=8 vk=2 ties=0 match=True | D-O 0.0015 item['-0.0004', '0.0036'] group['-0.0004', '0.0035'] p=0.1474 selbias=0.0007 biascorr=0.0009 | D-V 0.0010 item['-0.0007', '0.0028'] group['-0.0009', '0.0030']
+
+== veribench_fsc_native_main: k*=2 n_test=40 test groups=10 repro_err=0.0e+00
+   full-train test CE 0.7049; constant train-marginal 0.7638; full minus marginal -0.0590 ['-0.0906', '-0.0264']
+   fits=6 success=False: 3 at 35-iteration cap: 3
+   B=   32 Dk=2 ok=3 vk=3 ties=0 match=True | D-O 0.1561 item['0.0485', '0.2497'] group['-0.0222', '0.2863'] p=0.0092 selbias=0.0000 biascorr=0.1561 | D-V 0.1561 item['0.0485', '0.2497'] group['-0.0222', '0.2863']
+   B=   64 Dk=2 ok=3 vk=3 ties=0 match=True | D-O 0.0813 item['0.0128', '0.1406'] group['-0.0284', '0.1695'] p=0.0394 selbias=0.0001 biascorr=0.0812 | D-V 0.0813 item['0.0128', '0.1406'] group['-0.0284', '0.1695']
+
+== multiplicity
+raw p<0.05: 21 ; Holm (all cells) <0.05: 13
+  summeval_expert              B=   32 point=0.0602 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_expert              B=   64 point=0.0187 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_expert              B=  128 point=0.3802 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_crowd               B=   32 point=0.1431 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_crowd               B=   64 point=0.1582 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_crowd               B=  128 point=0.1719 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  popquorn_politeness          B=   32 point=0.2873 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  popquorn_politeness          B=   64 point=0.0345 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  chaosnli_snli_mnli           B=   32 point=0.0403 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  chaosnli_snli_mnli           B=   64 point=0.0340 p=0.0002 holm_all=0.0082 holm_largestB=nan
+  summeval_crowd               B=  512 point=0.0148 p=0.0004 holm_all=0.0124 holm_largestB=nan
+  popquorn_offensiveness       B=   64 point=0.0365 p=0.0012 holm_all=0.0360 holm_largestB=nan
+  popquorn_offensiveness       B=  128 point=0.0254 p=0.0012 holm_all=0.0360 holm_largestB=nan
+  chaosnli_snli_mnli           B= 1024 point=0.0075 p=0.0028 holm_all=0.0784 holm_largestB=nan
+  summeval_crowd               B= 1024 point=0.0038 p=0.0046 holm_all=0.1242 holm_largestB=nan
+  veribench_fsc_native_main    B=   32 point=0.1561 p=0.0092 holm_all=0.2392 holm_largestB=nan
+  dices990                     B=  512 point=0.0062 p=0.0264 holm_all=0.6599 holm_largestB=nan
+  popquorn_politeness          B=  128 point=0.0186 p=0.0284 holm_all=0.6815 holm_largestB=nan
+  popquorn_offensiveness       B= 1024 point=0.0059 p=0.0290 holm_all=0.6815 holm_largestB=nan
+  chaosnli_snli_mnli           B=  256 point=0.0114 p=0.0300 holm_all=0.6815 holm_largestB=nan
+  veribench_fsc_native_main    B=   64 point=0.0813 p=0.0394 holm_all=0.8273 holm_largestB=0.1970
+  chaosnli_snli_mnli           B=  512 point=0.0063 p=0.0652 holm_all=1.0000 holm_largestB=nan
+  summeval_expert              B= 1024 point=0.0025 p=0.0850 holm_all=1.0000 holm_largestB=nan
+  summeval_crowd               B= 2048 point=0.0020 p=0.1076 holm_all=1.0000 holm_largestB=nan
+  chaosnli_snli_mnli           B= 4096 point=0.0015 p=0.1474 holm_all=1.0000 holm_largestB=0.5895
+  summeval_crowd               B= 4096 point=0.0010 p=0.2248 holm_all=1.0000 holm_largestB=0.6743
+  popquorn_politeness          B= 4096 point=0.0018 p=0.2490 holm_all=1.0000 holm_largestB=0.6743
+  popquorn_offensiveness       B=  256 point=0.0062 p=0.2566 holm_all=1.0000 holm_largestB=nan
+  chaosnli_snli_mnli           B=  128 point=0.0072 p=0.3066 holm_all=1.0000 holm_largestB=nan
+  summeval_expert              B=  512 point=0.0025 p=0.3298 holm_all=1.0000 holm_largestB=nan
+  dices990                     B=  256 point=0.0030 p=0.4008 holm_all=1.0000 holm_largestB=nan
+  popquorn_politeness          B= 2048 point=0.0016 p=0.4074 holm_all=1.0000 holm_largestB=nan
+  popquorn_offensiveness       B=  512 point=0.0023 p=0.4794 holm_all=1.0000 holm_largestB=nan
+  dices990                     B= 2048 point=0.0014 p=0.4976 holm_all=1.0000 holm_largestB=nan
+  popquorn_politeness          B=  256 point=0.0020 p=0.5135 holm_all=1.0000 holm_largestB=nan
+  dices990                     B= 1024 point=0.0016 p=0.5339 holm_all=1.0000 holm_largestB=nan
+  popquorn_offensiveness       B= 2048 point=0.0010 p=0.5721 holm_all=1.0000 holm_largestB=nan
+  summeval_crowd               B=  256 point=0.0028 p=0.5827 holm_all=1.0000 holm_largestB=nan
+  popquorn_politeness          B=  512 point=0.0016 p=0.6007 holm_all=1.0000 holm_largestB=nan
+  chaosnli_snli_mnli           B= 2048 point=0.0005 p=0.8133 holm_all=1.0000 holm_largestB=nan
+  dices990                     B= 4096 point=0.0000 p=0.9897 holm_all=1.0000 holm_largestB=0.9897

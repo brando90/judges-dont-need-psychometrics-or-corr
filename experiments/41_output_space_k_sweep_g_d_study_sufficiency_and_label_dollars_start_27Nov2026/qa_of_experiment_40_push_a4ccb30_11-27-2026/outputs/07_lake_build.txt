@@ -1,0 +1,25 @@
+⚠ [2/4] Built GTheory (2.1s)
+warning: theory/GTheory.lean:141:36: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: theory/GTheory.lean:462:11: Variable name `j` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _j
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: theory/GTheory.lean:648:0: 'brier_risk_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:649:0: 'brier_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:650:0: 'rps_risk_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:651:0: 'rps_strictly_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:652:0: 'g_theory_blindness_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:653:0: 'ce_gap_rational_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:654:0: 'rps_refines_middle_cut' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:655:0: 'witness_probabilities_hold' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: theory/GTheory.lean:656:0: 'dstudy_depends_only_on_k' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (4 jobs).
+
+real	0m3.166s
+user	0m3.096s
+sys	0m0.637s

@@ -1,0 +1,24 @@
+'E40.binary_mean_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.binary_mean_identifies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.mean_not_identifying' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.sampled_accuracy_le_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.sampled_accuracy_eq_max_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.truthful_sampled_accuracy_optimal_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.accuracy_prefers_overconfidence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.decision_accuracy_not_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.brier_binary_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.brier_not_local_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.same_two_moments_different_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.total_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.icc_eq_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.cov_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.covF_centered' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.betweenVar_eq_varF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_attained' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m24.220s
+user	0m5.437s
+sys	0m9.736s
+exit 0

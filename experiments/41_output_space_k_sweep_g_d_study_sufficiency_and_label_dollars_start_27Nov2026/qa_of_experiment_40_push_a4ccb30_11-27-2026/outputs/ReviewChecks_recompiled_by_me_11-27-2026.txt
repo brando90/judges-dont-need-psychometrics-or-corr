@@ -1,0 +1,6 @@
+-- Recompiled by me (not the reviewer) on 11-27-2026: lake env lean ReviewChecks.lean inside a core-Lean package holding a copy of Cursor's theory/GTheory.lean (a4ccb30). Lean 4.36.0, no Mathlib.
+'cell11_infeasible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cell11_second_moment_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rps4Terms_eq_rps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cell11_table_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit_code=0

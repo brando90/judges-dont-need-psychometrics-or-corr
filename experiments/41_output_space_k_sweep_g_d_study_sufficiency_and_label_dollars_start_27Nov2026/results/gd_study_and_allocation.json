@@ -1,0 +1,1755 @@
+{
+ "seeds": 3,
+ "boot": 1000,
+ "datasets": [
+  {
+   "name": "popquorn_offensiveness",
+   "n_items": 1500,
+   "K": 5,
+   "n_train": 900,
+   "n_test": 300,
+   "g_study": {
+    "sigma_c2": 0.42597233917358296,
+    "sigma_w2": 1.0577813346212257,
+    "icc1": 0.2870910089032012,
+    "n0": 8.690605642587542,
+    "n_items": 1500,
+    "n_ratings": 13036,
+    "icc1_ci95": [
+     0.26316190885091695,
+     0.3104253018816957
+    ],
+    "k_star_080": 10,
+    "k_star_080_ci95": [
+     9,
+     12
+    ],
+    "ratings_per_item_median": 9.0,
+    "ratings_per_item_p20": 8.0,
+    "naive_rho_var_item_means_over_var_total": 0.3715932244303047
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 13036,
+    "corr_collapsed_mean_of_others": 0.4659345876682459,
+    "corr_sampled_draw_of_others": 0.287120587591301,
+    "corr_lattice_rounded_mean_of_others": 0.43502885773212374
+   },
+   "constant_test_nrps": 0.16038860160575716,
+   "learning_curve_k1": {
+    "16": 0.17041803096224145,
+    "32": 0.16462915559201938,
+    "64": 0.1617979132357472,
+    "128": 0.1600182754658415,
+    "256": 0.15928166314031078,
+    "512": 0.16007057974809938,
+    "900": 0.15886401645554377
+   },
+   "learning_curve_last_step_relative_gain": 0.007537695524401565,
+   "learning_curve_last_step_paired": {
+    "n_from": 512,
+    "n_to": 900,
+    "mean_drop": 0.0012065632925556346,
+    "lo": 0.0003955009007317822,
+    "hi": 0.00202179459946082
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.16383926393746065,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.16351214746568735,
+       "k_minus_k1_paired": {
+        "mean": -0.0003271164717733245,
+        "lo": -0.001533388019988656,
+        "hi": 0.0009259005544547849
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.1679181357807697,
+       "k_minus_k1_paired": {
+        "mean": 0.00407887184330902,
+        "lo": 0.0024198011962491047,
+        "hi": 0.0058602422013602955
+       }
+      },
+      {
+       "N": 16,
+       "k": 8,
+       "B_spent": 128,
+       "test_nrps": 0.16616018257678788,
+       "k_minus_k1_paired": {
+        "mean": 0.0023209186393272365,
+        "lo": 0.0010047172168798576,
+        "hi": 0.0036892353875583534
+       }
+      }
+     ],
+     "best_k": 2,
+     "k_star_080": 10,
+     "k_star_used": 8,
+     "k_star_truncated_by_available_ratings": true,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.16155121803313335,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.1634564887692854,
+       "k_minus_k1_paired": {
+        "mean": 0.001905270736152059,
+        "lo": 0.0006308892650747386,
+        "hi": 0.0033489484443390218
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.1633079684008379,
+       "k_minus_k1_paired": {
+        "mean": 0.0017567503677045266,
+        "lo": 0.0005598327179463667,
+        "hi": 0.0030845477104671855
+       }
+      },
+      {
+       "N": 32,
+       "k": 8,
+       "B_spent": 256,
+       "test_nrps": 0.1668242494250951,
+       "k_minus_k1_paired": {
+        "mean": 0.005273031391961744,
+        "lo": 0.003188853643664736,
+        "hi": 0.007745798153589664
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 10,
+     "k_star_used": 8,
+     "k_star_truncated_by_available_ratings": true,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.15960282616345162,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.16011076343597186,
+       "k_minus_k1_paired": {
+        "mean": 0.0005079372725202482,
+        "lo": 4.963865249746454e-05,
+        "hi": 0.0009732758599341839
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.16251357627781954,
+       "k_minus_k1_paired": {
+        "mean": 0.002910750114367928,
+        "lo": 0.0016969307752214711,
+        "hi": 0.004225763974423176
+       }
+      },
+      {
+       "N": 64,
+       "k": 8,
+       "B_spent": 512,
+       "test_nrps": 0.16207080491970408,
+       "k_minus_k1_paired": {
+        "mean": 0.002467978756252455,
+        "lo": 0.0014322301983761415,
+        "hi": 0.0035803943081316237
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 10,
+     "k_star_used": 8,
+     "k_star_truncated_by_available_ratings": true,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.00684908041447147,
+    "sigma_w2": 0.01967445800528829,
+    "n_items": 300,
+    "n_ratings": 2625,
+    "share_of_variance_between_items": 0.25822649701100875,
+    "risk_sd_N100_k1": 0.016286048759524135,
+    "k_opt_if_item_costs_10x_rating": 5.359635511415419
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": 0.0009134694639483539,
+    "lo": 0.00043379996009006703,
+    "hi": 0.0013997645633148732,
+    "ce_beats_constant_ci_excludes_0": true,
+    "sd_per_item_diff": 0.004333348259668396,
+    "n_test_items_for_80pct_power_at_observed_gain": 176.6309454336435,
+    "n_test_items_for_80pct_power_at_0.005": 5.895421392050752,
+    "n_test_items_for_80pct_power_at_0.0016": 57.57247453174563
+   },
+   "elapsed_seconds": 19.049976587295532
+  },
+  {
+   "name": "popquorn_politeness",
+   "n_items": 3718,
+   "K": 5,
+   "n_train": 2230,
+   "n_test": 745,
+   "g_study": {
+    "sigma_c2": 0.6949732275649384,
+    "sigma_w2": 0.8863267746603414,
+    "icc1": 0.4394948628261174,
+    "n0": 6.735321195231935,
+    "n_items": 3718,
+    "n_ratings": 25042,
+    "icc1_ci95": [
+     0.423939209776688,
+     0.4530297063037108
+    ],
+    "k_star_080": 6,
+    "k_star_080_ci95": [
+     5,
+     6
+    ],
+    "ratings_per_item_median": 7.0,
+    "ratings_per_item_p20": 6.0,
+    "naive_rho_var_item_means_over_var_total": 0.5241329139110136
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 25042,
+    "corr_collapsed_mean_of_others": 0.5994371598043109,
+    "corr_sampled_draw_of_others": 0.4394373105300174,
+    "corr_lattice_rounded_mean_of_others": 0.5762941415635875
+   },
+   "constant_test_nrps": 0.17754556076304376,
+   "learning_curve_k1": {
+    "16": 0.19661604295080895,
+    "32": 0.18173042918813298,
+    "64": 0.1777271820651052,
+    "128": 0.17379147924422786,
+    "256": 0.1724636389177693,
+    "512": 0.17181058809812041,
+    "1024": 0.17199652321436298,
+    "2048": 0.17128975054325793,
+    "2230": 0.17164860749163438
+   },
+   "learning_curve_last_step_relative_gain": -0.002095028729029673,
+   "learning_curve_last_step_paired": {
+    "n_from": 2048,
+    "n_to": 2230,
+    "mean_drop": -0.0003588569483764288,
+    "lo": -0.0005351721519711903,
+    "hi": -0.00018642638628288397
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.17362425399513562,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.17397158525458417,
+       "k_minus_k1_paired": {
+        "mean": 0.00034733125944856966,
+        "lo": -0.0002886950565882943,
+        "hi": 0.0010235258416748034
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.1782425279406016,
+       "k_minus_k1_paired": {
+        "mean": 0.004618273945465979,
+        "lo": 0.0026416304767581194,
+        "hi": 0.006495812222518352
+       }
+      },
+      {
+       "N": 21,
+       "k": 6,
+       "B_spent": 126,
+       "test_nrps": 0.18048648154498637,
+       "k_minus_k1_paired": {
+        "mean": 0.006862227549850733,
+        "lo": 0.0048669458311265635,
+        "hi": 0.00875666919819621
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 6,
+     "k_star_used": 6,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.1735202010643175,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.17366985595911524,
+       "k_minus_k1_paired": {
+        "mean": 0.00014965489479772549,
+        "lo": -0.0003674415167298865,
+        "hi": 0.0006579142663933923
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.17374214354784298,
+       "k_minus_k1_paired": {
+        "mean": 0.00022194248352546512,
+        "lo": -0.0003557519570910001,
+        "hi": 0.0008406954148119159
+       }
+      },
+      {
+       "N": 42,
+       "k": 6,
+       "B_spent": 252,
+       "test_nrps": 0.17475122293876388,
+       "k_minus_k1_paired": {
+        "mean": 0.0012310218744463516,
+        "lo": 0.0005842084549063059,
+        "hi": 0.001884051683808607
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 6,
+     "k_star_used": 6,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.1726772040265017,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.17273332875681816,
+       "k_minus_k1_paired": {
+        "mean": 5.612473031650287e-05,
+        "lo": -0.00041703139611039215,
+        "hi": 0.0005542829596639374
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.17315479585801147,
+       "k_minus_k1_paired": {
+        "mean": 0.00047759183150980695,
+        "lo": 9.53124116650751e-05,
+        "hi": 0.0008362671292646401
+       }
+      },
+      {
+       "N": 85,
+       "k": 6,
+       "B_spent": 510,
+       "test_nrps": 0.17404832667074338,
+       "k_minus_k1_paired": {
+        "mean": 0.0013711226442417158,
+        "lo": 0.0007558272506711423,
+        "hi": 0.0019854204229462144
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 6,
+     "k_star_used": 6,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.0021306865489120817,
+    "sigma_w2": 0.008142898495547831,
+    "n_items": 745,
+    "n_ratings": 5051,
+    "share_of_variance_between_items": 0.20739464750535802,
+    "risk_sd_N100_k1": 0.01013586949622967,
+    "k_opt_if_item_costs_10x_rating": 6.182010359563032
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": 0.0061627180661582605,
+    "lo": 0.005164070854999588,
+    "hi": 0.007132012332946603,
+    "ce_beats_constant_ci_excludes_0": true,
+    "sd_per_item_diff": 0.01369295435464177,
+    "n_test_items_for_80pct_power_at_observed_gain": 38.74872309514821,
+    "n_test_items_for_80pct_power_at_0.005": 58.865655815003855,
+    "n_test_items_for_80pct_power_at_0.0016": 574.8599200683971
+   },
+   "elapsed_seconds": 43.86644697189331
+  },
+  {
+   "name": "summeval_expert",
+   "n_items": 6400,
+   "K": 5,
+   "n_train": 3840,
+   "n_test": 1280,
+   "g_study": {
+    "sigma_c2": 0.9509945293101362,
+    "sigma_w2": 0.3721874999999975,
+    "icc1": 0.7187178394539981,
+    "n0": 3.0,
+    "n_items": 6400,
+    "n_ratings": 19200,
+    "icc1_ci95": [
+     0.7078494246126046,
+     0.7293040272754308
+    ],
+    "k_star_080": 2,
+    "k_star_080_ci95": [
+     2,
+     2
+    ],
+    "ratings_per_item_median": 3.0,
+    "ratings_per_item_p20": 3.0,
+    "naive_rho_var_item_means_over_var_total": 0.8124547508088213
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 19200,
+    "corr_collapsed_mean_of_others": 0.775271933010621,
+    "corr_sampled_draw_of_others": 0.7186821262132329,
+    "corr_lattice_rounded_mean_of_others": 0.7549429467181282
+   },
+   "constant_test_nrps": 0.1420676375024113,
+   "learning_curve_k1": {
+    "16": 0.15572097730449636,
+    "32": 0.1473762881568223,
+    "64": 0.14161153148908,
+    "128": 0.13939321368676477,
+    "256": 0.1396246600534548,
+    "512": 0.14036025153143386,
+    "1024": 0.14047943069405938,
+    "2048": 0.14053478466238487,
+    "3840": 0.14021240837513585
+   },
+   "learning_curve_last_step_relative_gain": 0.0022939252230220392,
+   "learning_curve_last_step_paired": {
+    "n_from": 2048,
+    "n_to": 3840,
+    "mean_drop": 0.0003223762872490186,
+    "lo": 0.00018006368511778867,
+    "hi": 0.0004679994764316617
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.1410868211841802,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.14084358740857397,
+       "k_minus_k1_paired": {
+        "mean": -0.0002432337756062103,
+        "lo": -0.0009112792422439963,
+        "hi": 0.0004767649618306168
+       }
+      }
+     ],
+     "best_k": 2,
+     "k_star_080": 2,
+     "k_star_used": 2,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.1390937925859373,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.1407829675151231,
+       "k_minus_k1_paired": {
+        "mean": 0.0016891749291858174,
+        "lo": 0.0005152161465307083,
+        "hi": 0.002816398787405407
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 2,
+     "k_star_used": 2,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.13984251488926652,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.13921534558144155,
+       "k_minus_k1_paired": {
+        "mean": -0.000627169307824977,
+        "lo": -0.0011334372974999081,
+        "hi": -0.00013413798697405657
+       }
+      }
+     ],
+     "best_k": 2,
+     "k_star_080": 2,
+     "k_star_used": 2,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.010550503606341332,
+    "sigma_w2": 0.005066737892001161,
+    "n_items": 1280,
+    "n_ratings": 3840,
+    "share_of_variance_between_items": 0.6755676799555856,
+    "risk_sd_N100_k1": 0.012496896213997495,
+    "k_opt_if_item_costs_10x_rating": 2.1914301075795106
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": 0.0018834783277234413,
+    "lo": 0.0015360050881327077,
+    "hi": 0.002230274991361022,
+    "ce_beats_constant_ci_excludes_0": true,
+    "sd_per_item_diff": 0.0060791567991897635,
+    "n_test_items_for_80pct_power_at_observed_gain": 81.76606737237182,
+    "n_test_items_for_80pct_power_at_0.005": 11.602574252088026,
+    "n_test_items_for_80pct_power_at_0.0016": 113.30638918054711
+   },
+   "elapsed_seconds": 69.36505317687988
+  },
+  {
+   "name": "summeval_crowd",
+   "n_items": 6400,
+   "K": 5,
+   "n_train": 3840,
+   "n_test": 1280,
+   "g_study": {
+    "sigma_c2": 0.42167284927332355,
+    "sigma_w2": 0.4353125000000022,
+    "icc1": 0.4920420747342739,
+    "n0": 5.0,
+    "n_items": 6400,
+    "n_ratings": 32000,
+    "icc1_ci95": [
+     0.4730784399220563,
+     0.5088242049338746
+    ],
+    "k_star_080": 5,
+    "k_star_080_ci95": [
+     4,
+     5
+    ],
+    "ratings_per_item_median": 5.0,
+    "ratings_per_item_p20": 5.0,
+    "naive_rho_var_item_means_over_var_total": 0.5935959636756336
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 32000,
+    "corr_collapsed_mean_of_others": 0.6253406375176709,
+    "corr_sampled_draw_of_others": 0.49199495459454223,
+    "corr_lattice_rounded_mean_of_others": 0.6032225138190453
+   },
+   "constant_test_nrps": 0.1287918965657552,
+   "learning_curve_k1": {
+    "16": 0.1394357774315577,
+    "32": 0.1328920442013499,
+    "64": 0.13078112244190213,
+    "128": 0.13080843245166177,
+    "256": 0.12956190282158592,
+    "512": 0.12910711456926532,
+    "1024": 0.12914597282265944,
+    "2048": 0.1290174743332614,
+    "3840": 0.12903298369705216
+   },
+   "learning_curve_last_step_relative_gain": -0.00012021134246266991,
+   "learning_curve_last_step_paired": {
+    "n_from": 2048,
+    "n_to": 3840,
+    "mean_drop": -1.550936379076616e-05,
+    "lo": -9.922528520181034e-05,
+    "hi": 7.021615987865995e-05
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.13149063312553214,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.13187692941848908,
+       "k_minus_k1_paired": {
+        "mean": 0.0003862962929569409,
+        "lo": -4.2284021155979357e-05,
+        "hi": 0.0007953233514624906
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.13302571286274206,
+       "k_minus_k1_paired": {
+        "mean": 0.0015350797372099558,
+        "lo": 0.001021178130235027,
+        "hi": 0.0020132800386676126
+       }
+      },
+      {
+       "N": 25,
+       "k": 5,
+       "B_spent": 125,
+       "test_nrps": 0.1323912063989888,
+       "k_minus_k1_paired": {
+        "mean": 0.0009005732734566656,
+        "lo": 0.0004056018012859742,
+        "hi": 0.001332815798597126
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.12997507446031242,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.13060490316825546,
+       "k_minus_k1_paired": {
+        "mean": 0.0006298287079430553,
+        "lo": 0.00020711483947760906,
+        "hi": 0.0010336605890478056
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.13121965892347043,
+       "k_minus_k1_paired": {
+        "mean": 0.0012445844631580316,
+        "lo": 0.0004843703020421683,
+        "hi": 0.0019938701336935766
+       }
+      },
+      {
+       "N": 51,
+       "k": 5,
+       "B_spent": 255,
+       "test_nrps": 0.1320093780321274,
+       "k_minus_k1_paired": {
+        "mean": 0.0020343035718149967,
+        "lo": 0.0011354806951721867,
+        "hi": 0.0028661515369167783
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.12906553190827835,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.13017647268649907,
+       "k_minus_k1_paired": {
+        "mean": 0.0011109407782207135,
+        "lo": 0.0007735988837701067,
+        "hi": 0.001467893129524129
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.13050645450631793,
+       "k_minus_k1_paired": {
+        "mean": 0.0014409225980395947,
+        "lo": 0.0011176371768785484,
+        "hi": 0.0017596347092833807
+       }
+      },
+      {
+       "N": 102,
+       "k": 5,
+       "B_spent": 510,
+       "test_nrps": 0.13100715248490466,
+       "k_minus_k1_paired": {
+        "mean": 0.0019416205766263112,
+        "lo": 0.0015196732171394675,
+        "hi": 0.0023461618269465076
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.00485347397923398,
+    "sigma_w2": 0.0048595683890310295,
+    "n_items": 1280,
+    "n_ratings": 6400,
+    "share_of_variance_between_items": 0.49968627698891943,
+    "risk_sd_N100_k1": 0.009855476836898868,
+    "k_opt_if_item_costs_10x_rating": 3.1642624415741665
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": -0.00017134107171520407,
+    "lo": -0.0003474082601765237,
+    "hi": 3.374546071052896e-06,
+    "ce_beats_constant_ci_excludes_0": false,
+    "sd_per_item_diff": 0.003149410286597485,
+    "n_test_items_for_80pct_power_at_observed_gain": null,
+    "n_test_items_for_80pct_power_at_0.005": 3.1140540711721383,
+    "n_test_items_for_80pct_power_at_0.0016": 30.410684288790417
+   },
+   "elapsed_seconds": 85.96790218353271
+  },
+  {
+   "name": "dices990",
+   "n_items": 990,
+   "K": 3,
+   "n_train": 594,
+   "n_test": 198,
+   "g_study": {
+    "sigma_c2": 0.14899794136594655,
+    "sigma_w2": 0.5918396475313955,
+    "icc1": 0.2011209252863561,
+    "n0": 65.54138796496068,
+    "n_items": 990,
+    "n_ratings": 64886,
+    "icc1_ci95": [
+     0.18535166030865521,
+     0.21455632119627838
+    ],
+    "k_star_080": 16,
+    "k_star_080_ci95": [
+     15,
+     18
+    ],
+    "ratings_per_item_median": 66.0,
+    "ratings_per_item_p20": 65.0,
+    "naive_rho_var_item_means_over_var_total": 0.21286891413996706
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 64886,
+    "corr_collapsed_mean_of_others": 0.4350766296945504,
+    "corr_sampled_draw_of_others": 0.2009513068412727,
+    "corr_lattice_rounded_mean_of_others": 0.38856858208757766
+   },
+   "constant_test_nrps": 0.19909694042392662,
+   "learning_curve_k1": {
+    "16": 0.2361514553063497,
+    "32": 0.2170644373807078,
+    "64": 0.20094156112518297,
+    "128": 0.2006284786356458,
+    "256": 0.198488748007884,
+    "512": 0.19781003208738804,
+    "594": 0.19764770926594394
+   },
+   "learning_curve_last_step_relative_gain": 0.0008205995405348761,
+   "learning_curve_last_step_paired": {
+    "n_from": 512,
+    "n_to": 594,
+    "mean_drop": 0.00016232282144412985,
+    "lo": -0.0008272590005751629,
+    "hi": 0.0010650971978285835
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.2008257632153788,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.20188255113917244,
+       "k_minus_k1_paired": {
+        "mean": 0.0010567879237936627,
+        "lo": -0.0009838483800861397,
+        "hi": 0.003304456154257664
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.20049706551378074,
+       "k_minus_k1_paired": {
+        "mean": -0.00032869770159808613,
+        "lo": -0.004822409371645939,
+        "hi": 0.004306485792339479
+       }
+      },
+      {
+       "N": 16,
+       "k": 8,
+       "B_spent": 128,
+       "test_nrps": 0.20234484251392848,
+       "k_minus_k1_paired": {
+        "mean": 0.0015190792985496388,
+        "lo": -0.001766125139259557,
+        "hi": 0.005108036163648321
+       }
+      }
+     ],
+     "best_k": 4,
+     "k_star_080": 16,
+     "k_star_used": 16,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": false
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.1982418312874345,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.1989818872093576,
+       "k_minus_k1_paired": {
+        "mean": 0.0007400559219231488,
+        "lo": -0.0012997127020298676,
+        "hi": 0.0028318832581184913
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.20123911236026001,
+       "k_minus_k1_paired": {
+        "mean": 0.002997281072825563,
+        "lo": -0.0007901241497702642,
+        "hi": 0.006987679120186048
+       }
+      },
+      {
+       "N": 32,
+       "k": 8,
+       "B_spent": 256,
+       "test_nrps": 0.19915047498470348,
+       "k_minus_k1_paired": {
+        "mean": 0.0009086436972690209,
+        "lo": -0.0020161475994719107,
+        "hi": 0.0038301821842364114
+       }
+      },
+      {
+       "N": 16,
+       "k": 16,
+       "B_spent": 256,
+       "test_nrps": 0.20215715586075722,
+       "k_minus_k1_paired": {
+        "mean": 0.003915324573322737,
+        "lo": 0.0010584018563697143,
+        "hi": 0.006655253853089383
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 16,
+     "k_star_used": 16,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.19782857027994125,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.1980943675312968,
+       "k_minus_k1_paired": {
+        "mean": 0.0002657972513555382,
+        "lo": -0.0013863494718314806,
+        "hi": 0.002020451534038929
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.19817730104463946,
+       "k_minus_k1_paired": {
+        "mean": 0.0003487307646981344,
+        "lo": -0.0013152622597048746,
+        "hi": 0.0022059201977489835
+       }
+      },
+      {
+       "N": 64,
+       "k": 8,
+       "B_spent": 512,
+       "test_nrps": 0.19952398548591535,
+       "k_minus_k1_paired": {
+        "mean": 0.0016954152059740493,
+        "lo": -0.0015521743971527793,
+        "hi": 0.00512111946595118
+       }
+      },
+      {
+       "N": 32,
+       "k": 16,
+       "B_spent": 512,
+       "test_nrps": 0.19839537537213306,
+       "k_minus_k1_paired": {
+        "mean": 0.0005668050921917725,
+        "lo": -0.0014283052727812303,
+        "hi": 0.0024235515214748745
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 16,
+     "k_star_used": 16,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.007666524645172697,
+    "sigma_w2": 0.031375701213377606,
+    "n_items": 198,
+    "n_ratings": 12963,
+    "share_of_variance_between_items": 0.19636494786307676,
+    "risk_sd_N100_k1": 0.01975910571320228,
+    "k_opt_if_item_costs_10x_rating": 6.397310825447224
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": 0.0021822774136782174,
+    "lo": 0.0009042602301005906,
+    "hi": 0.0035078102540122224,
+    "ce_beats_constant_ci_excludes_0": true,
+    "sd_per_item_diff": 0.009544360769959034,
+    "n_test_items_for_80pct_power_at_observed_gain": 150.1348287724229,
+    "n_test_items_for_80pct_power_at_0.005": 28.599692251214538,
+    "n_test_items_for_80pct_power_at_0.0016": 279.2938696407669
+   },
+   "elapsed_seconds": 21.588630199432373
+  },
+  {
+   "name": "chaosnli_snli_mnli",
+   "n_items": 3113,
+   "K": 3,
+   "n_train": 1867,
+   "n_test": 624,
+   "g_study": {
+    "sigma_c2": 0.2578514662387023,
+    "sigma_w2": 0.27369006479832125,
+    "icc1": 0.4851012596055117,
+    "n0": 100.0,
+    "n_items": 3113,
+    "n_ratings": 311300,
+    "icc1_ci95": [
+     0.472216520860308,
+     0.49688193233170186
+    ],
+    "k_star_080": 5,
+    "k_star_080_ci95": [
+     5,
+     5
+    ],
+    "ratings_per_item_median": 100.0,
+    "ratings_per_item_p20": 100.0,
+    "naive_rho_var_item_means_over_var_total": 0.4901699565164439
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 311300,
+    "corr_collapsed_mean_of_others": 0.6927290514652611,
+    "corr_sampled_draw_of_others": 0.485020158097418,
+    "corr_lattice_rounded_mean_of_others": 0.6174623528017262
+   },
+   "constant_test_nrps": 0.1972767037144594,
+   "learning_curve_k1": {
+    "16": 0.20790359828507116,
+    "32": 0.20613129310813888,
+    "64": 0.20512307688602283,
+    "128": 0.1987999480136606,
+    "256": 0.19737928646095837,
+    "512": 0.19685606706357198,
+    "1024": 0.19644184176702448,
+    "1867": 0.1963559424078204
+   },
+   "learning_curve_last_step_relative_gain": 0.00043727628712602993,
+   "learning_curve_last_step_paired": {
+    "n_from": 1024,
+    "n_to": 1867,
+    "mean_drop": 8.589935920410611e-05,
+    "lo": -0.0001925241236783134,
+    "hi": 0.00034397272350874814
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.20006925289910615,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.20071016609358128,
+       "k_minus_k1_paired": {
+        "mean": 0.000640913194475109,
+        "lo": -0.0006021017927256084,
+        "hi": 0.0019034033307005352
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.20441032690203587,
+       "k_minus_k1_paired": {
+        "mean": 0.004341074002929715,
+        "lo": 0.002826429641448967,
+        "hi": 0.005935065049397066
+       }
+      },
+      {
+       "N": 25,
+       "k": 5,
+       "B_spent": 125,
+       "test_nrps": 0.20772238102077112,
+       "k_minus_k1_paired": {
+        "mean": 0.007653128121664954,
+        "lo": 0.005875090872559197,
+        "hi": 0.009473553347641609
+       }
+      },
+      {
+       "N": 16,
+       "k": 8,
+       "B_spent": 128,
+       "test_nrps": 0.20443328478800984,
+       "k_minus_k1_paired": {
+        "mean": 0.004364031888903681,
+        "lo": 0.002278199558373233,
+        "hi": 0.006388351075176398
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.19781555017393754,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.19923547292695887,
+       "k_minus_k1_paired": {
+        "mean": 0.0014199227530213145,
+        "lo": 0.00027062705158404304,
+        "hi": 0.002644485418708645
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.20024849269143902,
+       "k_minus_k1_paired": {
+        "mean": 0.0024329425175014852,
+        "lo": 0.0012090640905376782,
+        "hi": 0.003715879530133824
+       }
+      },
+      {
+       "N": 51,
+       "k": 5,
+       "B_spent": 255,
+       "test_nrps": 0.2021122424143408,
+       "k_minus_k1_paired": {
+        "mean": 0.004296692240403244,
+        "lo": 0.002579177242849312,
+        "hi": 0.006068948105701977
+       }
+      },
+      {
+       "N": 32,
+       "k": 8,
+       "B_spent": 256,
+       "test_nrps": 0.20245458260667445,
+       "k_minus_k1_paired": {
+        "mean": 0.004639032432736923,
+        "lo": 0.0032888377132000834,
+        "hi": 0.006028911617597452
+       }
+      },
+      {
+       "N": 16,
+       "k": 16,
+       "B_spent": 256,
+       "test_nrps": 0.20336593045034,
+       "k_minus_k1_paired": {
+        "mean": 0.005550380276402432,
+        "lo": 0.004264828592328554,
+        "hi": 0.006908991419386778
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.19678280616117882,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.1975747089547685,
+       "k_minus_k1_paired": {
+        "mean": 0.0007919027935896694,
+        "lo": -4.3979009033182636e-05,
+        "hi": 0.0016286718080259603
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.19810115443200715,
+       "k_minus_k1_paired": {
+        "mean": 0.0013183482708283001,
+        "lo": -5.109265595856115e-05,
+        "hi": 0.002734039562473372
+       }
+      },
+      {
+       "N": 102,
+       "k": 5,
+       "B_spent": 510,
+       "test_nrps": 0.1981456001423605,
+       "k_minus_k1_paired": {
+        "mean": 0.0013627939811816476,
+        "lo": 5.70961849892082e-05,
+        "hi": 0.00271164500948648
+       }
+      },
+      {
+       "N": 64,
+       "k": 8,
+       "B_spent": 512,
+       "test_nrps": 0.20033704671022998,
+       "k_minus_k1_paired": {
+        "mean": 0.003554240549051152,
+        "lo": 0.0020860957453823843,
+        "hi": 0.005131575095484268
+       }
+      },
+      {
+       "N": 32,
+       "k": 16,
+       "B_spent": 512,
+       "test_nrps": 0.20204077835276302,
+       "k_minus_k1_paired": {
+        "mean": 0.005257972191584191,
+        "lo": 0.00394748402889302,
+        "hi": 0.00669618774510149
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 5,
+     "k_star_used": 5,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.003944236328039505,
+    "sigma_w2": 0.009393681056367063,
+    "n_items": 624,
+    "n_ratings": 62400,
+    "share_of_variance_between_items": 0.2957160562900722,
+    "risk_sd_N100_k1": 0.011548990165554116,
+    "k_opt_if_item_costs_10x_rating": 4.880186743115836
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": 0.000947722879266512,
+    "lo": 0.00015452830883794786,
+    "hi": 0.0016703321881472823,
+    "ce_beats_constant_ci_excludes_0": true,
+    "sd_per_item_diff": 0.00981222842608345,
+    "n_test_items_for_80pct_power_at_observed_gain": 841.3568676432059,
+    "n_test_items_for_80pct_power_at_0.005": 30.227551219982526,
+    "n_test_items_for_80pct_power_at_0.0016": 295.19092988264185
+   },
+   "elapsed_seconds": 58.42452931404114
+  },
+  {
+   "name": "chaosnli_alpha",
+   "n_items": 1532,
+   "K": 2,
+   "n_train": 919,
+   "n_test": 307,
+   "g_study": {
+    "sigma_c2": 0.1620587559264988,
+    "sigma_w2": 0.08804467653031575,
+    "icc1": 0.6479669404556514,
+    "n0": 100.0,
+    "n_items": 1532,
+    "n_ratings": 153200,
+    "icc1_ci95": [
+     0.631942419868563,
+     0.6625205070607383
+    ],
+    "k_star_080": 3,
+    "k_star_080_ci95": [
+     3,
+     3
+    ],
+    "ratings_per_item_median": 100.0,
+    "ratings_per_item_p20": 100.0,
+    "naive_rho_var_item_means_over_var_total": 0.6513390019896604
+   },
+   "ceiling_on_real_ratings": {
+    "n_pairs": 153200,
+    "corr_collapsed_mean_of_others": 0.8026700441384558,
+    "corr_sampled_draw_of_others": 0.6478171737269288,
+    "corr_lattice_rounded_mean_of_others": 0.7571379373869372
+   },
+   "constant_test_nrps": 0.24990371499520497,
+   "learning_curve_k1": {
+    "16": 0.27663785703565463,
+    "32": 0.267787906377995,
+    "64": 0.2585039656121677,
+    "128": 0.2520307674280647,
+    "256": 0.25085164312126645,
+    "512": 0.25235823842229904,
+    "919": 0.251229254520312
+   },
+   "learning_curve_last_step_relative_gain": 0.00447373507219453,
+   "learning_curve_last_step_paired": {
+    "n_from": 512,
+    "n_to": 919,
+    "mean_drop": 0.0011289839019870157,
+    "lo": -0.001544635788667521,
+    "hi": 0.0037732225342339966
+   },
+   "iso_budget": {
+    "128": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 128,
+       "k": 1,
+       "B_spent": 128,
+       "test_nrps": 0.2552935670142585,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 64,
+       "k": 2,
+       "B_spent": 128,
+       "test_nrps": 0.2631238524865498,
+       "k_minus_k1_paired": {
+        "mean": 0.007830285472291271,
+        "lo": 0.0036130720023175157,
+        "hi": 0.01160238741082876
+       }
+      },
+      {
+       "N": 42,
+       "k": 3,
+       "B_spent": 126,
+       "test_nrps": 0.2727061578556418,
+       "k_minus_k1_paired": {
+        "mean": 0.01741259084138328,
+        "lo": 0.01031182339880589,
+        "hi": 0.024101335974106578
+       }
+      },
+      {
+       "N": 32,
+       "k": 4,
+       "B_spent": 128,
+       "test_nrps": 0.27932068649735653,
+       "k_minus_k1_paired": {
+        "mean": 0.024027119483098,
+        "lo": 0.016218263199996783,
+        "hi": 0.031020441127068116
+       }
+      },
+      {
+       "N": 16,
+       "k": 8,
+       "B_spent": 128,
+       "test_nrps": 0.28158273217182683,
+       "k_minus_k1_paired": {
+        "mean": 0.026289165157568274,
+        "lo": 0.014833085367664211,
+        "hi": 0.03804114063926422
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 3,
+     "k_star_used": 3,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "256": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 256,
+       "k": 1,
+       "B_spent": 256,
+       "test_nrps": 0.2544988316099181,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 128,
+       "k": 2,
+       "B_spent": 256,
+       "test_nrps": 0.2536116759211045,
+       "k_minus_k1_paired": {
+        "mean": -0.0008871556888135733,
+        "lo": -0.003916637139725423,
+        "hi": 0.0019524416632323467
+       }
+      },
+      {
+       "N": 85,
+       "k": 3,
+       "B_spent": 255,
+       "test_nrps": 0.2579266869481691,
+       "k_minus_k1_paired": {
+        "mean": 0.003427855338251044,
+        "lo": -0.0004909575292872983,
+        "hi": 0.0073358558918439724
+       }
+      },
+      {
+       "N": 64,
+       "k": 4,
+       "B_spent": 256,
+       "test_nrps": 0.2635362577943229,
+       "k_minus_k1_paired": {
+        "mean": 0.009037426184404871,
+        "lo": 0.0044421699687933035,
+        "hi": 0.013285983846668263
+       }
+      },
+      {
+       "N": 32,
+       "k": 8,
+       "B_spent": 256,
+       "test_nrps": 0.27515562236907637,
+       "k_minus_k1_paired": {
+        "mean": 0.02065679075915828,
+        "lo": 0.01302616507597009,
+        "hi": 0.027903858492304145
+       }
+      },
+      {
+       "N": 16,
+       "k": 16,
+       "B_spent": 256,
+       "test_nrps": 0.275710212431802,
+       "k_minus_k1_paired": {
+        "mean": 0.021211380821884,
+        "lo": 0.011538967381135051,
+        "hi": 0.03046453661599589
+       }
+      }
+     ],
+     "best_k": 2,
+     "k_star_080": 3,
+     "k_star_used": 3,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    },
+    "512": {
+     "difference_definition": "test normalized RPS of the k-ratings-per-item head minus test normalized RPS of the one-rating-per-item head, same total budget; positive means the one-rating-per-item head is better",
+     "baseline_k": 1,
+     "plans": [
+      {
+       "N": 512,
+       "k": 1,
+       "B_spent": 512,
+       "test_nrps": 0.25197766624306167,
+       "k_minus_k1_paired": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+       }
+      },
+      {
+       "N": 256,
+       "k": 2,
+       "B_spent": 512,
+       "test_nrps": 0.2531441800507444,
+       "k_minus_k1_paired": {
+        "mean": 0.0011665138076828326,
+        "lo": -0.0003639623680395604,
+        "hi": 0.002665416420222888
+       }
+      },
+      {
+       "N": 170,
+       "k": 3,
+       "B_spent": 510,
+       "test_nrps": 0.256015695112292,
+       "k_minus_k1_paired": {
+        "mean": 0.004038028869230357,
+        "lo": 0.001760790366625287,
+        "hi": 0.00645765329918674
+       }
+      },
+      {
+       "N": 128,
+       "k": 4,
+       "B_spent": 512,
+       "test_nrps": 0.25391810429901895,
+       "k_minus_k1_paired": {
+        "mean": 0.0019404380559573473,
+        "lo": -0.00034798804735721833,
+        "hi": 0.004202670046839215
+       }
+      },
+      {
+       "N": 64,
+       "k": 8,
+       "B_spent": 512,
+       "test_nrps": 0.26022800880134994,
+       "k_minus_k1_paired": {
+        "mean": 0.008250342558288297,
+        "lo": 0.0041386698917451675,
+        "hi": 0.012121194511146367
+       }
+      },
+      {
+       "N": 32,
+       "k": 16,
+       "B_spent": 512,
+       "test_nrps": 0.2717885783030452,
+       "k_minus_k1_paired": {
+        "mean": 0.019810912059983577,
+        "lo": 0.012931325285916584,
+        "hi": 0.026160446029851295
+       }
+      }
+     ],
+     "best_k": 1,
+     "k_star_080": 3,
+     "k_star_used": 3,
+     "k_star_truncated_by_available_ratings": false,
+     "k_star_plan_present": true
+    }
+   },
+   "test_loss_components_ce_head": {
+    "sigma_c2": 0.00021557443444980237,
+    "sigma_w2": 0.00012062400174243346,
+    "n_items": 307,
+    "n_ratings": 30700,
+    "share_of_variance_between_items": 0.6412118892978386,
+    "risk_sd_N100_k1": 0.0018335714771784486,
+    "k_opt_if_item_costs_10x_rating": 2.365474324228012
+   },
+   "paired_vs_constant": {
+    "definition": "test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (full training set, split seed 0); positive means the CE-trained head is better",
+    "mean_gain": -0.0012786854209964733,
+    "lo": -0.002831897905180507,
+    "hi": 0.00020708922412450485,
+    "ce_beats_constant_ci_excludes_0": false,
+    "sd_per_item_diff": 0.014474008100180652,
+    "n_test_items_for_80pct_power_at_observed_gain": null,
+    "n_test_items_for_80pct_power_at_0.005": 65.77264220429437,
+    "n_test_items_for_80pct_power_at_0.0016": 642.310959026312
+   },
+   "elapsed_seconds": 29.96153736114502
+  }
+ ],
+ "unavailable": {
+  "veribench_fsc_rv1": "pinned file is in a repository this machine cannot read (HTTP 404)"
+ }
+}

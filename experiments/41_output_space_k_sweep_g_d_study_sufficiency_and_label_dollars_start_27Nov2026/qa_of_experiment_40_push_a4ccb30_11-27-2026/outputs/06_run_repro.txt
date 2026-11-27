@@ -1,0 +1,48 @@
+[load] public sets
+[rv1] {'status': 'unavailable', 'error': 'HTTPError: HTTP Error 404: Not Found', 'what_was_attempted': "experiment 36 load_veribench_fsc_rv1('all5') at veribench@d1c47355"}
+[data] summeval_expert items=6400
+  [gstudy] summeval_expert
+  [hash] summeval_expert
+  [allocate] summeval_expert
+  [done] summeval_expert 10.0s
+[data] summeval_crowd items=6400
+  [gstudy] summeval_crowd
+  [hash] summeval_crowd
+  [allocate] summeval_crowd
+  [done] summeval_crowd 22.6s
+[data] popquorn_offensiveness items=1500
+  [gstudy] popquorn_offensiveness
+  [hash] popquorn_offensiveness
+  [allocate] popquorn_offensiveness
+  [done] popquorn_offensiveness 29.5s
+[data] popquorn_politeness items=3718
+  [gstudy] popquorn_politeness
+  [hash] popquorn_politeness
+  [allocate] popquorn_politeness
+  [done] popquorn_politeness 41.4s
+[data] dices990 items=990
+  [gstudy] dices990
+  [hash] dices990
+  [allocate] dices990
+  [done] dices990 53.4s
+[data] chaosnli_snli_mnli items=3113
+  [gstudy] chaosnli_snli_mnli
+  [hash] chaosnli_snli_mnli
+  [allocate] chaosnli_snli_mnli
+  [done] chaosnli_snli_mnli 90.4s
+[data] veribench_fsc_native_main items=100
+  [gstudy] veribench_fsc_native_main
+  [hash] veribench_fsc_native_main
+  [allocate] veribench_fsc_native_main
+  [done] veribench_fsc_native_main 91.6s
+[rebin]
+[synthetic]
+[gpu]
+[wrote] results in 138.8s
+
+real	2m20.710s
+user	2m18.303s
+sys	0m0.429s
+run_all exit=0
+...........                                                              [100%]
+11 passed in 0.20s

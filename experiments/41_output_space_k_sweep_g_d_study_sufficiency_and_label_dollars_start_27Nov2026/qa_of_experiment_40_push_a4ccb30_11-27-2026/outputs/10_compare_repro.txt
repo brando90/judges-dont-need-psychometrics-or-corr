@@ -1,0 +1,18 @@
+results.json: numeric leaves compared=12749, max |diff|=3.063e-07 at /datasets/popquorn_politeness/allocation/budgets[6]/dstudy_minus_oracle_ce/lo
+  leaves differing by >1e-6: 0
+  structural/non-numeric differences: 0
+REPORT.md: byte-identical
+HOW_TO_READ_RESULTS.md: byte-identical
+results.md: byte-identical
+tables/allocation.md: byte-identical
+tables/dollar_thresholds.md: byte-identical
+tables/gstudy.md: byte-identical
+tables/ksweep.md: byte-identical
+tables/paper_master_results.md: byte-identical
+tables/paper_master_results.tex: byte-identical
+figures/allocation_k_vs_test_ce.png: bytes differ; max pixel channel diff=255, pixels differing=134227
+figures/pareto_ce_crowd.png: bytes differ; max pixel channel diff=255, pixels differing=123421
+figures/pareto_ce_expert.png: bytes differ; max pixel channel diff=255, pixels differing=124639
+figures/pareto_sqrt_rps_crowd.png: bytes differ; max pixel channel diff=255, pixels differing=125516
+figures/pareto_sqrt_rps_expert.png: bytes differ; max pixel channel diff=255, pixels differing=126674
+figures/synthetic_kstar.png: bytes differ; max pixel channel diff=255, pixels differing=44054

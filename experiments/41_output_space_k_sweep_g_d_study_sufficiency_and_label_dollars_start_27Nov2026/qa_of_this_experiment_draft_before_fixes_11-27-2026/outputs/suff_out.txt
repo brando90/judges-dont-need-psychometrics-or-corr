@@ -1,0 +1,74 @@
+wrote /tmp/opus_review_exp40/copy/experiments/40_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/results/sufficiency_and_dollars.json
+Everything priced here other than the $0.05 POPQUORN crowd rate is an assumption; see the header of scripts/sufficiency_and_dollars.py.
+
+### A. Real-data G-study and D-study (items random, ratings nested in items; one-way unbalanced analysis of variance)
+
+| dataset | K | single-rating reliability ICC(1) [95% bootstrap] | ratings per item for reliability 0.80 (k*) [95%] | median ratings per item available |
+|---|---|---|---|---|
+| popquorn_offensiveness | 5 | 0.287 [0.263, 0.310] | 10 [9, 12] | 9 |
+| popquorn_politeness | 5 | 0.439 [0.424, 0.453] | 6 [5, 6] | 7 |
+| summeval_expert | 5 | 0.719 [0.708, 0.729] | 2 [2, 2] | 3 |
+| summeval_crowd | 5 | 0.492 [0.473, 0.509] | 5 [4, 5] | 5 |
+| dices990 | 3 | 0.201 [0.185, 0.215] | 16 [15, 18] | 66 |
+| chaosnli_snli_mnli | 3 | 0.485 [0.472, 0.497] | 5 [5, 5] | 100 |
+| chaosnli_alpha | 2 | 0.648 [0.632, 0.663] | 3 [3, 3] | 100 |
+
+### B. Items and ratings needed (CE-trained 24-component linear head on hashed text)
+
+| dataset | carries signal | train items available | train saturation N (k=1, margin 0.001) | learnable gain over the constant on the curve | train saturation N at 10% of that gain (sensitivity, not preregistered) | test items available | test items to detect the head's actual gain (80% power) | test items for a gain of 0.005 (k=1) | CE-trained head minus constant: gain [95%] |
+|---|---|---|---|---|---|---|---|---|---|
+| popquorn_offensiveness | yes | 900 | 256 | +0.0015 | 900 | 300 | 177 | 17 | +0.0009 [+0.0004, +0.0014] |
+| popquorn_politeness | yes | 2230 | 512 | +0.0063 | 512 | 745 | 39 | 184 | +0.0062 [+0.0052, +0.0071] |
+| summeval_expert | yes | 3840 | 128 | +0.0027 | 128 | 1280 | 82 | 15 | +0.0019 [+0.0015, +0.0022] |
+| summeval_crowd | no | 3840 | n/a (no signal) | -0.0002 | n/a (no signal) | 1280 | n/a (no gain) | 5 | -0.0002 [-0.0003, +0.0000] |
+| dices990 | yes | 594 | 256 | +0.0014 | 594 | 198 | 150 | 137 | +0.0022 [+0.0009, +0.0035] |
+| chaosnli_snli_mnli | yes | 1867 | 512 | +0.0009 | 1024 | 624 | 841 | 100 | +0.0009 [+0.0002, +0.0017] |
+| chaosnli_alpha | no | 919 | n/a (no signal) | -0.0009 | n/a (no signal) | 307 | n/a (no gain) | 102 | -0.0013 [-0.0028, +0.0002] |
+
+gain = test normalized RPS of the constant forecast minus test normalized RPS of the CE-trained head (positive = CE-trained head better, lower RPS is better). Carries signal = that gain has a paired 95% item-clustered interval above 0. Items to detect the actual gain use each test item's own ratings; the 0.005 column rescales the paired standard deviation to one rating per item (approximation, see the header).
+
+### C. Cost-minimizing ratings per item for the proper-loss risk, by item-to-rating cost ratio
+
+| dataset | share of loss variance between items | k_opt if an item costs 0 extra | 1x a rating | 10x | 100x | D-study k* for reliability 0.80 |
+|---|---|---|---|---|---|---|
+| popquorn_offensiveness | 0.26 | 1.0 | 1.7 | 5.4 | 16.9 | 10 |
+| popquorn_politeness | 0.21 | 1.0 | 2.0 | 6.2 | 19.5 | 6 |
+| summeval_expert | 0.68 | 1.0 | 1.0 | 2.2 | 6.9 | 2 |
+| summeval_crowd | 0.50 | 1.0 | 1.0 | 3.2 | 10.0 | 5 |
+| dices990 | 0.20 | 1.0 | 2.0 | 6.4 | 20.2 | 16 |
+| chaosnli_snli_mnli | 0.30 | 1.0 | 1.5 | 4.9 | 15.4 | 5 |
+| chaosnli_alpha | 0.64 | 1.0 | 1.0 | 2.4 | 7.5 | 3 |
+
+### D. Label dollars against researcher-months (assumption grid)
+
+| dataset | train-saturation ratings (k=1) | crowd $0.05 | expert $5 | crowd, in researcher-months at $30k | expert, in researcher-months at $30k |
+|---|---|---|---|---|---|
+| popquorn_offensiveness | 256 | $12.80 | $1,280 | 0.0004 | 0.043 |
+| popquorn_politeness | 512 | $25.60 | $2,560 | 0.0009 | 0.085 |
+| summeval_expert | 128 | $6.40 | $640 | 0.0002 | 0.021 |
+| dices990 | 256 | $12.80 | $1,280 | 0.0004 | 0.043 |
+| chaosnli_snli_mnli | 512 | $25.60 | $2,560 | 0.0009 | 0.085 |
+
+Not priced (the CE-trained head does not beat the constant forecast on these, so there is no saturation point): summeval_crowd, chaosnli_alpha.
+
+### D2. The same prices at the sensitivity saturation point (margin = 10% of the learnable gain; not preregistered). A value equal to the number of training items available means the curve had not saturated within the data.
+
+| dataset | saturation ratings (k=1) | training items available | crowd $0.05 | expert $5 | expert, in researcher-months at $30k |
+|---|---|---|---|---|---|
+| popquorn_offensiveness | 900 | 900 | $45.00 | $4,500 | 0.150 |
+| popquorn_politeness | 512 | 2,230 | $25.60 | $2,560 | 0.085 |
+| summeval_expert | 128 | 3,840 | $6.40 | $640 | 0.021 |
+| dices990 | 594 | 594 | $29.70 | $2,970 | 0.099 |
+| chaosnli_snli_mnli | 1,024 | 1,867 | $51.20 | $5,120 | 0.171 |
+
+### E. Formalization-quality rating packet (sister repository planning numbers; minutes per rating is the uncertain input)
+
+Minutes per rating: measured median 4.0 (103 entries, 2 raters) versus an assumed length-scaled 37.3.
+
+| scenario | ratings | hours at measured minutes | hours at length-scaled minutes | dollars at $50/hour (measured to scaled) | in researcher-months at $30k (measured to scaled) |
+|---|---|---|---|---|---|
+| finish_current_packet | 200 | 13.3 | 124.5 | $667 to $6,224 | 0.02 to 0.21 |
+| add_development_pool | 392 | 26.1 | 244.0 | $1,307 to $12,199 | 0.04 to 0.41 |
+| add_development_pool_and_reach_half_width_0.01 | 488 | 32.5 | 303.7 | $1,627 to $15,187 | 0.05 to 0.51 |
+| add_development_pool_and_reach_half_width_0.005 | 1352 | 90.1 | 841.5 | $4,507 to $42,075 | 0.15 to 1.40 |
+

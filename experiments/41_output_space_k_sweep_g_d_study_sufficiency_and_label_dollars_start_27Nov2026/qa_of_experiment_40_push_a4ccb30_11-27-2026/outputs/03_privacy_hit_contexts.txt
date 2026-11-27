@@ -1,0 +1,1 @@
+summary: {'multi_token_exact_case': 0, 'single_token_exact_case': 0, 'case_insensitive_only': 46}

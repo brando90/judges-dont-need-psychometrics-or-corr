@@ -1,0 +1,20 @@
+Study B: 55 cells with p; raw p<0.05 & REML worse than equal: 6; Holm survivors: ['t0.00_32x8', 't0.00_64x8', 't1.00_64x4', 't0.00_32x4', 't1.00_64x8', 't0.00_64x4', 't0.00_16x4', 't1.00_32x4', 't1.00_32x8', 't0.15_32x4']; BH survivors: ['t0.00_32x8', 't0.00_64x8', 't1.00_64x4', 't0.00_32x4', 't1.00_64x8', 't0.00_64x4', 't0.00_16x4', 't1.00_32x4', 't1.00_32x8', 't0.15_32x4', 't1.00_16x4', 't0.15_16x4', 't0.50_16x4', 't0.55_64x4', 't0.15_32x8', 't0.60_16x4', 't0.45_64x4']
+   smallest p among REML-worse cells: 0.002951; Holm threshold for smallest p: 0.0009091
+t=0.3: third design 2x8 picked 13/1000 over all pilots; true vDelta: 8x2 0.4000, 4x4 0.3875, 2x8 0.5500
+t=0.7: third design 8x2 picked 9/1000 over all pilots; true vDelta: 8x2 0.5500, 4x4 0.3875, 2x8 0.4000
+   t0.50_16x4: true regret vs oracle (=equal here) mean 0.0245 (6.3% of vDelta(4x4)); observed chosen-minus-equal +0.0400
+   t0.50_32x8: true regret vs oracle (=equal here) mean 0.0158 (4.1% of vDelta(4x4)); observed chosen-minus-equal +0.0295
+   t0.45_64x4: true regret vs oracle (=equal here) mean 0.0244 (6.3% of vDelta(4x4)); observed chosen-minus-equal +0.0316
+   t0.55_64x4: true regret vs oracle (=equal here) mean 0.0207 (5.3% of vDelta(4x4)); observed chosen-minus-equal +0.0419
+   t0.60_16x4: true regret vs oracle (=equal here) mean 0.0235 (6.1% of vDelta(4x4)); observed chosen-minus-equal +0.0454
+   t0.60_64x4: true regret vs oracle (=equal here) mean 0.0234 (6.0% of vDelta(4x4)); observed chosen-minus-equal +0.0410
+   t0.30_16x4: true regret vs oracle (=equal here) mean 0.0088 (2.3% of vDelta(4x4)); observed chosen-minus-equal -0.0039
+   t0.70_64x8: true regret vs oracle (=equal here) mean 0.0045 (1.2% of vDelta(4x4)); observed chosen-minus-equal +0.0216
+chaosnli_snli B=64 U1 mean test RPS 0.11765: Student-t over reps ±0.00138; two-way bootstrap [0.10806,0.12779] half-width 0.00986 (x7.1)
+dices350 B=128 U1 mean test RPS 0.22893: Student-t over reps ±0.00093; two-way bootstrap [0.21451,0.24360] half-width 0.01454 (x15.6)
+fixed max-items rule (U2) significantly beats U1 on test RPS in 12 of 20 cells
+chaosnli_snli: pilot table 80x16 = 1280 ratings; PS selector draws from up to 80 x mean pool 100.0 = ~8000 ratings of the pilot items
+chaosnli_mnli: pilot table 80x16 = 1280 ratings; PS selector draws from up to 80 x mean pool 100.0 = ~8000 ratings of the pilot items
+chaosnli_alphanli: pilot table 80x16 = 1280 ratings; PS selector draws from up to 80 x mean pool 100.0 = ~8000 ratings of the pilot items
+dices350: pilot table 80x16 = 1280 ratings; PS selector draws from up to 80 x mean pool 123.0 = ~9840 ratings of the pilot items
+dices990: pilot table 80x16 = 1280 ratings; PS selector draws from up to 80 x mean pool 72.8 = ~5828 ratings of the pilot items

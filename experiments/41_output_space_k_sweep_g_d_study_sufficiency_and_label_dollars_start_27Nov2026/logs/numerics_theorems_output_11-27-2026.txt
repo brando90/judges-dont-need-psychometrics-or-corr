@@ -1,0 +1,38 @@
+PASS  A1 K=2: equal mean implies equal law (Lean: binary_mean_identifies)  [405 equal-mean pairs among 4000]
+PASS  A2 every K from 3 to 40: a point mass at 1 and a half-half law on {0,2} share the mean 1 (Lean: mean_not_identifying)
+PASS  A3 K=3: random search finds equal-mean pairs with different laws (the false claim fails)  [193 found]
+PASS  B1 sampled accuracy never exceeds max p (Lean: sampled_accuracy_le_max)  [strict in 2907 of 3000]
+PASS  B2 sampled accuracy equals max p exactly when q is supported on argmax p (Lean: sampled_accuracy_eq_max_iff)
+PASS  B3 honest forecast q=p is accuracy-optimal exactly when p is uniform on its support (Lean: truthful_sampled_accuracy_optimal_iff)  [155 uniform-on-support laws among 3000]
+PASS  B4 instance (3/5,2/5): honest 13/25 < overconfident 3/5 (Lean: accuracy_prefers_overconfidence)
+PASS  B5 decision accuracy: honest and point-mass forecasts with the same argmax earn the same score (Lean: decision_accuracy_not_strict)
+PASS  B6 decision accuracy is proper: no forecast q beats the true law p on expected decision accuracy, K=2 (Lean: decision_accuracy_proper)  [strictly worse in 1354 of 3000, tied with a different forecast in 1377]
+PASS  C1 K=2: Brier at outcome y equals 2(1-q_y)^2 (Lean: brier_binary_local)
+PASS  C2 K=3 instance: same q_0=1/2, Brier 1/2 versus 3/8 (Lean: brier_not_local_three)
+PASS  C3 K=3: random search finds non-local pairs (locality fails for K>=3)  [290 found]
+PASS  D1 same mean (2), same second moment (6), different law, Brier divergence 7/40 (Lean: same_two_moments_different_law)
+PASS  D2 two populations that differ only by replacing p with q (equal mean, equal variance) have identical variance components and identical G(k) for k=1..60  [sigma_c^2=1, sigma_w^2=1]
+PASS  D3 ...while the population-average squared distance between the two populations' item laws is 7/80 > 0 (p and q differ on half of the four items), although every G-study quantity above is identical  [average over items = 7/80]
+PASS  E1 Var(Y) = Var(item mean) + mean within-item variance on random finite populations (Lean: total_variance)
+PASS  E2 rho = Var(mu)/Var(Y) equals the one-way intraclass correlation sigma_c^2/(sigma_c^2+sigma_w^2) (Lean: icc_eq_rho)
+PASS  E3 sampled judge X~p_c (independent of Y given c), enumerated over the exact joint law of (c, X, Y): Var(X) = Var(Y) and Corr(X,Y) = rho exactly
+PASS  F1 ceiling: Cov(f(c),Y)^2 <= Var(f) Var(mu) for every item-level f (Lean: cov_sq_le, ceiling_sq, ceiling_rho, ceiling_pooled_rho)  [strict in 2418 random predictors]
+PASS  F2 the deterministic item mean (and any affine copy) attains the ceiling (Lean: ceiling_attained)
+PASS  F0 tower step: Cov(f(c), Y) from the enumerated joint law of (c, Y) equals Cov(f(c), mu(c)) exactly on random populations (Lean: covPooled_eq_covF)
+PASS  F3 collapsed judge f(c)=mu_c, enumerated over the exact joint law of (c, Y): Corr^2 = rho exactly, hence Corr = sqrt(rho) > rho = Corr of the sampled judge whenever 0 < rho < 1 (Lean: ceiling_attained_pooled)  [593 populations with 0 < rho < 1]
+PASS  G1 standardized L2 identity: mean (z_x - z_y)^2 = 2(1 - Corr)  (Exp 35 Lean: standardized_mse_corr)
+PASS  G2 MSE decomposition: (mu_x-mu_y)^2 + (s_x-s_y)^2 + 2 s_x s_y (1-Corr)  (Exp 35 Lean: mse_decomposition)
+PASS  G3 Corr(a x + b, y) = Corr(x, y) for a>0, yet the mean squared error changes (on at least 99% of 500 draws) and so does the binary Brier score of the affine-shrunk probability forecast (on at least 95% of the binary draws)  (Exp 35 Lean: pearson_affine_invariant)  [MSE changed in 500 of 500; Brier changed in 500 of 500]
+PASS  G4 two-class Brier equals twice the scalar squared error (Exp 35 Lean: binary_brier_eq_two_l2); equal only up to the factor 2
+PASS  G5 binary label: E[(X-Y)^2] for a SAMPLED draw X~Bern(q) exceeds E[(q-Y)^2] for the forecast number q by exactly q(1-q)
+PASS  C9a Brier excess ||qhat-p||^2 has mean (1-||p||^2)/N within 4 standard errors, for K=2..64 (Exp 36 Lean: empirical_l2_rate)
+PASS  C9b ...and that mean is at most 1/N for every K (dimension-free; a bound of order K/N is valid but loose for this metric)
+PASS  C9c normalized RPS excess has mean sum_t F(t)(1-F(t))/(N(K-1)) within 4 standard errors, for K=2..64
+PASS  C9d ...and that mean is at most 1/(4N) for every K (dimension-free for normalized RPS)
+PASS  C9e cross-entropy excess KL(p||add-one qhat) is about (K-1)/(2N) when N >= 16K and p is not tiny (grows with K, unlike C9a to C9d)  [ratios 0.92..0.99 over 12 cells]
+PASS  C9f chi-squared excess sum_j (qhat_j - p_j)^2 / p_j has mean (K-1)/N within 4 standard errors for K=2..64 (exact: E = sum_j (1-p_j)/N), and at N=256 it grows roughly linearly in K, 63-fold from K=2 to K=64 (the O(K/N) label is right for this metric)  [N=256 means: K=2: 0.0039, K=4: 0.0118, K=8: 0.0273, K=16: 0.0592, K=32: 0.1216, K=64: 0.2484]
+        K= 2 N=256: exact Brier excess 0.001869 (bound 0.003906) | exact normalized RPS excess 0.000935 (bound 0.000977)
+        K= 8 N=256: exact Brier excess 0.003349 (bound 0.003906) | exact normalized RPS excess 0.000671 (bound 0.000977)
+        K=64 N=256: exact Brier excess 0.003830 (bound 0.003906) | exact normalized RPS excess 0.000688 (bound 0.000977)
+
+ALL CLAIMS PASS

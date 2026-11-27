@@ -1,0 +1,3 @@
+head sha 301de385bf05b0c00a8f4be74965e186164dd425
+[('.gitattributes', 2311), ('README.md', 2176), ('train.csv', 638191673)]
+lp,src,mt,ref,score,raw,annotators,domain,year

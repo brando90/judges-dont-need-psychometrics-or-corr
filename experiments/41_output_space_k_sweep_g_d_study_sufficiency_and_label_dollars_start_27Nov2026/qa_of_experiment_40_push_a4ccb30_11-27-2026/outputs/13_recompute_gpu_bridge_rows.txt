@@ -1,0 +1,5 @@
+qwen3_4b_logit_6144.json [all 175 items, n=175]: normalized RPS 0.1482; CE 11.970; item-equal mean human score 3.742
+qwen3_4b_logit_6144.json [exp27 test only, n=70]: normalized RPS 0.1779; CE 21.804; item-equal mean human score 3.700
+qwen3_8b_logit_6144.json [all 175 items, n=175]: normalized RPS 0.2145; CE 57.598; item-equal mean human score 3.742
+qwen3_8b_logit_6144.json [exp27 test only, n=70]: normalized RPS 0.2346; CE 60.842; item-equal mean human score 3.700
+quoted: Qwen3-4B single-pass logits 0.1482 / 3.589 (mean human 3.742); Qwen3-8B 0.2145 / 5.375

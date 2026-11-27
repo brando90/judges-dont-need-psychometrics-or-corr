@@ -1,0 +1,22 @@
+n comparable cells: 20
+PS beats U1 / U1 beats PS / tie (RPS): 10 / 0 / 10
+PS beats U2 / U2 beats PS / tie (RPS): 0 / 2 / 18
+ps_mix beats U1 / U1 beats ps_mix / tie (rps_mix): 12 / 0 / 8
+U2 beats U1 / U1 beats U2 / tie (item MSE): 0 / 20 / 0
+U2 beats U1 / U1 beats U2 / tie (grand MSE): 18 / 0 / 2
+PS beats U1 / U1 beats PS / tie (CE): 10 / 0 / 10
+PS beats U1 / U1 beats PS / tie (TVD): 8 / 0 / 12
+U2 beats U1 / U1 beats U2 / tie (RPS): 12 / 0 / 8
+cells with defined p: 19  undefined: [('dices990', 512)]
+m=19: raw p<0.05 & PS better: 10; Holm survivors (PS better): 4; BH q=0.05 survivors (PS better): 6
+  Holm survivors: [('chaosnli_snli', 64), ('chaosnli_mnli', 256), ('chaosnli_alphanli', 256), ('dices990', 256)]
+  BH survivors: [('chaosnli_snli', 64), ('chaosnli_snli', 512), ('chaosnli_mnli', 256), ('chaosnli_alphanli', 256), ('dices350', 128), ('dices990', 256)]
+m=20: raw p<0.05 & PS better: 10; Holm survivors (PS better): 3; BH q=0.05 survivors (PS better): 6
+  Holm survivors: [('chaosnli_mnli', 256), ('chaosnli_alphanli', 256), ('dices990', 256)]
+  BH survivors: [('chaosnli_snli', 64), ('chaosnli_snli', 512), ('chaosnli_mnli', 256), ('chaosnli_alphanli', 256), ('dices350', 128), ('dices990', 256)]
+U2-PS significant: ('chaosnli_mnli', 256, -0.0007553943579495318, [-0.0013794558222275087, -0.000131332893671555], 0.018010172893272183)
+U2-PS significant: ('dices350', 128, -0.0009957203104142237, [-0.0015901777440138105, -0.00040126287681463673], 0.0011708452451016564)
+U1 agree item-oracle range: 0.833-0.967
+U1 agree RPS-oracle range: 0.000-0.360
+U2 agree RPS-oracle (SNLI 64): [('chaosnli_snli', 64, 117, 0.78)]
+U2 agree RPS-oracle range: 0.547-1.000

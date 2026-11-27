@@ -1,0 +1,12 @@
+(1) real rebin rows: 69; MSE-head CE infinite (stored as null): 52; of which a finite 95% interval was printed anyway: 8
+    popquorn_offensiveness K2 k=1: interval computed from 45 of 1000 finite replicates
+    popquorn_politeness K2 k=1: interval computed from 147 of 1000 finite replicates
+    popquorn_politeness K2 k=2: interval computed from 390 of 1000 finite replicates
+    popquorn_politeness K2 k=4: interval computed from 390 of 1000 finite replicates
+    dices990 K2 k=1: interval computed from 123 of 1000 finite replicates
+    veribench_fsc_native_main K2 k=2: interval computed from 136 of 1000 finite replicates
+    veribench_fsc_native_main K3 k=1: interval computed from 123 of 1000 finite replicates
+    veribench_fsc_native_main K3 k=2: interval computed from 11 of 1000 finite replicates
+    DICES native rows duplicating the K3 rows (native K = 3): 4
+(2) native_main: loader items=100, ratings=250; CSV items=100, ratings=250
+    tasks=25; tasks whose per-artifact sorted-score multisets are identical in both sources: 25

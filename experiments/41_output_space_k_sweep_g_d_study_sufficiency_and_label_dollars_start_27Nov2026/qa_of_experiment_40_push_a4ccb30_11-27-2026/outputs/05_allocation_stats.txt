@@ -1,0 +1,8 @@
+[9s] summeval_expert: repro max abs err 3.04e-08; full CE 1.2097 vs marginal 1.2210
+[22s] summeval_crowd: repro max abs err 8.65e-08; full CE 1.3265 vs marginal 1.3256
+[29s] popquorn_offensiveness: repro max abs err 4.76e-08; full CE 1.2983 vs marginal 1.3023
+[42s] popquorn_politeness: repro max abs err 2.80e-07; full CE 1.5281 vs marginal 1.5597
+[53s] dices990: repro max abs err 1.77e-08; full CE 0.7430 vs marginal 0.7488
+[90s] chaosnli_snli_mnli: repro max abs err 1.88e-08; full CE 1.0529 vs marginal 1.0569
+[91s] veribench_fsc_native_main: repro max abs err 0.00e+00; full CE 0.7049 vs marginal 0.7638
+[done] 91s

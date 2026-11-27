@@ -1,8 +1,8 @@
-"""Shared setup for the Experiment 40 scripts.
+"""Shared setup for the Experiment 41 scripts.
 
 Reuses Experiment 36's loaders, group split, features, head fitting and per-item loss code UNCHANGED
 (the experiment folder 36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026 is imported, never edited).
-Everything added here is new: re-binning to a different number of classes K, the shared one-dimensional calibration map,
+Everything added here is new: re-binning to a different number of classes K, the one-dimensional calibration map (one function, fitted separately for each head),
 paired item-clustered bootstrap, and the human-entropy strata.
 
 Notation. c is a prompt (an item). y is one human rating. q(c) is a forecast distribution on K ordered classes.
@@ -57,7 +57,7 @@ def three_level(data, name: str):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Shared one-dimensional calibration map (the matched-calibration control).
+# One-dimensional calibration map (the matched-calibration control): the same function for every head, fitted separately for each head.
 # ----------------------------------------------------------------------------------------------------------------------
 def fit_logit_map(z, targets, ridge=1e-4):
     """Multinomial logit on [z, 1] fitted by cross-entropy to the VALIDATION items' empirical rating histograms."""

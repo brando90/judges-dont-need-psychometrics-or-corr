@@ -1,0 +1,28 @@
+count-field max (10, '/head_matched_cv5_c7/pearson/vs_exp27_f8/dRPS/n_le_zero') n count fields differing 96
+value-field max (0.008077736564929827, '/set_breakdown_cv5/old/constant_set_aware/Spearman') n>1e-9 1733
+numeric leaves 7131 max abs diff (10, '/head_matched_cv5_c7/pearson/vs_exp27_f8/dRPS/n_le_zero') structural/string mismatches 0 []
+n_ge_zero                    1.00e+01  /head_matched_cv5_c7/pearson/vs_exp27_f8/dRPS/n_ge_zero
+n_le_zero                    1.00e+01  /head_matched_cv5_c7/pearson/vs_exp27_f8/dRPS/n_le_zero
+Spearman                     8.08e-03  /set_breakdown_cv5/old/constant_set_aware/Spearman
+Kendall                      6.66e-03  /set_breakdown_cv5/old/constant_set_aware/Kendall
+ci:Kendall[ci]               4.51e-03  /qwen3_4b_lora/exp27_test/ce/ci95/Kendall
+ci:Spearman[ci]              3.21e-03  /qwen3_4b_lora/exp27_test/ce/ci95/Spearman
+point:Kendall                2.53e-03  /qwen3_4b_lora/exp27_test/ce/point/Kendall
+p_val_two_sided              2.00e-03  /head_matched_cv5_c7/pearson/vs_exp27_f8/dRPS/p_val_two_sided
+point:Spearman               1.85e-03  /exp27_head_matched/pearson/point/Spearman
+point:Pearson                5.29e-04  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/point/Pearson
+ci:Pearson[ci]               4.47e-04  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/ci95/Pearson
+point:ICC_C1                 1.39e-04  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/point/ICC_C1
+ci:Bias[ci]                  1.31e-04  /head_matched_cv5_c7/pearson/ci95/Bias
+ci:ICC_C1[ci]                1.27e-04  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/ci95/ICC_C1
+ci:Mean_Judge[ci]            1.15e-04  /head_matched_cv5_c7/pearson/ci95/Mean_Judge
+ci:ICC_A1[ci]                1.14e-04  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/ci95/ICC_A1
+ci:ci95[ci]                  1.07e-04  /head_matched_cv5_c7/pearson/vs_const_set/dCE/ci95
+point:Bias                   9.51e-05  /head_matched_cv5_c7/pearson/point/Bias
+point:Mean_Judge             9.51e-05  /head_matched_cv5_c7/pearson/point/Mean_Judge
+ci:CE[ci]                    8.10e-05  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/ci95/CE
+ci:MAE[ci]                   7.96e-05  /head_matched_cv5_c7/pearson/ci95/MAE
+point:ICC_A1                 7.38e-05  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/point/ICC_A1
+point:MAE                    7.27e-05  /head_matched_cv5_c7/pearson/point/MAE
+point                        5.30e-05  /head_matched_cv5_c7/pearson/vs_exp27_f8/dCE/point
+point:CE                     5.28e-05  /cv5_nested_oof/exploratory_head_pearson_fixed_alpha03_collapsed/point/CE

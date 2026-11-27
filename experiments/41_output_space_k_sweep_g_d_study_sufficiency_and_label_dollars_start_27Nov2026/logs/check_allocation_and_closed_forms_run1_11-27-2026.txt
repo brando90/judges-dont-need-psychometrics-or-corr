@@ -1,0 +1,33 @@
+PASS [N1] closed forms 23/80+3t/8, 31/80, 53/80-3t/8 on 61 rational t (Lean: vDelta_8x2, vDelta_4x4, vDelta_2x8) 
+PASS [N2] crossovers are exactly t = 4/15 and t = 11/15 (Lean: crossover_low, crossover_high) found [Fraction(4, 15)] and [Fraction(11, 15)]
+PASS [N3] 4x4 is the unique optimum strictly between the crossovers (Lean: unique_optimum_middle) 27 grid points
+PASS [N4] 8x2 is the unique optimum below 4/15 and 2x8 above 11/15 (Lean: optimum_low, optimum_high) 
+PASS [N5] at t = 1/2 the three designs are NOT tied: 19/40, 19/40, 31/80 (Lean: not_a_three_way_tie_at_half) (Fraction(19, 40), Fraction(19, 40), Fraction(31, 80))
+PASS [N6] NUMERICS ONLY: Experiment 39's d_study returns the same v_Delta as the independent formula 
+PASS [N7] per-item residual e/k falls with k (Lean: per_item_decreasing) 
+PASS [N8] at fixed B = n k the grand-mean variance is u/n + e/B (Lean: grand_mean_var_eq) 
+PASS [N9] at fixed B, more items strictly lowers the grand-mean variance when u > 0 (Lean: grand_mean_more_items) 
+PASS [N10] f(k) - f(k0) = a d (k-k0)^2 / k when b c = a d k0^2 (Lean: cost_identity) 
+PASS [N11] k0 minimizes f over k > 0 (Lean: cost_optimal) 
+PASS [N12] k0 is the unique minimizer: nearby k are strictly worse (Lean: cost_optimal_unique) 
+PASS [N13] the best integer k is the floor or ceiling of k0 (consequence; NUMERICS ONLY) 979 draws
+PASS [N14] with free items (c = 0) one rating per item is optimal (Lean: free_items_one_rating_optimal) 
+PASS [N15] reliability s/(s+w/k) >= r exactly when k >= r/(1-r) * w/s, with equality at the boundary (Lean: reliability_iff) 
+PASS [N16] NUMERICS ONLY: the stored k* for reliability 0.80 equals ceil(4(1-rho)/rho) on all 7 real datasets 
+PASS [N17] NUMERICS ONLY: the stored cost-optimal k (items cost 10x a rating) equals max(1, sqrt(10 sw2/sc2)) on all real datasets 
+       popquorn_offensiveness: k*=10 (formula 10), k_opt(10x)=5.360 (formula 5.360)
+       popquorn_politeness: k*=6 (formula 6), k_opt(10x)=6.182 (formula 6.182)
+       summeval_expert: k*=2 (formula 2), k_opt(10x)=2.191 (formula 2.191)
+       summeval_crowd: k*=5 (formula 5), k_opt(10x)=3.164 (formula 3.164)
+       dices990: k*=16 (formula 16), k_opt(10x)=6.397 (formula 6.397)
+       chaosnli_snli_mnli: k*=5 (formula 5), k_opt(10x)=4.880 (formula 4.880)
+       chaosnli_alpha: k*=3 (formula 3), k_opt(10x)=2.365 (formula 2.365)
+       N=40 k=1 sigma_c^2=0.3 sigma_w^2=0.7: simulated 0.02500, formula 0.02500, rel diff 0.0001
+       N=40 k=4 sigma_c^2=0.3 sigma_w^2=0.7: simulated 0.01181, formula 0.01188, rel diff 0.0054
+       N=10 k=16 sigma_c^2=0.3 sigma_w^2=0.7: simulated 0.03444, formula 0.03438, rel diff 0.0019
+       N=160 k=1 sigma_c^2=0.1 sigma_w^2=0.9: simulated 0.00628, formula 0.00625, rel diff 0.0041
+       N=20 k=8 sigma_c^2=0.1 sigma_w^2=0.9: simulated 0.01068, formula 0.01063, rel diff 0.0050
+PASS [N18] NUMERICS ONLY: Var(mean over N items x k ratings) = (sigma_c^2 + sigma_w^2/k)/N within 2% in simulation 
+PASS [N19] NUMERICS ONLY: at the same budget B = 160, 160 items x 1 rating has smaller variance than 40 items x 4 ratings 0.00623 < 0.00817
+
+ALL PASS

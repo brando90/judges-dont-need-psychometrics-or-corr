@@ -1,0 +1,18 @@
+train=40 artifacts / 10 tasks; val=20; test=40 / 10 tasks
+train ratings-per-artifact counts: {2: 22, 3: 18} ; total train ratings: 98
+
+(a) convergence of the committed cells at maxiter=35, and (b) refit at maxiter=300:
+  k=1 B=64: N=40 test CE@35=0.7144 (success=True, nit=31) | test CE@300=0.7144 (success=True, nit=31)
+  k=2 B=64: N=32 test CE@35=0.7348 (success=False, nit=35) | test CE@300=0.7348 (success=True, nit=37)
+  k=3 B=64: N=18 test CE@35=0.6535 (success=True, nit=32) | test CE@300=0.6535 (success=True, nit=32)
+  k=1 B=32: N=32 test CE@35=0.7931 (success=False, nit=35) | test CE@300=0.7931 (success=True, nit=35)
+  k=2 B=32: N=16 test CE@35=0.8637 (success=False, nit=35) | test CE@300=0.8637 (success=True, nit=38)
+  k=3 B=32: N=10 test CE@35=0.7076 (success=True, nit=32) | test CE@300=0.7076 (success=True, nit=32)
+  B=64 difference k2-k3: maxiter35 0.0813; maxiter300 0.0813
+
+(c) 200 alternative design seeds (permutation of eligible train artifacts and rating subsample):
+  CE(k=2,N=32) - CE(k=3,N=18): mean 0.0568, sd 0.0561, 2.5/50/97.5% = [-0.0169, 0.0493, 0.1467], fraction > 0: 0.920
+  seed 0 (committed design): 0.0813; D-study minus best-of-k1,2,3: mean 0.0635, fraction where k=2 is the best: 0.050
+
+(d) retraining task-cluster bootstrap (200 replicates; both heads refit in every replicate):
+  replicates=200; difference percentile 95% = [-1.0354, 0.3215]; median 0.0103; fraction > 0: 0.550

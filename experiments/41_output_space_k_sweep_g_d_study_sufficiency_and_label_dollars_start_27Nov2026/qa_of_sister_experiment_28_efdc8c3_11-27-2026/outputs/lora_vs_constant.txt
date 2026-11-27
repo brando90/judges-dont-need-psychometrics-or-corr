@@ -1,0 +1,6 @@
+exp27_test ce LoRA minus set-aware constant RPS 0.0094 [-0.024, 0.046] 0.5936
+exp27_test rps LoRA minus set-aware constant RPS 0.0826 [0.0184, 0.1573] 0.0102
+exp27_test pearson LoRA minus set-aware constant RPS 0.0757 [0.0133, 0.1496] 0.014
+cv5_oof ce LoRA minus set-aware constant RPS -0.0055 [-0.0306, 0.0158] 0.6504
+cv5_oof rps LoRA minus set-aware constant RPS 0.0203 [-0.0114, 0.051] 0.2022
+cv5_oof pearson LoRA minus set-aware constant RPS 0.0541 [0.0142, 0.0964] 0.0082

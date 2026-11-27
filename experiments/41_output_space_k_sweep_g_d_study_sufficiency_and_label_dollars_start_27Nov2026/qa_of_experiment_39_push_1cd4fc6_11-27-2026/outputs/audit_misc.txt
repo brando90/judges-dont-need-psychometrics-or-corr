@@ -1,0 +1,58 @@
+SNLI64 RPS u1 0.11765 [0.11627, 0.11904]
+SNLI64 RPS ps 0.11537 [0.11423, 0.11651]
+SNLI64 RPS u2 0.11495 [0.11385, 0.11606]
+SNLI64 RPS rps_oracle 0.11253 [0.11178, 0.11328]
+chaosnli_snli 64 item_mse U1-U2 -0.05194 [-0.05922, -0.04466] p=3.37e-29
+dices350 128 item_mse U1-U2 -0.25765 [-0.2687, -0.24659] p=5.19e-90
+chaosnli_snli 64 grand_mse U1-U2 0.01527 [0.00892, 0.02162] p=4.71e-06
+grand-mse inconclusive: dices350 64 0.00503 [-0.00088, 0.01093]
+grand-mse inconclusive: dices990 64 0.00182 [-0.00269, 0.00633]
+PS>U1 cell chaosnli_snli 64 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell chaosnli_snli 128 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell chaosnli_snli 512 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell chaosnli_mnli 256 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell chaosnli_mnli 512 CE sig | TVD ns CEmean>0 TVDmean>0
+PS>U1 cell chaosnli_alphanli 256 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell dices350 128 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell dices350 256 CE ns 0.00173 [-0.0002, 0.00366] | TVD ns CEmean>0 TVDmean>0
+PS>U1 cell dices990 128 CE sig | TVD sig CEmean>0 TVDmean>0
+PS>U1 cell dices990 256 CE sig | TVD sig CEmean>0 TVDmean>0
+t=0.00 16x4 oracle=8x2 P=0.955 [0.917,0.976] (191/200) vs equal -0.093 [-0.133,-0.054] p=6.22e-06 counts={'8x2': 191, '4x4': 9}
+t=0.00 64x8 oracle=8x2 P=0.996 [0.978,0.999] (255/256) vs equal -0.119 [-0.164,-0.075] p=2.32e-07 counts={'8x2': 255, '4x4': 1}
+t=0.15 16x4 oracle=8x2 P=0.725 [0.659,0.782] (145/200) vs equal -0.060 [-0.099,-0.022] p=0.00236 counts={'8x2': 145, '4x4': 55}
+t=0.15 64x8 oracle=8x2 P=0.810 [0.750,0.858] (162/200) vs equal -0.027 [-0.066,+0.011] p=0.161 counts={'8x2': 162, '4x4': 38}
+t=0.30 16x4 oracle=4x4 P=0.535 [0.466,0.603] (107/200) vs equal -0.004 [-0.038,+0.030] p=0.819 counts={'4x4': 107, '8x2': 89, '2x8': 4}
+t=0.30 64x8 oracle=4x4 P=0.610 [0.541,0.675] (122/200) vs equal +0.007 [-0.016,+0.031] p=0.546 counts={'4x4': 122, '8x2': 78}
+t=0.50 16x4 oracle=4x4 P=0.720 [0.654,0.778] (144/200) vs equal +0.040 [+0.014,+0.066] p=0.00295 counts={'4x4': 144, '2x8': 30, '8x2': 26}
+t=0.50 64x8 oracle=4x4 P=0.920 [0.874,0.950] (184/200) vs equal -0.016 [-0.040,+0.007] p=0.17 counts={'4x4': 184, '2x8': 8, '8x2': 8}
+t=0.70 16x4 oracle=4x4 P=0.600 [0.531,0.665] (120/200) vs equal +0.019 [-0.017,+0.055] p=0.299 counts={'4x4': 120, '2x8': 78, '8x2': 2}
+t=0.70 64x8 oracle=4x4 P=0.640 [0.571,0.703] (128/200) vs equal +0.022 [-0.003,+0.047] p=0.091 counts={'4x4': 128, '2x8': 72}
+t=0.85 16x4 oracle=2x8 P=0.715 [0.649,0.773] (143/200) vs equal -0.017 [-0.065,+0.032] p=0.499 counts={'2x8': 143, '4x4': 56, '8x2': 1}
+t=0.85 64x8 oracle=2x8 P=0.860 [0.805,0.901] (172/200) vs equal -0.034 [-0.069,+0.002] p=0.0644 counts={'2x8': 172, '4x4': 28}
+t=1.00 16x4 oracle=2x8 P=0.960 [0.923,0.980] (192/200) vs equal -0.054 [-0.088,-0.020] p=0.00205 counts={'2x8': 192, '4x4': 8}
+t=1.00 64x8 oracle=2x8 P=0.992 [0.972,0.998] (254/256) vs equal -0.085 [-0.118,-0.051] p=9.36e-07 counts={'2x8': 254, '4x4': 2}
+P(match) by t (rows) and pilot (cols):
+t     16x4  32x4  32x8  64x4  64x8
+0.00  0.955  0.975  0.985  0.975  0.996
+0.15  0.725  0.755  0.870  0.745  0.810
+0.30  0.535  0.500  0.540  0.570  0.610
+0.40  0.650  0.720  0.765  0.750  0.860
+0.45  0.680  0.765  0.805  0.705  0.920
+0.50  0.720  0.805  0.820  0.770  0.920
+0.55  0.670  0.710  0.810  0.740  0.905
+0.60  0.620  0.695  0.770  0.615  0.850
+0.70  0.600  0.560  0.620  0.500  0.640
+0.85  0.715  0.735  0.735  0.765  0.860
+1.00  0.960  0.945  0.990  0.950  0.992
+cells where REML chosen is significantly worse than equal 4x4:
+   t0.45_64x4 0.0316 [0.0061, 0.0571] p=0.0154 true_regret_mean=0.0244
+   t0.50_16x4 0.04 [0.0138, 0.0662] p=0.00295 true_regret_mean=0.0245
+   t0.50_32x8 0.0295 [0.0032, 0.0558] p=0.0281 true_regret_mean=0.0158
+   t0.55_64x4 0.0419 [0.0138, 0.0699] p=0.00365 true_regret_mean=0.0207
+   t0.60_16x4 0.0454 [0.0103, 0.0805] p=0.0115 true_regret_mean=0.0235
+   t0.60_64x4 0.041 [0.0031, 0.0788] p=0.034 true_regret_mean=0.0234
+n Study B cells: 55
+hand t=0.50 16x4: Wilson 144/200 [0.6541,0.7776]; paired diff 0.03997 [0.01379,0.06616] p=0.002951
+t=0.5 16x4 mean(true vDelta chosen - true vDelta equal) = 0.0245
+hand t=0 64x8: paired -0.1194 [-0.1636,-0.0752] p=2.32e-07
+REML convergence: min reml_converged/n over cells = 0.99

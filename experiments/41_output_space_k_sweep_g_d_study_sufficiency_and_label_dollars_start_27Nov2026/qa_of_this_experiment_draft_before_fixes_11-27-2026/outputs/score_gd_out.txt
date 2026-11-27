@@ -1,0 +1,50 @@
+### P6 (D-study k* for reliability 0.80 on POPQUORN and SummEval crowd, predicted at least 8)
+
+| dataset | single-rating ICC(1) | k* [95% bootstrap] | meets the predicted 8 or more |
+|---|---|---|---|
+| popquorn_offensiveness | 0.287 | 10 [9, 12] | yes |
+| popquorn_politeness | 0.439 | 6 [5, 6] | NO |
+| summeval_crowd | 0.492 | 5 [4, 5] | NO |
+
+P6: **NOT SUPPORTED** (met on ['popquorn_offensiveness']; missed on ['popquorn_politeness', 'summeval_crowd']).
+
+### P7 (equal total rating budget: the one-rating-per-item head against the head trained at the D-study k*)
+
+diff = test normalized RPS of the k*-ratings-per-item head minus test normalized RPS of the one-rating-per-item head (same total budget; positive = the one-rating-per-item head is better).
+
+| dataset | carries signal | budget (ratings) | k* used (truncated?) | items at k* | diff [95% paired item-clustered] | verdict |
+|---|---|---|---|---|---|---|
+| popquorn_offensiveness | yes | 128 | 8 (capped from 10) | 16 | +0.0023 [+0.0010, +0.0037] | k=1_better |
+| popquorn_offensiveness | yes | 256 | 8 (capped from 10) | 32 | +0.0053 [+0.0032, +0.0077] | k=1_better |
+| popquorn_offensiveness | yes | 512 | 8 (capped from 10) | 64 | +0.0025 [+0.0014, +0.0036] | k=1_better |
+| popquorn_politeness | yes | 128 | 6 | 21 | +0.0069 [+0.0049, +0.0088] | k=1_better |
+| popquorn_politeness | yes | 256 | 6 | 42 | +0.0012 [+0.0006, +0.0019] | k=1_better |
+| popquorn_politeness | yes | 512 | 6 | 85 | +0.0014 [+0.0008, +0.0020] | k=1_better |
+| summeval_expert | yes | 128 | 2 | 64 | -0.0002 [-0.0009, +0.0005] | tie |
+| summeval_expert | yes | 256 | 2 | 128 | +0.0017 [+0.0005, +0.0028] | k=1_better |
+| summeval_expert | yes | 512 | 2 | 256 | -0.0006 [-0.0011, -0.0001] | k*_better (refutes P7) |
+| summeval_crowd | no | 128 | 5 | 25 | +0.0009 [+0.0004, +0.0013] | k=1_better |
+| summeval_crowd | no | 256 | 5 | 51 | +0.0020 [+0.0011, +0.0029] | k=1_better |
+| summeval_crowd | no | 512 | 5 | 102 | +0.0019 [+0.0015, +0.0023] | k=1_better |
+| dices990 | yes | 256 | 16 | 16 | +0.0039 [+0.0011, +0.0067] | k=1_better |
+| dices990 | yes | 512 | 16 | 32 | +0.0006 [-0.0014, +0.0024] | tie |
+| chaosnli_snli_mnli | yes | 128 | 5 | 25 | +0.0077 [+0.0059, +0.0095] | k=1_better |
+| chaosnli_snli_mnli | yes | 256 | 5 | 51 | +0.0043 [+0.0026, +0.0061] | k=1_better |
+| chaosnli_snli_mnli | yes | 512 | 5 | 102 | +0.0014 [+0.0001, +0.0027] | k=1_better |
+| chaosnli_alpha | no | 128 | 3 | 42 | +0.0174 [+0.0103, +0.0241] | k=1_better |
+| chaosnli_alpha | no | 256 | 3 | 85 | +0.0034 [-0.0005, +0.0073] | tie |
+| chaosnli_alpha | no | 512 | 3 | 170 | +0.0040 [+0.0018, +0.0065] | k=1_better |
+
+P7: one-rating-per-item head strictly better in 16 cells, tied in 3, worse in 1 of 20 cells. **SUPPORTED in all but 1 cell(s); not supported as an every-cell statement**.
+
+### Ceiling check on real ratings (leave-one-rating-out; pooled over items and ratings)
+
+| dataset | ICC(1) = rho | sampled-judge Corr (theory: rho) | collapsed-mean Corr measured | finite-n formula | sqrt(rho) | lattice-rounded mean Corr | rounded still above sampled |
+|---|---|---|---|---|---|---|---|
+| popquorn_offensiveness | 0.287 | 0.287 | 0.466 | 0.468 | 0.536 | 0.435 | yes |
+| popquorn_politeness | 0.439 | 0.439 | 0.599 | 0.602 | 0.663 | 0.576 | yes |
+| summeval_expert | 0.719 | 0.719 | 0.775 | 0.775 | 0.848 | 0.755 | yes |
+| summeval_crowd | 0.492 | 0.492 | 0.625 | 0.625 | 0.701 | 0.603 | yes |
+| dices990 | 0.201 | 0.201 | 0.435 | 0.435 | 0.448 | 0.389 | yes |
+| chaosnli_snli_mnli | 0.485 | 0.485 | 0.693 | 0.693 | 0.696 | 0.617 | yes |
+| chaosnli_alpha | 0.648 | 0.648 | 0.803 | 0.803 | 0.805 | 0.757 | yes |

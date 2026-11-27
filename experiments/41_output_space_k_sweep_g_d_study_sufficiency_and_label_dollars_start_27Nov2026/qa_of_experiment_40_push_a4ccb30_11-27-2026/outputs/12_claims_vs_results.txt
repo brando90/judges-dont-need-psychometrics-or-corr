@@ -1,0 +1,55 @@
+1. spread of held-out test CE across k (max-min over the options at each budget), B >= 256:
+   summeval_expert: B=256: 0.0342, B=512: 0.0064, B=1024: 0.0065, B=2048: 0.0017, B=4096: 0.0013
+   summeval_crowd: B=256: 0.0101, B=512: 0.0185, B=1024: 0.0038, B=2048: 0.0027, B=4096: 0.0015
+   popquorn_offensiveness: B=256: 0.0187, B=512: 0.0074, B=1024: 0.0062, B=2048: 0.0040, B=4096: 0.0031
+   popquorn_politeness: B=256: 0.0234, B=512: 0.0114, B=1024: 0.0084, B=2048: 0.0072, B=4096: 0.0050
+   dices990: B=256: 0.0196, B=512: 0.0074, B=1024: 0.0072, B=2048: 0.0082, B=4096: 0.0090
+   chaosnli_snli_mnli: B=256: 0.0869, B=512: 0.0457, B=1024: 0.0151, B=2048: 0.0098, B=4096: 0.0072
+   veribench_fsc_native_main: 
+   D-minus-oracle intervals excluding 0 at B >= 256: [('summeval_crowd', 512, 0.0148, 0.0065, 0.0229), ('summeval_crowd', 1024, 0.0038, 0.0012, 0.0063), ('popquorn_offensiveness', 1024, 0.0059, 0.0009, 0.0112), ('dices990', 512, 0.0062, 0.0013, 0.0118), ('chaosnli_snli_mnli', 256, 0.0114, 0.0011, 0.0222), ('chaosnli_snli_mnli', 1024, 0.0075, 0.0029, 0.012)]
+2. budget rows with the D-study k infeasible: 3 of 50
+3. k = 1 (binding, N = B) versus the D-study k at the same nominal budget (test CE point estimates):
+   summeval_expert            B=   32 k*= 2: CE(k=1) - CE(k*) = -0.0490  k=1 better
+   summeval_expert            B=   64 k*= 2: CE(k=1) - CE(k*) = -0.0187  k=1 better
+   summeval_expert            B=  128 k*= 2: CE(k=1) - CE(k*) = -0.3802  k=1 better
+   summeval_expert            B=  256 k*= 2: CE(k=1) - CE(k*) = +0.0101  D-study better
+   summeval_expert            B=  512 k*= 2: CE(k=1) - CE(k*) = +0.0039  D-study better
+   summeval_expert            B= 1024 k*= 2: CE(k=1) - CE(k*) = +0.0040  D-study better
+   summeval_expert            B= 2048 k*= 2: CE(k=1) - CE(k*) = +0.0017  D-study better
+   summeval_crowd             B=   32 k*= 5: CE(k=1) - CE(k*) = -0.1431  k=1 better
+   summeval_crowd             B=   64 k*= 5: CE(k=1) - CE(k*) = -0.1520  k=1 better
+   summeval_crowd             B=  128 k*= 5: CE(k=1) - CE(k*) = -0.1561  k=1 better
+   summeval_crowd             B=  256 k*= 5: CE(k=1) - CE(k*) = -0.0028  k=1 better
+   summeval_crowd             B=  512 k*= 5: CE(k=1) - CE(k*) = -0.0148  k=1 better
+   summeval_crowd             B= 1024 k*= 5: CE(k=1) - CE(k*) = -0.0006  k=1 better
+   summeval_crowd             B= 2048 k*= 5: CE(k=1) - CE(k*) = -0.0006  k=1 better
+   popquorn_offensiveness     B=   64 k*=10: CE(k=1) - CE(k*) = -0.0365  k=1 better
+   popquorn_offensiveness     B=  128 k*=10: CE(k=1) - CE(k*) = -0.0076  k=1 better
+   popquorn_offensiveness     B=  256 k*=10: CE(k=1) - CE(k*) = +0.0125  D-study better
+   popquorn_offensiveness     B=  512 k*=10: CE(k=1) - CE(k*) = +0.0014  D-study better
+   popquorn_politeness        B=   32 k*= 6: CE(k=1) - CE(k*) = -0.1007  k=1 better
+   popquorn_politeness        B=   64 k*= 6: CE(k=1) - CE(k*) = +0.0483  D-study better
+   popquorn_politeness        B=  128 k*= 6: CE(k=1) - CE(k*) = -0.0067  k=1 better
+   popquorn_politeness        B=  256 k*= 6: CE(k=1) - CE(k*) = -0.0015  k=1 better
+   popquorn_politeness        B=  512 k*= 6: CE(k=1) - CE(k*) = -0.0016  k=1 better
+   popquorn_politeness        B= 1024 k*= 6: CE(k=1) - CE(k*) = +0.0013  D-study better
+   popquorn_politeness        B= 2048 k*= 6: CE(k=1) - CE(k*) = +0.0007  D-study better
+   dices990                   B=  128 k*=17: CE(k=1) - CE(k*) = +0.0022  D-study better
+   dices990                   B=  256 k*=17: CE(k=1) - CE(k*) = +0.0045  D-study better
+   dices990                   B=  512 k*=17: CE(k=1) - CE(k*) = +0.0012  D-study better
+   chaosnli_snli_mnli         B=   32 k*= 5: CE(k=1) - CE(k*) = -0.0403  k=1 better
+   chaosnli_snli_mnli         B=   64 k*= 5: CE(k=1) - CE(k*) = -0.0202  k=1 better
+   chaosnli_snli_mnli         B=  128 k*= 5: CE(k=1) - CE(k*) = -0.0031  k=1 better
+   chaosnli_snli_mnli         B=  256 k*= 5: CE(k=1) - CE(k*) = -0.0114  k=1 better
+   chaosnli_snli_mnli         B=  512 k*= 5: CE(k=1) - CE(k*) = -0.0046  k=1 better
+   chaosnli_snli_mnli         B= 1024 k*= 5: CE(k=1) - CE(k*) = -0.0022  k=1 better
+   veribench_fsc_native_main  B=   32 k*= 2: CE(k=1) - CE(k*) = -0.0706  k=1 better
+   totals: k=1 better 23, tie 0, D-study better 12
+4. dollar hits equal to the smallest grid budget (left-censored, true threshold <= 32):
+   summeval_expert: B_ce=128 (censored=False); B_sqrt_rps=32 (censored=True)
+   summeval_crowd: B_ce=32 (censored=True); B_sqrt_rps=32 (censored=True)
+   popquorn_offensiveness: B_ce=64 (censored=False); B_sqrt_rps=32 (censored=True)
+   popquorn_politeness: B_ce=32 (censored=True); B_sqrt_rps=32 (censored=True)
+   dices990: B_ce=32 (censored=True); B_sqrt_rps=32 (censored=True)
+   chaosnli_snli_mnli: B_ce=32 (censored=True); B_sqrt_rps=32 (censored=True)
+   veribench_fsc_native_main: B_ce=32 (censored=True); B_sqrt_rps=32 (censored=True)

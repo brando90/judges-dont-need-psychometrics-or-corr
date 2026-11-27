@@ -1,0 +1,71 @@
+{
+ "source": "trustworthy-theorem-judges, experiment 15 (estimate required tasks, solver configurations and human raters), results/costed_allocation.json, read from the efdc8c3 checkout; planning arithmetic, not a measurement of any future study",
+ "measured_minutes_per_rating": {
+  "current_main": {
+   "entries": 103,
+   "raters_with_entries": 2,
+   "median_minutes": 4.0,
+   "mean_minutes": 4.242718,
+   "min_minutes": 3.0,
+   "max_minutes": 20.0
+  },
+  "warm_up": {
+   "entries": 6,
+   "raters_with_entries": 1,
+   "median_minutes": 4.0,
+   "mean_minutes": 3.666667,
+   "min_minutes": 2.0,
+   "max_minutes": 5.0
+  }
+ },
+ "assumed_minutes_if_time_scaled_with_length": 37.344828,
+ "main_to_warm_up_median_length_ratio": 9.336207,
+ "paired_rps_contrast_sd_25_tasks": 0.030659,
+ "units_for_half_width_25_task_contrast": {
+  "0.02": 10,
+  "0.01": 37,
+  "0.005": 145
+ },
+ "scenarios": {
+  "finish_current_packet": {
+   "new_development_tasks": 0,
+   "evaluation_tasks": 25,
+   "total_independent_ratings": 200,
+   "hours": {
+    "measured_warm_up_median": 13.333333,
+    "assumed_length_scaled": 124.482759,
+    "measured_current_main_median": 13.333333
+   }
+  },
+  "add_development_pool": {
+   "new_development_tasks": 24,
+   "evaluation_tasks": 25,
+   "total_independent_ratings": 392,
+   "hours": {
+    "measured_warm_up_median": 26.133333,
+    "assumed_length_scaled": 243.986207,
+    "measured_current_main_median": 26.133333
+   }
+  },
+  "add_development_pool_and_reach_half_width_0.01": {
+   "new_development_tasks": 24,
+   "evaluation_tasks": 37,
+   "total_independent_ratings": 488,
+   "hours": {
+    "measured_warm_up_median": 32.533333,
+    "assumed_length_scaled": 303.737931,
+    "measured_current_main_median": 32.533333
+   }
+  },
+  "add_development_pool_and_reach_half_width_0.005": {
+   "new_development_tasks": 24,
+   "evaluation_tasks": 145,
+   "total_independent_ratings": 1352,
+   "hours": {
+    "measured_warm_up_median": 90.133333,
+    "assumed_length_scaled": 841.503448,
+    "measured_current_main_median": 90.133333
+   }
+  }
+ }
+}

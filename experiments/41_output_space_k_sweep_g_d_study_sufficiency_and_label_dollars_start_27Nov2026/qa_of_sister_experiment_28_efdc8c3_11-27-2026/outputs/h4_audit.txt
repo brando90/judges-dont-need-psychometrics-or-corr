@@ -1,0 +1,9 @@
+codex_astra rows 175 status {'ok': 175} ok_items 175 all_items 175 repeats_dist {1: 175} max|sum-1| 2.220446049250313e-16
+   keys {'id': 175, 'lane': 175, 'status': 175, 'parsed': 175, 'elapsed_seconds': 175, 'requests_sha256': 175, 'raw_log_sha256': 175}
+   model field {'codex_astra': 175}
+agy_argon rows 175 status {'ok': 175} ok_items 175 all_items 175 repeats_dist {1: 175} max|sum-1| 2.220446049250313e-16
+   keys {'id': 175, 'lane': 175, 'status': 175, 'parsed': 175, 'elapsed_seconds': 175, 'requests_sha256': 175, 'raw_log_sha256': 175}
+   model field {'agy_argon': 175}
+agy_opus rows 175 status {'ok': 175} ok_items 175 all_items 175 repeats_dist {1: 175} max|sum-1| 2.220446049250313e-16
+   keys {'id': 175, 'lane': 175, 'status': 175, 'parsed': 175, 'elapsed_seconds': 175, 'requests_sha256': 175, 'raw_log_sha256': 175}
+   model field {'agy_opus': 165, 'claude_opus_cli': 10}

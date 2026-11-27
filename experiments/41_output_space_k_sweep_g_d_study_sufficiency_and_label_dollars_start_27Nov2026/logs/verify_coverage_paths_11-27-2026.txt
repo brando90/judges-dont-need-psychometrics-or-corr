@@ -1,0 +1,15 @@
+PASS  every cited repository path exists  [42 paths]
+note  6 cited paths exist only on origin/main (not yet in this working tree)
+PASS  every cited identifier occurs in the repository  [31 identifiers]
+note  identifiers found in a .lean file: 29; found only in non-Lean files: ['strata_at_chosen', 'unbiased_risk']
+PASS  items are numbered 1..N without a gap  [N = 31]
+PASS  Status counts line equals the tags in items 1 to 27  [tags {'done': 12, 'partial': 9, 'stated-only': 3, 'not run': 3, 'conceded': 0}; declared {'done': 12, 'partial': 9, 'stated-only': 3, 'not run': 3, 'conceded': 0}]
+PASS  every item from 1 to 27 carries a Status tag
+PASS  16 views in the L2-sensitivity summary  [16]
+PASS  max |matched Pearson-trained minus CE-trained| rounds to 0.0022  [0.002167]
+PASS  max |matched MSE-trained minus CE-trained| rounds to 0.0004  [0.000447]
+PASS  experiment 23 states system-level Spearman 0.877 versus 0.835 across 16 systems
+PASS  sister measured median 4.0 minutes per rating and assumed 37.34
+PASS  experiment 36 states DICES-990 CE power 0.96 at 100 test prompts and Pearson r power 0.62 at 198
+
+RESULT: all checks passed

@@ -1,0 +1,30 @@
+-- Compiled 11-27-2026 (second compile, after the review-driven edits) with: cd <lake project with Mathlib v4.36.0, toolchain leanprover/lean4:v4.36.0> && lake env lean E40_theorems.lean
+-- (Lean 4.36.0, Mathlib v4.36.0). Exit status 0: no errors, no `sorry`. One linter style warning (line 142, `<;>` could be `;`) is kept below; it is not an error.
+-- 23 theorems, every `#print axioms` lists only propext, Classical.choice, Quot.sound. The four theorems added in this compile: decision_accuracy_proper, covPooled_eq_covF, ceiling_pooled_rho, ceiling_attained_pooled.
+E40_theorems.lean:142:72: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+E40_theorems.lean:142:72: warning: Unused tactic linter: `<;>` can be replaced with `;`.
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'E40.binary_mean_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.binary_mean_identifies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.mean_not_identifying' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.sampled_accuracy_le_max' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.sampled_accuracy_eq_max_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.truthful_sampled_accuracy_optimal_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.accuracy_prefers_overconfidence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.decision_accuracy_not_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.brier_binary_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.brier_not_local_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.same_two_moments_different_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.total_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.icc_eq_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.cov_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.covF_centered' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.betweenVar_eq_varF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_attained' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.decision_accuracy_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.covPooled_eq_covF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_pooled_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E40.ceiling_attained_pooled' depends on axioms: [propext, Classical.choice, Quot.sound]

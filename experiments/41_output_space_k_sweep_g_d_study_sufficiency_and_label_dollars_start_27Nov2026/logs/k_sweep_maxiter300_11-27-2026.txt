@@ -1,0 +1,98 @@
+[unavailable] veribench_fsc_rv1: HTTPError: HTTP Error 404: Not Found
+[popquorn_offensiveness|K2] items 1500, K 2
+  popquorn_offensiveness|K2          seed 0: constant 0.1314 | CE raw 0.1310 cal 0.1307 | Pearson raw 0.2382 cal 0.1307 | raw gap +0.1072 matched gap +0.0000 | Pearson hit cap False
+  popquorn_offensiveness|K2          seed 1: constant 0.1187 | CE raw 0.1185 cal 0.1184 | Pearson raw 0.2430 cal 0.1184 | raw gap +0.1245 matched gap +0.0000 | Pearson hit cap False
+  popquorn_offensiveness|K2          seed 2: constant 0.1074 | CE raw 0.1071 cal 0.1077 | Pearson raw 0.2382 cal 0.1078 | raw gap +0.1310 matched gap +0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K2          seed 3: constant 0.1106 | CE raw 0.1101 cal 0.1096 | Pearson raw 0.2488 cal 0.1097 | raw gap +0.1387 matched gap +0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K2          seed 4: constant 0.1099 | CE raw 0.1096 cal 0.1101 | Pearson raw 0.2467 cal 0.1102 | raw gap +0.1371 matched gap +0.0001 | Pearson hit cap False
+[popquorn_offensiveness|K3] items 1500, K 3
+  popquorn_offensiveness|K3          seed 0: constant 0.1672 | CE raw 0.1664 cal 0.1654 | Pearson raw 0.2447 cal 0.1655 | raw gap +0.0783 matched gap +0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K3          seed 1: constant 0.1571 | CE raw 0.1568 cal 0.1571 | Pearson raw 0.2494 cal 0.1572 | raw gap +0.0925 matched gap +0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K3          seed 2: constant 0.1465 | CE raw 0.1459 cal 0.1457 | Pearson raw 0.2408 cal 0.1458 | raw gap +0.0948 matched gap +0.0002 | Pearson hit cap False
+  popquorn_offensiveness|K3          seed 3: constant 0.1472 | CE raw 0.1464 cal 0.1452 | Pearson raw 0.2513 cal 0.1454 | raw gap +0.1049 matched gap +0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K3          seed 4: constant 0.1466 | CE raw 0.1461 cal 0.1469 | Pearson raw 0.2516 cal 0.1471 | raw gap +0.1055 matched gap +0.0002 | Pearson hit cap False
+[popquorn_offensiveness|K5] items 1500, K 5
+  popquorn_offensiveness|K5          seed 0: constant 0.1604 | CE raw 0.1595 cal 0.1581 | Pearson raw 0.2523 cal 0.1580 | raw gap +0.0928 matched gap -0.0000 | Pearson hit cap False
+  popquorn_offensiveness|K5          seed 1: constant 0.1538 | CE raw 0.1535 cal 0.1537 | Pearson raw 0.2579 cal 0.1537 | raw gap +0.1044 matched gap -0.0000 | Pearson hit cap False
+  popquorn_offensiveness|K5          seed 2: constant 0.1459 | CE raw 0.1451 cal 0.1447 | Pearson raw 0.2478 cal 0.1446 | raw gap +0.1027 matched gap -0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K5          seed 3: constant 0.1465 | CE raw 0.1455 cal 0.1438 | Pearson raw 0.2558 cal 0.1437 | raw gap +0.1103 matched gap -0.0001 | Pearson hit cap False
+  popquorn_offensiveness|K5          seed 4: constant 0.1438 | CE raw 0.1432 cal 0.1444 | Pearson raw 0.2552 cal 0.1444 | raw gap +0.1120 matched gap +0.0001 | Pearson hit cap False
+[popquorn_politeness|K2] items 3718, K 2
+  popquorn_politeness|K2             seed 0: constant 0.2479 | CE raw 0.2298 cal 0.2234 | Pearson raw 0.2273 cal 0.2259 | raw gap -0.0025 matched gap +0.0025 | Pearson hit cap False
+  popquorn_politeness|K2             seed 1: constant 0.2498 | CE raw 0.2317 cal 0.2257 | Pearson raw 0.2285 cal 0.2288 | raw gap -0.0032 matched gap +0.0031 | Pearson hit cap False
+  popquorn_politeness|K2             seed 2: constant 0.2483 | CE raw 0.2312 cal 0.2230 | Pearson raw 0.2262 cal 0.2249 | raw gap -0.0049 matched gap +0.0019 | Pearson hit cap False
+  popquorn_politeness|K2             seed 3: constant 0.2484 | CE raw 0.2310 cal 0.2243 | Pearson raw 0.2271 cal 0.2263 | raw gap -0.0039 matched gap +0.0020 | Pearson hit cap False
+  popquorn_politeness|K2             seed 4: constant 0.2500 | CE raw 0.2321 cal 0.2252 | Pearson raw 0.2280 cal 0.2278 | raw gap -0.0040 matched gap +0.0026 | Pearson hit cap False
+[popquorn_politeness|K3] items 3718, K 3
+  popquorn_politeness|K3             seed 0: constant 0.2203 | CE raw 0.2085 cal 0.2031 | Pearson raw 0.2338 cal 0.2048 | raw gap +0.0252 matched gap +0.0016 | Pearson hit cap False
+  popquorn_politeness|K3             seed 1: constant 0.2190 | CE raw 0.2072 cal 0.2018 | Pearson raw 0.2354 cal 0.2038 | raw gap +0.0282 matched gap +0.0020 | Pearson hit cap False
+  popquorn_politeness|K3             seed 2: constant 0.2168 | CE raw 0.2058 cal 0.1992 | Pearson raw 0.2386 cal 0.2004 | raw gap +0.0329 matched gap +0.0012 | Pearson hit cap False
+  popquorn_politeness|K3             seed 3: constant 0.2177 | CE raw 0.2064 cal 0.2005 | Pearson raw 0.2399 cal 0.2019 | raw gap +0.0335 matched gap +0.0014 | Pearson hit cap False
+  popquorn_politeness|K3             seed 4: constant 0.2180 | CE raw 0.2061 cal 0.2003 | Pearson raw 0.2371 cal 0.2023 | raw gap +0.0309 matched gap +0.0020 | Pearson hit cap False
+[popquorn_politeness|K5] items 3718, K 5
+  popquorn_politeness|K5             seed 0: constant 0.1775 | CE raw 0.1714 cal 0.1647 | Pearson raw 0.2417 cal 0.1657 | raw gap +0.0703 matched gap +0.0010 | Pearson hit cap False
+  popquorn_politeness|K5             seed 1: constant 0.1782 | CE raw 0.1722 cal 0.1658 | Pearson raw 0.2439 cal 0.1669 | raw gap +0.0717 matched gap +0.0010 | Pearson hit cap False
+  popquorn_politeness|K5             seed 2: constant 0.1730 | CE raw 0.1672 cal 0.1599 | Pearson raw 0.2459 cal 0.1606 | raw gap +0.0786 matched gap +0.0007 | Pearson hit cap False
+  popquorn_politeness|K5             seed 3: constant 0.1743 | CE raw 0.1686 cal 0.1625 | Pearson raw 0.2477 cal 0.1633 | raw gap +0.0791 matched gap +0.0008 | Pearson hit cap False
+  popquorn_politeness|K5             seed 4: constant 0.1762 | CE raw 0.1700 cal 0.1630 | Pearson raw 0.2437 cal 0.1641 | raw gap +0.0738 matched gap +0.0011 | Pearson hit cap False
+[summeval_expert|K2] items 6400, K 2
+  summeval_expert|K2                 seed 0: constant 0.1964 | CE raw 0.1934 cal 0.1895 | Pearson raw 0.2481 cal 0.1895 | raw gap +0.0546 matched gap +0.0001 | Pearson hit cap False
+  summeval_expert|K2                 seed 1: constant 0.1964 | CE raw 0.1940 cal 0.1927 | Pearson raw 0.2429 cal 0.1928 | raw gap +0.0489 matched gap +0.0001 | Pearson hit cap False
+  summeval_expert|K2                 seed 2: constant 0.1941 | CE raw 0.1912 cal 0.1897 | Pearson raw 0.2467 cal 0.1894 | raw gap +0.0555 matched gap -0.0002 | Pearson hit cap False
+  summeval_expert|K2                 seed 3: constant 0.2061 | CE raw 0.2031 cal 0.1990 | Pearson raw 0.2495 cal 0.1996 | raw gap +0.0464 matched gap +0.0007 | Pearson hit cap False
+  summeval_expert|K2                 seed 4: constant 0.2077 | CE raw 0.2060 cal 0.2096 | Pearson raw 0.2355 cal 0.2090 | raw gap +0.0295 matched gap -0.0005 | Pearson hit cap False
+[summeval_expert|K3] items 6400, K 3
+  summeval_expert|K3                 seed 0: constant 0.1471 | CE raw 0.1454 cal 0.1429 | Pearson raw 0.2470 cal 0.1433 | raw gap +0.1015 matched gap +0.0004 | Pearson hit cap False
+  summeval_expert|K3                 seed 1: constant 0.1453 | CE raw 0.1440 cal 0.1441 | Pearson raw 0.2331 cal 0.1443 | raw gap +0.0891 matched gap +0.0002 | Pearson hit cap False
+  summeval_expert|K3                 seed 2: constant 0.1454 | CE raw 0.1438 cal 0.1422 | Pearson raw 0.2416 cal 0.1421 | raw gap +0.0978 matched gap -0.0001 | Pearson hit cap False
+  summeval_expert|K3                 seed 3: constant 0.1583 | CE raw 0.1566 cal 0.1537 | Pearson raw 0.2524 cal 0.1543 | raw gap +0.0958 matched gap +0.0006 | Pearson hit cap False
+  summeval_expert|K3                 seed 4: constant 0.1625 | CE raw 0.1615 cal 0.1645 | Pearson raw 0.2293 cal 0.1642 | raw gap +0.0677 matched gap -0.0003 | Pearson hit cap False
+[summeval_expert|K5] items 6400, K 5
+  summeval_expert|K5                 seed 0: constant 0.1421 | CE raw 0.1402 cal 0.1356 | Pearson raw 0.2490 cal 0.1372 | raw gap +0.1088 matched gap +0.0016 | Pearson hit cap False
+  summeval_expert|K5                 seed 1: constant 0.1398 | CE raw 0.1381 cal 0.1354 | Pearson raw 0.2365 cal 0.1365 | raw gap +0.0984 matched gap +0.0011 | Pearson hit cap False
+  summeval_expert|K5                 seed 2: constant 0.1410 | CE raw 0.1389 cal 0.1358 | Pearson raw 0.2433 cal 0.1367 | raw gap +0.1045 matched gap +0.0009 | Pearson hit cap False
+  summeval_expert|K5                 seed 3: constant 0.1502 | CE raw 0.1484 cal 0.1453 | Pearson raw 0.2511 cal 0.1460 | raw gap +0.1027 matched gap +0.0007 | Pearson hit cap False
+  summeval_expert|K5                 seed 4: constant 0.1515 | CE raw 0.1504 cal 0.1520 | Pearson raw 0.2302 cal 0.1509 | raw gap +0.0798 matched gap -0.0011 | Pearson hit cap False
+[summeval_crowd|K2] items 6400, K 2
+  summeval_crowd|K2                  seed 0: constant 0.2263 | CE raw 0.2272 cal 0.2262 | Pearson raw 0.2562 cal 0.2262 | raw gap +0.0289 matched gap -0.0000 | Pearson hit cap False
+  summeval_crowd|K2                  seed 1: constant 0.2306 | CE raw 0.2307 cal 0.2296 | Pearson raw 0.2480 cal 0.2296 | raw gap +0.0172 matched gap -0.0001 | Pearson hit cap False
+  summeval_crowd|K2                  seed 2: constant 0.2228 | CE raw 0.2235 cal 0.2233 | Pearson raw 0.2567 cal 0.2231 | raw gap +0.0331 matched gap -0.0002 | Pearson hit cap False
+  summeval_crowd|K2                  seed 3: constant 0.2211 | CE raw 0.2215 cal 0.2227 | Pearson raw 0.2652 cal 0.2227 | raw gap +0.0438 matched gap -0.0000 | Pearson hit cap False
+  summeval_crowd|K2                  seed 4: constant 0.2157 | CE raw 0.2156 cal 0.2144 | Pearson raw 0.2571 cal 0.2144 | raw gap +0.0415 matched gap +0.0000 | Pearson hit cap False
+[summeval_crowd|K3] items 6400, K 3
+  summeval_crowd|K3                  seed 0: constant 0.1560 | CE raw 0.1563 cal 0.1560 | Pearson raw 0.2573 cal 0.1560 | raw gap +0.1010 matched gap +0.0000 | Pearson hit cap False
+  summeval_crowd|K3                  seed 1: constant 0.1583 | CE raw 0.1583 cal 0.1579 | Pearson raw 0.2422 cal 0.1578 | raw gap +0.0838 matched gap -0.0001 | Pearson hit cap False
+  summeval_crowd|K3                  seed 2: constant 0.1483 | CE raw 0.1487 cal 0.1487 | Pearson raw 0.2453 cal 0.1487 | raw gap +0.0967 matched gap +0.0000 | Pearson hit cap False
+  summeval_crowd|K3                  seed 3: constant 0.1550 | CE raw 0.1552 cal 0.1558 | Pearson raw 0.2706 cal 0.1556 | raw gap +0.1154 matched gap -0.0002 | Pearson hit cap False
+  summeval_crowd|K3                  seed 4: constant 0.1405 | CE raw 0.1404 cal 0.1397 | Pearson raw 0.2433 cal 0.1397 | raw gap +0.1029 matched gap -0.0000 | Pearson hit cap False
+[summeval_crowd|K5] items 6400, K 5
+  summeval_crowd|K5                  seed 0: constant 0.1288 | CE raw 0.1290 cal 0.1288 | Pearson raw 0.2536 cal 0.1288 | raw gap +0.1246 matched gap +0.0000 | Pearson hit cap False
+  summeval_crowd|K5                  seed 1: constant 0.1299 | CE raw 0.1301 cal 0.1297 | Pearson raw 0.2450 cal 0.1296 | raw gap +0.1148 matched gap -0.0001 | Pearson hit cap False
+  summeval_crowd|K5                  seed 2: constant 0.1259 | CE raw 0.1260 cal 0.1261 | Pearson raw 0.2558 cal 0.1262 | raw gap +0.1297 matched gap +0.0001 | Pearson hit cap False
+  summeval_crowd|K5                  seed 3: constant 0.1322 | CE raw 0.1324 cal 0.1332 | Pearson raw 0.2707 cal 0.1331 | raw gap +0.1384 matched gap -0.0002 | Pearson hit cap False
+  summeval_crowd|K5                  seed 4: constant 0.1217 | CE raw 0.1216 cal 0.1221 | Pearson raw 0.2550 cal 0.1219 | raw gap +0.1334 matched gap -0.0001 | Pearson hit cap False
+[dices990|K2] items 990, K 2
+  dices990|K2                        seed 0: constant 0.1877 | CE raw 0.1856 cal 0.1846 | Pearson raw 0.2582 cal 0.1854 | raw gap +0.0727 matched gap +0.0008 | Pearson hit cap False
+  dices990|K2                        seed 1: constant 0.1765 | CE raw 0.1743 cal 0.1732 | Pearson raw 0.2625 cal 0.1737 | raw gap +0.0882 matched gap +0.0005 | Pearson hit cap False
+  dices990|K2                        seed 2: constant 0.1868 | CE raw 0.1844 cal 0.1834 | Pearson raw 0.2589 cal 0.1838 | raw gap +0.0745 matched gap +0.0004 | Pearson hit cap False
+  dices990|K2                        seed 3: constant 0.1851 | CE raw 0.1827 cal 0.1828 | Pearson raw 0.2615 cal 0.1835 | raw gap +0.0787 matched gap +0.0008 | Pearson hit cap False
+  dices990|K2                        seed 4: constant 0.1975 | CE raw 0.1945 cal 0.1921 | Pearson raw 0.2581 cal 0.1926 | raw gap +0.0636 matched gap +0.0005 | Pearson hit cap False
+[dices990|K3] items 990, K 3
+  dices990|K3                        seed 0: constant 0.1991 | CE raw 0.1969 cal 0.1961 | Pearson raw 0.2572 cal 0.1969 | raw gap +0.0603 matched gap +0.0008 | Pearson hit cap False
+  dices990|K3                        seed 1: constant 0.1887 | CE raw 0.1861 cal 0.1848 | Pearson raw 0.2613 cal 0.1853 | raw gap +0.0752 matched gap +0.0005 | Pearson hit cap False
+  dices990|K3                        seed 2: constant 0.1981 | CE raw 0.1954 cal 0.1943 | Pearson raw 0.2581 cal 0.1947 | raw gap +0.0628 matched gap +0.0004 | Pearson hit cap False
+  dices990|K3                        seed 3: constant 0.1962 | CE raw 0.1936 cal 0.1939 | Pearson raw 0.2621 cal 0.1948 | raw gap +0.0685 matched gap +0.0008 | Pearson hit cap False
+  dices990|K3                        seed 4: constant 0.2080 | CE raw 0.2044 cal 0.2016 | Pearson raw 0.2571 cal 0.2022 | raw gap +0.0527 matched gap +0.0006 | Pearson hit cap False
+[chaosnli_snli_mnli|K3] items 3113, K 3
+  chaosnli_snli_mnli|K3              seed 0: constant 0.1973 | CE raw 0.1963 cal 0.1966 | Pearson raw 0.2530 cal 0.1963 | raw gap +0.0566 matched gap -0.0002 | Pearson hit cap False
+  chaosnli_snli_mnli|K3              seed 1: constant 0.1945 | CE raw 0.1925 cal 0.1914 | Pearson raw 0.2502 cal 0.1915 | raw gap +0.0577 matched gap +0.0001 | Pearson hit cap False
+  chaosnli_snli_mnli|K3              seed 2: constant 0.1974 | CE raw 0.1963 cal 0.1963 | Pearson raw 0.2517 cal 0.1961 | raw gap +0.0554 matched gap -0.0002 | Pearson hit cap False
+  chaosnli_snli_mnli|K3              seed 3: constant 0.1942 | CE raw 0.1926 cal 0.1927 | Pearson raw 0.2499 cal 0.1928 | raw gap +0.0572 matched gap +0.0001 | Pearson hit cap False
+  chaosnli_snli_mnli|K3              seed 4: constant 0.1918 | CE raw 0.1910 cal 0.1916 | Pearson raw 0.2515 cal 0.1916 | raw gap +0.0606 matched gap +0.0001 | Pearson hit cap False
+[chaosnli_alphanli|K2] items 1532, K 2
+  chaosnli_alphanli|K2               seed 0: constant 0.2499 | CE raw 0.2512 cal 0.2535 | Pearson raw 0.2514 cal 0.2527 | raw gap +0.0002 matched gap -0.0008 | Pearson hit cap False
+  chaosnli_alphanli|K2               seed 1: constant 0.2499 | CE raw 0.2507 cal 0.2513 | Pearson raw 0.2517 cal 0.2515 | raw gap +0.0010 matched gap +0.0001 | Pearson hit cap False
+  chaosnli_alphanli|K2               seed 2: constant 0.2505 | CE raw 0.2529 cal 0.2499 | Pearson raw 0.2581 cal 0.2504 | raw gap +0.0052 matched gap +0.0005 | Pearson hit cap False
+  chaosnli_alphanli|K2               seed 3: constant 0.2500 | CE raw 0.2512 cal 0.2508 | Pearson raw 0.2530 cal 0.2509 | raw gap +0.0018 matched gap +0.0001 | Pearson hit cap False
+  chaosnli_alphanli|K2               seed 4: constant 0.2504 | CE raw 0.2515 cal 0.2513 | Pearson raw 0.2531 cal 0.2512 | raw gap +0.0016 matched gap -0.0002 | Pearson hit cap False
+wrote /home/claude/judges-dont-need-psychometrics-or-corr/experiments/40_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/results/k_sweep_matched_calibration_maxiter300.json in 279s

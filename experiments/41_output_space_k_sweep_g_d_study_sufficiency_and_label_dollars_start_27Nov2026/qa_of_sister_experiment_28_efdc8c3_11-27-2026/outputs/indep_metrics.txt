@@ -1,0 +1,27 @@
+n_items 175 n_ratings 445 old_items 75 new_items 100
+ratings per item dist {1: 0, 2: 82, 3: 91, 4: 2, 5: 0}
+old n_ratings 195 share5 0.1128
+new n_ratings 250 share5 0.74
+exp27 test items 70 tasks 20 train+val tasks 30
+test/train task overlap: 0
+exp27_test constant_global: mine {'RPS': 0.172, 'CE': 1.48846, 'Brier': 0.6947, 'TVD': 0.61521} | committed {'RPS': 0.172, 'CE': 1.48846, 'Brier': 0.6947, 'TVD': 0.61521}
+exp27_test constant_set_aware: mine {'RPS': 0.10881, 'CE': 1.15853, 'Brier': 0.54759, 'TVD': 0.47942} | committed {'RPS': 0.10881, 'CE': 1.15853, 'Brier': 0.54759, 'TVD': 0.47942}
+cv5 constant_set_aware: mine {'RPS': 0.11864, 'CE': 1.30797, 'Brier': 0.61594, 'TVD': 0.49203} | committed {'RPS': 0.11864, 'CE': 1.30797, 'Brier': 0.61594, 'TVD': 0.49203}
+fold 0: tasks 10 items 35 old_tasks 5 overlap_with_others 0
+fold 1: tasks 10 items 35 old_tasks 5 overlap_with_others 0
+fold 2: tasks 10 items 35 old_tasks 5 overlap_with_others 0
+fold 3: tasks 10 items 35 old_tasks 5 overlap_with_others 0
+fold 4: tasks 10 items 35 old_tasks 5 overlap_with_others 0
+raw h4_astra: mine {'RPS': 0.10189, 'CE': 1.36979, 'Brier': 0.6464, 'TVD': 0.37281} | committed {'RPS': 0.10189, 'CE': 1.36979, 'Brier': 0.6464, 'TVD': 0.37281}
+raw h4_argon: mine {'RPS': 0.0765, 'CE': 1.00256, 'Brier': 0.50467, 'TVD': 0.33924} | committed {'RPS': 0.0765, 'CE': 1.00256, 'Brier': 0.50467, 'TVD': 0.33924}
+raw h4_opus: mine {'RPS': 0.07854, 'CE': 1.00601, 'Brier': 0.5142, 'TVD': 0.38577} | committed {'RPS': 0.07854, 'CE': 1.00601, 'Brier': 0.5142, 'TVD': 0.38577}
+raw qwen3_4b: mine {'RPS': 0.14817, 'CE': 3.5889, 'Brier': 0.88518, 'TVD': 0.49915} | committed {'RPS': 0.14817, 'CE': 3.5889, 'Brier': 0.88518, 'TVD': 0.49915}
+raw qwen3_8b: mine {'RPS': 0.21451, 'CE': 5.37537, 'Brier': 1.21671, 'TVD': 0.69503} | committed {'RPS': 0.21451, 'CE': 5.37537, 'Brier': 1.21671, 'TVD': 0.69503}
+lora exp27_test ce: mine {'RPS': 0.11826, 'CE': 1.31277, 'Brier': 0.56227, 'TVD': 0.44128} | committed {'RPS': 0.11826, 'CE': 1.31277, 'Brier': 0.56227, 'TVD': 0.44128} | rating-weighted RPS 0.12429
+lora exp27_test rps: mine {'RPS': 0.19137, 'CE': 4.14364, 'Brier': 0.82286, 'TVD': 0.51409} | committed {'RPS': 0.19137, 'CE': 4.14364, 'Brier': 0.82286, 'TVD': 0.51409} | rating-weighted RPS 0.20103
+lora exp27_test pearson: mine {'RPS': 0.18449, 'CE': 4.12597, 'Brier': 0.77577, 'TVD': 0.45865} | committed {'RPS': 0.18449, 'CE': 4.12597, 'Brier': 0.77577, 'TVD': 0.45865} | rating-weighted RPS 0.19423
+lora exp27_test keys n: {'ce': 70, 'rps': 70, 'pearson': 70} | hp: {'ce': {'lr': 0.0004, 'steps': 24, 'val_rps': 0.112297}, 'rps': {'lr': 0.0004, 'steps': 12, 'val_rps': 0.137579}, 'pearson': {'lr': 0.0001, 'steps': 24, 'val_rps': 0.152957}}
+lora cv5_oof ce: mine {'RPS': 0.1131, 'CE': 1.2865, 'Brier': 0.61003, 'TVD': 0.47527} | committed {'RPS': 0.1131, 'CE': 1.2865, 'Brier': 0.61003, 'TVD': 0.47527} | rating-weighted RPS 0.11498
+lora cv5_oof rps: mine {'RPS': 0.13893, 'CE': 2.40923, 'Brier': 0.72594, 'TVD': 0.49108} | committed {'RPS': 0.13893, 'CE': 2.40923, 'Brier': 0.72594, 'TVD': 0.49108} | rating-weighted RPS 0.14163
+lora cv5_oof pearson: mine {'RPS': 0.17278, 'CE': 4.9865, 'Brier': 0.90904, 'TVD': 0.4987} | committed {'RPS': 0.17278, 'CE': 4.9865, 'Brier': 0.90904, 'TVD': 0.4987} | rating-weighted RPS 0.17632
+lora cv5_oof keys n: {'ce': 175, 'rps': 175, 'pearson': 175} | hp: 

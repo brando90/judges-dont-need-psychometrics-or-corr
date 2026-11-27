@@ -1,0 +1,49 @@
+[popquorn_offensiveness|K2] items 1500, K 2
+  popquorn_offensiveness|K2      seed 0: lam_raw {'ce': 0.01, 'pearson': 0.0001, 'mse': 0.1} lam_cal {'ce': 0.1, 'pearson': 1e-05, 'mse': 0.1} | raw gap +0.0278 matched gap +0.0006 mse-ce -0.0000 | 3s
+  popquorn_offensiveness|K2      seed 1: lam_raw {'ce': 0.001, 'pearson': 0.0001, 'mse': 0.01} lam_cal {'ce': 0.0001, 'pearson': 1.0, 'mse': 1e-05} | raw gap +0.0658 matched gap -0.0000 mse-ce -0.0001 | 3s
+  popquorn_offensiveness|K2      seed 2: lam_raw {'ce': 0.0001, 'pearson': 0.0001, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.0001, 'mse': 0.01} | raw gap +0.0776 matched gap +0.0010 mse-ce -0.0002 | 3s
+  popquorn_offensiveness|K2      seed 3: lam_raw {'ce': 0.01, 'pearson': 1.0, 'mse': 0.1} lam_cal {'ce': 1e-05, 'pearson': 0.0001, 'mse': 1e-05} | raw gap +0.1399 matched gap +0.0000 mse-ce -0.0000 | 3s
+  popquorn_offensiveness|K2      seed 4: lam_raw {'ce': 0.01, 'pearson': 1e-05, 'mse': 0.01} lam_cal {'ce': 0.001, 'pearson': 1e-05, 'mse': 0.01} | raw gap +0.1243 matched gap +0.0006 mse-ce -0.0000 | 3s
+[popquorn_offensiveness|K5] items 1500, K 5
+  popquorn_offensiveness|K5      seed 0: lam_raw {'ce': 0.001, 'pearson': 1.0, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 1.0} | raw gap +0.0748 matched gap -0.0001 mse-ce -0.0000 | 8s
+  popquorn_offensiveness|K5      seed 1: lam_raw {'ce': 0.0001, 'pearson': 1.0, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.0001, 'mse': 0.01} | raw gap +0.0822 matched gap -0.0004 mse-ce -0.0001 | 9s
+  popquorn_offensiveness|K5      seed 2: lam_raw {'ce': 0.0001, 'pearson': 0.0001, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.1} | raw gap +0.0859 matched gap +0.0004 mse-ce +0.0001 | 9s
+  popquorn_offensiveness|K5      seed 3: lam_raw {'ce': 0.001, 'pearson': 1.0, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.01, 'mse': 0.01} | raw gap +0.0983 matched gap -0.0001 mse-ce -0.0004 | 8s
+  popquorn_offensiveness|K5      seed 4: lam_raw {'ce': 0.01, 'pearson': 1.0, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 0.1} | raw gap +0.0966 matched gap -0.0003 mse-ce -0.0003 | 8s
+[popquorn_politeness|K3] items 3718, K 3
+  popquorn_politeness|K3         seed 0: lam_raw {'ce': 0.0001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} | raw gap +0.0333 matched gap +0.0020 mse-ce -0.0003 | 9s
+  popquorn_politeness|K3         seed 1: lam_raw {'ce': 0.0001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.001} | raw gap +0.0380 matched gap +0.0033 mse-ce -0.0009 | 9s
+  popquorn_politeness|K3         seed 2: lam_raw {'ce': 0.0001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.001} | raw gap +0.0413 matched gap +0.0009 mse-ce +0.0000 | 8s
+  popquorn_politeness|K3         seed 3: lam_raw {'ce': 0.0001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.001} | raw gap +0.0415 matched gap +0.0011 mse-ce +0.0001 | 8s
+  popquorn_politeness|K3         seed 4: lam_raw {'ce': 0.001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.001} | raw gap +0.0394 matched gap +0.0026 mse-ce -0.0001 | 10s
+[summeval_expert|K2] items 6400, K 2
+  summeval_expert|K2             seed 0: lam_raw {'ce': 0.0001, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 0.1} | raw gap +0.0582 matched gap -0.0005 mse-ce +0.0001 | 7s
+  summeval_expert|K2             seed 1: lam_raw {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} lam_cal {'ce': 0.1, 'pearson': 0.001, 'mse': 1.0} | raw gap +0.0475 matched gap -0.0005 mse-ce +0.0000 | 8s
+  summeval_expert|K2             seed 2: lam_raw {'ce': 1e-05, 'pearson': 1.0, 'mse': 1e-05} lam_cal {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} | raw gap +0.0601 matched gap -0.0013 mse-ce -0.0002 | 7s
+  summeval_expert|K2             seed 3: lam_raw {'ce': 1e-05, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.0001, 'mse': 0.01} | raw gap +0.0505 matched gap -0.0036 mse-ce -0.0003 | 8s
+  summeval_expert|K2             seed 4: lam_raw {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} lam_cal {'ce': 1e-05, 'pearson': 1e-05, 'mse': 1e-05} | raw gap +0.0294 matched gap -0.0006 mse-ce +0.0001 | 7s
+[summeval_expert|K5] items 6400, K 5
+  summeval_expert|K5             seed 0: lam_raw {'ce': 1e-05, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 0.01} | raw gap +0.1126 matched gap +0.0007 mse-ce +0.0015 | 32s
+  summeval_expert|K5             seed 1: lam_raw {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} lam_cal {'ce': 1.0, 'pearson': 0.001, 'mse': 0.01} | raw gap +0.0922 matched gap +0.0002 mse-ce +0.0002 | 34s
+  summeval_expert|K5             seed 2: lam_raw {'ce': 1e-05, 'pearson': 0.0001, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 1e-05} | raw gap +0.1169 matched gap +0.0008 mse-ce +0.0012 | 44s
+  summeval_expert|K5             seed 3: lam_raw {'ce': 1e-05, 'pearson': 0.01, 'mse': 1e-05} lam_cal {'ce': 0.01, 'pearson': 0.0001, 'mse': 0.01} | raw gap +0.1063 matched gap -0.0026 mse-ce -0.0004 | 32s
+  summeval_expert|K5             seed 4: lam_raw {'ce': 1e-05, 'pearson': 0.001, 'mse': 1e-05} lam_cal {'ce': 0.001, 'pearson': 1e-05, 'mse': 1e-05} | raw gap +0.0761 matched gap -0.0011 mse-ce -0.0003 | 34s
+[summeval_crowd|K3] items 6400, K 3
+  summeval_crowd|K3              seed 0: lam_raw {'ce': 1.0, 'pearson': 1.0, 'mse': 1.0} lam_cal {'ce': 0.01, 'pearson': 1.0, 'mse': 0.01} | raw gap +0.0941 matched gap +0.0000 mse-ce +0.0001 | 15s
+  summeval_crowd|K3              seed 1: lam_raw {'ce': 0.01, 'pearson': 0.0001, 'mse': 0.1} lam_cal {'ce': 1.0, 'pearson': 0.0001, 'mse': 1.0} | raw gap +0.0536 matched gap -0.0003 mse-ce -0.0000 | 15s
+  summeval_crowd|K3              seed 2: lam_raw {'ce': 0.1, 'pearson': 0.1, 'mse': 1.0} lam_cal {'ce': 1e-05, 'pearson': 0.0001, 'mse': 0.01} | raw gap +0.0989 matched gap +0.0001 mse-ce +0.0000 | 15s
+  summeval_crowd|K3              seed 3: lam_raw {'ce': 0.01, 'pearson': 1.0, 'mse': 0.1} lam_cal {'ce': 1e-05, 'pearson': 1.0, 'mse': 1e-05} | raw gap +0.0952 matched gap +0.0002 mse-ce +0.0000 | 14s
+  summeval_crowd|K3              seed 4: lam_raw {'ce': 1.0, 'pearson': 0.0001, 'mse': 1.0} lam_cal {'ce': 1e-05, 'pearson': 0.0001, 'mse': 1e-05} | raw gap +0.0523 matched gap +0.0001 mse-ce -0.0000 | 15s
+[dices990|K2] items 990, K 2
+  dices990|K2                    seed 0: lam_raw {'ce': 0.001, 'pearson': 0.1, 'mse': 0.01} lam_cal {'ce': 0.01, 'pearson': 0.001, 'mse': 0.01} | raw gap +0.0661 matched gap -0.0002 mse-ce -0.0008 | 7s
+  dices990|K2                    seed 1: lam_raw {'ce': 0.001, 'pearson': 0.1, 'mse': 0.01} lam_cal {'ce': 0.01, 'pearson': 0.01, 'mse': 0.1} | raw gap +0.0758 matched gap +0.0005 mse-ce +0.0002 | 7s
+  dices990|K2                    seed 2: lam_raw {'ce': 0.001, 'pearson': 0.1, 'mse': 0.001} lam_cal {'ce': 0.001, 'pearson': 0.01, 'mse': 0.001} | raw gap +0.0662 matched gap +0.0009 mse-ce +0.0001 | 7s
+  dices990|K2                    seed 3: lam_raw {'ce': 0.0001, 'pearson': 0.1, 'mse': 0.001} lam_cal {'ce': 0.001, 'pearson': 0.001, 'mse': 0.0001} | raw gap +0.0680 matched gap +0.0009 mse-ce -0.0006 | 7s
+  dices990|K2                    seed 4: lam_raw {'ce': 1e-05, 'pearson': 0.1, 'mse': 1e-05} lam_cal {'ce': 1e-05, 'pearson': 0.0001, 'mse': 1e-05} | raw gap +0.0563 matched gap +0.0005 mse-ce -0.0002 | 7s
+[chaosnli_snli_mnli|K3] items 3113, K 3
+  chaosnli_snli_mnli|K3          seed 0: lam_raw {'ce': 0.001, 'pearson': 1.0, 'mse': 0.01} lam_cal {'ce': 0.01, 'pearson': 1.0, 'mse': 1.0} | raw gap +0.0534 matched gap -0.0002 mse-ce -0.0002 | 33s
+  chaosnli_snli_mnli|K3          seed 1: lam_raw {'ce': 0.001, 'pearson': 1.0, 'mse': 0.01} lam_cal {'ce': 0.1, 'pearson': 0.01, 'mse': 0.1} | raw gap +0.0584 matched gap +0.0000 mse-ce -0.0001 | 34s
+  chaosnli_snli_mnli|K3          seed 2: lam_raw {'ce': 0.01, 'pearson': 1.0, 'mse': 0.1} lam_cal {'ce': 0.1, 'pearson': 1e-05, 'mse': 1.0} | raw gap +0.0537 matched gap +0.0017 mse-ce +0.0001 | 32s
+  chaosnli_snli_mnli|K3          seed 3: lam_raw {'ce': 0.01, 'pearson': 0.1, 'mse': 0.1} lam_cal {'ce': 0.001, 'pearson': 1.0, 'mse': 0.01} | raw gap +0.0568 matched gap -0.0001 mse-ce -0.0000 | 34s
+  chaosnli_snli_mnli|K3          seed 4: lam_raw {'ce': 0.001, 'pearson': 0.01, 'mse': 0.01} lam_cal {'ce': 0.01, 'pearson': 1.0, 'mse': 0.1} | raw gap +0.0603 matched gap +0.0001 mse-ce +0.0000 | 33s
+wrote /home/claude/judges-dont-need-psychometrics-or-corr/experiments/40_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/results/k_sweep_l2_sensitivity_shard0of2.json in 589s

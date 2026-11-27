@@ -1,0 +1,20 @@
+
+=== cv5 OOF LoRA, cross-fold map (diagnostic): n=175 tasks=50 ===
+  ce       raw RPS=0.1131 CE=1.286 Bias=+0.017 r=0.669 | recal RPS=0.1156 CE=1.272 Bias=-0.136
+  rps      raw RPS=0.1389 CE=2.409 Bias=+0.247 r=0.571 | recal RPS=0.1424 CE=1.429 Bias=-0.241
+  pearson  raw RPS=0.1728 CE=4.986 Bias=+0.661 r=0.551 | recal RPS=0.1316 CE=1.404 Bias=-0.196
+  [raw] CE-trained minus Pearson-trained LoRA, test RPS: -0.0597 [-0.0920,-0.0307] p=0.0002
+  [recal] CE-trained minus Pearson-trained LoRA, test RPS: -0.0160 [-0.0331,+0.0009] p=0.0664
+  [raw] RPS-trained minus Pearson-trained LoRA, test RPS: -0.0338 [-0.0572,-0.0115] p=0.0026
+  [recal] RPS-trained minus Pearson-trained LoRA, test RPS: +0.0108 [-0.0100,+0.0340] p=0.3260
+
+=== exp27 test LoRA, leave-one-test-task-out map (uses test labels; diagnostic): n=70 tasks=20 ===
+  ce       raw RPS=0.1183 CE=1.313 Bias=+0.362 r=0.749 | recal RPS=0.1079 CE=1.174 Bias=-0.059
+  rps      raw RPS=0.1914 CE=4.144 Bias=+0.796 r=0.722 | recal RPS=0.1101 CE=1.198 Bias=-0.064
+  pearson  raw RPS=0.1845 CE=4.126 Bias=+0.874 r=0.723 | recal RPS=0.1146 CE=1.213 Bias=-0.061
+  [raw] CE-trained minus Pearson-trained LoRA, test RPS: -0.0662 [-0.1152,-0.0257] p=0.0002
+  [recal] CE-trained minus Pearson-trained LoRA, test RPS: -0.0068 [-0.0218,+0.0059] p=0.3314
+  [raw] RPS-trained minus Pearson-trained LoRA, test RPS: +0.0069 [-0.0048,+0.0188] p=0.2524
+  [recal] RPS-trained minus Pearson-trained LoRA, test RPS: -0.0046 [-0.0182,+0.0064] p=0.4798
+
+set-aware constant test RPS (committed): exp27

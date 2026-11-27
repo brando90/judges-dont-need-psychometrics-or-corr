@@ -1,0 +1,42 @@
+patterns built: 34 rater ids, 36 full names, 34 first names, 30 surnames, 12 emails; roster columns=11, roster rows=11
+id lengths (min,max): (2, 3)
+
+== scan of every file in the committed experiment 40 folder (counts) ==
+README.md: {'full': 1, 'first': 0, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+REPORT.md: {'full': 1, 'first': 0, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+gstudy.py: {'full': 1, 'first': 16, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+provenance/ttj_efdc8c3/RESULTS_11-26-2026.md: {'full': 0, 'first': 16, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+run_all.py: {'full': 2, 'first': 7, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+tables/paper_master_results.md: {'full': 0, 'first': 4, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+tests/test_gstudy.py: {'full': 0, 'first': 3, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+TOTAL: {'full': 5, 'first': 46, 'surname': 0, 'id_token': 0, 'email_roster': 0, 'email_any': 0}
+
+== structure of the bridged rating CSVs ==
+human_ratings_new_11-26-2026.csv: comment lines=0, data rows=100, columns=8
+  header: ['item', 'task', 'set', 'exp27_split', 'cv5_fold', 'n_ratings', 'ratings_sorted_0to5_rater_identity_removed', 'freeze']
+  col 'item': distinct=100, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'task': distinct=25, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'set': distinct=1, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'exp27_split': distinct=3, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'cv5_fold': distinct=5, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'n_ratings': distinct=3, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'ratings_sorted_0to5_rater_identity_removed': distinct=16, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'freeze': distinct=1, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  exp27_split counts: {'test': 40, 'train': 40, 'val': 20}
+  tasks=25, tasks in >1 split=0
+human_ratings_old_11-26-2026.csv: comment lines=0, data rows=75, columns=8
+  header: ['item', 'task', 'set', 'exp27_split', 'cv5_fold', 'n_ratings', 'ratings_sorted_0to5_rater_identity_removed', 'freeze']
+  col 'item': distinct=75, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'task': distinct=25, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'set': distinct=1, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'exp27_split': distinct=3, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'cv5_fold': distinct=5, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'n_ratings': distinct=2, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'ratings_sorted_0to5_rater_identity_removed': distinct=27, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  col 'freeze': distinct=1, cells==rater_id: 0, id tokens: 0, full-name hits: 0, first-name hits: 0
+  scores per row: min=2, max=3; rows already ascending-sorted: 75/75
+
+== JSON files bridged: key names only, scanned for identity tokens ==
+qwen3_4b_logit_6144.json: list of 175 rows; keys=['argmax_digit', 'argmax_is_digit', 'compacted', 'digit_logits', 'expected_score', 'item', 'n_tokens', 'probs']
+qwen3_8b_logit_6144.json: list of 175 rows; keys=['argmax_digit', 'argmax_is_digit', 'compacted', 'digit_logits', 'expected_score', 'item', 'n_tokens', 'probs']
+qwen3_4b_lora_ce_rps_pearson.json: dict keys=['ce', 'pearson', 'rps']; sub-keys of first=['cv5_fold_hps', 'cv5_oof_preds', 'exp27_selected_hp', 'exp27_test_preds']

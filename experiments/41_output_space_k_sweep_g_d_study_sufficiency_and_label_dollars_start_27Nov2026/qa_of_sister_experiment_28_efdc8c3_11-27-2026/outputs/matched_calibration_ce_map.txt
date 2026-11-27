@@ -1,0 +1,36 @@
+
+=== exp27_test C7 head (train+val 30 tasks -> test 20 tasks): n_items=70 n_tasks=20  (map objective=ce) ===
+  ce       raw: RPS=0.0665 CE=0.8776 TVD=0.3257 Bias=+0.175 r=0.931 | recal: RPS=0.0667 CE=0.8812 TVD=0.3373 Bias=+0.133 r=0.930
+  rps      raw: RPS=0.0730 CE=0.9563 TVD=0.3650 Bias=+0.138 r=0.914 | recal: RPS=0.0705 CE=0.9189 TVD=0.3406 Bias=+0.204 r=0.925
+  pearson  raw: RPS=0.0810 CE=1.0603 TVD=0.3502 Bias=+0.324 r=0.904 | recal: RPS=0.0770 CE=0.9928 TVD=0.3619 Bias=+0.249 r=0.919
+  [raw] CE-trained minus Pearson-trained: dRPS=-0.0144 [-0.0258,-0.0056] p=0.0004 | dCE=-0.1826 [-0.2986,-0.0788] p=0.0000 | dTVD=-0.0245 p=0.1564
+  [recal] CE-trained minus Pearson-trained: dRPS=-0.0104 [-0.0192,-0.0034] p=0.0006 | dCE=-0.1116 [-0.2007,-0.0389] p=0.0002 | dTVD=-0.0246 p=0.0716
+  [raw] RPS-trained minus Pearson-trained: dRPS=-0.0079 [-0.0202,+0.0020] p=0.1324 | dCE=-0.1040 [-0.2407,+0.0120] p=0.0824 | dTVD=+0.0148 p=0.5396
+  [recal] RPS-trained minus Pearson-trained: dRPS=-0.0065 [-0.0170,+0.0022] p=0.1648 | dCE=-0.0739 [-0.1747,+0.0078] p=0.0826 | dTVD=-0.0213 p=0.0770
+  check exp27 raw ce: committed RPS=0.0665
+  check exp27 raw rps: committed RPS=0.0730
+  check exp27 raw pearson: committed RPS=0.0810
+
+=== cv5 C7 head (outer 5-fold, 50 tasks): n_items=175 n_tasks=50  (map objective=ce) ===
+  ce       raw: RPS=0.0683 CE=0.9120 TVD=0.3255 Bias=+0.005 r=0.893 | recal: RPS=0.0679 CE=0.9170 TVD=0.3282 Bias=-0.019 r=0.893
+  rps      raw: RPS=0.0703 CE=0.9537 TVD=0.3476 Bias=-0.023 r=0.889 | recal: RPS=0.0691 CE=0.9389 TVD=0.3389 Bias=-0.048 r=0.892
+  pearson  raw: RPS=0.0734 CE=1.0056 TVD=0.3571 Bias=+0.027 r=0.882 | recal: RPS=0.0709 CE=0.9716 TVD=0.3517 Bias=+0.015 r=0.887
+  [raw] CE-trained minus Pearson-trained: dRPS=-0.0051 [-0.0111,+0.0006] p=0.0788 | dCE=-0.0936 [-0.1688,-0.0292] p=0.0014 | dTVD=-0.0316 p=0.0096
+  [recal] CE-trained minus Pearson-trained: dRPS=-0.0030 [-0.0077,+0.0017] p=0.2096 | dCE=-0.0546 [-0.1009,-0.0155] p=0.0038 | dTVD=-0.0234 p=0.0054
+  [raw] RPS-trained minus Pearson-trained: dRPS=-0.0031 [-0.0090,+0.0024] p=0.2730 | dCE=-0.0519 [-0.1292,+0.0165] p=0.1420 | dTVD=-0.0096 p=0.4930
+  [recal] RPS-trained minus Pearson-trained: dRPS=-0.0018 [-0.0064,+0.0025] p=0.4292 | dCE=-0.0326 [-0.0826,+0.0148] p=0.1810 | dTVD=-0.0128 p=0.1792
+  check cv5 C7 head raw ce: committed RPS=0.0683
+  check cv5 C7 head raw rps: committed RPS=0.0703
+  check cv5 C7 head raw pearson: committed RPS=0.0734
+
+=== cv5 G9 head (outer 5-fold, 50 tasks): n_items=175 n_tasks=50  (map objective=ce) ===
+  ce       raw: RPS=0.0715 CE=0.9247 TVD=0.3363 Bias=+0.006 r=0.871 | recal: RPS=0.0725 CE=0.9365 TVD=0.3329 Bias=+0.005 r=0.863
+  rps      raw: RPS=0.0730 CE=0.9674 TVD=0.3440 Bias=+0.005 r=0.871 | recal: RPS=0.0721 CE=0.9577 TVD=0.3325 Bias=-0.000 r=0.870
+  pearson  raw: RPS=0.0782 CE=1.0517 TVD=0.3521 Bias=+0.109 r=0.869 | recal: RPS=0.0675 CE=0.9171 TVD=0.3259 Bias=+0.002 r=0.890
+  [raw] CE-trained minus Pearson-trained: dRPS=-0.0068 [-0.0152,+0.0009] p=0.0860 | dCE=-0.1271 [-0.2258,-0.0395] p=0.0046 | dTVD=-0.0158 p=0.2170
+  [recal] CE-trained minus Pearson-trained: dRPS=+0.0050 [-0.0000,+0.0117] p=0.0502 | dCE=+0.0194 [-0.0108,+0.0523] p=0.2156 | dTVD=+0.0071 p=0.1950
+  [raw] RPS-trained minus Pearson-trained: dRPS=-0.0053 [-0.0139,+0.0038] p=0.2262 | dCE=-0.0843 [-0.1801,+0.0170] p=0.0954 | dTVD=-0.0081 p=0.5032
+  [recal] RPS-trained minus Pearson-trained: dRPS=+0.0046 [-0.0017,+0.0126] p=0.1824 | dCE=+0.0406 [-0.0137,+0.1152] p=0.1910 | dTVD=+0.0066 p=0.3208
+  check cv5 G9 head raw ce: committed RPS=0.0715
+  check cv5 G9 head raw rps: committed RPS=0.0730
+  check cv5 G9 head raw pearson: committed RPS=0.0782

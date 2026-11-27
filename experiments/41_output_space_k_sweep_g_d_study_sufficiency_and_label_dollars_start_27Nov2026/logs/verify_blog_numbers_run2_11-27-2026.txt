@@ -1,0 +1,30 @@
+PASS [B1] eleven one-rating-per-item panels (5 Exp 28 sets + 6 Exp 29 LoRA panels) found 11
+PASS [B2] post: '9 of 11' (CE-trained curve 'fits') count 9
+PASS [B3] post: '1 of 11' (Pearson-trained curve 'fits') count 1
+PASS [B4] caveat: three of the nine CE 'fits' are four-point, one-degree-of-freedom fits labeled indicative ['29_alpha2_qwen_d1', '29_dices3_llama_d1', '29_dices3_qwen_d1']
+PASS [B5] caveat: counting only fits with more than four budgets gives 6 of 11 for the CE-trained curve count 6
+PASS [B6] caveat: three of the Exp 28 CE fits have no identified floor ['28_chaosnli_alphanli_d1', '28_chaosnli_snli_d1', '28_dices350_d1']
+PASS [B7] caveat: the one Pearson 'fit' has exponent b <= 0.2 (a near-flat curve) ['29_chaos3_qwen_d1']
+PASS [B7b] caveat: in 11 of 11 panels the Pearson-trained curve is flat, non-monotone, poorly fit or a b <= 0.2 fit count 11
+PASS [B8] post: median exponent 0.66 on RPS (Exp 28 judge-by-set cells, 1 rating per item, floor identified) 0.6606 over 8 of 25 cells
+PASS [B9] post: median exponent 0.82 on CE (same cells) 0.8230 over 20 of 25 cells
+PASS [B9b] caveat: the memo states the denominators the post omits: 8 of 25 cells (RPS) and 20 of 25 (CE) {'rps': (8, 25), 'ce': (20, 25), 'tvd': (10, 25)}
+PASS [B10] Exp 31's own text: median exponent 0.59 on TVD (not quoted in the post) 0.5873 over 10 of 25 cells
+PASS [B11] post: largest budgets from a few hundred to about two thousand ratings N_max values [256, 1024, 2048]
+PASS [B12] Exp 28 README: 'after 4 to 8 ratings (one per item)' (the post's 4-to-8 claim) 
+PASS [B13] caveat in the same Exp 28 sentence: Pearson-then-calibration beats CE-fit on DICES from 64 ratings 
+PASS [B13b] caveat: the 11 panels are 5 frozen-frontier-judge panels (mean of five judges) plus 6 LoRA panels (4 Qwen3-4B, 2 Llama-3.1-8B), and HelpSteer2 is among them exp28=5 exp29=6 qwen=4 llama=2
+PASS [B14] caveat on A.1: for a SAMPLED judge draw, E[(X-Y)^2] = Brier(q) + q(1-q), not the Brier score (exact, 81 rational (q,p) pairs) 
+PASS [B14b] caveat on A.1: q = p = 1/2 gives sampled-draw squared error 1/2 versus Brier 1/4 
+PASS [B15] caveat on A.1: with the sum-over-classes Brier the appendix defines, binary Brier is twice the scalar squared error (exact) 
+PASS [B16] post A.4: E over resampling of the plug-in distance exceeds the true distance by (1/k)(1 - ||p*||^2) (exact, k = 1..5); the post omits 'in expectation' 
+PASS [B17] post A.2 on an exact instance: Corr(X_p*, Y) = rho = Var(mu)/Var(Y) in (0,1) rho = 38/113
+PASS [B17b] post A.2 on the same instance: Corr(X_collapsed, Y)^2 = rho, so sqrt(rho) > rho rho = 38/113, rho^2 = 1444/12769
+PASS [B17c] post A.2 arithmetic: sqrt(0.5) = 0.7071 (rounded) 
+PASS [B18.0] post A.1 identities on a random joint: MSE decomposition, standardized L2 = 2(1 - Corr), positive-affine invariance (tolerance 1e-10) 
+PASS [B18.1] post A.1 identities on a random joint: MSE decomposition, standardized L2 = 2(1 - Corr), positive-affine invariance (tolerance 1e-10) 
+PASS [B18.2] post A.1 identities on a random joint: MSE decomposition, standardized L2 = 2(1 - Corr), positive-affine invariance (tolerance 1e-10) 
+PASS [B18.3] post A.1 identities on a random joint: MSE decomposition, standardized L2 = 2(1 - Corr), positive-affine invariance (tolerance 1e-10) 
+PASS [B18.4] post A.1 identities on a random joint: MSE decomposition, standardized L2 = 2(1 - Corr), positive-affine invariance (tolerance 1e-10) 
+
+ALL PASS

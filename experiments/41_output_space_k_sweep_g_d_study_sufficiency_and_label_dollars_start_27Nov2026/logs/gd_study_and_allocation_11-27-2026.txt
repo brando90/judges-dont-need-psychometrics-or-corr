@@ -1,0 +1,8 @@
+[popquorn_offensiveness] done in 19s  ICC1 0.287  k* 10  cap 8
+[popquorn_politeness] done in 44s  ICC1 0.439  k* 6  cap 6
+[summeval_expert] done in 69s  ICC1 0.719  k* 2  cap 3
+[summeval_crowd] done in 86s  ICC1 0.492  k* 5  cap 5
+[dices990] done in 22s  ICC1 0.201  k* 16  cap 65
+[chaosnli_snli_mnli] done in 58s  ICC1 0.485  k* 5  cap 100
+[chaosnli_alpha] done in 30s  ICC1 0.648  k* 3  cap 100
+wrote /home/claude/judges-dont-need-psychometrics-or-corr/experiments/40_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/results/gd_study_and_allocation.json

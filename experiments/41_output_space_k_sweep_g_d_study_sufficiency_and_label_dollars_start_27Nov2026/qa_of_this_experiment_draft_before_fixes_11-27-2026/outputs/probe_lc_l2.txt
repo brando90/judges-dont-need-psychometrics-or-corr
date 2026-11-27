@@ -1,0 +1,7 @@
+constant 0.1775
+L2 0.01 maxiter 35 N 128: test nRPS 0.1738
+L2 0.01 maxiter 35 N 512: test nRPS 0.1718
+L2 0.01 maxiter 35 N 2230: test nRPS 0.1716
+L2 0.0001 maxiter 300 N 128: test nRPS 0.1854
+L2 0.0001 maxiter 300 N 512: test nRPS 0.1680
+L2 0.0001 maxiter 300 N 2230: test nRPS 0.1637

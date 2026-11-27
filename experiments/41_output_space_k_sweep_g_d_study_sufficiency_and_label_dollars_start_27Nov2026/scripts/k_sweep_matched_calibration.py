@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Real-data K-sweep with matched calibration and human-entropy strata (Experiment 40).
+"""Real-data K-sweep with matched calibration and human-entropy strata (Experiment 41).
 
 Question: on real multi-annotator ratings, does the output-space size K change how a Pearson-trained head compares with a
 cross-entropy-trained head, once both pass through the SAME validation-fitted calibration map?
