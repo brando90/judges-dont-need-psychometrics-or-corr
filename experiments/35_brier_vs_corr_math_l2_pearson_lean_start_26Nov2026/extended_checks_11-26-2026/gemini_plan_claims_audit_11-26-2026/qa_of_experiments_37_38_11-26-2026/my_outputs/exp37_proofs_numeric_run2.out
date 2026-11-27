@@ -1,0 +1,8 @@
+PASS random_total_covariance_and_variance
+PASS quadratic_cov_zero_and_false_claim_fails
+PASS shift_deletes_mean_and_scale_keeps_sqcorr
+PASS cca_witness_sqcorr_and_proper_scores
+PASS cca_affine_sign_perm_mix_invariance
+PASS onehot_cca_sees_pmf_and_ignores_label_perm
+PASS nonlinear_shapes_and_collapse_raises_corr
+FALSE-CLAIM checked: 'Y = X^2 on {-1,0,1} has nonzero covariance' does not hold

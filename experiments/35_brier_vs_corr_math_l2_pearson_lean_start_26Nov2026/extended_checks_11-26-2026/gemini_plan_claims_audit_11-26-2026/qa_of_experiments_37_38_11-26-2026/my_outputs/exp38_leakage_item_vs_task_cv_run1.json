@@ -1,0 +1,22 @@
+{
+ "item": {
+  "head_CE_mean": 0.9793749098386704,
+  "constant_CE_mean": 0.9824525323686046,
+  "head_minus_constant_mean": -0.0030776225299341525,
+  "sd_over_repeats": 0.1642146199167067,
+  "item_bootstrap_95": [
+   -0.1607684513886623,
+   0.22810004119380894
+  ]
+ },
+ "task": {
+  "head_CE_mean": 1.045649971319745,
+  "constant_CE_mean": 1.0210135990494875,
+  "head_minus_constant_mean": 0.024636372270257348,
+  "sd_over_repeats": 0.13179945797478337,
+  "item_bootstrap_95": [
+   -0.08728488443198698,
+   0.19590591356509826
+  ]
+ }
+}

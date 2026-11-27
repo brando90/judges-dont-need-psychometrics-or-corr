@@ -1,0 +1,20 @@
+dataset summeval_expert items=6400
+  fit summeval_expert
+  done summeval_expert test CE 1.2442
+dataset summeval_crowd items=6400
+  fit summeval_crowd
+  done summeval_crowd test CE 1.3098
+dataset chaosnli_snli_mnli items=3113
+  fit chaosnli_snli_mnli
+  done chaosnli_snli_mnli test CE 1.0516
+dataset chaosnli_alpha items=1532
+  fit chaosnli_alpha
+  done chaosnli_alpha test CE 0.6961
+dataset dices990 items=990
+  fit dices990
+  done dices990 test CE 0.7426
+dataset veribench_fsc_exp09 items=106
+  fit veribench_fsc_exp09
+  done veribench_fsc_exp09 test CE 1.1245
+multi-aspect CCA
+wrote tables and results.json

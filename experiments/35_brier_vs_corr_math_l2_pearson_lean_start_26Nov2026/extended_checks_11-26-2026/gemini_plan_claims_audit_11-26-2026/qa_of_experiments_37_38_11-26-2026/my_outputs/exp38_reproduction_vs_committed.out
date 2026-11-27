@@ -1,0 +1,14 @@
+numeric leaves compared: 1945 | differing at all: 492 | differing after rounding to 4 decimals: 28
+maximum absolute difference: 6.859e-03
+string/structural differences: 0 []
+metric names among 4-decimal changes: {'rbf_gamma_frozen_on_identity_logits': 4, 'cca_sq': 24}
+  mean: 112 leaves differ, max abs difference 2.058e-07
+  lo: 112 leaves differ, max abs difference 2.238e-07
+  hi: 112 leaves differ, max abs difference 2.338e-07
+  linear_cka: 24 leaves differ, max abs difference 1.576e-07
+  normalized_opd: 24 leaves differ, max abs difference 5.364e-07
+  pearson_expected_rating: 24 leaves differ, max abs difference 7.692e-06
+  rbf_cka: 24 leaves differ, max abs difference 1.250e-07
+  cca_sq: 24 leaves differ, max abs difference 6.859e-03
+  validation_ce: 4 leaves differ, max abs difference 6.312e-08
+  fun: 4 leaves differ, max abs difference 7.907e-12

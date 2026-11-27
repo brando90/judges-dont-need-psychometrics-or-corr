@@ -1,0 +1,84 @@
+'mul_assoc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ckaSq_right_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gram_self_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+/tmp/ds_run/e38_all_axioms.lean:563:34: warning: Variable name `h1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/tmp/ds_run/e38_all_axioms.lean:584:36: warning: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/tmp/ds_run/e38_all_axioms.lean:584:49: warning: Variable name `hsq` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hsq
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/tmp/ds_run/e38_all_axioms.lean:652:16: warning: Variable name `q2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _q2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'linearCKA1d_eq_sqPearson' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sqPearson_scale_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ckaSq_shift_scale_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'perm_orth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reversal_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reversal_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transposition_brier_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transposition_rps_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'local_score_worsens' depends on axioms: [propext, Quot.sound]
+'collapse_cka_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_pointmass_brier' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_pointmass_rps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'opdSq_anti' depends on axioms: [propext, Classical.choice, Quot.sound]
+'corr_lt_of_sq_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'instance_perfect_correlation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_mul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_swap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_mul_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_swap3_jkl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reorder_ijkl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_delta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_kron_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'frobSq_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'frobSq_transpose' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transpose_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'frobSq_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'frobSq_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_const' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gramFrob_smul_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'natCast_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'center_kills_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'center_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'center_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sumF_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_cols' depends on axioms: [propext, Classical.choice, Quot.sound]
+'negI_rows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gram_after_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gram_after_right_on_Y' depends on axioms: [propext, Classical.choice, Quot.sound]
+'gram_both_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+'center_full' depends on axioms: [propext, Classical.choice, Quot.sound]
+'center1_affine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'sq_mono_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'opdSq_of_cka' depends on axioms: [propext, Classical.choice, Quot.sound]
+'perm_rows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'perm_cols' depends on axioms: [propext, Classical.choice, Quot.sound]
+'reversal_true_class_prob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'transposition_true_class_prob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_cka_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'collapse_pointmass_ce_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'instance_sign_shift_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit=0

@@ -1,0 +1,26 @@
+FACT  old: items 75 | tasks 25 | ratings 195
+FACT  old: items by number of ratings {2: 30, 3: 45}
+FACT  old: rating value counts {0: 17, 1: 33, 2: 49, 3: 39, 4: 35, 5: 22} | share of fives 0.113
+FACT  old: items by exp27_split {'test': 30, 'train': 30, 'val': 15} | tasks by exp27_split {'test': 10, 'train': 10, 'val': 5}
+FACT  old: items by cv5_fold {'0': 15, '1': 15, '2': 15, '3': 15, '4': 15}
+PASS  old: n_ratings column equals the number of listed ratings
+PASS  old: all ratings are integers 0..5
+PASS  old: a task never crosses an exp27_split
+FACT  new: items 100 | tasks 25 | ratings 250
+FACT  new: items by number of ratings {2: 52, 3: 46, 4: 2}
+FACT  new: rating value counts {1: 7, 2: 1, 3: 15, 4: 42, 5: 185} | share of fives 0.740
+FACT  new: items by exp27_split {'test': 40, 'train': 40, 'val': 20} | tasks by exp27_split {'test': 10, 'train': 10, 'val': 5}
+FACT  new: items by cv5_fold {'0': 20, '1': 20, '2': 20, '3': 20, '4': 20}
+PASS  new: n_ratings column equals the number of listed ratings
+PASS  new: all ratings are integers 0..5
+PASS  new: a task never crosses an exp27_split
+FACT  pooled: items 175 | tasks 50 | ratings 445
+PASS  pooled counts are 175 items, 50 tasks, 445 ratings
+PASS  old and new share no task
+PASS  old and new share no item
+PASS  cv5_fold is constant within a task
+FACT  sealed 11-24 task_splits columns: ['task', 'set', 'split', 'how_assigned']
+FACT  tasks present in both the 11-24 sealed split and the 11-26 file: 50 of 50; same split in both: 50
+PASS  every 11-26 task appears in the sealed 11-24 split with the same split
+
+RESULT: ALL FSC COUNT CHECKS PASS

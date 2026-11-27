@@ -1,0 +1,3 @@
+example text: 'premise: Two young children in blue jerseys, one with the number 9 and one with the number 2 are standing on wooden steps in a bathroom and washing their hands in a sink. hypothesis: Two kids at a ballgame wash their hands.'
+n_train 1867 n_val 622 n_test 624
+test items whose premise also occurs in a train item: 123 of 624

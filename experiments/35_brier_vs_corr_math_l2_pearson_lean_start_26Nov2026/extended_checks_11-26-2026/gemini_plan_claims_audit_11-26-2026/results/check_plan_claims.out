@@ -1,0 +1,77 @@
+check_plan_claims.py  seed = 20261126  float tolerance = 1e-12
+
+== N1  per-sample test risk  R_hat = (1/m) sum_c (1/k_c) sum_j L(q(c), y_cj)  is unbiased
+PASS  N1a  E[R_hat] = true risk, Brier, exactly (k_c in 1..3, per-prompt laws, mixed iid/dependent ratings)  -- 240 instances, 130 with some k_c = 1
+PASS  N1b  E[R_hat] = true risk, RPS, exactly  -- same instances
+PASS  N1c  E[R_hat] = true risk for an ARBITRARY (non-proper) loss table, exactly (properness is not needed for unbiasedness)  -- same instances
+PASS  N1d  E[R_hat] identical for iid and dependent ratings with the same marginals (independence is not needed)
+PASS  N1e  E[R_hat] = true risk, cross-entropy (float, tolerance 1e-10)  -- max abs error 2e-16
+PASS  N1f  variance of R_hat depends on the dependence between ratings even though the mean does not (iid var < identical-copies var)  -- mean 5/8 both; var iid 1/8 < var copies 1/4
+PASS  N1g  [claimed-false case] two raters, two more only if they disagree: E[item mean] = 129/500 != theta = 3/10 (adaptive k_c biases the estimator)  -- E = 129/500 = 0.258 vs theta = 0.300
+PASS  N1h  [claimed-false case] 'second rater only if the first rated 1' gives bias theta(1-theta)(L0-L1)/2, nonzero whenever L0 != L1  -- 60 random (theta, q)
+PASS  N1i  k_c drawn at random INDEPENDENTLY of the ratings keeps E[R_hat] = true risk  -- 40 random (p, q)
+
+== N2  plug-in D_B(p_hat || q) bias = (1/k)(1 - ||p||^2);  exact ERM rate E||p_hat_N - p||^2 = (1/N)(1 - ||p||^2)
+PASS  N2a  E||p_hat_k - q||^2 = ||p - q||^2 + (1-||p||^2)/k exactly (multinomial enumeration)  -- 70 random (K, k, p, q), K<=4, k<=6
+PASS  N2b  E||p_hat_N - p||^2 = (1 - ||p||^2)/N exactly  -- same instances
+PASS  N2c  [claimed-false case] plug-in D_B is NOT unbiased: bias > 0 whenever p is not a point mass
+PASS  N2d  bias is exactly 0 when p is a point mass (then 1 - ||p||^2 = 0)
+PASS  N2e  with k_c varying across prompts the bias is the average of (1-||p_c||^2)/k_c  -- bias 13/80
+PASS  N2f  ERM rate for N in {10,100,1e3,1e4,1e5} (binary, float, summing the binomial pmf; relative tolerance 1e-9)  -- worst relative error 1e-10
+
+== N3  law of total variance; Corr(X_p*, Y) = Var(mu)/Var(Y) in (0,1); collapsed X_delta has Corr = sqrt of it
+PASS  N3a  Var(Y) = E[Var(Y|C)] + Var(mu_Y(C)) (finite joint law, exact)  -- 150 random models
+PASS  N3b  X ~ p*(.|c) independent of Y given c:  Cov(X,Y) = Var(mu_Y(C))  and  Var(X) = Var(Y)
+PASS  N3c  Corr(X_p*, Y) = Var(mu)/Var(Y) strictly inside (0,1) when E[Var(Y|C)] > 0 and Var(mu) > 0  -- 149 models with both variances > 0
+PASS  N3d  collapsed X_delta = a mu(C) + b (a > 0):  Corr(X_delta,Y)^2 = Corr(X_p*,Y), Corr > 0  =>  Corr(X_delta,Y) = sqrt(Corr(X_p*,Y))
+PASS  N3e  sqrt(rho) > rho strictly in every such model (squares compared exactly: r > r^2)
+PASS  N3f  [claimed-false case] if Y is a function of c (E[Var(Y|C)] = 0) there is NO strict gain: r = 1 and the collapsed correlation is also 1  -- Corr^2 sampled = 1, collapsed = 1; 0 random models also met
+PASS  N3g  [claimed-false case] the theorem needs a > 0: with a < 0 the collapsed correlation is negative (sign flip)  -- Cov = -1/16
+PASS  N3h  [claimed-false case] a = 0 (constant judge): Var(X_delta) = 0, so Pearson is undefined (0/0), not 'sqrt(rho)'
+PASS  N3i  [claimed-false case] without X independent of Y given c, a judge with the right marginal can have Corr = 1 (X = Y), so the hypothesis is essential
+
+== N3j  (not in the plan) collapsing ANY sampled judge to its own conditional mean raises |Pearson| by 1/sqrt(Var(mu_q)/Var(X)); greedy MODE collapse carries no such guarantee
+PASS  N3j-a  Corr(mean readout, Y)^2 / Corr(sampled readout, Y)^2 = Var(X)/Var(mu_q) >= 1 for an arbitrary judge q (exact)  -- 120 random (p*, q); 115 strict
+PASS  N3j-b  [claimed-false case] 'greedy decoding always inflates Pearson over sampling' is false: here the mode (2,1) is anti-ordered to the mean (1.1,1.4)  -- sampled judge Cov = 9/400 > 0; greedy-mode judge Cov = -3/40 < 0
+
+== N4  ordinal {0,...,4} example: Pearson 0.5000 vs 0.7071, Brier 4x, RPS 2x, cross-entropy 0.6931 vs +inf
+PASS  N4a  Corr(X_p*, Y) = 1/2 and Corr(X_delta, Y)^2 = 1/2 (so Corr(X_delta, Y) = sqrt(1/2) = 0.7071)  -- 0.5000 and 0.7071
+PASS  N4b  Brier of the true forecast 1/2 vs 2 for the collapsed forecast: ratio 4  -- 1/2 vs 2
+PASS  N4c  RPS of the true forecast 1/2 vs 1 for the collapsed forecast: ratio 2  -- 1/2 vs 1
+PASS  N4d  cross-entropy: true forecast ln 2 = 0.6931, collapsed forecast +inf (zero probability on every realised rating)  -- 0.6931 vs +inf
+
+== N5  binary example p* in {0.1,0.5,0.9}, q2 = 0.01 p* + 0.90: exact Pearson tie 0.6532, Brier 0.1433 vs 0.4119 (2.87x)
+PASS  N5a  mean-readout Pearson is identical for q1 and q2 (affine, a = 0.01 > 0): Corr^2 = 32/75, Corr = 0.6532  -- sqrt(32/75) = 0.6532
+PASS  N5b  [claimed-false case] the tie is specific to the MEAN (probability-as-score) readout: for a SAMPLED 0/1 judge X ~ Bernoulli(q) the Pearson values are NOT tied  -- sampled Corr^2: q1 = 1024/5625 (0.1820), q2 = 1024/19344375 (0.000053)
+PASS  N5c  binary Brier E (q - Y)^2: 43/300 = 0.1433 for q1 and 1235707/3000000 = 0.4119 for q2; ratio 2.87  -- 0.1433, 0.4119, ratio 2.8737
+PASS  N5d  [imprecise in the plan] the plan's Brier ||q - e_Y||^2 has two components, so for binary data it is 2 x E(q-Y)^2: 43/150 = 0.2867 and 1235707/1500000 = 0.8238 (ratio unchanged); 0.1433 and 0.4119 use the one-component convention  -- 0.2867 and 0.8238
+INFO  cross-entropy (nats, finite for both): q1 0.4478, q2 1.2147
+PASS  N5e  [claimed-false case] scalar L2 on SAMPLED draws is improper: the 0/1 point-mass judge (7/30 = 0.2333) beats the true forecast q = p* (43/150 = 0.2867)  -- 0.2333 < 0.2867
+
+== N6  sqrt(RPS) must be taken AFTER averaging over items (Jensen): mean of sqrt < sqrt of mean
+PASS  N6a  (sqrt a + sqrt b)/2 < sqrt((a+b)/2) iff a != b (exact: 4ab < (a+b)^2 iff (a-b)^2 > 0)  -- 300 random pairs
+PASS  N6b  [claimed-false case] 'average per-item sqrt(RPS)' != 'sqrt of average RPS': 0.5000 vs 0.7071 for per-item RPS (0, 1)  -- 0.5000 vs 0.7071
+
+== N7  Corr(aX+b, Y) = Corr(X, Y) needs a > 0 (a < 0 flips the sign; a = 0 is undefined)
+PASS  N7a  a > 0: Corr^2 and the sign of the covariance are unchanged  -- 200 random joint laws
+PASS  N7b  [claimed-false case] a < 0: Corr(aX+b, Y) = -Corr(X, Y), so 'invariant for all affine maps' is false
+
+== N8  standardized L2, MSE decomposition, fair-coin couplings, independent judge, nearest-grid minimiser
+PASS  N8a  E[(z_X - z_Y)^2] = 2(1 - Corr)  (float, tolerance 1e-09)  -- max abs error 9e-16
+PASS  N8b  E[(X-Y)^2] = (mu_X-mu_Y)^2 + (s_X-s_Y)^2 + 2 s_X s_Y (1-Corr)  (float, tolerance 1e-09)  -- max rel error 9e-16
+PASS  N8c  fair coins: D_B(p_X||p_Y) = 0 yet E[(X-Y)^2] = 0, 1/2, 1 for Y = X, independent, 1 - X  -- {'Y = X': '0', 'Y independent of X': '1/2', 'Y = 1 - X': '1'}
+PASS  N8d  independent X, Y: E[(X-Y)^2] = (mu_X-mu_Y)^2 + sigma_X^2 + sigma_Y^2 exactly  -- 100 random laws
+PASS  N8e  independent judge on the grid {0..4}: the minimiser is a point mass at the grid point nearest mu_Y; the exact-mean mixture is worse (so 'delta_{mu_Y}' needs mu_Y on the support)  -- 80 random laws, 74 with mu_Y off the grid
+
+== N9  Brier and RPS: expected loss = divergence + irreducible term; strictly minimised at q = p; cross-entropy = KL + entropy
+PASS  N9a  E_p[Brier(q, Y)] = ||p - q||^2 + 1 - ||p||^2 (exact)  -- 200 random (K, p, q)
+PASS  N9b  E_p[RPS(q, Y)] = sum_t (F_q(t) - F_p(t))^2 + sum_t F_p(t)(1 - F_p(t)) (exact)
+PASS  N9c  Brier strictly proper: q != p implies strictly larger expected Brier
+PASS  N9d  RPS strictly proper: q != p implies strictly larger expected RPS
+PASS  N9e  cross-entropy = entropy + KL >= entropy (float, tolerance 1e-10)
+
+== N10  an M-sample rollout pmf q_M of a forecast q has E||q_M - q||^2 = (1 - ||q||^2)/M; the single-pass logit readout has Monte-Carlo error 0
+PASS  N10a  rollout Brier excess over the readout's own forecast is (1-||q||^2)/M exactly, for (K, M) in {(6,1),(6,5),(3,20),(4,12)}  -- M = 1, 5, 20 as in the plan's Experiment 4
+PASS  N10b  the excess shrinks like 1/M but never reaches 0: single-pass (M = infinity) is at least as good in expected Brier as any finite M  -- excess 0.5400, 0.1080, 0.0270
+
+SUMMARY: 51 PASS, 0 FAIL, 51 checks

@@ -1,0 +1,22 @@
+dataset | head | L2 | maxiter | train surrogate corr (no penalty) | held-out CE (nats) | held-out normalized RPS
+summeval_expert | constant train-marginal forecast | - | - | - | 1.2210 | 0.1421
+summeval_expert | cross-entropy head (committed) | 0.01 | 35 | - | 1.2097 | 0.1402
+summeval_expert | Pearson head | 0.01 | 35 | 0.0324 | 4.7305 | 0.2490
+summeval_expert | Pearson head | 0.01 | 300 | 0.0324 | 4.7305 | 0.2490
+summeval_expert | Pearson head | 0.001 | 300 | 0.1155 | 5.4266 | 0.3037
+summeval_expert | Pearson head | 0.0001 | 300 | 0.1850 | 6.1822 | 0.4505
+summeval_expert | Pearson head | 0 | 300 | 0.2497 | inf | 0.5072
+chaosnli_snli_mnli | constant train-marginal forecast | - | - | - | 1.0569 | 0.1973
+chaosnli_snli_mnli | cross-entropy head (committed) | 0.01 | 35 | - | 1.0529 | 0.1963
+chaosnli_snli_mnli | Pearson head | 0.01 | 35 | 0.0142 | 4.0222 | 0.2530
+chaosnli_snli_mnli | Pearson head | 0.01 | 300 | 0.0142 | 4.0222 | 0.2530
+chaosnli_snli_mnli | Pearson head | 0.001 | 300 | 0.0569 | 4.3364 | 0.3163
+chaosnli_snli_mnli | Pearson head | 0.0001 | 300 | 0.0988 | 4.5645 | 0.4024
+chaosnli_snli_mnli | Pearson head | 0 | 300 | 0.1514 | inf | 0.4888
+dices990 | constant train-marginal forecast | - | - | - | 0.7488 | 0.1991
+dices990 | cross-entropy head (committed) | 0.01 | 35 | - | 0.7430 | 0.1969
+dices990 | Pearson head | 0.01 | 35 | 0.0255 | 1.1644 | 0.2572
+dices990 | Pearson head | 0.01 | 300 | 0.0255 | 1.1644 | 0.2572
+dices990 | Pearson head | 0.001 | 300 | 0.0899 | 1.2876 | 0.2872
+dices990 | Pearson head | 0.0001 | 300 | 0.1386 | 1.9142 | 0.3942
+dices990 | Pearson head | 0 | 300 | 0.1923 | 91.6138 | 0.4628

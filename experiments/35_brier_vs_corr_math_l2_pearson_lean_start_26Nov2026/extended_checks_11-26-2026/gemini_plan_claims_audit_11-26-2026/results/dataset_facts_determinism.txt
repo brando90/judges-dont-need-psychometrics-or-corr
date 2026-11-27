@@ -1,0 +1,12 @@
+dataset_facts.py was run twice on 11-26-2026 (after the FSC-expansion fix below) with identical arguments (python3 -I, standard library only).
+Sister repo pinned to commit f0d0fc3f2b41c7cdc615872739d5645bd642c9f2 (the 11-24 sealed files used by the ledger), not to the later 7855746.
+Run 1 output sha256: 452f0577c30477d89425e0f6f7c3e027d82000b89506e454a696ee8940f1216a
+Run 2 output sha256: 452f0577c30477d89425e0f6f7c3e027d82000b89506e454a696ee8940f1216a
+cmp result: IDENTICAL (byte for byte)
+Exit codes: 0 and 0. Integrity checks: 42 PASS, 0 FAIL.
+
+Correction (11-26-2026, 16:20 PST): the first version of this script and its output spelled FSC as "functional semantic correctness".
+The sister repo (trustworthy-theorem-judges) spells it "formal specification coverage (FSC)" in 92 files and never uses the other
+expansion for the ratings. The only change between the first output and this one is the section 7 heading line (diff: 1 line);
+every count and check is unchanged. Experiment 36 (Cursor) carries the same wrong expansion in README.md, data_io.py,
+SANMI_PITCH.md, RESULTS_SUMMARY.md, write_reports.py and results.json; those files are not edited here.

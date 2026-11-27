@@ -1,0 +1,10 @@
+items: 100 | ratings: 250
+split sizes (items): train 60 val 20 test 20
+distinct tasks: total 25 | test 16 | train 25 | val 14
+test tasks that ALSO appear in train: 16 of 16
+test ITEMS whose task also appears in train or val: 20 of 20
+Exp38 TEST items by sealed exp27_split of their task: {'test': 13, 'train': 3, 'val': 4}
+Exp38 TRAIN items by sealed exp27_split of their task: {'val': 13, 'train': 27, 'test': 20}
+feature text length min/median/max: 8000 8000 8000
+constant (train-marginal, add-one) test CE: 0.5951 CI [0.4023, 0.8166] | uniform log6: 1.7918
+share of 5s: train 0.743 test 0.84

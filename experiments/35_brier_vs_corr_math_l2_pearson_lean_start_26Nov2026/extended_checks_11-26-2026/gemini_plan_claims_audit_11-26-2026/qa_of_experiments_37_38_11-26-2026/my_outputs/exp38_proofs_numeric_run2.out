@@ -1,0 +1,27 @@
+PASS collapse_cka_values | 2187/3115 < 81/89
+PASS collapse_cka_strict
+PASS collapse_conditional_uncorrelated
+PASS collapse_opd_order_equivalent
+PASS reversal_brier_strict | 7/18 < 19/18
+PASS reversal_rps_strict | 5/18 < 17/18
+PASS transposition_brier_strict
+PASS transposition_rps_strict
+PASS reversal_true_class_prob
+PASS transposition_true_class_prob
+PASS collapse_pointmass_brier | 5/8 < 1
+PASS collapse_pointmass_rps | 3/8 < 1/2
+PASS collapse_pointmass_ce_infinite
+PASS linearCKA1d_eq_sqPearson_float | max abs 1.665e-16
+PASS sqPearson_scale_shift_float | max abs 1.665e-16
+PASS cka_orth_scale_shift_float | max abs 6.939e-17
+PASS opd_orth_scale_shift_float | max abs 2.220e-16
+PASS negI_orth
+PASS perm_orth
+PASS sign_and_perm_leave_cka_opd
+PASS shear_moves_cka | delta 3.419e-03
+PASS shear_moves_opd | delta 1.442e-03
+PASS shear_preserves_cca | delta 8.327e-17
+PASS rbf_isometry
+PASS rbf_not_scale_invariant
+PASS softmax_reversal_worsens_proper_scores
+ALL PASS 26

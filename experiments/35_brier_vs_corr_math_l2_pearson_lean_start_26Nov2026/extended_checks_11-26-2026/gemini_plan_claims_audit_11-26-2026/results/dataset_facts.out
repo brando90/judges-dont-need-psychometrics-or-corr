@@ -1,0 +1,137 @@
+
+== 1. Input files (sha256 and size)
+FACT  sha256 arxiv_kohli.txt: fa4e4879db3b307d3927577179bb2014f32b32bf6270d580306c587ac3f77042  (43083 bytes)
+FACT  sha256 chaosNLI_alphanli.jsonl: f55817ecc11a02ba3030cd7d2c567d23843456809020723abad53f4fde024c9e  (793550 bytes)
+PASS  pinned sha256 of chaosNLI_alphanli.jsonl equals the one in Experiment 36 data_io.py
+FACT  sha256 chaosNLI_mnli_m.jsonl: 8eb49b589488e7b1a9ec95fb8a864bd50f0509b4f808eed0aed3f8167617664d  (871731 bytes)
+PASS  pinned sha256 of chaosNLI_mnli_m.jsonl equals the one in Experiment 36 data_io.py
+FACT  sha256 chaosNLI_snli.jsonl: 99f9015ddda7d85f66a087452bc30d53974314fe27e7d589e2f41ad44bd509c1  (768107 bytes)
+PASS  pinned sha256 of chaosNLI_snli.jsonl equals the one in Experiment 36 data_io.py
+FACT  sha256 dices350.csv: 63cb8620eb04e64957f9e45b1f7cb3d079c4eed8e8b28909f46e0b7038ce4301  (31143485 bytes)
+PASS  pinned sha256 of dices350.csv equals the one in Experiment 36 data_io.py
+FACT  sha256 dices990.csv: 14332b6391cdee80383b765c734de3bebf6d8553141ee7d2f47ef0910a12fcf7  (50399432 bytes)
+PASS  pinned sha256 of dices990.csv equals the one in Experiment 36 data_io.py
+FACT  sha256 helpsteer2_card.txt: 835effb9e7d9cd0e8b7b8c1816d1d97a8961a036543108e4a0b6a5e22712ff7b  (24960 bytes)
+FACT  sha256 kohli.pdf: a920c6f6a887951f96517bba67627664ce052aef6664efb3892a6bf263b370cc  (379802 bytes)
+FACT  sha256 kohli.txt (pdftotext of arXiv v2 PDF): f51650e9b47caf81f761d275351687dabf53023d299b28ae445288d3c7c3f802  (122172 bytes)
+FACT  sha256 model_annotations.aligned.jsonl: f0d4166e0cdeb439b387c4449634b067b7e9f721b9ef4c2b722f6b7550d3d6ab  (5839062 bytes)
+PASS  pinned sha256 of model_annotations.aligned.jsonl equals the one in Experiment 36 data_io.py
+FACT  sha256 popquorn offensiveness/raw_data.csv: fb0589093d45da76bf4ef4d0abff679b540bdd5b17af5764913b3ccd0a069e1e  (3062770 bytes)
+FACT  sha256 popquorn paper text (pdftotext of arXiv 2306.06826 PDF): 426983655b303facd92f82dbbe1a66d2053444ab715b222c77af61e3de26524b  (81105 bytes)
+FACT  sha256 popquorn politeness_rating/raw_data.csv: beb7c68c6366ab27819cdf40fec7eb76676f5903c99dad95c13d4bd2bc28365f  (6373261 bytes)
+FACT  sha256 popquorn.pdf (arXiv 2306.06826): 77a63d22159f1932d1aa3f9bc3688743c6102a3df59c7dceef1cab69fe884b84  (1092375 bytes)
+FACT  sha256 summeval paper text (pdftotext in reading-order mode of arXiv 2007.12626 PDF): c3e3b3108d1510a4032d3b384f9d24dc7122e298f6fb1a256d6d771c09133d4c  (72586 bytes)
+FACT  sha256 summeval.pdf (arXiv 2007.12626): 10bdb7a9a81c41a44b089617155846bfa8f7c32e70d75f2f1fa65ee64f0b00a1  (525183 bytes)
+PASS  REMOVED_350 in this script equals data_io.py -- 19 ids
+PASS  REMOVED_990 in this script equals data_io.py -- 12 ids
+PASS  data_io.py contains the pinned sha256 for dices350.csv
+PASS  data_io.py contains the pinned sha256 for dices990.csv
+PASS  data_io.py contains the pinned sha256 for chaosNLI_snli.jsonl
+PASS  data_io.py contains the pinned sha256 for chaosNLI_mnli_m.jsonl
+PASS  data_io.py contains the pinned sha256 for chaosNLI_alphanli.jsonl
+PASS  data_io.py contains the pinned sha256 for model_annotations.aligned.jsonl
+FACT  sister repo HEAD: f0d0fc3f2b41c7cdc615872739d5645bd642c9f2
+FACT  POPQUORN clone HEAD: dbb118c29b3d9bcce5aa172d8249ded9ece4df84
+
+== 2. DICES (Aroyo et al. 2023), rater-level Q_overall
+FACT  DICES-350 rows / items / raters (as released): [43050, 350, 123]
+FACT  DICES-350 ratings per item as released (min, mean, max): [123, "123.00", 123]
+FACT  DICES-350 README quality-filter list: ids listed / ids present in the file: [19, 19]
+FACT  DICES-350 after the filter: rows / items / raters: [36400, 350, 104]
+FACT  DICES-350 ratings per item after the filter (min, mean, max): [104, "104.00", 104]
+FACT  DICES-350 Q_overall counts as released: {"No": 26292, "Unsure": 2694, "Yes": 14064}
+FACT  DICES-350 Q_overall counts after the filter: {"No": 22089, "Unsure": 2255, "Yes": 12056}
+FACT  DICES-990 rows / items / raters (as released): [72103, 990, 172]
+FACT  DICES-990 ratings per item as released (min, mean, max): [69, "72.83", 76]
+FACT  DICES-990 README quality-filter list: ids listed / ids present in the file: [12, 12]
+FACT  DICES-990 after the filter: rows / items / raters: [64886, 990, 160]
+FACT  DICES-990 ratings per item after the filter (min, mean, max): [60, "65.54", 69]
+FACT  DICES-990 Q_overall counts as released: {"No": 48995, "Unsure": 3751, "Yes": 19357}
+FACT  DICES-990 Q_overall counts after the filter: {"No": 45678, "Unsure": 3231, "Yes": 15977}
+
+== 3. ChaosNLI (Nie et al. 2020)
+FACT  chaosNLI_snli.jsonl items / label_count width / votes per item (min, max): [1514, [3], [100, 100]]
+FACT  chaosNLI_mnli_m.jsonl items / label_count width / votes per item (min, max): [1599, [3], [100, 100]]
+FACT  chaosNLI_alphanli.jsonl items / label_count width / votes per item (min, max): [1532, [2], [100, 100]]
+FACT  ChaosNLI three-class items (SNLI + MNLI-matched): 3113
+FACT  ChaosNLI binary abductive NLI items: 1532
+FACT  ChaosNLI all three files: 4645
+
+== 4. SummEval (Fabbri et al. 2021)
+FACT  SummEval summaries (lines) / distinct articles / distinct systems: [1600, 100, 16]
+FACT  SummEval expert annotation records per summary: [3]
+FACT  SummEval crowd (turker) annotation records per summary: [5]
+FACT  SummEval item-aspect rows (summaries x 4 aspects): 6400
+
+== 4b. SummEval paper (arXiv 2007.12626): how the expert scores were produced
+PASS  SummEval paper: the paper reports two rounds of expert annotation
+PASS  SummEval paper: second-round experts re-checked scores that differed by more than 2 points from another annotator
+PASS  SummEval paper: re-evaluating experts were allowed to see the other experts' first-round scores
+PASS  SummEval paper: Krippendorff alpha is 0.4132 for the first expert round and 0.7127 after the second
+FACT  consequence: SummEval expert ratings are not independent draws: the second round let experts see each other's scores, which pulls them together
+
+== 5. POPQUORN (Pei and Jurgens 2023), Potato-Prolific-Dataset
+FACT  POPQUORN offensiveness rows / items / annotators: [13036, 1500, 262]
+FACT  POPQUORN offensiveness annotators per item (min, mean, max): [5, "8.69", 10]
+FACT  POPQUORN offensiveness rating value counts: {"1.0": 7516, "2.0": 2190, "3.0": 1590, "4.0": 1039, "5.0": 701}
+PASS  POPQUORN offensiveness: files match Table 1 of the paper (annotations, annotators, instances) -- {"annotations": 13036, "annotators": 262, "instances": 1500, "avg": 8.7}
+PASS  POPQUORN offensiveness: Table 1 average labels per instance rounds to the files' mean -- paper 8.7 vs files 8.69
+FACT  POPQUORN politeness_rating rows / items / annotators: [25042, 3718, 506]
+FACT  POPQUORN politeness_rating annotators per item (min, mean, max): [3, "6.74", 8]
+FACT  POPQUORN politeness_rating rating value counts: {"1.0": 2797, "2.0": 3477, "3.0": 7269, "4.0": 6235, "5.0": 5264}
+PASS  POPQUORN politeness_rating: files match Table 1 of the paper (annotations, annotators, instances) -- {"annotations": 25042, "annotators": 506, "instances": 3718, "avg": 6.7}
+PASS  POPQUORN politeness_rating: Table 1 average labels per instance rounds to the files' mean -- paper 6.7 vs files 6.74
+PASS  POPQUORN paper states the $12 per hour rate
+PASS  POPQUORN paper states 13 minutes for 50 annotations (in the offensiveness section)
+FACT  derived crowd price per offensiveness rating (arithmetic, not a published figure): 12 x (13/60) / 50 = 0.0520 dollars
+FACT  note: the 13-minute figure is stated for the offensiveness task only; the paper gives no timing for politeness
+
+== 6. HelpSteer2 (Wang et al. 2024), dataset card
+PASS  HelpSteer2 card: adaptive annotators (three minimum, up to five, extra ones when the first do not agree) -- line(s) [270]
+PASS  HelpSteer2 card: mean number of annotators is stated -- line(s) [270]
+PASS  HelpSteer2 card: individual annotations released as lists (disagreements split) -- line(s) [207]
+PASS  HelpSteer2 card: outlier annotations are filtered when the mean is computed -- line(s) [207]
+PASS  HelpSteer2 card: a few samples keep only two annotations (not-ratable labels) -- line(s) [211]
+FACT  lines of the card that describe dropping items for disagreement of more than 2 points: none found
+PASS  HelpSteer2 card: the 2-point figure is the helpfulness agreement rule that decides whether extra annotators are added -- line(s) [270]
+PASS  HelpSteer2 card: the released label is the rounded mean of the three most-agreeing annotators -- line(s) [270]
+PASS  HelpSteer2 card: a quality-assurance step keeps 20,324 samples -- line(s) [271]
+PASS  HelpSteer2 card: that quality-assurance sentence names no disagreement criterion
+
+== 7. VeriBench formal specification coverage (FSC), anonymized sister-repo files
+FACT  FSC old artifacts / tasks / ratings: [75, 25, 195]
+FACT  FSC old artifacts by number of ratings: {"2": 30, "3": 45}
+FACT  FSC old artifacts by split (train, val, test): {"test": 30, "train": 30, "val": 15}
+FACT  FSC old tasks by split: {"test": 10, "train": 10, "val": 5}
+FACT  FSC old rating value counts (0 to 5): {"0": 17, "1": 33, "2": 49, "3": 39, "4": 35, "5": 22}
+FACT  FSC new artifacts / tasks / ratings: [100, 25, 247]
+FACT  FSC new artifacts by number of ratings: {"2": 55, "3": 43, "4": 2}
+FACT  FSC new artifacts by split (train, val, test): {"test": 40, "train": 40, "val": 20}
+FACT  FSC new tasks by split: {"test": 10, "train": 10, "val": 5}
+FACT  FSC new rating value counts (0 to 5): {"1": 7, "2": 1, "3": 13, "4": 46, "5": 180}
+FACT  pooled artifacts / tasks / ratings: [175, 50, 442]
+PASS  sister repo reconciliation states 195 expert ratings and 345 five-rater ratings
+PASS  sister repo reconciliation says 343 was not found in the files it searched
+FACT  note: 345 (five raters, 45 artifacts with 5 ratings and 30 with 4) is cited from that reconciliation; the anonymized files above hold only the 195 expert ratings of the old set
+
+== 8. Kohli, arXiv:2605.29797 (full text read from the PDF)
+FACT  authors listed on the arXiv page: 1
+PASS  arXiv page lists version 2 dated 29 Oct 2026 and version 1 dated 28 May 2026
+PASS  Kohli: text identifies itself as arXiv:2605.29797v2
+PASS  Kohli: ChaosNLI saturation table: N=10 row shows 91+-3% (KL) and 74+-6% (entropy correlation)
+PASS  Kohli: ChaosNLI saturation table: N=20 row shows 94+-3% and 89+-5%
+PASS  Kohli: DICES-990 table: N=3 row shows 90% (KL) and 62% (entropy correlation)
+PASS  Kohli: Table 1 columns are Acc, ECE, Brier-soft, Dist-ECE, KL and Ent. r
+PASS  Kohli: compared training modes are Hard-label, label smoothing (LS) and Soft-label
+FACT  Kohli reports a Pearson-trained or correlation-trained judge: not found; its 'entropy correlation' is a metric on predicted versus human entropy, and its trained models use hard, smoothed or soft label targets
+
+== 9. What the plan said versus what the files show (11-26-2026 plan, Gemini)
+VERDICT  FSC 'R_v1 (343 items, 0-5 ordinal), ~5 domain experts/item': not supported. Old set: 75 artifacts over 25 tasks with 195 expert ratings (2 ratings x 30/3 ratings x 45); new set: 100 artifacts, 247 ratings; 345 ratings over five raters is cited from the sister repo; 343 is in none of those files
+VERDICT  DICES '60-112 raters/item': not what the files show. DICES-350: 123 ratings per item (104 after the README filter); DICES-990: 69 to 76 (60 to 69 after the filter)
+VERDICT  ChaosNLI '3-class (4.6k items)': the three-class set has 3113 items; 4645 counts the 1532 binary abductive-NLI items as well
+VERDICT  POPQUORN 'politeness avg 6.7 and offensiveness avg 8.7 raters/item': supported: files give 6.74 and 8.69 (maximum 8 and 10 per item, so a k-sweep past 8 to 10 is not possible)
+VERDICT  POPQUORN '$12/hr, ~13 min per 50 ratings = ~$0.05/rating': supported as arithmetic on two sentences of the paper; the 13 minutes is for offensiveness only
+VERDICT  HelpSteer2 'filtered out high-disagreement items >2 points': imprecise: the 2-point figure is real, but in the card it is the helpfulness agreement rule that decides whether extra annotators (up to five) are collected; the released label is the mean of the three most-agreeing annotators; the card describes no item filter based on disagreement (a quality-assurance step keeps 20,324 samples and names no disagreement criterion); per-annotator lists are released in the disagreements split
+VERDICT  Kohli 'already runs subsampling saturation curves on ChaosNLI and DICES-990': supported by the paper's text; its 'correlation' is entropy correlation, and it compares soft-label, smoothed and hard-label training, not Pearson-trained judges
+
+RESULT: ALL INTEGRITY CHECKS PASS

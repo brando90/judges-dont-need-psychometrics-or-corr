@@ -60,11 +60,11 @@ Item & Verdict & Line \\
 P1.1, P1.3--P1.6 & correct & top algebra; $\Cov$, $\mathrm{Corr}$, $Z$; $\Cov=\E[XY]-\E[X]\E[Y]$; $\Var=\E[X^2]-\mu^2$; the expansion of $\E[(X-Y)^2]$ and its boxed form \\
 P1.2, S4 & questions & Q on Brier versus $\ell_2$; the margin questions on the 6.437 page \\
 P1.7 & correct, with a note & boxed $2(1-\mathrm{corr})$ needs $Z$, not the centered tilde \\
-P2.1, P2.3, P2.5, P2.6 & correct & $(a\pm b)^2$ lines; $\E[Z]=0$; $\Var$ forms; $\Var[Z]=1$ \\
+P2.3, P2.5, P2.6 & correct & $\E[Z]=0$; $\Var$ forms; $\Var[Z]=1$ \\
 \textbf{P2.2} & \textbf{wrong} & first expansion line misses the factor 2 \\
 \textbf{P2.4} & \textbf{wrong} (struck out) & $\Var[\tilde X]=\Var[X-\mu]/\sqrt{\Var[\tilde X]}$ \\
 P2.7 & imprecise & ``centering doesn't change the pmf/pdf'' \\
-P2.8, P2.9 & correct, with a note & Brier divergence in pmf and pdf form; ``distribution level versus individual values'' \\
+P2.1, P2.8, P2.9 & correct, with a note & $(a\pm b)^2$ lines hold in expectation, not pointwise; Brier divergence in pmf and pdf form; ``distribution level versus individual values'' \\
 P3.1, P3.2 & correct & $X=Y\Leftrightarrow$ zero squared difference; the three-term expansion \\
 \textbf{P3.3} & \textbf{wrong count} & ``6 degrees of freedom, 1 equation'': it is four \\
 P3.4 & imprecise & ``can never do distribution matching'' holds for a fixed pairing only \\
@@ -119,7 +119,7 @@ A signed measure $q\in\mathbb R^K$ on the ratings has total mass zero and its fi
 \[
 \boxed{K-(j+1)} .
 \]
-For $K=6$: $j=1$ (normalization and mean) leaves $4$ free directions, $j=2$ leaves $3$, $j=5$ leaves $0$. The page's ``6 degrees of freedom, 1 equation'' should read: six unknowns, two equations (total mass and mean), four free directions. For $K=2$ the mean leaves $0$: it fixes the pmf. Four different pmfs on six ratings with mean $5/2$: uniform; $(\tfrac1{12},\tfrac16,\tfrac14,\tfrac14,\tfrac16,\tfrac1{12})$; $(\tfrac12,0,0,0,0,\tfrac12)$; $(0,0,\tfrac12,\tfrac12,0,0)$.
+For $K=6$: $j=1$ (normalization and mean) leaves $4$ free directions, $j=2$ leaves $3$, $j=5$ leaves $0$. The page's ``6 degrees of freedom, 1 equation'' should read: six unknowns, two equations (total mass and mean), four free directions. For $K=2$ the mean leaves $0$: it fixes the pmf. The conclusion ``infinitely many pmfs'' also needs a mean strictly between $0$ and $5$: at $0$ or $5$ the only pmf is the point mass. Four different pmfs on six ratings with mean $5/2$: uniform; $(\tfrac1{12},\tfrac16,\tfrac14,\tfrac14,\tfrac16,\tfrac1{12})$; $(\tfrac12,0,0,0,0,\tfrac12)$; $(0,0,\tfrac12,\tfrac12,0,0)$.
 
 \section{P2.9 and P3.4: squared difference and distribution matching}
 
@@ -133,7 +133,7 @@ so the unique minimizer is $f=\E[X\mid Z]$ and the minimum is $\E[\Var(X\mid Z)]
 \[
 \boxed{\E[(X-Y)^2]\ \ge\ (\mu_X-\mu_Y)^2+(\sigma_X-\sigma_Y)^2},
 \]
-with equality when $\rho=1$. Zero squared difference forces $X=Y$ almost surely, hence equal laws. The minimum over all couplings of two given marginals is the squared Wasserstein distance, zero exactly for equal laws. Example: halves on $\{0,5\}$ against halves on $\{2,3\}$; coupling with $P(0,2)=P(5,3)=a$ costs $9-10a$ for $a\in[0,\tfrac12]$, so the minimum is $4$. So ``can never do distribution matching'' is true when the data fix the pairing, and false when the pairing is also optimized.
+with equality when $\rho=1$. Zero squared difference forces $X=Y$ almost surely, hence equal laws. The minimum over all couplings of two given marginals is the squared Wasserstein distance, zero exactly for equal laws (cited from optimal transport and checked numerically; the Lean file proves that zero squared difference forces equal laws). Example: halves on $\{0,5\}$ against halves on $\{2,3\}$; coupling with $P(0,2)=P(5,3)=a$ costs $9-10a$ for $a\in[0,\tfrac12]$, so the minimum is $4$. So ``can never do distribution matching'' is true when the data fix the pairing, and false when the pairing is also optimized.
 
 \textbf{Independent draws.} For $X\sim p$ and $Y\sim q$ independent,
 \[

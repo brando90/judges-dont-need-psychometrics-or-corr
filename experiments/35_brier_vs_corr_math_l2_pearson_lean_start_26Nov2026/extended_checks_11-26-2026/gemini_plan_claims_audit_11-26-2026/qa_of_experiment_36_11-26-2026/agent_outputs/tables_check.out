@@ -1,0 +1,6 @@
+objective_metric_matrix.md IDENTICAL to regeneration from committed results.json
+crossover.md IDENTICAL to regeneration from committed results.json
+iso_budget.md IDENTICAL to regeneration from committed results.json
+matrix block inside RESULTS_SUMMARY.md: True
+curve block inside RESULTS_SUMMARY.md: True
+<class 'dict'> ['dataset', 'n_test_available', 'n_outer_subsets', 'n_inner_bootstrap', 'interval', 'difference_proper', 'difference_correlation', 'judges', 'rows', 'summary']

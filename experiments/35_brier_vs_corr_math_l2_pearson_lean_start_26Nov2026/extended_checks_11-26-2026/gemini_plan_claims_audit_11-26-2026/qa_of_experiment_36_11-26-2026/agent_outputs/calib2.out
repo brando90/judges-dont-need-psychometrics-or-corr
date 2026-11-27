@@ -1,0 +1,5 @@
+summeval_expert          calibrated CE-head normRPS 0.1349 vs calibrated Pearson-head 0.1374: diff(P-CE) +0.0025 [+0.0018,+0.0032] | CE 1.1786 vs 1.1985: diff +0.0199 [+0.0151,+0.0247] | r_CE - r_P +0.0293 [+0.0120,+0.0480]
+chaosnli_snli_mnli       calibrated CE-head normRPS 0.1966 vs calibrated Pearson-head 0.1962: diff(P-CE) -0.0005 [-0.0012,+0.0002] | CE 1.0552 vs 1.0534: diff -0.0018 [-0.0069,+0.0034] | r_CE - r_P -0.0114 [-0.0229,-0.0005]
+dices990                 calibrated CE-head normRPS 0.1961 vs calibrated Pearson-head 0.1969: diff(P-CE) +0.0009 [+0.0004,+0.0014] | CE 0.7407 vs 0.7428: diff +0.0020 [+0.0007,+0.0035] | r_CE - r_P +0.0192 [+0.0092,+0.0312]
+summeval_expert_binary   calibrated CE-head normRPS 0.1895 vs calibrated Pearson-head 0.1895: diff(P-CE) +0.0000 [-0.0003,+0.0003] | CE 0.5649 vs 0.5650: diff +0.0001 [-0.0006,+0.0007] | r_CE - r_P -0.0023 [-0.0071,+0.0023]
+dices990_binary_yes      calibrated CE-head normRPS 0.1846 vs calibrated Pearson-head 0.1855: diff(P-CE) +0.0008 [+0.0004,+0.0014] | CE 0.5546 vs 0.5566: diff +0.0020 [+0.0008,+0.0034] | r_CE - r_P +0.0191 [+0.0091,+0.0310]

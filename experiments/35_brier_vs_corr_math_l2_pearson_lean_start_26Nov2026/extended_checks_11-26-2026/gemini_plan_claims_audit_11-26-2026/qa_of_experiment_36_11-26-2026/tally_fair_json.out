@@ -1,0 +1,41 @@
+held-out test Pearson correlation, CE-trained head minus Pearson-trained head (positive = CE-trained head higher)
+dataset | Pearson variant (penalty chosen on validation) | difference [95% paired item-clustered interval] | reading
+summeval_expert | psamp_sel_own | -0.0091 [-0.0274, +0.0094] | no difference
+summeval_expert | psamp_sel_rps | +0.0068 [-0.0091, +0.0213] | no difference
+summeval_expert | pmean_sel_own | +0.0123 [-0.0236, +0.0469] | no difference
+summeval_expert | pmean_sel_rps | +0.0123 [-0.0236, +0.0469] | no difference
+summeval_expert_binary | psamp_sel_own | -0.0112 [-0.0270, +0.0037] | no difference
+summeval_expert_binary | psamp_sel_rps | -0.0037 [-0.0154, +0.0072] | no difference
+summeval_expert_binary | pmean_sel_own | -0.0050 [-0.0331, +0.0234] | no difference
+summeval_expert_binary | pmean_sel_rps | +0.0045 [+0.0006, +0.0086] | CE higher
+chaosnli_snli_mnli | psamp_sel_own | -0.0214 [-0.0475, +0.0031] | no difference
+chaosnli_snli_mnli | psamp_sel_rps | -0.0214 [-0.0475, +0.0031] | no difference
+chaosnli_snli_mnli | pmean_sel_own | +0.0248 [-0.0155, +0.0654] | no difference
+chaosnli_snli_mnli | pmean_sel_rps | +0.0247 [-0.0158, +0.0652] | no difference
+dices990 | psamp_sel_own | +0.0168 [-0.0142, +0.0528] | no difference
+dices990 | psamp_sel_rps | +0.0393 [+0.0155, +0.0660] | CE higher
+dices990 | pmean_sel_own | +0.0017 [-0.0286, +0.0323] | no difference
+dices990 | pmean_sel_rps | +0.0017 [-0.0286, +0.0323] | no difference
+dices990_binary_yes | psamp_sel_own | +0.0381 [+0.0137, +0.0646] | CE higher
+dices990_binary_yes | psamp_sel_rps | +0.0381 [+0.0137, +0.0646] | CE higher
+dices990_binary_yes | pmean_sel_own | -0.0049 [-0.0222, +0.0127] | no difference
+dices990_binary_yes | pmean_sel_rps | undefined (a constant prediction has no correlation) [-0.0103, +0.0021] | no difference
+
+correlation comparisons counted: 20 (5 sets x 4 validation-selected Pearson variants)
+  CE higher: 4
+  Pearson higher: 0
+  no difference: 16
+  undefined: 0
+  intervals defined: 20; point estimates defined: 19 (a head with constant predictions has no correlation, so its point estimate is NaN while the saved interval, from the bootstrap draws where the correlation was defined, is reported)
+
+held-out test normalized RPS, Pearson-trained head minus CE-trained head, same items (positive = CE-trained head better)
+  CE better: 20 of 20
+  Pearson better: 0 of 20
+  no difference: 0 of 20
+
+committed Experiment 36 heads (no validation selection), correlation difference, CE-trained head minus Pearson-trained head
+  summeval_expert: +0.0282 [+0.0108, +0.0466] -> CE higher
+  summeval_expert_binary: -0.0012 [-0.0065, +0.0036] -> no difference
+  chaosnli_snli_mnli: -0.0085 [-0.0195, +0.0024] -> no difference
+  dices990: +0.0171 [+0.0068, +0.0289] -> CE higher
+  dices990_binary_yes: +0.0172 [+0.0066, +0.0289] -> CE higher

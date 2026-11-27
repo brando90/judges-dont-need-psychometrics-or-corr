@@ -1,0 +1,19 @@
+fitting summeval_expert_coherence items=1600
+  test CE 1.5393 CKA 0.0087
+fitting summeval_expert_consistency items=1600
+  test CE 0.5461 CKA 0.0021
+fitting summeval_expert_fluency items=1600
+  test CE 0.6265 CKA 0.0153
+fitting summeval_expert_relevance items=1600
+  test CE 1.3315 CKA 0.0271
+fitting chaosNLI_snli items=1514
+  test CE 1.0002 CKA 0.0157
+fitting chaosNLI_mnli_m items=1599
+  test CE 1.0553 CKA 0.0008
+fitting chaosnli_alpha items=1532
+  test CE 0.6966 CKA 0.0051
+fitting dices990 items=990
+  test CE 0.7430 CKA 0.0758
+fitting veribench_fsc_exp09 items=100
+  test CE 0.4626 CKA 0.4064
+wrote /tmp/exp38_audit/experiments/38_cka_opd_invariance_ladder_start_26Nov2026/results.json

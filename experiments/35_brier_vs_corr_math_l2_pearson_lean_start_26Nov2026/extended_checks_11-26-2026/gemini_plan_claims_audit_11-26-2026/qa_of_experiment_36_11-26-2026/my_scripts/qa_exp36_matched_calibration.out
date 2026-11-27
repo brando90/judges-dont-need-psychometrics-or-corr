@@ -1,0 +1,11 @@
+dataset | metric (held-out test, per-sample, item-clustered paired bootstrap B=1000) | raw heads: Pearson head minus CE head | after the same validation calibration: Pearson head minus CE head
+summeval_expert | normalized RPS | +0.1088 [+0.1027, +0.1158] | +0.0025 [+0.0018, +0.0032]
+summeval_expert | cross-entropy (nats) | +3.5208 [+3.3251, +3.7197] | +0.0199 [+0.0151, +0.0247]
+chaosnli_snli_mnli | normalized RPS | +0.0566 [+0.0508, +0.0622] | -0.0005 [-0.0012, +0.0002]
+chaosnli_snli_mnli | cross-entropy (nats) | +2.9693 [+2.8078, +3.1331] | -0.0018 [-0.0069, +0.0034]
+dices990 | normalized RPS | +0.0603 [+0.0468, +0.0738] | +0.0009 [+0.0004, +0.0014]
+dices990 | cross-entropy (nats) | +0.4214 [+0.3858, +0.4545] | +0.0020 [+0.0007, +0.0035]
+summeval_expert_binary | normalized RPS | +0.0546 [+0.0459, +0.0639] | +0.0000 [-0.0003, +0.0003]
+summeval_expert_binary | cross-entropy (nats) | +0.1148 [+0.0961, +0.1342] | +0.0001 [-0.0006, +0.0007]
+dices990_binary_yes | normalized RPS | +0.0727 [+0.0581, +0.0870] | +0.0008 [+0.0004, +0.0014]
+dices990_binary_yes | cross-entropy (nats) | +0.1529 [+0.1217, +0.1845] | +0.0020 [+0.0008, +0.0034]

@@ -1,0 +1,774 @@
+{
+ "dataset": "summeval_expert",
+ "n_train": 3840,
+ "n_val": 1280,
+ "n_test": 1280,
+ "runs": [
+  {
+   "kind": "ce",
+   "l2": 0.0,
+   "start": "zero",
+   "fun": 1.2054023055763678,
+   "nit": 130,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.0,
+   "start": "rand0",
+   "fun": 1.2054023055757364,
+   "nit": 140,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.0,
+   "start": "rand1",
+   "fun": 1.2054023055761012,
+   "nit": 140,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.0001,
+   "start": "zero",
+   "fun": 1.2077544495652779,
+   "nit": 119,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.0001,
+   "start": "rand0",
+   "fun": 1.207754449564643,
+   "nit": 169,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.0001,
+   "start": "rand1",
+   "fun": 1.2077544495651933,
+   "nit": 165,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.001,
+   "start": "zero",
+   "fun": 1.2184552950587055,
+   "nit": 66,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.001,
+   "start": "rand0",
+   "fun": 1.2184552950587264,
+   "nit": 79,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.001,
+   "start": "rand1",
+   "fun": 1.2184552950588377,
+   "nit": 79,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.01,
+   "start": "zero",
+   "fun": 1.2362261353671813,
+   "nit": 25,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.01,
+   "start": "rand0",
+   "fun": 1.2362261353671844,
+   "nit": 32,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "ce",
+   "l2": 0.01,
+   "start": "rand1",
+   "fun": 1.2362261353673012,
+   "nit": 28,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0,
+   "start": "zero",
+   "fun": -0.24940159465565673,
+   "nit": 65,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0,
+   "start": "ce_solution",
+   "fun": -0.2613781343205959,
+   "nit": 64,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0,
+   "start": "rand0",
+   "fun": -0.25092194653721955,
+   "nit": 66,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0,
+   "start": "rand1",
+   "fun": -0.25363696929446344,
+   "nit": 68,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0001,
+   "start": "zero",
+   "fun": -0.15624232482889644,
+   "nit": 164,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0001,
+   "start": "ce_solution",
+   "fun": -0.15859742665920773,
+   "nit": 163,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0001,
+   "start": "rand0",
+   "fun": -0.15624232483132713,
+   "nit": 128,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.0001,
+   "start": "rand1",
+   "fun": -0.1562423248310561,
+   "nit": 135,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.001,
+   "start": "zero",
+   "fun": -0.08056852067437517,
+   "nit": 52,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.001,
+   "start": "ce_solution",
+   "fun": -0.0805685206743989,
+   "nit": 57,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.001,
+   "start": "rand0",
+   "fun": -0.08056852067434758,
+   "nit": 59,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.001,
+   "start": "rand1",
+   "fun": -0.0805685206742727,
+   "nit": 55,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.01,
+   "start": "zero",
+   "fun": -0.016944207111545408,
+   "nit": 46,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.01,
+   "start": "ce_solution",
+   "fun": -0.016944207111577465,
+   "nit": 46,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.01,
+   "start": "rand0",
+   "fun": -0.016944207111552125,
+   "nit": 43,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "psamp",
+   "l2": 0.01,
+   "start": "rand1",
+   "fun": -0.016944207111546532,
+   "nit": 48,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0,
+   "start": "zero",
+   "fun": 0.0,
+   "nit": 0,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0,
+   "start": "ce_solution",
+   "fun": -0.45281313136122014,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0,
+   "start": "rand0",
+   "fun": -0.45975209726579513,
+   "nit": 734,
+   "msg": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0,
+   "start": "rand1",
+   "fun": -0.45904250257754575,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0001,
+   "start": "zero",
+   "fun": 0.0,
+   "nit": 0,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0001,
+   "start": "ce_solution",
+   "fun": -0.38177689885793553,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0001,
+   "start": "rand0",
+   "fun": -0.4006012213357005,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.0001,
+   "start": "rand1",
+   "fun": -0.4051562707125681,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.001,
+   "start": "zero",
+   "fun": 0.0,
+   "nit": 0,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.001,
+   "start": "ce_solution",
+   "fun": -0.3700243929741113,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.001,
+   "start": "rand0",
+   "fun": -0.4067799570853419,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.001,
+   "start": "rand1",
+   "fun": -0.4139327025024864,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.01,
+   "start": "zero",
+   "fun": 0.0,
+   "nit": 0,
+   "msg": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.01,
+   "start": "ce_solution",
+   "fun": -0.30114862016368477,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.01,
+   "start": "rand0",
+   "fun": -0.3920260279501805,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  },
+  {
+   "kind": "pmean",
+   "l2": 0.01,
+   "start": "rand1",
+   "fun": -0.39172439170906204,
+   "nit": 3000,
+   "msg": "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+  }
+ ],
+ "grad_check_max_rel_err": {
+  "ce": 3.1123982130020384e-07,
+  "psamp": 2.493303127075404e-08,
+  "pmean": 5.637768257999267e-09
+ },
+ "selected_l2": {
+  "ce_sel_own": 0.0001,
+  "ce_sel_rps": 0.0,
+  "psamp_sel_own": 0.001,
+  "psamp_sel_rps": 0.01,
+  "pmean_sel_own": 0.01,
+  "pmean_sel_rps": 0.01
+ },
+ "paired": {
+  "exp36_pearson vs exp36_ce": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.10876587686275777,
+    "ci_loss": [
+     0.10272586589668481,
+     0.11575844059870993
+    ],
+    "r_a_minus_r_b": 0.02819733171593608,
+    "ci_r": [
+     0.01079504779574146,
+     0.046607722359159325
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 3.5207966719200026,
+    "ci_loss": [
+     3.325117156268767,
+     3.7196509587187694
+    ],
+    "r_a_minus_r_b": 0.02819733171593608,
+    "ci_r": [
+     0.01079504779574146,
+     0.046607722359159325
+    ]
+   }
+  },
+  "psamp_sel_own vs ce_sel_rps": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.08771590507015392,
+    "ci_loss": [
+     0.07981308566078874,
+     0.09675935527580046
+    ],
+    "r_a_minus_r_b": -0.009139974114102528,
+    "ci_r": [
+     -0.027428549158682564,
+     0.009442171299491292
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 9.715938497398167,
+    "ci_loss": [
+     9.165417637749403,
+     10.27637827770495
+    ],
+    "r_a_minus_r_b": -0.009139974114102528,
+    "ci_r": [
+     -0.027428549158682564,
+     0.009442171299491292
+    ]
+   }
+  },
+  "pmean_sel_own vs ce_sel_rps": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.17161496036951618,
+    "ci_loss": [
+     0.1604522859085646,
+     0.18322355364100312
+    ],
+    "r_a_minus_r_b": 0.01232604346409974,
+    "ci_r": [
+     -0.023620641013280486,
+     0.04689917769596466
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 1.4216669077124988,
+    "ci_loss": [
+     1.3508448391146082,
+     1.493271677670014
+    ],
+    "r_a_minus_r_b": 0.01232604346409974,
+    "ci_r": [
+     -0.023620641013280486,
+     0.04689917769596466
+    ]
+   }
+  },
+  "psamp_sel_rps vs ce_sel_rps": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.020546066540221147,
+    "ci_loss": [
+     0.018271495951601706,
+     0.022871935233152542
+    ],
+    "r_a_minus_r_b": 0.0068226263800970355,
+    "ci_r": [
+     -0.009107273908155232,
+     0.021334086241335537
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 13.50664105161033,
+    "ci_loss": [
+     12.636650126611483,
+     14.380452389059185
+    ],
+    "r_a_minus_r_b": 0.0068226263800970355,
+    "ci_r": [
+     -0.009107273908155232,
+     0.021334086241335537
+    ]
+   }
+  },
+  "pmean_sel_rps vs ce_sel_rps": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.17161496036951618,
+    "ci_loss": [
+     0.1604522859085646,
+     0.18322355364100312
+    ],
+    "r_a_minus_r_b": 0.01232604346409974,
+    "ci_r": [
+     -0.023620641013280486,
+     0.04689917769596466
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 1.4216669077124988,
+    "ci_loss": [
+     1.3508448391146082,
+     1.493271677670014
+    ],
+    "r_a_minus_r_b": 0.01232604346409974,
+    "ci_r": [
+     -0.023620641013280486,
+     0.04689917769596466
+    ]
+   }
+  },
+  "pmean_sel_own vs exp36_ce": {
+   "rps_norm": {
+    "loss_b_minus_a": 0.16773556964523118,
+    "ci_loss": [
+     0.15688852938034772,
+     0.1795950616585626
+    ],
+    "r_a_minus_r_b": 0.033729296408544274,
+    "ci_r": [
+     0.0018893328015407872,
+     0.06323754824035525
+    ]
+   },
+   "ce": {
+    "loss_b_minus_a": 1.3967640842812608,
+    "ci_loss": [
+     1.3253549900353512,
+     1.4672007436241692
+    ],
+    "r_a_minus_r_b": 0.033729296408544274,
+    "ci_r": [
+     0.0018893328015407872,
+     0.06323754824035525
+    ]
+   }
+  }
+ },
+ "evals": {
+  "exp36_ce": {
+   "tag": "exp36 default CE head (L2=1e-2, 35 it, zero start)",
+   "train_surrogate_psamp_corr": 0.01142999154142217,
+   "train_expected_score_corr": 0.20854355466946692,
+   "val_ce": 1.2156499505399794,
+   "val_rps_norm": 0.14281476397498666,
+   "val_r": 0.1835885542360763,
+   "test_ce": 1.2096601660891637,
+   "test_rps_norm": 0.14018415917468785,
+   "test_r": 0.2532540674712026,
+   "test_pred_entropy": 1.2466743491613002
+  },
+  "exp36_pearson": {
+   "tag": "exp36 default Pearson head (psamp, L2=1e-2, 35 it, zero start)",
+   "train_surrogate_psamp_corr": 0.0323805116494781,
+   "train_expected_score_corr": 0.20724512519293498,
+   "val_ce": 4.769944872258909,
+   "val_rps_norm": 0.24841977575843227,
+   "val_r": 0.16480840079883585,
+   "test_ce": 4.730456838009166,
+   "test_rps_norm": 0.24895003603744562,
+   "test_r": 0.22505673575526652,
+   "test_pred_entropy": 0.6895055927442716
+  },
+  "ce_l2=0.0": {
+   "tag": "ce l2=0.0 start=rand0",
+   "train_surrogate_psamp_corr": 0.049150264859940486,
+   "train_expected_score_corr": 0.22287614679099593,
+   "val_ce": 1.2030677465799882,
+   "val_rps_norm": 0.14047238495176467,
+   "val_r": 0.17633201775289511,
+   "test_ce": 1.1847573426579256,
+   "test_rps_norm": 0.13630476845040285,
+   "test_r": 0.23185081452675807,
+   "test_pred_entropy": 1.2232369841196127
+  },
+  "ce_l2=0.0001": {
+   "tag": "ce l2=0.0001 start=rand0",
+   "train_surrogate_psamp_corr": 0.04641093916885496,
+   "train_expected_score_corr": 0.22234981115433147,
+   "val_ce": 1.2025597292329344,
+   "val_rps_norm": 0.1404922872762499,
+   "val_r": 0.17686111375896435,
+   "test_ce": 1.185374488843892,
+   "test_rps_norm": 0.1364275875066469,
+   "test_r": 0.2343744586873855,
+   "test_pred_entropy": 1.2278472650006664
+  },
+  "ce_l2=0.001": {
+   "tag": "ce l2=0.001 start=zero",
+   "train_surrogate_psamp_corr": 0.03388004573980921,
+   "train_expected_score_corr": 0.21749649318506667,
+   "val_ce": 1.2039180202609991,
+   "val_rps_norm": 0.14084867556661657,
+   "val_r": 0.18008584477814849,
+   "test_ce": 1.1913917450507527,
+   "test_rps_norm": 0.13734796679646757,
+   "test_r": 0.24290628437364506,
+   "test_pred_entropy": 1.2408562226018622
+  },
+  "ce_l2=0.01": {
+   "tag": "ce l2=0.01 start=zero",
+   "train_surrogate_psamp_corr": 0.011430196959517145,
+   "train_expected_score_corr": 0.2085348336157453,
+   "val_ce": 1.215652245011315,
+   "val_rps_norm": 0.1428150053332403,
+   "val_r": 0.18358695134548805,
+   "test_ce": 1.2096627530425326,
+   "test_rps_norm": 0.14018445759239975,
+   "test_r": 0.25327389816457163,
+   "test_pred_entropy": 1.2466863062529094
+  },
+  "ce_sel_own": {
+   "tag": "ce selected by val own: l2=0.0001",
+   "train_surrogate_psamp_corr": 0.04641093916885496,
+   "train_expected_score_corr": 0.22234981115433147,
+   "val_ce": 1.2025597292329344,
+   "val_rps_norm": 0.1404922872762499,
+   "val_r": 0.17686111375896435,
+   "test_ce": 1.185374488843892,
+   "test_rps_norm": 0.1364275875066469,
+   "test_r": 0.2343744586873855,
+   "test_pred_entropy": 1.2278472650006664
+  },
+  "ce_sel_rps": {
+   "tag": "ce selected by val rps: l2=0.0",
+   "train_surrogate_psamp_corr": 0.049150264859940486,
+   "train_expected_score_corr": 0.22287614679099593,
+   "val_ce": 1.2030677465799882,
+   "val_rps_norm": 0.14047238495176467,
+   "val_r": 0.17633201775289511,
+   "test_ce": 1.1847573426579256,
+   "test_rps_norm": 0.13630476845040285,
+   "test_r": 0.23185081452675807,
+   "test_pred_entropy": 1.2232369841196127
+  },
+  "psamp_l2=0.0": {
+   "tag": "psamp l2=0.0 start=ce_solution",
+   "train_surrogate_psamp_corr": 0.2613781343205959,
+   "train_expected_score_corr": 0.2613781343782134,
+   "val_ce": 435.29865676281116,
+   "val_rps_norm": 0.40595503467826777,
+   "val_r": 0.13962424289020658,
+   "test_ce": 447.7530585856615,
+   "test_rps_norm": 0.40601071007485556,
+   "test_r": 0.1837141076114903,
+   "test_pred_entropy": 0.0005079752990714443
+  },
+  "psamp_l2=0.0001": {
+   "tag": "psamp l2=0.0001 start=ce_solution",
+   "train_surrogate_psamp_corr": 0.19473814113978105,
+   "train_expected_score_corr": 0.26034271625443817,
+   "val_ce": 9.977334751319233,
+   "val_rps_norm": 0.33523994776833643,
+   "val_r": 0.16473266177218357,
+   "test_ce": 9.840556824241702,
+   "test_rps_norm": 0.325598360549989,
+   "test_r": 0.22228030593565956,
+   "test_pred_entropy": 0.7192790325702783
+  },
+  "psamp_l2=0.001": {
+   "tag": "psamp l2=0.001 start=ce_solution",
+   "train_surrogate_psamp_corr": 0.11551890578811522,
+   "train_expected_score_corr": 0.21629114147299575,
+   "val_ce": 10.948764386275336,
+   "val_rps_norm": 0.2273019003780176,
+   "val_r": 0.17093788035378216,
+   "test_ce": 10.900695840056093,
+   "test_rps_norm": 0.22402067352055677,
+   "test_r": 0.2409907886408606,
+   "test_pred_entropy": 0.608424714647596
+  },
+  "psamp_l2=0.01": {
+   "tag": "psamp l2=0.01 start=ce_solution",
+   "train_surrogate_psamp_corr": 0.03238515538254342,
+   "train_expected_score_corr": 0.20723589584796687,
+   "val_ce": 13.810124034761287,
+   "val_rps_norm": 0.1576663769645422,
+   "val_r": 0.16476668522040952,
+   "test_ce": 14.691398394268257,
+   "test_rps_norm": 0.156850834990624,
+   "test_r": 0.22502818814666103,
+   "test_pred_entropy": 0.6884615124104938
+  },
+  "psamp_sel_own": {
+   "tag": "psamp selected by val own: l2=0.001",
+   "train_surrogate_psamp_corr": 0.11551890578811522,
+   "train_expected_score_corr": 0.21629114147299575,
+   "val_ce": 10.948764386275336,
+   "val_rps_norm": 0.2273019003780176,
+   "val_r": 0.17093788035378216,
+   "test_ce": 10.900695840056093,
+   "test_rps_norm": 0.22402067352055677,
+   "test_r": 0.2409907886408606,
+   "test_pred_entropy": 0.608424714647596
+  },
+  "psamp_sel_rps": {
+   "tag": "psamp selected by val rps: l2=0.01",
+   "train_surrogate_psamp_corr": 0.03238515538254342,
+   "train_expected_score_corr": 0.20723589584796687,
+   "val_ce": 13.810124034761287,
+   "val_rps_norm": 0.1576663769645422,
+   "val_r": 0.16476668522040952,
+   "test_ce": 14.691398394268257,
+   "test_rps_norm": 0.156850834990624,
+   "test_r": 0.22502818814666103,
+   "test_pred_entropy": 0.6884615124104938
+  },
+  "pmean_l2=0.0": {
+   "tag": "pmean l2=0.0 start=rand0",
+   "train_surrogate_psamp_corr": 0.45587937000852885,
+   "train_expected_score_corr": 0.45975209726579513,
+   "val_ce": 555.2621879852304,
+   "val_rps_norm": 0.30696463897197096,
+   "val_r": 0.10438628668969162,
+   "test_ce": 501.7249987502625,
+   "test_rps_norm": 0.27596056858643137,
+   "test_r": 0.1779744565928901,
+   "test_pred_entropy": 0.00010921199107260164
+  },
+  "pmean_l2=0.0001": {
+   "tag": "pmean l2=0.0001 start=rand1",
+   "train_surrogate_psamp_corr": 0.00021281270626397086,
+   "train_expected_score_corr": 0.4115404128562548,
+   "val_ce": 3.139954517243413,
+   "val_rps_norm": 0.45852749124687114,
+   "val_r": 0.19054405667159016,
+   "test_ce": 3.1677684937998403,
+   "test_rps_norm": 0.46436217234813054,
+   "test_r": 0.21928031533955095,
+   "test_pred_entropy": 0.9393186796787976
+  },
+  "pmean_l2=0.001": {
+   "tag": "pmean l2=0.001 start=rand1",
+   "train_surrogate_psamp_corr": 2.840816719222858e-05,
+   "train_expected_score_corr": 0.4149471474412476,
+   "val_ce": 2.5241353998942158,
+   "val_rps_norm": 0.35494311318051985,
+   "val_r": 0.1965053636284398,
+   "test_ce": 2.539775994517825,
+   "test_rps_norm": 0.3582728398506114,
+   "test_r": 0.237688025955279,
+   "test_pred_entropy": 1.3315259338912522
+  },
+  "pmean_l2=0.01": {
+   "tag": "pmean l2=0.01 start=rand0",
+   "train_surrogate_psamp_corr": 1.7279116136771117e-05,
+   "train_expected_score_corr": 0.3930443123123577,
+   "val_ce": 2.6260734565187063,
+   "val_rps_norm": 0.30680587065188447,
+   "val_r": 0.2326949435478593,
+   "test_ce": 2.6064242503704245,
+   "test_rps_norm": 0.307919728819919,
+   "test_r": 0.21952477106265833,
+   "test_pred_entropy": 1.2833314828515543
+  },
+  "pmean_sel_own": {
+   "tag": "pmean selected by val own: l2=0.01",
+   "train_surrogate_psamp_corr": 1.7279116136771117e-05,
+   "train_expected_score_corr": 0.3930443123123577,
+   "val_ce": 2.6260734565187063,
+   "val_rps_norm": 0.30680587065188447,
+   "val_r": 0.2326949435478593,
+   "test_ce": 2.6064242503704245,
+   "test_rps_norm": 0.307919728819919,
+   "test_r": 0.21952477106265833,
+   "test_pred_entropy": 1.2833314828515543
+  },
+  "pmean_sel_rps": {
+   "tag": "pmean selected by val rps: l2=0.01",
+   "train_surrogate_psamp_corr": 1.7279116136771117e-05,
+   "train_expected_score_corr": 0.3930443123123577,
+   "val_ce": 2.6260734565187063,
+   "val_rps_norm": 0.30680587065188447,
+   "val_r": 0.2326949435478593,
+   "test_ce": 2.6064242503704245,
+   "test_rps_norm": 0.307919728819919,
+   "test_r": 0.21952477106265833,
+   "test_pred_entropy": 1.2833314828515543
+  }
+ },
+ "seconds": 49.39603018760681
+}

@@ -1,0 +1,3 @@
+ChaosNLI SNLI+MNLI: 123 of 624 test items share their premise text with a train item
+SummEval expert items 6400 distinct groups (source articles) 100
+SummEval split articles 60 20 20

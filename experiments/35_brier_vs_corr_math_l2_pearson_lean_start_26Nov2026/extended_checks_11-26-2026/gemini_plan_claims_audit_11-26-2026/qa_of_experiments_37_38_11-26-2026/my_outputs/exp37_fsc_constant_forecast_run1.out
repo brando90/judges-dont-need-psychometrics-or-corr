@@ -1,0 +1,4 @@
+train-marginal (add-one) forecast: [0.02, 0.052, 0.039, 0.059, 0.183, 0.647]
+constant-forecast test CE (item-averaged, nats): 1.0463 | uniform log6: 1.7918
+item-bootstrap 95% CI: [0.7464, 1.3865]
+share of grade 5: train 0.667 test 0.694 | n train ratings 147 n test ratings 62
