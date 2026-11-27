@@ -1,0 +1,7 @@
+# How to read experiment 40
+
+1. **Data.** Public benchmarks are the experiment 36 seed-0 group split (0.6/0.2/0.2). VeriBench `native_main` uses the task-pure `exp27_split` from trustworthy-theorem-judges `efdc8c3`. `R_v1` from `veribench@d1c47355` is reported only if that pinned loader succeeds. The old 75-item table is a different file and is labeled as such. Synthetic rows are not human ratings. These held-out prompts were already scored by linear heads in experiment 36; say that when quoting them.
+2. **Metric.** Cross-entropy is the mean of `-log q(y)` in nats, prompt-averaged. Ranked probability score (RPS) is the sum of squared CDF errors. `sqrt(RPS)` is the square root of the prompt-average RPS. Lower is better. A reference value is the full-train head on the same test prompts.
+3. **Differences.** "D-study minus oracle" is held-out test cross-entropy of the D-study allocation minus held-out test cross-entropy of the test-oracle allocation, same prompts. Positive means the D-study allocation is worse.
+4. **Intervals.** Percentile 95% intervals, item-clustered bootstrap, B=1000 unless `EXP39_SMOKE=1`, seed 1. The interval is for a fixed head.
+5. **How the head was chosen.** Softmax linear head, 24 train-only principal components of a 256-dimensional hash, L2 1e-2, L-BFGS-B from zero, at most 35 iterations. Cross-entropy in the logits is convex. The D-study k is the smallest feasible k with Φ(k) ≥ 0.80 on train-split variance components, or the largest feasible k if that target is not reached. Φ does not depend on N.
