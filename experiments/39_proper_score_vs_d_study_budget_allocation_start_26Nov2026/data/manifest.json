@@ -1,0 +1,84 @@
+{
+  "datasets": {
+    "chaosnli_snli": {
+      "k": 0,
+      "K": 3,
+      "n_items": 600,
+      "n_test": 180,
+      "n_dev": 420,
+      "ratings_per_item_min": 100,
+      "ratings_per_item_max": 100,
+      "has_rater_ids": false,
+      "n_valid_judge_item": 2914,
+      "n_items_with_any_valid_judge": 600,
+      "count_sum_mean": 100.0
+    },
+    "chaosnli_mnli": {
+      "k": 1,
+      "K": 3,
+      "n_items": 600,
+      "n_test": 180,
+      "n_dev": 420,
+      "ratings_per_item_min": 100,
+      "ratings_per_item_max": 100,
+      "has_rater_ids": false,
+      "n_valid_judge_item": 2844,
+      "n_items_with_any_valid_judge": 600,
+      "count_sum_mean": 100.0
+    },
+    "chaosnli_alphanli": {
+      "k": 2,
+      "K": 2,
+      "n_items": 400,
+      "n_test": 120,
+      "n_dev": 280,
+      "ratings_per_item_min": 100,
+      "ratings_per_item_max": 100,
+      "has_rater_ids": false,
+      "n_valid_judge_item": 1905,
+      "n_items_with_any_valid_judge": 400,
+      "count_sum_mean": 100.0
+    },
+    "dices350": {
+      "k": 3,
+      "K": 3,
+      "n_items": 350,
+      "n_test": 105,
+      "n_dev": 245,
+      "ratings_per_item_min": 123,
+      "ratings_per_item_max": 123,
+      "has_rater_ids": true,
+      "n_valid_judge_item": 1720,
+      "n_items_with_any_valid_judge": 350,
+      "count_sum_mean": 123.0
+    },
+    "dices990": {
+      "k": 4,
+      "K": 3,
+      "n_items": 400,
+      "n_test": 120,
+      "n_dev": 280,
+      "ratings_per_item_min": 69,
+      "ratings_per_item_max": 76,
+      "has_rater_ids": true,
+      "n_valid_judge_item": 1965,
+      "n_items_with_any_valid_judge": 400,
+      "count_sum_mean": 72.83
+    }
+  },
+  "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash"
+  ],
+  "source_sha256": {
+    "chaosNLI_alphanli.jsonl": "f55817ecc11a02ba3030cd7d2c567d23843456809020723abad53f4fde024c9e",
+    "chaosNLI_mnli_m.jsonl": "8eb49b589488e7b1a9ec95fb8a864bd50f0509b4f808eed0aed3f8167617664d",
+    "chaosNLI_snli.jsonl": "99f9015ddda7d85f66a087452bc30d53974314fe27e7d589e2f41ad44bd509c1",
+    "diverse_safety_adversarial_dialog_350.csv": "63cb8620eb04e64957f9e45b1f7cb3d079c4eed8e8b28909f46e0b7038ce4301",
+    "diverse_safety_adversarial_dialog_990.csv": "14332b6391cdee80383b765c734de3bebf6d8553141ee7d2f47ef0910a12fcf7",
+    "forecasts_11-23-2026.csv": "54fbff95f21b17c3109a926005d6760c2c34dc058fcfbe50c72b56900184f8e2"
+  }
+}
