@@ -1,0 +1,28 @@
+{
+  "bootstrap": {
+    "bootstrap_draws": 1000,
+    "exact_inside_interval": 1,
+    "exact_rps_of_this_fit": 0.22680111547253823,
+    "forecast": "ce_polarized",
+    "hi": 0.24649885204081634,
+    "lo": 0.21319749149659867,
+    "n_test_items": 12,
+    "n_train": 64,
+    "ratings_per_test_item": 32,
+    "resampling_unit": "test item",
+    "sample_mean_rps": 0.22927891156462588,
+    "target": "polarized"
+  },
+  "failed": [],
+  "leakage": {
+    "fit_ignores_test_array": 1,
+    "item_ids_disjoint_across_splits": 1,
+    "n_test_ids": 192,
+    "n_train_ids": 384,
+    "n_val_ids": 192,
+    "rater_ids_disjoint_across_splits": 1,
+    "train_counts_not_aliased_to_test": 1
+  },
+  "n_checks": 23,
+  "n_failed": 0
+}

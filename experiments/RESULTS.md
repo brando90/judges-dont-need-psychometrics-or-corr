@@ -62,4 +62,10 @@ Known ordinal distributions, 400 replications, CPU, 32.2 seconds, $0. No model a
 
 This does not replace experiment 04's finding that variance components can choose a rater-versus-occasion design. No GPU run is required; see [NEEDS_GPU.md](NEEDS_GPU.md).
 
+## Experiment 42, simulated subpopulations (11-27-2026)
+
+Folder: `42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026`. Full tables: [results.md](42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026/results.md). This is a simulated-population testbed. The draws are not human ratings. The base measures are frozen marginal counts from VeriBench `native_main`, DICES-990, and ChaosNLI.
+
+On the polarized law, exact ranked probability score (RPS) of the oracle is 0.221429. The Pearson binomial forecast has Pearson correlation 1, total variation distance 0.614594, and RPS 0.281693. At 256 training ratings per item, binomial RPS minus persona cross-entropy RPS is 0.059517 [0.059452, 0.059583] over 400 replications. A lenient point mass has generalizability coefficient 1 and is the maximum-coefficient choice in 400/400 replications. CPU, 29.7 seconds, $0.
+
 **TLDR-end:** [judge objectives: audit and experiment 34] Synthetic work is toy weights or analytic forecasts, open-weight work already includes prompts, harnesses, and low-rank adaptation, and the new simulation shows reliability 1 with a 0.049 RPS loss to a constant forecast.

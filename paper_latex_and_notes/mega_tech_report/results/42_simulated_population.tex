@@ -1,0 +1,39 @@
+%% title: Simulated multi-modal subpopulations versus correlation and G-theory (11-27-2026)
+%% result-date: 11-27-2026
+%% result-time: 19:40
+%% experiment: 42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026
+%% headline: On a polarized simulated law, a Pearson binomial forecast has correlation 1 and TVD 0.615; at 256 ratings its RPS is 0.0595 worse than persona cross-entropy.
+
+\subsection*{Bottom line}
+
+This is a simulated-population testbed, not a certification on human raters. The base measures are frozen marginal counts from VeriBench \texttt{native\_main}, DICES-990, and ChaosNLI. On the polarized subpopulation the oracle ranked probability score (RPS) is \(0.221429\), cross-entropy is \(1.416382\) nats, and total variation distance (TVD) is \(0\). A Pearson binomial forecast has Pearson correlation \(1\), TVD \(0.614594\), smoothed cross-entropy \(2.742210\) nats, and RPS \(0.281693\). At 256 training ratings per item, binomial RPS minus persona cross-entropy RPS is \(0.059517\) \([0.059452, 0.059583]\) (400 replications, Student-\(t\) 95\% interval; positive means persona cross-entropy is better). A lenient point mass has generalizability coefficient \(1\) and RPS \(0.396067\) \([0.395810, 0.396324]\). Maximum \(E\rho^{2}\) selects it in \(400/400\) replications. Lower is better for RPS (0 to 1), cross-entropy (nats), and TVD (0 to 1).
+
+\subsection*{Results}
+
+Exact risks on the polarized law. Spearman and Pearson are secondary.
+
+\FitWidth{\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Forecast & RPS & CE (nats) & TVD & Spearman & Pearson \\
+\midrule
+Oracle & 0.221429 & 1.416382 & 0 & 1 & 1 \\
+Pearson binomial & 0.281693 & 2.742210 & 0.614594 & 1 & 1 \\
+Lenient point mass & 0.396234 & infinite & 0.851797 & 0.925820 & 0.916515 \\
+\bottomrule
+\end{tabular}}
+
+Against the strict persona at 256 ratings, the Pearson binomial has bias \(+0.801169\) \([0.798735, 0.803604]\), Pearson correlation \(0.997604\) \([0.997440, 0.997768]\), and TVD \(0.493241\) \([0.493069, 0.493414]\). The strict persona's cross-entropy forecast has bias \(+0.015552\) \([0.011850, 0.019254]\) and TVD \(0.043945\) \([0.043270, 0.044620]\).
+
+\subsection*{Caveats}
+\begin{itemize}
+\item The Monte Carlo draws are simulated. They do not certify a judge on human raters.
+\item At 4 and at 16 ratings per item the pooled forecast has lower expected RPS than the persona split. The persona forecast is ahead at 64 and at 256.
+\item The chaos template places a three-class marginal on bins 0, 2, and 5. The strict persona is a reflection of a lenient histogram.
+\item A first moment-panel cut asked for an average RPS gap above 0.01. The exact gap is \(167/23040\). The cut was corrected and the Monte Carlo was re-run. Lean checks the center gap \(9/512\).
+\end{itemize}
+
+\subsection*{Appendix: methods, harness and model}
+\begin{itemize}
+\item No harness and no model. Closed-form learners only. CPU, 29.7 seconds, seed 20261127, 400 replications.
+\item Canonical record: \path{experiments/42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026/results.md}. Google Doc: \url{https://docs.google.com/document/d/1WJQVKxCmCwppfAwHvdQ46OUFqcfWPor35i-SdBpA24A/edit}.
+\end{itemize}
