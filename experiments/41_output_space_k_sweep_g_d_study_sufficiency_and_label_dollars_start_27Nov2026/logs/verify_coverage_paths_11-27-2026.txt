@@ -1,5 +1,4 @@
 PASS  every cited repository path exists  [42 paths]
-note  6 cited paths exist only on origin/main (not yet in this working tree)
 PASS  every cited identifier occurs in the repository  [31 identifiers]
 note  identifiers found in a .lean file: 29; found only in non-Lean files: ['strata_at_chosen', 'unbiased_risk']
 PASS  items are numbered 1..N without a gap  [N = 31]
