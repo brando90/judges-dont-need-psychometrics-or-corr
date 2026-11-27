@@ -1,0 +1,101 @@
+START A Thu, 26 Nov 2026 16:23:09 -0800
+== chaosnli_snli ==
+  chaosnli_snli rep 1/150  elapsed 0.5s
+  chaosnli_snli rep 25/150  elapsed 11.8s
+  chaosnli_snli rep 50/150  elapsed 23.9s
+  chaosnli_snli rep 75/150  elapsed 35.0s
+  chaosnli_snli rep 100/150  elapsed 46.3s
+  chaosnli_snli rep 125/150  elapsed 57.8s
+  chaosnli_snli rep 150/150  elapsed 68.9s
+== chaosnli_mnli ==
+  chaosnli_mnli rep 1/150  elapsed 0.4s
+  chaosnli_mnli rep 25/150  elapsed 10.6s
+  chaosnli_mnli rep 50/150  elapsed 21.5s
+  chaosnli_mnli rep 75/150  elapsed 32.6s
+  chaosnli_mnli rep 100/150  elapsed 43.4s
+  chaosnli_mnli rep 125/150  elapsed 54.4s
+  chaosnli_mnli rep 150/150  elapsed 65.6s
+== chaosnli_alphanli ==
+  chaosnli_alphanli rep 1/150  elapsed 0.4s
+  chaosnli_alphanli rep 25/150  elapsed 10.8s
+  chaosnli_alphanli rep 50/150  elapsed 21.9s
+  chaosnli_alphanli rep 75/150  elapsed 32.7s
+  chaosnli_alphanli rep 100/150  elapsed 43.2s
+  chaosnli_alphanli rep 125/150  elapsed 53.9s
+  chaosnli_alphanli rep 150/150  elapsed 64.6s
+== dices350 ==
+  dices350 rep 1/150  elapsed 0.5s
+  dices350 rep 25/150  elapsed 11.6s
+  dices350 rep 50/150  elapsed 23.2s
+  dices350 rep 75/150  elapsed 34.5s
+  dices350 rep 100/150  elapsed 45.3s
+  dices350 rep 125/150  elapsed 56.3s
+  dices350 rep 150/150  elapsed 67.3s
+== dices990 ==
+  dices990 rep 1/150  elapsed 0.4s
+  dices990 rep 25/150  elapsed 11.2s
+  dices990 rep 50/150  elapsed 22.0s
+  dices990 rep 75/150  elapsed 33.1s
+  dices990 rep 100/150  elapsed 44.2s
+  dices990 rep 125/150  elapsed 56.0s
+  dices990 rep 150/150  elapsed 67.7s
+done study A in 336.39 s
+END A exit=0 Thu, 26 Nov 2026 16:28:47 -0800
+START B Thu, 26 Nov 2026 16:28:47 -0800
+== t=0.00 pilot=16x4 reps=200 ==
+== t=0.00 pilot=32x4 reps=200 ==
+== t=0.00 pilot=32x8 reps=200 ==
+== t=0.00 pilot=64x4 reps=200 ==
+== t=0.00 pilot=64x8 reps=256 ==
+== t=0.15 pilot=16x4 reps=200 ==
+== t=0.15 pilot=32x4 reps=200 ==
+== t=0.15 pilot=32x8 reps=200 ==
+== t=0.15 pilot=64x4 reps=200 ==
+== t=0.15 pilot=64x8 reps=200 ==
+== t=0.30 pilot=16x4 reps=200 ==
+== t=0.30 pilot=32x4 reps=200 ==
+== t=0.30 pilot=32x8 reps=200 ==
+== t=0.30 pilot=64x4 reps=200 ==
+== t=0.30 pilot=64x8 reps=200 ==
+== t=0.40 pilot=16x4 reps=200 ==
+== t=0.40 pilot=32x4 reps=200 ==
+== t=0.40 pilot=32x8 reps=200 ==
+== t=0.40 pilot=64x4 reps=200 ==
+== t=0.40 pilot=64x8 reps=200 ==
+== t=0.45 pilot=16x4 reps=200 ==
+== t=0.45 pilot=32x4 reps=200 ==
+== t=0.45 pilot=32x8 reps=200 ==
+== t=0.45 pilot=64x4 reps=200 ==
+== t=0.45 pilot=64x8 reps=200 ==
+== t=0.50 pilot=16x4 reps=200 ==
+== t=0.50 pilot=32x4 reps=200 ==
+== t=0.50 pilot=32x8 reps=200 ==
+== t=0.50 pilot=64x4 reps=200 ==
+== t=0.50 pilot=64x8 reps=200 ==
+== t=0.55 pilot=16x4 reps=200 ==
+== t=0.55 pilot=32x4 reps=200 ==
+== t=0.55 pilot=32x8 reps=200 ==
+== t=0.55 pilot=64x4 reps=200 ==
+== t=0.55 pilot=64x8 reps=200 ==
+== t=0.60 pilot=16x4 reps=200 ==
+== t=0.60 pilot=32x4 reps=200 ==
+== t=0.60 pilot=32x8 reps=200 ==
+== t=0.60 pilot=64x4 reps=200 ==
+== t=0.60 pilot=64x8 reps=200 ==
+== t=0.70 pilot=16x4 reps=200 ==
+== t=0.70 pilot=32x4 reps=200 ==
+== t=0.70 pilot=32x8 reps=200 ==
+== t=0.70 pilot=64x4 reps=200 ==
+== t=0.70 pilot=64x8 reps=200 ==
+== t=0.85 pilot=16x4 reps=200 ==
+== t=0.85 pilot=32x4 reps=200 ==
+== t=0.85 pilot=32x8 reps=200 ==
+== t=0.85 pilot=64x4 reps=200 ==
+== t=0.85 pilot=64x8 reps=200 ==
+== t=1.00 pilot=16x4 reps=200 ==
+== t=1.00 pilot=32x4 reps=200 ==
+== t=1.00 pilot=32x8 reps=200 ==
+== t=1.00 pilot=64x4 reps=200 ==
+== t=1.00 pilot=64x8 reps=256 ==
+done study B in 10.77 s
+END B exit=0 Thu, 26 Nov 2026 16:28:58 -0800

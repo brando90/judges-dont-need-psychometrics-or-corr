@@ -1,0 +1,157 @@
+[
+  {
+    "name": "split_partition_chaosnli_snli",
+    "pass": true,
+    "detail": "test 180 dev 420 n 600"
+  },
+  {
+    "name": "enough_dev_for_pilot_chaosnli_snli",
+    "pass": true,
+    "detail": "dev=420"
+  },
+  {
+    "name": "enough_ratings_chaosnli_snli",
+    "pass": true,
+    "detail": "min ratings 100"
+  },
+  {
+    "name": "split_partition_chaosnli_mnli",
+    "pass": true,
+    "detail": "test 180 dev 420 n 600"
+  },
+  {
+    "name": "enough_dev_for_pilot_chaosnli_mnli",
+    "pass": true,
+    "detail": "dev=420"
+  },
+  {
+    "name": "enough_ratings_chaosnli_mnli",
+    "pass": true,
+    "detail": "min ratings 100"
+  },
+  {
+    "name": "split_partition_chaosnli_alphanli",
+    "pass": true,
+    "detail": "test 120 dev 280 n 400"
+  },
+  {
+    "name": "enough_dev_for_pilot_chaosnli_alphanli",
+    "pass": true,
+    "detail": "dev=280"
+  },
+  {
+    "name": "enough_ratings_chaosnli_alphanli",
+    "pass": true,
+    "detail": "min ratings 100"
+  },
+  {
+    "name": "split_partition_dices350",
+    "pass": true,
+    "detail": "test 105 dev 245 n 350"
+  },
+  {
+    "name": "enough_dev_for_pilot_dices350",
+    "pass": true,
+    "detail": "dev=245"
+  },
+  {
+    "name": "enough_ratings_dices350",
+    "pass": true,
+    "detail": "min ratings 123"
+  },
+  {
+    "name": "split_partition_dices990",
+    "pass": true,
+    "detail": "test 120 dev 280 n 400"
+  },
+  {
+    "name": "enough_dev_for_pilot_dices990",
+    "pass": true,
+    "detail": "dev=280"
+  },
+  {
+    "name": "enough_ratings_dices990",
+    "pass": true,
+    "detail": "min ratings 69"
+  },
+  {
+    "name": "deploy_train_avoids_test_rep0_snli",
+    "pass": true,
+    "detail": "overlap=0"
+  },
+  {
+    "name": "pilot_table_deterministic",
+    "pass": true,
+    "detail": "two draws with the same seed"
+  },
+  {
+    "name": "u1_always_max_raters",
+    "pass": true,
+    "detail": "all 150/150 cells"
+  },
+  {
+    "name": "study_a_row_count",
+    "pass": true,
+    "detail": "rows=750"
+  },
+  {
+    "name": "repro_C1_oracle",
+    "pass": true,
+    "detail": {
+      "oracle": "8x2",
+      "chose_oracle_k": 255,
+      "n": 256,
+      "paired_vs_equal": {
+        "mean": -0.11940720065244378,
+        "ci95": [
+          -0.16364719967626698,
+          -0.07516720162862059
+        ],
+        "se": 0.02246471414978273,
+        "n": 256,
+        "ci_excludes_0": true,
+        "paired_t_pvalue": 2.3247831524083993e-07
+      }
+    }
+  },
+  {
+    "name": "repro_C2_oracle",
+    "pass": true,
+    "detail": {
+      "oracle": "2x8",
+      "chose_oracle_k": 254,
+      "n": 256,
+      "paired_vs_equal": {
+        "mean": -0.08462659789394514,
+        "ci95": [
+          -0.11777410537457306,
+          -0.05147909041331721
+        ],
+        "se": 0.01683203654523361,
+        "n": 256,
+        "ci_excludes_0": true,
+        "paired_t_pvalue": 9.361132085846118e-07
+      }
+    }
+  },
+  {
+    "name": "repro_C1_n256",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "repro_C2_n256",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "t0.5_4x4_unique_oracle",
+    "pass": true,
+    "detail": "v_Delta 0.3875 vs 0.475"
+  },
+  {
+    "name": "crossovers_oracles",
+    "pass": true,
+    "detail": "8x2 at 0.15, 4x4 at 0.30-0.70, 2x8 at 0.85"
+  }
+]
