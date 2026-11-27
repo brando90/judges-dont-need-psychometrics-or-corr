@@ -1,0 +1,15 @@
+PASS M1 and M2 share mean 5/2
+PASS M1 and M2 share variance 4
+PASS RPS gap of M2 on M1 is 9/512
+PASS TVD of M1 and M2 is 9/16
+PASS panel Eρ² values match and equal 1/5
+PASS three-item RPS gap is 167/23040
+PASS three-item TVD is positive
+PASS endpoint law mean 3/2 and variance 2
+PASS endpoint law mean 3/2 and variance 2
+PASS constant shift preserves Pearson
+PASS M1 is not M2
+PASS fit ignores a overwritten test array
+PASS rater ids are disjoint across splits
+PASS item ids are disjoint across splits
+ALL PASS

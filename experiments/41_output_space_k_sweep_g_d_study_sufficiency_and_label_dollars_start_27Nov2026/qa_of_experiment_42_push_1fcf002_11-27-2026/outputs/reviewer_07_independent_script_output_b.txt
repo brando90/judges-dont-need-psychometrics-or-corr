@@ -1,0 +1,156 @@
+## Bottom line
+
+A Simile-style population is a mixture of named subpopulations, not one average rater. Here the subpopulation a deployment asks for can be named, and the training ratings carry that label.
+
+- **Where the mean is not the law.** On the polarized subpopulation every compared forecast that matches the six bin means has Pearson correlation 1. The Pearson binomial still has TVD 0.614594 and smoothed cross-entropy (CE) 2.742 nats, against the oracle's 1.416 nats. At 256 ratings per item the binomial's expected RPS minus the persona cross-entropy forecast's expected RPS is 0.059517 [0.059452, 0.059583], p < 1e-300, on 400 replications.
+- **Where reliability selects the wrong forecast.** The lenient point mass has judge-only Eρ² = 1. Maximum Eρ² selects it in 400/400 replications at 64 ratings and again at 256. Validation RPS, on ratings from the polarized law that the fit never sees, selects it in 0/400 replications at 256 ratings (persona cross-entropy 202, persona RPS 198). The selected forecast's expected RPS minus the lenient point's is −0.173771 [−0.174030, −0.173513].
+- **Where a constant shift hides from correlation and not from calibration.** The strict persona's bin means are the polarized means minus 0.8. At 256 ratings the Pearson binomial's bias is +0.801 [0.799, 0.804], its Pearson correlation is 0.9976 [0.9974, 0.9978], its Spearman correlation is 1, and its TVD is 0.4932 [0.4931, 0.4934]. The strict persona's own cross-entropy forecast has bias +0.0156 [0.0119, 0.0193] and TVD 0.043945 [0.043270, 0.044620]. The oracle bias is 0 and the oracle TVD is 0.
+- **Where matched moments hide from G-theory.** Two three-item panels share every item mean and every item variance, so both have Eρ² = 1/5. Their average RPS differs by 167/23040 and their TVD is 0.298611. The center pair alone has RPS gap 9/512 and TVD 9/16. Lean 4.36.0 checks these identities with no `sorry`.
+- **What this does not say.** It does not certify a judge on held-out human raters. It does not say a persona model wins at every sample size: at 4 and at 16 ratings per item the pooled forecast, which ignores the persona, has lower expected RPS than the persona split, because the split keeps only a quarter of the ratings. By 64 ratings the persona forecast is ahead.
+
+## Which data
+
+Six bins, means 1.6, 2.0, 2.4, 2.8, 3.2, 3.6. Eight items in a bin share the bin's law. Items 0–3 train, 4–5 validation, 6–7 test. No item is in two splits. Simulated rater ids do not cross splits.
+
+Four personas. The strict and lenient personas are exponential tilts of the reflected and the raw VeriBench `native_main` histogram (250 ratings, counts `[0, 7, 1, 15, 42, 185]`, mean 4.588). The polarized persona mixes a tilt of the reflection to mean 0.5 with a tilt of the raw histogram to mean 4.5; the bin mean sets the weight. The chaos persona places the ChaosNLI three-class counts `[109508, 138882, 62910]` on bins 0, 2, and 5, in the order entailment < neutral < contradiction, and tilts that template to the bin mean. Bins 1, 3, and 4 of that template stay empty. That placement is a transport onto the 0–5 rubric, not a claim that those annotators used a 0–5 score. The native three-class side table does not use the transport.
+
+DICES-990 contributes its own three-class marginal, counts `[45678, 3231, 15977]` on No < Unsure < Yes, 64,886 ratings after dropping 7,217 quality-filter rows. It is not embedded into 0–5.
+
+VeriBench `R_v1` at `veribench@d1c47355` returned HTTP 404. The experiment 36 report of an `R_v1` mean 2.97 on 345 ratings is cited only. It is not a histogram in this fit.
+
+A training budget of n ratings per item is a quota of n/4 from each persona. The fit sees train items only. Exact risks use the known law. They are not in-sample scores.
+
+## Metrics
+
+| Metric | Definition | Range | Better | Reference on the polarized law |
+| --- | --- | --- | --- | --- |
+| Ranked probability score (RPS) | Mean over bins of E[(1/5) Σ_{t=0}^{4} (F(t) − 1{y ≤ t})²] | 0 to 1 | Lower | Oracle 0.221429. Pearson binomial 0.281693 |
+| Cross-entropy (CE) | E[−ln q(y)], nats. Point masses are also reported after the floor 10⁻⁶ | 0 to ∞ | Lower | Oracle 1.416382. Pearson binomial 2.742210. Lenient point, unsmoothed, infinite |
+| Total variation distance (TVD) | Mean over bins of 0.5 Σ \|q − p\| against the known law | 0 to 1 | Lower | Oracle 0. Pearson binomial 0.614594 |
+| Bias | Forecast mean minus true mean. Positive means lenient | −5 to 5 | Near 0 | Binomial on the strict persona, +0.800 |
+| Pearson, Spearman | Correlation of the six bin means | −1 to 1 | Not a proper score | Binomial on the polarized law, both 1 |
+| Eρ² and own-source Φ | v_u / (v_u + v_e). For one source, Φ = Eρ² | 0 to 1 when defined | Higher means more repeatable | Lenient point, 1. Polarized law, 0.095121 |
+
+## How each forecast was chosen
+
+Persona cross-entropy and persona RPS are closed forms on the polarized quota: add-one (count + 1) / (n + 6), and the empirical frequency. Add-one is the unique minimizer of cross-entropy plus a Dirichlet(1) penalty. The empirical frequency minimizes empirical normalized RPS. Pooled cross-entropy is add-one on all four quotas. The Pearson binomial matches the pooled mean. The Spearman point and the lenient point are point masses, as defined in the reading guide. Maximum Eρ² and maximum Φ read only the forecast's own means and variances. Validation RPS uses a fresh draw from the polarized law on the validation items. No iterative optimizer is used. Every optimum above is the closed form of a convex empirical risk, except the correlation and coefficient rules, which are not proper scores.
+
+## Polarized subpopulation
+
+Exact risks, no sampling. Lower is better for RPS, CE, and TVD.
+
+| Forecast | RPS | CE (nats) | TVD | Bias | Pearson | Spearman | Eρ² |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Oracle polarized law | 0.221429 | 1.416382 | 0 | 0 | 1 | 1 | 0.095121 |
+| Train mixture, personas equally weighted | 0.226916 | 1.523772 | 0.193103 | 0 | 1 | 1 | 0.118814 |
+| Pearson binomial | 0.281693 | 2.742210 | 0.614594 | 0 | 1 | 1 | 0.287829 |
+| Lenient persona's own law | 0.260938 | infinite (smoothed 5.508911) | 0.357935 | +0.800 | 1 | 1 | 0.167516 |
+| Spearman point mass | 0.359936 | infinite (smoothed 10.591893) | 0.766667 | −0.100 | 1 | 1 | 1 |
+| Lenient point mass | 0.396234 | infinite (smoothed 11.768006) | 0.851797 | +1.067 | 0.916515 | 0.925820 | 1 |
+
+The Spearman point matches the bin means in order and in Pearson correlation, and it has Eρ² = 1, because a point mass has within-bin variance 0. Its RPS is 0.138507 worse than the oracle.
+
+Finite-sample expected RPS under the polarized law. Brackets are Student-t 95% intervals over 400 replications. The unit is the replication.
+
+| Training ratings per item | Persona CE | Persona RPS | Pooled CE | Pearson binomial | Spearman point | Lenient point |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 4 | 0.245007 [0.244231, 0.245784] | 0.278214 [0.275925, 0.280503] | 0.237579 [0.237165, 0.237994] | 0.286468 [0.285927, 0.287008] | 0.372947 [0.371737, 0.374156] | 0.397623 [0.396681, 0.398564] |
+| 16 | 0.231591 [0.231158, 0.232024] | 0.234969 [0.234342, 0.235595] | 0.230239 [0.230073, 0.230404] | 0.282723 [0.282467, 0.282978] | 0.362832 [0.362480, 0.363184] | 0.394835 [0.394168, 0.395502] |
+| 64 | 0.224587 [0.224445, 0.224728] | 0.224839 [0.224684, 0.224994] | 0.227837 [0.227761, 0.227912] | 0.282140 [0.282018, 0.282263] | 0.360104 [0.360013, 0.360195] | 0.395421 [0.394918, 0.395923] |
+| 256 | 0.222313 [0.222269, 0.222356] | 0.222322 [0.222278, 0.222366] | 0.227136 [0.227103, 0.227168] | 0.281830 [0.281769, 0.281891] | 0.359936 [0.359936, 0.359936] | 0.396067 [0.395810, 0.396324] |
+
+Pooled CE minus persona CE, expected RPS. Positive means persona CE is better.
+
+| Ratings per item | Difference |
+| --- | ---: |
+| 4 | −0.007428 [−0.008126, −0.006730], p = 3.78×10⁻⁶⁶ |
+| 16 | −0.001352 [−0.001771, −0.000933], p = 6.00×10⁻¹⁰ |
+| 64 | +0.003250 [0.003102, 0.003397], p = 4.28×10⁻¹⁵³ |
+| 256 | +0.004823 [0.004774, 0.004873], p < 1e-300 |
+
+At 256 ratings the persona forecast's TVD is 0.047869 [0.047131, 0.048608] and its smoothed CE is 1.425959 [1.425701, 1.426216]. The pooled forecast's TVD is 0.194526 [0.193975, 0.195078] and its smoothed CE is 1.525969 [1.525464, 1.526474]. Both have high Pearson correlation (persona 0.986242 [0.985278, 0.987206]; pooled and binomial 0.997604 [0.997440, 0.997768]). The binomial's TVD is 0.614406 [0.614196, 0.614616] and its smoothed CE is 2.743591 [2.743512, 2.743669].
+
+Persona CE minus the oracle, expected RPS at 256 ratings: +0.000884 [0.000840, 0.000928]. The forecast has not reached the oracle; the gap is under 0.001.
+
+![Expected RPS on the polarized subpopulation](figures/fig1_polarized_rps_by_budget.png)
+
+*Figure 1.* Expected RPS under the known polarized law. The persona cross-entropy forecast is add-one on the polarized quota from the train items only. The pooled forecast ignores the persona. The Pearson binomial matches the pooled training mean. The lenient point mass is one category above the rounded pooled mean. Lower is better. Bands are Student-t 95% intervals over 400 replications. The dashed line is the oracle, 0.221429.
+
+## Strict subpopulation, same bin order
+
+Exact: the strict oracle has RPS 0.162264, smoothed CE 1.282599, TVD 0, bias 0. The Pearson binomial has RPS 0.214620, smoothed CE 2.207161, TVD 0.493129, bias +0.800, Pearson correlation 1.
+
+At 256 training ratings per item:
+
+| Forecast | RPS | Smoothed CE (nats) | TVD | Bias | Pearson |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Strict persona CE | 0.162882 [0.162854, 0.162910] | 1.293702 [1.293502, 1.293902] | 0.043945 [0.043270, 0.044620] | +0.015552 [0.011850, 0.019254] | 0.993110 |
+| Pooled CE | 0.195444 [0.195289, 0.195598] | 1.699348 [1.698495, 1.700202] | 0.335236 [0.334683, 0.335788] | +0.800580 [0.798160, 0.803000] | 0.997604 |
+| Pearson binomial | 0.214860 [0.214703, 0.215018] | 2.209439 [2.207748, 2.211130] | 0.493241 [0.493069, 0.493414] | +0.801169 [0.798735, 0.803604] | 0.997604 [0.997440, 0.997768] |
+| Lenient point | 0.409328 [0.408600, 0.410055] | 11.698349 [11.677957, 11.718740] | 0.846755 [0.845279, 0.848231] | +1.869167 [1.863732, 1.874601] | 0.918082 |
+
+The binomial's Spearman correlation on these six means is 1 in every replication. The strict persona forecast is slightly lenient at this quota because the Dirichlet(1) prior pulls toward the center of 0–5. Its bias is about 0.016 rating points, not 0. The binomial's bias stays at the population shift, +0.8.
+
+![TVD against the strict subpopulation](figures/fig2_strict_subgroup_tvd.png)
+
+*Figure 2.* Total variation distance against the known strict law at 256 training ratings per item. Bars are means over 400 replications. Whiskers are Student-t 95% intervals. Lower is better. The strict persona forecast is the only one of the four that was fit on the strict quota.
+
+## Shifted mixture
+
+The shift weights are 0.05 strict, 0.05 lenient, 0.80 polarized, 0.10 chaos. Every persona has the bin mean, so the shift mean equals the train-mixture mean. Exact RPS: oracle 0.217853, train mixture 0.220826 (TVD 0.147154, smoothed CE 1.5414), Pearson binomial 0.269583 (TVD 0.569058, smoothed CE 2.6463). Pearson correlation of the binomial means with the shift means is 1.
+
+At 256 ratings, persona laws reweighted with the shift weights have expected RPS 0.218439 [0.218410, 0.218468], TVD 0.038918, smoothed CE 1.495117. Pooled CE has RPS 0.221037 [0.221013, 0.221062], TVD 0.149044, smoothed CE 1.543577. The binomial has RPS 0.269723 [0.269668, 0.269778], TVD 0.568936, smoothed CE 2.647678.
+
+## Selection
+
+| Rule | What it uses | Choice at 256 ratings | Expected RPS of the choice on the polarized law, minus persona CE |
+| --- | --- | --- | ---: |
+| Maximum Eρ² | The forecast's own means and variances | Lenient point in 400/400 | +0.173754 (the point's own RPS 0.396067 minus persona CE 0.222313) |
+| Validation RPS | Polarized-law ratings on validation items | Persona CE 202/400, persona RPS 198/400, lenient point 0/400 | −0.173771 [−0.174030, −0.173513] versus the lenient point |
+| Maximum own-source Φ | Each persona's add-one panel | Lenient 230, strict 169, chaos 1 (peaked 399/400) | +0.039535 [0.039267, 0.039803] |
+
+At 64 ratings, maximum Eρ² still selects the lenient point in 400/400. Maximum Φ is noisier: lenient 191, strict 154, chaos 47, polarized 8. The 256-rating cut, not the 64-rating one, is the pre-registered Φ cut.
+
+The population Φ values are lenient 0.167516, strict 0.160689, chaos 0.121694, polarized 0.095121. The most dependable persona is the lenient one. Using that persona's law as the forecast of the polarized population has exact RPS 0.260938, TVD 0.357935, bias +0.800, Pearson correlation 1, and infinite unsmoothed CE, because the lenient tilt puts no mass on score 0 and the polarized law does.
+
+## Equal moments
+
+Law U and law V are two three-item panels. Item means are 3/2, 5/2, 7/2. Item variances are 2, 4, 2. Both have Eρ² = Φ = 1/5. TVD of V against U is 0.298611. Expected RPS is 0.172569 under U scored by U, and 0.179818 under U scored by V. The difference is 167/23040. Smoothed CE of V on U is 3.679079, against U's own CE 1.106424. The center item is the pair M1 = [5, 0, 3, 3, 0, 5]/16 and M2 = [7, 9, 0, 0, 9, 7]/32. They share mean 5/2 and variance 4. TVD is 9/16. The RPS gap is 9/512. M2 puts zero mass on scores 2 and 3, where M1 does not, so unsmoothed CE of M2 on M1 is infinite.
+
+At 256 ratings drawn from U, add-one RPS is 0.173222 [0.173180, 0.173264]. The binomial projection stays at 0.206127. The fixed law V stays at 0.179818. At 4 ratings, add-one RPS is 0.192602 [0.191922, 0.193282], which is worse than V: the equal-moment alternative is a stronger finite-sample forecast than a six-class histogram until the histogram has enough counts. By 64 ratings, add-one RPS is 0.174972 [0.174829, 0.175115], ahead of V.
+
+![Equal-moment panel](figures/fig3_equal_moment_rps.png)
+
+*Figure 3.* Expected RPS under law U. Add-one cross-entropy and the binomial projection are fit on training ratings from U. Law V is the equal-moment alternative and is not fit. Lower is better. The dotted line is the oracle RPS of U, 0.172569. The dashed line is V, 0.179818.
+
+## Native three-class side table
+
+DICES-990 and ChaosNLI SNLI+MNLI, each tilted to means 0.7, 1.0, and 1.3 on {0, 1, 2}. No score was moved onto a 0–5 bin. Pearson correlation of the two mean vectors is 1. Spearman correlation is 1. TVD of the ChaosNLI tilt against the DICES tilt is 0.375664. Expected RPS is 0.234255 for DICES scored on itself and 0.269604 for the ChaosNLI tilt scored on DICES. CE is 0.834852 versus 1.216962 nats. Own-source Eρ² is 0.063465 for the DICES tilt and 0.105310 for the ChaosNLI tilt. The coefficients differ because the variances differ. They still do not recover the probability mass function: the means match, the correlation is 1, and the TVD is 0.376.
+
+ChaosNLI's within-item disagreement is a separate fact about the items, not about this marginal tilt: 0.504 of the 3,113 items have no class with share above 0.70. The tilt uses the pooled marginal only.
+
+## Checks
+
+Lean 4.36.0, `lake build`, no `sorry`. `#print axioms` on the proved theorems lists only `propext`, `Classical.choice`, and `Quot.sound`. Receipt: `lean_check.txt`. The general claims are that Eρ² depends on the item means and the item variances only, and that adding a constant does not change centered deviations. The concrete instance is the pair M1, M2 and the three-item panel.
+
+`checks/quick_numerics.py` prints PASS on every identity, including the failing case "M1 is not M2," and was run twice with identical output. `pytest` on `tests/test_benchmark.py`: 10 passed.
+
+Hard checks in `qa/criteria_checks.json`: 23/23 passed, including leakage (the fit ignores an overwritten test array; rater ids and item ids are disjoint across splits), byte-identical seed replay, the item-clustered interval, and the sample-versus-exact check.
+
+The sample check at 16 training ratings and 32 test ratings per item: sample RPS minus exact RPS of the persona cross-entropy forecast is −0.000130 [−0.000676, 0.000415], p = 0.639. The interval covers 0.
+
+One item-clustered percentile interval, 1,000 draws, 12 test items, the n=64 replication-0 persona forecast: sample mean RPS 0.229279, interval [0.213197, 0.246499], exact RPS of that fit 0.226801. The exact value is inside the interval.
+
+Software: Python 3.12, NumPy 2.5.5, SciPy 1.18.1, Matplotlib 3.11.2. Generator: NumPy PCG64, `SeedSequence([20261127, scenario, n, replication, stream])`.
+
+## Limits
+
+The items are a fixed simulated design. The intervals cover new draws from these laws, not a new human population and not a language-model judge. The chaos persona's empty bins are an order-preserving transport of a three-class marginal, not a 0–5 annotation. The strict persona is a reflection of a lenient histogram. Own-source Φ cannot see that a dependable persona is the wrong subpopulation; joint Φ with the polarized law would charge the +0.8 source shift and would still not be a proper score. Experiment 34 remains the result on a lenient point mass inside a binomial panel. Experiment 39 remains the result on spending a rating budget across items and raters. This result is about named subpopulations whose means match and whose shapes do not.
+
+## Reproduce
+
+```bash
+python3 experiments/42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026/run_experiment.py
+```
+
+**TLDR-end:** [judge objectives: simulated subpopulations] On a polarized law built from a VeriBench histogram, a Pearson binomial forecast has correlation 1 and TVD 0.615; at 256 ratings its RPS is 0.0595 worse than persona cross-entropy, and a point mass with reliability 1 is the forecast maximum Eρ² selects.

@@ -1,0 +1,200 @@
+Mega tech report: all results in chronological order
+Brando Miranda
+Built 11-27-2026 (2 results)
+
+Result fragments in the order each result first landed on main. As of this build the fragment set
+is experiment 34. Earlier experiments are not backfilled into this file. Each section is one file in
+results/; the experiment’s results.md and Google Doc stay the working record. Metrics: RPS,
+CE and TVD (lower is better) come first, Spearman and Pearson are secondary.
+
+Results at a glance
+No.
+
+Result date
+
+Exp.
+
+1
+
+11-25-2026
+
+34
+
+2
+
+11-27-2026
+
+42
+
+Headline
+A lenient point mass with reliability 1 is 0.0492 RPS worse
+than a constant forecast; a same-moment shape change
+leaves a 0.0205 RPS gap.
+On a polarized simulated law, a Pearson binomial forecast
+has correlation 1 and TVD 0.615; at 256 ratings its RPS is
+0.0595 worse than persona cross-entropy.
+
+1
+
+1
+
+Generalizability coefficients versus cross-entropy on known ordinal distributions (11-25-2026)
+
+Result 1 of 2 · experiment 34 · result date 11-25-2026 20:15
+folder 34_g_d_theory_vs_ce_where_reliability_agrees_and_fails_start_25Nov2026
+
+Bottom line
+On known synthetic ratings in {0, 1, 2, 3, 4, 5}, with no held-out items, a binomial-projection learner
+and an add-one cross-entropy learner agree when the conditional distribution is binomial. At
+256 training ratings per item, expected ranked probability score (RPS) of the projection minus
+expected RPS of add-one cross-entropy is −0.000187 [−0.000194, −0.000181] (400 replications,
+Student-t 95% interval). Both beat the pooled Laplace forecast by about 0.075 RPS. A lenient
+point mass has judge-only generalizability coefficient 1 and, at 16 ratings, expected RPS 0.049183
+[0.047743, 0.050622] worse than that constant forecast, with Pearson 0.960708 [0.959250, 0.962167].
+A same-mean, same-variance shape change leaves the coefficients unchanged. At 256 ratings the projection remains 0.020508 [0.020476, 0.020541] RPS, 0.689846 [0.689685, 0.690007] smoothed crossentropy nats, and 0.486076 [0.485578, 0.486575] total variation distance (TVD) worse than add-one.
+Lower is better for RPS (0 to 1), cross-entropy (nats), and TVD (0 to 1).
+
+Results
+The table is the leniency setting at 16 training ratings per item. RPS, smoothed cross-entropy, and
+TVD are expectations under the true binomial distribution. Pearson is across the 12 fixed item
+means.
+Forecast
+Add-one cross-entropy
+Pooled Laplace
+Lenient point mass
+
+RPS
+
+CE (nats)
+
+TVD
+
+Pearson
+
+0.111694 [0.111527, 0.111861]
+0.178552 [0.178515, 0.178589]
+0.227735 [0.226292, 0.229177]
+
+1.444784
+1.778671
+10.353090 [10.327050, 10.379130]
+
+0.176171
+0.384395
+0.749382 [0.747497, 0.751266]
+
+0.983314
+undefined
+0.960708 [0.959250, 0.962167]
+
+At 64 ratings per rater in the six-rater mixture, add-one on all raters has expected RPS 0.139818
+[0.139813, 0.139824] against the true marginal 0.139585. The lenient point mass has 0.345844
+[0.344950, 0.346739], and the pooled Laplace forecast has 0.191942 [0.191941, 0.191943].
+
+Caveats
+• Items are fixed. Intervals cover new ratings of those items, not a new task or a language-model
+judge.
+• Judge-only reliability of the point mass is 1 by construction. The empirical result is that this
+forecast loses to the constant forecast on RPS, smoothed cross-entropy, and TVD.
+• Absolute dependability detects a constant shift only when the human source is in the same
+panel. Experiment 04 remains the result on allocating raters versus occasions.
+• Smoothed cross-entropy uses the floor 10−6 . Unsmoothed cross-entropy of the point mass is
+infinite.
+
+2
+
+Appendix: methods, harness and model
+• No harness and no model. Closed-form learners only. CPU, 32.2 seconds, seed 20261125, 400
+replications.
+• Full tables, the reading guide, and the derivation PDF are in experiments/34_g_d_theory_
+vs_ce_where_reliability_agrees_and_fails_start_25Nov2026/.
+• Canonical record: results.md in that folder. Google Doc: https://docs.google.com/
+document/d/1QbJYWT1rrRFSQFFZpncQt6pN7xAl9wKHlR06xpvQMS0/edit.
+
+3
+
+2
+
+Simulated multi-modal subpopulations versus correlation and
+G-theory (11-27-2026)
+
+Result 2 of 2 · experiment 42 · result date 11-27-2026 19:40
+folder 42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026
+
+Bottom line
+This is a simulated-population testbed, not a certification on human raters. The base measures are
+frozen marginal counts from VeriBench native_main, DICES-990, and ChaosNLI. On the polarized
+subpopulation the oracle ranked probability score (RPS) is 0.221429, cross-entropy is 1.416382 nats,
+and total variation distance (TVD) is 0. A Pearson binomial forecast has Pearson correlation 1,
+TVD 0.614594, smoothed cross-entropy 2.742210 nats, and RPS 0.281693. At 256 training ratings
+per item, binomial RPS minus persona cross-entropy RPS is 0.059517 [0.059452, 0.059583] (400
+replications, Student-t 95% interval; positive means persona cross-entropy is better). A lenient
+point mass has generalizability coefficient 1 and RPS 0.396067 [0.395810, 0.396324]. Maximum Eρ2
+selects it in 400/400 replications. Lower is better for RPS (0 to 1), cross-entropy (nats), and TVD
+(0 to 1).
+
+Results
+Exact risks on the polarized law. Spearman and Pearson are secondary.
+
+Forecast
+Oracle
+Pearson binomial
+Lenient point mass
+
+RPS
+
+CE (nats)
+
+TVD
+
+Spearman
+
+Pearson
+
+0.221429
+0.281693
+0.396234
+
+1.416382
+2.742210
+infinite
+
+0
+0.614594
+0.851797
+
+1
+1
+0.925820
+
+1
+1
+0.916515
+
+Against the strict persona at 256 ratings, the Pearson binomial has bias +0.801169 [0.798735, 0.803604],
+Pearson correlation 0.997604 [0.997440, 0.997768], and TVD 0.493241 [0.493069, 0.493414]. The
+strict persona’s cross-entropy forecast has bias +0.015552 [0.011850, 0.019254] and TVD 0.043945
+[0.043270, 0.044620].
+
+Caveats
+• The Monte Carlo draws are simulated. They do not certify a judge on human raters.
+• At 4 and at 16 ratings per item the pooled forecast has lower expected RPS than the persona
+split. The persona forecast is ahead at 64 and at 256.
+• The chaos template places a three-class marginal on bins 0, 2, and 5. The strict persona is a
+reflection of a lenient histogram.
+• A first moment-panel cut asked for an average RPS gap above 0.01. The exact gap is
+167/23040. The cut was corrected and the Monte Carlo was re-run. Lean checks the center
+gap 9/512.
+
+4
+
+Appendix: methods, harness and model
+• No harness and no model. Closed-form learners only. CPU, 29.7 seconds, seed 20261127, 400
+replications.
+• Canonical record: experiments/42_multimodal_simulated_population_ce_rps_vs_corr_
+gtheory_start_27Nov2026/results.md. Google Doc: https://docs.google.com/document/
+d/1WJQVKxCmCwppfAwHvdQ46OUFqcfWPor35i-SdBpA24A/edit.
+
+5
+
+

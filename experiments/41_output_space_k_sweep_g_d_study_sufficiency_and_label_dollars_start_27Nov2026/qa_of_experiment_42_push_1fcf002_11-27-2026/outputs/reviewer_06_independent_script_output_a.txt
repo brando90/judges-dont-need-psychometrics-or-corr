@@ -1,0 +1,12 @@
+# Experiment 42: simulated multi-modal subpopulations, proper scores versus correlation and G-theory
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/42_multimodal_simulated_population_ce_rps_vs_corr_gtheory_start_27Nov2026/results.md>
+
+**TLDR:** This is a simulated-population testbed, not a certification on human raters. On the polarized subpopulation the exact oracle ranked probability score (RPS) is 0.221429. A Pearson binomial forecast has Pearson correlation 1 with the bin means, total variation distance (TVD) 0.614594, and RPS 0.281693. At 256 training ratings per item, binomial RPS minus persona cross-entropy RPS is 0.059517 [0.059452, 0.059583] (400 replications; positive means persona cross-entropy is better). A lenient point mass has generalizability coefficient Eρ² = 1 and is the maximum-Eρ² choice in 400/400 replications, with RPS 0.396067 [0.395810, 0.396324].
+
+**As of:** 11-27-2026. **Status:** COMPLETE. Local CPU, 29.7 seconds, $0, no model calls. The Monte Carlo draws are simulated. The base measures are frozen marginal counts from VeriBench `native_main`, DICES-990, and ChaosNLI SNLI+MNLI.
+
+Google Doc: <https://docs.google.com/document/d/1WJQVKxCmCwppfAwHvdQ46OUFqcfWPor35i-SdBpA24A/edit> (shared with <owner's Gmail address, masked> as a commenter).
+
+Read [HOW_TO_READ_RESULTS.md](HOW_TO_READ_RESULTS.md) before the tables. The contract is [PROTOCOL.md](PROTOCOL.md). One cut was corrected after the exact three-item gap was computed; that correction is stated in the protocol and under Checks.
+

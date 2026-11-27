@@ -1,0 +1,5 @@
+Committed results/summary.json (commit 1fcf002) against a regenerated copy (python3 -B run_experiment.py in a scratch copy of the pushed folder).
+numeric leaves compared: 4086
+max absolute difference excluding wall_seconds: 0.0
+paths that differ by more than 1e-9 or in value: ['/software/numpy value', '/wall_seconds']
+(expected: software.numpy version string and wall_seconds only)
