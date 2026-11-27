@@ -1,6 +1,6 @@
-# Experiment 39: predictions written before any head was trained (11-27-2026)
+# Experiment 40: predictions written before any head was trained (11-27-2026)
 
-**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/39_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/PREREGISTERED_PREDICTIONS_11-27-2026.md>
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/40_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/PREREGISTERED_PREDICTIONS_11-27-2026.md>
 
 **TLDR:** Seven predictions, a decision rule for each, and the exact design, all fixed before `scripts/k_sweep_matched_calibration.py` or `scripts/gd_study_and_allocation.py` produced a number. This file is committed locally before those scripts run; its git commit time precedes every file under `results/`.
 

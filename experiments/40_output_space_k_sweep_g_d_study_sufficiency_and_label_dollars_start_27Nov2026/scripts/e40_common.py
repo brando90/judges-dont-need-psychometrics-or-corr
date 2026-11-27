@@ -1,4 +1,4 @@
-"""Shared setup for the Experiment 39 scripts.
+"""Shared setup for the Experiment 40 scripts.
 
 Reuses Experiment 36's loaders, group split, features, head fitting and per-item loss code UNCHANGED
 (the experiment folder 36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026 is imported, never edited).
@@ -19,9 +19,9 @@ import numpy as np
 from scipy.optimize import minimize
 
 HERE = Path(__file__).resolve().parent
-EXP39 = HERE.parent
-E36 = EXP39.parent / "36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026"
-CACHE = Path(os.environ.get("E39_DATA_CACHE", "/tmp/e39_data_cache"))
+EXP40 = HERE.parent
+E36 = EXP40.parent / "36_sanmi_distributional_pitch_anti_proper_corr_start_26Nov2026"
+CACHE = Path(os.environ.get("E40_DATA_CACHE", "/tmp/e40_data_cache"))
 if not CACHE.exists():
     shutil.copytree(E36 / "data_cache", CACHE)  # POPQUORN and VeriBench R_v1 are committed there; the rest download once.
 os.environ["SANMI36_DATA"] = str(CACHE)

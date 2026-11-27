@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Real-data K-sweep with matched calibration and human-entropy strata (Experiment 39).
+"""Real-data K-sweep with matched calibration and human-entropy strata (Experiment 40).
 
 Question: on real multi-annotator ratings, does the output-space size K change how a Pearson-trained head compares with a
 cross-entropy-trained head, once both pass through the SAME validation-fitted calibration map?
@@ -17,8 +17,8 @@ from pathlib import Path
 
 import numpy as np
 
-from e39_common import (EXP39, calibrate, d, fe, jsonable, paired_ci, per_item_on, rebin, three_level)
-from metrics import softmax  # noqa: E402  (path set in e39_common)
+from e40_common import (EXP40, calibrate, d, fe, jsonable, paired_ci, per_item_on, rebin, three_level)
+from metrics import softmax  # noqa: E402  (path set in e40_common)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--maxiter", type=int, default=35)
@@ -28,7 +28,7 @@ ap.add_argument("--boot", type=int, default=2000)
 args = ap.parse_args()
 fe.MAXITER = args.maxiter  # _fit_softmax reads this module global at call time
 
-OUT = EXP39 / "results"
+OUT = EXP40 / "results"
 OUT.mkdir(exist_ok=True)
 
 
