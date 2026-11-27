@@ -1,0 +1,87 @@
+
+=== summeval_expert: 3840 train / 1280 validation / 1280 test items; 5 classes ===
+PASS  summeval_expert ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1402 vs 0.1402; r 0.2533 vs 0.2533
+PASS  summeval_expert pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.2490 vs 0.2490; r 0.2251 vs 0.2251
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1421, CE 1.2210; flat forecast nRPS 0.2310
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1402, raw CE 1.2097 | after the validation-fitted calibration map: nRPS 0.1356, CE 1.1882
+        Pearson-trained head   raw nRPS 0.2490, raw CE 4.7305 | after the validation-fitted calibration map: nRPS 0.1372, CE 1.1982
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.1088 [+0.1023, +0.1155]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0016 [+0.0010, +0.0022]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): -0.0029 [-0.0042, -0.0017]  (interval excludes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0099 [+0.0069, +0.0132] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0081 / 0.2533; Pearson-trained head 0.0216 / 0.2251
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.926
+
+=== chaosnli_snli_mnli: 1867 train / 622 validation / 624 test items; 3 classes ===
+PASS  chaosnli_snli_mnli ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1963 vs 0.1963; r 0.0777 vs 0.0777
+PASS  chaosnli_snli_mnli pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.2530 vs 0.2530; r 0.0862 vs 0.0862
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1973, CE 1.0569; flat forecast nRPS 0.2054
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1963, raw CE 1.0529 | after the validation-fitted calibration map: nRPS 0.1966, CE 1.0540
+        Pearson-trained head   raw nRPS 0.2530, raw CE 4.0222 | after the validation-fitted calibration map: nRPS 0.1963, CE 1.0534
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.0566 [+0.0509, +0.0623]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: -0.0002 [-0.0006, +0.0001]  (interval includes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): +0.0000 [-0.0011, +0.0011]  (interval includes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: -0.0006 [-0.0020, +0.0008] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0035 / 0.0777; Pearson-trained head 0.0113 / 0.0862
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.980
+
+=== dices990: 594 train / 198 validation / 198 test items; 3 classes ===
+PASS  dices990 ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1969 vs 0.1969; r 0.1268 vs 0.1268
+PASS  dices990 pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.2572 vs 0.2572; r 0.1097 vs 0.1097
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1991, CE 0.7488; flat forecast nRPS 0.2693
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1969, raw CE 0.7430 | after the validation-fitted calibration map: nRPS 0.1961, CE 0.7410
+        Pearson-trained head   raw nRPS 0.2572, raw CE 1.1644 | after the validation-fitted calibration map: nRPS 0.1969, CE 0.7430
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.0603 [+0.0467, +0.0743]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0008 [+0.0003, +0.0014]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): +0.0000 [-0.0016, +0.0015]  (interval includes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0020 [+0.0007, +0.0035] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0076 / 0.1268; Pearson-trained head 0.0153 / 0.1097
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.982
+
+=== popquorn_offensiveness: 900 train / 300 validation / 300 test items; 5 classes ===
+PASS  popquorn_offensiveness ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1595 vs 0.1595; r 0.1389 vs 0.1389
+PASS  popquorn_offensiveness pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.2523 vs 0.2523; r 0.1439 vs 0.1439
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1604, CE 1.3025; flat forecast nRPS 0.2333
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1595, raw CE 1.2983 | after the validation-fitted calibration map: nRPS 0.1581, CE 1.2959
+        Pearson-trained head   raw nRPS 0.2523, raw CE 4.9959 | after the validation-fitted calibration map: nRPS 0.1580, CE 1.2962
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.0928 [+0.0814, +0.1039]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: -0.0000 [-0.0004, +0.0004]  (interval includes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): -0.0014 [-0.0026, -0.0003]  (interval excludes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0003 [-0.0019, +0.0025] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0039 / 0.1389; Pearson-trained head 0.0099 / 0.1439
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.961
+
+=== popquorn_politeness: 2230 train / 743 validation / 745 test items; 5 classes ===
+PASS  popquorn_politeness ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1714 vs 0.1714; r 0.3384 vs 0.3384
+PASS  popquorn_politeness pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.2417 vs 0.2417; r 0.3275 vs 0.3275
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1775, CE 1.5598; flat forecast nRPS 0.1848
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1714, raw CE 1.5281 | after the validation-fitted calibration map: nRPS 0.1647, CE 1.4974
+        Pearson-trained head   raw nRPS 0.2417, raw CE 9.5598 | after the validation-fitted calibration map: nRPS 0.1657, CE 1.5029
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.0703 [+0.0640, +0.0766]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0010 [+0.0007, +0.0014]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): -0.0057 [-0.0077, -0.0037]  (interval excludes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.0055 [+0.0036, +0.0073] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0301 / 0.3384; Pearson-trained head 0.0892 / 0.3275
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.996
+
+=== veribench_fsc_native_main: 60 train / 20 validation / 20 test items; 6 classes ===
+PASS  veribench_fsc_native_main ce: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1096 vs 0.1096; r 0.3619 vs 0.3619
+PASS  veribench_fsc_native_main pearson: my normalized RPS and mean-score Pearson of the raw head reproduce results.json  nRPS 0.1494 vs 0.1494; r -0.0615 vs -0.0615
+FACT  reference forecasts on the same test items (committed): train-marginal constant nRPS 0.1186, CE 1.3927; flat forecast nRPS 0.2328
+FACT  held-out test normalized RPS (lower is better) and CE:
+        CE-trained head        raw nRPS 0.1096, raw CE 1.2669 | after the validation-fitted calibration map: nRPS 0.1182, CE 2.1193
+        Pearson-trained head   raw nRPS 0.1494, raw CE 8.3602 | after the validation-fitted calibration map: nRPS 0.1166, CE 2.6162
+RESULT  nRPS, RAW (Experiment 36's headline): Pearson-trained head minus CE-trained head: +0.0397 [+0.0201, +0.0607]  (interval excludes 0; positive = CE-trained head better)
+RESULT  nRPS, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: -0.0016 [-0.0052, +0.0016]  (interval includes 0; positive = CE-trained head better)
+RESULT  nRPS, calibrated Pearson-trained head minus RAW CE-trained head (the comparison the Opus reviewer ran): +0.0069 [+0.0023, +0.0122]  (interval excludes 0; positive = CE-trained head better)
+RESULT  CE, MATCHED CALIBRATION: calibrated Pearson-trained head minus calibrated CE-trained head: +0.4969 [-0.1427, +1.6955] nats
+FACT  correlation on the test items, SAMPLED-judge version (the one the Pearson head was trained on) / MEAN-score version (the one Experiment 36 reports): CE-trained head 0.0512 / 0.3619; Pearson-trained head -0.0055 / -0.0615
+FACT  Spearman correlation between the two heads' scalar mean scores on the test items: 0.573
+
+ALL SANITY CHECKS PASS
+exit status 0

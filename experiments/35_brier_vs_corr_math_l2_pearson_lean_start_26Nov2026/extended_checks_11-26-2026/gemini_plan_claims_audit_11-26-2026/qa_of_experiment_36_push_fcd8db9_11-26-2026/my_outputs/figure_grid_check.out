@@ -1,0 +1,12 @@
+FACT  figures written by make_all: 8
+PASS  wrong_objective_matrix.png: 8 axes = 4 data axes + 4 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  wrong_objective_matrix_popquorn_veribench.png: 10 axes = 5 data axes + 5 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  finite_sample_crossover_binary_vs_ordinal.png: 2 axes = 2 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  high_k_crossover_dices_chaos.png: 2 axes = 2 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  crossover_popquorn_veribench.png: 4 axes = 4 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  certjudge_real_panels_proper_vs_corr.png: 3 axes = 3 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 1 (twin axes allowed); without a y label 0
+PASS  single_pass_vs_rollout.png: 1 axes = 1 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+PASS  iso_budget_chaosnli.png: 1 axes = 1 data axes + 0 colorbar axes (colorbars have no gridlines and are not counted); data axes without both gridlines 0; without an x label 0 (twin axes allowed); without a y label 0
+
+ALL CHECKS PASS
+exit status 0

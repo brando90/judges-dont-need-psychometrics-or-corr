@@ -16,6 +16,7 @@
 6. [`REAL_JUDGING_DATA_INVENTORY_11-26-2026.md`](REAL_JUDGING_DATA_INVENTORY_11-26-2026.md): which real multi-annotator sets we hold, their raters per item, splits, prior exposure, which experiments used them, and the gaps against the conference standard.
 7. [`qa_of_experiment_36_11-26-2026/`](qa_of_experiment_36_11-26-2026/README.md): the second review of Cursor's Experiment 36 by an independent Claude Opus 5.5 agent at maximum effort, the review verbatim, and my verification of it.
 8. [`qa_of_experiments_37_38_11-26-2026/`](qa_of_experiments_37_38_11-26-2026/README.md): my audit of Cursor's Experiments 37 and 38 (Lean for every theorem, numerics twice, end-to-end reproduction, FSC splits against the sealed splits, a constant-forecast reference, an item-versus-task leakage check).
+9. [`qa_of_experiment_36_push_fcd8db9_11-26-2026/`](qa_of_experiment_36_push_fcd8db9_11-26-2026/README.md): my audit of Cursor's later Experiment 36 push `fcd8db9` (POPQUORN, VeriBench formal specification coverage and CertJudge panels): eight scripts with saved outputs, Lean for all 56 theorems, a rebuild of 11 of the 16 committed matrices, a matched-calibration control, the sealed FSC split, a fresh-clone test run, and an independent Opus 5.5 maximum-effort review with the verification status of each of its claims.
 
 ## What the audit found, in brief
 
@@ -23,10 +24,11 @@
 2. The data statements in the plan have errors: DICES has 123 raters per item in DICES-350 and 69 to 76 in DICES-990 (not 60 to 112); ChaosNLI's three-class set has 3,113 items (4,645 includes the binary set); the FSC set is 75 plus 100 artifacts with 2 to 4 ratings each (not 343 items with about 5 raters); HelpSteer2's 2-point rule decides whether to collect more annotators and does not drop items.
 3. Real judging data: SummEval, ChaosNLI, DICES, HelpSteer2 and the FSC ratings already have real-data runs in this repository; POPQUORN has none and loads from `Jiaxin-Pei/Potato-Prolific-Dataset`.
 4. Cursor's Experiments 37 and 38 pass Lean, numerics and tests, but their FSC splits ignore the sealed splits and neither FSC head beats a constant forecast; see the audit note for the six items to fix.
+5. Cursor's Experiment 36 push `fcd8db9` computes its numbers as stated, except the Pearson-trained head's cross-entropy, which does not reproduce exactly in a fresh environment. Its headline gap between the cross-entropy-trained and Pearson-trained heads is almost all calibration: with one validation-fitted calibration map for both heads, the normalized ranked probability score gap falls from 0.04 to 0.11 to at most 0.0016. Its FSC split ignores the sealed `exp27_split` (8 of the 10 sealed-test `native_main` tasks are in its training or validation items), and a rater's personal name is in three lines of its files.
 
 ## Limits
 
-1. Grok had pushed nothing I could attribute to it when this was written (16:10 PST); this audit covers Cursor's Experiments 36, 37 and 38 only.
+1. Grok had pushed nothing I could attribute to it when this was written (16:10 PST); the later Experiment 36 push `fcd8db9` is audited as Cursor's. This audit covers Experiments 36 (two pushes), 37 and 38 only.
 2. The ledger audits claims, not the quality of every experiment's prose. Statements about experiments I did not rerun are labelled as read from their READMEs.
 3. The FSC ratings are live: counts here are as of the sister repository's 11-26-2026 15:47 PST freeze.
 4. No memory, shared agents-config or sister-repo files were changed by this audit. Proposed rule text is in the final deliverables, not in the repository.

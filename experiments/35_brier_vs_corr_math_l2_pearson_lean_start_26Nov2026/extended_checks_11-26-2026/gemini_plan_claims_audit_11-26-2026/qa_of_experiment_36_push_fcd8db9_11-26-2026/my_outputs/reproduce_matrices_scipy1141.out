@@ -1,0 +1,44 @@
+FACT  this run: Python 3.13.18, NumPy 2.1.3, SciPy 1.14.1; the committed results.json does not record its library versions; committed matrices: 16
+DIFF  summeval_expert: 371 leaves; leaves differing by more than 1e-6: 19; structural differences: 0
+      constant forecast (point or interval): 6 numbers, 0 differ by more than 1e-6, largest difference 0
+      interval endpoint: 198 numbers, 11 differ by more than 1e-6, largest difference 2.18e-05 at /rows/rps/ci/kendall_tau/lo
+      optimizer record: 10 numbers, 0 differ by more than 1e-6, largest difference 0
+      other (summary, shuffle control, trace, counts): 29 numbers, 0 differ by more than 1e-6, largest difference 1.34e-07
+      point estimate: 50 numbers, 8 differ by more than 1e-6, largest difference 1.43e-05 at /rows/pearson/point/ce
+      optimizer records that differ (committed -> reproduced): none
+      cross-entropy-trained head, held-out test (committed -> reproduced): CE 1.2097 -> 1.2097; normalized RPS 0.1402 -> 0.1402; Pearson r 0.2533 -> 0.2533
+      Pearson-trained head, held-out test (committed -> reproduced): CE 4.7305 -> 4.7306; normalized RPS 0.2490 -> 0.2490; Pearson r 0.2251 -> 0.2251
+      constant training-marginal forecast (committed -> reproduced): CE 1.2210 -> 1.2210; normalized RPS 0.1421 -> 0.1421
+DIFF  popquorn_politeness: 376 leaves; leaves differing by more than 1e-6: 26; structural differences: 0
+      constant forecast (point or interval): 6 numbers, 0 differ by more than 1e-6, largest difference 0
+      interval endpoint: 198 numbers, 16 differ by more than 1e-6, largest difference 0.182 at /rows/pearson/ci/ce/hi
+      optimizer record: 10 numbers, 0 differ by more than 1e-6, largest difference 0
+      other (summary, shuffle control, trace, counts): 34 numbers, 2 differ by more than 1e-6, largest difference 1.48e-06 at /trace/ce
+      point estimate: 49 numbers, 8 differ by more than 1e-6, largest difference 0.178 at /rows/pearson/point/ce
+      optimizer records that differ (committed -> reproduced): none
+      cross-entropy-trained head, held-out test (committed -> reproduced): CE 1.5281 -> 1.5281; normalized RPS 0.1714 -> 0.1714; Pearson r 0.3384 -> 0.3384
+      Pearson-trained head, held-out test (committed -> reproduced): CE 9.5475 -> 9.7257; normalized RPS 0.2417 -> 0.2417; Pearson r 0.3275 -> 0.3275
+      constant training-marginal forecast (committed -> reproduced): CE 1.5598 -> 1.5598; normalized RPS 0.1775 -> 0.1775
+DIFF  veribench_fsc_native_main: 373 leaves; leaves differing by more than 1e-6: 70; structural differences: 0
+      constant forecast (point or interval): 6 numbers, 0 differ by more than 1e-6, largest difference 0
+      interval endpoint: 198 numbers, 43 differ by more than 1e-6, largest difference 0.883 at /rows/pearson/ci/ce/hi
+      optimizer record: 10 numbers, 0 differ by more than 1e-6, largest difference 0
+      other (summary, shuffle control, trace, counts): 31 numbers, 6 differ by more than 1e-6, largest difference 1.66e-05 at /trace/mu
+      point estimate: 49 numbers, 21 differ by more than 1e-6, largest difference 0.635 at /rows/pearson/point/ce
+      optimizer records that differ (committed -> reproduced): none
+      cross-entropy-trained head, held-out test (committed -> reproduced): CE 1.2669 -> 1.2669; normalized RPS 0.1096 -> 0.1096; Pearson r 0.3619 -> 0.3619
+      Pearson-trained head, held-out test (committed -> reproduced): CE 8.2377 -> 8.8732; normalized RPS 0.1494 -> 0.1493; Pearson r -0.0615 -> -0.0615
+      constant training-marginal forecast (committed -> reproduced): CE 1.3927 -> 1.3927; normalized RPS 0.1186 -> 0.1186
+DIFF  chaosnli_alpha: 462 leaves; leaves differing by more than 1e-6: 8; structural differences: 0
+      constant forecast (point or interval): 6 numbers, 0 differ by more than 1e-6, largest difference 0
+      interval endpoint: 200 numbers, 5 differ by more than 1e-6, largest difference 0.000236 at /rows/pearson/ci/spearman_rho/hi
+      optimizer record: 10 numbers, 0 differ by more than 1e-6, largest difference 0
+      other (summary, shuffle control, trace, counts): 120 numbers, 0 differ by more than 1e-6, largest difference 1.88e-07
+      point estimate: 50 numbers, 3 differ by more than 1e-6, largest difference 4.31e-05 at /rows/pearson/point/kendall_tau
+      optimizer records that differ (committed -> reproduced): none
+      cross-entropy-trained head, held-out test (committed -> reproduced): CE 0.6955 -> 0.6955; normalized RPS 0.2512 -> 0.2512; Pearson r -0.0575 -> -0.0575
+      Pearson-trained head, held-out test (committed -> reproduced): CE 0.6959 -> 0.6959; normalized RPS 0.2514 -> 0.2514; Pearson r -0.0338 -> -0.0338
+      constant training-marginal forecast (committed -> reproduced): CE 0.6930 -> 0.6930; normalized RPS 0.2499 -> 0.2499
+
+4 MATRIX(ES) DIFFER FROM THE COMMITTED FILE BY MORE THAN 1e-6 SOMEWHERE (see the category lines) OR DID NOT LOAD
+exit status 1

@@ -1,0 +1,17 @@
+......F.....                                                             [100%]
+=================================== FAILURES ===================================
+_______________ test_veribench_loaders_and_task_disjoint_splits ________________
+tests/test_hygiene.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+data_io.py:468: in load_veribench_fsc_rv1
+data_io.py:183: in _resolve_sibling_text
+data_io.py:139: in _fetch_text_cached
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+self = <urllib.request.HTTPDefaultErrorHandler object at 0x7fd5dabef0e0>
+req = <urllib.request.Request object at 0x7fd5e536ead0>
+fp = <http.client.HTTPResponse object at 0x7fd5dc0fde10>, code = 404
+msg = 'Not Found', hdrs = <http.client.HTTPMessage object at 0x7fd5da947d10>
+=========================== short test summary info ============================
+FAILED tests/test_hygiene.py::test_veribench_loaders_and_task_disjoint_splits
+1 failed, 11 passed in 3.42s
+pytest exit: 1

@@ -1,0 +1,26 @@
+FACT  columns: held-out test CE of the cross-entropy-trained head | CE of the constant (training-marginal) forecast | CE of the flat forecast | normalized RPS of the cross-entropy-trained head | of the constant forecast | CE and normalized RPS of the Pearson-trained head | held-out Pearson r of the Pearson-trained head and of the cross-entropy-trained head | Pearson-head optimizer (success, iterations)
+FACT  summeval_expert                train/val/test 3840/1280/1280 | CE 1.210 vs constant 1.221 (flat 1.609) | nRPS 0.1402 vs constant 0.1421 | Pearson head CE 4.731, nRPS 0.2490 | r 0.225 vs 0.253 | (True, 16)
+FACT  summeval_expert_binary         train/val/test 3840/1280/1280 | CE 0.575 vs constant 0.582 (flat 0.693) | nRPS 0.1934 vs constant 0.1964 | Pearson head CE 0.689, nRPS 0.2481 | r 0.202 vs 0.200 | (True, 3)
+FACT  chaosnli_snli_mnli             train/val/test 1867/622/624  | CE 1.053 vs constant 1.057 (flat 1.099) | nRPS 0.1963 vs constant 0.1973 | Pearson head CE 4.022, nRPS 0.2530 | r 0.086 vs 0.078 | (True, 13)
+FACT  chaosnli_alpha                 train/val/test 919/306/307  | CE 0.696 vs constant 0.693 (flat 0.693) | nRPS 0.2512 vs constant 0.2499 | Pearson head CE 0.696, nRPS 0.2514 | r -0.034 vs -0.057 | (True, 4)
+FACT  dices990                       train/val/test 594/198/198  | CE 0.743 vs constant 0.749 (flat 1.099) | nRPS 0.1969 vs constant 0.1991 | Pearson head CE 1.164, nRPS 0.2572 | r 0.110 vs 0.127 | (True, 17)
+FACT  dices990_binary_yes            train/val/test 594/198/198  | CE 0.557 vs constant 0.563 (flat 0.693) | nRPS 0.1856 vs constant 0.1877 | Pearson head CE 0.710, nRPS 0.2582 | r 0.110 vs 0.127 | (True, 4)
+FACT  popquorn_offensiveness         train/val/test 900/300/300  | CE 1.298 vs constant 1.302 (flat 1.609) | nRPS 0.1595 vs constant 0.1604 | Pearson head CE 4.996, nRPS 0.2523 | r 0.144 vs 0.139 | (True, 17)
+FACT  popquorn_offensiveness_binary  train/val/test 900/300/300  | CE 0.432 vs constant 0.434 (flat 0.693) | nRPS 0.1310 vs constant 0.1314 | Pearson head CE 0.669, nRPS 0.2382 | r 0.084 vs 0.093 | (True, 4)
+FACT  popquorn_politeness            train/val/test 2230/743/745  | CE 1.528 vs constant 1.560 (flat 1.609) | nRPS 0.1714 vs constant 0.1775 | Pearson head CE 9.547, nRPS 0.2417 | r 0.328 vs 0.338 | (True, 23)
+FACT  popquorn_politeness_binary     train/val/test 2230/743/745  | CE 0.652 vs constant 0.689 (flat 0.693) | nRPS 0.2298 vs constant 0.2479 | Pearson head CE 0.646, nRPS 0.2273 | r 0.298 vs 0.314 | (True, 7)
+FACT  veribench_fsc_rv1              train/val/test 45/15/15   | CE 1.737 vs constant 1.823 (flat 1.792) | nRPS 0.1813 vs constant 0.1946 | Pearson head CE 11.011, nRPS 0.2297 | r 0.328 vs 0.594 | (True, 28)
+FACT  veribench_fsc_rv1_expert3      train/val/test 45/15/15   | CE 1.928 vs constant 2.127 (flat 1.792) | nRPS 0.2314 vs constant 0.2410 | Pearson head CE 12.280, nRPS 0.5038 | r 0.561 vs 0.386 | (True, 27)
+FACT  veribench_fsc_rv1_binary       train/val/test 45/15/15   | CE 0.766 vs constant 0.880 (flat 0.693) | nRPS 0.2854 vs constant 0.3362 | Pearson head CE 1.071, nRPS 0.3972 | r 0.531 vs 0.631 | (True, 10)
+FACT  veribench_fsc_native_main      train/val/test 60/20/20   | CE 1.267 vs constant 1.393 (flat 1.792) | nRPS 0.1096 vs constant 0.1186 | Pearson head CE 8.238, nRPS 0.1494 | r -0.062 vs 0.362 | (False, 35)
+FACT  veribench_fsc_pooled           train/val/test 107/34/34   | CE 1.276 vs constant 1.363 (flat 1.792) | nRPS 0.1314 vs constant 0.1458 | Pearson head CE 6.869, nRPS 0.2560 | r 0.284 vs 0.315 | (True, 27)
+FACT  veribench_fsc_pooled_binary    train/val/test 107/34/34   | CE 0.554 vs constant 0.604 (flat 0.693) | nRPS 0.1874 vs constant 0.2066 | Pearson head CE 0.641, nRPS 0.2274 | r 0.317 vs 0.319 | (True, 11)
+PASS  pitch claim: the CE-trained head beats the Pearson-trained head on held-out CE, sqrt(RPS) and Brier on 9 of 9 ordinal and 3-class views  9 of 9
+FACT  the cross-entropy-trained head is NOT below the constant forecast on held-out CE in 1 of 16 matrices (chaosnli_alpha) and on normalized RPS in 1 (chaosnli_alpha)
+FACT  large non-FSC matrices: CE gain of the cross-entropy-trained head over the constant forecast, in nats: summeval_expert 0.011, summeval_expert_binary 0.007, chaosnli_snli_mnli 0.004, chaosnli_alpha -0.003, dices990 0.006, dices990_binary_yes 0.006, popquorn_offensiveness 0.004, popquorn_offensiveness_binary 0.002, popquorn_politeness 0.032, popquorn_politeness_binary 0.037
+FACT  largest such gain 0.037 nats; the flat forecast is 1.609 for SummEval
+FACT  the Pearson-trained head has the higher held-out Pearson r in 5 of 16 matrices (summeval_expert_binary, chaosnli_snli_mnli, chaosnli_alpha, popquorn_offensiveness, veribench_fsc_rv1_expert3); in the other 11 the cross-entropy-trained head has the higher or equal r
+FACT  the Pearson-head optimizer reported success in 15 of 16 matrices; iteration counts [3, 4, 7, 10, 11, 13, 16, 17, 23, 27, 28, 35] (protocol cap 35)
+
+ALL CHECKS PASS
+exit status 0

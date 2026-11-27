@@ -1,0 +1,8 @@
+PASS  split sizes train/validation/test 1867/622/624 equal the committed 1,867/622/624
+FACT  test items: 624; distinct premise strings among them: 601
+FACT  test items whose exact premise string also occurs in a training or validation item: 160 of 624 (0.256); in a training item alone: 123
+FACT  all 3113 items: 2627 distinct premises, 455 premises used by more than one item (the pooled count is the ceiling for what a uid split can leak)
+FACT  premises whose items lie in more than one of the three splits: 274 of 2627
+
+ALL CHECKS PASS
+exit status 0
