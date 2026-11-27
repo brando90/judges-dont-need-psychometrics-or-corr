@@ -12,8 +12,11 @@ All numbers printed here are produced by this script (deterministic: fixed split
 """
 import argparse
 import json
+import sys
 import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # python3 -I does not add the script directory
 
 import numpy as np
 
@@ -32,14 +35,16 @@ OUT = EXP40 / "results"
 OUT.mkdir(exist_ok=True)
 
 
+UNAVAILABLE = {}
+
+
 def build_views():
-    """(view name, base name, K, JudgingSet) for every re-binned view."""
+    """(view name, base name, K, JudgingSet) for every re-binned view that this machine can rebuild."""
     views = []
     pop_off = d.load_popquorn("offensiveness")
     pop_pol = d.load_popquorn("politeness")
     se_exp = d.load_summeval("expert")
     se_crd = d.load_summeval("crowd")
-    vb = d.load_veribench_fsc_rv1("all5")
     d990 = d._load_dices("990")
     chaos3 = d.load_chaos_3way()
     chaosa = d.load_chaos_alpha()
@@ -47,13 +52,19 @@ def build_views():
         views.append((base.name + "|K2", base.name, 2, d.binarize(base, d.SUMMEVAL_BINARY_CUT, base.name + "_K2")))
         views.append((base.name + "|K3", base.name, 3, three_level(base, base.name + "_K3")))
         views.append((base.name + "|K5", base.name, 5, base))
-    views.append(("veribench_fsc_rv1|K2", "veribench_fsc_rv1", 2, d.binarize(vb, d.VERIBENCH_BINARY_CUT, "vb_rv1_K2")))
-    views.append(("veribench_fsc_rv1|K3", "veribench_fsc_rv1", 3, three_level(vb, "vb_rv1_K3")))
-    views.append(("veribench_fsc_rv1|K6", "veribench_fsc_rv1", 6, vb))
     views.append(("dices990|K2", "dices990", 2, d.binarize(d990, 2, "dices990_K2_yes")))
     views.append(("dices990|K3", "dices990", 3, d990))
     views.append(("chaosnli_snli_mnli|K3", "chaosnli_snli_mnli", 3, chaos3))
     views.append(("chaosnli_alphanli|K2", "chaosnli_alphanli", 2, chaosa))
+    try:
+        vb = d.load_veribench_fsc_rv1("all5")
+    except Exception as exc:  # the pinned VeriBench file is in a repository this machine cannot read
+        UNAVAILABLE["veribench_fsc_rv1"] = f"{type(exc).__name__}: {str(exc)[:200]}"
+        print(f"[unavailable] veribench_fsc_rv1: {UNAVAILABLE['veribench_fsc_rv1']}", flush=True)
+    else:
+        views.append(("veribench_fsc_rv1|K2", "veribench_fsc_rv1", 2, d.binarize(vb, d.VERIBENCH_BINARY_CUT, "vb_rv1_K2")))
+        views.append(("veribench_fsc_rv1|K3", "veribench_fsc_rv1", 3, three_level(vb, "vb_rv1_K3")))
+        views.append(("veribench_fsc_rv1|K6", "veribench_fsc_rv1", 6, vb))
     return views
 
 
@@ -85,6 +96,7 @@ def entropy_strata(ratings, test_idx, k, seed=7, min_k=4):
 
 def run_view(vname, base, k, data, seeds):
     values = np.asarray(data.class_values, float)
+    assert k == data.n_classes, (vname, k, data.n_classes)
     rows = []
     for seed in seeds:
         train, val, test = d.split_by_group(data.groups, seed=seed)
@@ -175,7 +187,7 @@ def main():
         print(f"[{vname}] items {data.n_items}, K {data.n_classes}", flush=True)
         summaries[vname] = data.summary()
         all_rows.extend(run_view(vname, base, k, data, args.seeds))
-    payload = {"maxiter": args.maxiter, "seeds": args.seeds, "boot": args.boot, "views": summaries, "rows": all_rows,
+    payload = {"maxiter": args.maxiter, "seeds": args.seeds, "boot": args.boot, "views": summaries, "unavailable": UNAVAILABLE, "rows": all_rows,
                "elapsed_seconds": time.time() - t0}
     out = OUT / f"k_sweep_matched_calibration_maxiter{args.maxiter}.json"
     out.write_text(json.dumps(jsonable(payload), indent=1))
