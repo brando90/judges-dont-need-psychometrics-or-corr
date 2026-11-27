@@ -1,0 +1,16 @@
+Normalized expected RPS on the polarized deployment law (lower is better). Population version: no sampling noise.
+  oracle (polarized law)                                         0.221429
+  lookup, pooled persona mixture                                 0.226916
+  mean-matched binomial (Exp 42 'Pearson binomial')              0.281693
+Pearson of the scalar with the bin means: 1.0
+  Pearson scalar + CE map, linear logits (Experiment 41's map form) fitted on pooled mixture  0.226920  (converged True)
+  Pearson scalar + CE map, linear logits (Experiment 41's map form) fitted on polarized law   0.221445  (converged True)
+  Pearson scalar + CE map, quadratic logits                         fitted on pooled mixture  0.226927  (converged True)
+  Pearson scalar + CE map, quadratic logits                         fitted on polarized law   0.221442  (converged True)
+
+Gaps in expected RPS on the polarized law (each minus the oracle 0.221429):
+  mean-matched binomial:                    +0.060264
+  lookup pooled mixture:                    +0.005487
+  scalar + linear-logit CE map, pooled fit: +0.005492
+  scalar + linear-logit CE map, polarized:  +0.000016
+The headline gap of Experiment 42 (binomial minus persona CE at 256 ratings per item) is 0.059517 and uses finite-sample persona CE (0.222275).
