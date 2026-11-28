@@ -31,3 +31,16 @@
 |---|---|---|---|---|
 | 11-27-2026 | Exp 56 | CPU only, frozen forecasts | 0.00 | 0.00 |
 | 11-27-2026 | Mega QA reviewers | 'Fable 5.2' and 'Codex Vals Ultra' not run: no gateway key on the box (Stanford gateway returns 401 without a key; Vercel AI Gateway lists anthropic/claude-fable-5.2 but no key is configured; no model named 'Codex Vals Ultra' in any catalog checked; claude/codex CLIs not installed and subscription credits are excluded). QA done by hand: docs/notes/qa_abstract_elangovan_li_27Nov2026.md | 0.00 | 0.00 |
+
+## Reconciliation with Claude Code's overnight commits, and mega QA, 28 Nov 2026 (Grok Bot)
+
+Claude Code commits since 984ba71 (pulled at 929bc19): 60a3ffb, 1e68380, 57a7640, dc81ad9, 929bc19. They are mostly blog-support notes (`docs/notes/blog_support_27Nov2026/`), plus `experiments/46_*/ERRATUM_11-27-2026.md`, a one-line pointer in the Exp 46 README, and a LEAN_TODO update. None of them edit the abstract, the intro or Exps 48/56.
+
+**Conflict.** The ERRATUM says Exp 46's "H1 is supported" is wrong under the frozen H1, which names Pearson: 0 significant Pearson-vs-skill reversals at B=4,000. The 2 Spearman reversals (GPT-6 Astra vs GLM 5.3, SNLI and MNLI) are real but secondary. At B=20,000 the only Pearson reversal is between two readouts of the same Qwen2.5-0.5B. Our abstract and intro (7f06fba) headlined the Spearman reversals without the primary null. The Codex reviewer independently raised the same problem (F08).
+**Resolution.** Claude's reading follows the frozen protocol, so it wins. The abstract and intro now lead with the preregistered Pearson null and call the Spearman reversals secondary, with NLI labels coded as ordered (Exp 46 PROTOCOL line 26). The numbers themselves don't conflict; only the framing did. The blog note's always-No baseline (269/350 = 76.9% on DICES-350) is consistent with our DICES base-rate statements.
+
+**Mega QA.** Codex CLI (gpt-6-astra, effort ultra, read-only) on Brando's "vals" subscription reviewed main at 929bc19. It found 20 issues and all 20 were accepted and fixed (triage in `docs/notes/qa_abstract_elangovan_li_27Nov2026.md`). The Fable 5.2 review was not run because every Claude CLI login was logged out or expired (`docs/notes/qa_fable52_28Nov2026.md`). No new numbers were introduced.
+
+| date (Pacific) | item | what | USD | cumulative |
+|---|---|---|---|---|
+| 11-28-2026 | Mega QA | Codex CLI on Brando's subscription (authorized for this review pass, not experiments); no API calls | 0.00 | 0.00 |

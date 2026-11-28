@@ -74,3 +74,32 @@ Every sentence is pinned in the appendix list of [elangovan_li_summary_27Nov2026
 - R2. Guerdan et al. (2025) already show that validation-metric choice changes judge selection; the abstract's "less settled" framing and the supplement's credit are the mitigation.
 - R3. Li et al. was read in its arXiv v1; the bib cites the Findings of EMNLP 2026 version, whose section numbers could differ.
 - R4. Wang, Zhang & Choi (2025) was not re-read tonight; the intro's one clause about it rests on the Exp 43 coding.
+
+## Mega QA triage, 28 Nov 2026 (Grok Bot)
+
+Reviewers: Codex CLI (gpt-6-astra, reasoning effort ultra, read-only sandbox, Brando's "vals" subscription) on main at 929bc19, output verbatim in `qa_codex_vals_28Nov2026.md`. Fable 5.2 via Claude Code did **not** run: every Anthropic CLI login on the Mac was logged out or expired (`qa_fable52_28Nov2026.md`). Codex verdict: warning 2 conceded explicitly; warning 1 acknowledged, but the introduction still claimed an opening that cited work occupies. All 20 findings accepted; the ones marked "verified" were checked against the source before fixing. Numbers used in fixes come only from committed READMEs/JSON.
+
+| ID | Sev. | Finding | Decision | Fix |
+|---|---|---|---|---|
+| F01 | major | Intro still claims item-level proper ordinal/nominal scoring as open; Lyu App. E has preliminary transfer and label-budget studies | accept (verified, arXiv 2610.37868 App. E) | Intro: proper scores "already in use", we adopt them; increment = real-judge evidence, identification, audit. Related work: Lyu App. E credited, Exps 48/56 framed as the analogous question for post-hoc maps of frozen judges. Summary paragraph reworded |
+| F02 | major | "Correlation suffices" not established; point reversals remain after calibration | accept (verified, Exp 46 kendall.csv: calibrated MNLI, correlations pick Astra, proper score picks Opus) | Abstract/intro: "no significant reversal remained … correlation-based selection was not contradicted"; intro names the MNLI point reversal. Earlier line 47 of this file is superseded |
+| F03 | major | "About 100 ratings" is about means and the first tested budget; "per task" ambiguous | accept | "every judge's mean calibrated skill first exceeds the base rate at 100 single ratings per dataset, the smallest tested budget at which it does"; 50 draws stated |
+| F04 | major | Li App. D.2 controlled ablation omitted when we say their comparison confounds method and split | accept (verified) | Related work cites D.2 numbers (0.7913/0.1321 vs 0.8575/0.1015) and what they show |
+| F05 | major | Summary mischaracterizes Li's calibration baselines and OOD evaluation | accept | Summary item 17: only temperature scaling uses held-out labels; contextual/batch are label-free; PandaLM OOD acknowledged; claim narrowed to post-hoc map transfer/budget |
+| F06 | major | "Without in-domain labels" undefined | accept | Abstract separates calibration labels from held-out evaluation ratings ("when calibration labels are scarce … report a proper score on held-out target ratings") |
+| F07 | major | Shift population mixed | accept | Abstract/intro: "other datasets, rubrics or pooled sources"; intro adds 21 of 33 harms are NLI↔DICES (different label sets). Per-type table already in Exp 48 README |
+| F08 | major | Primary preregistered Pearson null not disclosed (same as Claude's Exp 46 erratum) | accept | Abstract and intro lead with the Pearson null; Spearman reversals labeled secondary/ordered-coded. Recorded in STATE_OF_EVIDENCE |
+| F09 | major | NLI ordinal coding is an assumption | accept (verified, Exp 46 PROTOCOL line 26) | "with NLI labels coded as ordered" in abstract and intro |
+| F10 | major | Sampled-score theorem stated beyond its hypotheses (Pearson, conditional independence, nondegeneracy) | accept (verified, PlanClaims.lean) | Abstract/intro now say Pearson, independence given the item, and the nondegeneracy conditions |
+| F11 | major | "Affine identity predicts" the calibrated gap overstated | accept | "consistent with the two heads differing mainly in calibration" |
+| F12 | major | Audit counts include bin-level Elangovan and Li's teacher votes | accept | Related work labels both counts conservative, broad codes and names the two borderline papers |
+| F13 | minor | 0.0024 / 0.01 are maxima of seed means | accept (verified, Exp 41/53 JSON: 0.00244 mean, seed max 0.00315; 0.0098, seed max 0.0126) | Related work, calibration appendix, supp and intro reworded as largest five-seed mean |
+| F14 | minor | 78/82, 33/82 are significance counts; summary said "cross-dataset"; G-Eval hidden | accept (verified, point counts 82/82, 34/82) | "significantly" added; "datasets, rubrics or pooled sources" |
+| F15 | minor | 0.175 is normalized-RPS skill; "tied" too strong | accept | Intro: "normalized-RPS skill", "agreement differs by 0.001"; abstract: "nearly equal agreement" |
+| F16 | minor | Li App. E says framework applies to nominal/ordinal, defers only empirical study | accept | Related work and intro reworded |
+| F17 | minor | Summary drops clipping caveat of Prop. 1 | accept | Summary item 11 adds the clipped maximizer |
+| F18 | minor | "Scores judges against it" over-identifies both papers with p* | accept | Abstract: "pooled human and judge labels", "per-item vote means" |
+| F19 | minor | Exp 06 values are test Spearman of differently trained fits | accept | Related work states the quantity, seeds and test tasks |
+| F20 | minor | FineWeb-Edu thresholds a classifier trained on LLM scores | accept | Intro line 7 reworded |
+
+Rejected: none. Not done: a predefined regret/equivalence criterion for "selection adequacy" (F02 remedy) would need a new preregistered analysis; the paper now avoids the sufficiency claim instead.
