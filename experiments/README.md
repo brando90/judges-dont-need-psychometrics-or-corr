@@ -1,5 +1,7 @@
 # Experiments — QA corrections 11-26-2026
 
+**Target versus ruler (11-27-2026).** Every experiment here scores judges against a stated human rating distribution, p*(y | x, rater pool, rubric). That the target is a distribution is the point of Pavlick and Kwiatkowski (2019) and Plank (2022) and is not claimed here; the experiments test the ruler (what correlation, agreement and proper scores can and cannot identify, and what changes when a proper score is used). Read [the Point 1 note](../docs/notes/point1_target_vs_ruler_27Nov2026.md) first; real-judge rank reversal is not yet established (Experiment 46, results pending).
+
 **QA corrections: 11-26-2026.** The original index rows remain beside these dated qualifications:
 
 - **g2-M1, experiment 08:** Old: “correlation training wins at low data only in scenario A.” Corrected: that statement compares fixed-ridge CE with fixed-ridge Pearson. Against validation-tuned CE, fixed Pearson also has a lower test RPS in D at four tasks (tuned CE minus fixed Pearson +0.002887664; paired 95% seed-bootstrap interval [0.001029390, 0.005053901]).
