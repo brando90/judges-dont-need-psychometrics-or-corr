@@ -31,7 +31,7 @@ The per-sample risk of a score $S$ over held-out items $x$ with $k_x$ ratings ea
 The skill score $1-\hat R_S(\text{judge})/\hat R_S(\text{base rate})$, with the marginal rating distribution as base rate, is $0$ for a judge as good as the base rate, negative for a worse one, and at most $1$.
 Being a ratio of two risk estimates, it is consistent rather than unbiased.
 The risk ranks judges, but the distance to $p$ (the expected excess loss) is the risk minus the uncertainty term $\mathbb{E}_x S(p_x,p_x)$, for normalized Brier $\frac12(1-\sum_j p_j^2)$ and for each RPS threshold $P_j(1-P_j)$; these depend on how often two ratings of one item agree, so estimating the distance needs at least two ratings per item (finite statements Lean-checked with numerics, Experiment~53).
-Items with at least two ratings are stratified by human agreement measured on one random half of their ratings, and every score is computed on the other half, so a stratum is not chosen with the ratings that score it.
+Items with at least four ratings are stratified by human agreement measured on one random half of their ratings (so at least two ratings define agreement), and every score is computed on the other half, so a stratum is not chosen with the ratings that score it.
 
 Empirical evaluation averages losses over observed ratings, including with one rating per input.
 A histogram of two or three ratings remains a noisy estimate, and pooling marginal histograms discards the input--rating association.

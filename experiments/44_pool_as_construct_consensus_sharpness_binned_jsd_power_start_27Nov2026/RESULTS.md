@@ -23,7 +23,7 @@
 | P3 | pool-dependent ordering (descriptive, no direction predicted) | **pool-robust ranking** by the registered rule | Kendall tau-b 0.8 to 1.0 in all six contrasts; 4 of 60 pairs reverse by point estimate, 0 Holm-significant |
 | H-S1 | sharpening helps relatively more on consensus than on contested items | **supported** | 25 of 25 cells positive, 25 of 25 intervals exclude 0 |
 | H-J1 | binned JSD exactly invariant to within-bin forecast shuffles | **supported** | largest change 2.4e-16 (limit 1e-12) over 200 shuffles in each of 25 cells |
-| H-J2 | the same shuffle worsens the proper-score risk | **supported** | 25 of 25 cells, increase +0.0086 to +0.1075 |
+| H-J2 | the same shuffle worsens the proper-score risk | **supported** | 25 of 25 cells, increase +0.0571 to +0.1075 (Brier, ChaosNLI) and +0.0086 to +0.0202 (normalized RPS, DICES) |
 | H-M1 | planning variance formula matches subsampling | **supported** at the amended tolerance | 30 of 30 cells, ratio to exact variance 0.941 to 1.053; the originally frozen criterion (0.6 to 1.1 times V(N, k)) is also met, ratio 0.645 to 0.992 |
 | H-M2 | at equal total ratings the variance is nondecreasing in k | **identity holds** (checked, not tested) | 50 of 50 pairs |
 
