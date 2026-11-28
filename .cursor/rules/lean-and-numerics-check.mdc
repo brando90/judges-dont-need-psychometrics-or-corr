@@ -17,4 +17,6 @@ Read `AGENTS.md`, section "Check every proof with Lean and quick numerics" (Bran
 4. **Say what was not machine-checked:** label claims "numerics only", "cited" or "not checkable"; never write "verified" or "proved" for a claim argued only by hand.
 5. **Before presenting:** run both checks first. If Lean is missing, install it or mark the claim unchecked.
 
+Extended 11-27-2026 by `every-proof-in-lean.mdc`: every stated theorem or proof is Lean-checked, numerics run first, and unfinished claims are labelled and listed in `docs/LEAN_TODO.md`.
+
 Reference implementation: `experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/extended_checks_11-26-2026/claims_audit_11-26-2026/`.
