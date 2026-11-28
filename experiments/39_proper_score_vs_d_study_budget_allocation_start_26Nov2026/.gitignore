@@ -1,7 +1,7 @@
 # Public datasets and the Experiment 28 forecast cache are downloaded, not vendored.
 # See data/README.md and data/SHA256SUMS.txt.
 data/raw/
-data/processed/*.npz
+data/processed/
 # Matplotlib also writes PNG copies locally; GitHub commits use the SVG figures.
 figures/*.png
 .venv/
