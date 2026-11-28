@@ -6,7 +6,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 1. Pavlick and Kwiatkowski (2019) and Plank (2022) established the target: a human label is a distribution. We adopt that and do not claim it.
 2. Our contribution is the ruler: how a judge should be scored once the target is a distribution, and whether current practice scores it that way.
-3. It has four parts: a measured practice gap (43 of 49 judge-validation papers report no item-level proper score, 44 of 49 no item-level strictly proper one under the stricter code of Experiment 54; 29 of 30 score-based papers report correlation), an identification result (machine-checked in Lean for finite laws), a protocol (a strictly proper score matched to the label encoding, with a base-rate skill score and agreement strata), and evidence.
+3. It has four parts: a measured practice gap (43 of 49 judge-validation papers report no item-level proper score, 44 of 49 no item-level strictly proper one under the stricter code of Experiment 54; 29 of 30 score-based papers report correlation), an identification result (classical ingredients from forecast verification, stated here for LLM-judge validation and machine-checked in Lean for finite laws), a protocol (a strictly proper score matched to the label encoding, with a base-rate skill score and agreement strata), and evidence.
 4. Real-judge rank reversal is established only narrowly (Experiment 46, interim): none under the pre-registered Pearson test, top-1 agreement or kappa; two Spearman reversals for one judge pair on two sets, removed by calibration. A B = 20,000 sensitivity run (a labelled deviation) adds reversals only among small local judges, one also on Pearson. The paper says Spearman.
 
 ## What we conceded and how
@@ -17,10 +17,10 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 ## Corrections to the pasted draft
 
-1. "Neither paper says anything about it" is too absolute: nearby work (Nie et al. 2020; Uma et al. 2021; Elangovan et al. 2025; Lyu, Do and Pergola 2026; Li et al. 2026) already evaluates against distributions. The identification statement in terms of encodings, with a machine check, is ours.
+1. "Neither paper says anything about it" is too absolute: nearby work (Nie et al. 2020; Uma et al. 2021; Elangovan et al. 2025; Lyu, Do and Pergola 2026; Li et al. 2026) already evaluates against distributions. The identities themselves are classical in forecast verification (Murphy 1988; Kumar and Hoerling 2000); what we add is their statement for LLM-judge validation, in terms of label encodings, with a machine check.
 2. Agreement ties forecasts with the same mode, not the same mean. Correlation and squared error tie forecasts with the same mean. (Lean, core: `Point1.agreement_depends_only_on_mode`.)
 3. A strictly proper score ranks the true distribution ahead of every other forecast. Two different wrong forecasts can still tie.
-4. Lean does not cover accuracy, kappa or cross-entropy propriety (cited, Gibbs); those are labeled analytical or cited.
+4. Lean does not cover accuracy, kappa or cross-entropy propriety (cited from Gibbs' inequality); those are labeled "paper proof, not yet Lean-checked".
 5. The per-sample risk is unbiased with one rating per item. The skill ratio is consistent, with a bias of order 1/n when the base rate comes from the same ratings (Experiment 52, synthetic).
 6. "The field didn't act" is scoped to LLM-judge validation practice in a 49-paper convenience sample. An independent pre-declared census of 40 sources (Experiment 45) agrees on the split: correlation is the headline for graded-score judges and leaderboard validation (16 of 40 overall), agreement, accuracy, F1 or kappa for the rest, and 1 of 40 scores the rating distribution with a proper rule.
 
@@ -30,7 +30,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 2. **Consensus and contested items (H-S1): supported, with a nuance.** Sharpening helps relatively more on consensus items in 25 of 25 cells, but improved the consensus stratum in only 5 of 25; on contested items the softest temperature was best in 23 of 25.
 3. **Binned divergence (H-J1, H-J2): supported.** Binned JSD is unchanged (to 2.4e-16) when forecasts are reassigned inside a bin, while the proper-score risk worsens in all 25 cells (+0.0571 to +0.1075 in Brier score on the three ChaosNLI sets, +0.0086 to +0.0202 in normalized RPS on the two DICES sets).
 4. **Power (H-M1, H-M2): supported.** Minimum detectable paired difference at 80% power with 400 items and one rating each: 0.034 to 0.065 in Brier score on ChaosNLI and 0.014 to 0.025 in normalized RPS on DICES; 0 to 6 of 10 judge pairs resolvable per set; at a fixed rating budget the variance never decreases with ratings per item.
-5. Related, from the parallel experiments on main: Experiment 50 (frontier skill falls from 0.16 to 0.91 in the highest-agreement fifth to minus 0.38 to 0.11 in the lowest; the raw training-objective gap is larger on high-agreement items, so we do not claim correlation-trained judges fail mainly on ambiguous items).
+5. Related, from the parallel experiments on main: Experiment 50 (frontier skill falls from 0.27 to 0.91 in Brier score on the NLI sets and from 0.16 to 0.30 in normalized RPS on the DICES sets in the highest-agreement fifth to minus 0.28 to 0.11 and minus 0.38 to 0.04 in the lowest; the raw training-objective gap is larger on high-agreement items, so we do not claim correlation-trained judges fail mainly on ambiguous items).
 
 ## Files changed
 

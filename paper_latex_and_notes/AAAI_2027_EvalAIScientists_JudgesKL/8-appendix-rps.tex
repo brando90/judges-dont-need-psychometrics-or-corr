@@ -45,7 +45,7 @@ RPS sums the squared vertical gaps between the two at each threshold.
 A near miss leaves gaps at few thresholds and a far miss at many.
 Table~\ref{tab:rps-examples} shows this for one human rating $r=4$.
 Cross-entropy (CE) is infinite (or set by a probability floor) for every forecast with $q_4=0$, and the Brier score over the six categories, $\sum_k(q_k-\mathbf{1}\{r=k\})^2$, is $2$ for every point mass away from $4$.
-Only RPS gives the near miss a better (lower) score than the far miss.
+Of these three scores, only RPS gives the near miss a better (lower) score than the far miss.
 
 \begin{table}[h]
 \centering\small
