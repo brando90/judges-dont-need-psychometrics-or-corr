@@ -1,0 +1,28 @@
+CROSS-CENSUS CHECK: Experiment 45 census.csv versus Experiment 43 papers.py (md5 prefix 84ef45721f)
+Experiment 43: 49 papers coded; C 33/49; A 24/49; K 7/49; P 6/49; Ps 2/49; no item-level P 43/49
+Experiment 43 groups: D n=25, C 24, A 6, K 2, P 0; S n=5, C 5, A 3, K 0, P 0; W n=13, C 1, A 12, K 3, P 0; X n=6, C 3, A 3, K 2, P 6
+
+Experiment 43 papers with an arXiv identifier: 46 of 49
+
+SCOPE: D_all (the base-rate denominator, n=40)
+overlap with Experiment 43: 20 papers; share of this scope also in Experiment 43: 20/40 = 0.500; share of Experiment 43 also in this scope: 20/49 = 0.408
+  correlation reported (43 C, 45 corr_any): agreement 17/20 = 0.850
+     disagreement: L2-04 (Auto-J (Li et al.)): 43 says yes, 45 says no
+     disagreement: L2-08 (Judging the Judges (Thakur et al.)): 43 says no, 45 says yes
+     disagreement: L3-01 (AlpacaFarm (Dubois, Li, Taori et al.)): 43 says no, 45 says yes
+  raw agreement, accuracy or F1 reported (43 A, 45 acc_any or f1_any): agreement 20/20 = 1.000
+  kappa-family reported (43 K, 45 kappa_any): agreement 20/20 = 1.000
+  proper score or divergence against humans (43 P or Ps, 45 dist_any): agreement 20/20 = 1.000
+
+SCOPE: all census rows with an arXiv identifier (n=53)
+overlap with Experiment 43: 28 papers; share of this scope also in Experiment 43: 28/53 = 0.528; share of Experiment 43 also in this scope: 28/49 = 0.571
+  correlation reported (43 C, 45 corr_any): agreement 25/28 = 0.893
+     disagreement: L2-04 (Auto-J (Li et al.)): 43 says yes, 45 says no
+     disagreement: L2-08 (Judging the Judges (Thakur et al.)): 43 says no, 45 says yes
+     disagreement: L3-01 (AlpacaFarm (Dubois, Li, Taori et al.)): 43 says no, 45 says yes
+  raw agreement, accuracy or F1 reported (43 A, 45 acc_any or f1_any): agreement 25/28 = 0.893
+     disagreement: L6-01 (Beyond correlation (Elangovan et al.)): 43 says no, 45 says yes
+     disagreement: L6-02 (Judging with Confidence: Calibrating A): 43 says no, 45 says yes
+     disagreement: P-02 (BERTScore (Zhang et al.)): 43 says no, 45 says yes
+  kappa-family reported (43 K, 45 kappa_any): agreement 28/28 = 1.000
+  proper score or divergence against humans (43 P or Ps, 45 dist_any): agreement 28/28 = 1.000

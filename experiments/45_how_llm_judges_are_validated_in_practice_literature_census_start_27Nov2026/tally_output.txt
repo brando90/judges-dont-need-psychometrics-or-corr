@@ -1,0 +1,125 @@
+EXPERIMENT 45 TALLY (descriptive of this purposive sample of published sources)
+rows in census.csv: 53
+rows by lineage: L1=14, L2=10, L3=6, L4=6, L5=6, L6=8, P=3
+rows by coverage: abstract_only=2, full=33, partial=18
+rows with human_validation=N (listed, excluded): L2-07, L2-10, L6-05, L6-06, L6-08
+
+1. DENOMINATOR D_all (human_validation=Y, era=llm, lineages L1 to L5, coverage full or partial)
+D_all size: 40; by lineage: L1=14, L2=8, L3=6, L4=6, L5=6
+D_all by label_type: CATEGORICAL=8, GRADED=8, MIXED=11, PAIRWISE=8, SYSTEM_RANK=5
+abstract-only rows with human_validation=Y (added only in sensitivity A): none
+D_all by coverage: full=26, partial=14
+minimum for a verdict: at least 40 sources coded from a full or partial read among L1 to L5 (any human_validation); observed 42 -> MET
+
+2. HEADLINE FAMILY BY LINEAGE (family of the first agreement number in the abstract, else first main results table)
+L1      n=14  CORR_INST=9  CORR_UNSTATED=3  ACC_AGREE=1  OTHER=1
+L2      n= 8  ACC_AGREE=7  KAPPA_ALPHA_ICC=1
+L3      n= 6  CORR_SYS=4  ACC_AGREE=2
+L4      n= 6  ACC_AGREE=3  F1_PRF=3
+L5      n= 6  ACC_AGREE=3  KAPPA_ALPHA_ICC=1  F1_PRF=1  OTHER=1
+pooled  n=40  CORR_INST=9  CORR_SYS=4  CORR_UNSTATED=3  ACC_AGREE=16  KAPPA_ALPHA_ICC=2  F1_PRF=4  OTHER=2
+
+3. SHARE WITH A CORRELATION-FAMILY HEADLINE (CORR_INST, CORR_SYS, CORR_UNSTATED)
+L1      headline correlation: 12/14 = 0.857 (Wilson 95% 0.601 to 0.960)
+L2      headline correlation: 0/8 = 0.000 (Wilson 95% 0.000 to 0.324)
+L3      headline correlation: 4/6 = 0.667 (Wilson 95% 0.300 to 0.903)
+L4      headline correlation: 0/6 = 0.000 (Wilson 95% 0.000 to 0.390)
+L5      headline correlation: 0/6 = 0.000 (Wilson 95% 0.000 to 0.390)
+pooled  headline correlation: 16/40 = 0.400 (Wilson 95% 0.263 to 0.554)
+lineage-balanced (equal weight L1 to L5, stratified bootstrap seed 0, 2000 draws): 0.305 (95% percentile 0.219 to 0.386)
+
+4. ANY CORRELATION REPORTED (corr_any=Y), AND OTHER METRIC FAMILIES REPORTED ANYWHERE IN THE SOURCE
+corr_any  L1 14/14  L2 1/8  L3 6/6  L4 1/6  L5 2/6  pooled 24/40
+acc_any   L1 5/14  L2 8/8  L3 3/6  L4 5/6  L5 5/6  pooled 26/40
+kappa_any L1 1/14  L2 2/8  L3 0/6  L4 0/6  L5 2/6  pooled 5/40
+f1_any    L1 1/14  L2 3/8  L3 0/6  L4 4/6  L5 1/6  pooled 9/40
+dist_any  L1 0/14  L2 0/8  L3 1/6  L4 0/6  L5 0/6  pooled 1/40
+corr_any lineage-balanced: 0.525 (95% percentile 0.433 to 0.650)
+corr_level among corr_any=Y rows: BOTH=2, INSTANCE=9, SYSTEM=9, UNSTATED=4
+
+5. BY LABEL TYPE (headline correlation share within D_all)
+GRADED       7/8 = 0.875 (Wilson 95% 0.529 to 0.978)
+PAIRWISE     0/8 = 0.000 (Wilson 95% 0.000 to 0.324)
+CATEGORICAL  0/8 = 0.000 (Wilson 95% 0.000 to 0.324)
+SYSTEM_RANK  4/5 = 0.800 (Wilson 95% 0.376 to 0.964)
+MIXED        5/11 = 0.455 (Wilson 95% 0.213 to 0.720)
+
+6. DECISION RULES DECLARED BEFORE DATA
+V1 graded-score ruler: L1 correlation headline 12/14 = 0.857 (Wilson 95% 0.601 to 0.960); rule needs share >= 0.80 and Wilson lower >= 0.65 -> DOES NOT HOLD
+   L1 rows without a correlation-family headline: L1-14, L1-15
+   fragility of V1 to a one-row change, one fewer correlation headline: 11/14 = 0.786 (Wilson 95% 0.524 to 0.924) -> DOES NOT HOLD
+   fragility of V1 to a one-row change, one more correlation headline: 13/14 = 0.929 (Wilson 95% 0.685 to 0.987) -> HOLDS
+V2 general ruler: pooled correlation headline 16/40 = 0.400 (Wilson 95% 0.263 to 0.554) -> one of several common rulers
+V3 selection objective: sources that select, tune or train on human data (strict selection, loose selection or training on human loss) in D_all: 25
+   pre-declared reading, selection_by_corr=Y (agreement or correlation maximized on human data): 9/25 = 0.360 (Wilson 95% 0.202 to 0.555) -> DOES NOT HOLD (15 percent or more)
+   refined reading, correlation only (selection_metric CORR or BOTH): 4/25 = 0.160 (Wilson 95% 0.064 to 0.347) -> 15 percent or more
+   V3 grid, share with the stated numerator among the stated denominator (the declared reading is strict any-metric over S):
+     denominator S (select, tune or train on human data): strict any-metric 9/25 = 0.360 (Wilson 95% 0.202 to 0.555); strict correlation-only 4/25 = 0.160 (Wilson 95% 0.064 to 0.347)
+     denominator all of D_all: strict any-metric 9/40 = 0.225 (Wilson 95% 0.123 to 0.375); strict correlation-only 4/40 = 0.100 (Wilson 95% 0.040 to 0.231)
+   leave-one-out over the 9 strict rows (one strict row dropped from numerator and denominator): any-metric share 0.333 to 0.333; correlation-only share 0.125 to 0.167; correlation-only share is below 0.15 in 4 of 9 leave-one-out cases
+   strict selection rows: L1-11[CORR], L1-13[CORR], L2-05[AGREEMENT], L3-04[CORR], L3-06[CORR], L4-02[AGREEMENT], L4-06[AGREEMENT], L5-02[AGREEMENT], L5-06[AGREEMENT]
+   loose-only rows (selection informed by human agreement, not stated as maximized): L1-04, L1-05, L1-09, L1-10, L1-14, L1-15, L2-01, L2-09, L3-01, L3-02, L3-03, L4-03, L4-05, L5-03, L5-05
+   training-on-human-loss rows: L2-01, L4-04
+V4 distributional: dist_any=Y 1/40 = 0.025 (Wilson 95% 0.004 to 0.129) -> HOLDS (below 10 percent): proper or distributional scoring against humans is rare
+   dist_any=Y rows in D_all: L3-03
+
+7. SENSITIVITY ANALYSES (declared in the protocol, plus the added co-headline reading)
+A. abstract-only rows added: D size 40; pooled headline correlation 16/40 = 0.400 (Wilson 95% 0.263 to 0.554) (no abstract-only rows remain among L1 to L5 with human_validation=Y after the coverage upgrades, so this equals the main analysis)
+   L1 12/14 = 0.857 (Wilson 95% 0.601 to 0.960)
+   lineage-balanced 0.305 (95% percentile 0.219 to 0.386)
+B. kappa, alpha and ICC headlines counted as correlation-like (upper bound; the closed vocabulary cannot separate ICC from kappa): pooled 18/40 = 0.450 (Wilson 95% 0.307 to 0.602)
+   KAPPA_ALPHA_ICC headline rows: L2-08, L5-01
+C. co-headline reading (notes marked MIXED_HEADLINE or ALT_HEADLINE_CORR counted as correlation): pooled 20/40 = 0.500 (Wilson 95% 0.352 to 0.648)
+   marked rows: L1-15, L3-01, L3-03, L5-05
+   L1 under the co-headline reading 13/14 = 0.929 (Wilson 95% 0.685 to 0.987)
+D. any correlation reported anywhere (corr_any=Y), pooled 24/40 = 0.600 (Wilson 95% 0.446 to 0.737)
+
+8. PRE-DECLARED PREDICTIONS VERSUS RESULTS (headline correlation share; any correlation share)
+L1      predicted 0.90  observed 0.857 (12/14)  any correlation observed 1.000 (14/14)
+L2      predicted 0.15  observed 0.000 (0/8)  any correlation observed 0.125 (1/8)
+L3      predicted 0.85  observed 0.667 (4/6)  any correlation observed 1.000 (6/6)
+L4      predicted 0.25  observed 0.000 (0/6)  any correlation observed 0.167 (1/6)
+L5      predicted 0.30  observed 0.000 (0/6)  any correlation observed 0.333 (2/6)
+pooled  predicted 0.50  observed 0.400 (16/40)  any correlation observed 0.600 (24/40)
+pooled any-correlation predicted 0.60, observed 0.600
+dist_any predicted 0.03, observed 0.025; strict selection_by_corr=Y predicted at most 2 sources, observed 9
+
+9. ROWS EXCLUDED FROM BASE RATES (descriptive only)
+L2-07  human_validation=N           headline=ACC_AGREE        corr_any=N dist_any=N trained_on_human_loss=N coverage=full
+L2-10  human_validation=N           headline=NA               corr_any=N dist_any=N trained_on_human_loss=N coverage=partial
+L6-01  L6 critique or alternative   headline=KAPPA_ALPHA_ICC  corr_any=Y dist_any=Y trained_on_human_loss=N coverage=partial
+L6-02  L6 critique or alternative   headline=DIST             corr_any=N dist_any=Y trained_on_human_loss=N coverage=full
+L6-03  L6 critique or alternative   headline=CORR_INST        corr_any=Y dist_any=N trained_on_human_loss=N coverage=full
+L6-04  L6 critique or alternative   headline=OTHER            corr_any=N dist_any=Y trained_on_human_loss=N coverage=partial
+L6-05  L6 critique or alternative   headline=NA               corr_any=N dist_any=N trained_on_human_loss=N coverage=full
+L6-06  L6 critique or alternative   headline=NA               corr_any=N dist_any=N trained_on_human_loss=UNCLEAR coverage=abstract_only
+L6-07  L6 critique or alternative   headline=CORR_INST        corr_any=Y dist_any=N trained_on_human_loss=N coverage=full
+L6-08  L6 critique or alternative   headline=NA               corr_any=N dist_any=N trained_on_human_loss=UNCLEAR coverage=abstract_only
+P-01   pre-LLM context row          headline=CORR_SYS         corr_any=Y dist_any=N trained_on_human_loss=N coverage=full
+P-02   pre-LLM context row          headline=CORR_SYS         corr_any=Y dist_any=N trained_on_human_loss=N coverage=partial
+P-04   pre-LLM context row          headline=CORR_INST        corr_any=Y dist_any=N trained_on_human_loss=N coverage=full
+
+10. PRE-LLM CONTEXT ROWS (lineage P; in no base rate)
+P rows n=3; headline families: CORR_INST=1, CORR_SYS=2; any correlation 3/3; strict selection rows: P-02[CORR]
+L6 critique rows n=8; with human_validation=Y 5; any correlation 3; dist_any=Y 3; trained_on_human_loss=Y 0
+
+11. SECOND-READ VERIFICATION (verification.csv; second read with the verification prompt, plus a narrowed re-read wherever the two disagreed)
+rows re-read: 16 (seeded 12, targeted extras 4); rows with usable field-level answers: 15; void re-reads excluded: L2-03
+field-level agreement before resolution: 98/105 = 0.933 over 7 fields; rows with at least one disagreement: 5/15
+   headline_family    agreement 15/15
+   corr_any           agreement 14/15
+   corr_level         agreement 13/15
+   acc_any            agreement 15/15
+   kappa_any          agreement 15/15
+   dist_any           agreement 15/15
+   selection_by_corr  agreement 11/15
+   disagreement L1-15: fields corr_level, selection_by_corr; resolution: narrowed re-read: Spearman over each dataset's annotated items (INSTANCE); no selection for the main comparisons (N); census corrected; census changed: Y
+   disagreement L2-01: fields selection_by_corr; resolution: narrowed re-read: criterion unstated, selection data separate from the reported-accuracy data; census set to UNCLEAR with selection_loose Y; census changed: Y
+   disagreement L3-06: fields selection_by_corr; resolution: narrowed re-read: judges and realizations are ranked by Kendall tau against the Arena ranking and no prompt was tuned; coding kept as the weakest form of strict Y (best-of-N reporting on the evaluation data); census changed: N
+   disagreement L5-05: fields corr_any, corr_level; resolution: narrowed re-read: Kendall tau is computed against a synthetic ground truth from constructed mock systems, not human annotations; coding kept; census changed: N
+   disagreement L1-05: fields selection_by_corr; resolution: narrowed re-read: no criterion stated; census corrected to UNCLEAR with selection_metric NA (selection_loose stays Y); census changed: Y
+census rows corrected after verification: L1-15, L2-01, L1-05
+added selection checks (decided after the first-pass pattern, only the selection field): L4-02, L4-06, L5-02, L5-06; all confirmed: True
+strict selection rows in D_all that were re-read for selection: 9/9
+
+figure written: fig_headline_share_by_lineage.png

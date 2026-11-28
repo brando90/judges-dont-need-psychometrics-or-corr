@@ -1,0 +1,21 @@
+id,lineage,sample_role,reread_prompt,headline_family,corr_any,corr_level,acc_any,kappa_any,dist_any,selection_by_corr,disagreement_detail,resolution,census_changed
+L1-07,L1,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L1-14,L1,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L1-15,L1,seeded,PROMPT-B,agree,agree,disagree,agree,agree,agree,disagree,corr_level coded UNSTATED but the re-read says correlations are computed over annotated items; selection coded UNCLEAR but the re-read reports no tuning,narrowed re-read: Spearman over each dataset's annotated items (INSTANCE); no selection for the main comparisons (N); census corrected,Y
+L2-01,L2,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,disagree,selection coded N but the re-read says the fine-tuned judge's hyperparameters were chosen on a 2K validation set of human votes,"narrowed re-read: criterion unstated, selection data separate from the reported-accuracy data; census set to UNCLEAR with selection_loose Y",Y
+L2-03,L2,seeded,void (PROMPT-B and a narrowed re-read both returned a paper summary),not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,no field-level answers obtained in two attempts,"excluded from the agreement rates; the summary text is consistent with the coded headline (agreement rate, mostly against GPT-4 labels)",N
+L2-05,L2,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L3-04,L3,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L3-06,L3,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,disagree,selection coded Y (best realization and aggregation per judge chosen by tau on the evaluation data) but PROMPT-B found no prompt or setting tuning,narrowed re-read: judges and realizations are ranked by Kendall tau against the Arena ranking and no prompt was tuned; coding kept as the weakest form of strict Y (best-of-N reporting on the evaluation data),N
+L4-03,L4,seeded,narrowed (PROMPT-B read void),agree,agree,agree,agree,agree,agree,agree,,,N
+L4-04,L4,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L5-03,L5,seeded,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L5-05,L5,seeded,PROMPT-B,agree,disagree,disagree,agree,agree,agree,agree,"Kendall tau is reported at the system level, but the census codes corr_any N because the reference ranking is not human","narrowed re-read: Kendall tau is computed against a synthetic ground truth from constructed mock systems, not human annotations; coding kept",N
+L1-05,L1,targeted extra,PROMPT-B,agree,agree,agree,agree,agree,agree,disagree,selection coded Y CORR but the re-read says the method was chosen by results with no stated criterion,narrowed re-read: no criterion stated; census corrected to UNCLEAR with selection_metric NA (selection_loose stays Y),Y
+L1-11,L1,targeted extra,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L1-13,L1,targeted extra,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L3-03,L3,targeted extra,PROMPT-B,agree,agree,agree,agree,agree,agree,agree,,,N
+L4-02,L4,added selection check,narrowed selection question,not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,agree,,confirmed: judge prompts chosen by Macro-F1 against human golden labels; selection and reporting sets overlap,N
+L4-06,L4,added selection check,narrowed selection question,not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,agree,,confirmed: best-performing prompt chosen by agreement with human preferences on the training splits; no separate held-out set,N
+L5-02,L5,added selection check,narrowed selection question,not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,agree,,"confirmed: best prompt of 32 chosen by Cohen's kappa and related agreement against assessor labels; same pairs used to pick and report, with a half-split check",N
+L5-06,L5,added selection check,narrowed selection question,not_compared,not_compared,not_compared,not_compared,not_compared,not_compared,agree,,confirmed: candidate assertions chosen by highest alignment with the user's grades; no held-out split,N

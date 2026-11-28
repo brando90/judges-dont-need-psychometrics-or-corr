@@ -1,4 +1,4 @@
-# Experiment 43: how LLM judges are validated in practice. Protocol and predictions
+# Experiment 45: how LLM judges are validated in practice. Protocol and predictions
 
 **Written:** Fri 11-27-2026, 17:27 PST, before any census row was collected. Repository state when written: `main` at `0897ad5`. This file is committed before any file that holds census rows, so the commit order shows that the protocol came first.
 
