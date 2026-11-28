@@ -1,6 +1,6 @@
 # Experiments — QA corrections 11-26-2026
 
-**Target versus ruler (11-27-2026).** Every experiment here scores judges against a stated human rating distribution, p*(y | x, rater pool, rubric). That the target is a distribution is the point of Pavlick and Kwiatkowski (2019) and Plank (2022) and is not claimed here; the experiments test the ruler (what correlation, agreement and proper scores can and cannot identify, and what changes when a proper score is used). Read [the Point 1 note](../docs/notes/point1_target_vs_ruler_27Nov2026.md) first; real-judge rank reversal is not yet established (Experiment 46, results pending).
+**Target versus ruler (11-27-2026).** The experiments here score judges against a stated rating distribution, p*(r | x, rater pool, rubric): human ratings, or a known law in the synthetic experiments. That the target is a distribution is the point of Pavlick and Kwiatkowski (2019) and Plank (2022) and is not claimed here; the experiments test the ruler (what correlation, agreement and proper scores can and cannot identify, and what changes when a proper score is used). Read [the Point 1 note](../docs/notes/point1_target_vs_ruler_27Nov2026.md) first; real-judge rank reversal is interim and narrow: none under the pre-registered Pearson test, two Spearman reversals for one judge pair (Experiment 46).
 
 **QA corrections: 11-26-2026.** The original index rows remain beside these dated qualifications:
 

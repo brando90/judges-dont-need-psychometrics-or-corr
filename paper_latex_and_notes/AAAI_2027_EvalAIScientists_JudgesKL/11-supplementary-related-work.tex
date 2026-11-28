@@ -34,7 +34,7 @@ A continuous outcome gives CRPS.
 Because $\mathbb{E}_{r\sim p}\,S(q,r)$ is what is optimized, $S(q,r)$ evaluated at one sampled rating per held-out item is an unbiased estimate of the expected score, so evaluation does not require repeated ratings per item.
 Repeated ratings are needed for distance-to-$p$ diagnostics, per-item divergences, stratification by human agreement, and human ceilings.
 Skill scores normalize a score by a reference forecast~\citep{murphy1989skill}.
-We use $\mathrm{Skill}_S = 1 - S(q_{\mathrm{judge}})/S(q_{\mathrm{base}})$ with the base-rate (marginal) forecast as reference, which puts scores from different datasets and label scales on one scale where $0$ is no better than the base rate.
+We use $\mathrm{Skill}_S = 1 - S(q_{\mathrm{judge}})/S(q_{\mathrm{base}})$ with the base-rate (marginal) forecast as reference, which puts scores from different datasets and label scales on one scale where $0$ matches the base rate and negative values are worse than it.
 We do not propose a new scoring rule.
 
 \subsection{How LLM Judges Are Validated in Practice}
@@ -56,7 +56,7 @@ The pattern splits by judge type.
 Of the $30$ direct-score and benchmark papers, $29$ report correlation (the exception is an IRT reliability paper).
 Of the $13$ pairwise-judge and reward-model papers, all $13$ report agreement, accuracy or kappa, and only $1$ reports correlation.
 All six papers with an item-level proper score or divergence are from 2025--2026 and are discussed next.
-The census supports a narrower statement than ``judges are validated by correlation'': most papers compare the judge with one aggregated or forced-choice human label per item using a point statistic.
+The audit supports a narrower statement than ``judges are validated by correlation'': most papers compare the judge with one aggregated or forced-choice human label per item using a point statistic.
 
 \begin{table}[t]
 \centering
@@ -102,7 +102,7 @@ Our paper is evaluation-first, treats training as secondary, and covers ordinal 
 They train on individual annotations with proper scoring rules, RPS for ordinal and cross-entropy for nominal judgments, and report Jensen--Shannon distance as the primary metric alongside annotation-level RPS (ordinal) or Brier score (nominal) and correlation with aggregate human scores, across $14$ benchmarks and four judges.
 Their introduction also observes that correlation, error and accuracy against aggregates do not establish whether a judge reflects the distribution of individual judgments.
 Lyu et al.\ already use RPS and CE for ordinal and nominal judges.
-Our focus is different: we document the practice gap and test whether metric choice changes real judge rankings, rather than proposing a steering method.
+Our focus is different: we document the practice gap and ask whether metric choice changes real judge rankings (Section~\ref{sec:supp-new}), rather than proposing a steering method.
 
 \paragraph{2025 distributional-judging papers.}
 \citet{guerdan2025validating} study validation under rating indeterminacy, where several ratings may be reasonable for an item.
@@ -114,7 +114,7 @@ These papers use the human distribution as a target or as a source of informatio
 
 \begin{table*}[t]
 \centering
-\caption{Prior work versus this paper by aspect. A check mark is a stated main contribution as read in each paper's abstract and method for this appendix; a circle is a partial or adjacent treatment (named in the text); a dash is not a main contribution, not a claim that the paper never touches the aspect. Every row adopts the distributional target; only the last four columns carry our novelty claim. The audit column reflects the 49-paper census of this paper (a convenience sample, not a systematic review).}
+\caption{Prior work versus this paper by aspect. A check mark is a stated main contribution as read in each paper's abstract and method for this appendix; a circle is a partial or adjacent treatment (named in the text); a dash is not a main contribution, not a claim that the paper never touches the aspect. Every row adopts the distributional target; only the last four columns carry our novelty claim. The audit column reflects the 49-paper audit of this paper (a convenience sample, not a systematic review).}
 \label{tab:supp-novelty}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -143,7 +143,7 @@ Cohen's kappa~\citep{cohen1960coefficient}, Krippendorff's alpha~\citep{krippend
 Krippendorff's alpha and kappa were designed to quantify the reliability of human labeling, and \citet{elangovan2025beyond} point out that their assumptions may not transfer to machine-generated labels.
 A small recent thread applies item response theory or generalizability theory to LLM judges.
 \citet{choi2026diagnosing} fit a graded response model to measure the prompt consistency and marginal reliability of judges, and the \texttt{Gtheory4LLM} R package~\citep{liu2026gtheory4llm} decomposes evaluator, prompt and run facets and supports decision studies, including models for binary, ordinal and unordered categorical outcomes.
-Only $1$ of the $49$ papers in our census (Choi et al.) is coded as psychometric reliability, so we call this an emerging thread rather than a shift in practice.
+Only $1$ of the $49$ papers in our audit (Choi et al.) is coded as psychometric reliability, so we call this an emerging thread rather than a shift in practice.
 We do not argue that these methods are unnecessary.
 They answer how consistently an instrument measures and how many raters or prompts a design needs.
 They do not say whether the judge's probabilities match the human rating distribution, and a judge can be perfectly reliable while being miscalibrated.
@@ -154,19 +154,21 @@ Table~\ref{tab:supp-novelty} summarizes the comparison.
 Our novelty is not that the target is a distribution~\citep{pavlick2019inherent,plank2022problem} and not that proper scores should be used~\citep{li2026judging,lyu2026humanresidual}.
 It is the following.
 \begin{enumerate}
-\item \emph{A measured practice gap.} In a $49$-paper census, $43$ report no item-level proper score or divergence and $44$ no item-level strictly proper score (Experiment~54 recodes the binned Jensen--Shannon divergence of \citet{elangovan2025beyond}, which is neither item-level nor proper; one paper, \citet{lyu2026humanresidual}, uses an order-aware score), $29$ of $30$ direct-score and benchmark papers report correlation, $13$ of $13$ pairwise papers report agreement, accuracy or kappa, $33$ of $49$ report correlation overall, and only $1$ of $49$ uses IRT or G-theory.
-\item \emph{An encoding-based identification analysis.} Squared correlation is one minus the mean squared error of the best affine fit divided by the variance of the human rating, $r^2 = 1 - \mathrm{MSE}(\text{best affine})/\mathrm{Var}(Y)$, so correlation measures discrimination after recalibration and ignores calibration.
+\item \emph{A measured practice gap.} In a $49$-paper audit, $43$ report no item-level proper score or divergence and $44$ no item-level strictly proper score (Experiment~54 recodes the binned Jensen--Shannon divergence of \citet{elangovan2025beyond}, which is neither item-level nor proper; one paper, \citet{lyu2026humanresidual}, uses an order-aware score), $29$ of $30$ direct-score and benchmark papers report correlation, $13$ of $13$ pairwise papers report agreement, accuracy or kappa, $33$ of $49$ report correlation overall, and only $1$ of $49$ uses IRT or G-theory.
+\item \emph{An encoding-based identification analysis.} Squared correlation is one minus the mean squared error of the best affine fit divided by the variance of the human rating, $\corr^2 = 1 - \mathrm{MSE}(\text{best affine})/\mathrm{Var}(R)$, so correlation measures discrimination after recalibration and ignores calibration.
 Forecasts with the same conditional mean tie on Pearson, Spearman, Kendall and mean squared error but can differ on Brier, CE and RPS, each of which scores the true distribution strictly better than every other forecast (machine-checked in Lean~4 for Brier and RPS on finite laws; cross-entropy is cited).
 For a judge that samples independently of the human given the input, correlation with sampled ratings can favor a collapsed mean judge over the true distribution; this anti-properness is machine-checked in Lean~4 for finite joint laws, in squared form ($r_{\mathrm{T}}=r_{\mathrm{D}}^2<r_{\mathrm{D}}$) and in square-root form ($r_{\mathrm{D}}=\sqrt{r_{\mathrm{T}}}>r_{\mathrm{T}}$), where $r_{\mathrm{T}}$ and $r_{\mathrm{D}}$ are the correlations with the human rating of the truthful sampling judge and of the collapsed mean judge.
 That accuracy against the majority label is proper but not strictly proper is argued by hand and is not machine-checked.
-\item \emph{A general protocol.} A strictly proper score matched to the encoding, a base-rate skill score, and stratification by human agreement, estimated without bias from one rating per held-out item.
-\item \emph{Evidence on whether metric choice matters.} Two results in this paper bear on this; a third is open.
+\item \emph{A general protocol.} A strictly proper score matched to the encoding, a base-rate skill score, and stratification by human agreement. The per-sample risk is estimated without bias from one rating per held-out item; the skill ratio is consistent but not unbiased, and the strata need at least two ratings per item.
+\item \emph{Evidence on whether metric choice matters.} Two results in this paper bear on this; a third is interim.
 In the synthetic ordinal suite (Experiment~06, Scenario~B, $n=2{,}048$), Pearson ($0.973$), Spearman ($0.982$) and Kendall ($0.981$) fits rank above the cross-entropy fit ($0.948$) on rank agreement with the conditional mean, yet their predicted distributions carry $0.0330$--$0.0951$ test RPS excess against $0.0037$ for cross-entropy, so the two metrics order the objectives oppositely.
 On seven real multi-annotator rating sets re-binned to two, three and five classes (Experiment~41), a cross-entropy-trained linear head beats a Pearson-trained one by up to $0.1282$ normalized RPS on held-out items at a fixed ridge penalty (the largest value is on a view where no head beats the constant forecast); after each head's score passes through its own validation-fitted calibration map, the difference is at most $0.0024$.
 This supports the evaluation claim (correlation cannot see calibration) more than the training claim.
-A comparison that ranks independently built real LLM judges by correlation and by held-out proper score with paired, pre-registered tests, and reports whether the rankings reverse, is not yet established in this paper, and \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
+On five frozen frontier judges and five public multi-annotator rating sets (Experiment~46, interim), the pre-registered primary test, Pearson correlation against the proper score, finds no significant rank reversal on the frontier panel, and neither do top-1 agreement or kappa.
+Spearman correlation and the Brier score reverse for one judge pair on two sets: GPT-6 Astra is ahead of GLM~5.3 on Spearman by $0.021$ (SNLI) and $0.034$ (MNLI) and behind on Brier skill by $0.039$ and $0.098$ (Holm-adjusted $p\le0.042$ on both metrics), and no reversal remains after per-judge calibration on held-out ratings.
+The local-judge panel is partial and the API panel has not run; \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
 \end{enumerate}
 We state three limits of this appendix.
 The $49$-paper tally is a convenience sample with a single coder.
 Training objective, scaling behavior and the item-versus-rating budget split are secondary to the evaluation claim and are left to follow-up work.
-Papers that appeared after the census was frozen are not included.
+Papers that appeared after the audit was frozen are not included.

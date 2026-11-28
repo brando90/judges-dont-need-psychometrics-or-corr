@@ -95,6 +95,20 @@ theorem contested_item_penalizes_sharpening_instance :
     sq3 pK pK = 0 ∧ sq3 qSharpK pK = 6 ∧ sq3 pK pK < sq3 qSharpK pK := by
   unfold sq3 pK qSharpK f3; decide
 
+/-- Mean rating of a three-category forecast on the ratings 0, 1, 2 (scaled like the forecast). -/
+def mean3 (q : Fin 3 → Int) : Int := 0 * q 0 + 1 * q 1 + 2 * q 2
+
+/-- Two forecasts (scaled by 20) with the same mean, 24/20 = 6/5, but different strict modes. -/
+def qMeanA : Fin 3 → Int := f3 7 2 11
+def qMeanB : Fin 3 → Int := f3 0 16 4
+
+/-- INSTANCE (added 11-27-2026, independent QA): the same mean does not fix agreement.  `qMeanA` and
+`qMeanB` have equal means, yet only `qMeanA` agrees with label 2 (its strict mode); `qMeanB`'s strict mode
+is 1.  So agreement with a label is not a function of the forecast mean. -/
+theorem same_mean_different_agreement_instance :
+    mean3 qMeanA = mean3 qMeanB ∧ Agrees qMeanA 2 ∧ ¬ Agrees qMeanB 2 := by
+  unfold mean3 qMeanA qMeanB f3 Agrees IsStrictMode; decide
+
 end Point1
 
 #print axioms Point1.agrees_iff_mode
@@ -103,3 +117,4 @@ end Point1
 #print axioms Point1.pool_changes_the_ruler_instance
 #print axioms Point1.consensus_item_rewards_peaked_forecast_instance
 #print axioms Point1.contested_item_penalizes_sharpening_instance
+#print axioms Point1.same_mean_different_agreement_instance

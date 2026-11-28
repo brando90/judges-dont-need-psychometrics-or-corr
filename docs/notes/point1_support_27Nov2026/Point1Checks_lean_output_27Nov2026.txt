@@ -6,4 +6,5 @@ $ lean Point1Checks.lean
 'Point1.pool_changes_the_ruler_instance' depends on axioms: [propext]
 'Point1.consensus_item_rewards_peaked_forecast_instance' depends on axioms: [propext]
 'Point1.contested_item_penalizes_sharpening_instance' depends on axioms: [propext]
+'Point1.same_mean_different_agreement_instance' depends on axioms: [propext]
 lean exit=0

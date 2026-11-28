@@ -172,8 +172,8 @@ $L_{\rm Brier}(q,r)=\frac12\sum_k(q_k-\mathbf{1}\{r=k\})^2\in[0,1]$
 On a point mass $\delta_a$, this equals the $0$--$1$ error $\mathbf{1}\{a\neq r\}$, because $\lVert\delta_a-e_r\rVert_2^2$ is $0$ when $a=r$ and $2$ otherwise.
 On the same point mass, the RPS in Eq.~\ref{eq:rps-cdf} equals the normalized absolute error $\lvert a-r\rvert/5$: the unnormalized sum of squared CDF gaps over the $K-1$ thresholds equals $\lvert a-r\rvert$ for any $K\ge 2$.
 (The Brier column in Table~\ref{tab:rps-examples} reports the unnormalized sum of squares, twice $L_{\rm Brier}$.)
-For any score of the form $S(q,r)$, including normalized Brier and RPS, a single observed rating is an unbiased estimate of the expected score: if $R\sim p$, then $\mathbb{E}[S(q,R)]=\sum_r p(r)\,S(q,r)$ by the finite-sum definition of expectation, and the average of independent item-level scores is unbiased for the mean item-level risk by linearity.
 These three identities are checked with exact fractions for $K=2,\ldots,8$ and machine-checked in Lean~4 for every pair on those scales, including the paper's six-point scale (numerical script and Lean sources in this directory's \texttt{checks/} folder).
+For any score of the form $S(q,r)$, including normalized Brier and RPS, a single observed rating is an unbiased estimate of the expected score: if $R\sim p$, then $\mathbb{E}[S(q,R)]=\sum_r p(r)\,S(q,r)$ by the finite-sum definition of expectation, and the average of independent item-level scores is unbiased for the mean item-level risk by linearity (a short derivation, not machine-checked).
 
 \paragraph{Average RPS over class orderings.}
 There is no CDF, and therefore no single RPS, on an unordered label set.

@@ -6,14 +6,14 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 1. Pavlick and Kwiatkowski (2019) and Plank (2022) established the target: a human label is a distribution. We adopt that and do not claim it.
 2. Our contribution is the ruler: how a judge should be scored once the target is a distribution, and whether current practice scores it that way.
-3. It has four parts: a measured practice gap (43 of 49 judge-validation papers report no item-level proper score; 29 of 30 score-based papers validate by correlation), an identification result (machine-checked in Lean for finite laws), a protocol (a strictly proper score matched to the label encoding, with a base-rate skill score and agreement strata), and evidence.
-4. Real-judge rank reversal is not yet established; the Experiment 46 results are pending, so the paper does not claim it.
+3. It has four parts: a measured practice gap (43 of 49 judge-validation papers report no item-level proper score, 44 of 49 no item-level strictly proper one under the stricter code of Experiment 54; 29 of 30 score-based papers report correlation), an identification result (machine-checked in Lean for finite laws), a protocol (a strictly proper score matched to the label encoding, with a base-rate skill score and agreement strata), and evidence.
+4. Real-judge rank reversal is established only narrowly (Experiment 46, interim): none under the pre-registered Pearson test, top-1 agreement or kappa; two Spearman reversals for one judge pair on two sets, removed by calibration. The paper says Spearman.
 
 ## What we conceded and how
 
 1. **Rater pool and rubric are the construct.** The target is now written p*(r | x, P, rho): a rating of input x from a stated rater pool P under a stated rubric rho. Changing either changes p*, so the choice is fixed before any score is computed. Added to the introduction ("Target versus ruler") and to the problem section ("The target is set by a rater pool and a rubric").
 2. **Consensus items.** On high-agreement items p* is peaked and a peaked judge is correct. The protocol therefore reports scores by agreement stratum (agreement measured on one half of each item's ratings, score computed on the other half).
-3. **Softened impossibility wording.** "Cannot validate" became "cannot, in general, validate" in the abstract. The problem section says none of the statistics identifies the full conditional distribution in general, that this does not make correlation always misleading, and that with two categories the mean fixes the distribution.
+3. **Softened impossibility wording.** "Cannot validate" became "cannot, in general, validate" in the abstract; the abstract was then rewritten to the advisor's notes S1 to S9 and no longer has that sentence, and its remaining claims are scoped. The problem section says none of the statistics identifies the full conditional distribution in general, that this does not make correlation always misleading, and that with two categories the mean fixes the distribution.
 
 ## Corrections to the pasted draft
 
@@ -34,7 +34,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 ## Files changed
 
-1. Paper (`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`): `1-abstract.tex`, `2-introduction.tex`, `3-problem.tex`, `4-proposal.tex`, `7-discussion.tex` (including one calibration-and-drift sentence), `11-supplementary-related-work.tex`, new `12-supplementary-pool-strata-power.tex`, `00_main_aaai_2027.tex`, and both rebuilt PDFs (`00_main_aaai_2027.pdf`, 12 pages; `00_main_arxiv.pdf`, 24 pages).
+1. Paper (`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`): `1-abstract.tex`, `2-introduction.tex`, `3-problem.tex`, `4-proposal.tex`, `7-discussion.tex` (including one calibration-and-drift sentence), `8-appendix-rps.tex` (the Lean sentence now directly follows the identities it covers), `11-supplementary-related-work.tex`, new `12-supplementary-pool-strata-power.tex`, `00_main_aaai_2027.tex`, and both rebuilt PDFs (`00_main_aaai_2027.pdf`, 13 pages; `00_main_arxiv.pdf`, 25 pages).
 2. Experiments: `experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/` (protocol, amendment, code, tests, results, figures, README, RESULTS, HOW_TO_READ_RESULTS); `experiments/README.md`; `experiments/41_.../BLOG_FACT_CHECK_11-27-2026.md` (a Gemini share link redacted).
 3. Docs: root `README.md`, `docs/LEAN_TODO.md`, `docs/notes/point1_target_vs_ruler_27Nov2026.md`, `docs/notes/point1_support_27Nov2026/` (core-Lean file, exact-fraction numerics, outputs, pytest), `DEFENSE_ONE_SLIDE_EVAL_NOTE.md`.
 
@@ -47,9 +47,9 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 ## Open for Brando
 
-1. I changed three phrases of the approved abstract. (a) "cannot, in general, validate a judge" (softened). (b) The same-mean sentence used to say that every strictly proper score separates same-mean distributions, which is not true for two different wrong forecasts; it now says that a different forecast sharing the true mean ties with it on correlation and scalar error while every strictly proper score ranks the true distribution strictly ahead of it. (c) The Lean scope: "the squared form of the sampled-score result" became "the sampled-score result, both for finite laws", because the square-root form is also Lean-checked and the supplement now says so. Revert any of the three if you prefer the original.
-2. The main body still ends on page 5, one page past the four-page target in Rule 89; compressing the Section 6 paragraph on Experiments 26, 28 and 29 (details are already in the supplement) would fix it. I did not do it without your go-ahead.
-3. Real-judge rank reversal (Experiment 46) is pending; the paper says so.
+1. The abstract was rewritten to your advisor's notes S1 to S9 after my first pass, so the three abstract edits I had flagged are gone (the Lean-scope sentence is no longer in the abstract; the supplement states it, for finite laws, in both the squared and the square-root form). On the rewritten abstract I made two precision edits: "Correlation is a function of squared error after the best affine refit" (squared correlation is one minus that error over the variance, not the error itself), and the rating written as r like the body. Revert if you prefer the original.
+2. The venue edition's main body is past the four-page target in Rule 89 (and the workshop's 2 to 4 main-body pages). Measured on the current build: the Conclusion starts at the bottom of page 5 and runs onto the top of page 6, where the references begin, about 2.1 columns past page 4. Before the Point 1 work it ran about 0.6 of a column onto page 5, and after it about 1.6 columns; the rest of the growth is the abstract and introduction rewrite. The arXiv edition has no limit. Compressing the Section 6 paragraph on Experiments 26, 28 and 29 (details are already in the supplement) and the dated "earlier text; corrected" asides in Section 6 would recover most of it. I did not do it without your go-ahead.
+3. Experiment 46's README says "H1 is supported", but the frozen H1 is about Pearson, which shows no significant reversal; the two significant reversals are Spearman. The paper, README and notes say Spearman and state the Pearson null. The Experiment 46 README is another session's active file, so I did not edit it.
 4. Several internal notes in this repository name the advisor (for example `STATUS_11-20-2026.md`, `paper_latex_and_notes/notes/`). I did not scrub them; tell me if you want that.
 
-**TL;DR:** They established the target; we supply the ruler, the identification result, the protocol and the audit, with rank reversal still open. The rater-pool definition and the consensus-item point are conceded and now in the paper and the experiments.
+**TL;DR:** They established the target; we supply the ruler, the identification result, the protocol and the audit, with real-judge rank reversal narrow (Spearman only, one judge pair, interim). The rater-pool definition and the consensus-item point are conceded and now in the paper and the experiments.
