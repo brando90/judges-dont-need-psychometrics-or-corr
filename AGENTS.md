@@ -19,6 +19,14 @@ Two standing requirements for this repository:
 1. Every mathematical theorem or formal claim is checked both in Lean 4 and in Python. The Lean file has zero `sorry`, uses only the standard axioms (`propext`, `Classical.choice`, `Quot.sound`), and is checked with `#print axioms`. The compiler output is saved with the proof. A claim that has not been compiled is not called a proof.
 2. Every paper or conference-facing empirical claim is backed by experiments on real multi-annotator human judging data. A synthetic law may verify a proof against a known target distribution, and is labeled as that check. The empirical report uses the unbiased per-sample proper risk at test time, a prompt-level train/validation/test split (no rater of a prompt in two splits), and item-clustered bootstrap 95% confidence intervals. The bar is a top machine-learning conference (NeurIPS, ICML, ICLR).
 
+## Three-pillar research standard — Brando, 11-27-2026
+
+The always-on rule `.cursor/rules/ml-research-standards.mdc` states this bar in one place; it extends the two sections above and below it.
+
+1. **Lean 4.** General theorem, pinned toolchain, zero `sorry`, zero custom axioms, `#print axioms` (standard three only), compiler output saved. Mathlib files: `lake exe cache get`, never rebuild Mathlib. Machine-check only what compiles; the squared form of anti-properness (`rho^2 < rho`) is Lean-checked, the square-root form is Monte Carlo only; accuracy/kappa arguments are "analytical" unless a zero-`sorry` lemma exists.
+2. **pytest.** Every theorem has a deterministic pytest check (fixed seed, exact fractions or a named tolerance, claimed-false statements tested as failing cases, identical output twice).
+3. **Pre-registered, leak-free real-data experiments.** `PROTOCOL.md` is committed before the analysis script runs (hypotheses, primary proper score matched to the label encoding, secondary metrics, resampling unit, paired tests, the meaning of "beats"). Real multi-annotator ratings, item-level splits with no rater of an item in two splits, the unbiased per-sample proper risk, item-clustered bootstrap 95% intervals (at least 1,000 draws), Holm-Bonferroni across declared cells, failures reported. "Beats" = lower mean held-out proper score and a significant pre-registered paired test.
+
 ## Human-rating identity and collection — Brando, 11-11-2026
 
 - Every active personal human-rating Google Sheet and comma-separated values (CSV) form/export begins with `rater_name`, then `rater_id`. Prefill the actual name from the verified roster on every assigned row; keep the stable ID for joins and duplicate detection. Apply this to every participant.
