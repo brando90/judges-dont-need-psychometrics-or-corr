@@ -179,9 +179,11 @@ These three identities are checked with exact fractions for $K=2,\ldots,8$ and m
 There is no CDF, and therefore no single RPS, on an unordered label set.
 Averaging the normalized RPS over all $K!$ orderings of the categories collapses to a constant multiple of the Brier score:
 \begin{equation}
+\begin{aligned}
 \frac{1}{K!}\sum_{\pi\in S_K} L_{\rm RPS}(q^{(\pi)},r^{(\pi)})
-=\frac{K+1}{6(K-1)}\,\lVert q-e_r\rVert_2^2
-=\frac{K+1}{3(K-1)}\,L_{\rm Brier}(q,r),
+&=\frac{K+1}{6(K-1)}\,\lVert q-e_r\rVert_2^2 \\
+&=\frac{K+1}{3(K-1)}\,L_{\rm Brier}(q,r),
+\end{aligned}
 \label{eq:avg-rps-brier}
 \end{equation}
 where $q^{(\pi)}$ and $r^{(\pi)}$ are the forecast and the realized label in order $\pi$.

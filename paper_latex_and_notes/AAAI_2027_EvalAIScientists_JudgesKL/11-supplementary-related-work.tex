@@ -156,7 +156,7 @@ It is the following.
 \begin{enumerate}
 \item \emph{A measured practice gap.} In a $49$-paper census, $43$ report no item-level proper score or divergence, $29$ of $30$ direct-score and benchmark papers report correlation, $13$ of $13$ pairwise papers report agreement, accuracy or kappa, $33$ of $49$ report correlation overall, and only $1$ of $49$ uses IRT or G-theory.
 \item \emph{An encoding-based identification analysis.} Squared correlation is one minus the mean squared error of the best affine fit divided by the variance of the human rating, $r^2 = 1 - \mathrm{MSE}(\text{best affine})/\mathrm{Var}(Y)$, so correlation measures discrimination after recalibration and ignores calibration.
-Forecasts with the same conditional mean tie on Pearson, Spearman, Kendall and mean squared error but differ on Brier, CE and RPS (machine-checked in Lean~4).
+Forecasts with the same conditional mean tie on Pearson, Spearman, Kendall and mean squared error but can differ on Brier, CE and RPS, each of which scores the true distribution strictly better than every other forecast (machine-checked in Lean~4 for Brier and RPS; cross-entropy is cited).
 For a judge that samples independently of the human given the input, correlation with sampled ratings can favor a collapsed mean judge over the true distribution; this anti-properness is machine-checked only in squared form ($\rho^2<\rho$), not for the unsquared correlation.
 That accuracy against the majority label is proper but not strictly proper is argued by hand and is not machine-checked.
 \item \emph{A general protocol.} A strictly proper score matched to the encoding, a base-rate skill score, and stratification by human agreement, estimated without bias from one rating per held-out item.

@@ -9,7 +9,7 @@ L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
 \end{align}
 where $Q_j=\sum_{k=0}^j q_k$.
 On a hard forecast $\delta_a$, normalized Brier equals $0$--$1$ error $\mathbf{1}\{a\neq r\}$ and RPS equals normalized absolute error $\lvert a-r\rvert/5$ (\appref{app:rps}{the RPS appendix} records the identities).
-Both scores, and their skill scores relative to the human base rate, are unbiased with a single human rating per item.
+Both scores are unbiased estimates of their expected value with a single human rating per item.
 The appendix on the ranked probability score explains RPS in detail: intuition, propriety and why it suits ordinal human ratings.
 Their expected excess losses over the oracle are $\frac12\sum_j(q_j-p_j)^2$ and $\frac{1}{5}\sum_{j=0}^4(Q_j-P_j)^2$.
 These vanish only when the categorical distributions agree.
@@ -25,6 +25,12 @@ The target $p$ is a population distribution, not a sparse empirical histogram.
 One observed rating per item supplies a valid conditional log-loss observation.
 It does not require marginal pooling and does not identify an unconstrained distribution at that item without shared structure or further assumptions.
 CE has excess loss $\KL(p\|q)$, assuming forecast support covers the population support.
+
+\paragraph{Skill and agreement strata.}
+Write $\hat R_S=\frac1{|D|}\sum_{x\in D}\frac1{k_x}\sum_{j=1}^{k_x}S\big(q(\cdot\mid x),r_{x,j}\big)$ for the per-sample risk of a score $S$ over held-out items $x$ with $k_x$ ratings each; it is unbiased for the expected score for any number of ratings per item, including one.
+The skill score $1-\hat R_S(\text{judge})/\hat R_S(\text{base rate})$, with the marginal rating distribution as base rate, is $0$ for a judge no better than the base rate and at most $1$.
+Being a ratio of two risk estimates, it is consistent rather than unbiased.
+Items with at least two ratings are stratified by human agreement measured on one random half of their ratings, and every score is computed on the other half, so a stratum is not chosen with the ratings that score it.
 
 Empirical evaluation averages losses over observed ratings, including with one rating per input.
 A histogram of two or three ratings remains a noisy estimate, and pooling marginal histograms discards the input--rating association.

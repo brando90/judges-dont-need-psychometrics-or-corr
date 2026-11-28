@@ -5,15 +5,18 @@ G-Eval evaluates text judges using correlation with human judgments~\citep{liu20
 MT-Bench and Chatbot Arena also study agreement with human preferences and document judge biases~\citep{zheng2023judging}.
 These comparisons answer useful questions, but do not by themselves identify a conditional rating distribution.
 
-We take the distribution as the target when the evaluation requires probabilities for each possible rating.
-Proper scoring rules provide an established framework for this target~\citep{gneiting2007strictly}.
-We contribute a controlled identification study making discarded distributional information explicit, a synthetic learning-curve study, and retrospective open-weight and frontier human-rating tests.
-We do not claim a new proper scoring rule.
-\ifsupplementary Section~\ref{sec:supp-related} gives an extended related-work discussion that separates our contribution from prior distributional-judging work.\fi
+\paragraph{Target versus ruler.}
+That the target of a human evaluation is a distribution over ratings, not one gold label, is the established point of the human label variation literature~\citep{pavlick2019inherent,plank2022problem}; we adopt it and do not claim it.
+Our subject is the ruler: how a judge should be scored once the target is a distribution, and whether current practice does so.
+We write the target as $p^*(r\mid x,\mathcal{P},\rho)$, the distribution of a rating of input $x$ drawn from a stated rater pool $\mathcal{P}$ under a stated rubric $\rho$.
+Changing the pool or the rubric changes $p^*$, so that choice is the construct and is fixed before any score is computed (see \emph{What Scalar Criteria Identify}).
+Proper scoring rules are the established tool for scoring a forecast of such a distribution~\citep{gneiting2007strictly}; we do not claim a new one.
+\ifsupplementary Section~\ref{sec:supp-related} separates our contribution from prior distributional-judging work.\fi
 
-We make the following contributions:
+Our contributions are as follows.
 \begin{enumerate}
-\item We construct conditional distributions sharing their means yet separated by proper losses, and evaluate sparse selection with full tie accounting and a marginal-permutation control.
-\item We train a flexible judge by proper losses and Pearson correlation on four synthetic targets (plus smooth Spearman and Kendall objectives on two targets), measuring when proper-loss training beats correlation training on held-out data.
-\item We preserve inconclusive three-call historical human-rating findings and test ten open-weight and seven frontier language-model judges across prompt, harness, and weight optimization on the same retrospective human ratings.
+\item \emph{A practice gap.} In a $49$-paper audit (a purposive convenience sample), $43$ report no item-level proper score against human ratings, $29$ of $30$ direct-score and benchmark papers validate by correlation, and all $13$ pairwise papers report agreement, accuracy or kappa\ifsupplementary{} (Section~\ref{sec:supp-practice})\fi.
+\item \emph{An identification result.} Correlation is the error of the best affine refit, so forecasts that share a conditional mean tie on Pearson, Spearman, Kendall and scalar mean squared error whatever the human distribution is, while every strictly proper score ranks the true distribution strictly ahead of any forecast that shares its mean. We construct such conditional distributions and evaluate sparse selection with full tie accounting and a marginal-permutation control (\emph{Controlled Conditional Identification}). This is non-identification in general, not a claim that correlation is always misleading.
+\item \emph{A protocol.} A strictly proper score matched to the label encoding, a base-rate skill score and stratification by human agreement, all estimated from one rating per held-out item (\emph{Evaluate Conditional Probability Forecasts}).
+\item \emph{Evidence.} A synthetic learning-curve study of when proper-loss training beats correlation training (\emph{Learning a Judge from Sparse Ratings}), and tests of ten open-weight and seven frontier language-model judges across prompt, harness and weight optimization on the same retrospective human ratings, including inconclusive three-call historical findings that we preserve (\emph{Human-Rating Evidence}). Rater-pool, agreement-strata, binned-divergence and power analyses are in the supplementary material.
 \end{enumerate}

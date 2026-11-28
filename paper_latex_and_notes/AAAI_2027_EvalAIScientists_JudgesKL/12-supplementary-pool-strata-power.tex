@@ -1,0 +1,51 @@
+% Supplementary Material, rater pool, agreement strata and power (compiled only into the arXiv edition via 00_main_arxiv.tex).
+% Provenance: experiments/44_* (RESULTS.md, results/key_numbers.md, results/*.csv), experiments/50_* (README.md, results/strata_tables.md), experiments/52_* (README.md); Lean theorem names from docs/notes/point2_support_27Nov2026/lean (README.md claim map, axioms_output_27Nov2026.txt).
+% One sentence per line (Trigger Rule 13); strictly anonymized.
+% Notation follows the main text: $x$ is the input, $r$ the human rating, $p^*(r\mid x,\mathcal{P},\rho)$ the human rating distribution for a stated rater pool $\mathcal{P}$ and rubric $\rho$, $q(r\mid x)$ the judge's forecast.
+
+\section{Rater Pool, Agreement Strata and Power}
+\label{sec:supp-pool-strata}
+
+This section reports the analyses that bear on the target $p^*(r\mid x,\mathcal{P},\rho)$ and on the stratified protocol of the main text.
+All of them score five frozen frontier judges on public multi-annotator rating sets; nothing is fitted, the API cost is zero, and the Experiment~44 protocol was committed before any analysis ran.
+Scores are the multiclass Brier score (ChaosNLI) and the ranked probability score (RPS) normalized by $K-1$ (DICES), both lower is better, computed as the per-sample risk defined in the main text.
+As a reference, a uniform forecast scores $0.6667$ on three-class Brier and $0.2778$ or $0.1111$ on three-class normalized RPS, depending on the rating.
+
+\paragraph{Does the rater pool change the verdict?}
+In the two DICES sets we replaced the pool that defines $p^*$ by demographic sub-pools (gender, age group and race), with $11$ to $139$ raters per pool.
+The item-level rating distributions of two pools differ by a mean total variation distance of $0.08$ to $0.18$, but so do two random rater groups, and no contrast is distinguishable from a rater-label permutation null (smallest Holm-adjusted $p=0.59$ over six contrasts).
+No judge-by-contrast score difference is Holm-significant ($0$ of $30$ cells), and the Kendall $\tau_b$ between the judges' orders under the two pools is $0.8$ or $1.0$ in all six contrasts; the best and second-best judge keep their places in all twelve orders.
+We read this as a statement about power, not as evidence that the pool never matters: the smallest pools have $11$ and $27$ raters, and the judges were asked to forecast a whole crowd, not a sub-pool.
+The construct statement of the main text is therefore a requirement of the method, not a finding of this analysis.
+
+\paragraph{Consensus and contested items.}
+Agreement is measured on one random half of each item's ratings and the other half is scored; the strata are the lowest and the highest third of items by agreement.
+Sharpening a judge's forecast (raising it to the power $1/\tau$ with $\tau=0.5$) helps relatively more, or hurts less, on consensus items than on contested items in $25$ of $25$ judge-by-set cells, and the paired item-bootstrap interval of that difference excludes $0$ in all $25$.
+A peaked forecast is therefore not penalized where raters agree, which is why scores are reported by stratum.
+The picture is narrower than ``judges should be peaked on consensus items'': sharpening improved the consensus stratum in only $5$ of $25$ cells, and on contested items the softest temperature on the grid ($\tau=2$) was best in $23$ of $25$, so these judges are overconfident there.
+Stratifying five ways by agreement (Experiment~50), the skill of the frontier judges over the base rate falls from $0.16$--$0.91$ in the highest-agreement fifth of items to $-0.38$--$0.11$ in the lowest, while their Pearson correlation on the contested NLI items stays at $0.38$--$0.86$.
+A pooled correlation hides where a judge stops being useful; a skill score reported by agreement stratum shows it.
+In the same experiment the penalty for training a linear head on correlation instead of cross-entropy was significantly smaller in the lowest-agreement bin than in the highest on $9$ of $12$ views, contrary to our frozen prediction, so we do not claim that correlation-trained judges fail mainly on ambiguous items.
+
+\paragraph{Binned divergence.}
+Binned Jensen--Shannon divergence~\citep{elangovan2025beyond} compares the pooled human ratings with the mean forecast inside bins of items defined by the human median or the most frequent human label.
+It is exactly unchanged when each judge's forecasts are reassigned among the items of the same bin (largest change $2.4\times10^{-16}$ over $200$ shuffles in each of $25$ judge-by-set cells), while the proper-score risk worsens in all $25$ cells, by $0.0086$ to $0.1075$.
+Binned divergence cannot see which forecast belongs to which item inside a bin.
+The top judge differs between binned divergence and the proper score in $2$ of $5$ sets; with five judges and no test, we report that as descriptive only.
+
+\paragraph{How many items does a paired comparison need at one rating per item?}
+With $N$ held-out items and $k$ ratings each, the variance of a paired mean difference is $V(N,k)=(\sigma_b^2+\sigma_w^2/k)/N$ for between-item and within-item variance components estimated from the data.
+At $N=400$ and $k=1$ the minimum detectable paired difference at $80\%$ power is $0.014$ to $0.065$ across the five sets, and $0$ to $6$ of the $10$ judge pairs per set are resolvable.
+At a fixed total number of ratings the variance never decreases in $k$, so more items beat more ratings per item, and a synthetic check of the skill estimator (Experiment~52) agrees: at $500$ ratings the standard deviation is $0.029$ with one rating on each of many items against $0.035$ with five ratings on a fifth as many.
+Nearly tied judges need far more items than these sets contain ($N_{80}$ up to $1.9\times10^{6}$ for the nearest ties).
+
+\paragraph{Machine-checked claims.}
+The identification claims are proved in Lean~4 for finite laws (Lean 4.36.0, Mathlib revision \texttt{fc4f59e}, zero \texttt{sorry}, only the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}).
+Forecasts with the same conditional mean tie on Pearson, Spearman, Kendall and scalar mean squared error of the mean readout (\texttt{Point2.FinLaw.same\_\allowbreak mean\_\allowbreak tie}, \texttt{Point2.scalar\_\allowbreak same\_\allowbreak mean\_\allowbreak tie}).
+The Brier score and RPS are strictly proper (\texttt{Point2.brier\_\allowbreak strictly\_\allowbreak proper}, \texttt{Point2.rps\_\allowbreak strictly\_\allowbreak proper}); a scalar encoding is strictly proper for two categories and not for three or more (\texttt{Point2.scalar\_\allowbreak two\_\allowbreak strictly\_\allowbreak proper}, \texttt{Point2.scalar\_\allowbreak not\_\allowbreak strictly\_\allowbreak proper}); and squared correlation is one minus the mean squared error of the best affine fit divided by the variance of the rating (\texttt{Point2.FinLaw.r\_\allowbreak sq\_\allowbreak identity}).
+For a finite joint law, a collapsed judge that reports an increasing affine function of the true conditional mean has correlation with the human rating equal to the square root of the correlation of a truthful judge that samples from the true conditional distribution, and the square root is strictly larger when that correlation lies strictly between $0$ and $1$ (\texttt{Point2.Sampled.Model.anti\_\allowbreak proper}).
+Cross-entropy strict propriety is cited (Gibbs' inequality), not formalized.
+That agreement with a label depends on a forecast with a strict mode only through that mode is proved in Lean~4 without Mathlib for any number of categories (\texttt{Point1.agrees\_\allowbreak iff\_\allowbreak mode}, \texttt{Point1.agreement\_\allowbreak depends\_\allowbreak only\_\allowbreak on\_\allowbreak mode}).
+Four closed three-category instances are compiled as well: two forecasts with the same mode tie on agreement while the Brier excess separates them, a change of rater pool changes the Brier excess of a fixed forecast, and sharpening is rewarded on a point-mass item and penalized on a contested one (\texttt{Point1.same\_\allowbreak mode\_\allowbreak ties\_\allowbreak agreement\_\allowbreak but\_\allowbreak brier\_\allowbreak separates\_\allowbreak instance}, \texttt{Point1.pool\_\allowbreak changes\_\allowbreak the\_\allowbreak ruler\_\allowbreak instance}, \texttt{Point1.consensus\_\allowbreak item\_\allowbreak rewards\_\allowbreak peaked\_\allowbreak forecast\_\allowbreak instance}, \texttt{Point1.contested\_\allowbreak item\_\allowbreak penalizes\_\allowbreak sharpening\_\allowbreak instance}).
+A seeded exact-fraction script checks the same claims on random finite instances, including the claims that must fail: forecasts with the same mode need not have the same Brier excess, and forecasts with the same mean need not have the same agreement.
+Statements about kappa and the statement that the skill score is consistent but not unbiased are analytical; Experiment~52 simulates the bias of the skill estimator.
