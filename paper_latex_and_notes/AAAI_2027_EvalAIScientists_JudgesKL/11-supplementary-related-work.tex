@@ -19,7 +19,7 @@ That position paper also catalogues public datasets with un-aggregated labels.
 \citet{uma2021learning} survey methods and resources for learning from disagreement rather than from a single aggregated gold label.
 ChaosNLI~\citep{nie2020chaosnli} collects $100$ labels per item for selected SNLI and MNLI examples, and DICES~\citep{aroyo2023dices} releases ratings from many raters per conversation; both are among the rating sets used in this paper.
 We adopt this literature's premise.
-Our target is $p(r\mid x)$ for a stated rater pool, eligibility rule and rubric, and changing the pool changes the target.
+Our target is $p(r\mid x)$ for a stated rater pool, eligibility rule and rubric, and changing the pool can change the target.
 That premise is not a contribution of this paper.
 
 \subsection{Strictly Proper Scoring Rules}
@@ -39,7 +39,7 @@ We do not propose a new scoring rule.
 
 \subsection{How LLM Judges Are Validated in Practice}
 \label{sec:supp-practice}
-Judges and judge-based benchmarks are overwhelmingly validated against a scalar summary of human ratings.
+In the work we reviewed, judges and judge-based benchmarks are overwhelmingly validated against a scalar summary of human ratings.
 G-Eval reports Spearman and Kendall correlation with human summary ratings~\citep{liu2023geval}, and Prometheus reports Pearson correlation with human and GPT-4 scores~\citep{kim2024prometheus,kim2024prometheus2}.
 MT-Bench and Chatbot Arena report pairwise agreement between the judge and human voters~\citep{zheng2023judging,chiang2024chatbot}.
 AlpacaFarm validates simulated annotators by agreement with the majority vote of three human annotators ($65\%$, against $66\%$ for a held-out human)~\citep{dubois2023alpacafarm}, and length-controlled AlpacaEval reports Spearman correlation with Chatbot Arena~\citep{dubois2024lengthcontrolled}.
@@ -57,6 +57,8 @@ Of the $30$ direct-score and benchmark papers, $29$ report correlation (the exce
 Of the $13$ pairwise-judge and reward-model papers, all $13$ report agreement, accuracy or kappa, and only $1$ reports correlation.
 All six papers with an item-level proper score or divergence are from 2025--2026 and are discussed next.
 The audit supports a narrower statement than ``judges are validated by correlation'': most papers compare the judge with one aggregated or forced-choice human label per item using a point statistic.
+A second, pre-declared census of $40$ human-validated sources (Experiment~45) reads the headline statistic rather than every statistic reported, and shows the same split: the headline is a correlation in $16$ of $40$ ($40\%$; $12$ of $14$ graded-score judges and metrics, $4$ of $6$ leaderboard-ranking validations, none of the $20$ pairwise-preference, frontier-lab, retrieval and annotation sources) and accuracy, agreement, F1 or a kappa-type statistic in $22$, and only $1$ of $40$ scores the human rating distribution with a proper or distributional rule, at the system level.
+The two samples share $20$ papers and agree on whether a correlation is reported for $17$ of them.
 
 \begin{table}[t]
 \centering
@@ -114,7 +116,7 @@ These papers use the human distribution as a target or as a source of informatio
 
 \begin{table*}[t]
 \centering
-\caption{Prior work versus this paper by aspect. A check mark is a stated main contribution as read in each paper's abstract and method for this appendix; a circle is a partial or adjacent treatment (named in the text); a dash is not a main contribution, not a claim that the paper never touches the aspect. Every row adopts the distributional target; only the last four columns carry our novelty claim. The audit column reflects the 49-paper audit of this paper (a convenience sample, not a systematic review).}
+\caption{Prior work versus this paper by aspect. A check mark is a stated main contribution as read in each paper's abstract and method for this appendix; a circle is a partial or adjacent treatment (named in the text); a dash is not a main contribution, not a claim that the paper never touches the aspect. Every row adopts the distributional target; only the last three columns carry our novelty claim (Lyu et al.\ already use RPS). The audit column reflects the 49-paper audit of this paper (a convenience sample, not a systematic review).}
 \label{tab:supp-novelty}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -127,7 +129,7 @@ Work & Distributional target & Item-level proper score & Ordinal (RPS) & Skill a
 \citet{plank2022problem} & \checkmark & -- & -- & -- & -- & -- \\
 \citet{elangovan2025beyond} & \checkmark & -- & -- & $\circ$ & -- & $\circ$ \\
 \citet{guerdan2025validating} & \checkmark & \checkmark & -- & -- & -- & $\circ$ \\
-\citet{chen2025beyond} & \checkmark & $\circ$ & -- & -- & -- & -- \\
+\citet{chen2025beyond} & \checkmark & \checkmark & -- & -- & -- & -- \\
 \citet{li2026judging} & \checkmark & \checkmark & -- & -- & -- & -- \\
 \citet{lyu2026humanresidual} & \checkmark & \checkmark & \checkmark & -- & -- & -- \\
 This paper & adopted & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
@@ -166,6 +168,7 @@ On seven real multi-annotator rating sets re-binned to two, three and five class
 This supports the evaluation claim (correlation cannot see calibration) more than the training claim.
 On five frozen frontier judges and five public multi-annotator rating sets (Experiment~46, interim), the pre-registered primary test, Pearson correlation against the proper score, finds no significant rank reversal on the frontier panel, and neither do top-1 agreement or kappa.
 Spearman correlation and the Brier score reverse for one judge pair on two sets: GPT-6 Astra is ahead of GLM~5.3 on Spearman by $0.021$ (SNLI) and $0.034$ (MNLI) and behind on Brier skill by $0.039$ and $0.098$ (Holm-adjusted $p\le0.042$ on both metrics), and no reversal remains after per-judge calibration on held-out ratings.
+On DICES-350, four of the five frontier judges are significantly worse than the base rate before calibration (Brier skill $-0.177$ to $-0.096$, each 95\% item-cluster bootstrap interval below $0$) at $80$ to $82$ percent top-1 agreement with the human majority; after per-judge calibration on held-out ratings every frontier judge has positive Brier skill on both DICES sets.
 A sensitivity run with $20{,}000$ bootstrap draws, a labelled deviation from the frozen $4{,}000$, keeps these two reversals (Holm-adjusted $p=0.0099$ and $0.028$) and adds two pairs among small local judges, one of them also on Pearson; both pairs involve a $0.5$-billion-parameter model whose verbalized answers are invalid on $52$ to $60$ percent of items.
 The local-judge panel is partial and the API panel has not run; \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
 \end{enumerate}

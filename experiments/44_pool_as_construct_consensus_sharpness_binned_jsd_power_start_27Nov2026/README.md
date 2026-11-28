@@ -8,7 +8,7 @@
 
 ## Construct and positioning (read first)
 
-**Target.** What a judge is validated against is a conditional distribution, p*(y | c, R, rho): the distribution of the rating y that a rater drawn from the pool R gives item c under the rubric rho. The pool has three parts: who is eligible, how raters are weighted, and which question and scale they answer. Changing the pool or the rubric changes p*, so choosing R and rho is the construct and is done before any metric is computed. The estimate used here is the per-item rating histogram of the stated pool with uniform weights.
+**Target.** What a judge is validated against is a conditional distribution, p*(y | c, R, rho): the distribution of the rating y that a rater drawn from the pool R gives item c under the rubric rho. The pool has three parts: who is eligible, how raters are weighted, and which question and scale they answer. Changing the pool or the rubric can change p*, so choosing R and rho is the construct (the paper writes the same target as p*(r | x, P, rho)) and is done before any metric is computed. The estimate used here is the per-item rating histogram of the stated pool with uniform weights.
 
 **Credit.** Pavlick and Kwiatkowski (TACL 2019) and Plank (EMNLP 2022) established that labels are distributions and argued for evaluating against them; Nie et al. (ChaosNLI, 2020), Uma et al. (2020) and Kurniawan et al. (2025) proposed soft metrics for NLP models. Nothing here claims the target, and "use a proper score" is not claimed either (Lyu, Do and Pergola, arXiv 2610.37868; Li et al., Findings of EMNLP 2026).
 
