@@ -16,3 +16,4 @@
 - Arm J: ordinal bins use the lower median, sorted[(n - 1) // 2] (0-based) of an item's ratings; nominal bins use the first index of the largest count.
 - Invalid forecasts become the uniform forecast before flooring (primary); the sensitivity run drops every item on which any of the five judges was invalid.
 - Eligibility in Arm P is evaluated on the observed data for the reported eligible-item counts and per draw or per permutation as stated above.
+- Raters whose gender, age group or race differs between their own rows are excluded from the contrast that uses the inconsistent attribute (DICES-990: one rater for age, one for race; DICES-350: none). Found while building the rater table, before any arm ran.
