@@ -2,7 +2,7 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/docs/notes/blog_support_27Nov2026/README.md>
 
-**TLDR:** Every number in the preview post is recomputed from committed result files by `blog_numbers_check.py` (51 claims, 0 FAIL, two byte-identical runs), and `scan_post_numbers.py` fails if the post contains a number that no passed claim registers.
+**TLDR:** Every number in the preview post is recomputed from committed result files by `blog_numbers_check.py` (52 claims, 0 FAIL, two byte-identical runs), and `scan_post_numbers.py` fails if the post contains a number that no passed claim registers.
 
 **What this is.** Support for the preview post `_posts/2026-11-27-bitter-judges-lesson-evidence.md` in the website repository ([brando90/brandomiranda](https://github.com/brando90/brandomiranda)), an evidence-led rewrite of "The Bitter Judges Lesson". Nothing here is a new experiment. The inputs are committed results of experiments 41, 43, 44, 45, 46, 47, 48, 49, 53, 54 and 55 (and experiment 31 through experiment 41's `verify_blog_numbers.py`), plus exact-fraction arithmetic for the toy example and the square-root identity.
 

@@ -36,6 +36,7 @@ PASS [X2] ranking of the five judges by skill agrees across rules: Kendall tau-b
 PASS [X1b] experiment 55 protocol: strata are five equal-count entropy quintiles of the ratings in one random half of the raters, skill is scored on the other half; the protocol lists what had been seen before it was frozen (including the matched-rule DICES-350 result)
 PASS [X3] MNLI-m, judges significantly above the base rate (of 5): Brier 3, cross-entropy 2, normalized RPS (not matched to unordered labels) 5
 PASS [X4] DICES-350, normalized RPS, best judge (claude-opus-5-5): skill +0.254 in the highest-agreement fifth of items, -0.072 in the lowest
+PASS [X5] experiment 56 (calibrating on n held-out ratings, one per item; mean over 50 draws; budgets 10, 25, 50, 100, 200): on DICES-350 every judge's calibrated skill is negative at n = 25 (-0.124 to -0.078) and positive at n = 100 (+0.007 to +0.036); sets (of 5) on which every judge's calibrated skill is above 0: {'10': 1, '25': 2, '50': 4, '100': 5, '200': 5}, so 100 is the smallest budget tried at which it holds on all five
 PASS [M1] minimum detectable difference between two judges at 400 items with one rating each (two-sided 5%, 80% power): Brier 0.034 to 0.065 (ChaosNLI), normalized RPS 0.014 to 0.025 (DICES); 18 of 50 judge pairs resolvable at that size
 PASS [M2] rater-pool contrasts: 0 of 30 pool score differences and 0 of 60 pool-by-judge interaction cells Holm-significant (a power-limited null, not evidence of absence)
 PASS [C1] experiment 41 (16 view-by-K cells): raw Pearson-trained minus CE-trained test nRPS gap up to 0.1282; after one validation-fitted map per head at most 0.0024 (seed mean)
@@ -78,7 +79,7 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
         19  P6
         20  P5
         24  C1c
-        25  P8,C3
+        25  P8,X5,C3
         26  P4
         30  M2
         31  L1
@@ -87,7 +88,7 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
         43  P2
         44  P3
         49  P1
-        50  R1,C4
+        50  R1,X5,C4
         53  C5
         55  P4
         60  M2
@@ -100,7 +101,7 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
        0.5  T2,T6
        0.6  X2
        1.0  T3,X2
-       100  D1,C4
+       100  D1,X5,C4
        123  D1
        140  R1b
        2.0  T2,T3

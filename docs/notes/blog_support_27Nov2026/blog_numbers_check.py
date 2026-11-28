@@ -309,6 +309,21 @@ h2 = [r for r in rd(E55 / "results" / "h2_cells.csv") if r["dataset"] == "dices3
 check("X4", h2["best_judge"] == "claude-opus-5-5" and f"{float(h2['skill_Q1']):.2f}" == "0.25" and f"{float(h2['skill_Q5']):.2f}" == "-0.07",
       f"DICES-350, normalized RPS, best judge ({h2['best_judge']}): skill {float(h2['skill_Q1']):+.3f} in the highest-agreement fifth of items, {float(h2['skill_Q5']):+.3f} in the lowest", ["0.25", "0.07", "0.254", "0.072"])
 
+# ======================================================================= X5: the label cost of calibrating the frontier judges (experiment 56)
+E56 = one("56_*")
+rows56 = json.loads((E56 / "results" / "label_budget_frontier.json").read_text())["rows"]
+p56 = (E56 / "PROTOCOL.md").read_text()
+dc56 = [r for r in rows56 if r["set"] == "dices350"]
+at25 = [r["SS_n"]["25"] for r in dc56]
+at100 = [r["SS_n"]["100"] for r in dc56]
+sets56 = sorted({r["set"] for r in rows56})
+all_pos = {n_: sum(1 for st in sets56 if all(r["SS_n"][n_] > 0 for r in rows56 if r["set"] == st)) for n_ in ("10", "25", "50", "100", "200")}
+check("X5", len(rows56) == 25 and len(sets56) == 5 and len(dc56) == 5 and all(v < 0 for v in at25) and all(v > 0 for v in at100)
+      and all_pos == {"10": 1, "25": 2, "50": 4, "100": 5, "200": 5}
+      and "For each case, 50 draws" in p56 and "one** rating per item" in p56 and "n in {10, 25, 50, 100, 200}" in p56,
+      f"experiment 56 (calibrating on n held-out ratings, one per item; mean over 50 draws; budgets 10, 25, 50, 100, 200): on DICES-350 every judge's calibrated skill is negative at n = 25 ({min(at25):+.3f} to {max(at25):+.3f}) "
+      f"and positive at n = 100 ({min(at100):+.3f} to {max(at100):+.3f}); sets (of 5) on which every judge's calibrated skill is above 0: {all_pos}, so 100 is the smallest budget tried at which it holds on all five", ["25", "100", "50"])
+
 # ======================================================================= M: power (experiment 44)
 am = rd(one("44_*") / "results" / "arm_m_pairs.csv")
 nli = [float(r["mdd_N400_k1"]) for r in am if r["dataset"].startswith("chaosnli")]
