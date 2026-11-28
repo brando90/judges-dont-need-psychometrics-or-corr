@@ -8,6 +8,8 @@
 - The API panel of [AMENDMENT_A2_API_PANEL.md](AMENDMENT_A2_API_PANEL.md) has not run, because the box holds no gateway key.
 - **API spend so far: \$0.00.**
 
+**Erratum (11-27-2026):** item 1 below says "H1 is supported". Under the frozen wording of H1 (Pearson) it is not; the two significant reversals are Spearman. See [ERRATUM_11-27-2026.md](ERRATUM_11-27-2026.md).
+
 **TLDR:** On real frontier LLM judges and real multi-annotator labels, correlation and agreement metrics hide differences that proper skill scores show clearly.
 
 1. **H1 is supported: two significant rank reversals.** GPT-6 Astra beats GLM 5.3 on Spearman on SNLI (+0.021, 95% CI [+0.010, +0.034]) and MNLI (+0.034 [+0.014, +0.056]). On the same items it has significantly *lower* Brier skill: −0.039 [−0.056, −0.023] and −0.098 [−0.117, −0.080]. Both survive Holm correction (Holm-adjusted p = 0.025 and 0.042).
