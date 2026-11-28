@@ -1,0 +1,18 @@
+---
+description: Every theorem, proposition, lemma or proof is machine-checked in Lean 4, with a quick seeded numerical check run first; unfinished claims are labelled and tracked.
+alwaysApply: true
+---
+
+# Every proof in Lean 4, with a quick numerical check first
+
+**Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/.cursor/rules/every-proof-in-lean.mdc>
+
+**TLDR:** Every stated theorem or proof is checked in Lean 4 with the file cited next to it. Run a quick seeded numerical check first. Anything unfinished is labelled exactly and listed in `docs/LEAN_TODO.md`.
+
+Brando, 11-27-2026. This matches the section "Every proof in Lean 4, with a quick numerical check first" in `AGENTS.md` and `CLAUDE.md`, and extends `lean-and-numerics-check.mdc` and `proofs-and-real-data-conference-standard.mdc`.
+
+1. **Scope.** Every mathematical claim stated as a theorem, proposition, lemma, corollary or proof in the paper, `docs/notes/`, the docs or an experiment README is machine-checked in Lean 4 (Mathlib allowed), with the Lean file path and theorem name cited next to the claim.
+2. **Numerics first.** Before or alongside the Lean proof, run a seeded exact-fraction or Monte Carlo script and a randomized counterexample search over finite distributions; save the script, seed and output. Numerics guide the work and catch false claims early; they never replace Lean.
+3. **Status labels.** Exactly one of "Lean-checked" (file and theorem cited), "numerically checked, Lean pending", "paper proof, not yet Lean-checked", or "Lean-checked special case" (state the case). Every claim not "Lean-checked" goes in `docs/LEAN_TODO.md`.
+4. **Exact scope.** Say precisely what Lean proves: readout (expected or sampled), form (squared `rho^2 < rho` versus square-root `sqrt(rho) > rho`), number field, finite versus general laws, extra hypotheses. If Lean proves less than the text says, fix the text or the label.
+5. **Build hygiene.** No `sorry`, no `admit`, no new `axiom`; `#print axioms` shows only `propext`, `Classical.choice`, `Quot.sound`. Record the toolchain, the Mathlib revision and the build command next to the file, and save the compiler output. Use `lake exe cache get`; never rebuild Mathlib.

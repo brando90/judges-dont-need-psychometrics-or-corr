@@ -23,7 +23,7 @@ Two standing requirements for this repository:
 
 The always-on rule `.cursor/rules/ml-research-standards.mdc` states this bar in one place; it extends the two sections above and below it.
 
-1. **Lean 4.** General theorem, pinned toolchain, zero `sorry`, zero custom axioms, `#print axioms` (standard three only), compiler output saved. Mathlib files: `lake exe cache get`, never rebuild Mathlib. Machine-check only what compiles; the squared form of anti-properness (`rho^2 < rho`) is Lean-checked, the square-root form is Monte Carlo only; accuracy/kappa arguments are "analytical" unless a zero-`sorry` lemma exists.
+1. **Lean 4.** General theorem, pinned toolchain, zero `sorry`, zero custom axioms, `#print axioms` (standard three only), compiler output saved. Mathlib files: `lake exe cache get`, never rebuild Mathlib. Machine-check only what compiles; both forms of anti-properness are Lean-checked: the squared form (`rho^2 < rho`, `anti_proper_from_parts` in experiment 36) and the square-root form (`r_collapsed = sqrt(rho) > rho = r_truthful` for a finite joint law, `PlanAudit.Model.anti_proper` in [`PlanClaims.lean`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/extended_checks_11-26-2026/gemini_plan_claims_audit_11-26-2026/PlanClaims.lean), rebuilt 11-27-2026 with Lean 4.36.0 and Mathlib `fc4f59e5`, zero `sorry`, standard axioms only); accuracy/kappa arguments are "analytical" unless a zero-`sorry` lemma exists.
 2. **pytest.** Every theorem has a deterministic pytest check (fixed seed, exact fractions or a named tolerance, claimed-false statements tested as failing cases, identical output twice).
 3. **Pre-registered, leak-free real-data experiments.** `PROTOCOL.md` is committed before the analysis script runs (hypotheses, primary proper score matched to the label encoding, secondary metrics, resampling unit, paired tests, the meaning of "beats"). Real multi-annotator ratings, item-level splits with no rater of an item in two splits, the unbiased per-sample proper risk, item-clustered bootstrap 95% intervals (at least 1,000 draws), Holm-Bonferroni across declared cells, failures reported. "Beats" = lower mean held-out proper score and a significant pre-registered paired test.
 
@@ -73,6 +73,16 @@ Brando, 11-26-2026: "you are checking your proofs with lean (and simple/quick nu
 5. **Order and fallback.** Run both checks before the claim is presented as established. If Lean is not available, install it (Rule 20) or mark the claim unchecked; never substitute "looks correct".
 
 Reference implementation: [`claims_audit_11-26-2026/`](experiments/35_brier_vs_corr_math_l2_pearson_lean_start_26Nov2026/extended_checks_11-26-2026/claims_audit_11-26-2026/README.md) in experiment 35.
+
+## Every proof in Lean 4, with a quick numerical check first — Brando, 11-27-2026
+
+Brando, 11-27-2026: "always do proofs in lean", and "for every claim, a quick numerical experiment ... is run in parallel with, or before, the Lean proof". This extends the two sections above; where they differ, this one wins.
+
+1. **Scope.** Every mathematical claim stated as a theorem, proposition, lemma, corollary or proof in the paper, the notes (`docs/notes/`), the docs or an experiment README is machine-checked in Lean 4 (Mathlib allowed). Cite the Lean file path and theorem name next to the claim (in the text, a footnote or a status table).
+2. **Numerics first.** Before or alongside the Lean proof, run a quick seeded numerical experiment on the same statement: an exact-fraction or Monte Carlo script, plus a randomized counterexample search over finite distributions. Save the script, the seed and the output next to the claim's support files. A numerical check guides the work and catches false claims early; it never replaces Lean.
+3. **Status labels.** Use exactly one of: "Lean-checked" (file and theorem cited), "numerically checked, Lean pending" (numerics passed, no Lean yet), "paper proof, not yet Lean-checked" (no machine check of either kind) or "Lean-checked special case" (state the case). Every claim that is not "Lean-checked" is listed in [`docs/LEAN_TODO.md`](docs/LEAN_TODO.md) with its location and what is missing.
+4. **Exact scope.** The label states precisely what the Lean theorem proves: the readout (expected or sampled), the form (for example squared form `rho^2 < rho` versus square-root form `sqrt(rho) > rho`), the number field (`Rat` or `Real`), finite versus general laws, and any hypothesis the paper statement omits. If Lean proves less than the text says, change the text or the label.
+5. **Build hygiene.** Lean files compile with no `sorry`, no `admit` and no new `axiom`; `#print axioms` lists only `propext`, `Classical.choice`, `Quot.sound`. Record the toolchain (`lean-toolchain`), the Mathlib revision (`lake-manifest.json`) and the exact build command next to the file, and save the compiler output. Fetch Mathlib with `lake exe cache get`; never rebuild it.
 
 ## Research precision (keep near the top)
 
