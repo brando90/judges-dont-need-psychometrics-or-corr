@@ -1,0 +1,4 @@
+'same_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+'brier_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+'rps_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+'distance_sensitivity' depends on axioms: [propext, Classical.choice, Quot.sound]
