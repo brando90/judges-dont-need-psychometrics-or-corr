@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "judge-scores"
+version = "0.1.0"
+description = "Score an LLM judge against a human rating distribution: item-level strictly proper scores, base-rate skill, calibration split, item-clustered bootstrap."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy"]
+
+[project.scripts]
+judge-scores = "judge_scores.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["judge_scores*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
