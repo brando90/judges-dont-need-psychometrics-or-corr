@@ -57,7 +57,7 @@ MODEL_NAMES = [r"GPT-6 Astra", r"GPT-4", r"Claude Opus 5\.5", r"Opus 5\.5", r"Ki
 for nm in MODEL_NAMES:
     text = re.sub(nm, " ", text)
 
-YEARS = {"1988", "2000", "2019", "2022", "2025", "2026", "2027"}
+YEARS = {"1988", "2000", "2019", "2022", "2024", "2025", "2026", "2027"}
 LEVELS = {"95"}  # confidence level of intervals, a convention not a result
 NUM = re.compile(r"(?<![\w.])(\d[\d,]*(?:\.\d+)?)(?![\w])")
 
@@ -125,10 +125,19 @@ for name, pat in banned.items():
     if found:
         hits[name] = len(found)
 print("\nbanned patterns found:", hits or "none")
+# Mimic _layouts/post.html: rendered HTML, code blocks dropped, tags stripped (image alt text lives in a tag, so it is not
+# counted; rules, heading marks and list numerals are markup, not words), whitespace-separated words, (words + 100) // 200.
 body = re.sub(r"```.*?```", " ", raw.split("---", 2)[2], flags=re.S)
+body = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", body)  # image with alt text
+body = re.sub(r"\[\s*\]\([^)]*\)", " ", body)  # link left empty around an image
 body = re.sub(r"\]\([^)]*\)", "]", body)
 body = re.sub(r"\{\{[^}]*\}\}", " ", body)
+body = re.sub(r"(?m)^---\s*$", " ", body)
+body = re.sub(r"(?m)^#{1,6}\s+", "", body)
+body = re.sub(r"(?m)^\s*\d+\.\s+", "", body)
 words = len(body.split())
-print(f"words (layout-style count, code blocks excluded): {words}; read time shown: ~{(words + 100) // 200} min")
+print(f"words (layout-style count, code blocks and image alt text excluded): {words}; read time shown: ~{(words + 100) // 200} min; stays under 15 min while words <= 2899")
+if (words + 100) // 200 >= 15:
+    bad.append("read time not under 15 min")
 print(f"UNREGISTERED tokens: {bad or 'none'}")
 sys.exit(1 if bad or hits else 0)

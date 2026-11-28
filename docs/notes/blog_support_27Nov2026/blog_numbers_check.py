@@ -18,6 +18,7 @@ import random
 import re
 import subprocess
 import sys
+from collections import Counter
 from fractions import Fraction as Fr
 from pathlib import Path
 
@@ -26,6 +27,7 @@ EXP = ROOT / "experiments"
 SEED = 20261127
 REGISTRY = {}
 FAILED = []
+NCHECK = [0]
 
 
 def one(pattern):
@@ -35,6 +37,7 @@ def one(pattern):
 
 
 def check(cid, ok, text, tokens=()):
+    NCHECK[0] += 1
     print(("PASS" if ok else "FAIL"), f"[{cid}]", text, flush=True)
     if not ok:
         FAILED.append(cid)
@@ -172,6 +175,8 @@ nh = sum(r["headline_family"] in CORR for r in Dall)
 lo, hi = wilson(nh, len(Dall))
 check("P4", len(Dall) == 40 and nh == 16 and round(lo, 3) == 0.263 and round(hi, 3) == 0.554,
       f"experiment 45 census: correlation is the headline agreement number in {nh} of {len(Dall)} sources = {nh / len(Dall):.3f}, Wilson 95% {lo:.3f} to {hi:.3f}", ["40", "16", "26", "55"])
+check("P4b", len(cen) == 53 and len(Dall) == 40,
+      f"experiment 45 census: {len(cen)} sources coded in all, a purposive sample chosen by lineage (not at random); {len(Dall)} are LLM-era sources read in full or in part that validate a judge against human labels", ["53"])
 by = {}
 for r in Dall:
     d = by.setdefault(r["lineage"], [0, 0])
@@ -179,6 +184,10 @@ for r in Dall:
     d[0] += r["headline_family"] in CORR
 check("P5", by["L1"] == [12, 14] and by["L3"] == [4, 6] and by["L2"] == [0, 8] and by["L4"] == [0, 6] and by["L5"] == [0, 6],
       f"headline correlation by lineage (L1 graded scores, L3 leaderboard/system ranking, L2 pairwise, L4 frontier-lab graders, L5 retrieval/annotation): {by}", ["12", "14", "4", "6", "20"])
+p45 = (one("45_*") / "PROTOCOL_AND_PREDICTIONS_11-27-2026.md").read_text()
+wl14 = wilson(12, 14)
+check("P5b", 12 / 14 >= 0.80 and wl14[0] < 0.65 and "at least 80% of L1 rows have a correlation-family headline and the Wilson lower bound is at least 65%" in p45,
+      f"census rule V1, written in the protocol before coding (a correlation headline in at least 80% of graded-score sources with Wilson lower bound at least 65%): observed 12 of 14 = {12 / 14:.3f}, Wilson lower bound {wl14[0]:.3f}, so the bar is missed")
 rest = [r for r in Dall if r["lineage"] in ("L2", "L4", "L5")]
 lead = sum(r["headline_family"] in ("ACC_AGREE", "KAPPA_ALPHA_ICC", "F1_PRF") for r in rest)
 check("P6", len(rest) == 20 and lead == 19 and not any(r["headline_family"] in CORR for r in rest),
@@ -189,7 +198,9 @@ sel_corr = sum(r["selection_by_corr"] == "Y" and r["selection_metric"] in ("CORR
 check("P8", len(sel) == 25 and sel_any == 9 and sel_corr == 4,
       f"experiment 45 census: of the {len(sel)} sources that select, tune or train a judge on human data, {sel_any} say they maximized agreement or correlation with human labels and {sel_corr} correlation alone", ["25", "9", "4"])
 dist = sum(r["dist_any"] == "Y" for r in Dall)
-check("P7", dist == 1, f"{dist} of {len(Dall)} sources scores the human rating distribution with a proper rule (system level)", ["1"])
+l303 = next(r for r in cen if r["id"] == "L3-03")
+check("P7", dist == 1 and [r["id"] for r in Dall if r["dist_any"] == "Y"] == ["L3-03"] and "Pair Rank Brier Score" in l303["notes"] and "not to individual ratings" in l303["notes"],
+      f"{dist} of {len(Dall)} sources scores a human distribution with a proper rule: L3-03 (Arena-Hard), a Brier score on pairwise system-rank forecasts, not on individual ratings; so none scores an item's human rating distribution", ["1"])
 
 # ======================================================================= R: real frozen frontier judges (experiment 46)
 E46 = one("46_*")
@@ -199,8 +210,10 @@ sm20 = json.loads((E46 / "results_B20000" / "summary.json").read_text())["panels
 check("R1", sm["n_pairs_x_sets"] == 50 and sm["significant_reversals"] == {"pearson": 0, "spearman": 2, "top1": 0, "kappa": 0},
       f"50 pair-by-dataset comparisons of five frontier judges: significant reversals against the proper score {sm['significant_reversals']} (Pearson 0, Spearman 2)", ["50"])
 smL = json.loads((E46 / "results" / "summary.json").read_text())["panels"]["local_plus_frontier_subset|raw"]
-check("R1b", smL["n_pairs_x_sets"] == 140 and all(v == 0 for v in smL["significant_reversals"].values()) and len(smL["judges"]) == 8,
-      f"frozen H1 (a significant Pearson reversal in the frontier or local panel): not supported; the panel with three small open-weight judge configurations added has {smL['n_pairs_x_sets']} comparisons and no significant reversal for any metric", ["140"])
+check("R1b", smL["n_pairs_x_sets"] == 140 and all(v == 0 for v in smL["significant_reversals"].values()) and len(smL["judges"]) == 8
+      and abs(140 * 2 / 4001 - 0.07) < 5e-4 and 140 * 2 / 4001 > 0.05 and 50 * 2 / 4001 < 0.05,
+      f"frozen H1 (a significant Pearson reversal in the frontier or local panel): not supported; the panel with three small open-weight judge configurations added has {smL['n_pairs_x_sets']} comparisons and no significant reversal for any metric; "
+      f"at the frozen 4,000 draws the smallest two-sided Holm-adjusted p over 140 comparisons is 140 x 2/4001 = {140 * 2 / 4001:.3f} > 0.05 (over the frontier panel's 50 comparisons {50 * 2 / 4001:.4f} < 0.05), so that panel's zero is uninformative", ["140", "0.07", "4,000"])
 check("R2", smc["significant_reversals"] == {"pearson": 0, "spearman": 0, "top1": 0, "kappa": 0}, f"after per-judge calibration: {smc['significant_reversals']}")
 check("R3", sm20["significant_reversals"] == sm["significant_reversals"], f"five-fold larger resample (B = 20,000) keeps the same counts: {sm20['significant_reversals']}", ["20,000"])
 pw = rd(E46 / "results" / "pairwise.csv")
@@ -214,6 +227,9 @@ ok = (float(row["chaosnli_snli"]["d_spearman"]) > 0 and float(row["chaosnli_mnli
       and f3(row["chaosnli_snli"]["d_skill"]) == "0.039" and f3(row["chaosnli_mnli"]["d_skill"]) == "0.098")
 check("R4", ok, "GPT-6 Astra minus GLM 5.3: Spearman +0.021 (SNLI) and +0.034 (MNLI) favor Astra; Brier skill -0.039 and -0.098 favor GLM 5.3; all four Holm p < 0.05 "
       f"(Holm p {float(row['chaosnli_snli']['holm_spearman']):.3f} and {float(row['chaosnli_mnli']['holm_spearman']):.3f} for Spearman)", ["0.021", "0.034", "0.039", "0.098", "0.025", "0.042"])
+larger = {s_: max(float(row[s_]["holm_spearman"]), float(row[s_]["holm_skill"])) for s_ in ("chaosnli_snli", "chaosnli_mnli")}
+check("R4d", f"{larger['chaosnli_snli']:.3f}" == "0.025" and f"{larger['chaosnli_mnli']:.3f}" == "0.042",
+      f"GPT-6 Astra vs GLM 5.3: the larger of the two Holm-adjusted p-values (the Spearman difference and the Brier-skill difference) is {larger['chaosnli_snli']:.3f} on SNLI and {larger['chaosnli_mnli']:.3f} on MNLI")
 pw_raw = [r for r in pw if r["panel"] == "frontier_full|raw"]
 disc = {m_: sum(1 for r in pw_raw if float(r["d_" + m_]) * float(r["d_skill"]) < 0) for m_ in ("pearson", "spearman", "top1", "kappa")}
 rv = rd(E46 / "results" / "reversals.csv")
@@ -256,6 +272,27 @@ check("R5c", max(inv.values()) == 0.06 and vo_below == sorted(below) and vo["cla
       f"DICES-350: invalid answers (counted as a uniform forecast) are {min(inv.values()) * 100:.0f} to {max(inv.values()) * 100:.0f}% of items per judge; on the items where every judge answered validly the same four judges are below the base rate (point estimates) and Opus above", ["0", "6"])
 check("R6", f"{min(top1) * 100:.0f}" == "80" and f"{max(top1) * 100:.0f}" == "82",
       f"DICES-350 top-1 agreement with the human majority rating of the five judges: {min(top1):.4f} to {max(top1):.4f}", ["80", "82"])
+FRSETS = ("chaosnli_snli", "chaosnli_mnli", "chaosnli_alphanli", "dices350", "dices990")
+cells = [e for e in sk if e["set"] in FRSETS]
+side = lambda e: "below" if e["skill_raw_ci"][1] < 0 else ("above" if e["skill_raw_ci"][0] > 0 else "ns")
+by_set = {st: Counter(side(e) for e in cells if e["set"] == st) for st in FRSETS}
+nli_cells = [e for e in cells if e["set"].startswith("chaosnli")]
+tot_side = Counter(side(e) for e in cells)
+ns_nli = [(e["set"], e["judge"]) for e in nli_cells if side(e) == "ns"]
+check("R3c", len(cells) == 25 and sum(by_set[st]["below"] for st in FRSETS[:3]) == 0 and sum(by_set[st]["above"] for st in FRSETS[:3]) == 14
+      and ns_nli == [("chaosnli_mnli", "deepseek-v4.1-flash")] and all(e["skill_raw"] > 0 for e in nli_cells)
+      and by_set["dices350"]["below"] == 4 and by_set["dices990"]["below"] == 3 and (tot_side["below"], tot_side["above"], tot_side["ns"]) == (7, 16, 2),
+      f"experiment 46, raw skill over the human base rate in the 25 judge-set cells (5 judges x 5 sets): ChaosNLI (15 cells) {sum(by_set[st]['below'] for st in FRSETS[:3])} significantly below, "
+      f"{sum(by_set[st]['above'] for st in FRSETS[:3])} significantly above, {len(ns_nli)} not significant ({ns_nli[0][1]} on MNLI), and every ChaosNLI point estimate above 0; DICES-350 {by_set['dices350']['below']} below; "
+      f"DICES-990 {by_set['dices990']['below']} below; all 25 cells {dict(tot_side)}", ["7", "25", "14", "15"])
+kap = [e["kappa"] for e in d350.values()]
+check("R4c", len(kap) == 5 and all(k_ > 0 for k_ in kap) and f"{min(kap):.2f}" == "0.26" and f"{max(kap):.2f}" == "0.40",
+      f"DICES-350: Cohen's kappa between each judge's most likely label and the human modal label, five judges: {min(kap):.3f} to {max(kap):.3f}, all above 0", ["0.26", "0.40"])
+e28 = rd(one("28_*") / "results" / "scores_absolute.csv")
+hist350 = sorted({float(r["top1"]) for r in e28 if r["dataset"] == "dices350" and r["method"] == "hist" and int(r["B"]) >= 256})
+check("K1", len(hist350) == 1 and abs(hist350[0] - 269 / 350) < 5e-7 and 0.03 < min(top1) - 269 / 350 and max(top1) - 269 / 350 < 0.06,
+      f"DICES-350: a constant forecast (the histogram of other items' ratings, experiment 28 method hist at 256 or 320 training items, where it has settled; ties between human modal labels count as wrong) has top-1 agreement {hist350[0]:.4f} = 269/350; "
+      f"the five judges are {(min(top1) - 269 / 350) * 100:.1f} to {(max(top1) - 269 / 350) * 100:.1f} points above it (that No is the unique human modal label on 269 of 350 items is checked from the public DICES-350 file by check_always_no_dices350.py)", ["77"])
 cal = [e["skill_calibrated"] for e in d350.values()]
 calci = [e["skill_calibrated_ci"][0] for e in d350.values()]
 check("R7", all(c > 0 for c in calci) and f"{min(cal):.3f}" == "0.053" and f"{max(cal):.3f}" == "0.071",
@@ -271,8 +308,9 @@ n_top1 = sum(float(r["holm_top1"]) < 0.05 for r in d350p)
 holm_skill = sorted(float(r["holm_skill"]) for r in d350p)
 n_skill = sum(h < 0.05 for h in holm_skill)
 n_skill_025 = sum(abs(h - 0.025) < 1e-3 for h in holm_skill)
-check("R9", len(d350p) == 10 and n_top1 == 0 and n_skill == 8 and n_skill_025 == 7 and all(r["d_skill"] == r["d_skill_nrps"] for r in d350p),
-      f"DICES-350, ten judge pairs: {n_top1} differ significantly in top-1 agreement; {n_skill} differ in skill at Holm p < 0.05 ({n_skill_025} at p = 0.025, one at {max(h for h in holm_skill if h < 0.05):.5f})", ["10"])
+check("R9", len(d350p) == 10 and n_top1 == 0 and n_skill == 8 and n_skill_025 == 7 and all(r["d_skill"] == r["d_skill_nrps"] for r in d350p) and abs(50 * 2 / 4001 - 0.025) < 5e-4,
+      f"DICES-350, ten judge pairs: {n_top1} differ significantly in top-1 agreement; {n_skill} differ in skill at Holm p < 0.05 ({n_skill_025} at p = 0.025, one at {max(h for h in holm_skill if h < 0.05):.5f}); "
+      f"0.025 is the smallest Holm-adjusted p that 4,000 draws allow over 50 comparisons (50 x 2/4001 = {50 * 2 / 4001:.5f})", ["10", "4,000"])
 
 prot = (E46 / "PROTOCOL.md").read_text()
 def cell_row(name):
@@ -281,10 +319,10 @@ def cell_row(name):
             return [c.strip() for c in l.strip().strip("|").split("|")]
     raise AssertionError(name)
 c_snli, c_mnli, c_alpha, d350_row, d990_row = (cell_row(n) for n in ("ChaosNLI SNLI", "ChaosNLI MNLI-m", "ChaosNLI alphaNLI", "DICES-350", "DICES-990"))
-check("D1", c_snli[3] == "100" and c_mnli[3] == "100" and c_alpha[3] == "100" and d350_row[1] == "350" and d350_row[3] == "123" and d990_row[3] == "69-76"
+check("D1", c_snli[3] == "100" and c_mnli[3] == "100" and c_alpha[3] == "100" and d350_row[1] == "350" and d350_row[3] == "123" and d990_row[3] == "69-76" and d990_row[1] == "400"
       and "No, Unsure, Yes" in d350_row[2],
-      "datasets: ChaosNLI SNLI, MNLI-m and alphaNLI with 100 human labels per item; DICES-350 (350 conversations, 123 raters each, No/Unsure/Yes) and DICES-990 (69 to 76 raters per item)",
-      ["100", "350", "123", "69", "76"])
+      "datasets: ChaosNLI SNLI, MNLI-m and alphaNLI with 100 human labels per item; DICES-350 (350 conversations, 123 raters each, No/Unsure/Yes) and DICES-990 (400 items, 69 to 76 raters per item, quoted in the post as about 70)",
+      ["100", "350", "123", "69", "76", "70", "400"])
 
 # ======================================================================= X: robustness to the choice of proper score (experiment 55)
 E55 = one("55_*")
@@ -302,9 +340,16 @@ check("X1b", "half A (defines agreement through its Shannon entropy in nats)" in
       and "What the analyst had seen before freezing" in p55 and "4 of 5 judges below the base rate on DICES-350" in p55,
       "experiment 55 protocol: strata are five equal-count entropy quintiles of the ratings in one random half of the raters, skill is scored on the other half; "
       "the protocol lists what had been seen before it was frozen (including the matched-rule DICES-350 result)", [])
+check("X1c", len(sa) == 75 and len({(r["dataset"], r["rule"], r["judge"]) for r in sa}) == 75 and "all 75 declared cells" in p55,
+      "experiment 55: 75 judge-by-set-by-rule cells (5 judges x 5 sets x 3 rules); the protocol applies Holm-Bonferroni over all 75 declared cells", ["75"])
 sig_up = {r_: sum(1 for r in sa if r["dataset"] == "chaosnli_mnli" and r["rule"] == r_ and r["significant_above_base"] == "True") for r_ in ("brier", "ce", "nrps")}
 check("X3", sig_up == {"brier": 3, "ce": 2, "nrps": 5},
       f"MNLI-m, judges significantly above the base rate (of 5): Brier {sig_up['brier']}, cross-entropy {sig_up['ce']}, normalized RPS (not matched to unordered labels) {sig_up['nrps']}", ["5"])
+mt = {(r["dataset"], r["rule"]): r["match"] for r in sa}
+h2all = rd(E55 / "results" / "h2_cells.csv")
+matched_cells = [r for r in h2all if mt[(r["dataset"], r["rule"])].startswith("matched")]
+check("X6", len(h2all) == 15 and len(matched_cells) == 9 and all(r["holds"] == "True" for r in h2all),
+      f"experiment 55: the best judge scores higher in the highest-agreement fifth than in the lowest in all {len(h2all)} set-by-rule cells, {len(matched_cells)} of them with a rule that the experiment's own table labels matched to the label encoding", ["9"])
 h2 = [r for r in rd(E55 / "results" / "h2_cells.csv") if r["dataset"] == "dices350" and r["rule"] == "nrps"][0]
 check("X4", h2["best_judge"] == "claude-opus-5-5" and f"{float(h2['skill_Q1']):.2f}" == "0.25" and f"{float(h2['skill_Q5']):.2f}" == "-0.07",
       f"DICES-350, normalized RPS, best judge ({h2['best_judge']}): skill {float(h2['skill_Q1']):+.3f} in the highest-agreement fifth of items, {float(h2['skill_Q5']):+.3f} in the lowest", ["0.25", "0.07", "0.254", "0.072"])
@@ -341,7 +386,7 @@ tb = [l for l in (one("41_*") / "results" / "k_sweep_summary_table.md").read_tex
 rawgap = [float(l.split("|")[11].strip()) for l in tb]
 matched = [float(l.split("|")[12].strip().split(" ")[0]) for l in tb]
 check("C1", f"{max(rawgap):.4f}" == "0.1282" and f"{max(matched):.4f}" == "0.0024",
-      f"experiment 41 ({len(tb)} view-by-K cells): raw Pearson-trained minus CE-trained test nRPS gap up to {max(rawgap):.4f}; after one validation-fitted map per head at most {max(matched):.4f} (seed mean)", ["0.1282", "0.128", "0.0024"])
+      f"experiment 41 ({len(tb)} view-by-K cells): raw Pearson-trained minus CE-trained test nRPS gap up to {max(rawgap):.4f}; after one validation-fitted map per head at most {max(matched):.4f} (seed mean)", ["0.1282", "0.0024"])
 r41 = (one("41_*") / "README.md").read_text()
 check("C1c", "seven real multi-annotator rating sets re-binned to two, three and five classes" in r41 and "Seven datasets, 16 views" in r41
       and "12 of 16 in both runs" in r41 and "all five split seeds" in r41 and "linear on 24 hashed-text components" in r41
@@ -349,11 +394,20 @@ check("C1c", "seven real multi-annotator rating sets re-binned to two, three and
       "experiment 41: seven public rating sets, 16 views (two, three or five rating levels), linear heads on 24 hashed-text components, five split seeds; a validation-fitted map per head; "
       "matched gap at most 0.0024 (seed mean); the cross-entropy-trained head beats the constant forecast on 12 of 16 views", ["7", "24", "12", "5"])
 pq = next(l for l in tb if l.split("|")[1].strip() == "popquorn_offensiveness" and l.split("|")[2].strip() == "2").split("|")
-check("C1b", (pq[4].strip(), pq[5].strip(), pq[7].strip()) == ("0.1156", "0.1153", "0.2430"),
-      f"experiment 41, POPQUORN offensiveness at two levels: test nRPS of a constant forecast {pq[4].strip()}, CE-trained head {pq[5].strip()}, raw Pearson-trained head {pq[7].strip()}", ["0.116", "0.115", "0.243"])
+gap_pq = float(pq[7]) - float(pq[5])
+check("C1b", (pq[4].strip(), pq[5].strip(), pq[7].strip()) == ("0.1156", "0.1153", "0.2430") and f"{gap_pq:.3f}" == "0.128",
+      f"experiment 41, POPQUORN offensiveness at two levels: test nRPS of a constant forecast {pq[4].strip()}, CE-trained head {pq[5].strip()}, raw Pearson-trained head {pq[7].strip()}, raw gap {gap_pq:.4f}", ["0.116", "0.115", "0.243", "0.128"])
+n_unord = sum(l.split("|")[1].strip() == "chaosnli_snli_mnli" for l in tb)
+tbl41 = (one("41_*") / "results" / "k_sweep_summary_table.md").read_text()
+check("C1d", len(tb) == 16 and n_unord == 1 and "Test normalized ranked probability score" in tbl41 and "ridge penalty fixed at 0.01 for every head" in tbl41,
+      f"experiment 41: all {len(tb)} views are scored by test normalized RPS with one ridge penalty (0.01) for every head; exactly {n_unord} view (ChaosNLI SNLI+MNLI, three unordered labels) has no label order", ["16"])
 rr = json.loads((one("53_*") / "results" / "skill_reanalysis.json").read_text())["rows"]
 neg = sum(v["skill_pearson_raw"]["mean_over_seeds"] < 0 for v in rr.values())
 check("C2", len(rr) == 16 and neg == 15, f"experiment 53: the raw Pearson-trained head's skill over the base rate is below 0 on {neg} of {len(rr)} views", ["15", "16"])
+ce_raw = [v["skill_ce_raw"]["mean_over_seeds"] for v in rr.values()]
+n_ce_le0 = sum(x <= 0 for x in ce_raw)
+check("C2b", len(ce_raw) == 16 and n_ce_le0 == 4 and f"{max(ce_raw):.3f}" == "0.071",
+      f"experiment 53: the raw cross-entropy-trained head's skill over the base rate is at most 0 on {n_ce_le0} of 16 views and peaks at {max(ce_raw):.4f} (range {min(ce_raw):.4f} to {max(ce_raw):.4f})", ["4", "0.071"])
 s47 = [e for e in json.loads((one("47_*") / "results" / "label_budget_summary.json").read_text()) if e["design"] == "R1"]
 g25 = [e["cells"]["25"]["G_mean"] for e in s47]
 nstar = []
@@ -372,7 +426,20 @@ n82 = sum(v["n"] for v in sh.values())
 reo = sum(v["reopens"] for v in sh.values())
 fl = sum(v["fails"] for v in sh.values())
 check("C5", (n82, reo, fl) == (82, 53, 33),
-      f"experiment 48: a calibration map fitted on one set and applied to another reopens the proper-score gap in {reo} of {n82} judge-by-shift cases and leaves the judge significantly worse than uncalibrated in {fl}", ["53", "82", "33"])
+      f"experiment 48: a calibration map fitted on one set or rubric and applied to another reopens the proper-score gap in {reo} of {n82} judge-by-shift cases and leaves the judge significantly worse than uncalibrated in {fl}", ["53", "82", "33"])
+arm_a = json.loads((one("48_*") / "results" / "arm_a_llm_judges.json").read_text())
+frontier5 = {"gpt-6-astra", "claude-opus-5-5", "kimi-k3", "glm-5.3", "deepseek-v4.1-flash"}
+isd = lambda name: name.startswith("dices")
+cs = lambda f: [c for c in arm_a if f(c)]
+dd_cases = cs(lambda c: c["shift"] == "near" and isd(c["source"]) and isd(c["target"]))
+far_cases = cs(lambda c: c["shift"] == "far")
+to_nli = [c for c in far_cases if isd(c["source"]) and not isd(c["target"])]
+to_dices = [c for c in far_cases if not isd(c["source"]) and isd(c["target"])]
+f_ = lambda cases: sum(bool(c["calibration_fails_outright"]) for c in cases)
+check("C5b", len(arm_a) == 82 and sum(c["judge"] in frontier5 for c in arm_a) == 80 and len(dd_cases) == 10 and sum(bool(c["reopens"]) for c in dd_cases) == 0 and f_(dd_cases) == 0
+      and len(far_cases) == 40 and f_(far_cases) == 21 and 2 * f_(far_cases) > fl and len(to_nli) == 20 and f_(to_nli) == 19 and len(to_dices) == 20 and f_(to_dices) == 2,
+      f"experiment 48: the 82 cases are 80 frontier-judge cases plus 2 G-Eval rubric cases; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; "
+      f"{f_(far_cases)} of the {fl} outright failures are transfers between the inference sets and the safety sets (DICES to NLI {f_(to_nli)} of {len(to_nli)}, NLI to DICES {f_(to_dices)} of {len(to_dices)})", [])
 
 s49 = json.loads((one("49_*") / "results" / "system_level_drop.json").read_text())
 rep = s49["reproduction"]["this_run_exp23_function"]
@@ -401,13 +468,24 @@ cl = (ROOT / "CLAUDE.md").read_text()
 check("L1", "arXiv 2503.05965" in cl and '"as much as 31%" worse judges' in cl,
       "cited (Guerdan et al., arXiv 2503.05965, abstract; recorded in the repo's literature note, not recomputed here): forced-choice validation can select judges up to 31% worse than their response-set method", ["31"])
 
+LEAN = one("35_*") / "extended_checks_11-26-2026" / "gemini_plan_claims_audit_11-26-2026"
+lc = (LEAN / "lean_check.txt").read_text()
+lsrc = (LEAN / "PlanClaims.lean").read_text()
+std3 = "[propext, Classical.choice, Quot.sound]"
+lean_thms = ["plan_estimator_unbiased", "plan_estimator_unbiased_product", "instance_unbiased", "adaptive_stopping_biased", "Model.anti_proper"]
+check("L2", all(f"'PlanAudit.{t}' depends on axioms: {std3}" in lc for t in lean_thms) and "sorryAx" not in lc
+      and all(re.search(rf"^theorem {re.escape(t.split('.')[-1])}\b", lsrc, flags=re.M) for t in lean_thms) and "Lean 4.36.0" in cl and "fc4f59e5" in cl,
+      "Lean 4 with Mathlib (PlanClaims.lean, experiment 35, plan-claims audit; toolchain Lean 4.36.0, Mathlib fc4f59e5): the per-sample proper score is an unbiased estimator of the risk for finite rating scales "
+      "(plan_estimator_unbiased, plan_estimator_unbiased_product, instance_unbiased), the number of ratings must not depend on the ratings (adaptive_stopping_biased), and the collapsed judge's correlation sqrt(rho) exceeds the truthful judge's rho "
+      "for finite joint laws (Model.anti_proper); the compiler output lists only propext, Classical.choice, Quot.sound and no sorryAx", [])
+
 # ======================================================================= registry
 print()
 print("REGISTRY of numeric tokens (unsigned) the post may use, with the claims that support them:")
 for t in sorted(REGISTRY, key=lambda s: (len(s), s)):
     print(f"  {t:>8}  {','.join(REGISTRY[t])}")
 print()
-print(f"{len(FAILED)} FAIL; claims checked; seed {SEED}")
+print(f"{NCHECK[0]} claims checked, {len(FAILED)} FAIL; seed {SEED}")
 if FAILED:
     print("FAILED:", ", ".join(FAILED))
 sys.exit(1 if FAILED else 0)

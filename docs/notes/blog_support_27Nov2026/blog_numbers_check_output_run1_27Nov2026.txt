@@ -12,40 +12,51 @@ PASS [P1] experiment 43: 33 of 49 papers report a correlation with human ratings
 PASS [P2] experiment 43: 43 of 49 papers have no item-level proper score or divergence against human ratings (broad code)
 PASS [P3] experiment 54 strict recode: 44 of 49 have no item-level strictly proper score
 PASS [P4] experiment 45 census: correlation is the headline agreement number in 16 of 40 sources = 0.400, Wilson 95% 0.263 to 0.554
+PASS [P4b] experiment 45 census: 53 sources coded in all, a purposive sample chosen by lineage (not at random); 40 are LLM-era sources read in full or in part that validate a judge against human labels
 PASS [P5] headline correlation by lineage (L1 graded scores, L3 leaderboard/system ranking, L2 pairwise, L4 frontier-lab graders, L5 retrieval/annotation): {'L1': [12, 14], 'L2': [0, 8], 'L3': [4, 6], 'L4': [0, 6], 'L5': [0, 6]}
+PASS [P5b] census rule V1, written in the protocol before coding (a correlation headline in at least 80% of graded-score sources with Wilson lower bound at least 65%): observed 12 of 14 = 0.857, Wilson lower bound 0.601, so the bar is missed
 PASS [P6] of the 20 pairwise, frontier-lab and retrieval/annotation sources none leads with a correlation and 19 lead with accuracy, agreement, kappa or F1
 PASS [P8] experiment 45 census: of the 25 sources that select, tune or train a judge on human data, 9 say they maximized agreement or correlation with human labels and 4 correlation alone
-PASS [P7] 1 of 40 sources scores the human rating distribution with a proper rule (system level)
+PASS [P7] 1 of 40 sources scores a human distribution with a proper rule: L3-03 (Arena-Hard), a Brier score on pairwise system-rank forecasts, not on individual ratings; so none scores an item's human rating distribution
 PASS [R1] 50 pair-by-dataset comparisons of five frontier judges: significant reversals against the proper score {'pearson': 0, 'spearman': 2, 'top1': 0, 'kappa': 0} (Pearson 0, Spearman 2)
-PASS [R1b] frozen H1 (a significant Pearson reversal in the frontier or local panel): not supported; the panel with three small open-weight judge configurations added has 140 comparisons and no significant reversal for any metric
+PASS [R1b] frozen H1 (a significant Pearson reversal in the frontier or local panel): not supported; the panel with three small open-weight judge configurations added has 140 comparisons and no significant reversal for any metric; at the frozen 4,000 draws the smallest two-sided Holm-adjusted p over 140 comparisons is 140 x 2/4001 = 0.070 > 0.05 (over the frontier panel's 50 comparisons 0.0250 < 0.05), so that panel's zero is uninformative
 PASS [R2] after per-judge calibration: {'pearson': 0, 'spearman': 0, 'top1': 0, 'kappa': 0}
 PASS [R3] five-fold larger resample (B = 20,000) keeps the same counts: {'pearson': 0, 'spearman': 2, 'top1': 0, 'kappa': 0}
 PASS [R4] GPT-6 Astra minus GLM 5.3: Spearman +0.021 (SNLI) and +0.034 (MNLI) favor Astra; Brier skill -0.039 and -0.098 favor GLM 5.3; all four Holm p < 0.05 (Holm p 0.025 and 0.042 for Spearman)
+PASS [R4d] GPT-6 Astra vs GLM 5.3: the larger of the two Holm-adjusted p-values (the Spearman difference and the Brier-skill difference) is 0.025 on SNLI and 0.042 on MNLI
 PASS [R4b] of the 50 comparisons, the point estimates order the two judges the opposite way from the proper score in {'pearson': 6, 'spearman': 10, 'top1': 12, 'kappa': 12} cases (Pearson 6, Spearman 10, top-1 12, kappa 12); the reversals table lists exactly these; only the 2 Spearman cases are significant after Holm
 PASS [R3b] sensitivity run at B = 20,000 (not the frozen 4,000): the 140-comparison panel has 1 significant Pearson reversal, on MNLI between the native and verbalized readouts of the same small open-weight model (Holm p 0.040; at the frozen B = 4,000 the same comparison has Holm p 0.070, not significant); the five frontier judges alone still have 0 Pearson reversals
 PASS [R5] DICES-350, raw judges: four of five have skill below the human base rate with every 95% interval below 0 (range -0.177 to -0.096); Claude Opus 5.5 is above (+0.033, interval above 0)
 PASS [R5b] DICES-350: Pearson correlation of the judge's mean rating with the human mean rating, five judges: 0.519 to 0.607
 PASS [R5c] DICES-350: invalid answers (counted as a uniform forecast) are 0 to 6% of items per judge; on the items where every judge answered validly the same four judges are below the base rate (point estimates) and Opus above
 PASS [R6] DICES-350 top-1 agreement with the human majority rating of the five judges: 0.8029 to 0.8229
+PASS [R3c] experiment 46, raw skill over the human base rate in the 25 judge-set cells (5 judges x 5 sets): ChaosNLI (15 cells) 0 significantly below, 14 significantly above, 1 not significant (deepseek-v4.1-flash on MNLI), and every ChaosNLI point estimate above 0; DICES-350 4 below; DICES-990 3 below; all 25 cells {'above': 16, 'ns': 2, 'below': 7}
+PASS [R4c] DICES-350: Cohen's kappa between each judge's most likely label and the human modal label, five judges: 0.262 to 0.402, all above 0
+PASS [K1] DICES-350: a constant forecast (the histogram of other items' ratings, experiment 28 method hist at 256 or 320 training items, where it has settled; ties between human modal labels count as wrong) has top-1 agreement 0.7686 = 269/350; the five judges are 3.4 to 5.4 points above it (that No is the unique human modal label on 269 of 350 items is checked from the public DICES-350 file by check_always_no_dices350.py)
 PASS [R7] DICES-350 after a cross-fitted per-judge calibration: all five above the base rate, +0.053 to +0.071, every interval above 0
 PASS [R8] DICES-350, GPT-6 Astra minus Claude Opus 5.5: top-1 agreement +0.00095 [-0.022, +0.023]; normalized-RPS skill -0.175 [-0.200, -0.152]
-PASS [R9] DICES-350, ten judge pairs: 0 differ significantly in top-1 agreement; 8 differ in skill at Holm p < 0.05 (7 at p = 0.025, one at 0.04999)
-PASS [D1] datasets: ChaosNLI SNLI, MNLI-m and alphaNLI with 100 human labels per item; DICES-350 (350 conversations, 123 raters each, No/Unsure/Yes) and DICES-990 (69 to 76 raters per item)
+PASS [R9] DICES-350, ten judge pairs: 0 differ significantly in top-1 agreement; 8 differ in skill at Holm p < 0.05 (7 at p = 0.025, one at 0.04999); 0.025 is the smallest Holm-adjusted p that 4,000 draws allow over 50 comparisons (50 x 2/4001 = 0.02499)
+PASS [D1] datasets: ChaosNLI SNLI, MNLI-m and alphaNLI with 100 human labels per item; DICES-350 (350 conversations, 123 raters each, No/Unsure/Yes) and DICES-990 (400 items, 69 to 76 raters per item, quoted in the post as about 70)
 PASS [X1] experiment 55: DICES-350 judges significantly below the base rate under Brier, cross-entropy and nRPS: {'brier': 4, 'ce': 4, 'nrps': 4}; best judge's skill in the highest-agreement fifth exceeds its lowest-agreement fifth in 15 of 15 set-by-rule cells
 PASS [X2] ranking of the five judges by skill agrees across rules: Kendall tau-b 0.6 to 1.0; the best judge changes with the rule only on ['chaosnli_alphanli']
 PASS [X1b] experiment 55 protocol: strata are five equal-count entropy quintiles of the ratings in one random half of the raters, skill is scored on the other half; the protocol lists what had been seen before it was frozen (including the matched-rule DICES-350 result)
+PASS [X1c] experiment 55: 75 judge-by-set-by-rule cells (5 judges x 5 sets x 3 rules); the protocol applies Holm-Bonferroni over all 75 declared cells
 PASS [X3] MNLI-m, judges significantly above the base rate (of 5): Brier 3, cross-entropy 2, normalized RPS (not matched to unordered labels) 5
+PASS [X6] experiment 55: the best judge scores higher in the highest-agreement fifth than in the lowest in all 15 set-by-rule cells, 9 of them with a rule that the experiment's own table labels matched to the label encoding
 PASS [X4] DICES-350, normalized RPS, best judge (claude-opus-5-5): skill +0.254 in the highest-agreement fifth of items, -0.072 in the lowest
 PASS [X5] experiment 56 (calibrating on n held-out ratings, one per item; mean over 50 draws; budgets 10, 25, 50, 100, 200): on DICES-350 every judge's calibrated skill is negative at n = 25 (-0.124 to -0.078) and positive at n = 100 (+0.007 to +0.036); sets (of 5) on which every judge's calibrated skill is above 0: {'10': 1, '25': 2, '50': 4, '100': 5, '200': 5}, so 100 is the smallest budget tried at which it holds on all five
 PASS [M1] minimum detectable difference between two judges at 400 items with one rating each (two-sided 5%, 80% power): Brier 0.034 to 0.065 (ChaosNLI), normalized RPS 0.014 to 0.025 (DICES); 18 of 50 judge pairs resolvable at that size
 PASS [M2] rater-pool contrasts: 0 of 30 pool score differences and 0 of 60 pool-by-judge interaction cells Holm-significant (a power-limited null, not evidence of absence)
 PASS [C1] experiment 41 (16 view-by-K cells): raw Pearson-trained minus CE-trained test nRPS gap up to 0.1282; after one validation-fitted map per head at most 0.0024 (seed mean)
 PASS [C1c] experiment 41: seven public rating sets, 16 views (two, three or five rating levels), linear heads on 24 hashed-text components, five split seeds; a validation-fitted map per head; matched gap at most 0.0024 (seed mean); the cross-entropy-trained head beats the constant forecast on 12 of 16 views
-PASS [C1b] experiment 41, POPQUORN offensiveness at two levels: test nRPS of a constant forecast 0.1156, CE-trained head 0.1153, raw Pearson-trained head 0.2430
+PASS [C1b] experiment 41, POPQUORN offensiveness at two levels: test nRPS of a constant forecast 0.1156, CE-trained head 0.1153, raw Pearson-trained head 0.2430, raw gap 0.1277
+PASS [C1d] experiment 41: all 16 views are scored by test normalized RPS with one ridge penalty (0.01) for every head; exactly 1 view (ChaosNLI SNLI+MNLI, three unordered labels) has no label order
 PASS [C2] experiment 53: the raw Pearson-trained head's skill over the base rate is below 0 on 15 of 16 views
+PASS [C2b] experiment 53: the raw cross-entropy-trained head's skill over the base rate is at most 0 on 4 of 16 views and peaks at 0.0712 (range -0.0054 to 0.0712)
 PASS [C3] experiment 47: with 25 calibration ratings the calibrated Pearson-trained head is still worse than the CE-trained head on all 16 views by 0.0097 to 0.0225 nRPS
 PASS [C4] experiment 47: the gap falls to 0.0024 or less after 50 ratings in one view and after 100 to 200 in 15 of 16
-PASS [C5] experiment 48: a calibration map fitted on one set and applied to another reopens the proper-score gap in 53 of 82 judge-by-shift cases and leaves the judge significantly worse than uncalibrated in 33
+PASS [C5] experiment 48: a calibration map fitted on one set or rubric and applied to another reopens the proper-score gap in 53 of 82 judge-by-shift cases and leaves the judge significantly worse than uncalibrated in 33
+PASS [C5b] experiment 48: the 82 cases are 80 frontier-judge cases plus 2 G-Eval rubric cases; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; 21 of the 33 outright failures are transfers between the inference sets and the safety sets (DICES to NLI 19 of 20, NLI to DICES 2 of 20)
 PASS [C6] experiment 49, SummEval, 16 systems: system-level Spearman 0.877 (Pearson-trained head) vs 0.835 (four-bin calibrated) vs 0.875 (continuous calibrator); difference +0.042, 95% interval over test documents [-0.049, +0.114] (includes 0)
 PASS [C6b] experiment 49 setup: SummEval consistency, G-Eval with GPT-4 as the judge, 40 test documents by 16 systems; the drop comes from the four-bin calibrator; interval over documents [-0.049, +0.114]
 PASS [S1] experiment 41 verifier exit 0; required PASS lines {'[B2]': True, '[B3]': True, '[B4]': True, '[B5]': True, '[B8]': True, '[B9]': True, '[B11]': True, '[B12]': True} (CE-trained curve fits in 9 of 11 panels, Pearson-trained in 1 of 11; 6 of 11 when counting only fits with more than four budgets; three of the nine are four-point fits; largest budgets 256, 1,024, 2,048; CE head pulls ahead after about 4 to 8 ratings)
@@ -58,28 +69,29 @@ PASS [S1] experiment 41 verifier exit 0; required PASS lines {'[B2]': True, '[B3
    | PASS [B11] post: largest budgets from a few hundred to about two thousand ratings N_max values [256, 1024, 2048]
    | PASS [B12] Exp 28 README: 'after 4 to 8 ratings (one per item)' (the post's 4-to-8 claim) 
 PASS [L1] cited (Guerdan et al., arXiv 2503.05965, abstract; recorded in the repo's literature note, not recomputed here): forced-choice validation can select judges up to 31% worse than their response-set method
+PASS [L2] Lean 4 with Mathlib (PlanClaims.lean, experiment 35, plan-claims audit; toolchain Lean 4.36.0, Mathlib fc4f59e5): the per-sample proper score is an unbiased estimator of the risk for finite rating scales (plan_estimator_unbiased, plan_estimator_unbiased_product, instance_unbiased), the number of ratings must not depend on the ratings (adaptive_stopping_biased), and the collapsed judge's correlation sqrt(rho) exceeds the truthful judge's rho for finite joint laws (Model.anti_proper); the compiler output lists only propext, Classical.choice, Quot.sound and no sorryAx
 
 REGISTRY of numeric tokens (unsigned) the post may use, with the claims that support them:
          0  R5c
          1  P7,S1
          2  T1
-         4  T5,P5,P8,S1
+         4  T5,P5,P8,C2b,S1
          5  X3,C1c
          6  P5,R4b,R5c,S1
-         7  C1c
+         7  R3c,C1c
          8  T5,S1
-         9  P8,S1
+         9  P8,X6,S1
         10  R4b,R9
         11  S1
         12  P5,R4b,C1c
-        14  P5
-        15  X1,C2
-        16  P4,C2,C6
+        14  P5,R3c
+        15  R3c,X1,C2
+        16  P4,C1d,C2,C6
         18  M1
         19  P6
         20  P5
         24  C1c
-        25  P8,X5,C3
+        25  P8,R3c,X5,C3
         26  P4
         30  M2
         31  L1
@@ -89,11 +101,14 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
         44  P3
         49  P1
         50  R1,X5,C4
-        53  C5
+        53  P4b,C5
         55  P4
         60  M2
         69  D1
+        70  D1
+        75  X1c
         76  D1
+        77  K1
         80  R6
         82  R6,C5
        0.2  T4
@@ -108,11 +123,13 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
        200  C4
        256  S1
        350  D1
-       400  M1
+       400  D1,M1
       0.05  C6
-      0.07  X4
+      0.07  R1b,X4
       0.11  C6
       0.25  X4
+      0.26  R4c
+      0.40  R4c
       0.52  R5b
       0.61  R5b
       0.66  S1
@@ -132,14 +149,14 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
      0.049  C6
      0.053  R7
      0.065  M1
-     0.071  R7
+     0.071  R7,C2b
      0.072  X4
      0.096  R5
      0.098  R4
      0.114  C6
      0.115  C1b
      0.116  C1b
-     0.128  C1
+     0.128  C1b
      0.152  R8
      0.175  R8
      0.177  R5
@@ -151,10 +168,11 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
      0.877  C6
      1,024  S1
      2,048  S1
+     4,000  R1b,R9
     0.0024  C1
     0.0097  C3
     0.0225  C3
     0.1282  C1
     20,000  R3
 
-0 FAIL; claims checked; seed 20261127
+64 claims checked, 0 FAIL; seed 20261127

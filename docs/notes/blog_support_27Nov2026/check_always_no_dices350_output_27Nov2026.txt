@@ -1,0 +1,5 @@
+PASS [N1] 350 conversations, raters per conversation [123]
+PASS [N2] unique human modal label per conversation: {'No': 269, 'Yes': 79, 'tie': 2}
+PASS [N3] always answering No agrees with the unique human modal label on 269 of 350 conversations = 0.7686 (ties count as wrong), the value of experiment 28's constant forecast (method hist, 0.768571)
+
+0 FAIL
