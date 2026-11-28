@@ -58,3 +58,10 @@ regret is lower and the paired interval excludes 0.
 (`results/regret_figure.png`, values in `results/regret_figure_values.csv`; grid on every axis), `HOW_TO_READ_RESULTS.md`,
 `README.md`, `tests/test_exp59.py` (a synthetic known-winner code check labeled as such, regret zero when all judges are identical,
 determinism).
+
+## Amendment A1 (11-28-2026, committed before the first real-data run of this experiment; no result of it had been seen)
+The pool P holds half of the groups, so a label budget n cannot exceed the number of items in P. On DICES-350 the pool has 175 items, so the cell n = 200 uses all 175 pool items
+(n_used = |P| = 175); every other (set, n) cell has |P| >= n (on alphaNLI and DICES-990, |P| = 200, so n = 200 labels the whole pool; on SNLI and MNLI-m, |P| is about 300). The label "200" stays in the grid so that H2 and H3 are still read at the largest
+value, and the tables report n_used. Reason: infeasibility found while writing the script, not a response to any result. Details the protocol left open, fixed here: (i) a judge whose correlation in path A is undefined (a constant forecast mean or constant single ratings)
+gets correlation minus infinity, so undefined values and ties go to the fixed judge order (Astra, Opus, Kimi, GLM, DeepSeek); (ii) the single rating of a labeled item is drawn uniformly from that item's valid ratings; (iii) the three folds of path B are a random permutation
+of the items of L taken modulo 3; (iv) the random split puts floor(G/2) of the G groups into P and the rest into T; (v) draws are independent and their seeds do not depend on the number of worker processes, so the output is identical for any worker count.
