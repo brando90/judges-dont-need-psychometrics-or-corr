@@ -89,4 +89,5 @@ A strictly increasing $g$ of a scalar score leaves the ranking of items unchange
 This is the map used in Experiment~41.
 On seven real multi-annotator rating sets re-binned to two, three and five classes, a cross-entropy-trained linear head beat a Pearson-trained one by up to $0.1282$ normalized ranked probability score (RPS) on held-out items (fixed ridge penalty $0.01$; the largest gap is on a view where neither head beat the constant forecast).
 After each head's scalar passed through its own validation-fitted calibration map of this form, the difference was at most $0.0024$.
+As skill over the base rate (Experiment~53), the Pearson-trained head's raw skill is negative on $15$ of $16$ views and the calibrated skill difference is $-0.0003$ to $+0.0098$.
 The gap that correlation could not see was almost entirely reliability in the sense of~\eqref{eq:reliability}.
