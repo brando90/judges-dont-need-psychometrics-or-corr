@@ -1,0 +1,75 @@
+{
+ "H_J1": {
+  "max_abs_jsb_change": 2.42861286636753e-16,
+  "supported": true
+ },
+ "H_J2": {
+  "cells": 25,
+  "permuted_worse": 25,
+  "supported": true
+ },
+ "H_M1": {
+  "cells": 30,
+  "supported": true,
+  "within_0p9_1p1": 30
+ },
+ "H_M2": {
+  "identity_holds": true,
+  "nondecreasing_in_k_at_fixed_budget": 50,
+  "pairs": 50
+ },
+ "H_P1": {
+  "dices350": false,
+  "dices990": false
+ },
+ "H_P2": {
+  "dices350": false,
+  "dices990": false
+ },
+ "H_S1": {
+  "argmax_unchanged_all": true,
+  "cells": 25,
+  "ci_excludes_0_above": 25,
+  "ci_excludes_0_below": 0,
+  "delta_G_positive": 25,
+  "supported": true
+ },
+ "J_tau_b_jsb_vs_primary": {
+  "chaosnli_alphanli": 0.39999999999999997,
+  "chaosnli_mnli": 0.6,
+  "chaosnli_snli": -0.7999999999999999,
+  "dices350": 0.6,
+  "dices990": 0.7999999999999999
+ },
+ "M_resolvable_N400_k1_by_set": {
+  "chaosnli_alphanli": "2/10",
+  "chaosnli_mnli": "6/10",
+  "chaosnli_snli": "0/10",
+  "dices350": "5/10",
+  "dices990": "5/10"
+ },
+ "P3_holm_significant_interactions": 0,
+ "P3_point_reversals": 4,
+ "P3_pool_dependent_orderings": 0,
+ "P3_tau_b_AB": {
+  "dices350/age": 0.9999999999999999,
+  "dices350/gender": 0.7999999999999999,
+  "dices350/race": 0.7999999999999999,
+  "dices990/age": 0.7999999999999999,
+  "dices990/gender": 0.7999999999999999,
+  "dices990/race": 0.9999999999999999
+ },
+ "amendment_commit": "3cba685",
+ "bootstrap_draws": 4000,
+ "bundle_sha256": "55935c4daacdf2ad73821b390e42b49b1d5f2affcbaafb5979d0ca13ef146929",
+ "drop_invalid": false,
+ "items_used": {
+  "chaosnli_alphanli": 400,
+  "chaosnli_mnli": 600,
+  "chaosnli_snli": 600,
+  "dices350": 350,
+  "dices990": 400
+ },
+ "permutations": 500,
+ "protocol_commit": "13d1177"
+}

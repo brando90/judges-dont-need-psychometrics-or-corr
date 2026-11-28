@@ -2,9 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/README.md>
 
-**TLDR:** Pre-registered, CPU-only diagnostics of five frozen frontier judges on public multi-annotator sets: whether the choice of rater pool that defines p* changes scores or judge rankings, whether proper scores reward a peaked forecast on consensus items, what binned JSD can and cannot see, and how many held-out items a paired comparison needs at one rating per item. The protocol is frozen in `PROTOCOL.md`; no analysis has run yet.
+**TLDR:** Pre-registered, CPU-only diagnostics of five frozen frontier judges on public multi-annotator sets: whether the choice of rater pool that defines p* changes scores or judge rankings, whether proper scores reward a peaked forecast on consensus items, what binned JSD can and cannot see, and how many held-out items a paired comparison needs at one rating per item. The protocol is frozen in `PROTOCOL.md` (amended in `AMENDMENT_A1.md` before any run); results are in `RESULTS.md`: pool changes did not detectably move distributions, scores or the judge ranking (low power), sharpening is cheaper on consensus than on contested items in 25 of 25 cells, binned JSD is exactly blind to within-bin forecast shuffles that proper scores penalize, and at one rating per item and 400 items 0 to 6 of the 10 judge pairs per set are resolvable.
 
-**As of:** 11-27-2026 (Friday, Pacific time). **Status:** pre-registered; results pending. Number 44 is the one the root README reserved for base-rate skill scores, human-agreement stratification and evaluation-set power. A parallel session froze Experiments 46 (rank reversal and skill score), 50 (strata by human entropy) and 52 (skill-score estimator simulation) for those parts, and Experiment 36 holds power curves for trained heads, so this folder does not repeat their tests; it adds the four analyses below.
+**As of:** 11-27-2026 (Friday, Pacific time). **Status:** done; results in `RESULTS.md` (11-27-2026). Number 44 is the one the root README reserved for base-rate skill scores, human-agreement stratification and evaluation-set power. A parallel session froze Experiments 46 (rank reversal and skill score), 50 (strata by human entropy) and 52 (skill-score estimator simulation) for those parts, and Experiment 36 holds power curves for trained heads, so this folder does not repeat their tests; it adds the four analyses below.
 
 ## Construct and positioning (read first)
 
@@ -43,13 +43,22 @@ The frontier judges of Experiment 28 were told to forecast the share of a whole 
 |---|---|
 | `PROTOCOL.md` | frozen pre-registration (hypotheses, definitions, tests, what the analyst had seen) |
 | `README.md` | this page |
-| `src/`, `tests/`, `results/`, `figures/`, `RESULTS.md`, `HOW_TO_READ_RESULTS.md` | added after the protocol commit; every number in this README will come from `src/` |
+| `AMENDMENT_A1.md` | three statistical corrections plus clarifications, written before any run |
+| `src/` | `lib44.py` (scores, binned JSD, power, pool helpers), `run_all.py` (the four arms), `verify.py` (independent per-rating loops), `summarize.py` (prints every number in `RESULTS.md`), `make_figures.py` |
+| `tests/test_lib44.py` | 17 deterministic checks (score values and strict propriety, exact unbiasedness at one rating per item, temperature leaves the argmax, binned-JSD permutation invariance, power formulas by enumeration, pool bootstrap, determinism) |
+| `results/` | nine CSVs, `summary.json`, `key_numbers.md`, and `sensitivity_drop_invalid/` |
+| `figures/` | four figures, `ax.grid(True)` on every axis |
+| `RESULTS.md`, `HOW_TO_READ_RESULTS.md` | results against every registered hypothesis, and which data, metric, subtraction, uncertainty and judge choice each number has |
 
-## Reproduce (planned)
+## Reproduce
 
 ```bash
 python3 experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/src/fetch_raw_data.py   # public data, SHA-256 checked
-python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/run_all.py
+python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/run_all.py                      # about 20 seconds
+python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/run_all.py --out results/sensitivity_drop_invalid --drop-invalid
+python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/verify.py
+python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/summarize.py
+python3 experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/src/make_figures.py
 python3 -m pytest experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/tests -q
 ```
 
