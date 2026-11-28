@@ -47,7 +47,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 ## Open for Brando
 
-1. I changed one phrase of the approved abstract ("cannot, in general, validate a judge"). Revert if you prefer the original.
+1. I changed two phrases of the approved abstract: "cannot, in general, validate a judge", and the same-mean sentence, which used to say that every strictly proper score separates same-mean distributions (not true for two different wrong forecasts) and now says that a different forecast sharing the true mean ties with it on correlation and scalar error while every strictly proper score ranks the true distribution ahead of it. Revert either if you prefer the original.
 2. The main body still ends on page 5, one page past the four-page target in Rule 89; compressing the Section 6 paragraph on Experiments 26, 28 and 29 (details are already in the supplement) would fix it. I did not do it without your go-ahead.
 3. Real-judge rank reversal (Experiment 46) is pending; the paper says so.
 4. Several internal notes in this repository name the advisor (for example `STATUS_11-20-2026.md`, `paper_latex_and_notes/notes/`). I did not scrub them; tell me if you want that.

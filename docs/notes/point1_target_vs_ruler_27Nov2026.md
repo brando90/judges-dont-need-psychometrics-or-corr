@@ -51,7 +51,7 @@ What the pool experiment found (Experiment 44, Arm P, DICES, demographic sub-poo
 
 Paper (`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`):
 
-1. `1-abstract.tex`: "cannot, in general, validate a judge" (one-phrase edit to the approved abstract; flagged for Brando).
+1. `1-abstract.tex`: "cannot, in general, validate a judge", and the same-mean sentence made exact (a different forecast that shares the true mean ties with it on Pearson, Spearman, Kendall and scalar mean squared error, while every strictly proper score ranks the true distribution strictly ahead of it); two phrase edits to the approved abstract, flagged for Brando.
 2. `2-introduction.tex`: paragraph "Target versus ruler"; contributions rewritten as practice gap, identification result, protocol, evidence.
 3. `3-problem.tex`: rater pool and rubric paragraph; "In general, none of these statistics identifies..." wording.
 4. `4-proposal.tex`: unbiased risk with one rating per item; skill score and agreement strata paragraph.
