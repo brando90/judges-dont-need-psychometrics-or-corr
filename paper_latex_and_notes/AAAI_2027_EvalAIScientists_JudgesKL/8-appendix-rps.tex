@@ -164,3 +164,25 @@ That work proposes a squared-absolute variant, $\frac{1}{5}\bigl(\sum_j\lvert Q_
 In our numeric check this variant is not proper.
 For raters distributed $(0.2,0.2,0.2,0.2,0.1,0.1)$ over ratings $0,\dots,5$, the forecast $(0,0,0.9,0.1,0,0)$ has a lower expected variant score ($0.498$) than the true distribution ($0.680$), whereas RPS prefers the truth ($0.178$ vs $0.246$).
 We therefore keep RPS.
+
+\paragraph{Normalized Brier, hard predictions, and one-rating unbiasedness.}
+The body uses the \emph{normalized Brier score}
+$L_{\rm Brier}(q,r)=\frac12\sum_k(q_k-\mathbf{1}\{r=k\})^2\in[0,1]$
+(Eq.~\ref{eq:brier-norm}).
+On a point mass $\delta_a$, this equals the $0$--$1$ error $\mathbf{1}\{a\neq r\}$, because $\lVert\delta_a-e_r\rVert_2^2$ is $0$ when $a=r$ and $2$ otherwise.
+On the same point mass, the RPS in Eq.~\ref{eq:rps-cdf} equals the normalized absolute error $\lvert a-r\rvert/5$: the unnormalized sum of squared CDF gaps over the $K-1$ thresholds equals $\lvert a-r\rvert$ for any $K\ge 2$.
+(The Brier column in Table~\ref{tab:rps-examples} reports the unnormalized sum of squares, twice $L_{\rm Brier}$.)
+For any score of the form $S(q,r)$, including normalized Brier and RPS, a single observed rating is an unbiased estimate of the expected score: if $R\sim p$, then $\mathbb{E}[S(q,R)]=\sum_r p(r)\,S(q,r)$ by the finite-sum definition of expectation, and the average of independent item-level scores is unbiased for the mean item-level risk by linearity.
+These three identities are checked with exact fractions for $K=2,\ldots,8$ and machine-checked in Lean~4 for every pair on those scales, including the paper's six-point scale (numerical script and Lean sources in this directory's \texttt{checks/} folder).
+
+\paragraph{Average RPS over class orderings.}
+There is no CDF, and therefore no single RPS, on an unordered label set.
+Averaging the normalized RPS over all $K!$ orderings of the categories collapses to a constant multiple of the Brier score:
+\begin{equation}
+\frac{1}{K!}\sum_{\pi\in S_K} L_{\rm RPS}(q^{(\pi)},r^{(\pi)})
+=\frac{K+1}{6(K-1)}\,\lVert q-e_r\rVert_2^2
+=\frac{K+1}{3(K-1)}\,L_{\rm Brier}(q,r),
+\label{eq:avg-rps-brier}
+\end{equation}
+where $q^{(\pi)}$ and $r^{(\pi)}$ are the forecast and the realized label in order $\pi$.
+This identity was checked with exact rational arithmetic on $118$ forecasts for $K=2,\ldots,6$, including all point masses, two-point forecasts and random rational distributions (\texttt{checks/half\_brier\_rps\_identities.py}); we label it \emph{numerically checked, Lean pending} until a machine-checked general proof is in place.

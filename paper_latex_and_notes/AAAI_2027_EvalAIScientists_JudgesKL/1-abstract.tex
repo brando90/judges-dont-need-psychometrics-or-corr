@@ -1,18 +1,20 @@
 \begin{abstract}
 \noindent
-% CS197 Move 1 (Problem motivation): LLM judges are the default evaluation instrument, validated by correlation/agreement with humans.
-Large language model (LLM) judges are now the default instrument for evaluating language models, and the community validates them by their correlation or agreement with human ratings.
-% CS197 Move 2 (Set up the bit / assumption): a judge whose scores correlate highly with human scores is assumed to be a good forecaster of human judgment.
-This practice rests on an implicit assumption: that a judge whose scores correlate highly with human scores is a good forecaster of human judgment.
-% CS197 Move 3 (Flip the bit = contribution): the ruler, not the judge, is the problem -- correlation, agreement and reliability cannot validate a judge as a forecaster of the human rating distribution.
-Here, we show that this assumption fails: correlation, majority-label agreement, and psychometric reliability cannot validate a judge as a forecaster of the human rating distribution, because they discard calibration and, on sampled scores, reward the wrong forecast.
-% CS197 Move 4 (Instantiate the bit flip = solution): encoding view + Lean-checked non-identification + encoding-matched proper protocol.
-Specifically, correlation equals squared error after an optimal affine refit, so judges with identical conditional means but different rating distributions tie on Pearson, Spearman, Kendall, and mean squared error yet differ on every strictly proper score; we machine-check this non-identification result in Lean~4.
-We propose evaluating judges with a strictly proper score matched to the label encoding---cross-entropy or Brier for categorical labels, the ranked probability score (RPS) for ordinal scales---together with a base-rate skill score, an estimator that is unbiased with a single human rating per item.
-% CS197 Move 5 (Evaluation): practice audit + empirical gap + calibration control.
+% CS197 Move 1 (context): LLM judges are the default instrument for evaluating open-ended AI outputs, validated by correlation/agreement with human ratings.
+Large language model (LLM) judges are now the default instrument for evaluating open-ended AI outputs, and the community validates them by their correlation or agreement with human ratings.
+% CS197 Move 2 (gap/P\&K): human label variation established the target is a distribution, yet judge validation has not adopted metrics that evaluate a judge against that distribution.
+Work on human label variation has established that the target of such evaluation is a distribution over ratings, not a single gold label (Pavlick and Kwiatkowski, 2019; Plank, 2022), yet judge validation has not adopted metrics that evaluate a judge against that distribution.
+% CS197 Move 3 (assumption): a judge whose scores correlate highly with human scores is assumed to accurately predict the rating distribution induced by a specified rater pool and rubric.
+Validation by correlation rests on an implicit assumption: that a judge whose scores correlate highly with human scores accurately predicts human judgment, that is, the rating distribution induced by a specified rater pool and rubric.
+% CS197 Move 4 (here we show): that assumption fails; correlation is an affine-refit squared error and cannot identify the rating distribution on scales with three or more categories.
+Here, we show that this assumption fails: correlation, majority-label agreement, and psychometric reliability cannot validate a judge against this distribution, because they discard calibration or collapse it to a mean or mode, and on sampled scores correlation can prefer a collapsed prediction to the true distribution.
+Specifically, correlation equals scalar squared error after an optimal affine refit, which erases level and scale bias, and on ordinal scales with three or more categories, distinct rating distributions with the same mean tie on Pearson, Spearman, Kendall, and scalar mean squared error even though every strictly proper score separates them; we machine-check this non-identification result, and the squared form of the sampled-score result, in Lean~4.
+% CS197 Move 5 (propose + test (1)(2)): bounded proper scores (normalized Brier, RPS; CE secondary) with a skill score, plus the 49-paper audit and the seven-dataset calibration gap.
+We propose evaluating judges with a bounded, strictly proper score matched to the label encoding: the normalized Brier score on one-hot categorical labels, which reduces to 0--1 error on hard predictions, and the ranked probability score (RPS) on cumulative ordinal encodings, which reduces to normalized absolute error, with cross-entropy as a secondary diagnostic.
+Both are unbiased with a single human rating per item and are reported as skill scores relative to the human base rate.
 We test this view in two complementary ways:
 we (1) audit 49 judge-validation papers and find that 43 report no item-level proper score, with 29 of 30 score-based papers validating by correlation and 13 of 13 pairwise papers by agreement, accuracy, or kappa;
 and (2) show on seven human rating datasets that correlation-fit linear-head judges incur up to 0.128 higher normalized RPS than cross-entropy-fit ones, a gap that post-hoc calibration closes to at most 0.0024.
-% CS197 Move 6 (Implications): reported judge reliability is partly an artifact of the ruler; evaluate forecasts, not agreement.
-Our results suggest that much of the reported reliability of LLM judges is an artifact of the ruler, and that judge evaluation should measure forecasts, not agreement.
+% CS197 Move 6 (implications): apparent judge quality can be an artifact of an improper ruler; evaluate predicted rating distributions, not correlation or agreement.
+Our results suggest that apparent judge quality can be an artifact of an improper ruler, and that judges should be evaluated by how well their predicted rating distributions match the human rating distribution, not by correlation or agreement.
 \end{abstract}

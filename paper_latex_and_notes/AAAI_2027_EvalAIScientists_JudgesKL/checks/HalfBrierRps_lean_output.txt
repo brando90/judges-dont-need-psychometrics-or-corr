@@ -1,0 +1,6 @@
+'HalfBrierRps.half_brier_K6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HalfBrierRps.rps_unnorm_K6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HalfBrierRps.rps_norm_K6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HalfBrierRps.expect_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HalfBrierRps.expect_const_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HalfBrierRps.one_rating_unbiased' depends on axioms: [propext, Classical.choice, Quot.sound]

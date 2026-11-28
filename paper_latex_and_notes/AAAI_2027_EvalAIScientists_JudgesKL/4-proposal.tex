@@ -1,28 +1,33 @@
 % !TEX root = 00_main_aaai_2027.tex
 \section{Evaluate Conditional Probability Forecasts}
 \label{sec:proposal}
-For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, consider minimizing the expected Kullback--Leibler (KL) divergence
+For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, we evaluate a judge $q_\theta(\cdot\mid x)$ with a bounded, strictly proper score matched to the label encoding~\citep{gneiting2007strictly}.
+The \emph{normalized Brier score} on the one-hot encoding and the ranked probability score (RPS) on the cumulative encoding are
+\begin{align}
+L_{\rm Brier}(q,r)&=\frac12\sum_{j=0}^{5}(q_j-\mathbf{1}\{r=j\})^2,\label{eq:brier-norm}\\
+L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
+\end{align}
+where $Q_j=\sum_{k=0}^j q_k$.
+On a hard forecast $\delta_a$, normalized Brier equals $0$--$1$ error $\mathbf{1}\{a\neq r\}$ and RPS equals normalized absolute error $\lvert a-r\rvert/5$ (\appref{app:rps}{the RPS appendix} records the identities).
+Both scores, and their skill scores relative to the human base rate, are unbiased with a single human rating per item.
+The appendix on the ranked probability score explains RPS in detail: intuition, propriety and why it suits ordinal human ratings.
+Their expected excess losses over the oracle are $\frac12\sum_j(q_j-p_j)^2$ and $\frac{1}{5}\sum_{j=0}^4(Q_j-P_j)^2$.
+These vanish only when the categorical distributions agree.
+
+Cross-entropy (CE), $\mathbb{E}_{x,R}[-\log q_\theta(R\mid x)]$, is a strictly proper but unbounded secondary diagnostic, and a convenient training loss.
+It differs from the expected Kullback--Leibler (KL) divergence
 \begin{equation}
 \min_\theta\ \mathbb{E}_{x}\big[\KL(p(\cdot\mid x)\,\|\,q_\theta(\cdot\mid x))\big].
 \label{eq:kl}
 \end{equation}
+by an entropy term independent of $\theta$.
 The target $p$ is a population distribution, not a sparse empirical histogram.
-Cross-entropy (CE), $\mathbb{E}_{x,R}[-\log q_\theta(R\mid x)]$, differs from Eq.~\ref{eq:kl} by an entropy term independent of $\theta$.
 One observed rating per item supplies a valid conditional log-loss observation.
 It does not require marginal pooling and does not identify an unconstrained distribution at that item without shared structure or further assumptions.
-
-We also evaluate the Brier score and ranked probability score (RPS), using the loss orientation of proper scoring rules~\citep{gneiting2007strictly}:
-\begin{align}
-L_{\rm Brier}(q,r)&=\sum_{j=0}^{5}(q_j-\mathbf{1}\{r=j\})^2,\\
-L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
-\end{align}
-where $Q_j=\sum_{k=0}^j q_k$.
-The appendix on the ranked probability score explains RPS in detail: intuition, propriety and why it suits ordinal human ratings.
-Their expected excess losses over the oracle are $\sum_j(q_j-p_j)^2$ and $\frac{1}{5}\sum_{j=0}^4(Q_j-P_j)^2$.
-These vanish only when the categorical distributions agree.
 CE has excess loss $\KL(p\|q)$, assuming forecast support covers the population support.
 
 Empirical evaluation averages losses over observed ratings, including with one rating per input.
 A histogram of two or three ratings remains a noisy estimate, and pooling marginal histograms discards the input--rating association.
 Probability fitting also does not remove finite-sample selection error, model misspecification, or optimization failure.
 We retain Pearson, Spearman and Kendall as diagnostics, with normalized scalar error and signed bias when score levels matter.
+The Brier columns in Table~\ref{tab:population} report the unnormalized sum of squared errors $\sum_j(q_j-\mathbf{1}\{r=j\})^2$, twice the normalized score in Eq.~\ref{eq:brier-norm}.
