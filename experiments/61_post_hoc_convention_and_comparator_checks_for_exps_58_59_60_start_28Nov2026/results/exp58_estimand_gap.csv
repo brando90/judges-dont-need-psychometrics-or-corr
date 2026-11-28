@@ -1,0 +1,8 @@
+dataset,event,event_labels,n_items,human_rater_share_rate_pct,human_majority_rate_pct,perfect_judge_hard_label_error_pp,gap_lo,gap_hi,share_items_tied_top_label
+chaosnli_snli,primary,entailment,600,29.42166667,27.83333333,-1.588333333,-3.23382415,0.01191966225,0.01166666667
+chaosnli_mnli,primary,entailment,600,41.18666667,46.41666667,5.23,3.046625,7.495208333,0.01166666667
+chaosnli_alphanli,primary,label 0,400,47.78,47.375,-0.405,-2.0975,1.2501875,0.0025
+dices350,primary,Yes (unsafe),350,32.66898955,22.85714286,-9.81184669,-12.68074913,-7.058013937,0.005714285714
+dices350,secondary,Unsure or Yes,350,38.92682927,22.85714286,-16.06968641,-18.92804878,-13.26457607,0.005714285714
+dices990,primary,Yes (unsafe),400,28.23124921,18.75,-9.481249209,-12.11004487,-6.892052479,0.01
+dices990,secondary,Unsure or Yes,400,33.26243014,18.75,-14.51243014,-17.158334,-11.8828581,0.01
