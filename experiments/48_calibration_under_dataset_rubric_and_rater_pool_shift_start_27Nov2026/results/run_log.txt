@@ -1,0 +1,104 @@
+gpt-6-astra chaosnli_snli -> chaosnli_mnli raw 0.6119 in 0.5156 shift 0.5628 F 0.510140120068294 
+gpt-6-astra chaosnli_snli -> dices350 raw 0.2618 in 0.2130 shift 0.2320 F 0.6104275542771946 
+gpt-6-astra chaosnli_snli -> dices990 raw 0.2311 in 0.1899 shift 0.2069 F 0.5889719848890609 
+gpt-6-astra chaosnli_mnli -> chaosnli_snli raw 0.4382 in 0.3955 shift 0.4314 F 0.1591176397575214 reopens
+gpt-6-astra chaosnli_mnli -> dices350 raw 0.2618 in 0.2130 shift 0.2291 F 0.6707815526175156 
+gpt-6-astra chaosnli_mnli -> dices990 raw 0.2311 in 0.1899 shift 0.2109 F 0.4914111047489483 reopens
+gpt-6-astra dices350 -> chaosnli_snli raw 0.4382 in 0.3955 shift 0.4705 F -0.7561945072756107 reopens
+gpt-6-astra dices350 -> chaosnli_mnli raw 0.6119 in 0.5156 shift 0.5628 F 0.5100742234382684 
+gpt-6-astra dices350 -> dices990 raw 0.2311 in 0.1899 shift 0.1909 F 0.9756922676830849 
+gpt-6-astra dices990 -> chaosnli_snli raw 0.4382 in 0.3955 shift 0.6029 F -3.8530630804503967 reopens
+gpt-6-astra dices990 -> chaosnli_mnli raw 0.6119 in 0.5156 shift 0.6670 F -0.5725069983918993 reopens
+gpt-6-astra dices990 -> dices350 raw 0.2618 in 0.2130 shift 0.2130 F 0.9999526786013871 
+claude-opus-5-5 chaosnli_snli -> chaosnli_mnli raw 0.5368 in 0.5154 shift 0.5496 F -0.5944103784342606 reopens
+claude-opus-5-5 chaosnli_snli -> dices350 raw 0.2217 in 0.2134 shift 0.2206 F 0.12729768456474616 reopens
+claude-opus-5-5 chaosnli_snli -> dices990 raw 0.1933 in 0.1869 shift 0.1926 F 0.10679710313144783 reopens
+claude-opus-5-5 chaosnli_mnli -> chaosnli_snli raw 0.4004 in 0.3963 shift 0.4202 F -4.854668881453728 reopens
+claude-opus-5-5 chaosnli_mnli -> dices350 raw 0.2217 in 0.2134 shift 0.2319 F -1.2344352873056732 reopens
+claude-opus-5-5 chaosnli_mnli -> dices990 raw 0.1933 in 0.1869 shift 0.2144 F -3.303640557445389 reopens
+claude-opus-5-5 dices350 -> chaosnli_snli raw 0.4004 in 0.3963 shift 0.6654 F -64.86206995145952 reopens
+claude-opus-5-5 dices350 -> chaosnli_mnli raw 0.5368 in 0.5154 shift 0.6870 F -7.00739770400613 reopens
+claude-opus-5-5 dices350 -> dices990 raw 0.1933 in 0.1869 shift 0.1899 F 0.5356990510339944 
+claude-opus-5-5 dices990 -> chaosnli_snli raw 0.4004 in 0.3963 shift 0.6565 F -62.684344051129905 reopens
+claude-opus-5-5 dices990 -> chaosnli_mnli raw 0.5368 in 0.5154 shift 0.7367 F -9.32391175063103 reopens
+claude-opus-5-5 dices990 -> dices350 raw 0.2217 in 0.2134 shift 0.2143 F 0.892746686466452 
+kimi-k3 chaosnli_snli -> chaosnli_mnli raw 0.6127 in 0.5418 shift 0.5824 F 0.4284574440838075 reopens
+kimi-k3 chaosnli_snli -> dices350 raw 0.2606 in 0.2173 shift 0.2453 F 0.35246287788142355 reopens
+kimi-k3 chaosnli_snli -> dices990 raw 0.2309 in 0.1932 shift 0.2179 F 0.343370499496851 reopens
+kimi-k3 chaosnli_mnli -> chaosnli_snli raw 0.4422 in 0.4226 shift 0.4611 F -0.963277273189728 reopens
+kimi-k3 chaosnli_mnli -> dices350 raw 0.2606 in 0.2173 shift 0.2376 F 0.5305089741922319 
+kimi-k3 chaosnli_mnli -> dices990 raw 0.2309 in 0.1932 shift 0.2141 F 0.44601237414010675 reopens
+kimi-k3 dices350 -> chaosnli_snli raw 0.4422 in 0.4226 shift 0.6928 F -12.777462022700144 reopens
+kimi-k3 dices350 -> chaosnli_mnli raw 0.6127 in 0.5418 shift 0.6691 F -0.7949750372404918 reopens
+kimi-k3 dices350 -> dices990 raw 0.2309 in 0.1932 shift 0.1958 F 0.9321089797480842 
+kimi-k3 dices990 -> chaosnli_snli raw 0.4422 in 0.4226 shift 0.7491 F -15.649677428315469 reopens
+kimi-k3 dices990 -> chaosnli_mnli raw 0.6127 in 0.5418 shift 0.7044 F -1.2931926432526504 reopens
+kimi-k3 dices990 -> dices350 raw 0.2606 in 0.2173 shift 0.2183 F 0.9766168674070321 
+glm-5.3 chaosnli_snli -> chaosnli_mnli raw 0.5495 in 0.5283 shift 0.5574 F -0.3770126960381589 reopens
+glm-5.3 chaosnli_snli -> dices350 raw 0.2514 in 0.2163 shift 0.2383 F 0.37415079508060356 reopens
+glm-5.3 chaosnli_snli -> dices990 raw 0.2178 in 0.1895 shift 0.2113 F 0.22979385414029807 reopens
+glm-5.3 chaosnli_mnli -> chaosnli_snli raw 0.4138 in 0.4092 shift 0.4373 F -5.104286879824247 reopens
+glm-5.3 chaosnli_mnli -> dices350 raw 0.2514 in 0.2163 shift 0.2263 F 0.717298502583932 
+glm-5.3 chaosnli_mnli -> dices990 raw 0.2178 in 0.1895 shift 0.2045 F 0.4690213525560758 reopens
+glm-5.3 dices350 -> chaosnli_snli raw 0.4138 in 0.4092 shift 0.6733 F -56.41172600346479 reopens
+glm-5.3 dices350 -> chaosnli_mnli raw 0.5495 in 0.5283 shift 0.6391 F -4.232505224879952 reopens
+glm-5.3 dices350 -> dices990 raw 0.2178 in 0.1895 shift 0.1946 F 0.8201809890160617 
+glm-5.3 dices990 -> chaosnli_snli raw 0.4138 in 0.4092 shift 0.7406 F -71.03568328263808 reopens
+glm-5.3 dices990 -> chaosnli_mnli raw 0.5495 in 0.5283 shift 0.7215 F -8.12405676365684 reopens
+glm-5.3 dices990 -> dices350 raw 0.2514 in 0.2163 shift 0.2177 F 0.9620990949174318 
+deepseek-v4.1-flash chaosnli_snli -> chaosnli_mnli raw 0.6335 in 0.5357 shift 0.5911 F 0.4331280239255425 reopens
+deepseek-v4.1-flash chaosnli_snli -> dices350 raw 0.2700 in 0.2172 shift 0.2552 F 0.27969209731136374 reopens
+deepseek-v4.1-flash chaosnli_snli -> dices990 raw 0.2363 in 0.1922 shift 0.2239 F 0.2823957233810116 reopens
+deepseek-v4.1-flash chaosnli_mnli -> chaosnli_snli raw 0.4400 in 0.4215 shift 0.4714 F -1.7004885282955775 reopens
+deepseek-v4.1-flash chaosnli_mnli -> dices350 raw 0.2700 in 0.2172 shift 0.2386 F 0.5935887672416293 
+deepseek-v4.1-flash chaosnli_mnli -> dices990 raw 0.2363 in 0.1922 shift 0.2148 F 0.4873127849348838 reopens
+deepseek-v4.1-flash dices350 -> chaosnli_snli raw 0.4400 in 0.4215 shift 0.7233 F -15.326329964554027 reopens
+deepseek-v4.1-flash dices350 -> chaosnli_mnli raw 0.6335 in 0.5357 shift 0.6638 F -0.31017600244969 reopens
+deepseek-v4.1-flash dices350 -> dices990 raw 0.2363 in 0.1922 shift 0.1988 F 0.8503206354000324 
+deepseek-v4.1-flash dices990 -> chaosnli_snli raw 0.4400 in 0.4215 shift 0.7775 F -18.2556150760688 reopens
+deepseek-v4.1-flash dices990 -> chaosnli_mnli raw 0.6335 in 0.5357 shift 0.7226 F -0.9123702630566964 reopens
+deepseek-v4.1-flash dices990 -> dices350 raw 0.2700 in 0.2172 shift 0.2196 F 0.9542782041524979 
+gpt-6-astra pooled_other_three -> chaosnli_snli raw 0.4382 in 0.3955 shift 0.4249 F 0.31246465517457905 reopens
+gpt-6-astra pooled_other_three -> chaosnli_mnli raw 0.6119 in 0.5156 shift 0.5614 F 0.5247308060710648 
+gpt-6-astra pooled_other_three -> dices350 raw 0.2618 in 0.2130 shift 0.2170 F 0.9184399854772963 
+gpt-6-astra pooled_other_three -> dices990 raw 0.2311 in 0.1899 shift 0.1971 F 0.8250774419739823 
+claude-opus-5-5 pooled_other_three -> chaosnli_snli raw 0.4004 in 0.3963 shift 0.4167 F -3.9978712153432108 reopens
+claude-opus-5-5 pooled_other_three -> chaosnli_mnli raw 0.5368 in 0.5154 shift 0.5463 F -0.4432024283237192 reopens
+claude-opus-5-5 pooled_other_three -> dices350 raw 0.2217 in 0.2134 shift 0.2152 F 0.7899115427166683 
+claude-opus-5-5 pooled_other_three -> dices990 raw 0.1933 in 0.1869 shift 0.1921 F 0.18251097839574867 reopens
+kimi-k3 pooled_other_three -> chaosnli_snli raw 0.4422 in 0.4226 shift 0.4661 F -1.2207061009604905 reopens
+kimi-k3 pooled_other_three -> chaosnli_mnli raw 0.6127 in 0.5418 shift 0.5882 F 0.3462768921717201 reopens
+kimi-k3 pooled_other_three -> dices350 raw 0.2606 in 0.2173 shift 0.2266 F 0.7848570317858569 
+kimi-k3 pooled_other_three -> dices990 raw 0.2309 in 0.1932 shift 0.2026 F 0.7515178516021116 
+glm-5.3 pooled_other_three -> chaosnli_snli raw 0.4138 in 0.4092 shift 0.4348 F -4.565967963093026 reopens
+glm-5.3 pooled_other_three -> chaosnli_mnli raw 0.5495 in 0.5283 shift 0.5591 F -0.45461634981895205 reopens
+glm-5.3 pooled_other_three -> dices350 raw 0.2514 in 0.2163 shift 0.2210 F 0.8660348391959992 
+glm-5.3 pooled_other_three -> dices990 raw 0.2178 in 0.1895 shift 0.1988 F 0.6728449988942522 
+deepseek-v4.1-flash pooled_other_three -> chaosnli_snli raw 0.4400 in 0.4215 shift 0.4720 F -1.7342041484700046 reopens
+deepseek-v4.1-flash pooled_other_three -> chaosnli_mnli raw 0.6335 in 0.5357 shift 0.5956 F 0.3876483467495633 reopens
+deepseek-v4.1-flash pooled_other_three -> dices350 raw 0.2700 in 0.2172 shift 0.2258 F 0.8369377934252816 
+deepseek-v4.1-flash pooled_other_three -> dices990 raw 0.2363 in 0.1922 shift 0.2027 F 0.7612226165418696 
+g-eval-gpt-4|sampled20 summeval_relevance -> summeval_consistency raw 0.2148 in 0.0519 shift 0.1192 F 0.5865059438135528 
+g-eval-gpt-4|sampled20 summeval_consistency -> summeval_relevance raw 0.1987 in 0.1180 shift 0.2036 F -0.06060788728226518 reopens
+rater_pool summeval_crowd|K2 G_in -0.0005 G_shift +0.0028 seeds>0 3 REOPENS
+rater_pool summeval_expert|K2 G_in -0.0015 G_shift +0.0045 seeds>0 5 REOPENS
+rater_pool summeval_crowd|K3 G_in -0.0002 G_shift +0.0019 seeds>0 4 
+rater_pool summeval_expert|K3 G_in -0.0006 G_shift +0.0033 seeds>0 5 REOPENS
+rater_pool summeval_crowd|K5 G_in +0.0001 G_shift +0.0243 seeds>0 5 REOPENS
+rater_pool summeval_expert|K5 G_in -0.0017 G_shift +0.0273 seeds>0 5 REOPENS
+leave_one_dataset_out popquorn_offensiveness|K2 G_in +0.0001 G_shift +0.2278 seeds>0 5 REOPENS
+leave_one_dataset_out popquorn_politeness|K2 G_in -0.0044 G_shift +0.0270 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_expert|K2 G_in -0.0015 G_shift +0.0427 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_crowd|K2 G_in -0.0005 G_shift +0.0250 seeds>0 5 REOPENS
+leave_one_dataset_out dices990|K2 G_in -0.0005 G_shift +0.1165 seeds>0 5 REOPENS
+leave_one_dataset_out chaosnli_alphanli|K2 G_in -0.0001 G_shift +0.0118 seeds>0 3 REOPENS
+leave_one_dataset_out popquorn_offensiveness|K3 G_in -0.0001 G_shift +0.2454 seeds>0 5 REOPENS
+leave_one_dataset_out popquorn_politeness|K3 G_in -0.0042 G_shift +0.0085 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_expert|K3 G_in -0.0006 G_shift +0.0469 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_crowd|K3 G_in -0.0002 G_shift +0.0428 seeds>0 5 REOPENS
+leave_one_dataset_out dices990|K3 G_in -0.0005 G_shift +0.1655 seeds>0 5 REOPENS
+leave_one_dataset_out chaosnli_snli_mnli|K3 G_in -0.0001 G_shift +0.0846 seeds>0 5 REOPENS
+leave_one_dataset_out popquorn_offensiveness|K5 G_in -0.0004 G_shift +0.2576 seeds>0 5 REOPENS
+leave_one_dataset_out popquorn_politeness|K5 G_in -0.0057 G_shift +0.0165 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_expert|K5 G_in -0.0017 G_shift +0.0419 seeds>0 5 REOPENS
+leave_one_dataset_out summeval_crowd|K5 G_in +0.0001 G_shift +0.0207 seeds>0 5 REOPENS
