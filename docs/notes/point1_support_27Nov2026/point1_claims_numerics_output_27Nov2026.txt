@@ -1,0 +1,11 @@
+PASS C1 expected Brier = excess + irreducible term (500 exact cases)
+PASS C2 same strict mode => same agreement with every label (300 exact pairs)
+PASS C3 (claimed false) same strict mode => same Brier excess: counterexample found -- q=['0', '7/20', '1/2', '3/20'] q'=['1/4', '3/20', '2/5', '1/5'] p=['1/10', '1/4', '1/10', '11/20']
+PASS C4 (claimed false) same conditional mean => same agreement: counterexample with different modes found -- means 37/20, modes 1 vs 3
+PASS C5a K=2: equal means imply equal distributions (2000 exact pairs)
+PASS C5b K=3: a distinct pair with equal means exists -- ['7/20', '1/10', '11/20'] vs ['0', '4/5', '1/5'], mean 6/5
+PASS C6 truthful forecast for pool A has positive Brier excess under pool B (500 exact pairs)
+PASS C7 moving toward p by fraction t scales the excess by (1-t)^2 (500 exact cases)
+PASS C8 consensus item: sharpening toward the point-mass mode strictly lowers the excess (500 exact cases)
+PASS C9 (claimed false) sharpening toward the mode always lowers the excess: contested-item counterexample found -- p=['3/10', '3/10', '2/5'] sharpened q=['3/20', '3/20', '7/10']
+SEED 20261127; claims failed: 0
