@@ -7,7 +7,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 1. Pavlick and Kwiatkowski (2019) and Plank (2022) established the target: a human label is a distribution. We adopt that and do not claim it.
 2. Our contribution is the ruler: how a judge should be scored once the target is a distribution, and whether current practice scores it that way.
 3. It has four parts: a measured practice gap (43 of 49 judge-validation papers report no item-level proper score, 44 of 49 no item-level strictly proper one under the stricter code of Experiment 54; 29 of 30 score-based papers report correlation), an identification result (machine-checked in Lean for finite laws), a protocol (a strictly proper score matched to the label encoding, with a base-rate skill score and agreement strata), and evidence.
-4. Real-judge rank reversal is established only narrowly (Experiment 46, interim): none under the pre-registered Pearson test, top-1 agreement or kappa; two Spearman reversals for one judge pair on two sets, removed by calibration. The paper says Spearman.
+4. Real-judge rank reversal is established only narrowly (Experiment 46, interim): none under the pre-registered Pearson test, top-1 agreement or kappa; two Spearman reversals for one judge pair on two sets, removed by calibration. A B = 20,000 sensitivity run (a labelled deviation) adds reversals only among small local judges, one also on Pearson. The paper says Spearman.
 
 ## What we conceded and how
 

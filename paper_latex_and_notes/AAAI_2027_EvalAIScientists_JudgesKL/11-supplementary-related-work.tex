@@ -166,6 +166,7 @@ On seven real multi-annotator rating sets re-binned to two, three and five class
 This supports the evaluation claim (correlation cannot see calibration) more than the training claim.
 On five frozen frontier judges and five public multi-annotator rating sets (Experiment~46, interim), the pre-registered primary test, Pearson correlation against the proper score, finds no significant rank reversal on the frontier panel, and neither do top-1 agreement or kappa.
 Spearman correlation and the Brier score reverse for one judge pair on two sets: GPT-6 Astra is ahead of GLM~5.3 on Spearman by $0.021$ (SNLI) and $0.034$ (MNLI) and behind on Brier skill by $0.039$ and $0.098$ (Holm-adjusted $p\le0.042$ on both metrics), and no reversal remains after per-judge calibration on held-out ratings.
+A sensitivity run with $20{,}000$ bootstrap draws, a labelled deviation from the frozen $4{,}000$, keeps these two reversals (Holm-adjusted $p=0.0099$ and $0.028$) and adds two pairs among small local judges, one of them also on Pearson; both pairs involve a $0.5$-billion-parameter model whose verbalized answers are invalid on $52$ to $60$ percent of items.
 The local-judge panel is partial and the API panel has not run; \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
 \end{enumerate}
 We state three limits of this appendix.
