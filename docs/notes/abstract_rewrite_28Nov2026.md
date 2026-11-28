@@ -27,7 +27,7 @@
 
 ## Cutting toward the advisor's 200 words (not applied; Brando decides)
 
-Savings under the same counting rule: drop "which Lyu et al. (2026) also use" (7 words; Lyu is credited in the introduction); replace the two descriptors in sentence 3 by the bare citation "(Elangovan et al., 2025; Li et al., 2026)" (16 words; but the descriptors are what the advisor asked for, so cut last); shorten sentence 6 to "...mean squared error over the rating variance, so it ignores level and scale" (7 words); end sentence 5 after "expected score" (7 words; this drops the sampling-error qualifier). The first, third, fourth and fifth cuts together bring the count to 211. The 211-word abstract assembled in the Fable literature report (`/tmp/agent_reports` in the session, not tracked) takes a similar route.
+Savings under the same counting rule: drop "which Lyu et al. (2026) also use" (7 words; Lyu is credited in the introduction); replace the two descriptors in sentence 3 by the bare citation "(Elangovan et al., 2025; Li et al., 2026)" (16 words; but the descriptors are what the advisor asked for, so cut last); shorten sentence 6 to "...mean squared error over the rating variance, so it ignores level and scale" (7 words); end sentence 5 after "expected score" (7 words; this drops the sampling-error qualifier). All four cuts together bring the count to 211 (checked 28 Nov 2026 with the same counting script on a copy; without the descriptor cut it is 227, so about 200 needs the descriptors cut or a further sentence removed). The 211-word abstract assembled in the Fable literature report (`/tmp/agent_reports` in the session, not tracked) takes a similar route.
 
 ## Not yet addressed
 
