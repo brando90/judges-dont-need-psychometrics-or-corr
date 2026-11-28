@@ -2,7 +2,7 @@
 \section{Evaluate Conditional Probability Forecasts}
 \label{sec:proposal}
 For ratings $r\in\{0,\ldots,5\}$ and input $x=(y,y^*)$, we evaluate a judge $q_\theta(\cdot\mid x)$ with a bounded, strictly proper score matched to the label encoding~\citep{gneiting2007strictly}.
-The \emph{normalized Brier score} on the one-hot encoding and the ranked probability score (RPS) on the cumulative encoding are
+The \emph{normalized Brier score}~\citep{brier1950verification} on the one-hot encoding and the ranked probability score (RPS)~\citep{epstein1969scoring} on the cumulative encoding are
 \begin{align}
 L_{\rm Brier}(q,r)&=\frac12\sum_{j=0}^{5}(q_j-\mathbf{1}\{r=j\})^2,\label{eq:brier-norm}\\
 L_{\rm RPS}(q,r)&=\frac{1}{5}\sum_{j=0}^{4}(Q_j-\mathbf{1}\{r\leq j\})^2,
@@ -28,10 +28,10 @@ CE has excess loss $\KL(p\|q)$, assuming forecast support covers the population 
 
 \paragraph{Skill and agreement strata.}
 The per-sample risk of a score $S$ over held-out items $x$ with $k_x$ ratings each, $\hat R_S=\frac1{|D|}\sum_{x\in D}\frac1{k_x}\sum_{j=1}^{k_x}S\big(q(\cdot\mid x),r_{x,j}\big)$, is unbiased for the expected score for any number of ratings per item, including one.
-The skill score $1-\hat R_S(\text{judge})/\hat R_S(\text{base rate})$, with the marginal rating distribution as base rate, is $0$ for a judge as good as the base rate, negative for a worse one, and at most $1$.
+The skill score~\citep{murphy1989skill} $1-\hat R_S(\text{judge})/\hat R_S(\text{base rate})$, with the marginal rating distribution as base rate, is $0$ for a judge as good as the base rate, negative for a worse one, and at most $1$.
 Being a ratio of two risk estimates, it is consistent rather than unbiased.
-The risk ranks judges, but the distance to $p$ (the expected excess loss) is the risk minus the uncertainty term $\mathbb{E}_x S(p_x,p_x)$, for normalized Brier $\frac12(1-\sum_j p_j^2)$ and for each RPS threshold $P_j(1-P_j)$; these depend on how often two ratings of one item agree, so estimating the distance needs at least two ratings per item (finite statements Lean-checked with numerics, Experiment~53).
-Items with at least four ratings are stratified by human agreement measured on one random half of their ratings (so at least two ratings define agreement), and every score is computed on the other half, so a stratum is not chosen with the ratings that score it.
+The risk ranks judges, but the distance to $p$ (the expected excess loss) is the risk minus the uncertainty term $\mathbb{E}_x S(p_x,p_x)$, for normalized Brier $\frac12(1-\sum_j p_j^2)$ and for each RPS threshold $P_j(1-P_j)$; these depend on how often two ratings of one item agree, so estimating the distance needs at least two ratings per item: one rating per item does not identify the term, and two independent ratings estimate it without bias through their agreement probability (the finite identities and a two-category witness for normalized Brier are Lean-checked, and the per-threshold identity for RPS, Experiment~53; the statement for every number of categories is not).
+Following \citet{elangovan2025beyond}, we stratify items by human agreement; for items with at least four ratings, agreement is measured on one random half of their ratings (so at least two ratings define agreement) and every score is computed on the other half, so a stratum is not chosen with the ratings that score it.
 
 Empirical evaluation averages losses over observed ratings, including with one rating per input.
 A histogram of two or three ratings remains a noisy estimate, and pooling marginal histograms discards the input--rating association.

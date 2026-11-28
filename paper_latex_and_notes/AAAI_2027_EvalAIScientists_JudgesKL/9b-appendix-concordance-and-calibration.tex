@@ -32,24 +32,24 @@ Directly training all 78 softmax weights via mean squared error (MSE) also fixes
 Moreover, whereas properly regularized 12-parameter Stage-2 CE heads slightly edge out unconstrained 78-weight CE when concentration $\kappa$ is constant ($0.0015$--$0.0022$ vs.\ $0.0027$--$0.0029$ RPS excess in Scenarios~C and~D at $n=2{,}048$), they remain bounded well above CE whenever disagreement $\kappa(x)$ varies ($0.0078$--$0.0079$ vs.\ $0.0007$ in Scenario~A; $0.0071$--$0.0074$ vs.\ $0.0036$ in Scenario~B).
 
 \paragraph{Correction to restart descriptions (11-26-2026).}
-The earlier descriptions below say ``100 seeds'', ``best-of-9'', and ``9 starts''; the stored experiment 07 records instead contain 30 seeds and five starts per correlation objective (one CE start), with 540 records in total.
-This correction also applies to the preserved caption of Table~\ref{tab:restarts-conv}.
+The earlier descriptions said ``100 seeds'', ``best-of-9'' and ``9 starts''; the stored experiment 07 records instead contain 30 seeds and five starts per correlation objective (the original start plus four random ones, chosen by the training objective; one CE start), with 540 records in total, and the figure image already stated this.
+The figure caption, the paragraph after it and the caption of Table~\ref{tab:restarts-conv} were updated on 11-28-2026 to the stored values.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_restarts_vs_n.png}
-\caption{Held-out test RPS excess and CE excess versus training tasks $n$ (each with 3 ratings; 500 test tasks per seed across 100 seeds) comparing single-start fits against best-of-9 multi-start restarts (L-BFGS-B up to 2,000 iterations) in synthetic Scenarios~A and~B\@.
+\caption{Held-out test RPS excess and CE excess versus training tasks $n$ (each with 3 ratings; 500 test tasks per seed across 30 seeds) comparing single-start fits against best-of-5 multi-start restarts (the original start plus four random ones, chosen by the training objective; L-BFGS-B up to 2,000 iterations) in synthetic Scenarios~A and~B\@.
 Convex CE eliminates optimizer sensitivity, whereas Stage-2 calibration spikes at $n \le 32$ before stabilizing near $0.008$--$0.009$ RPS excess at $n=1{,}024$.}
 \label{fig:restarts-app}
 \end{figure}
 
 Table~\ref{tab:restarts-conv} and Figure~\ref{fig:restarts-app} summarize optimizer reliability across objectives from Experiment~07.
 At $n \ge 32$ tasks under the 400-iteration budget, convex CE, smooth RPS, and the 12-parameter calibration head reach full L-BFGS-B convergence on all runs, whereas scale-free Pearson converges on $0\%$ of runs ($91\%$ still exhaust an extended 2,000-iteration cap).
-Multi-start restarts (\texttt{best} over 9 starts) improve Pearson by at most $0.001$--$0.003$ RPS excess at $n=1{,}024$, leaving the gap to CE intact.
+Multi-start restarts (\texttt{best} over 5 starts) improve Pearson by at most $0.001$--$0.003$ RPS excess at $n=1{,}024$, leaving the gap to CE intact.
 
 \begin{table*}[t]
 \centering
-\caption{Optimizer convergence rates at $n \ge 32$ and Scenario~A/B held-out test RPS excess (\texttt{orig} single-start $\to$ \texttt{best} of 9 restarts, 2,000-iteration budget, 100 seeds; 0 optimal, lower is better).}
+\caption{Optimizer convergence rates at $n \ge 32$ and Scenario~A/B held-out test RPS excess (\texttt{orig} single-start $\to$ \texttt{best} of 5 starts, 2,000-iteration budget, 30 seeds; 0 optimal, lower is better).}
 \label{tab:restarts-conv}
 \small
 \begin{tabular}{@{}lcc@{}}

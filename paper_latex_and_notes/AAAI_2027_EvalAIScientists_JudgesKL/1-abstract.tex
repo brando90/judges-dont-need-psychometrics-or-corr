@@ -1,26 +1,24 @@
 \begin{abstract}
 \noindent
-% Line notes S1-S9 applied 11-28-2026; 218 words by script (whitespace tokens, math as one token; see docs/notes/abstract_rewrite_28Nov2026.md).
-% S1: context sentence, unchanged.
-LLM judges are validated by correlation or agreement with human ratings.
-% S3 and the credit to Pavlick and Kwiatkowski 2019 / Plank 2022: the distribution target is theirs, so it is credited, not claimed; p* has its own sentence.
-Following Pavlick and Kwiatkowski (2019) and Plank (2022), the target is the rating distribution $p^*$ of a rater pool and rubric.
-% S2/S8: Elangovan et al. Sec. 3.2 (binned JSD on pooled labels) and Li et al. Sec. 5.1 (squared error to the ten-vote mean, pairwise only) already compare judges with rating distributions; no claim that no metric does.
-Binned Jensen--Shannon divergence (Elangovan et al., 2025) and squared error to vote means on pairwise preferences (Li et al., 2026) compare judges with such distributions.
-% S6: "adopt"; Epstein 1969; RPS spelled out; one reduction (RPS on a hard prediction is normalized absolute error); cross-entropy and Lean cut.
-We adopt item-level strictly proper scores: Brier for categories and, for ordinal ratings, the ranked probability score (RPS; Epstein, 1969), normalized absolute error on hard predictions.
-% S7: one rating per item gives an unbiased expected score, enough to rank judges (distance to p* needs several ratings; see the checklist in the Conclusion).
-One rating per item gives an unbiased expected score, enough to rank judges.
-% S5: r^2 = 1 - MSE(best affine fit)/Var(Y) in words; S3: level and scale named through pass-rate thresholds.
-Squared correlation is one minus the best affine fit's mean squared error over the rating variance, so it ignores the level and scale behind pass-rate thresholds.
-% S4: sampled-score result in its own sentence, with sampled scores defined; the pronoun "it" is gone.
-For sampled scores (single draws at nonzero temperature), correlation prefers the conditional mean to a draw from $p^*$.
-% S9: the preregistered Pearson test (Exp 46) found no significant rank reversal; no artifact is claimed.
-On five frontier judges, a preregistered test found no significant rank reversal between Pearson correlation and a proper score.
-% Exp 46 (80-82% majority agreement) and Exp 58 (mean forecast probability of unsafe 8.6 to 13.8% for those four judges, human rate 32.7%).
-Yet on DICES-350 four judges with 80--82\% majority agreement forecast unsafe rates of 9 to 14\% where the human rate is 33\%.
-% Exp 56 (first beats the base rate at 100 single ratings) and Exp 48 (78 of 82 moved maps significantly worse than in-domain).
-Recalibration needs about 100 single held-out ratings and transfers poorly across datasets, rubrics and pooled sources (78 of 82 significantly worse than in-domain).
-% S9: recommendation; correlation is kept for linear discrimination.
-We recommend reporting a proper score, split into calibration error and resolution, beside correlation.
+% Rewritten 11-28-2026 after four independent reviews (Opus 5.5 and Codex on the paper, Fable 5.2 on the literature and on the slides); word count by docs/notes/abstract_wordcount_28Nov2026.py (whitespace tokens, math as one token); see docs/notes/abstract_rewrite_28Nov2026.md.
+% S1: context sentence; the acronym is spelled out at first use.
+Large language model (LLM) judges are validated by correlation or agreement with human ratings.
+% S3 and the credit to Pavlick and Kwiatkowski 2019 / Plank 2022: the distribution target is theirs, so it is credited, not claimed; p* has its own sentence and is item-conditional.
+Following Pavlick and Kwiatkowski (2019) and Plank (2022), the target is each item's rating distribution $p^*$ for a stated rater pool and rubric.
+% S2/S8: Elangovan et al. Sec. 3.2 (binned JSD between pooled human labels and pooled sampled judge labels) and Li et al. Sec. 5.1 (squared error to each item's mean of ten teacher votes, pairwise only) already compare judges with rating distributions; no claim that no metric does.
+Prior work compares judges with rating distributions: binned Jensen--Shannon divergence between pooled human and judge labels (Elangovan et al., 2025) and squared error to per-item vote means (Li et al., 2026).
+% S6: "adopt"; Epstein 1969; RPS spelled out; one reduction (RPS on a hard prediction is normalized absolute error); cross-entropy and Lean cut. Lyu et al. 2026 (introduction) already report annotation-level RPS and Brier scores.
+We adopt item-level strictly proper scores, which Lyu et al. (2026) also use: Brier for categories and, for ordinal ratings, the ranked probability score (RPS; Epstein, 1969), which on hard predictions equals normalized absolute error.
+% S7: an unbiased estimate of the expected score from one held-out rating per item, which ranks judges up to sampling error (unbiased is not the same as a reliable ranking; the distance to p* needs two or more ratings per item; see the checklist in the Conclusion).
+One held-out rating per item gives an unbiased estimate of each judge's expected score, which ranks judges up to sampling error.
+% S5: r^2 = 1 - MSE(best affine fit)/Var(Y) in words; S3: level and scale named through the uses cited in the introduction (mean-score comparisons, score thresholds); no pronoun.
+Squared correlation is one minus the best affine fit's mean squared error over the rating variance, so correlation ignores the level and scale that thresholds and mean-score comparisons use.
+% S4: sampled-score result in its own sentence, with the hypotheses of the Lean-checked finite-law theorem (independence given the item; item means differ; raters disagree within items). Temperature is not the hypothesis: the five frontier judges ran at temperature 0.
+A judge whose score is one draw from $p^*$, independent of the human rating given the item, has lower Pearson correlation than a judge reporting each item's mean, whenever ratings vary between and within items.
+% S9: the preregistered Pearson test (Exp 46: 0 of 50 comparisons significant) found no significant rank reversal; no artifact is claimed; strictly proper, as in the adopted scores.
+On five frontier judges, a preregistered test found no significant rank reversal between Pearson correlation and a strictly proper score.
+% Exp 46 (80-82% majority agreement, all five judges) and Exp 58 (mean forecast probability of unsafe 8.6 to 24.0% for the five judges, human rate 32.7%).
+Yet on DICES-350 all five, with 80--82\% majority agreement, forecast unsafe rates of 9 to 24\% where the human rate is 33\%.
+% S9: recommendation; correlation is kept for linear discrimination; held-out ratings; strictly proper.
+We recommend reporting a strictly proper score on held-out ratings, split into calibration error and resolution, beside correlation.
 \end{abstract}

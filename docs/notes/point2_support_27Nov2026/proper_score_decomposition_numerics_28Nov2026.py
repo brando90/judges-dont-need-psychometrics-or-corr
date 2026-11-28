@@ -303,6 +303,37 @@ r2b = cov(w, s3, y) ** 2 / (cov(w, s3, s3) * cov(w, y, y))
 record("(9g) claimed-false: 'Pearson r is invariant to every strictly increasing relabelling' FAILS (S -> S^3)", r2a != r2b,
        f"r^2 = {r2a} vs {r2b}")
 
+# ---------------------------------------------------------------- (10) a finer conditioning key (added 28 Nov 2026 after review)
+# Claim: for a proper score, replacing the forecast value by a finer key (here the cell, i.e. the item) leaves UNC - RES + CAL unchanged
+# and ADDS THE SAME NONNEGATIVE AMOUNT E H(p_q) - E H(p_key), with H(b) = E_{Y~b} S(b, Y), to the resolution and to the calibration error.
+# It does not move calibration error into resolution. These checks run after all earlier ones, so earlier random draws are unchanged.
+ok_same, ok_nonneg, fell, opposite, n_laws = True, True, 0, 0, 0
+for name, (S, exact) in SCORES.items():
+    for _ in range(N_TRIALS):
+        K, cells = rand_cells(positive=True)
+        _, unc1, res1, cal1, _, _ = decompose(S, cells, by_forecast)
+        _, unc2, res2, cal2, _, _ = decompose(S, cells, by_cell)
+        dres, dcal = res2 - res1, cal2 - cal1
+        ok_same &= close(dres, dcal, exact)
+        ok_nonneg &= less_eq(0, dres, exact) and less_eq(0, dcal, exact)
+        tiny = 0 if exact else TOL_CE
+        fell += float(dcal) < -tiny
+        opposite += (float(dres) > tiny and float(dcal) < -tiny) or (float(dres) < -tiny and float(dcal) > tiny)
+        n_laws += 1
+record("(10) finer key (cell instead of forecast value): resolution and calibration error both rise by the same amount >= 0, scores Brier, RPS, CE",
+       ok_same and ok_nonneg, f"{n_laws} random laws, exact fractions for Brier and RPS, tol 1e-12 for CE")
+
+# worked example (unnormalized Brier = the sum of squared errors over categories, as defined above)
+q_const = [F(1, 2), F(1, 2)]
+cells_ex = [(F(1, 2), q_const, [F(1), F(0)]), (F(1, 2), q_const, [F(0), F(1)])]  # two equally likely items, Y = 0 and Y = 1
+_, u_a, r_a, c_a, _, _ = decompose(brier, cells_ex, by_forecast)
+_, u_b, r_b, c_b, _, _ = decompose(brier, cells_ex, by_cell)
+record("(10w) worked example: constant forecast (1/2, 1/2) on two items with Y = 0 and Y = 1 has (UNC, RES, CAL) = (1/2, 0, 0) by forecast value and (1/2, 1/2, 1/2) by item",
+       (u_a, r_a, c_a) == (F(1, 2), 0, 0) and (u_b, r_b, c_b) == (F(1, 2), F(1, 2), F(1, 2)),
+       f"by forecast value ({u_a}, {r_a}, {c_a}); by item ({u_b}, {r_b}, {c_b})")
+record("(10f) claimed-false: 'a finer key moves calibration error into resolution' FAILS (calibration error never fell; the two terms never moved in opposite directions)",
+       fell == 0 and opposite == 0, f"calibration error fell on {fell} of {n_laws} laws; opposite moves on {opposite}")
+
 bad = 0
 for name, ok, detail in results:
     print(f"{'PASS' if ok else 'FAIL'}  {name}  [{detail}]")

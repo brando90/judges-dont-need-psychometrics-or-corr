@@ -23,4 +23,7 @@ PASS  (8f) claimed-false: 'r^2 Var Y = Var g(S)' FAILS (Y = S^2 gives r = 0 but 
 PASS  (9) an affine relabelling of S leaves r^2 and E[Y|S] unchanged  [277 laws, exact]
 PASS  (9f) claimed-false: 'the calibration error E(g(S)-S)^2 is unchanged by an affine relabelling' FAILS  [changed on 273 of 277 laws]
 PASS  (9g) claimed-false: 'Pearson r is invariant to every strictly increasing relabelling' FAILS (S -> S^3)  [r^2 = 4/7 vs 25/73]
-seed=20261128; 25/25 PASS
+PASS  (10) finer key (cell instead of forecast value): resolution and calibration error both rise by the same amount >= 0, scores Brier, RPS, CE  [900 random laws, exact fractions for Brier and RPS, tol 1e-12 for CE]
+PASS  (10w) worked example: constant forecast (1/2, 1/2) on two items with Y = 0 and Y = 1 has (UNC, RES, CAL) = (1/2, 0, 0) by forecast value and (1/2, 1/2, 1/2) by item  [by forecast value (1/2, 0, 0); by item (1/2, 1/2, 1/2)]
+PASS  (10f) claimed-false: 'a finer key moves calibration error into resolution' FAILS (calibration error never fell; the two terms never moved in opposite directions)  [calibration error fell on 0 of 900 laws; opposite moves on 0]
+seed=20261128; 28/28 PASS

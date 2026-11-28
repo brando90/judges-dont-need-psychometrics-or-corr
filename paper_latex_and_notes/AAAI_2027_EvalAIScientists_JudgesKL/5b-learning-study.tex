@@ -9,6 +9,7 @@
 \label{sec:learning}
 The identification study above selects among fixed candidates.
 We now train a flexible judge and ask how many ratings proper-loss training needs before it beats correlation training on held-out data.
+These are training-objective comparisons: both arms are scored with a proper rule, which favors the proper-loss arm by construction, so they bear on how to train a judge once the target is a distribution, not on whether a proper score should replace correlation in evaluation.
 
 \paragraph{Setup.}
 Each synthetic task has a feature $x\sim\mathrm{Unif}[-1,1]$ and ratings $R\mid x\sim\mathrm{BetaBin}\big(5,\mu(x)\kappa(x),(1-\mu(x))\kappa(x)\big)$ with mean $5\mu(x)$; at a fixed mean, smaller concentration $\kappa$ means greater rating variance.
@@ -32,6 +33,7 @@ The inherited CE code has an inconsistent gradient when probabilities are clippe
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_ratings_needed.pdf}
 \caption{\textbf{Ratings needed before proper-loss training wins.} Held-out test ranked probability score (RPS) excess, the mean squared cumulative-probability gap to truth ($[0,1]$; zero is optimal; log scale; lower is better) against training ratings, for judges trained by CE or by Pearson correlation and for a constant training-histogram forecast, in four synthetic targets.
+Both arms are scored by a proper rule, so the figure compares training objectives, not evaluation metrics.
 Dotted lines mark the size from which the CE-trained judge is significantly better at every larger tested size (paired 95\% percentile bootstrap over 100 seeds, 10,000 draws).
 The 78-weight softmax judges minimize train CE or negative train Pearson plus $\frac{1}{n}\|W\|^2$, using L-BFGS-B (400 iterations, 600 evaluations) from the perturbed training histogram.
 Unclipped CE fitting is convex and every exact-gradient CE refit converged; Pearson fitting is non-convex and has no global-optimum guarantee.}
