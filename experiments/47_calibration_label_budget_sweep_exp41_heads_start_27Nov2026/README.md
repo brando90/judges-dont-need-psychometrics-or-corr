@@ -2,6 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/47_calibration_label_budget_sweep_exp41_heads_start_27Nov2026/README.md>
 
+> **Note 11-28-2026 (QA; results unchanged).** The two heads compared here are both scored by a proper rule, so the comparison is circular as evidence for the evaluation claim (Experiment 53); it measures how many held-out labels the calibration step needs for these linear heads. For the frontier judges the budget is Experiment 56: n = 100 is the smallest tested budget at which every judge's mean calibrated skill is above the base rate on all five sets, and 8 of 25 judge-set cases are still below their uncalibrated skill at n = 100.
+
+
 **TLDR:** "Calibration closes the gap" (Experiment 41: at most 0.0024 normalized RPS) holds only once the calibrator has about 100 to 200 held-out human ratings. With n single ratings on n validation items, the Pearson-trained head plus its calibration map is still worse than the cross-entropy-trained (CE-trained) head used raw by +0.010 to +0.024 test normalized RPS at n = 25, and it is then worse than the constant base-rate forecast on 15 of 16 views. The gap reaches the 0.0024 bound at n\* = 50 (1 view), 100 (6 views) or 200 (9 views). With all ratings of each calibration item, n\* = 25 to 100 items. The calibration step needs labels, and only a proper score on held-out labels shows when it has worked; correlation-based validation asks for neither.
 
 **As of:** 11-27-2026 (Friday, Pacific time). CPU, \$0. Protocol frozen first: [PROTOCOL.md](PROTOCOL.md), commit 83b9782.

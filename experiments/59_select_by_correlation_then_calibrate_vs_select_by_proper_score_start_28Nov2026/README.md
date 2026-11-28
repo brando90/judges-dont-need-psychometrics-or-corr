@@ -1,5 +1,8 @@
 # Experiment 59: select by correlation then calibrate (path A) versus select by cross-validated proper score (path B)
 
+> **Note 11-28-2026 (Experiment 61, post hoc; results unchanged).** Against a uniformly random pick among the five judges, path B (cross-validated calibrated proper risk) has a higher mean regret than the random pick in 11 of 20 cells (9 with the whole interval above zero, all at n of 100 or fewer), path A (correlation) in 1 of 20 (not significant) and path C (raw proper risk) in none. The intervals above are percentile intervals over the 200 splits, not item-clustered bootstrap intervals.
+
+
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) (commit `ae58f5c`) with amendment A1 (commit `973b0a4`, label budget capped at the pool size), both before the first real-data run of `scripts/run_exp59.py`.
 Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/59_*/scripts/run_exp59.py --workers 2` (about 100 seconds; the draws file is byte-identical across runs and worker counts) and the tests with `python -m pytest experiments/59_*/tests -q` (7 pass).
 

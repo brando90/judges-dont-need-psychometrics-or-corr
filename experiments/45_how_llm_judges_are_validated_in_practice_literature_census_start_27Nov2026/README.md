@@ -2,6 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/45_how_llm_judges_are_validated_in_practice_literature_census_start_27Nov2026/README.md>
 
+> **Note 11-28-2026 (QA; results unchanged).** The count "1 of 40 scores the human rating distribution with a proper rule" is over the 40 human-validated sources and excludes the eight L6 critique papers; three of those eight (Elangovan et al. L6-01, Li et al. L6-02, Guerdan et al. L6-04) are coded `dist_any = Y`. Read the census as a description of practice in the 40 sources, not as "no paper compares judges with rating distributions". The 49-paper audit for item-level proper scores and divergences is Experiment 54 (six papers report one).
+
+
 **Google Doc copy (private to Brando):** <https://docs.google.com/document/d/1X8FiUNw8gDDFGC0rn4CZK_o950ojzMm9VJ83khUxukI/edit>
 
 **Status:** complete, Fri 11-27-2026. No model training and no judge API calls; the reads used the session's web fetch tool.

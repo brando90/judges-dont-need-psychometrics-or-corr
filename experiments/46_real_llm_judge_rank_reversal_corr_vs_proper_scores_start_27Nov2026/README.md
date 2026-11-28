@@ -2,6 +2,9 @@
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/experiments/46_real_llm_judge_rank_reversal_corr_vs_proper_scores_start_27Nov2026/README.md>
 
+> **Note 11-28-2026 (QA; results unchanged).** The word "artifact" in the section below ("That is the artifact claim") is withdrawn. What survives, from Experiments 57 to 61: high top-1 agreement or correlation can coexist with negative skill and a level far from the human rate (DICES-350: mean forecast probability of unsafe 8.6 to 24.0 percent against a human rate of 32.7 percent). What does not: the preregistered Pearson test has 0 of 50 significant reversals, the two Holm-significant Spearman reversals vanish after calibration, and selecting by correlation and then recalibrating did at least as well as selecting by a cross-validated proper score (Experiment 59), which was worse than a random pick in 11 of 20 cells (post hoc, Experiment 61). For scale, the human majority label is unsafe on 22.9 percent of DICES-350 items (Experiment 61), so a judge that never answers unsafe agrees with the majority on at most about 77 percent; the 80 to 82 percent agreement quoted below is a modest margin over that.
+
+
 **Status: interim, 11-27-2026 (Friday, Pacific time).**
 - The frontier panel is complete (frozen Experiment 28 forecasts on all items).
 - The local CPU panel is partial: 3 of 12 model-by-style judges are done, and the rest are running on the box.

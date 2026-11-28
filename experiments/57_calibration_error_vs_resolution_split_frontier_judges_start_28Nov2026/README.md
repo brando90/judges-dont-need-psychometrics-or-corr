@@ -1,5 +1,8 @@
 # Experiment 57: calibration error versus resolution on the five frozen frontier judges
 
+> **Note 11-28-2026 (QA; results unchanged).** Read "calibration error" and "resolution" below as the estimated calibration gain (R_raw − R_cal) and the calibrated skill (UNC − R_cal): finite-sample estimates with a restricted map family, not guaranteed lower bounds on the population terms. The relation raw skill = calibrated skill − estimated gain holds by construction, so the residual of 3e-17 is a floating-point check of the code, not evidence for the decomposition.
+
+
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) was committed in
 `ae58f5c` before the first run of `scripts/run_exp57.py`; nothing in it was changed afterwards. Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md).
 Run it again with `python experiments/57_*/scripts/run_exp57.py` (about fifteen seconds; two runs give byte-identical result files) and the tests with

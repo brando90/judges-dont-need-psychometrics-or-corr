@@ -1,5 +1,8 @@
 # Experiment 58: pass-rate gates where level and scale matter
 
+> **Note 11-28-2026 (QA and Experiment 61; results unchanged).** The hard-label rate is compared with the rater-share human rate, which a hard-label judge that matched the human majority on every item would itself miss: by -9.8 points on DICES-350 and -9.5 on DICES-990 (Experiment 61). Read the hard-label errors (-20.4 to -25.2 points on DICES-350) with that gap in mind; against the human majority rate they are -15.4 to -10.6 (DICES-350) and -6.8 to -1.8 (DICES-990). The soft-rate comparison does not have this issue.
+
+
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) was committed in `ae58f5c` before the first run
 of `scripts/run_exp58.py`; the one addition after that (a post hoc comparator) is labeled below and does not touch any pre-registered quantity. Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md).
 Run it again with `python experiments/58_*/scripts/run_exp58.py` (two seconds; reruns are byte-identical) and the tests with `python -m pytest experiments/58_*/tests -q` (7 pass).

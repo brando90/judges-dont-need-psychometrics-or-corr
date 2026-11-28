@@ -1,5 +1,8 @@
 # Experiment 60: sampled-score judge versus conditional-mean judge on real human rating distributions (oracle check; data for Figure 1)
 
+> **Note 11-28-2026 (Experiment 61, post hoc; results unchanged).** The collapsed-forecast skills below (-0.475 on DICES-350, -0.492 on DICES-990, +0.529 on alphaNLI) are for the rounded-mean convention. On DICES-350 the same collapsed forecast has skill -0.245 with the modal label, -0.237 with the median label and -0.152 as a two-point forecast that preserves the mean (truthful: +0.167); on the two DICES sets the truthful forecast beats every collapsed forecast by 0.32 to 0.64 in skill, so the size depends on the convention and the order does not. On alphaNLI the two-point forecast ties the truthful one. The mean-judge correlations (0.802, 0.424, 0.401) sit just below the large-sample value sqrt(rho_hat) (0.807, 0.438, 0.425) because each half has finitely many raters.
+
+
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) (commit `ae58f5c`), before the first run of `scripts/run_exp60.py`; no deviation from it.
 Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/60_*/scripts/run_exp60.py` (about 5 seconds; every output is byte-identical across runs) and the tests with `python -m pytest experiments/60_*/tests -q` (13 pass).
 
