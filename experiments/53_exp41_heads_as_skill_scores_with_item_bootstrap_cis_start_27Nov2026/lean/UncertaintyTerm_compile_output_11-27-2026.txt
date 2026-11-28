@@ -1,0 +1,7 @@
+# lake env lean UncertaintyTerm.lean (compiled inside the Point2 Lake project: Lean 4.36.0, Mathlib v4.36.0), 11-27-2026 19:57 PST
+# grep -c sorry: 1 (the word appears only in the header comment 'Zero sorry')
+'E53.pair_agreement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E53.brier_uncertainty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E53.threshold_uncertainty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E53.one_rating_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit code: 0
