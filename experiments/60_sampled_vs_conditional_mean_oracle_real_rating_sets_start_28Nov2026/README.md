@@ -4,7 +4,7 @@
 
 
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) (commit `ae58f5c`), before the first run of `scripts/run_exp60.py`; no deviation from it.
-Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/60_*/scripts/run_exp60.py` (about 5 seconds; every output is byte-identical across runs) and the tests with `python -m pytest experiments/60_*/tests -q` (13 pass).
+Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/60_*/scripts/run_exp60.py` (about 5 seconds; every output is byte-identical across runs) and the tests with `python -m pytest experiments/60_*/tests -q` (13 pass). Data prerequisite: the same frozen bundle as Experiment 57 (not tracked by git; rebuild steps and checksum in Experiment 57's README).
 
 ## Label: this is an ORACLE CHECK, not evidence about language-model judges
 No language model is involved. The "judges" are built from half of the human ratings of each item and scored against the other half. The experiment applies a theorem to the empirical rating laws of three real rating sets and shows how large its two sides are.

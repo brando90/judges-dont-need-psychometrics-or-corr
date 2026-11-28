@@ -5,7 +5,7 @@
 
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) was committed in `ae58f5c` before the first run
 of `scripts/run_exp58.py`; the one addition after that (a post hoc comparator) is labeled below and does not touch any pre-registered quantity. Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md).
-Run it again with `python experiments/58_*/scripts/run_exp58.py` (two seconds; reruns are byte-identical) and the tests with `python -m pytest experiments/58_*/tests -q` (7 pass).
+Run it again with `python experiments/58_*/scripts/run_exp58.py` (two seconds; reruns are byte-identical) and the tests with `python -m pytest experiments/58_*/tests -q` (7 pass). Data prerequisite: the same frozen bundle as Experiment 57 (not tracked by git; rebuild steps and checksum in Experiment 57's README).
 
 ## Question
 Correlation ranks and ignores level and scale, but judge scores are also used where level matters: the share of outputs flagged, a pass rate against a threshold. On the same five frozen frontier judges and five rating sets as Experiment 57, how far is the event rate

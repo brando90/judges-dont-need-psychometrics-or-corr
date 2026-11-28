@@ -6,7 +6,7 @@
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) was committed in
 `ae58f5c` before the first run of `scripts/run_exp57.py`; nothing in it was changed afterwards. Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md).
 Run it again with `python experiments/57_*/scripts/run_exp57.py` (about fifteen seconds; two runs give byte-identical result files) and the tests with
-`python -m pytest experiments/57_*/tests -q` (9 pass).
+`python -m pytest experiments/57_*/tests -q` (9 pass). Data prerequisite: the frozen bundle `experiments/39_*/data/processed/study_a_bundle.npz` is not tracked by git. On a fresh clone, run `python3 src/fetch_raw_data.py` and then `python3 src/prepare_data.py` inside `experiments/39_*/` (sources and checksums: `experiments/39_*/data/README.md`). On 11-28-2026 `prepare_data.py`, run on the raw files in a scratch copy, wrote a bundle byte-identical to the one these results used (sha256 beginning `55935c4d`, full value in `results/hypotheses.json`); the fetch step was not re-run.
 
 ## Question
 The paper recommends reporting a strictly proper score split into calibration error and resolution next to correlation. This experiment shows that split on

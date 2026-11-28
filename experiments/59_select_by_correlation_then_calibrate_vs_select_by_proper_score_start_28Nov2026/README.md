@@ -4,7 +4,7 @@
 
 
 Status: run 11-28-2026 on the frozen bundle, CPU only, no model calls, API spend $0. Pre-registered: [`PROTOCOL.md`](PROTOCOL.md) (commit `ae58f5c`) with amendment A1 (commit `973b0a4`, label budget capped at the pool size), both before the first real-data run of `scripts/run_exp59.py`.
-Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/59_*/scripts/run_exp59.py --workers 2` (about 100 seconds; the draws file is byte-identical across runs and worker counts) and the tests with `python -m pytest experiments/59_*/tests -q` (7 pass).
+Reading guide: [`HOW_TO_READ_RESULTS.md`](HOW_TO_READ_RESULTS.md). Run it again with `python experiments/59_*/scripts/run_exp59.py --workers 2` (about 100 seconds; the draws file is byte-identical across runs and worker counts) and the tests with `python -m pytest experiments/59_*/tests -q` (7 pass). Data prerequisite: the same frozen bundle as Experiment 57 (not tracked by git; rebuild steps and checksum in Experiment 57's README).
 
 ## Question
 The natural objection to the paper is that recalibration removes the gap, so a practitioner can pick the judge by correlation and then recalibrate. With the same few human labels spent either way, does choosing the judge by a proper score do better than choosing it by correlation?
