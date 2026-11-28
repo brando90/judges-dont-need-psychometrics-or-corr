@@ -75,3 +75,11 @@ Crossed Gaussian objects $\times a\times b$ model, same generators, REML, ANOVA,
 ### What would count as a weak-signal failure of REML allocation
 
 The fraction of replications in which REML matches the oracle design, and the paired held-out absolute-error gap versus the oracle and versus $4\times 4$, as $t\to 1/2$ and as the pilot shrinks. Near $t=1/2$ the three designs have nearly equal $v_\Delta$, so mis-selection is expected and the error gap should be small. The scientifically important case is intermediate $t$, where the designs differ by a modest amount and a small pilot may pick the wrong one with a material error gap.
+
+## Erratum, 11-27-2026 (added after the run; the frozen text above is unchanged)
+
+1. The RPS line under "Common rules" and under "Metrics on deployment" prints $(1/(K-1))\sum_{k=0}^{K-2}(F(k)-G(k))^2$. The code (`src/study_a.py`, the same function as Experiment 28's `lib28.rps_of`) computes the normalized individual-rating RPS averaged over each item's ratings, which adds the forecast-independent term $(1/(K-1))\sum_k G(k)(1-G(k))$. Paired differences are unaffected; absolute levels include that floor.
+2. K is 3 for SNLI, MNLI-m, DICES-350 and DICES-990 and 2 for alphaNLI. The NLI labels are nominal, so RPS depends on the label order imposed.
+3. "No multiplicity correction" and "the resampling unit is the replication" are superseded for the corrected Study A, which is specified in `v2_matched_budget_corrected_11-27-2026/PROTOCOL_V2_11-27-2026.md`.
+4. The proper-score selector in this protocol could read each pilot item's full rating pool; the v2 protocol restricts every pilot-using selector to the 80 × 16 table.
+

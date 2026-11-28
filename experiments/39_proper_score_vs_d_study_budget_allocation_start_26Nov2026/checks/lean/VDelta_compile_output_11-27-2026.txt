@@ -1,0 +1,16 @@
+'v_8x2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'v_4x4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'v_2x8' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cross_lo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'cross_hi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'mid_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'half_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'low_8x2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'low_8x2_vs_2x8' depends on axioms: [propext, Classical.choice, Quot.sound]
+'high_2x8' depends on axioms: [propext, Classical.choice, Quot.sound]
+'grand_mean_more_items' depends on axioms: [propext, Classical.choice, Quot.sound]
+'item_mean_more_raters' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m2.342s
+user	0m0.982s
+sys	0m0.339s

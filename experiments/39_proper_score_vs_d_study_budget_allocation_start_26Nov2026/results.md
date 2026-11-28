@@ -2,26 +2,37 @@
 
 **Doc link:** <https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit>
 
+## Correction, 11-27-2026 (read this first)
+
+An independent review of the first version of this report (commit `1cd4fc6`; [review](../41_output_space_k_sweep_g_d_study_sufficiency_and_label_dollars_start_27Nov2026/qa_of_experiment_39_push_1cd4fc6_11-27-2026/REVIEW_by_independent_opus_subagent_11-27-2026.md)) found four defects in Study A and several wording errors. Study A was re-run under a corrected protocol that was committed before the run: [v2 results](v2_matched_budget_corrected_11-27-2026/RESULTS_V2.md) and a [paste-ready correction note](CORRECTION_NOTE_EXP39.md). Study B was not re-run; only its wording was corrected. Sections marked "v1" below are the record of the first version. Where a v1 sentence disagrees with this block or with the v2 results, the v2 results win.
+
+1. **Withdrawn:** "the proper-score selector significantly lowers held-out RPS against the per-item D-study rule in 10 of 20 cells". The v1 selector read more rating data than its stated 80 × 16 pilot, and the intervals left out test-item sampling and multiplicity. Under the corrected rules the pilot-based proper-score selector beats the most-raters rule in 2 of 20 cells after Holm correction (6 of 20 before it) and beats the most-items rule in 0 of 20.
+2. **Kept, weakened:** more items and fewer raters per item is the better split for held-out RPS. The most-items rule has a lower mean RPS than the most-raters rule in 18 of 20 cells, significantly so after Holm in 5, and never by more than 3.0% of total RPS.
+3. **Reworded:** U1 and U2 are analytic corner rules at a fixed budget (U1 always picks the most raters, U2 the most items; identical to the fixed rules in 100% of replications). Their agreement with the item-mean and grand-mean oracles comes from the formulas $\widehat{v}_e/n_r$ and $\widehat{v}_u/n_i+\widehat{v}_e/B$, not from a data-driven choice. U2's "most items" prescription also assumes no rater main effect (nested or freshly sampled raters).
+4. **Corrected formula:** the RPS formula printed in `PROTOCOL.md` and `HOW_TO_READ_RESULTS.md` left out a forecast-independent term. The code computes the normalized individual-rating RPS averaged over each item's ratings with equal item weights. Paired differences were right; absolute levels include a floor of about 0.09 to 0.19 depending on the dataset. K is 3 for SNLI, MNLI-m, DICES-350 and DICES-990 and 2 for alphaNLI. The NLI labels are nominal, so RPS depends on the order imposed; CE and TVD show the same pattern.
+5. **Study B wording:** near the analytic crossovers (grid points $t=0.30$ and $0.70$) REML picks the oracle design in 50% to 64% of replications. That is about a coin flip between two nearly tied designs, not "near chance": the third design is picked in 13 of 1,000 and 9 of 1,000 replications, and a wrong pick costs $0.0125$ in $v_\Delta$ (3.2% of $v_\Delta(4\times 4)$). Where $4\times 4$ is the oracle, any wrong pick has positive true regret by construction. "A small pilot can be significantly worse than equal allocation" is weakened: six of 55 cells are nominally worse (p < 0.05), none survives Holm over 55 cells (smallest p = 0.00295 against 0.05/55 = 0.00091), and Benjamini-Hochberg keeps four. Five of the six use pilots with four facet levels (16×4 and 64×4), so the number of facet levels matters, not only pilot size. "As the facets become harder to tell apart" was a wrong premise (at $t=1/2$ the facets are symmetric yet $4\times 4$ is uniquely best) and is removed. Seven of 11,112 REML fits did not converge and were still used.
+6. **Reproducibility:** `src/fetch_raw_data.py` now downloads the raw files from pinned sources and verifies SHA-256; the Experiment 28 forecasts are already in this repository. The v1 per-replication Study A CSV (7.8 MB) is not committed; `src/verify.py` now skips that one check when the file is absent. A core-Lean check of the Study B closed forms is in `checks/lean/VDelta.lean` (zero `sorry`, only the three standard axioms; compiler output saved next to it).
+
 **Folder.** `experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/`.
 
 **Date.** Measured 26 November 2026, committed 27 November 2026, America/Los_Angeles.
-**Location.** Scripts, frozen splits, numerical summaries, the report, and SVG figures live in this experiment folder on `main`. Raw public datasets and the Experiment 28 forecast cache are downloaded, not vendored (see `data/README.md`). The run is strictly CPU-only and made no paid LLM API calls.
+**Location.** Scripts, frozen splits, numerical summaries, the report, and SVG figures live in this experiment folder on `main`. Raw public datasets are fetched by `src/fetch_raw_data.py` from pinned sources and checked against SHA-256; the Experiment 28 forecast cache is already in this repository (`experiments/28_public_rating_sets_chaosnli_dices_frontier_judges_ce_vs_pearson_start_23Nov2026/forecasts/forecasts_11-23-2026.csv`, SHA-256 `54fbff95…`) (see `data/README.md`). The run is strictly CPU-only and made no paid LLM API calls.
 **Protocol.** Frozen in `PROTOCOL.md` before measurement; predictor amendment in `AMENDMENT_A1.md` after a 2-replication smoke test and before the 150-replication run.
 **Software.** Python venv with numpy 2.5.5, scipy 1.18.1, matplotlib 3.11.2, pandas 3.1.1. Master seed `20261126`.
 **Runtime.** Study A: 336.39 s (16:23:09–16:28:47 PT). Study B: 10.77 s (16:28:47–16:28:58 PT).
 
-## Verdict
+## Verdict (corrected 11-27-2026; Study A numbers are from v2)
 
-Proper-score design does **not** replace D-theory, and the two targets do **not** share the same optimal allocation.
+Proper-score design does **not** replace D-theory, the two targets do **not** share the same optimal allocation, and the corrected effects are small.
 
-- If the target is a **distributional forecast** of new-item $p(y\mid x)$ scored by held-out ranked probability score (RPS), the better split of a fixed rating budget $B=n_{\mathrm{items}}n_{\mathrm{raters}}$ is **more items, fewer raters per item**. A cross-validated proper-score selector and the grand-mean D-study criterion (U2) both pick this split. Against the per-item D-study criterion (U1, which always maximizes raters), the primary proper-score selector significantly lowers mean held-out RPS in 10 of 20 comparable dataset-budget cells, never significantly loses, and is inconclusive in the other 10.
-- If the target is **precision of a mean rating** (per-item universe score), the better split is **more raters, fewer items**. U1 matches the item-mean oracle on every comparable cell (modal agreement 0.83–0.97) and significantly beats U2 on held-out item-mean MSE in all 20 cells.
-- The two oracles disagree systematically. Proper scores make the *target* explicit; they do not make variance-component allocation unnecessary when the target really is a universe score.
-- The proper-score selector also does not beat U2 on held-out RPS (0 wins, 2 losses, 18 ties). Once the target is “new-item RPS,” a D-study of the *grand mean* already points at the same corner of the design grid, and the CV selector is slightly noisier.
+- If the target is a **distributional forecast** of new-item $p(y\mid x)$ scored by held-out ranked probability score (RPS), the better split of a fixed rating budget $B=n_{\mathrm{items}}n_{\mathrm{raters}}$ is **more items, fewer raters per item**, by a small margin. The most-items rule has a lower mean RPS than the most-raters rule in 18 of 20 dataset-budget cells; the difference is significant after Holm correction in 5 of 20 cells and is at most 2.97% of total RPS (13.3% of the reducible excess RPS).
+- A pilot-based proper-score selector (80 items × 16 ratings, cross-validated on that table only) beats the most-raters rule in 2 of 20 cells after Holm correction and never beats the most-items rule (0 of 20). A pilot D-study with a reliability target beats the most-raters rule in 2 cells and the most-items rule in none. The pilot (1,280 ratings) is 2.5 to 20 times the deployment budget and is not netted out, so these are upper bounds on the value of a pilot-using selector. Details: [v2 results](v2_matched_budget_corrected_11-27-2026/RESULTS_V2.md).
+- If the target is **precision of a mean rating** (universe score), the optimal split depends on which mean: more raters per item for per-item means (item-mean error lower for the most-raters rule in 20 of 20 cells), more items for the grand mean (lower for the most-items rule in 18 of 20). These are properties of the formulas $\widehat{v}_e/n_r$ and $\widehat{v}_u/n_i+\widehat{v}_e/B$, so they say nothing about a data-driven selector.
+- The two oracles disagree. Proper scores make the *target* explicit; they do not make variance-component allocation unnecessary when the target really is a universe score, and they do not by themselves choose an allocation either.
 
-On the harder synthetic Phase B of Experiment 04, constrained REML still recovers the published C1/C2 oracles, but selection accuracy falls to near chance near the true analytic crossovers $t=4/15$ and $t=11/15$. Mid-range $t=1/2$ is *not* a three-way tie: $4\times 4$ is uniquely optimal there. A small pilot can then be significantly *worse* than just using equal allocation.
+On the harder synthetic Phase B of Experiment 04 (Study B, not re-run), constrained REML still recovers the published C1/C2 oracles. Near the true analytic crossovers $t=4/15$ and $t=11/15$ (grid points $t=0.30$ and $0.70$) it picks the oracle design in 50% to 64% of replications, about a coin flip between the two nearly tied designs; the third design is picked in 13 of 1,000 and 9 of 1,000 replications, and a wrong pick there costs $0.0125$ in $v_\Delta$ (3.2% of $v_\Delta(4\times 4)$). Mid-range $t=1/2$ is *not* a three-way tie: $4\times 4$ is uniquely optimal there. Where $4\times 4$ is the oracle, any wrong pick has positive true regret, so a small pilot can only do worse than equal allocation there; whether it is detectably worse is an empirical question. Six of 55 cells are nominally worse than equal allocation (p < 0.05), none survives Holm over 55 cells, and Benjamini-Hochberg keeps four.
 
-“Beats” throughout means a lower mean on the named loss *and* a paired Student-$t$ 95% interval that excludes 0 (equivalently a two-sided paired $t$-test). Cross-entropy (CE) and total variation distance (TVD) are reported only as secondary checks. Universe-score / mean-estimation error is never mixed into the RPS comparison.
+"Beats" in the corrected Study A means a lower mean on the named loss and a Holm-adjusted two-way (replication × test item) bootstrap p-value below 0.05, with Holm applied across the 20 cells within each comparison family. In Study B and in the v1 tables it means a lower mean and a paired Student-$t$ 95% interval that excludes 0, with no multiplicity correction. Cross-entropy (CE) and total variation distance (TVD) are secondary checks. Universe-score / mean-estimation error is never mixed into the RPS comparison.
 
 ## Data, splits, and predictor (no leakage)
 
@@ -33,7 +44,7 @@ Public sources were cached under `data/raw/` (SHA-256 in `data/raw/SHA256SUMS.tx
 
 Experiment 28 item subsets were reconstructed with `SeedSequence([20261123, k])`: SNLI 600 (test 180 / dev 420), MNLI-m 600 (180 / 420), alphaNLI 400 (120 / 280), DICES-350 350 (105 / 245), DICES-990 400 (120 / 280). Frozen test / dev partitions use `SeedSequence([20261126, 1, k])` at 30% / 70%. Every item used here has at least one valid frozen-judge forecast. ChaosNLI supplies per-item label counts only (no rater IDs); DICES-350 is a complete 350 $\times$ 123 crossing; DICES-990 is incomplete (minimum 69 ratings per selected item).
 
-**Pilot** (for both selectors): 80 dev items $\times$ 16 ratings, drawn independently in each replication. **Deployment training** uses only the remaining dev pool. The frozen test set is never used to choose a design, a transform, or a mixture weight. Verification (`src/verify.py`) confirmed disjoint test/dev partitions, zero test overlap in deployment training (rep 0, SNLI), deterministic pilot tables under a fixed seed, and 25/25 hard checks after correcting one protocol typo (see Study B).
+**Pilot** (for both selectors): 80 dev items $\times$ 16 ratings, drawn independently in each replication. **Deployment training** draws from the full dev pool, pilot items included (`PROTOCOL.md` allows this). The frozen test set is never used to choose a design, a transform, or a mixture weight. Verification (`src/verify.py`) confirmed disjoint test/dev partitions, zero test overlap in deployment training (rep 0, SNLI), deterministic pilot tables under a fixed seed, and 25/25 hard checks after correcting one protocol typo (see Study B).
 
 **Primary predictor.** The Experiment 28 27-transform CE-fit of a mixture of five frozen frontier-judge probabilities. No new API calls. The selected transform is applied to the frozen judge probabilities on the held-out test items. Because the head is discrete, two designs can select the same transform and then have *identical* test RPS; this is reported as a transform-tie rate and is why some paired differences are exactly zero.
 
@@ -41,14 +52,14 @@ Experiment 28 item subsets were reconstructed with `SeedSequence([20261123, k])`
 
 **Selectors, at each budget $B$.**
 
-- U1 (per-item D-study): one-facet ANOVA on the pilot ($\widehat{v}_{u}\ge 0$, $\widehat{v}_{e}\ge 10^{-12}$); choose $(n_{i},n_{r})$ minimizing $\widehat{v}_{e}/n_{r}$. This *always* maximizes raters among feasible designs (verified 150/150 cells).
+- U1 (per-item D-study): one-facet ANOVA on the pilot ($\widehat{v}_{u}\ge 0$, $\widehat{v}_{e}\ge 10^{-12}$); choose $(n_{i},n_{r})$ minimizing $\widehat{v}_{e}/n_{r}$. This *always* maximizes raters among feasible designs (verified in 150/150 replications in each of the 30 dataset-budget cells).
 - U2 (grand-mean D-study): minimize $\widehat{v}_{u}/n_{i}+\widehat{v}_{e}/B$. When $\widehat{v}_{u}>0$ this *always* maximizes items.
 - PS: 5-fold $\times$ 8 inner draws on the pilot, choose the design with lowest expected held-out RPS of the CE-trained predictor. `ps_mix` is the same procedure under the A1 mixture.
 - Oracles (computed on the frozen test set, for diagnosis only, never used as a selector): RPS-oracle, item-mean-MSE oracle, grand-mean-MSE oracle.
 
 Candidate designs: $n_{i}\in\lbrace 16,32,64\rbrace$, $n_{r}\in\lbrace 2,4,8,16\rbrace$, budgets $B\in\lbrace 32,64,128,256,512,1024\rbrace$. Budgets 32 and 1024 have only one feasible design ($16\times 2$ and $64\times 16$) and are reported as ties, not as comparisons. Each dataset-budget cell has 150 independent replications. Intervals on means are Student-$t$; intervals on proportions are Wilson.
 
-## Study A results
+## Study A results (v1, superseded for the pilot-selector comparisons; kept as the record)
 
 ### The two targets disagree
 
@@ -62,6 +73,8 @@ Held-out mean-estimation error confirms the split of targets:
 ### Held-out RPS: proper-score and U2 vs. U1
 
 Paired difference is U1 minus PS on test RPS (positive means PS is better). Modal designs are shown.
+
+**v1, superseded for the pilot-selector comparisons.** The counts in this table and the text after it come from the first version of Study A (commit `1cd4fc6`). They are kept as the record; see the correction block at the top and the [v2 results](v2_matched_budget_corrected_11-27-2026/RESULTS_V2.md). The "transform tie" column is the share of replications in which U1 and U2 (not U1 and PS) choose the same transform (`primary_transform_tie_u1_u2` in `src/study_a.py`). The RPS column values include the forecast-independent floor described in the correction block.
 
 | Dataset | $B$ | U1 | PS / RPS-oracle | item-oracle | U1$-$PS RPS [95% CI] | $p$ | Verdict | PS $=$ RPS-oracle | U1 $=$ item-oracle | transform tie |
 |---|---:|---|---|---|---|---:|---|---:|---:|---:|
@@ -120,16 +133,16 @@ Crossovers: $t=4/15\approx 0.2667$ ($8\times 2$ ties $4\times 4$) and $t=11/15\a
 | $t$ | oracle | pilot 16$\times$4: $P(\mathrm{match})$ | vs. equal | pilot 64$\times$8: $P(\mathrm{match})$ | vs. equal |
 |---:|---|---|---|---|---|
 | 0.00 | $8\times 2$ | 0.955 $[0.917,0.976]$ (191/200) | $-0.093$ $[-0.133,-0.054]$ | 0.996 $[0.978,0.999]$ (255/256) | $-0.119$ $[-0.164,-0.075]$ |
-| 0.15 | $8\times 2$ | 0.725 $[0.659,0.782]$ | $-0.061$ $[-0.099,-0.022]$ | 0.810 $[0.750,0.858]$ | $-0.027$ $[-0.066,+0.011]$ (ns) |
+| 0.15 | $8\times 2$ | 0.725 $[0.659,0.782]$ | $-0.060$ $[-0.099,-0.022]$ | 0.810 $[0.750,0.858]$ | $-0.027$ $[-0.066,+0.011]$ (ns) |
 | 0.30 | $4\times 4$ | 0.535 $[0.466,0.603]$ | $-0.004$ $[-0.038,+0.030]$ (ns) | 0.610 $[0.541,0.675]$ | $+0.007$ $[-0.016,+0.031]$ (ns) |
 | 0.50 | $4\times 4$ | 0.720 $[0.654,0.778]$ | $+0.040$ $[+0.014,+0.066]$ (REML worse) | 0.920 $[0.874,0.950]$ | $-0.016$ $[-0.040,+0.007]$ (ns) |
-| 0.70 | $4\times 4$ | 0.600 $[0.531,0.665]$ | $+0.019$ $[-0.017,+0.055]$ (ns) | 0.640 $[0.571,0.703]$ | $+0.022$ $[-0.004,+0.047]$ (ns) |
+| 0.70 | $4\times 4$ | 0.600 $[0.531,0.665]$ | $+0.019$ $[-0.017,+0.055]$ (ns) | 0.640 $[0.571,0.703]$ | $+0.022$ $[-0.003,+0.047]$ (ns) |
 | 0.85 | $2\times 8$ | 0.715 $[0.649,0.773]$ | $-0.017$ $[-0.065,+0.032]$ (ns) | 0.860 $[0.805,0.901]$ | $-0.034$ $[-0.069,+0.002]$ (ns) |
 | 1.00 | $2\times 8$ | 0.960 $[0.923,0.980]$ (192/200) | $-0.054$ $[-0.088,-0.020]$ | 0.992 $[0.972,0.998]$ (254/256) | $-0.085$ $[-0.118,-0.051]$ |
 
-The accuracy curve is a W, not a single mid-point dip: it bottoms near the crossovers ($t=0.30$ and $t=0.70$, $P\approx 0.50$–$0.64$ even with the largest pilot) and recovers at $t=0.50$ once $4\times 4$ is clearly best, especially with a large pilot ($P=0.92$ at `64x8`). At the published extremes, even the smallest pilot is already accurate and significantly beats equal allocation.
+The accuracy curve is W-shaped at the grid level, not a single mid-point dip: for all five pilots the two minima fall at $t=0.30$ and $t=0.70$ (the crossovers $4/15$ and $11/15$ themselves are not grid points), with a local maximum at $t=0.45$–$0.50$. Across the five pilots $P(\mathrm{match})$ at the minima is 0.50 to 0.64 (0.61 and 0.64 with the largest pilot), and it recovers at $t=0.50$ once $4\times 4$ is clearly best, especially with a large pilot ($P=0.92$ at `64x8`). At the minima the choice is effectively between two designs, so 0.5 is chance there; the third design is picked in 13 of 1,000 and 9 of 1,000 replications. At the published extremes, even the smallest pilot is already accurate and significantly beats equal allocation.
 
-A small pilot can *hurt* when $4\times 4$ is uniquely optimal: at $t=0.50$, pilot `16x4` is significantly worse than just using $4\times 4$ ($ +0.040$ $[+0.014,+0.066]$, $p=0.00295$; 26 $8\times 2$ and 30 $2\times 8$ mis-picks out of 200). Pilot `32x8` is also significantly worse there ($ +0.029$ $[+0.003,+0.056]$, $p=0.028$). The large `64x8` pilot is not.
+**A small pilot and equal allocation.** When $4\times 4$ is uniquely optimal, any wrong pick has positive true regret by construction, so the sign is guaranteed and only the size is empirical. The noise-free true regret at $t=0.50$ with pilot `16x4` is $0.0245$ (6.3% of $v_\Delta(4\times 4)=0.3875$), against an observed gap of $+0.040$ $[+0.014,+0.066]$, $p=0.00295$. Six of the 55 (t, pilot) cells are nominally worse than equal allocation at $p<0.05$ (`t0.45_64x4`, `t0.50_16x4`, `t0.50_32x8`, `t0.55_64x4`, `t0.60_16x4`, `t0.60_64x4`). None survives Holm over the 55 cells (smallest $p=0.00295$ against $0.05/55=0.00091$); Benjamini-Hochberg keeps four (not `t0.50_32x8` or `t0.60_64x4`). Five of the six use pilots with four facet levels (`16x4`, `64x4`), so the number of facet levels matters, not only the number of objects. The large `64x8` pilot is not worse anywhere.
 
 ## Figures
 
@@ -137,9 +150,9 @@ SVG copies are the GitHub-rendered figures. The plotting script also writes same
 
 ![Study A: modal allocation of a fixed rating budget, and held-out test ranked probability score (RPS)](figures/fig1_study_a_allocation_and_rps.svg)
 
-Top: modal $n_{\mathrm{raters}}$ chosen at each budget on the frozen 30% test items' companion dev pool; G/D-U1 always prefers more raters, G/D-U2 prefers more items. Bottom: mean held-out test RPS of the deployed design, with Student-$t$ 95% intervals over 150 replications (lower is better). Primary predictor: 27-transform cross-entropy fit of frozen Experiment 28 judge probabilities, selected on deployment training ratings from the remaining dev pool.
+Study A, v1 (superseded; the v2 figures are `v2_matched_budget_corrected_11-27-2026/figures/`). Top: modal $n_{\mathrm{raters}}$ chosen at each budget (the x-axis is the deployment training budget, not a held-out quantity); G/D-U1 always prefers more raters, G/D-U2 prefers more items. Bottom: mean held-out test RPS of the deployed design, with Student-$t$ 95% intervals over 150 replications (lower is better). Primary predictor: 27-transform cross-entropy fit of frozen Experiment 28 judge probabilities, selected on deployment training ratings from the remaining dev pool.
 
-![Study B: residual maximum likelihood (REML) D-study selection accuracy and held-out error gap versus equal allocation, as the two facets become harder to tell apart](figures/fig2_study_b_reml_accuracy_and_regret.svg)
+![Study B: residual maximum likelihood (REML) D-study selection accuracy and held-out error gap versus equal allocation, as a function of the facet-mixing parameter t](figures/fig2_study_b_reml_accuracy_and_regret.svg)
 
 Left: fraction of replications in which REML chose the oracle design, with Wilson 95% intervals. Right: held-out absolute error of the REML-chosen design minus that of equal allocation $4\times 4$ (negative means REML is better), with Student-$t$ 95% intervals. Dotted lines mark the analytic crossovers $t=4/15$ and $t=11/15$. 200 replications (256 at the $64\times 8$ reproduction cells).
 
@@ -149,13 +162,17 @@ Left: fraction of replications in which REML chose the oracle design, with Wilso
 - The primary 27-transform head is discrete. Exact test-RPS ties are real and common at large $B$; A1 was added so the training histogram can still move the forecast. Primary claims do not rely on A1.
 - ChaosNLI has no rater IDs, so the G-study is a one-facet items-vs-residual ANOVA, not a crossed rater design. DICES-350 is fully crossed; DICES-990 is incomplete. U1/U2 remain well-defined in all three cases.
 - Candidate grids are coarse ($n_{i}\in\lbrace 16,32,64\rbrace$, $n_{r}\in\lbrace 2,4,8,16\rbrace$). Finer grids would not change the qualitative opposition of “max raters” vs. “max items.”
-- Study A deployment draws ratings with replacement from each item’s empirical pool, which is the right model for ChaosNLI counts and for incomplete DICES-990, but is an approximation to sampling a new rater on DICES-350.
+- Study A deployment draws ratings without replacement from each item’s pool of available ratings (`study_a.py`), which suits the ChaosNLI counts and the incomplete DICES-990 and is an approximation to sampling a new rater on DICES-350.
+- U2's "more items" prescription holds when raters are nested in items or freshly sampled (as in this deployment draw). With crossed raters, as in DICES-350, the absolute-error variance is $v_u/n_i+v_r/n_r+v_e/B$, which can have an interior optimum (hand arithmetic from the review: $v_u=0.3$, $v_r=0.05$, $v_e=0.4$, $B=64$ gives $0.0375$ for $16\times 4$ and $0.0406$ for $32\times 2$). The one-facet ANOVA ignores DICES-350's rater identities.
+- The NLI labels are nominal, so RPS depends on the label order imposed; CE and TVD are order-free and show the same pattern in the cells where RPS is significant.
+- 7 of 11,112 Study B REML fits did not converge and were still used (`reml_success` column of `results/study_b_replications.csv`).
+- `results/study_a_summary.json` contains `NaN` tokens (1,017 in the committed file), so it is valid for Python's `json` module but not strict JSON.
 - Study B uses new seeds, so it is a qualitative / interval-overlap reproduction of Experiment 04, not a bit-exact replay. The protocol typo about equal $v_{\Delta}$ at $t=1/2$ is documented above; oracles used the true components.
 - No result here was extrapolated beyond the measured datasets, budgets, and $t$-grid. Singleton budgets ($B=32,1024$) are not counted as wins.
 
 ## What was not committed
 
-Raw ChaosNLI jsonl, DICES CSVs, the Experiment 28 forecast cache, the processed `.npz` bundle, and PNG copies of the figures are not in git (see `data/README.md` and this folder's `.gitignore`). Frozen splits, SHA-256 checksums, numerical summaries (`results/study_a_summary.json`, `results/study_b_summary.json`), SVG figures, and the per-replication CSVs are committed when present under `results/`. Official numbers in this report are taken from those summaries.
+Raw ChaosNLI jsonl, DICES CSVs, the Experiment 28 forecast cache, the processed `.npz` bundle, and PNG copies of the figures are not in git (see `data/README.md` and this folder's `.gitignore`). Frozen splits, SHA-256 checksums, numerical summaries (`results/study_a_summary.json`, `results/study_b_summary.json`), SVG figures, the Study B per-replication CSV and the v2 Study A per-replication CSV are committed. The v1 Study A per-replication CSV (7.8 MB) is not; `python3 src/study_a.py` regenerates it in about 5.6 minutes (336 s). Official numbers in this report are taken from those summaries.
 
 ## What this does and does not show
 

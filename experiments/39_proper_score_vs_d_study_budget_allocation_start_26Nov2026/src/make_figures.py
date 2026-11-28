@@ -101,12 +101,12 @@ def figure_a(summary):
         ax.minorticks_on()
         ax.grid(True, which="major", alpha=0.35)
         ax.grid(True, which="minor", alpha=0.15)
-        ax.set_xlabel("Held-out design budget $B = n_{\\mathrm{items}} \\times n_{\\mathrm{raters}}$", fontsize=8)
+        ax.set_xlabel("Deployment training budget $B = n_{\\mathrm{items}} \\times n_{\\mathrm{raters}}$ (ratings)", fontsize=8)
         if j == 0:
             ax.set_ylabel("Held-out test ranked probability score\n(RPS; lower is better)", fontsize=9)
     handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False, fontsize=9, bbox_to_anchor=(0.5, 0.99))
-    fig.suptitle("Study A: allocation of a fixed rating budget, and the resulting held-out RPS", fontsize=12, y=1.02)
+    fig.suptitle("Study A, v1 (superseded by v2): allocation of a fixed rating budget, and the resulting held-out RPS", fontsize=12, y=1.02)
     fig.text(0.5, 0.01,
              "Top: modal $n_{\\mathrm{raters}}$ chosen at each budget. G/D-U1 always prefers more raters; G/D-U2 prefers more items. "
              "Bottom: mean test RPS of the deployed design with Student-$t$ 95% intervals over 150 replications. "
@@ -166,7 +166,7 @@ def figure_b(summary):
     ax.set_title("Error gap versus equal allocation", fontsize=11)
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", ncol=5, frameon=False, fontsize=8, bbox_to_anchor=(0.5, 0.99))
-    fig.suptitle("Study B: D-study REML allocation as the two facets become harder to tell apart", fontsize=12, y=1.04)
+    fig.suptitle("Study B: D-study REML allocation versus the facet-mixing parameter $t$", fontsize=12, y=1.04)
     fig.text(0.5, 0.01,
              "C1 ($t=0$) prefers $8\\times2$; C2 ($t=1$) prefers $2\\times8$. Dotted lines mark the analytic crossovers "
              "$t=4/15$ ($8\\times2$ ties $4\\times4$) and $t=11/15$ ($4\\times4$ ties $2\\times8$). "

@@ -23,6 +23,12 @@ def rec(name, ok, detail):
     print(("PASS" if ok else "FAIL"), name, detail)
 
 
+def skip(name, detail):
+    """A check that could not run. It is recorded as skipped (pass = null), never as a pass."""
+    checks.append({"name": name, "pass": None, "skipped": True, "detail": detail})
+    print("SKIP", name, detail)
+
+
 def main():
     bundle = A.load_bundle()
     # 1. splits are disjoint and cover all items
@@ -73,9 +79,14 @@ def main():
                 detail.append(f"{name} B={B} mode={mode} counts={cell['selection']['u1']['counts']}")
     rec("u1_always_max_raters", u1_ok, "; ".join(detail) if detail else "all 150/150 cells")
 
-    # 5. Study A CSV row count
-    df = pd.read_csv(RES / "study_a_replications.csv")
-    rec("study_a_row_count", len(df) == 150 * 5, f"rows={len(df)}")
+    # 5. Study A CSV row count. The 7.8 MB v1 per-replication CSV is not committed; regenerate it with
+    # `python3 src/study_a.py` (about 5.6 minutes) to run this check.
+    csv_path = RES / "study_a_replications.csv"
+    if csv_path.exists():
+        df = pd.read_csv(csv_path)
+        rec("study_a_row_count", len(df) == 150 * 5, f"rows={len(df)}")
+    else:
+        skip("study_a_row_count", "results/study_a_replications.csv is not committed; run src/study_a.py to create it")
 
     # 6. Study B reproduction oracles
     b = json.loads((RES / "study_b_summary.json").read_text())
@@ -103,9 +114,12 @@ def main():
         and b["cells"]["t0.85_64x8"]["oracle_design"] == "2x8",
         "8x2 at 0.15, 4x4 at 0.30-0.70, 2x8 at 0.85")
 
-    (RES / "verification.json").write_text(json.dumps(checks, indent=2, default=str) + "\n")
-    nfail = sum(not c["pass"] for c in checks)
-    print(f"{nfail} failed of {len(checks)}")
+    skipped = [c for c in checks if c.get("skipped")]
+    # The committed verification.json is the full 25-check record; a partial run never overwrites it.
+    out = RES / ("verification_partial.json" if skipped else "verification.json")
+    out.write_text(json.dumps(checks, indent=2, default=str) + "\n")
+    nfail = sum(c["pass"] is False for c in checks)
+    print(f"{nfail} failed, {len(skipped)} skipped, of {len(checks)}; wrote {out.name}")
     return nfail
 
 
