@@ -50,6 +50,13 @@ Against nRPS skill instead of the primary score (A1), the frontier raw panel has
 
 **Correction to the frozen design.** With B = 4,000 and Holm over 140 cells, the smallest attainable Holm-adjusted p is $140 \cdot 2/4001 \approx 0.07$. The local+frontier panel therefore *cannot* reach significance under the frozen B, and its "0 significant" is uninformative. A sensitivity run at B = 20,000 (floor about 0.014) is labelled as a deviation in `results_B20000/`. The frontier panel's two reversals already sit at its floor of $50 \cdot 2/4001 = 0.025$.
 
+**B = 20,000 sensitivity (deviation, same seeds and code; `results_B20000/`):**
+- **The frontier result is unchanged and sharper.** The same 2 GPT-6 Astra vs GLM 5.3 Spearman reversals: SNLI Holm p = 0.0099, MNLI 0.028, with skill-difference Holm p = 0.005 for both. The valid-only panel keeps the MNLI one (Holm p = 0.026). The calibrated panels still show 0 reversals.
+- **The local+frontier subset now yields 3 significant reversals**, all involving small local judges:
+  - Qwen2.5-0.5B *native* vs Qwen2.5-0.5B *verbalized* on MNLI. Native wins on Pearson (+0.347 [+0.147, +0.555], Holm p = 0.040) and Spearman (+0.537 [+0.322, +0.746], Holm p = 0.014), but its skill is lower: −0.415 [−0.515, −0.313]. This is a reversal between two elicitations of the *same* model.
+  - Llama-3.2-1B native vs Qwen2.5-0.5B verbalized on DICES-990: Spearman +0.427 [+0.213, +0.627] against skill −0.391 [−0.499, −0.285].
+  - **Caveat.** Qwen2.5-0.5B verbalized is invalid on 52–60% of these items, and invalid answers become the uniform forecast. The uniform forecast scores moderately under proper scores and carries no rank information. These local reversals therefore partly contrast confidently wrong forecasts with uninformative ones; the frontier reversals have no such issue: both judges are invalid on at most 2.2% of SNLI and MNLI items, and the MNLI reversal survives dropping every item with an invalid forecast.
+
 **Per-judge skill, frontier panel, all items** (raw → calibrated; 95% CI in brackets; [results/judge_skill_ci.json](results/judge_skill_ci.json)):
 
 | set | judge | raw skill | calibrated skill | Spearman | top-1 |
