@@ -2,11 +2,12 @@
 
 Deterministic: reads only papers.py. Run: python3 tally.py
 Codes: C = correlation (Pearson, Spearman, Kendall); A = raw agreement, accuracy, precision/recall/F1;
-K = chance-corrected agreement (Cohen/Fleiss kappa, Scott's pi, Krippendorff alpha);
+K = chance-corrected agreement (Cohen/Fleiss kappa, Scott's pi, Krippendorff alpha used as agreement with a reference);
 P = proper score or distributional divergence (CE/NLL, KL, JSD, Brier/MSE vs. soft label) against item-level human ratings;
-Ps = proper score at the system (model-pair) level only.
+Ps = proper score at the system (model-pair) level only;
+R = psychometric reliability of the judge as an instrument (IRT reliability or consistency, G-theory coefficients), not agreement with a reference label.
 Groups: D = direct-score judge or automatic metric; S = judge-based benchmark validated against a human leaderboard;
-W = pairwise-preference judge or reward model; X = disagreement/distribution-aware judge validation.
+W = pairwise-preference judge or reward model; X = disagreement- or distribution-aware judge validation.
 """
 from collections import Counter
 from papers import R
@@ -17,13 +18,20 @@ def codes(r):
 def link(i):
     if i.startswith("ACL:"):
         return f"https://aclanthology.org/{i[4:]}/"
+    if i.startswith("GH:"):
+        return f"https://github.com/{i[3:]}"
+    if i.startswith("OR:"):
+        return f"https://openreview.net/forum?id={i[3:]}"
+    if i.startswith("CRAN:"):
+        return f"https://cran.r-project.org/package={i[5:]}"
     return f"https://arxiv.org/abs/{i}"
 
 def main():
     n = len(R)
     print(f"Papers coded: {n}")
     for c, name in [("C", "correlation"), ("A", "raw agreement/accuracy"), ("K", "chance-corrected agreement"),
-                    ("P", "item-level proper score / distributional divergence"), ("Ps", "system-level proper score")]:
+                    ("P", "item-level proper score / distributional divergence"), ("Ps", "system-level proper score"),
+                    ("R", "psychometric reliability of the judge (IRT/G-theory)")]:
         k = sum(c in codes(r) for r in R)
         print(f"  {name} ({c}): {k}/{n} = {100*k/n:.0f}%")
     print(f"  correlation is the only metric family: {sum(codes(r)==['C'] for r in R)}/{n}")
@@ -32,7 +40,7 @@ def main():
                     ("W", "pairwise judges and reward models"), ("X", "distribution-aware")]:
         rs = [r for r in R if r[3].split("+")[0] == g]
         cnt = Counter(x for r in rs for x in codes(r))
-        print(f"  group {g} ({name}): {len(rs)} papers; " + ", ".join(f"{k}={cnt[k]}" for k in ["C", "A", "K", "P", "Ps"]))
+        print(f"  group {g} ({name}): {len(rs)} papers; " + ", ".join(f"{k}={cnt[k]}" for k in ["C", "A", "K", "P", "Ps", "R"]))
     ds = [r for r in R if r[3].split("+")[0] in ("D", "S")]
     print(f"  direct-score + system-level papers reporting correlation: {sum('C' in codes(r) for r in ds)}/{len(ds)}")
     w = [r for r in R if r[3].split("+")[0] == "W"]

@@ -1,6 +1,7 @@
-# Data for tally.py: one row per paper (name, year, venue, group, metrics as reported, codes, arXiv id or ACL id).
+# Data for tally.py: one row per paper (name, year, venue, group, metrics as reported, codes, arXiv id or ACL/GH/OR id).
 # category codes: C=correlation (Pearson/Spearman/Kendall), A=raw agreement/accuracy/F1, K=chance-corrected agreement (kappa/Scott pi/alpha),
-# P=proper score or distributional divergence against human labels at item level, Ps=proper score at system level only
+# P=proper score or distributional divergence against human labels at item level, Ps=proper score at system level only,
+# R=psychometric reliability of the judge as an instrument (IRT reliability, G-theory coefficients), not agreement with a reference label.
 # group: D=direct-score judge or metric, S=system-level benchmark validated against a human leaderboard, W=pairwise judge, X=distribution-aware
 R=[
 ("G-Eval (Liu et al.)",2023,"EMNLP 2023","D","Spearman, Kendall (summary-level, SummEval; Topical-Chat)","C","2303.16634"),
@@ -15,16 +16,23 @@ R=[
 ("MLLM-as-a-Judge (Chen et al.)",2024,"ICML 2024","D+W","Pearson (scoring); agreement (pair, batch)","C,A","2402.04788"),
 ("LLMs instead of Human Judges? JUDGE-BENCH (Bavaresco et al.)",2025,"ACL 2025","D","Cohen kappa (categorical), Spearman (graded), vs. aggregated human labels","C,K","2406.18403"),
 ("Judge's Verdict (Han et al.)",2025,"arXiv (under review, ICLR 2026)","D","Pearson r >= 0.80 filter, then Cohen kappa","C,K","2510.09738"),
+("CheckEval (Lee et al.)",2025,"EMNLP 2025","D","Pearson, Spearman, Kendall vs. human ratings (sample-level on SummEval; turn-level on Topical-Chat; QAGS in appendix). The judge itself uses binary checklist items aggregated to a yes-rate, not a raw Likert.","C","2403.18771"),
+("LAGER / Beyond the Surface (Lai et al.)",2025,"NeurIPS 2025","D","Spearman on FLASK, HelpSteer and BiGGen (main reported metric); Pearson in Table 5. LAGER is the method name in a paper titled 'Beyond the Surface: Enhancing LLM-as-a-Judge Alignment with Human via Internal Representations'.","C","2508.03550"),
+("Evaluating Scoring Bias in LLM-as-a-Judge (Li, Dou, Shao, Chen & Hu)",2026,"DASFAA 2026","D","Spearman and Pearson vs. human gold scores on BiGGen Bench and FLASK (Tables 2 and 4; the paper calls these 'accuracy metrics')","C","2506.22316"),
 ("SummEval (Fabbri et al.)",2021,"TACL 2021","D","Kendall tau (system level)","C","2007.12626"),
 ("BERTScore (Zhang et al.)",2020,"ICLR 2020","D","|Pearson| and Kendall (WMT18 standard)","C","1904.09675"),
 ("BLEURT (Sellam et al.)",2020,"ACL 2020","D","Kendall tau and Pearson (WMT17/18/19)","C","2004.04696"),
 ("COMET (Rei et al.)",2020,"EMNLP 2020","D","WMT Kendall-tau-like (concordant minus discordant pairs)","C","2009.09025"),
 ("UniEval (Zhong et al.)",2022,"EMNLP 2022","D","Spearman, Kendall (summary-level)","C","2210.07197"),
 ("WMT23 Metrics Shared Task (Freitag et al.)",2023,"WMT 2023","D","System: pairwise accuracy + Pearson; segment: Pearson + tie-calibrated pairwise accuracy (acc*eq)","C,A","ACL:2023.wmt-1.51"),
+("WMT25 Metrics Shared Task",2025,"WMT 2025","D","Official meta-metrics follow WMT24: system-level Soft Pairwise Accuracy (SPA; Thompson et al. 2024) and segment-level tie-calibrated acc*eq. Pearson and Kendall are discussed as traditional options, not as the official primary metrics.","A,C","ACL:2025.wmt-1.24"),
 ("GEMBA (Kocmi & Federmann)",2023,"EAMT 2023","D","System-level pairwise accuracy; segment-level Kendall","C,A","2302.14520"),
+("AlpacaFarm (Dubois, Li, Taori et al.)",2023,"NeurIPS 2023 (Spotlight)","W","Agreement of the simulated evaluator p_sim^eval with the majority vote of 3 human annotators is 65%, vs 66% for a held-out human; some single GPT-4 prompts reach 68%. The training annotator has lower raw agreement because of 25% label-flip noise.","A","2305.14387"),
+("AlpacaEval (tatsu-lab repo and leaderboard; no standalone paper)",2023,"GitHub benchmark/tool (Tatsu lab)","S+W","Evaluators are compared on the AlpacaFarm human cross-annotation set (~650 instructions, 4 human annotations each). Headline metric is human agreement (leave-one-out accuracy vs. the mode of the other 3). The suggested evaluator alpaca_eval_gpt4 scores 69.2 agreement (humans 65.7), with Spearman 0.97 and Pearson 0.93 vs. a 9-model human leaderboard; the README warns that correlation with only 9 models 'is not very reliable'. Length-controlled win-rate correlation with Chatbot Arena is reported in the already-listed COLM 2024 paper.","A,C","GH:tatsu-lab/alpaca_eval"),
 ("Length-Controlled AlpacaEval (Dubois et al.)",2024,"COLM 2024","S","Spearman with Chatbot Arena (0.94 to 0.98)","C","2404.04475"),
 ("WildBench (Lin et al.)",2025,"ICLR 2025","S","Pearson with Chatbot Arena Elo (0.98 / 0.95)","C","2406.04770"),
 ("Arena-Hard / BenchBuilder (Li et al.)",2025,"ICML 2025","S","Separability and agreement with confidence, Spearman, Pearson, Pair Rank Brier score (system pairs)","C,A,Ps","2406.11939"),
+("Preference Proxy Evaluations / PPE (Frick et al.)",2025,"ICLR 2025","S","Accuracy on human preference and verifiable-correctness pairs; Spearman, Kendall and row-wise Pearson vs. Chatbot Arena rankings/win-rate matrices; Separability, Confidence Agreement and Brier score (as in Arena-Hard) at the system level","C,A,Ps","2410.14872"),
 ("MT-Bench & Chatbot Arena judge (Zheng et al.)",2023,"NeurIPS 2023 D&B","W","Agreement = P(random individual of each type agree); >80%","A","2306.05685"),
 ("Chatbot Arena (Chiang et al.)",2024,"ICML 2024","W","Pairwise agreement rate (crowd, GPT-4 judge, experts); leaderboard is a Bradley-Terry fit minimizing binary cross-entropy","A","2403.04132"),
 ("PandaLM (Wang et al.)",2024,"ICLR 2024","W","Accuracy, precision, recall, F1 vs. human annotation","A","2306.05087"),
@@ -32,12 +40,17 @@ R=[
 ("Auto-J (Li et al.)",2024,"ICLR 2024","W","Pairwise agreement with human labels; Pearson/Spearman in a best-of-N analysis","A,C","2310.05470"),
 ("LLMs are not Fair Evaluators (Wang et al.)",2024,"ACL 2024","W","Accuracy and kappa vs. human pairwise judgments","A,K","2305.17926"),
 ("RewardBench (Lambert et al.)",2025,"Findings NAACL 2025","W","Accuracy (chosen scored above rejected)","A","2403.13787"),
+("RewardBench 2 (Malik et al.)",2026,"ICLR 2026","W","Accuracy in a best-of-4 format (one chosen, three rejected)","A","2506.01937"),
 ("JudgeBench (Tan et al.)",2025,"ICLR 2025","W","Accuracy on objectively-labelled pairs","A","2410.12784"),
 ("Judging the Judges (Thakur et al.)",2025,"GEM 2025 workshop","W","Percent agreement and Scott's pi (Cohen kappa in an earlier version)","A,K","2406.12624"),
 ("Who Validates the Validators? EvalGen (Shankar et al.)",2024,"UIST 2024","W","Alignment of evaluator verdicts with user grades (accuracy-type)","A","2404.12272"),
 ("No Free Labels (Krumdick et al.)",2026,"COLM 2026 (per PDF footer)","W+D","Cohen kappa (F1 in appendix) vs. expert labels","K","2503.05061"),
+("LongJudgeBench (Chen, Dong, Li et al.)",2026,"EMNLP 2026","D+W","Accuracy is the main metric (agreement with reference judgments, averaged over query groups); also Spearman and Kendall tau_b. Covers pointwise, pairwise and listwise protocols.","A,C","2606.01629"),
 ("Beyond correlation (Elangovan et al.)",2025,"ICLR 2025","X","Stratify by human-label uncertainty; binned Jensen-Shannon divergence; critiques correlation, Krippendorff alpha, Randolph kappa","P,C,K","2410.03775"),
 ("Validating LLM-as-a-Judge under Rating Indeterminacy (Guerdan et al.)",2025,"NeurIPS 2025","X","KL and CE vs. human distribution, response-set MSE; forced-choice agreement selects judges up to 31% worse","P,A,K","2503.05965"),
 ("Distributional LLM-as-a-Judge (Chen et al.)",2025,"NeurIPS 2025","X","KL to human rating distribution; accuracy vs. majority","P,A","2505.12301"),
-("Improving LLM-as-a-Judge Inference with the Judgment Distribution (Wang et al.)",2025,"Findings EMNLP 2025","X","Accuracy plus MSE vs. averaged human preference (= Brier score for binary targets); Spearman of std. devs.","P,A,C","2503.03064"),
+("Improving LLM-as-a-Judge Inference with the Judgment Distribution (Wang, Zhang & Choi)",2025,"Findings EMNLP 2025","X","Accuracy plus MSE vs. averaged human preference (= Brier score for binary targets); Spearman of std. devs. Distinct from Li et al. 'Judging with Confidence' (Findings EMNLP 2026).","P,A,C","2503.03064"),
+("Judging with Confidence: Calibrating Autoraters to Preference Distributions (Li et al.)",2026,"Findings EMNLP 2026","X","Pairwise autoraters calibrated by SFT or RL with Brier and logarithmic rewards against a preference distribution. The paper states that a thorough empirical study of ordinal/Likert (multi-class Brier or CE) is left as future work. Published at Findings EMNLP 2026 (ACL Anthology 2026.findings-emnlp.2093); the ICLR 2026 OpenReview forum still reads 'Submitted to ICLR 2026'.","P","2510.00263"),
+("Human-Residual Steering (Lyu, Do & Pergola)",2026,"arXiv (27 Oct 2026)","X","Extracts next-token logits over rating verbalizers from a frozen judge. Trains with ranked probability score (RPS) for ordinal labels and cross-entropy (CE) for nominal labels. Evaluates Jensen-Shannon distance as the primary metric, plus annotation-level RPS (ordinal) or Brier (nominal), and Spearman and MAE vs. aggregate human scores (mean Spearman 0.449 to 0.579). Datasets: SummEval, Topical-Chat, FLASK, HelpSteer2, HelpSteer3, ChaosNLI, DynaSent, Scruples.","P,C","2610.37868"),
+("Diagnosing the Reliability of LLM-as-a-Judge via Item Response Theory (Choi et al.)",2026,"ICML 2026","D","Fits an IRT Graded Response Model (GRM). Reports prompt consistency as a coefficient of variation (CV) and marginal reliability (rho), then human alignment. Empirical judges include G-Eval on SummEval, Topical-Chat and HelpSteer-2, and VIEScore on ImageHub.","R","2602.00521"),
 ]
