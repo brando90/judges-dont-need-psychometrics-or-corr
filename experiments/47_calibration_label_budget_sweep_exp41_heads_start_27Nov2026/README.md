@@ -34,6 +34,20 @@ Mean over 5 seeds x 20 draws; (SD over the 100 seed-draw cells). Full tables for
 
 Over all 16 views (R1): G(25) ranges from +0.0097 to +0.0225; in 72% to 97% of seed-draw cells G(25) exceeds 0.0024, and at n = 100 still 4% to 59% do; the 95th percentile of G(25) over cells is 0.024 to 0.069. E(25) > 0 on 15 of 16 views (the exception is POPQUORN politeness K2, -0.0014). The matched gap M(n) is flat in n: it stays at Experiment 41's matched gap (+0.0023 to +0.0025 on POPQUORN politeness K2, +0.0013 to +0.0017 on K3, under 0.001 in absolute value on the other 14 views), so the label budget moves the calibrated level of both heads, not their difference.
 
+## Skill-score terms (amendment A1, reporting only)
+
+The advisor asked for skill-score differences rather than raw RPS gaps. Skill is $SS(h) = 1 - \mathrm{nRPS}(h)/S_{\text{const}}$, where $S_{\text{const}}$ is the test nRPS of the constant train-marginal forecast for each view and seed. Then
+
+$$\Delta SS(n) = SS(\text{Pearson-trained head} + \text{map on } n \text{ labels}) - SS(\text{CE-trained head, raw}) = -G(n)/S_{\text{const}}.$$
+
+Negative means the CE-trained raw head is better. Nothing was refitted; [scripts/skill_terms.py](scripts/skill_terms.py) rescales the stored per-draw values. Full tables, with the 2.5–97.5% range over the 100 seed-draw cells for every view, n and design, are in [results/skill_terms_tables.md](results/skill_terms_tables.md).
+
+- **Context: these heads have almost no skill.** The CE-trained raw head's skill over the base rate is between −0.005 and +0.071 on the 16 views.
+- **Small budgets cost more than the whole skill.** Under design R1 at n = 25, $\Delta SS$ = −0.066 to −0.116 skill points. That is larger than the CE-trained head's entire skill on every view. The calibrated Pearson-trained head has negative skill on 15 of 16 views. Example: POPQUORN offensiveness K5 has $\Delta SS$ = −0.113, with seed-draw range [−0.417, −0.016].
+- **Larger budgets close the gap.** $\Delta SS$ is −0.021 to +0.013 at n = 100, −0.013 to +0.023 at n = 200, and −0.008 to +0.031 at n = all.
+- **Labels needed.** The first n at which the seed-mean $\Delta SS \ge -0.01$ is 50 (1 view), 100 (5), 200 (7) or 500 (3).
+- **With all labels, the calibrated Pearson head can win.** On POPQUORN politeness it ends significantly *ahead* (K5: +0.031 [+0.025, +0.038]). The training objective's disadvantage disappears once enough labels calibrate it, which is consistent with Experiment 41.
+
 ## Predictions (PROTOCOL.md)
 
 - **Q1: supported.** On all 12 views with signal G(25) > 0.0024, and on every view G(n) <= 0.0024 by n = 200 (R1).
@@ -54,4 +68,4 @@ python scripts/label_budget_sweep.py results --draws 20     # about 3.5 minutes 
 python scripts/summarize_label_budget.py results figures     # tables; figures kept on the box
 ```
 
-Files: `scripts/heads41.py` (shared with Experiments 48 and 50: rebuilds Exp 41's views and heads), `scripts/label_budget_sweep.py`, `scripts/summarize_label_budget.py`; `results/label_budget_rows_rounded.json` (every seed-draw cell, values rounded to 1e-6), `results/label_budget_summary.json`, `results/label_budget_tables.md`. Figures `label_budget_closure_gap.png` and `label_budget_sd.png` (`ax.grid(True)`) are on the box at `/workspace/calib_followups/figures/e47/` and rebuilt by the summary script; the push tool carries only text.
+Files: `scripts/heads41.py` (shared with Experiments 48 and 50: rebuilds Exp 41's views and heads), `scripts/label_budget_sweep.py`, `scripts/summarize_label_budget.py`; `results/label_budget_rows_rounded.json` (every seed-draw cell, values rounded to 1e-6), `results/label_budget_summary.json`, `results/label_budget_tables.md`, `scripts/skill_terms.py`, `results/skill_terms.json`, `results/skill_terms_tables.md`. Figures `label_budget_closure_gap.png` and `label_budget_sd.png` (`ax.grid(True)`) are on the box at `/workspace/calib_followups/figures/e47/` and rebuilt by the summary script; the push tool carries only text.
