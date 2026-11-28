@@ -1,0 +1,23 @@
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+Lake version 5.0.0-src+611c117 (Lean version 4.36.0)
+mathlib rev: fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+$ lake build   (lint warnings kept; Mathlib module-system notices removed)
+warning: Point2/Encodings.lean:225:12: This simp argument is unused:
+  h1
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h2, this]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Point2/Encodings.lean:225:16: This simp argument is unused:
+  h2
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h1, this]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [18256/18262] Built Point2.Ranks (4.9s)
+✔ [18258/18262] Built Point2.Murphy (5.2s)
+✔ [18260/18262] Built Point2 (3.5s)
+Build completed successfully (18262 jobs).
+lake build exit=0
