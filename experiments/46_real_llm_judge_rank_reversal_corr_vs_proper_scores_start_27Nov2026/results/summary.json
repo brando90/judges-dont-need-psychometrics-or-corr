@@ -1,0 +1,282 @@
+{
+ "panels": {
+  "frontier_full|raw": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash"
+   ],
+   "n_pairs_x_sets": 50,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 2,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 6,
+    "spearman": 10,
+    "top1": 12,
+    "kappa": 12
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 2,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 6,
+    "spearman": 10,
+    "top1": 12,
+    "kappa": 12
+   },
+   "significant_S_differences": 31
+  },
+  "frontier_full|calibrated": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash"
+   ],
+   "n_pairs_x_sets": 50,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 3,
+    "spearman": 2,
+    "top1": 9,
+    "kappa": 7
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 1,
+    "spearman": 2,
+    "top1": 11,
+    "kappa": 7
+   },
+   "significant_S_differences": 22
+  },
+  "local_plus_frontier_subset|raw": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash",
+    "llama3.2-1b|native",
+    "qwen2.5-0.5b|native",
+    "qwen2.5-0.5b|verbalized"
+   ],
+   "n_pairs_x_sets": 140,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 11,
+    "spearman": 17,
+    "top1": 18,
+    "kappa": 21
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 8,
+    "spearman": 14,
+    "top1": 17,
+    "kappa": 20
+   },
+   "significant_S_differences": 0
+  },
+  "local_plus_frontier_subset|calibrated": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash",
+    "llama3.2-1b|native",
+    "qwen2.5-0.5b|native",
+    "qwen2.5-0.5b|verbalized"
+   ],
+   "n_pairs_x_sets": 140,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 4,
+    "spearman": 9,
+    "top1": 12,
+    "kappa": 13
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 2,
+    "spearman": 7,
+    "top1": 14,
+    "kappa": 15
+   },
+   "significant_S_differences": 0
+  },
+  "summeval_geval_plus_local_subset|raw": {
+   "judges": [
+    "g-eval-gpt-4|sampled20"
+   ],
+   "n_pairs_x_sets": 0,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "significant_S_differences": 0
+  },
+  "summeval_geval_plus_local_subset|calibrated": {
+   "judges": [
+    "g-eval-gpt-4|sampled20"
+   ],
+   "n_pairs_x_sets": 0,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "significant_S_differences": 0
+  },
+  "frontier_full_valid_only|raw": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash"
+   ],
+   "n_pairs_x_sets": 50,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 1,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 7,
+    "spearman": 15,
+    "top1": 18,
+    "kappa": 17
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 1,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 5,
+    "spearman": 13,
+    "top1": 18,
+    "kappa": 17
+   },
+   "significant_S_differences": 33
+  },
+  "frontier_full_valid_only|calibrated": {
+   "judges": [
+    "gpt-6-astra",
+    "claude-opus-5-5",
+    "kimi-k3",
+    "glm-5.3",
+    "deepseek-v4.1-flash"
+   ],
+   "n_pairs_x_sets": 50,
+   "significant_reversals": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "point_reversals": {
+    "pearson": 2,
+    "spearman": 3,
+    "top1": 11,
+    "kappa": 9
+   },
+   "A1_significant_reversals_vs_nrps_skill": {
+    "pearson": 0,
+    "spearman": 0,
+    "top1": 0,
+    "kappa": 0
+   },
+   "A1_point_reversals_vs_nrps_skill": {
+    "pearson": 1,
+    "spearman": 4,
+    "top1": 12,
+    "kappa": 10
+   },
+   "significant_S_differences": 26
+  }
+ }
+}
