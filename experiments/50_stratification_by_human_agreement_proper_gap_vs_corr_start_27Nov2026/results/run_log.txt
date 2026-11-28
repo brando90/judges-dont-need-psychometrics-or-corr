@@ -1,0 +1,87 @@
+chaosnli_snli done
+chaosnli_mnli done
+chaosnli_alphanli done
+dices350 done
+dices990 done
+summeval_consistency done
+summeval_relevance done
+popquorn_offensiveness|K2 0 Q1 raw +0.1408 Q5 raw +0.0324
+popquorn_offensiveness|K2 1 Q1 raw +0.1425 Q5 raw +0.0552
+popquorn_offensiveness|K2 2 Q1 raw +0.1495 Q5 raw +0.0359
+popquorn_offensiveness|K2 3 Q1 raw +0.1902 Q5 raw +0.0513
+popquorn_offensiveness|K2 4 Q1 raw +0.1577 Q5 raw +0.0736
+popquorn_offensiveness|K3 0 Q1 raw +0.1319 Q5 raw +0.0508
+popquorn_offensiveness|K3 1 Q1 raw +0.1457 Q5 raw +0.0225
+popquorn_offensiveness|K3 2 Q1 raw +0.1441 Q5 raw +0.0371
+popquorn_offensiveness|K3 3 Q1 raw +0.1599 Q5 raw +0.0097
+popquorn_offensiveness|K3 4 Q1 raw +0.1391 Q5 raw +0.0730
+popquorn_offensiveness|K5 0 Q1 raw +0.1476 Q5 raw +0.0601
+popquorn_offensiveness|K5 1 Q1 raw +0.1586 Q5 raw +0.0641
+popquorn_offensiveness|K5 2 Q1 raw +0.1359 Q5 raw +0.0428
+popquorn_offensiveness|K5 3 Q1 raw +0.1495 Q5 raw +0.0554
+popquorn_offensiveness|K5 4 Q1 raw +0.1468 Q5 raw +0.0638
+popquorn_politeness|K2 0 Q1 raw -0.0041 Q5 raw -0.0002
+popquorn_politeness|K2 1 Q1 raw -0.0107 Q5 raw -0.0003
+popquorn_politeness|K2 2 Q1 raw -0.0083 Q5 raw -0.0025
+popquorn_politeness|K2 3 Q1 raw -0.0104 Q5 raw -0.0002
+popquorn_politeness|K2 4 Q1 raw -0.0091 Q5 raw +0.0007
+popquorn_politeness|K3 0 Q1 raw +0.0094 Q5 raw +0.0310
+popquorn_politeness|K3 1 Q1 raw +0.0062 Q5 raw +0.0455
+popquorn_politeness|K3 2 Q1 raw +0.0205 Q5 raw +0.0362
+popquorn_politeness|K3 3 Q1 raw +0.0164 Q5 raw +0.0334
+popquorn_politeness|K3 4 Q1 raw +0.0313 Q5 raw +0.0349
+popquorn_politeness|K5 0 Q1 raw +0.0383 Q5 raw +0.0757
+popquorn_politeness|K5 1 Q1 raw +0.0462 Q5 raw +0.0885
+popquorn_politeness|K5 2 Q1 raw +0.0587 Q5 raw +0.0943
+popquorn_politeness|K5 3 Q1 raw +0.0531 Q5 raw +0.0839
+popquorn_politeness|K5 4 Q1 raw +0.0481 Q5 raw +0.0729
+summeval_expert|K2 0 Q1 raw +0.0765 Q5 raw -0.0158
+summeval_expert|K2 1 Q1 raw +0.0863 Q5 raw -0.0283
+summeval_expert|K2 2 Q1 raw +0.0746 Q5 raw -0.0209
+summeval_expert|K2 3 Q1 raw +0.0802 Q5 raw -0.0298
+summeval_expert|K2 4 Q1 raw +0.0515 Q5 raw -0.0230
+summeval_expert|K3 0 Q1 raw +0.1461 Q5 raw +0.0128
+summeval_expert|K3 1 Q1 raw +0.1364 Q5 raw +0.0021
+summeval_expert|K3 2 Q1 raw +0.1320 Q5 raw +0.0085
+summeval_expert|K3 3 Q1 raw +0.1577 Q5 raw -0.0097
+summeval_expert|K3 4 Q1 raw +0.1168 Q5 raw -0.0085
+summeval_expert|K5 0 Q1 raw +0.1545 Q5 raw +0.0749
+summeval_expert|K5 1 Q1 raw +0.1468 Q5 raw +0.0569
+summeval_expert|K5 2 Q1 raw +0.1443 Q5 raw +0.0728
+summeval_expert|K5 3 Q1 raw +0.1621 Q5 raw +0.0502
+summeval_expert|K5 4 Q1 raw +0.1124 Q5 raw +0.0475
+summeval_crowd|K2 0 Q1 raw +0.0309 Q5 raw +0.0197
+summeval_crowd|K2 1 Q1 raw +0.0202 Q5 raw +0.0279
+summeval_crowd|K2 2 Q1 raw +0.0319 Q5 raw +0.0380
+summeval_crowd|K2 3 Q1 raw +0.0504 Q5 raw +0.0469
+summeval_crowd|K2 4 Q1 raw +0.0370 Q5 raw +0.0167
+summeval_crowd|K3 0 Q1 raw +0.1092 Q5 raw +0.0880
+summeval_crowd|K3 1 Q1 raw +0.0894 Q5 raw +0.0881
+summeval_crowd|K3 2 Q1 raw +0.0910 Q5 raw +0.1002
+summeval_crowd|K3 3 Q1 raw +0.1148 Q5 raw +0.1225
+summeval_crowd|K3 4 Q1 raw +0.1092 Q5 raw +0.0781
+summeval_crowd|K5 0 Q1 raw +0.1292 Q5 raw +0.1255
+summeval_crowd|K5 1 Q1 raw +0.1185 Q5 raw +0.1165
+summeval_crowd|K5 2 Q1 raw +0.1253 Q5 raw +0.1279
+summeval_crowd|K5 3 Q1 raw +0.1375 Q5 raw +0.1425
+summeval_crowd|K5 4 Q1 raw +0.1375 Q5 raw +0.1293
+dices990|K2 0 Q1 raw +0.1639 Q5 raw -0.0459
+dices990|K2 1 Q1 raw +0.1544 Q5 raw -0.0062
+dices990|K2 2 Q1 raw +0.1550 Q5 raw -0.0329
+dices990|K2 3 Q1 raw +0.1710 Q5 raw -0.0357
+dices990|K2 4 Q1 raw +0.1500 Q5 raw -0.0309
+dices990|K3 0 Q1 raw +0.1494 Q5 raw -0.0304
+dices990|K3 1 Q1 raw +0.1402 Q5 raw -0.0081
+dices990|K3 2 Q1 raw +0.1370 Q5 raw -0.0132
+dices990|K3 3 Q1 raw +0.1563 Q5 raw -0.0174
+dices990|K3 4 Q1 raw +0.1317 Q5 raw -0.0293
+chaosnli_snli_mnli|K3 0 Q1 raw +0.0718 Q5 raw +0.0467
+chaosnli_snli_mnli|K3 1 Q1 raw +0.0576 Q5 raw +0.0435
+chaosnli_snli_mnli|K3 2 Q1 raw +0.0610 Q5 raw +0.0374
+chaosnli_snli_mnli|K3 3 Q1 raw +0.0667 Q5 raw +0.0361
+chaosnli_snli_mnli|K3 4 Q1 raw +0.0742 Q5 raw +0.0459
+chaosnli_alphanli|K2 0 Q1 raw -0.0054 Q5 raw +0.0002
+chaosnli_alphanli|K2 1 Q1 raw +0.0018 Q5 raw -0.0002
+chaosnli_alphanli|K2 2 Q1 raw -0.0020 Q5 raw +0.0053
+chaosnli_alphanli|K2 3 Q1 raw -0.0023 Q5 raw +0.0013
+chaosnli_alphanli|K2 4 Q1 raw -0.0053 Q5 raw -0.0002
