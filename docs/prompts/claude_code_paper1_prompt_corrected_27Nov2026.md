@@ -8,20 +8,19 @@
 
 - **Running copy.** Brando is running a corrected version in Claude Code as of 27 Nov 2026. That session's own text is authoritative for what it was actually told; this file is the archived, corrected reference.
 - **Source.** The main prompt and the addendum were written by Gemini and pasted by Brando in chat on 27 Nov 2026 (messages t105u and t107u).
-- **Archiver's limitation (read this).** The archiving agent received the main prompt with a middle segment cut off (about 12,000 characters: the rest of Section 1, any Stage 0 and Stage 1 text, and the start of Stage 2). The cut parts are marked `[ORIGINAL TEXT NOT AVAILABLE]` below, each followed by a short stand-in written by the archiver from the prompt's own rationale and TL;DR and from this repository's rules. Everything not marked is the original text with the corrections below applied. If the verbatim text of the cut segment matters, copy it from Brando's Claude Code session or the original chat.
 
 ## Corrections applied
 
 | # | Correction | Where applied |
 | --- | --- | --- |
-| a | Commit directly to `main`, not a feature branch (Brando's rule for this repository: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/merge-to-main.mdc`, `.cursor/rules/experiment-folders-on-main.mdc`). Fetch latest `main` right before each push; never force-push; never rewrite others' changes. | Section 1, Stage 3 |
-| b | Li et al., "Judging with Confidence" ([arXiv:2510.00263](https://arxiv.org/abs/2510.00263)), is **Findings of EMNLP 2026**, not ICLR 2026 (the ICLR 2026 OpenReview forum still reads "Submitted to ICLR 2026"). It applies Brier and log rewards to pairwise preference distributions and leaves ordinal/Likert scales to future work; that point stands. | Section 0, Stage 2, addendum |
-| c | The G-theory paper "From LLM Judge Scores to Evaluation Design" (OpenReview [YawwpIWqTi](https://openreview.net/forum?id=YawwpIWqTi)) is a **withdrawn ICLR 2027 submission**. Do not cite it as published. The `Gtheory4LLM` CRAN package may be mentioned. | Stage 2 |
-| d | Alpha Parity, "Correlation Is Not Agreement" (OpenReview [67Z2nGMzNI](https://openreview.net/forum?id=67Z2nGMzNI)), is an **ACL ARR May 2026 submission**. Only the title and submission status are confirmed; its details (such as 3.06M judgments) are unverified. | Stage 2 |
-| e | Exp 43 is now **49 papers**: 29 of 30 scored/benchmark papers report correlation; 13 of 13 pairwise papers report agreement, accuracy or kappa; 43 of 49 have no item-level proper score. Lyu et al. ([2610.37868](https://arxiv.org/abs/2610.37868)), Li et al. and Choi et al. are already coded, so Stage 1.1 is mostly verification. The old "22/22" count is replaced. | Stage 1, Stage 2, Stage 3, addendum |
-| f | The "psychometric rebound" is an **emerging thread**: 1 of 49 coded papers reports IRT or G-theory reliability. Correlation and majority-label agreement remain dominant. | Stage 2 |
-| g | The thesis is **general**: a strictly proper score matched to the label space, plus a base-rate skill score. RPS is the ordinal flagship; CE and Brier are primary for unordered categories such as ChaosNLI. Accuracy against the majority label is proper but **not strictly proper** (it rewards only picking the mode). Alpha, kappa and IRT are agreement or reliability measures, not scoring rules at all. | Section 1, Stage 2, addendum |
-| h | The withdrawn **arXiv:2606.19544** (Norman et al., "Reliability without Validity", withdrawn by arXiv admin on 3 Nov 2026) must not be cited anywhere. | Stage 1, Stage 2, Stage 3 |
+| a | Commit directly to `main`, not a feature branch (Brando's rule for this repository: `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/merge-to-main.mdc`, `.cursor/rules/experiment-folders-on-main.mdc`). Fetch latest `main` right before each push; never force-push; never rewrite others' changes. | Section 1, Stage 0.2, Stage 3 |
+| b | Li et al., "Judging with Confidence" ([arXiv:2510.00263](https://arxiv.org/abs/2510.00263)), is **Findings of EMNLP 2026**, not ICLR 2026 (the ICLR 2026 OpenReview forum still reads "Submitted to ICLR 2026"). It applies Brier and log rewards to pairwise preference distributions and leaves ordinal/Likert scales to future work; that point stands. | Section 1, Stage 1, Stage 2, addendum |
+| c | The G-theory paper "From LLM Judge Scores to Evaluation Design" (OpenReview [YawwpIWqTi](https://openreview.net/forum?id=YawwpIWqTi)) is a **withdrawn ICLR 2027 submission**. Do not cite it as published. The `Gtheory4LLM` CRAN package may be mentioned. | Section 1, Stage 1, Stage 2 |
+| d | Alpha Parity, "Correlation Is Not Agreement" (OpenReview [67Z2nGMzNI](https://openreview.net/forum?id=67Z2nGMzNI)), is an **ACL ARR May 2026 submission**. Only the title and submission status are confirmed; its details (such as 3.06M judgments) are unverified. | Section 1, Stage 1, Stage 2 |
+| e | Exp 43 is now **49 papers**: 29 of 30 scored/benchmark papers report correlation; 13 of 13 pairwise papers report agreement, accuracy or kappa; 43 of 49 have no item-level proper score. Lyu et al. ([2610.37868](https://arxiv.org/abs/2610.37868)), Li et al. and Choi et al. are already coded, so Stage 1.1 is mostly verification. The old "22/22" and "11/11" counts are replaced. | Stage 1, Stage 2, Stage 3, addendum |
+| f | The "psychometric rebound" is an **emerging thread**: 1 of 49 coded papers reports IRT or G-theory reliability. Correlation and majority-label agreement remain dominant. | Section 1, Stage 1, Stage 2 |
+| g | The thesis is **general**: a strictly proper score matched to the label space, plus a base-rate skill score `Skill_S = 1 - S(judge) / S(base-rate)` for CE, Brier and RPS. RPS is the ordinal flagship; CE and Brier are primary for unordered categories such as ChaosNLI. Accuracy against the majority label is proper but **not strictly proper** (it rewards only picking the mode). Alpha, kappa and IRT are agreement or reliability measures, not scoring rules at all. | Section 1, Stage 1, Stage 2, addendum |
+| h | The withdrawn **arXiv:2606.19544** (Norman et al., "Reliability without Validity", withdrawn by arXiv admin on 3 Nov 2026) must not be cited anywhere. | Section 1, Stage 1, Stage 2, Stage 3 |
 
 Other notes:
 
@@ -63,41 +62,86 @@ Also consult these Google Docs and references (via Drive/MCP/browser if availabl
 
 ## 1. HARD CONSTRAINTS AND OPERATING RULES
 
-- **$0 API spend / CPU-only execution first:** Do NOT make paid API calls or launch expensive GPU sweeps without asking. All code fixes, Exp 39 re-runs, Exp 43 updates, RPS base-rate skill / agreement-stra
+- **$0 API spend / CPU-only execution first:** Do NOT make paid API calls or launch expensive GPU sweeps without asking. All code fixes, Exp 39 re-runs, Exp 43 updates, base-rate skill (CE, Brier, and RPS) / agreement-stratification / eval-power computations, Lean 4 builds, and LaTeX builds run on CPU/saved artifacts.
+- **Zero fabrication & strict provenance:** Every number, CI, and table cell in `paper_latex/` MUST come verbatim from a verified, committed experiment artifact (`results.md`, JSON/CSV) in this repo.
+- **Exact notation lock (apply uniformly across paper, code, and figures):**
+  - Prompt/context/item: `c` (do NOT overload `X` as both judge score and input item!)
+  - Judge rating RV: `X ~ q_hat(. | c)` (predicted PMF `q_hat(y | c)`)
+  - Human rating RV: `Y ~ p*(. | c, expert pool, rubric)` (conditional mean `mu_Y(c) = E[Y | c]`)
+  - Centered RVs: `X_tilde := X - mu_X`, `Y_tilde := Y - mu_Y`
+  - Standardized RVs: `z_X := X_tilde / sigma_X`, `z_Y := Y_tilde / sigma_Y`
+  - Excess Brier divergence: `D_B(p* || q_hat) := sum_y (p*(y | c) - q_hat(y | c))^2`
+  - Ordinal proper score: `RPS(q_hat, y)` (squared error on cumulative threshold indicators `1[y <= k]`), framed explicitly as **within-item ordinal distance-sensitive error ("how wrong you are")**, NEVER as cross-item ranking.
+  - Chance/base-rate adjustment: **skill score** `Skill_S = 1 - S(judge) / S(base-rate forecast)` on the same held-out items, for each matched proper rule `S` (CE, Brier, and RPS). The RPS skill score is the ordinal case.
+- **Mandatory Paper 1 Framing Guardrails (DO NOT VIOLATE):**
+  1. Target **"correlation, majority-label agreement, and symmetric psychometrics (alpha, weighted kappa, IRT, G-theory)"** — NEVER claim "correlation is the only ruler for all LLM judges" (explicitly distinguish direct-score/ordinal judges [correlation, 29/30 scored/benchmark papers in Exp 43] from pairwise/reward models [accuracy/agreement/kappa, 13/13 pairwise papers in Exp 43]).
+  2. Respect the 3 known weak spots: (a) pairwise judges use majority-label accuracy (same mode-collapse failure, different theorem; accuracy is proper but not strictly proper), (b) system-level leaderboards summarize rankings (note Chatbot Arena BT uses binary CE and Arena-Hard uses system-level Pair Rank Brier), (c) objective-answer tasks (JudgeBench, No Free Labels, Judge's Verdict) have near-point-mass truth where accuracy is close to proper.
+  3. **Honest evaluation vs. training separation (Sanmi's Nov 26 guidance + Exp 41/23 reality):**
+     - Lead Paper 1 with the airtight **Mirage-style evaluation protocol** (explicit construct `p*(y | c, expert pool, rubric)` + unbiased single-rating proper score `S` matched to the label space + base-rate skill `Skill_S` for CE, Brier, and RPS + human-agreement stratification + downstream system-level ranking). RPS is the flagship score on ordinal Likert scales; CE and Brier are primary on unordered categories such as ChaosNLI.
+     - State the training takeaway honestly: **"Evaluate with a strictly proper score matched to the label space, and train — or at minimum calibrate — with one."** Explicitly report BOTH the large raw calibration gap (up to `0.128` normalized RPS in Exp 41; `7/7` raw CE-LoRA wins in Exp 29) AND the honest post-calibration linear-head result (`<= 0.0024` normalized RPS gap between CE and calibrated Pearson across 16 views; regularized MSE + calibration ties CE within `0.0004` in Exp 41; calibrated Pearson beats direct CE-fit on DICES at some budgets in Exp 28; raw Pearson got higher system-level Spearman `0.877` vs `0.835` on SummEval in Exp 23).
+     - Hold strong **scaling-law** and **Bitter Lesson** claims out of Paper 1's main claim (frame end-to-end training beyond linear heads, fixed-dollar allocation, and cross-generation drift as Paper 2 / future work).
+  4. **Bibliography hygiene:**
+     - **Do not cite withdrawn `arXiv:2606.19544`** (withdrawn by arXiv Admin Nov 3, 2026) in ANY file, `.bib`, `.tex`, or markdown doc. A short note that it was withdrawn and must not be cited is allowed; remove any bibliographic citation.
+     - Cite **Li et al. (`arXiv:2510.00263`, "Judging with Confidence")** as **Findings of EMNLP 2026** (not ICLR 2026; the ICLR 2026 OpenReview forum still reads "Submitted to ICLR 2026"). It treats pairwise binary preferences and explicitly leaves ordinal Likert scales to future work.
+     - Cite and differentiate cleanly from **Lyu, Do, & Pergola (Oct 27, 2026, `arXiv:2610.37868`, "Human-Residual Steering")** (steering-method paper that uses single-pass logits + RPS/CE while still touting Spearman gains `0.449 -> 0.579`, without formal anti-properness proofs, psychometric failure analysis, base-rate skill, or judge-selection reversal protocol).
+     - Cite as allies: Pavlick & Kwiatkowski (2019), ChaosNLI (Nie et al., 2020), Uma et al. (2021), Plank (2022), DICES (2023), Elangovan et al. (ICLR 2025, `2410.03775`), Guerdan et al. (NeurIPS 2025, `2503.05965`), Chen et al. (NeurIPS 2025, `2505.12301`), Wang et al. (Findings EMNLP 2025, `2503.03064`; confirm this entry from the primary source first — it has no matching row in Exp 43's `papers.py`).
+     - The 2026 psychometric turn is an **emerging thread** (1 of 49 coded papers in Exp 43 reports IRT or G-theory reliability). Cite Choi et al. (ICML 2026 IRT-GRM, `2602.00521`) and Rao & Callison-Burch (`2606.00093`) as such. Alpha Parity / *Correlation Is Not Agreement* (OpenReview `67Z2nGMzNI`) is an ACL ARR May 2026 submission; only the title and submission status are confirmed, so do not cite unverified details. The G-theory paper (OpenReview `YawwpIWqTi`) is a **withdrawn ICLR 2027 submission** — do not cite it as published. The `Gtheory4LLM` CRAN package (Nov 2026) may be mentioned.
 
-`[ORIGINAL TEXT NOT AVAILABLE: the rest of Section 1 was cut off in the copy the archiver received. Stand-in, written by the archiver from this repository's rules and the prompt's rationale:]`
+=====================================================================
+STAGE 0: REPO AUDIT & RULES INSTALLATION
+=====================================================================
+1. Inspect git status, current branch, `paper_latex/` structure, `.cursor/rules/`, `CLAUDE.md`, `AGENTS.md`, and the exact state of Exps 4, 23, 26, 28, 29, 31, 33, 35, 36, 39, 41, and 43.
+2. Work and commit directly on `main` (do not create a feature branch such as `paper1-mirage-ordinal-eval-sync`). Fetch the latest `origin/main` right before each push; never force-push; never rewrite another session's changes.
+3. Ensure `.cursor/rules/ml-research-standards.mdc` (`alwaysApply: true`) enforces our 3-pillar bar (zero-`sorry` Lean 4 proofs, automated `pytest` numerical theorem checks, and leak-free real-data experiments with unbiased per-sample proper risk and item-clustered bootstrap CIs) and is referenced from `CLAUDE.md` and `AGENTS.md` without clobbering any existing repo rules.
 
-- (original first bullet continues: base-rate skill, agreement-stratification and eval-set power diagnostics are computed on saved artifacts on CPU.)
-- **Commit directly to `main`** (correction a): fetch and rebase onto the latest `origin/main` right before each push, never force-push, never rewrite another session's commits, keep each experiment in its numbered folder `experiments/NN_<setup>_start_<DDMonYYYY>/`.
-- **Proofs:** every formal claim is checked in Lean 4 (zero `sorry`, standard axioms only, `#print axioms` saved) and in Python, per `AGENTS.md`. Do not call anything a proof that has not been compiled.
-- **Real data:** every paper-facing empirical claim rests on real multi-annotator human ratings, the unbiased per-sample proper risk at test time, a prompt-level train/validation/test split, and item-clustered bootstrap 95% confidence intervals, per `AGENTS.md`.
-- **No invented numbers.** Every number, CI and table in `paper_latex/` comes from a committed artifact.
-- **Citations:** never cite withdrawn arXiv:2606.19544 (correction h). Use the corrected venues and statuses in the corrections table above (b, c, d).
+=====================================================================
+STAGE 1: REPO DATA, AUDIT FIXES & LEAN 4 HYGIENE (CPU ONLY)
+=====================================================================
+Execute these concrete repo updates in order:
 
-## STAGE 0 to STAGE 1 (audit, repo rules, Exp 43, Exp 39, Exp 44, Lean)
+1. **Update Exp 43 (`experiments/43_llm_judge_validation_practice_survey_start_27Nov2026/`):**
+   - Stage 1.1 is mostly verification: Lyu et al. (`2610.37868`), Li et al. (`2510.00263`, Findings of EMNLP 2026), and Choi et al. (`2602.00521`) are already coded. Confirm `python3 tally.py` reports **49 papers**, **29/30** scored/benchmark papers reporting correlation, **13/13** pairwise papers reporting agreement/accuracy/kappa, and **43/49** with no item-level proper score (1 of 49 reports IRT or G-theory reliability). Add a missing verified 2026 paper only from a primary source.
+   - Do **not** add the G-theory paper (OpenReview `YawwpIWqTi`) to `papers.py` as a published paper: it is a withdrawn ICLR 2027 submission. The `Gtheory4LLM` CRAN package may be mentioned.
+   - Do **not** add Alpha Parity / *Correlation Is Not Agreement* (OpenReview `67Z2nGMzNI`) as a verified coded paper; it is an ACL ARR May 2026 submission whose details are unverified.
+   - Ensure withdrawn `arXiv:2606.19544` is not cited anywhere in `papers.py` or `README.md`. A short note that it was withdrawn and must not be cited is allowed.
+   - Re-run `python3 tally.py` twice to verify deterministic output, and update `README.md` with the refreshed counts and the exact 3-regime verdict (direct-score correlation, pairwise accuracy/kappa, 2026 psychometric turn as an **emerging thread**, not a rebound).
 
-`[ORIGINAL TEXT NOT AVAILABLE: Stage 0 and Stage 1 were cut off. Stand-in reconstructed from the prompt's rationale and TL;DR; the original wording and any extra detail are in Brando's Claude Code session.]`
+2. **Fix and re-run Exp 39 (`experiments/39_proper_score_vs_d_study_budget_allocation_start_26Nov2026/`):**
+   - Read the independent review of Exp 39 in the repo and implement all 4 fixes cleanly on CPU:
+     (a) Declare a deterministic, explicit tie-break rule for the RPS oracle.
+     (b) Fix the constant D-study selectors so D-study actually adapts from pilot variance components (or explicitly label constant baselines separately).
+     (c) Remove the hidden 4.5–7.7x pilot rating leakage in the proper-score selector so every selector operates at strictly matched total rating budget `B`.
+     (d) Apply Holm–Bonferroni multiple-testing correction across the 20 dataset-budget cells.
+   - Re-run Exp 39 on CPU, regenerate its figures/tables, update `results.md` with the corrected numbers, and write a concise `CORRECTION_NOTE_EXP39.md` ready to paste into the Exp 39 Google Doc (`https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit`).
 
-0. **Audit.** Read the repo and the reference docs. Install the three-pillar repo rules (corr / majority-label agreement / symmetric psychometrics are not proper scores; strictly proper score matched to the label space plus base-rate skill; real multi-annotator data plus Lean-checked proofs) in `AGENTS.md`, `CLAUDE.md` (identical files) and `.cursor/rules/`.
-1. **1.1 Exp 43.** Lyu et al., Li et al. and Choi et al. are already coded (correction e), so this is mostly verification: confirm `python3 tally.py` reports 49 papers, 29/30 scored/benchmark papers with correlation, 13/13 pairwise papers with agreement/accuracy/kappa, and 43/49 with no item-level proper score. Add any missing verified 2026 paper only from a primary source. Purge any occurrence of arXiv:2606.19544 (a note that it was withdrawn and must not be cited is fine).
-2. **1.2 Exp 39.** Fix the review's findings on Experiment 39 (see the 11-27-2026 QA entry for experiment 39 in `experiments/README.md` and the audit doc, reference 3) and re-run it cleanly on CPU. Report the cleaned results next to the old headline and write an exact correction note for the Exp 39 Google Doc (reference 6).
-3. **1.3 Exp 44.** New experiment folder: unbiased per-sample proper risk, base-rate skill scores `1 - S(judge)/S(base-rate)`, human-agreement stratification, and eval-set power / minimum-detectable-difference curves, computed on saved artifacts, for CE, Brier and RPS (see the addendum), plus the real-data judge rank-reversal table (correlation-ranked versus proper-score-ranked judges).
-4. **1.4 Lean.** Run `lake build`; verify the cited theorem names and zero `sorry`. Optionally add a zero-`sorry` lemma that accuracy against the majority label is proper but not strictly proper (it elicits only the mode). Never claim Lean coverage for an unformalized statement.
+3. **Add missing Paper 1 eval-protocol diagnostics on existing cached forecasts/datasets (CPU only, $0):**
+   - On saved held-out datasets/forecasts (DICES-350/990, ChaosNLI, SummEval, CertJudge/VeriBench if local), compute and save a clean JSON/CSV + `results.md` under a new dated experiment folder (e.g., `experiments/44_ordinal_eval_protocol_skill_stratification_power_start_27Nov2026/`):
+     (a) **Base-rate skill scores** `Skill_S = 1 - S(judge) / S(base-rate)` for **CE, Brier, and RPS**, with item-clustered bootstrap 95% CIs (directly answering kappa/alpha pushback per Sanmi's email), clearly labeling which proper rule matches each dataset's label-space geometry (CE/Brier primary on unordered categories such as ChaosNLI; RPS primary on ordinal scales).
+     (b) **Human-agreement stratification** (low-entropy consensus vs. high-entropy disputed items, using independent rater splits for stratifying vs. scoring where multi-rater data permits), verifying proper distributional judging stays peaky on consensus items and calibrated on disputed items.
+     (c) **Eval-set statistical power / Minimum Detectable Difference (MDD) curves** sweeping `(N_test, k_test)` via item-clustered bootstrap on existing benchmarks, quantifying whether current test set sizes already separate judges cleanly under the matched unbiased single-rating proper score (CE, Brier, and RPS).
+     (d) **Explicit real-benchmark winner reversal summary table** pulling exact paired CIs for DICES-990, ChaosNLI MNLI-m (Exp 28), and G-theory reliability vs. the matched proper score (RPS, and CE/Brier as applicable) (Exps 4 & 41).
 
-## STAGE 2: `paper_latex/` RE-SCOPE
+4. **Lean 4 check & optional accuracy lemma (`experiments/33`, `35`, `36` or `theory/`):**
+   - Run `lake exe cache get` (if Mathlib is used; NEVER rebuild Mathlib from scratch) and `lake build` to confirm all existing Lean 4 theorems (`brier_strictly_proper`, `mse_decomposition`, `standardized_mse_corr`, `pearson_affine_invariant`, `mean_not_identifying`, `ordinal_same_mean_different_law`, and the squared anti-properness `rho^2 < rho` lemma) compile with **zero `sorry`** and zero custom axioms.
+   - Optional quick win (if clean and <= 50 lines): add a zero-`sorry` Lean 4 proof that hard 0–1 accuracy (`argmax`) and sampled expected accuracy (`sum_y q(y) p*(y)`) are maximized by the deterministic mode `delta_{argmax p*}` (showing that accuracy is proper but not strictly proper / overconfidence). If not formalized in Lean, explicitly label the accuracy/kappa mode-collapse argument as analytical (not Lean-checked) in the paper.
 
-`[ORIGINAL TEXT NOT AVAILABLE: the start of Stage 2, item 1, was cut off. Stand-in:]`
+5. **Repo-wide hygiene check:**
+   - Grep the entire repo for `2606.19544`. Do not cite it. A short note that it was withdrawn and must not be cited is allowed; remove any bibliographic citation.
+   - Run `pytest` across all verification and metric unit tests.
 
-1. **Framing and structure.** Rewrite the title, abstract and introduction around the three rulers that cannot certify a judge as a forecaster of human ratings: correlation (scored judges), majority-label agreement, accuracy or kappa (pairwise judges), and psychometric reliability (alpha, kappa, IRT, G-theory), versus a strictly proper score matched to the label space with a base-rate skill score. Describe the psychometric thread as **emerging** (1 of 49 coded papers reports IRT or G-theory reliability; correction f), not as a rebound. Say alpha, kappa and IRT measure agreement or reliability and are not scoring rules at all; say accuracy is proper but not strictly proper. Lead with the unbiased single-rating proper score and base-rate skill; scope raw-versus-calibrated training results honestly (Exp 41: the CE-over-Pearson gap is up to 0.1282 raw and at most 0.0024 once each head has its own calibration map).
+=====================================================================
+STAGE 2: UPDATE THE PAPER (`paper_latex/`)
+=====================================================================
+Inspect `paper_latex/` thoroughly (existing `.tex` files, `.bib`, figures, style/venue template, macros) and execute a surgical, top-ML-conference revision aligned with our finalized Paper 1 architecture:
 
-2. **Literature and differentiation** (verbatim fragment follows; the beginning of this item was cut off)
-   - `...d Literature Check doc (including Exp 43's updated reproducible tally)` (use the 49-paper tally: 29/30, 13/13, 43/49).
+2. **Literature and differentiation:**
+   - Use the Merged Literature Check doc (including Exp 43's updated reproducible tally: 49 papers; 29/30 scored/benchmark papers report correlation; 13/13 pairwise papers report agreement/accuracy/kappa; 43/49 have no item-level proper score).
    - Differentiate crisply from Elangovan et al. (ICLR 2025), Guerdan et al. (NeurIPS 2025), Chen et al. (NeurIPS 2025), Wang et al. (Findings EMNLP 2025; confirm from the primary source first), **Li et al. (Findings of EMNLP 2026, [arXiv:2510.00263](https://arxiv.org/abs/2510.00263); pairwise binary, leaves ordinal to future work)**, and Lyu, Do, and Pergola ([arXiv:2610.37868](https://arxiv.org/abs/2610.37868), Oct 2026; representation steering, trains with RPS for ordinal labels and CE for nominal labels, primary metric Jensen–Shannon distance, still reports Spearman gains).
    - Do not cite the G-theory paper (OpenReview YawwpIWqTi) as published: it is a withdrawn ICLR 2027 submission (correction c). The `Gtheory4LLM` CRAN package may be mentioned. Alpha Parity (OpenReview 67Z2nGMzNI) is an ACL ARR May 2026 submission whose details are unverified (correction d); cite it only as such, or not at all.
-   - Confirm **zero occurrences of withdrawn `arXiv:2606.19544`** and the correct venue for Li et al. (**Findings of EMNLP 2026**).
+   - Confirm **zero bibliographic citations of withdrawn `arXiv:2606.19544`** and the correct venue for Li et al. (**Findings of EMNLP 2026**).
 
 3. **Theory, Experiments, Tables and Figures:**
-   - Unify notation (`c`, `X`, `Y`, `X_tilde`, `z_X`, `D_B(p* || q_hat)`, `RPS`, `RPS skill`) everywhere in `.tex` and figure labels.
+   - Unify notation (`c`, `X`, `Y`, `X_tilde`, `z_X`, `D_B(p* || q_hat)`, `RPS`, `Skill_S` for CE, Brier, and RPS) everywhere in `.tex` and figure labels.
    - Cite exact Lean 4 theorem names verified in Stage 1 (and never overclaim Lean coverage for unformalized statements).
    - Wire every table and figure to the updated committed artifacts (Exp 23, 28, 29, 35, 36, cleaned 39 if included in Discussion/Appendix, 41, 43, and new 44).
    - Compile `paper_latex/` cleanly (e.g., `latexmk -pdf` or `pdflatex` + `bibtex`) with **zero LaTeX errors, zero undefined citations `[?]`, and zero undefined cross-references `??`**.
