@@ -1,0 +1,87 @@
+popquorn_offensiveness|K2  base 0.1156 | skill CE raw +0.0031 Pearson raw -1.1141 | diff raw +1.1173 [+1.0116, +1.2586] | diff cal +0.0007 [+0.0003, +0.0011]
+popquorn_offensiveness|K3  base 0.1529 | skill CE raw +0.0037 Pearson raw -0.6239 | diff raw +0.6276 [+0.5702, +0.6962] | diff cal +0.0010 [+0.0003, +0.0016]
+popquorn_offensiveness|K5  base 0.1501 | skill CE raw +0.0048 Pearson raw -0.6938 | diff raw +0.6986 [+0.6487, +0.7529] | diff cal -0.0002 [-0.0011, +0.0006]
+popquorn_politeness|K2     base 0.2489 | skill CE raw +0.0712 Pearson raw +0.0862 | diff raw -0.0149 [-0.0189, -0.0111] | diff cal +0.0098 [+0.0081, +0.0114]
+popquorn_politeness|K3     base 0.2184 | skill CE raw +0.0529 Pearson raw -0.0853 | diff raw +0.1381 [+0.1257, +0.1512] | diff cal +0.0075 [+0.0063, +0.0088]
+popquorn_politeness|K5     base 0.1758 | skill CE raw +0.0340 Pearson raw -0.3911 | diff raw +0.4251 [+0.4046, +0.4450] | diff cal +0.0053 [+0.0044, +0.0062]
+summeval_expert|K2         base 0.2001 | skill CE raw +0.0130 Pearson raw -0.2231 | diff raw +0.2361 [+0.2126, +0.2627] | diff cal +0.0001 [-0.0008, +0.0011]
+summeval_expert|K3         base 0.1517 | skill CE raw +0.0094 Pearson raw -0.5902 | diff raw +0.5996 [+0.5582, +0.6459] | diff cal +0.0011 [+0.0000, +0.0022]
+summeval_expert|K5         base 0.1449 | skill CE raw +0.0120 Pearson raw -0.6720 | diff raw +0.6840 [+0.6517, +0.7185] | diff cal +0.0046 [+0.0017, +0.0077]
+summeval_crowd|K2          base 0.2233 | skill CE raw -0.0018 Pearson raw -0.1502 | diff raw +0.1484 [+0.1314, +0.1670] | diff cal -0.0002 [-0.0005, +0.0000]
+summeval_crowd|K3          base 0.1516 | skill CE raw -0.0010 Pearson raw -0.6622 | diff raw +0.6611 [+0.6281, +0.6975] | diff cal -0.0003 [-0.0006, +0.0001]
+summeval_crowd|K5          base 0.1277 | skill CE raw -0.0009 Pearson raw -1.0058 | diff raw +1.0049 [+0.9769, +1.0353] | diff cal -0.0003 [-0.0006, +0.0001]
+dices990|K2                base 0.1867 | skill CE raw +0.0131 Pearson raw -0.3937 | diff raw +0.4067 [+0.3615, +0.4581] | diff cal +0.0031 [+0.0016, +0.0047]
+dices990|K3                base 0.1980 | skill CE raw +0.0138 Pearson raw -0.3103 | diff raw +0.3240 [+0.2839, +0.3694] | diff cal +0.0032 [+0.0016, +0.0047]
+chaosnli_snli_mnli|K3      base 0.1950 | skill CE raw +0.0066 Pearson raw -0.2883 | diff raw +0.2950 [+0.2784, +0.3119] | diff cal -0.0001 [-0.0009, +0.0006]
+chaosnli_alphanli|K2       base 0.2501 | skill CE raw -0.0054 Pearson raw -0.0133 | diff raw +0.0079 [+0.0036, +0.0122] | diff cal -0.0002 [-0.0010, +0.0007]
+{
+ "P1_raw_gap_views": [
+  "popquorn_offensiveness|K2",
+  "popquorn_offensiveness|K3",
+  "popquorn_offensiveness|K5",
+  "popquorn_politeness|K3",
+  "popquorn_politeness|K5",
+  "summeval_expert|K2",
+  "summeval_expert|K3",
+  "summeval_expert|K5",
+  "summeval_crowd|K2",
+  "summeval_crowd|K3",
+  "summeval_crowd|K5",
+  "dices990|K2",
+  "dices990|K3",
+  "chaosnli_snli_mnli|K3"
+ ],
+ "P1_holds_on": [
+  "popquorn_offensiveness|K2",
+  "popquorn_offensiveness|K3",
+  "popquorn_offensiveness|K5",
+  "popquorn_politeness|K3",
+  "popquorn_politeness|K5",
+  "summeval_expert|K2",
+  "summeval_expert|K3",
+  "summeval_expert|K5",
+  "summeval_crowd|K2",
+  "summeval_crowd|K3",
+  "summeval_crowd|K5",
+  "dices990|K2",
+  "dices990|K3",
+  "chaosnli_snli_mnli|K3"
+ ],
+ "P2_holds_on": [
+  "popquorn_offensiveness|K2",
+  "popquorn_offensiveness|K3",
+  "popquorn_offensiveness|K5",
+  "popquorn_politeness|K2",
+  "popquorn_politeness|K3",
+  "popquorn_politeness|K5",
+  "summeval_expert|K2",
+  "summeval_expert|K3",
+  "summeval_expert|K5",
+  "summeval_crowd|K2",
+  "summeval_crowd|K3",
+  "summeval_crowd|K5",
+  "dices990|K2",
+  "dices990|K3",
+  "chaosnli_snli_mnli|K3",
+  "chaosnli_alphanli|K2"
+ ],
+ "P3_ce_raw_skill_below_0.10_on": [
+  "popquorn_offensiveness|K2",
+  "popquorn_offensiveness|K3",
+  "popquorn_offensiveness|K5",
+  "popquorn_politeness|K2",
+  "popquorn_politeness|K3",
+  "popquorn_politeness|K5",
+  "summeval_expert|K2",
+  "summeval_expert|K3",
+  "summeval_expert|K5",
+  "summeval_crowd|K2",
+  "summeval_crowd|K3",
+  "summeval_crowd|K5",
+  "dices990|K2",
+  "dices990|K3",
+  "chaosnli_snli_mnli|K3",
+  "chaosnli_alphanli|K2"
+ ]
+}
+elapsed 410s

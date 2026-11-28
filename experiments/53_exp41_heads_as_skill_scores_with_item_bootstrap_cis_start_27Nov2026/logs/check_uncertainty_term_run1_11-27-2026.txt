@@ -1,0 +1,5 @@
+PASS 1-3: pair agreement = sum p^2; Brier term = (1 - sum p^2)/2; unnormalized RPS term = sum_j P_j(1-P_j) (80 exact rational laws, K = 2,3,5,6)
+PASS pair estimator unbiased for the mean Brier uncertainty term: mean 0.2951 vs truth 0.2941 (|diff| < 3 MC s.e. = 0.0016)
+PASS 4: populations A and B share the single-rating law (1/2, 1/2); uncertainty terms 1/4 vs 0
+PASS claimed-false: one rating per item identifies the term (fails, as expected)
+ALL PASS
