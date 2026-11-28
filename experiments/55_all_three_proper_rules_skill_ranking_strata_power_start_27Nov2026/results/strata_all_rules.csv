@@ -1,0 +1,376 @@
+dataset,rule,match,quintile,n,judge,entropy_lo,entropy_hi,skill
+chaosnli_snli,brier,matched,1,120,gpt-6-astra,-0,0.3669249913,0.7695987173
+chaosnli_snli,brier,matched,1,120,claude-opus-5-5,-0,0.3669249913,0.7116757054
+chaosnli_snli,brier,matched,1,120,kimi-k3,-0,0.3669249913,0.7621828156
+chaosnli_snli,brier,matched,1,120,glm-5.3,-0,0.3669249913,0.7421214644
+chaosnli_snli,brier,matched,1,120,deepseek-v4.1-flash,-0,0.3669249913,0.7763932305
+chaosnli_snli,brier,matched,2,120,gpt-6-astra,0.3669249913,0.5341832641,0.4740490821
+chaosnli_snli,brier,matched,2,120,claude-opus-5-5,0.3669249913,0.5341832641,0.4809503815
+chaosnli_snli,brier,matched,2,120,kimi-k3,0.3669249913,0.5341832641,0.4445502017
+chaosnli_snli,brier,matched,2,120,glm-5.3,0.3669249913,0.5341832641,0.4720420484
+chaosnli_snli,brier,matched,2,120,deepseek-v4.1-flash,0.3669249913,0.5341832641,0.4851878369
+chaosnli_snli,brier,matched,3,120,gpt-6-astra,0.5341832641,0.6435661541,0.2547428153
+chaosnli_snli,brier,matched,3,120,claude-opus-5-5,0.5341832641,0.6435661541,0.3309154109
+chaosnli_snli,brier,matched,3,120,kimi-k3,0.5341832641,0.6435661541,0.2509815483
+chaosnli_snli,brier,matched,3,120,glm-5.3,0.5341832641,0.6435661541,0.2853918878
+chaosnli_snli,brier,matched,3,120,deepseek-v4.1-flash,0.5341832641,0.6435661541,0.2235047191
+chaosnli_snli,brier,matched,4,120,gpt-6-astra,0.6435661541,0.7424171058,0.005598019436
+chaosnli_snli,brier,matched,4,120,claude-opus-5-5,0.6435661541,0.7424171058,0.1798697096
+chaosnli_snli,brier,matched,4,120,kimi-k3,0.6435661541,0.7424171058,0.03096292561
+chaosnli_snli,brier,matched,4,120,glm-5.3,0.6435661541,0.7424171058,0.1351079883
+chaosnli_snli,brier,matched,4,120,deepseek-v4.1-flash,0.6435661541,0.7424171058,0.02882054085
+chaosnli_snli,brier,matched,5,120,gpt-6-astra,0.7424171058,1.09703239,0.008099412449
+chaosnli_snli,brier,matched,5,120,claude-opus-5-5,0.7424171058,1.09703239,0.1217798942
+chaosnli_snli,brier,matched,5,120,kimi-k3,0.7424171058,1.09703239,-0.006220938019
+chaosnli_snli,brier,matched,5,120,glm-5.3,0.7424171058,1.09703239,0.07386162804
+chaosnli_snli,brier,matched,5,120,deepseek-v4.1-flash,0.7424171058,1.09703239,-0.02328528382
+chaosnli_snli,ce,matched,1,120,gpt-6-astra,-0,0.3669249913,0.7041587447
+chaosnli_snli,ce,matched,1,120,claude-opus-5-5,-0,0.3669249913,0.657229974
+chaosnli_snli,ce,matched,1,120,kimi-k3,-0,0.3669249913,0.6970517679
+chaosnli_snli,ce,matched,1,120,glm-5.3,-0,0.3669249913,0.6731053662
+chaosnli_snli,ce,matched,1,120,deepseek-v4.1-flash,-0,0.3669249913,0.6987861498
+chaosnli_snli,ce,matched,2,120,gpt-6-astra,0.3669249913,0.5341832641,0.4117421342
+chaosnli_snli,ce,matched,2,120,claude-opus-5-5,0.3669249913,0.5341832641,0.4575569248
+chaosnli_snli,ce,matched,2,120,kimi-k3,0.3669249913,0.5341832641,0.4078524361
+chaosnli_snli,ce,matched,2,120,glm-5.3,0.3669249913,0.5341832641,0.4426109273
+chaosnli_snli,ce,matched,2,120,deepseek-v4.1-flash,0.3669249913,0.5341832641,0.4454776919
+chaosnli_snli,ce,matched,3,120,gpt-6-astra,0.5341832641,0.6435661541,0.2381427457
+chaosnli_snli,ce,matched,3,120,claude-opus-5-5,0.5341832641,0.6435661541,0.3496020761
+chaosnli_snli,ce,matched,3,120,kimi-k3,0.5341832641,0.6435661541,0.2487432185
+chaosnli_snli,ce,matched,3,120,glm-5.3,0.5341832641,0.6435661541,0.2975371869
+chaosnli_snli,ce,matched,3,120,deepseek-v4.1-flash,0.5341832641,0.6435661541,0.2072152815
+chaosnli_snli,ce,matched,4,120,gpt-6-astra,0.6435661541,0.7424171058,0.05189080627
+chaosnli_snli,ce,matched,4,120,claude-opus-5-5,0.6435661541,0.7424171058,0.2480977384
+chaosnli_snli,ce,matched,4,120,kimi-k3,0.6435661541,0.7424171058,0.07743837101
+chaosnli_snli,ce,matched,4,120,glm-5.3,0.6435661541,0.7424171058,0.2064567812
+chaosnli_snli,ce,matched,4,120,deepseek-v4.1-flash,0.6435661541,0.7424171058,0.0771713578
+chaosnli_snli,ce,matched,5,120,gpt-6-astra,0.7424171058,1.09703239,-0.01680435627
+chaosnli_snli,ce,matched,5,120,claude-opus-5-5,0.7424171058,1.09703239,0.1333223988
+chaosnli_snli,ce,matched,5,120,kimi-k3,0.7424171058,1.09703239,-0.02378954246
+chaosnli_snli,ce,matched,5,120,glm-5.3,0.7424171058,1.09703239,0.06555761394
+chaosnli_snli,ce,matched,5,120,deepseek-v4.1-flash,0.7424171058,1.09703239,-0.070271254
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",1,120,gpt-6-astra,-0,0.3669249913,0.8015167615
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",1,120,claude-opus-5-5,-0,0.3669249913,0.7481097041
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",1,120,kimi-k3,-0,0.3669249913,0.7980281625
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",1,120,glm-5.3,-0,0.3669249913,0.7831410586
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",1,120,deepseek-v4.1-flash,-0,0.3669249913,0.8033243659
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",2,120,gpt-6-astra,0.3669249913,0.5341832641,0.5295625237
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",2,120,claude-opus-5-5,0.3669249913,0.5341832641,0.5443288197
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",2,120,kimi-k3,0.3669249913,0.5341832641,0.5077545922
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",2,120,glm-5.3,0.3669249913,0.5341832641,0.5289991202
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",2,120,deepseek-v4.1-flash,0.3669249913,0.5341832641,0.5312298025
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",3,120,gpt-6-astra,0.5341832641,0.6435661541,0.3246151507
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",3,120,claude-opus-5-5,0.5341832641,0.6435661541,0.3986981649
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",3,120,kimi-k3,0.5341832641,0.6435661541,0.3147764496
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",3,120,glm-5.3,0.5341832641,0.6435661541,0.3529015872
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",3,120,deepseek-v4.1-flash,0.5341832641,0.6435661541,0.2876659833
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",4,120,gpt-6-astra,0.6435661541,0.7424171058,0.1282258032
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",4,120,claude-opus-5-5,0.6435661541,0.7424171058,0.2777385136
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",4,120,kimi-k3,0.6435661541,0.7424171058,0.1208341032
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",4,120,glm-5.3,0.6435661541,0.7424171058,0.2386453795
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",4,120,deepseek-v4.1-flash,0.6435661541,0.7424171058,0.1337456495
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",5,120,gpt-6-astra,0.7424171058,1.09703239,0.06025581675
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",5,120,claude-opus-5-5,0.7424171058,1.09703239,0.1613189609
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",5,120,kimi-k3,0.7424171058,1.09703239,0.04356689145
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",5,120,glm-5.3,0.7424171058,1.09703239,0.1121093845
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",5,120,deepseek-v4.1-flash,0.7424171058,1.09703239,0.03253216371
+chaosnli_mnli,brier,matched,1,120,gpt-6-astra,0.09803911328,0.5730569171,0.4132235814
+chaosnli_mnli,brier,matched,1,120,claude-opus-5-5,0.09803911328,0.5730569171,0.3896753147
+chaosnli_mnli,brier,matched,1,120,kimi-k3,0.09803911328,0.5730569171,0.3239659649
+chaosnli_mnli,brier,matched,1,120,glm-5.3,0.09803911328,0.5730569171,0.3906270937
+chaosnli_mnli,brier,matched,1,120,deepseek-v4.1-flash,0.09803911328,0.5730569171,0.2843551429
+chaosnli_mnli,brier,matched,2,120,gpt-6-astra,0.5730569171,0.6899437585,0.1003039008
+chaosnli_mnli,brier,matched,2,120,claude-opus-5-5,0.5730569171,0.6899437585,0.2018051437
+chaosnli_mnli,brier,matched,2,120,kimi-k3,0.5730569171,0.6899437585,0.07408769025
+chaosnli_mnli,brier,matched,2,120,glm-5.3,0.5730569171,0.6899437585,0.1959071901
+chaosnli_mnli,brier,matched,2,120,deepseek-v4.1-flash,0.5730569171,0.6899437585,0.04161237835
+chaosnli_mnli,brier,matched,3,120,gpt-6-astra,0.6923469671,0.7848388535,-0.0301250722
+chaosnli_mnli,brier,matched,3,120,claude-opus-5-5,0.6923469671,0.7848388535,0.1409601847
+chaosnli_mnli,brier,matched,3,120,kimi-k3,0.6923469671,0.7848388535,-0.01633272879
+chaosnli_mnli,brier,matched,3,120,glm-5.3,0.6923469671,0.7848388535,0.1064336964
+chaosnli_mnli,brier,matched,3,120,deepseek-v4.1-flash,0.6923469671,0.7848388535,-0.0345618092
+chaosnli_mnli,brier,matched,4,120,gpt-6-astra,0.7848388535,0.9086163473,-0.08082689175
+chaosnli_mnli,brier,matched,4,120,claude-opus-5-5,0.7848388535,0.9086163473,0.07322349783
+chaosnli_mnli,brier,matched,4,120,kimi-k3,0.7848388535,0.9086163473,-0.04523162597
+chaosnli_mnli,brier,matched,4,120,glm-5.3,0.7848388535,0.9086163473,0.05292840246
+chaosnli_mnli,brier,matched,4,120,deepseek-v4.1-flash,0.7848388535,0.9086163473,-0.1141714759
+chaosnli_mnli,brier,matched,5,120,gpt-6-astra,0.9086163473,1.09703239,-0.1580866685
+chaosnli_mnli,brier,matched,5,120,claude-opus-5-5,0.9086163473,1.09703239,0.01573327921
+chaosnli_mnli,brier,matched,5,120,kimi-k3,0.9086163473,1.09703239,-0.0978169218
+chaosnli_mnli,brier,matched,5,120,glm-5.3,0.9086163473,1.09703239,-0.01417895869
+chaosnli_mnli,brier,matched,5,120,deepseek-v4.1-flash,0.9086163473,1.09703239,-0.115621833
+chaosnli_mnli,ce,matched,1,120,gpt-6-astra,0.09803911328,0.5730569171,0.3755360987
+chaosnli_mnli,ce,matched,1,120,claude-opus-5-5,0.09803911328,0.5730569171,0.3729873045
+chaosnli_mnli,ce,matched,1,120,kimi-k3,0.09803911328,0.5730569171,0.3139027191
+chaosnli_mnli,ce,matched,1,120,glm-5.3,0.09803911328,0.5730569171,0.3746551464
+chaosnli_mnli,ce,matched,1,120,deepseek-v4.1-flash,0.09803911328,0.5730569171,0.2778469503
+chaosnli_mnli,ce,matched,2,120,gpt-6-astra,0.5730569171,0.6899437585,0.08967722093
+chaosnli_mnli,ce,matched,2,120,claude-opus-5-5,0.5730569171,0.6899437585,0.2223241197
+chaosnli_mnli,ce,matched,2,120,kimi-k3,0.5730569171,0.6899437585,0.09079505716
+chaosnli_mnli,ce,matched,2,120,glm-5.3,0.5730569171,0.6899437585,0.2203812865
+chaosnli_mnli,ce,matched,2,120,deepseek-v4.1-flash,0.5730569171,0.6899437585,0.05805764788
+chaosnli_mnli,ce,matched,3,120,gpt-6-astra,0.6923469671,0.7848388535,-0.03007342068
+chaosnli_mnli,ce,matched,3,120,claude-opus-5-5,0.6923469671,0.7848388535,0.1746377736
+chaosnli_mnli,ce,matched,3,120,kimi-k3,0.6923469671,0.7848388535,0.01572245882
+chaosnli_mnli,ce,matched,3,120,glm-5.3,0.6923469671,0.7848388535,0.1409823006
+chaosnli_mnli,ce,matched,3,120,deepseek-v4.1-flash,0.6923469671,0.7848388535,0.0006569670829
+chaosnli_mnli,ce,matched,4,120,gpt-6-astra,0.7848388535,0.9086163473,-0.127921915
+chaosnli_mnli,ce,matched,4,120,claude-opus-5-5,0.7848388535,0.9086163473,0.07551608391
+chaosnli_mnli,ce,matched,4,120,kimi-k3,0.7848388535,0.9086163473,-0.05826431897
+chaosnli_mnli,ce,matched,4,120,glm-5.3,0.7848388535,0.9086163473,0.06565349302
+chaosnli_mnli,ce,matched,4,120,deepseek-v4.1-flash,0.7848388535,0.9086163473,-0.1468898834
+chaosnli_mnli,ce,matched,5,120,gpt-6-astra,0.9086163473,1.09703239,-0.2669050264
+chaosnli_mnli,ce,matched,5,120,claude-opus-5-5,0.9086163473,1.09703239,-0.005951613551
+chaosnli_mnli,ce,matched,5,120,kimi-k3,0.9086163473,1.09703239,-0.1414450194
+chaosnli_mnli,ce,matched,5,120,glm-5.3,0.9086163473,1.09703239,-0.05361086849
+chaosnli_mnli,ce,matched,5,120,deepseek-v4.1-flash,0.9086163473,1.09703239,-0.1363348999
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",1,120,gpt-6-astra,0.09803911328,0.5730569171,0.5151472104
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",1,120,claude-opus-5-5,0.09803911328,0.5730569171,0.4750155895
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",1,120,kimi-k3,0.09803911328,0.5730569171,0.3998772118
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",1,120,glm-5.3,0.09803911328,0.5730569171,0.4818309375
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",1,120,deepseek-v4.1-flash,0.09803911328,0.5730569171,0.3822634991
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",2,120,gpt-6-astra,0.5730569171,0.6899437585,0.2144938263
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",2,120,claude-opus-5-5,0.5730569171,0.6899437585,0.2847839951
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",2,120,kimi-k3,0.5730569171,0.6899437585,0.1700510327
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",2,120,glm-5.3,0.5730569171,0.6899437585,0.280108391
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",2,120,deepseek-v4.1-flash,0.5730569171,0.6899437585,0.1479404364
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",3,120,gpt-6-astra,0.6923469671,0.7848388535,0.09732512321
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",3,120,claude-opus-5-5,0.6923469671,0.7848388535,0.222877538
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",3,120,kimi-k3,0.6923469671,0.7848388535,0.08198169061
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",3,120,glm-5.3,0.6923469671,0.7848388535,0.1918220763
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",3,120,deepseek-v4.1-flash,0.6923469671,0.7848388535,0.07688167848
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",4,120,gpt-6-astra,0.7848388535,0.9086163473,-0.02098896775
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",4,120,claude-opus-5-5,0.7848388535,0.9086163473,0.09589721757
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",4,120,kimi-k3,0.7848388535,0.9086163473,-0.009509611138
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",4,120,glm-5.3,0.7848388535,0.9086163473,0.08557038546
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",4,120,deepseek-v4.1-flash,0.7848388535,0.9086163473,-0.05053703922
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",5,120,gpt-6-astra,0.9086163473,1.09703239,-0.1044747805
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",5,120,claude-opus-5-5,0.9086163473,1.09703239,0.02773539236
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",5,120,kimi-k3,0.9086163473,1.09703239,-0.05899592121
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",5,120,glm-5.3,0.9086163473,1.09703239,-0.001448429532
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",5,120,deepseek-v4.1-flash,0.9086163473,1.09703239,-0.02208194305
+chaosnli_alphanli,brier,matched,1,80,gpt-6-astra,-0,0.09803911328,0.9172598632
+chaosnli_alphanli,brier,matched,1,80,claude-opus-5-5,-0,0.09803911328,0.828791985
+chaosnli_alphanli,brier,matched,1,80,kimi-k3,-0,0.09803911328,0.9038534896
+chaosnli_alphanli,brier,matched,1,80,glm-5.3,-0,0.09803911328,0.8845273884
+chaosnli_alphanli,brier,matched,1,80,deepseek-v4.1-flash,-0,0.09803911328,0.5780529523
+chaosnli_alphanli,brier,matched,2,80,gpt-6-astra,0.09803911328,0.1679441477,0.8770270598
+chaosnli_alphanli,brier,matched,2,80,claude-opus-5-5,0.09803911328,0.1679441477,0.7894867745
+chaosnli_alphanli,brier,matched,2,80,kimi-k3,0.09803911328,0.1679441477,0.8477251499
+chaosnli_alphanli,brier,matched,2,80,glm-5.3,0.09803911328,0.1679441477,0.8342601535
+chaosnli_alphanli,brier,matched,2,80,deepseek-v4.1-flash,0.09803911328,0.1679441477,0.7249681913
+chaosnli_alphanli,brier,matched,3,80,gpt-6-astra,0.1679441477,0.3250829734,0.8086189161
+chaosnli_alphanli,brier,matched,3,80,claude-opus-5-5,0.1679441477,0.3250829734,0.6966247814
+chaosnli_alphanli,brier,matched,3,80,kimi-k3,0.1679441477,0.3250829734,0.7671225603
+chaosnli_alphanli,brier,matched,3,80,glm-5.3,0.1679441477,0.3250829734,0.7727013937
+chaosnli_alphanli,brier,matched,3,80,deepseek-v4.1-flash,0.1679441477,0.3250829734,0.7224574718
+chaosnli_alphanli,brier,matched,4,80,gpt-6-astra,0.3250829734,0.5269079614,0.3986395418
+chaosnli_alphanli,brier,matched,4,80,claude-opus-5-5,0.3250829734,0.5269079614,0.3970914876
+chaosnli_alphanli,brier,matched,4,80,kimi-k3,0.3250829734,0.5269079614,0.3689808172
+chaosnli_alphanli,brier,matched,4,80,glm-5.3,0.3250829734,0.5269079614,0.2994938819
+chaosnli_alphanli,brier,matched,4,80,deepseek-v4.1-flash,0.3250829734,0.5269079614,0.32437617
+chaosnli_alphanli,brier,matched,5,80,gpt-6-astra,0.5269079614,0.6931471806,-0.2043842966
+chaosnli_alphanli,brier,matched,5,80,claude-opus-5-5,0.5269079614,0.6931471806,0.004891016085
+chaosnli_alphanli,brier,matched,5,80,kimi-k3,0.5269079614,0.6931471806,-0.2349003789
+chaosnli_alphanli,brier,matched,5,80,glm-5.3,0.5269079614,0.6931471806,-0.1697610274
+chaosnli_alphanli,brier,matched,5,80,deepseek-v4.1-flash,0.5269079614,0.6931471806,-0.2652918029
+chaosnli_alphanli,ce,matched,1,80,gpt-6-astra,-0,0.09803911328,0.8477283342
+chaosnli_alphanli,ce,matched,1,80,claude-opus-5-5,-0,0.09803911328,0.7423564877
+chaosnli_alphanli,ce,matched,1,80,kimi-k3,-0,0.09803911328,0.8257329046
+chaosnli_alphanli,ce,matched,1,80,glm-5.3,-0,0.09803911328,0.8095087654
+chaosnli_alphanli,ce,matched,1,80,deepseek-v4.1-flash,-0,0.09803911328,0.3415195322
+chaosnli_alphanli,ce,matched,2,80,gpt-6-astra,0.09803911328,0.1679441477,0.7904772853
+chaosnli_alphanli,ce,matched,2,80,claude-opus-5-5,0.09803911328,0.1679441477,0.6984615987
+chaosnli_alphanli,ce,matched,2,80,kimi-k3,0.09803911328,0.1679441477,0.764436143
+chaosnli_alphanli,ce,matched,2,80,glm-5.3,0.09803911328,0.1679441477,0.7503530225
+chaosnli_alphanli,ce,matched,2,80,deepseek-v4.1-flash,0.09803911328,0.1679441477,0.5486327985
+chaosnli_alphanli,ce,matched,3,80,gpt-6-astra,0.1679441477,0.3250829734,0.7081559973
+chaosnli_alphanli,ce,matched,3,80,claude-opus-5-5,0.1679441477,0.3250829734,0.595667166
+chaosnli_alphanli,ce,matched,3,80,kimi-k3,0.1679441477,0.3250829734,0.6648130473
+chaosnli_alphanli,ce,matched,3,80,glm-5.3,0.1679441477,0.3250829734,0.6718731667
+chaosnli_alphanli,ce,matched,3,80,deepseek-v4.1-flash,0.1679441477,0.3250829734,0.6167542591
+chaosnli_alphanli,ce,matched,4,80,gpt-6-astra,0.3250829734,0.5269079614,0.2594772168
+chaosnli_alphanli,ce,matched,4,80,claude-opus-5-5,0.3250829734,0.5269079614,0.3129607866
+chaosnli_alphanli,ce,matched,4,80,kimi-k3,0.3250829734,0.5269079614,0.2560764237
+chaosnli_alphanli,ce,matched,4,80,glm-5.3,0.3250829734,0.5269079614,0.2133579462
+chaosnli_alphanli,ce,matched,4,80,deepseek-v4.1-flash,0.3250829734,0.5269079614,0.1937244853
+chaosnli_alphanli,ce,matched,5,80,gpt-6-astra,0.5269079614,0.6931471806,-0.3327652948
+chaosnli_alphanli,ce,matched,5,80,claude-opus-5-5,0.5269079614,0.6931471806,-0.01714161325
+chaosnli_alphanli,ce,matched,5,80,kimi-k3,0.5269079614,0.6931471806,-0.3208705128
+chaosnli_alphanli,ce,matched,5,80,glm-5.3,0.5269079614,0.6931471806,-0.2620409861
+chaosnli_alphanli,ce,matched,5,80,deepseek-v4.1-flash,0.5269079614,0.6931471806,-0.4022189247
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),1,80,gpt-6-astra,-0,0.09803911328,0.9172598632
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),1,80,claude-opus-5-5,-0,0.09803911328,0.828791985
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),1,80,kimi-k3,-0,0.09803911328,0.9038534896
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),1,80,glm-5.3,-0,0.09803911328,0.8845273884
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),1,80,deepseek-v4.1-flash,-0,0.09803911328,0.5780529523
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),2,80,gpt-6-astra,0.09803911328,0.1679441477,0.8770270598
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),2,80,claude-opus-5-5,0.09803911328,0.1679441477,0.7894867745
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),2,80,kimi-k3,0.09803911328,0.1679441477,0.8477251499
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),2,80,glm-5.3,0.09803911328,0.1679441477,0.8342601535
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),2,80,deepseek-v4.1-flash,0.09803911328,0.1679441477,0.7249681913
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),3,80,gpt-6-astra,0.1679441477,0.3250829734,0.8086189161
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),3,80,claude-opus-5-5,0.1679441477,0.3250829734,0.6966247814
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),3,80,kimi-k3,0.1679441477,0.3250829734,0.7671225603
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),3,80,glm-5.3,0.1679441477,0.3250829734,0.7727013937
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),3,80,deepseek-v4.1-flash,0.1679441477,0.3250829734,0.7224574718
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),4,80,gpt-6-astra,0.3250829734,0.5269079614,0.3986395418
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),4,80,claude-opus-5-5,0.3250829734,0.5269079614,0.3970914876
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),4,80,kimi-k3,0.3250829734,0.5269079614,0.3689808172
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),4,80,glm-5.3,0.3250829734,0.5269079614,0.2994938819
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),4,80,deepseek-v4.1-flash,0.3250829734,0.5269079614,0.32437617
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),5,80,gpt-6-astra,0.5269079614,0.6931471806,-0.2043842966
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),5,80,claude-opus-5-5,0.5269079614,0.6931471806,0.004891016085
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),5,80,kimi-k3,0.5269079614,0.6931471806,-0.2349003789
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),5,80,glm-5.3,0.5269079614,0.6931471806,-0.1697610274
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),5,80,deepseek-v4.1-flash,0.5269079614,0.6931471806,-0.2652918029
+dices350,brier,"proper, ignores order",1,70,gpt-6-astra,0.1443000355,0.5577876797,0.1127327191
+dices350,brier,"proper, ignores order",1,70,claude-opus-5-5,0.1443000355,0.5577876797,0.234092513
+dices350,brier,"proper, ignores order",1,70,kimi-k3,0.1443000355,0.5577876797,0.1391585099
+dices350,brier,"proper, ignores order",1,70,glm-5.3,0.1443000355,0.5577876797,0.165060734
+dices350,brier,"proper, ignores order",1,70,deepseek-v4.1-flash,0.1443000355,0.5577876797,0.1359512335
+dices350,brier,"proper, ignores order",2,70,gpt-6-astra,0.5758488097,0.70202156,-0.04834251433
+dices350,brier,"proper, ignores order",2,70,claude-opus-5-5,0.5758488097,0.70202156,0.08379047862
+dices350,brier,"proper, ignores order",2,70,kimi-k3,0.5758488097,0.70202156,-0.03245705522
+dices350,brier,"proper, ignores order",2,70,glm-5.3,0.5758488097,0.70202156,-0.03125777098
+dices350,brier,"proper, ignores order",2,70,deepseek-v4.1-flash,0.5758488097,0.70202156,-0.07024753053
+dices350,brier,"proper, ignores order",3,70,gpt-6-astra,0.7095735545,0.7967254751,-0.07197418196
+dices350,brier,"proper, ignores order",3,70,claude-opus-5-5,0.7095735545,0.7967254751,0.03680112086
+dices350,brier,"proper, ignores order",3,70,kimi-k3,0.7095735545,0.7967254751,-0.09301647495
+dices350,brier,"proper, ignores order",3,70,glm-5.3,0.7095735545,0.7967254751,-0.06078633377
+dices350,brier,"proper, ignores order",3,70,deepseek-v4.1-flash,0.7095735545,0.7967254751,-0.142754377
+dices350,brier,"proper, ignores order",4,70,gpt-6-astra,0.7967254751,0.8780342101,-0.2862376103
+dices350,brier,"proper, ignores order",4,70,claude-opus-5-5,0.7967254751,0.8780342101,-0.08206711927
+dices350,brier,"proper, ignores order",4,70,kimi-k3,0.7967254751,0.8780342101,-0.2911021049
+dices350,brier,"proper, ignores order",4,70,glm-5.3,0.7967254751,0.8780342101,-0.2341805202
+dices350,brier,"proper, ignores order",4,70,deepseek-v4.1-flash,0.7967254751,0.8780342101,-0.3589772466
+dices350,brier,"proper, ignores order",5,70,gpt-6-astra,0.8789217468,1.040043713,-0.2641555321
+dices350,brier,"proper, ignores order",5,70,claude-opus-5-5,0.8789217468,1.040043713,-0.06155800415
+dices350,brier,"proper, ignores order",5,70,kimi-k3,0.8789217468,1.040043713,-0.3072284226
+dices350,brier,"proper, ignores order",5,70,glm-5.3,0.8789217468,1.040043713,-0.1924524526
+dices350,brier,"proper, ignores order",5,70,deepseek-v4.1-flash,0.8789217468,1.040043713,-0.3240513397
+dices350,ce,"proper, ignores order",1,70,gpt-6-astra,0.1443000355,0.5577876797,-0.1183141341
+dices350,ce,"proper, ignores order",1,70,claude-opus-5-5,0.1443000355,0.5577876797,0.1746645133
+dices350,ce,"proper, ignores order",1,70,kimi-k3,0.1443000355,0.5577876797,-0.05665744918
+dices350,ce,"proper, ignores order",1,70,glm-5.3,0.1443000355,0.5577876797,0.05018411533
+dices350,ce,"proper, ignores order",1,70,deepseek-v4.1-flash,0.1443000355,0.5577876797,-0.1197191369
+dices350,ce,"proper, ignores order",2,70,gpt-6-astra,0.5758488097,0.70202156,-0.2857385425
+dices350,ce,"proper, ignores order",2,70,claude-opus-5-5,0.5758488097,0.70202156,0.05082205164
+dices350,ce,"proper, ignores order",2,70,kimi-k3,0.5758488097,0.70202156,-0.2750476686
+dices350,ce,"proper, ignores order",2,70,glm-5.3,0.5758488097,0.70202156,-0.1740990674
+dices350,ce,"proper, ignores order",2,70,deepseek-v4.1-flash,0.5758488097,0.70202156,-0.3485341931
+dices350,ce,"proper, ignores order",3,70,gpt-6-astra,0.7095735545,0.7967254751,-0.2966723664
+dices350,ce,"proper, ignores order",3,70,claude-opus-5-5,0.7095735545,0.7967254751,0.01212862244
+dices350,ce,"proper, ignores order",3,70,kimi-k3,0.7095735545,0.7967254751,-0.3157954706
+dices350,ce,"proper, ignores order",3,70,glm-5.3,0.7095735545,0.7967254751,-0.1799182731
+dices350,ce,"proper, ignores order",3,70,deepseek-v4.1-flash,0.7095735545,0.7967254751,-0.434314478
+dices350,ce,"proper, ignores order",4,70,gpt-6-astra,0.7967254751,0.8780342101,-0.5252233628
+dices350,ce,"proper, ignores order",4,70,claude-opus-5-5,0.7967254751,0.8780342101,-0.08505633358
+dices350,ce,"proper, ignores order",4,70,kimi-k3,0.7967254751,0.8780342101,-0.5539111418
+dices350,ce,"proper, ignores order",4,70,glm-5.3,0.7967254751,0.8780342101,-0.362328715
+dices350,ce,"proper, ignores order",4,70,deepseek-v4.1-flash,0.7967254751,0.8780342101,-0.7245976212
+dices350,ce,"proper, ignores order",5,70,gpt-6-astra,0.8789217468,1.040043713,-0.4486089412
+dices350,ce,"proper, ignores order",5,70,claude-opus-5-5,0.8789217468,1.040043713,-0.0600169174
+dices350,ce,"proper, ignores order",5,70,kimi-k3,0.8789217468,1.040043713,-0.5365038883
+dices350,ce,"proper, ignores order",5,70,glm-5.3,0.8789217468,1.040043713,-0.2844107731
+dices350,ce,"proper, ignores order",5,70,deepseek-v4.1-flash,0.8789217468,1.040043713,-0.5975921118
+dices350,nrps,matched (ordinal),1,70,gpt-6-astra,0.1443000355,0.5577876797,0.1255574525
+dices350,nrps,matched (ordinal),1,70,claude-opus-5-5,0.1443000355,0.5577876797,0.2543940057
+dices350,nrps,matched (ordinal),1,70,kimi-k3,0.1443000355,0.5577876797,0.173130136
+dices350,nrps,matched (ordinal),1,70,glm-5.3,0.1443000355,0.5577876797,0.1832087886
+dices350,nrps,matched (ordinal),1,70,deepseek-v4.1-flash,0.1443000355,0.5577876797,0.1600915303
+dices350,nrps,matched (ordinal),2,70,gpt-6-astra,0.5758488097,0.70202156,-0.05060792311
+dices350,nrps,matched (ordinal),2,70,claude-opus-5-5,0.5758488097,0.70202156,0.09308972586
+dices350,nrps,matched (ordinal),2,70,kimi-k3,0.5758488097,0.70202156,-0.01834017283
+dices350,nrps,matched (ordinal),2,70,glm-5.3,0.5758488097,0.70202156,-0.03206292203
+dices350,nrps,matched (ordinal),2,70,deepseek-v4.1-flash,0.5758488097,0.70202156,-0.06454437712
+dices350,nrps,matched (ordinal),3,70,gpt-6-astra,0.7095735545,0.7967254751,-0.07806625097
+dices350,nrps,matched (ordinal),3,70,claude-opus-5-5,0.7095735545,0.7967254751,0.04677151049
+dices350,nrps,matched (ordinal),3,70,kimi-k3,0.7095735545,0.7967254751,-0.08717865909
+dices350,nrps,matched (ordinal),3,70,glm-5.3,0.7095735545,0.7967254751,-0.06455625998
+dices350,nrps,matched (ordinal),3,70,deepseek-v4.1-flash,0.7095735545,0.7967254751,-0.1476135089
+dices350,nrps,matched (ordinal),4,70,gpt-6-astra,0.7967254751,0.8780342101,-0.322110046
+dices350,nrps,matched (ordinal),4,70,claude-opus-5-5,0.7967254751,0.8780342101,-0.09268523259
+dices350,nrps,matched (ordinal),4,70,kimi-k3,0.7967254751,0.8780342101,-0.3135125202
+dices350,nrps,matched (ordinal),4,70,glm-5.3,0.7967254751,0.8780342101,-0.2638510178
+dices350,nrps,matched (ordinal),4,70,deepseek-v4.1-flash,0.7967254751,0.8780342101,-0.3957101637
+dices350,nrps,matched (ordinal),5,70,gpt-6-astra,0.8789217468,1.040043713,-0.3020469823
+dices350,nrps,matched (ordinal),5,70,claude-opus-5-5,0.8789217468,1.040043713,-0.07196505706
+dices350,nrps,matched (ordinal),5,70,kimi-k3,0.8789217468,1.040043713,-0.3389833468
+dices350,nrps,matched (ordinal),5,70,glm-5.3,0.8789217468,1.040043713,-0.220605876
+dices350,nrps,matched (ordinal),5,70,deepseek-v4.1-flash,0.8789217468,1.040043713,-0.3588228366
+dices990,brier,"proper, ignores order",1,80,gpt-6-astra,-0,0.4258484492,0.2628252792
+dices990,brier,"proper, ignores order",1,80,claude-opus-5-5,-0,0.4258484492,0.2982536906
+dices990,brier,"proper, ignores order",1,80,kimi-k3,-0,0.4258484492,0.253081628
+dices990,brier,"proper, ignores order",1,80,glm-5.3,-0,0.4258484492,0.2822773711
+dices990,brier,"proper, ignores order",1,80,deepseek-v4.1-flash,-0,0.4258484492,0.2637771803
+dices990,brier,"proper, ignores order",2,80,gpt-6-astra,0.4437572843,0.6154982823,0.0285487056
+dices990,brier,"proper, ignores order",2,80,claude-opus-5-5,0.4437572843,0.6154982823,0.1170875791
+dices990,brier,"proper, ignores order",2,80,kimi-k3,0.4437572843,0.6154982823,0.01992702623
+dices990,brier,"proper, ignores order",2,80,glm-5.3,0.4437572843,0.6154982823,0.06279476185
+dices990,brier,"proper, ignores order",2,80,deepseek-v4.1-flash,0.4437572843,0.6154982823,-0.005287678065
+dices990,brier,"proper, ignores order",3,80,gpt-6-astra,0.6154982823,0.7519843061,-0.1092593674
+dices990,brier,"proper, ignores order",3,80,claude-opus-5-5,0.6154982823,0.7519843061,0.0608249247
+dices990,brier,"proper, ignores order",3,80,kimi-k3,0.6154982823,0.7519843061,-0.08974487681
+dices990,brier,"proper, ignores order",3,80,glm-5.3,0.6154982823,0.7519843061,-0.05010396215
+dices990,brier,"proper, ignores order",3,80,deepseek-v4.1-flash,0.6154982823,0.7519843061,-0.1262914036
+dices990,brier,"proper, ignores order",4,80,gpt-6-astra,0.7519843061,0.8617069878,-0.155125297
+dices990,brier,"proper, ignores order",4,80,claude-opus-5-5,0.7519843061,0.8617069878,0.05949484094
+dices990,brier,"proper, ignores order",4,80,kimi-k3,0.7519843061,0.8617069878,-0.1705607982
+dices990,brier,"proper, ignores order",4,80,glm-5.3,0.7519843061,0.8617069878,-0.09219349024
+dices990,brier,"proper, ignores order",4,80,deepseek-v4.1-flash,0.7519843061,0.8617069878,-0.1991421758
+dices990,brier,"proper, ignores order",5,80,gpt-6-astra,0.8626470501,1.050824294,-0.2312797969
+dices990,brier,"proper, ignores order",5,80,claude-opus-5-5,0.8626470501,1.050824294,0.0009898292051
+dices990,brier,"proper, ignores order",5,80,kimi-k3,0.8626470501,1.050824294,-0.2697945468
+dices990,brier,"proper, ignores order",5,80,glm-5.3,0.8626470501,1.050824294,-0.1408785572
+dices990,brier,"proper, ignores order",5,80,deepseek-v4.1-flash,0.8626470501,1.050824294,-0.2643534866
+dices990,ce,"proper, ignores order",1,80,gpt-6-astra,-0,0.4258484492,0.005677003417
+dices990,ce,"proper, ignores order",1,80,claude-opus-5-5,-0,0.4258484492,0.2450389406
+dices990,ce,"proper, ignores order",1,80,kimi-k3,-0,0.4258484492,0.02908244592
+dices990,ce,"proper, ignores order",1,80,glm-5.3,-0,0.4258484492,0.1222572238
+dices990,ce,"proper, ignores order",1,80,deepseek-v4.1-flash,-0,0.4258484492,0.05475211554
+dices990,ce,"proper, ignores order",2,80,gpt-6-astra,0.4437572843,0.6154982823,-0.2049685098
+dices990,ce,"proper, ignores order",2,80,claude-opus-5-5,0.4437572843,0.6154982823,0.09085393243
+dices990,ce,"proper, ignores order",2,80,kimi-k3,0.4437572843,0.6154982823,-0.1871635502
+dices990,ce,"proper, ignores order",2,80,glm-5.3,0.4437572843,0.6154982823,-0.06773110557
+dices990,ce,"proper, ignores order",2,80,deepseek-v4.1-flash,0.4437572843,0.6154982823,-0.2718684747
+dices990,ce,"proper, ignores order",3,80,gpt-6-astra,0.6154982823,0.7519843061,-0.3674344175
+dices990,ce,"proper, ignores order",3,80,claude-opus-5-5,0.6154982823,0.7519843061,0.02958073383
+dices990,ce,"proper, ignores order",3,80,kimi-k3,0.6154982823,0.7519843061,-0.3403857885
+dices990,ce,"proper, ignores order",3,80,glm-5.3,0.6154982823,0.7519843061,-0.1821233497
+dices990,ce,"proper, ignores order",3,80,deepseek-v4.1-flash,0.6154982823,0.7519843061,-0.4203493802
+dices990,ce,"proper, ignores order",4,80,gpt-6-astra,0.7519843061,0.8617069878,-0.461660353
+dices990,ce,"proper, ignores order",4,80,claude-opus-5-5,0.7519843061,0.8617069878,0.02068502675
+dices990,ce,"proper, ignores order",4,80,kimi-k3,0.7519843061,0.8617069878,-0.4522521567
+dices990,ce,"proper, ignores order",4,80,glm-5.3,0.7519843061,0.8617069878,-0.2509528676
+dices990,ce,"proper, ignores order",4,80,deepseek-v4.1-flash,0.7519843061,0.8617069878,-0.5066097847
+dices990,ce,"proper, ignores order",5,80,gpt-6-astra,0.8626470501,1.050824294,-0.4415379882
+dices990,ce,"proper, ignores order",5,80,claude-opus-5-5,0.8626470501,1.050824294,-0.01645831039
+dices990,ce,"proper, ignores order",5,80,kimi-k3,0.8626470501,1.050824294,-0.5562079199
+dices990,ce,"proper, ignores order",5,80,glm-5.3,0.8626470501,1.050824294,-0.256392176
+dices990,ce,"proper, ignores order",5,80,deepseek-v4.1-flash,0.8626470501,1.050824294,-0.5611671418
+dices990,nrps,matched (ordinal),1,80,gpt-6-astra,-0,0.4258484492,0.2864382993
+dices990,nrps,matched (ordinal),1,80,claude-opus-5-5,-0,0.4258484492,0.3246856605
+dices990,nrps,matched (ordinal),1,80,kimi-k3,-0,0.4258484492,0.2833259248
+dices990,nrps,matched (ordinal),1,80,glm-5.3,-0,0.4258484492,0.3085590927
+dices990,nrps,matched (ordinal),1,80,deepseek-v4.1-flash,-0,0.4258484492,0.2924874222
+dices990,nrps,matched (ordinal),2,80,gpt-6-astra,0.4437572843,0.6154982823,0.03295590662
+dices990,nrps,matched (ordinal),2,80,claude-opus-5-5,0.4437572843,0.6154982823,0.1294968522
+dices990,nrps,matched (ordinal),2,80,kimi-k3,0.4437572843,0.6154982823,0.04080230751
+dices990,nrps,matched (ordinal),2,80,glm-5.3,0.4437572843,0.6154982823,0.07395968528
+dices990,nrps,matched (ordinal),2,80,deepseek-v4.1-flash,0.4437572843,0.6154982823,-0.000723651066
+dices990,nrps,matched (ordinal),3,80,gpt-6-astra,0.6154982823,0.7519843061,-0.1210438894
+dices990,nrps,matched (ordinal),3,80,claude-opus-5-5,0.6154982823,0.7519843061,0.06787590752
+dices990,nrps,matched (ordinal),3,80,kimi-k3,0.6154982823,0.7519843061,-0.08656201905
+dices990,nrps,matched (ordinal),3,80,glm-5.3,0.6154982823,0.7519843061,-0.05046114199
+dices990,nrps,matched (ordinal),3,80,deepseek-v4.1-flash,0.6154982823,0.7519843061,-0.1340751964
+dices990,nrps,matched (ordinal),4,80,gpt-6-astra,0.7519843061,0.8617069878,-0.1682991328
+dices990,nrps,matched (ordinal),4,80,claude-opus-5-5,0.7519843061,0.8617069878,0.06676744692
+dices990,nrps,matched (ordinal),4,80,kimi-k3,0.7519843061,0.8617069878,-0.164813945
+dices990,nrps,matched (ordinal),4,80,glm-5.3,0.7519843061,0.8617069878,-0.09736162689
+dices990,nrps,matched (ordinal),4,80,deepseek-v4.1-flash,0.7519843061,0.8617069878,-0.2059038622
+dices990,nrps,matched (ordinal),5,80,gpt-6-astra,0.8626470501,1.050824294,-0.2490954254
+dices990,nrps,matched (ordinal),5,80,claude-opus-5-5,0.8626470501,1.050824294,0.001501404453
+dices990,nrps,matched (ordinal),5,80,kimi-k3,0.8626470501,1.050824294,-0.2790456862
+dices990,nrps,matched (ordinal),5,80,glm-5.3,0.8626470501,1.050824294,-0.1470823044
+dices990,nrps,matched (ordinal),5,80,deepseek-v4.1-flash,0.8626470501,1.050824294,-0.2688379435

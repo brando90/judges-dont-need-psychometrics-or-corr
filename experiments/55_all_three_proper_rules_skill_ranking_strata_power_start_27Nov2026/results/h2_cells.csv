@@ -1,0 +1,16 @@
+dataset,rule,best_judge,skill_Q1,skill_Q5,holds
+chaosnli_snli,brier,claude-opus-5-5,0.7116757054,0.1217798942,True
+chaosnli_snli,ce,claude-opus-5-5,0.657229974,0.1333223988,True
+chaosnli_snli,nrps,claude-opus-5-5,0.7481097041,0.1613189609,True
+chaosnli_mnli,brier,claude-opus-5-5,0.3896753147,0.01573327921,True
+chaosnli_mnli,ce,claude-opus-5-5,0.3729873045,-0.005951613551,True
+chaosnli_mnli,nrps,claude-opus-5-5,0.4750155895,0.02773539236,True
+chaosnli_alphanli,brier,gpt-6-astra,0.9172598632,-0.2043842966,True
+chaosnli_alphanli,ce,claude-opus-5-5,0.7423564877,-0.01714161325,True
+chaosnli_alphanli,nrps,gpt-6-astra,0.9172598632,-0.2043842966,True
+dices350,brier,claude-opus-5-5,0.234092513,-0.06155800415,True
+dices350,ce,claude-opus-5-5,0.1746645133,-0.0600169174,True
+dices350,nrps,claude-opus-5-5,0.2543940057,-0.07196505706,True
+dices990,brier,claude-opus-5-5,0.2982536906,0.0009898292051,True
+dices990,ce,claude-opus-5-5,0.2450389406,-0.01645831039,True
+dices990,nrps,claude-opus-5-5,0.3246856605,0.001501404453,True

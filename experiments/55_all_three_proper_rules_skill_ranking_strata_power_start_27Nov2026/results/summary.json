@@ -1,0 +1,20 @@
+{
+ "B": 4000,
+ "bundle_sha256": "55935c4daacdf2ad73821b390e42b49b1d5f2affcbaafb5979d0ca13ef146929",
+ "folds": 5,
+ "h1_dices350_n_significantly_below_base_by_rule": {
+  "brier": 4,
+  "ce": 4,
+  "nrps": 4
+ },
+ "h1_holds": true,
+ "h2_cells_holding": 15,
+ "h2_cells_total": 15,
+ "h2_holds": true,
+ "n_cells_significantly_below_base_by_rule": {
+  "brier": 7,
+  "ce": 8,
+  "nrps": 7
+ },
+ "quintiles": 5
+}

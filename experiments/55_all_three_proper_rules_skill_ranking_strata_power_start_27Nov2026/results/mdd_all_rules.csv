@@ -1,0 +1,16 @@
+dataset,rule,match,mdd_N400_k1_median,mdd_N400_k1_min,mdd_N400_k1_max,n_pairs
+chaosnli_snli,brier,matched,0.0495080564,0.03366238134,0.0526067902,10
+chaosnli_snli,ce,matched,0.08854319613,0.05435389445,0.1028099592,10
+chaosnli_snli,nrps,"not matched (unordered labels), sensitivity only",0.01379612153,0.009943175876,0.01484054742,10
+chaosnli_mnli,brier,matched,0.0562976312,0.03806226946,0.0645791555,10
+chaosnli_mnli,ce,matched,0.09857581333,0.06042052385,0.1113987185,10
+chaosnli_mnli,nrps,"not matched (unordered labels), sensitivity only",0.01621116072,0.01251208806,0.01874763638,10
+chaosnli_alphanli,brier,matched,0.0393054735,0.03549822634,0.06253600292,10
+chaosnli_alphanli,ce,matched,0.06465753769,0.0526354674,0.1183051784,10
+chaosnli_alphanli,nrps,matched (binary: equals Brier / 2),0.01965273675,0.01774911317,0.03126800146,10
+dices350,brier,"proper, ignores order",0.03776359955,0.03332415126,0.0500449493,10
+dices350,ce,"proper, ignores order",0.08850955339,0.07787258316,0.1409285271,10
+dices350,nrps,matched (ordinal),0.01858904762,0.01626277076,0.02468118715,10
+dices990,brier,"proper, ignores order",0.03564851078,0.02933192882,0.04750667854,10
+dices990,ce,"proper, ignores order",0.08289868566,0.07731891037,0.1284726806,10
+dices990,nrps,matched (ordinal),0.01754254422,0.01437648528,0.02347697911,10

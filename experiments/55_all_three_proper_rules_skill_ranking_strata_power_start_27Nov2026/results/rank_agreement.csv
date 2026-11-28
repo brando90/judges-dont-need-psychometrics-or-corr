@@ -1,0 +1,16 @@
+dataset,rule_a,rule_b,kendall_tau_b,pairs_flipped_of_10,best_a,best_b,same_best
+chaosnli_snli,brier,ce,0.6,2,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_snli,brier,nrps,1,0,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_snli,ce,nrps,0.6,2,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_mnli,brier,ce,0.6,2,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_mnli,brier,nrps,1,0,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_mnli,ce,nrps,0.6,2,claude-opus-5-5,claude-opus-5-5,True
+chaosnli_alphanli,brier,ce,0.8,1,gpt-6-astra,claude-opus-5-5,False
+chaosnli_alphanli,brier,nrps,1,0,gpt-6-astra,gpt-6-astra,True
+chaosnli_alphanli,ce,nrps,0.8,1,claude-opus-5-5,gpt-6-astra,False
+dices350,brier,ce,1,0,claude-opus-5-5,claude-opus-5-5,True
+dices350,brier,nrps,0.8,1,claude-opus-5-5,claude-opus-5-5,True
+dices350,ce,nrps,0.8,1,claude-opus-5-5,claude-opus-5-5,True
+dices990,brier,ce,1,0,claude-opus-5-5,claude-opus-5-5,True
+dices990,brier,nrps,0.8,1,claude-opus-5-5,claude-opus-5-5,True
+dices990,ce,nrps,0.8,1,claude-opus-5-5,claude-opus-5-5,True
