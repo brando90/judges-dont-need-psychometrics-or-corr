@@ -44,3 +44,29 @@ Claude Code commits since 984ba71 (pulled at 929bc19): 60a3ffb, 1e68380, 57a7640
 | date (Pacific) | item | what | USD | cumulative |
 |---|---|---|---|---|
 | 11-28-2026 | Mega QA | Codex CLI on Brando's subscription (authorized for this review pass, not experiments); no API calls | 0.00 | 0.00 |
+
+## Experiments 57–60, the abstract against the advisor's line-by-line notes, and QA, 28 Nov 2026 (Claude)
+
+As of 11-28-2026 (Saturday, Pacific time). The protocols for Experiments 57–60 were committed first (ae58f5c; amendment A1 for Experiment 59 in 973b0a4), the results afterwards (cda2427), the paper and docs in abb1e00. "Skill" is one minus the proper-score risk of the judge's forecast over the risk of the base-rate forecast on held-out ratings (higher is better). Intervals are item-clustered bootstrap 95% intervals with B = 4,000 draws.
+
+| exp | question | strongest result (95% CI) | supports thesis? | API spend |
+|---|---|---|---|---|
+| 57 | Does raw skill equal resolution minus calibration error, and which of the two does Pearson r track? | The identity holds to 2.8e-17 in all 25 judge-set cells. Eight cells have raw skill below 0 by point estimate (all on DICES) and all 25 calibrated skills are above 0. DICES-350 Astra: raw −0.143, resolution +0.072, calibration error +0.215. | partly. H1 (Pearson tracks resolution, not calibration error) held in 1 of 5 sets, so it is falsified. H2 (judges differ more in calibration error than in resolution) held in 4 of 5. H3 (the DICES-350 rescue is not noise) held. | \$0 |
+| 58 | How far is the raw implied event rate from the human rate, and do calibration or counting verdicts fix it? | The raw soft rate misses the human rate by more than 5 points, with the whole interval above 5, in 13 of 25 cells. DICES-350 human unsafe rate 32.7%, raw soft rates 8.6 to 24.0% across the five judges; largest miss −24.1 [−25.9, −22.2] (DeepSeek). Calibrated soft-rate errors are at most 0.1 points with every interval inside ±2.2; counting verdicts is worse than the calibrated rate in 25 of 25 cells. Raw soft gate flips: 39 of 125, 20 significant (descriptive, grid-dependent). | yes for the level claim. Zero calibrated flips is mechanical (the map is fitted to the same labels' base rate). | \$0 |
+| 59 | Choose among the five judges by Pearson r and then recalibrate (path A), or choose by a cross-validated proper score (path B)? | A has lower mean regret than B in all 20 budget-set cells, 17 with the interval below 0. At n = 25 the A minus B difference in points of skill is −3.55, −2.37, −1.13, −6.19, −5.46 (SNLI, MNLI, alphaNLI, DICES-350, DICES-990). H1 and H2 falsified. A raw-proper-score path (C, not a preregistered decision) has lower regret than A in all 8 DICES cells (+0.21 to +1.74). | **no.** It goes against our recommendation to select by a proper score. The intro and the supplement report it as such. | \$0 |
+| 60 | Oracle check, no language model: does the sampled-score theorem hold on real empirical rating laws? | A judge that samples from the empirical rating law has r equal to rho_hat (0.651, 0.192, 0.181 on alphaNLI, DICES-350, DICES-990). The mean judge has r 0.802, 0.424, 0.401. On the DICES sets the collapsed forecast has skill −0.475 and −0.492 against +0.167 and +0.148 for the truthful one. | yes, but H1–H3 are near-identities of the algebra and the code, not evidence about any real judge. | \$0 |
+
+**Clarification of row 48.** The 82 cases are 80 transfers of the five frozen frontier judges plus 2 G-Eval (GPT-4) rubric transfers on SummEval (README of Experiment 48, rubric row). The row's "78/82 frontier cases" is loosely worded; the paper says "78 of 82" without "frontier".
+
+**Experiment 54 saved output.** `strict_tally_output.txt` was stale. It was saved before 984ba71 corrected the Li et al. coding note and still described Li et al. as Brier and logarithmic scores against a pairwise preference distribution. It is regenerated from the current script (only that line differs; the tallies are unchanged; two runs are identical).
+
+**The advisor's two warnings, as handled in the paper.** (1) Elangovan et al. and Li et al. already compare judges with the rating distribution (binned Jensen–Shannon divergence; squared error to the mean of ten votes), so the abstract says that and no longer claims the gap. (2) The cross-entropy-head versus Pearson-head comparison (Experiments 41, 47, 53) is circular: calibration shrinks its gap to at most about 0.01, which is what the r-squared identity predicts, so the paper reports it as a check of the identity and not as evidence for the evaluation claim. Experiment 59 is reported against our own selection recommendation.
+
+**Not run, and why.** System-level win rates (no system-level judge outputs on the box). Real-LLM sampling at temperature above 0 (no gateway key; Experiment 60 is the CPU oracle check instead). Lean was not compiled in this session (no toolchain on the box); each claim's Lean status is as in `docs/LEAN_TODO.md` and cites the files compiled earlier (Lean 4.36.0, Mathlib fc4f59e5).
+
+**Tests this session.** `src/judge_scores`: 24 passed. Experiments 57, 58, 59, 60: 9, 7, 7 and 13 passed. `proper_score_decomposition_numerics_28Nov2026.py`: 25 of 25 PASS, identical across two runs and equal to the saved output. The Experiment 43 and 54 tallies: identical across two runs.
+
+| date (Pacific) | item | what | USD | cumulative |
+|---|---|---|---|---|
+| 11-28-2026 | 57–60, abstract rewrite, tests | CPU only, on frozen forecasts and empirical rating laws; no API call | 0.00 | 0.00 |
+| 11-28-2026 | QA by Claude subagents | Opus 5.5 and Fable 5.2 reviewers at max effort, read-only, run inside this Claude session at Brando's explicit request ("mega qa"); no API calls | 0.00 | 0.00 |
