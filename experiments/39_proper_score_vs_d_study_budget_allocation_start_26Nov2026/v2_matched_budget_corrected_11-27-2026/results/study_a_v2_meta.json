@@ -1,0 +1,20 @@
+{
+  "n_rows": 750,
+  "runtime_seconds": 247.78,
+  "n_reps": 150,
+  "master_seed": 20261126,
+  "pilot": {
+    "n_items": 80,
+    "n_raters": 16,
+    "ratings": 1280
+  },
+  "rho_targets": [
+    0.8,
+    0.9
+  ],
+  "software": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "pandas": "3.0.5"
+  }
+}

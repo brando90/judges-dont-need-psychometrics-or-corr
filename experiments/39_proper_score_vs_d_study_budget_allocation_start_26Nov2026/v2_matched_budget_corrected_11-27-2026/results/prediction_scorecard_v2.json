@@ -1,0 +1,97 @@
+{
+  "prediction_1_F1": {
+    "claim": "fix_items lower mean RPS in a majority of 20 cells; Holm-significant in at most 6; gains below 3% of total RPS",
+    "n_mean_better": 18,
+    "n_holm_beats": 5,
+    "max_gain_pct_of_total_rps": 2.967,
+    "holds": true
+  },
+  "prediction_2_F3": {
+    "claim": "ps does not significantly beat fix_items in any cell after Holm",
+    "n_holm_ps_beats_fix_items": 0,
+    "n_holm_fix_items_beats_ps": 0,
+    "n_mean_ps_better": 3,
+    "holds": true
+  },
+  "prediction_3_F6": {
+    "claim": "ps does not beat ds_rel80 in at least 11 of 20 cells (beat = lower mean and Holm-significant)",
+    "n_holm_ps_beats_ds_rel80": 0,
+    "n_holm_ds_rel80_beats_ps": 0,
+    "n_mean_ps_better": 12,
+    "holds": true
+  },
+  "prediction_4_adaptivity": {
+    "claim": "ds_rel80 has >= 2 distinct modal designs across the five datasets at >= 2 of the 4 comparable budgets",
+    "per_budget": {
+      "64": {
+        "modes": [
+          "16x4",
+          "16x4",
+          "16x4",
+          "16x4",
+          "16x4"
+        ],
+        "n_distinct": 1
+      },
+      "128": {
+        "modes": [
+          "32x4",
+          "16x8",
+          "32x4",
+          "16x8",
+          "16x8"
+        ],
+        "n_distinct": 2
+      },
+      "256": {
+        "modes": [
+          "64x4",
+          "32x8",
+          "64x4",
+          "16x16",
+          "16x16"
+        ],
+        "n_distinct": 3
+      },
+      "512": {
+        "modes": [
+          "64x8",
+          "64x8",
+          "64x8",
+          "32x16",
+          "32x16"
+        ],
+        "n_distinct": 2
+      }
+    },
+    "n_budgets_with_two_or_more_modes": 3,
+    "holds": true
+  },
+  "prediction_5_ties": {
+    "claim": "fraction of replications with a unique best RPS design (or_rps) is below 0.5 overall",
+    "mean_unique_best_fraction": 0.2503,
+    "holds": true
+  },
+  "prediction_6_v1_regression": {
+    "claim": "ds_u1 == fix_raters and ds_u2 == fix_items in 100% of replications; deployed scores equal v1 (v1 summary means; per-replication v1 file was never committed)",
+    "ds_u1_equals_fix_raters_all_cells": true,
+    "ds_u2_equals_fix_items_all_cells": true,
+    "verify_v2_failed_checks": 0,
+    "verify_v2_n_checks": 32,
+    "holds": true
+  },
+  "decision_rules": {
+    "D1_count_fix_items_beats_fix_raters_holm": 5,
+    "D1_count_fix_items_better_by_mean": 18,
+    "D2_ps_beats_fix_items_in_at_least_one_cell_holm": false,
+    "D3_ds_rel80_beats_both_fixed_rules_in_at_least_one_cell_holm": false,
+    "D4_ps_beats_ds_rel80_in_at_least_11_cells_holm": false,
+    "D3_cells": [],
+    "extra_counts": {
+      "F2_ps_beats_fix_raters_holm": 2,
+      "F4_ds_rel80_beats_fix_raters_holm": 2,
+      "F5_ds_rel80_beats_fix_items_holm": 0,
+      "F5_fix_items_beats_ds_rel80_holm": 3
+    }
+  }
+}

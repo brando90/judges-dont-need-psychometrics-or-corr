@@ -1,0 +1,162 @@
+[
+  {
+    "name": "split_partition_chaosnli_snli",
+    "pass": true,
+    "detail": "test 180 dev 420"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_snli_rep0",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_snli_rep149",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "split_partition_chaosnli_mnli",
+    "pass": true,
+    "detail": "test 180 dev 420"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_mnli_rep0",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_mnli_rep149",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "split_partition_chaosnli_alphanli",
+    "pass": true,
+    "detail": "test 120 dev 280"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_alphanli_rep0",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "pilot_in_dev_chaosnli_alphanli_rep149",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "split_partition_dices350",
+    "pass": true,
+    "detail": "test 105 dev 245"
+  },
+  {
+    "name": "pilot_in_dev_dices350_rep0",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "pilot_in_dev_dices350_rep149",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "split_partition_dices990",
+    "pass": true,
+    "detail": "test 120 dev 280"
+  },
+  {
+    "name": "pilot_in_dev_dices990_rep0",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "pilot_in_dev_dices990_rep149",
+    "pass": true,
+    "detail": "80 pilot items"
+  },
+  {
+    "name": "ps_validation_signature_has_no_rating_pool",
+    "pass": true,
+    "detail": "['Q', 'K', 'pilot_items', 'X', 'k', 'rep']"
+  },
+  {
+    "name": "ps_validation_source_has_no_rating_pool_access",
+    "pass": true,
+    "detail": "banned tokens absent: ['n_avail', 'sample_counts', 'h_full', 'counts_full', 'ratings[', 'bundle', 'data[']"
+  },
+  {
+    "name": "ps_validation_runs_without_full_pool_and_is_deterministic",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "neutral_tie_rule_balanced",
+    "pass": true,
+    "detail": "share of '32x2' among 4000 seeds: 0.5040"
+  },
+  {
+    "name": "neutral_tie_rule_deterministic",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "strict_minimum_never_tied",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "holm_hand_example",
+    "pass": true,
+    "detail": "[0.03 0.06 0.06 0.02]"
+  },
+  {
+    "name": "holm_monotone_cap",
+    "pass": true,
+    "detail": "[1. 1.]"
+  },
+  {
+    "name": "study_a_v2_row_count",
+    "pass": true,
+    "detail": "rows=750"
+  },
+  {
+    "name": "rebuild_error_below_1e-10",
+    "pass": true,
+    "detail": "2.220446049250313e-16"
+  },
+  {
+    "name": "ds_u1_equals_fix_raters_100pct",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "ds_u2_equals_fix_items_100pct",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "pilot_cost_1280",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "deployed_scores_match_v1_summary_means",
+    "pass": true,
+    "detail": "max abs difference 2.220e-16"
+  },
+  {
+    "name": "reliability_target_rule_rederived",
+    "pass": true,
+    "detail": "mismatches=0"
+  },
+  {
+    "name": "all_selectors_feasible",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "rerun_identical",
+    "pass": true,
+    "detail": ""
+  }
+]
