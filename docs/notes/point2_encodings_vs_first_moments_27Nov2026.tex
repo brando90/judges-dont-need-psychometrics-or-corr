@@ -1,0 +1,414 @@
+% Point 2: correlation, label encodings, and proper scores for LLM judges.
+% Note answering the "evaluation" point of an advisor call (27 Nov 2026).
+% Compile: latexmk -pdf point2_encodings_vs_first_moments_27Nov2026.tex
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=NavyBlue,urlcolor=NavyBlue,citecolor=NavyBlue]{hyperref}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\sloppy\setlength{\emergencystretch}{3em}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
+\newcommand{\pstar}{p^{*}}
+\newcommand{\onehot}{e}
+\newcommand{\RPS}{\mathrm{RPS}}
+\newcommand{\Brier}{\mathrm{Brier}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\file}[1]{\nolinkurl{#1}}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\tldr}[1]{\par\medskip\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\textbf{TL;DR.} #1}}\par\medskip}
+
+\title{Point 2: Correlation, Encodings, and Proper Scores for LLM Judges}
+\author{Brando Miranda}
+\date{27 November 2026}
+
+\begin{document}
+\maketitle
+
+\tldr{Pearson correlation between a judge's score and the human rating (i) ignores any affine distortion of the score, (ii) equals $r^2 = 1-\min_{a,b}\E(Y-a-bS)^2/\Var(Y)$, i.e.\ squared error \emph{after} a best affine recalibration fitted on the evaluation labels themselves, so it keeps (the linear part of) discrimination and gets calibration for free, and (iii) sees only the conditional mean of a scalar score, which does not determine the rating distribution when there are three or more categories. The fix is to choose the \emph{label encoding} first. Squared error on the one-hot encoding is the multiclass Brier score; squared error on the cumulative encoding $\1[Y\le k]$ is the ranked probability score (RPS). Both are strictly proper, RPS also respects the ordering, and each recovers $\pstar(\cdot\mid c)$ because $\E[\text{encoding}\mid c]$ does. A scalar encoding has rank one and recovers only the mean. Worked example below: a point mass at $2$ and a half--half split on $\{0,4\}$ have the same mean and tie on scalar squared error, but differ by $3/2$ in Brier and $1$ in RPS (normalized: $1/5$).}
+
+\section{What the point says, and the one refinement}
+\label{sec:point}
+
+The point (my own write-up of the advisor discussion) has five parts, all of which hold:
+\begin{enumerate}
+\item Pearson correlation is invariant to affine maps, so a judge that scores every item one point too high still has $r=1$ (Section~\ref{sec:affine}).
+\item $r^{2}=1-\mathrm{MSE}(\text{best affine fit})/\Var(Y)$, so correlation is squared error after an optimal linear recalibration; it captures discrimination and ignores calibration (Section~\ref{sec:identity}).
+\item With $Y$ one-hot, $\E[Y\mid x]$ is the distribution and squared error on it is the multiclass Brier score, which is proper (Section~\ref{sec:onehot}).
+\item Judge correlations are computed on a scalar 0--5 score, whose mean cannot recover the spread (Section~\ref{sec:scalar}).
+\item RPS is the same squared error on the cumulative encoding $\1[Y\le k]$, so it keeps the full distribution and adds the ordering (Section~\ref{sec:cumulative}). The paper should be organised around encodings, not first moments (Section~\ref{sec:framing}).
+\end{enumerate}
+
+\textbf{Refinement of ``still improper''.} Correlation is a squared-error proxy only after an affine refit, and the sentence ``it can be a squared-error proxy and still be improper'' needs a precise scope. Correlation is not a per-item scoring rule at all, so ``proper'' has no direct meaning for it; the natural population-level readings give two different verdicts (Propositions~\ref{prop:expected} and~\ref{prop:sampled}). If the judge's scalar score is a deterministic function of the item (for example the mean of its forecast), the truthful forecast maximizes $r$ but \emph{not uniquely}: correlation is non-identifying, at best weakly proper. If the score is a sample drawn from the judge's forecast, correlation is strictly \emph{anti}-proper in the sense that a collapsed judge beats the truthful one. I use ``improper'' only for the second case and ``non-identifying'' for the first.
+
+\section{Setup}
+\label{sec:setup}
+
+An item (prompt, response, rubric context) is $c$. The human rating is $Y\in\{0,1,\dots,K-1\}$ (for a 0--5 rubric, $K=6$). Conditional on $c$, the rater pool and the rubric, the rating has distribution
+\[
+\pstar(k\mid c)=\Pr(Y=k\mid C=c),\qquad k=0,\dots,K-1 .
+\]
+A \emph{judge forecast} is a probability vector $q(\cdot\mid c)\in\Delta^{K-1}$. Two scalar readouts matter:
+\begin{itemize}
+\item the \emph{expected-score readout} $s(c)=\mu_q(c):=\sum_k k\,q(k\mid c)$, a deterministic function of $c$;
+\item the \emph{sampled readout} $S\sim q(\cdot\mid c)$, drawn independently of $Y$ given $C=c$ (how a judge that outputs one sampled 0--5 grade behaves).
+\end{itemize}
+Write $\mu(c)=\E[Y\mid C=c]=\sum_k k\,\pstar(k\mid c)$. All moments are over the joint law of $(C,Y)$ (and of $S$ where relevant). Pearson correlation is $r(S,Y)=\Cov(S,Y)/\sqrt{\Var(S)\Var(Y)}$, defined when both variances are positive.
+
+For a forecast $q$ and a realized rating $y$, with $\onehot_y\in\{0,1\}^K$ the one-hot vector and $F_q(t)=\sum_{k\le t}q(k)$:
+\begin{align*}
+\Brier(q,y)&=\|q-\onehot_y\|_2^{2}=\sum_{k}\bigl(q(k)-\1[y=k]\bigr)^{2},\\
+\RPS(q,y)&=\sum_{t=0}^{K-2}\bigl(F_q(t)-\1[y\le t]\bigr)^{2},\qquad \text{normalized: } \RPS/(K-1)\in[0,1],\\
+\CE(q,y)&=-\ln q(y)\quad(\text{nats; }+\infty\text{ if }q(y)=0).
+\end{align*}
+These are the repository's conventions (\file{experiments/36\_.../metrics.py}: \texttt{rps\_one}, \texttt{normalized\_rps\_one}). A score $S(q,y)$ is \emph{proper} if $\E_{Y\sim p}S(p,Y)\le\E_{Y\sim p}S(q,Y)$ for all $p,q$ (loss orientation), and \emph{strictly proper} if equality holds only for $q=p$ (Gneiting and Raftery, 2007).
+
+\section{Affine invariance}
+\label{sec:affine}
+
+\begin{proposition}[Affine invariance]\label{prop:affine}
+For $a\neq0$ and any $b$, $r(aS+b,\,Y)=\operatorname{sgn}(a)\,r(S,Y)$.
+\end{proposition}
+\begin{proof}
+$\Cov(aS+b,Y)=a\Cov(S,Y)$ and $\Var(aS+b)=a^{2}\Var(S)$, so
+\[
+r(aS+b,Y)=\frac{a\,\Cov(S,Y)}{|a|\sqrt{\Var S\,\Var Y}}=\operatorname{sgn}(a)\,r(S,Y).
+\]
+\end{proof}
+
+\begin{example}[Shift and stretch]\label{ex:shiftstretch}
+Let $S=Y+1$: every score is one point too high, yet $r(S,Y)=1$ while the mean squared error is $\E(S-Y)^2=1$. Let $S=2Y$: again $r=1$, and the error is $\E(S-Y)^2=\E[Y^2]$, which is large whenever the ratings are not concentrated near $0$ (on the eight-item list $0,1,2,3,4,5,2,3$ it is $17/2$). A correlation of one is compatible with a wrong location and a wrong spread.
+\end{example}
+
+\begin{remark}[Rank correlations]
+Spearman's $\rho$ and Kendall's $\tau$ depend on the scores only through the pairwise order of items, so they are invariant under any strictly increasing transformation of $S$ (and flip sign under a strictly decreasing one). This is strictly stronger than affine invariance: $S=\exp(Y)$ also gets $\rho=\tau=1$. The affine-invariance statement for Pearson is Lean-checked in the repository for $a>0$ and rational data (\texttt{pearson\_affine\_invariant}, Section~\ref{sec:scope}); the rank-invariance statement is a one-line argument that I have not seen formalized.
+\end{remark}
+
+\section{The identity \texorpdfstring{$r^{2}=1-\min_{a,b}\mathrm{MSE}/\Var(Y)$}{r-squared = 1 - min MSE / Var(Y)} and what it keeps}
+\label{sec:identity}
+
+\begin{proposition}[Correlation is squared error after the best affine recalibration]\label{prop:identity}
+If $\Var(S)>0$ and $\Var(Y)>0$, then
+\[
+\min_{a,b\in\mathbb{R}}\E\bigl[(Y-a-bS)^{2}\bigr]=\Var(Y)\bigl(1-r(S,Y)^{2}\bigr),
+\qquad\text{i.e.}\qquad
+r^{2}=1-\frac{\min_{a,b}\E(Y-a-bS)^{2}}{\Var(Y)},
+\]
+attained at $b^{*}=\Cov(S,Y)/\Var(S)$ and $a^{*}=\E Y-b^{*}\E S$.
+\end{proposition}
+\begin{proof}
+For fixed $b$, $\E(Y-a-bS)^{2}=\Var(Y-bS)+(\E Y-b\E S-a)^{2}$ is minimized over $a$ by $a=\E Y-b\E S$ (the normal equation for the intercept), leaving $\Var(Y-bS)=\Var(Y)-2b\Cov(S,Y)+b^{2}\Var(S)$. This quadratic in $b$ is minimized at $b^{*}=\Cov(S,Y)/\Var(S)$ (the normal equation for the slope), with minimum value $\Var(Y)-\Cov(S,Y)^{2}/\Var(S)=\Var(Y)\bigl(1-r^{2}\bigr)$.
+\end{proof}
+
+The same algebra holds for the empirical (in-sample) moments of a finite evaluation set; the Python check \file{point2\_worked\_examples\_27Nov2026.py} verifies the identity in exact rational arithmetic on 200 random datasets.
+
+\textbf{Reading.} The quantity $\Var(Y)\,r^{2}$ is what a squared-error score would give a judge \emph{after} the scores have been passed through the best affine map, a map fitted on the very labels being evaluated. Equivalently $r^{2}$ is the mean-squared-error skill score of the recalibrated score against the constant forecast $\E Y$. A judge whose scale or offset is wrong is not penalized: that is the content of Proposition~\ref{prop:affine}, and Proposition~\ref{prop:identity} says why.
+
+\subsection{Link to the Murphy decomposition}
+
+Let $g(s)=\E[Y\mid S=s]$ denote the calibration curve of the score.
+
+\begin{proposition}[Uncertainty, resolution, reliability for squared error]\label{prop:murphy}
+For any real score $S$ with finite second moment,
+\[
+\E(Y-S)^{2}\;=\;\underbrace{\Var(Y)}_{\text{uncertainty}}\;-\;\underbrace{\Var\bigl(g(S)\bigr)}_{\text{resolution}}\;+\;\underbrace{\E\bigl(g(S)-S\bigr)^{2}}_{\text{reliability (calibration error)}}.
+\]
+Let $S'=a^{*}+b^{*}S$ be the best affine recalibration (with $b^*\ne 0$). Then $g(S')=g(S)$ as a function of the information in the score, and
+\[
+r(S,Y)^{2}\,\Var(Y)\;=\;\Var\bigl(g(S)\bigr)\;-\;\E\bigl(g(S)-S'\bigr)^{2}.
+\]
+In words, $r^{2}\Var(Y)$ is the resolution minus the calibration error that remains \emph{after} the affine fix; it equals the resolution exactly when the calibration curve $g$ is affine.
+\end{proposition}
+\begin{proof}
+$Y-g(S)$ is orthogonal to every square-integrable function of $S$, so $\E(Y-S)^{2}=\E(Y-g(S))^{2}+\E(g(S)-S)^{2}$, and $\E(Y-g(S))^{2}=\Var(Y)-\Var(g(S))$ by the law of total variance. For the second display, apply the same decomposition to $S'$, which carries the same information as $S$ (so $g(S')=g(S)$): $\E(Y-S')^{2}=\Var(Y)-\Var(g(S))+\E(g(S)-S')^{2}$. By Proposition~\ref{prop:identity} the left side equals $\Var(Y)(1-r^{2})$.
+\end{proof}
+
+For a binary outcome and a probability forecast this is the Brier-score decomposition of Murphy (1973), written there for forecasts grouped into bins; Br\"ocker (2009) extends it to any strictly proper score and finite-valued targets. Correlation therefore keeps resolution (discrimination) and discards the \emph{affine part} of reliability, the part an offset and a scale can repair. What remains of the reliability term after the fix is a nonlinear calibration error that correlation also does not charge for, beyond its effect on $r^{2}$.
+
+\section{Why a squared-error proxy can still fail to be proper}
+\label{sec:improper}
+
+Three separate reasons, in decreasing order of generality.
+
+\emph{(1) Correlation is not a per-item scoring rule.} Propriety is a property of $S(q,y)$: a function of one forecast and one outcome, averaged over items. $r$ is a ratio of population moments, and the affine refit $(a^{*},b^{*})$ is computed from all the labels. It cannot be written as $\E\,S(q(C),Y)$. Standard propriety results (Gneiting and Raftery, 2007) do not apply to it directly, so one has to ask the population-level question of which forecasts maximize it.
+
+\emph{(2) The recalibration uses the evaluation labels.} The refit supplies calibration for free, so the score no longer rewards the judge for being calibrated. If $(a,b)$ were instead fitted on separate data, the refit would become an explicit, visible calibration step (this is the ``matched'' arm of Experiment 41, Section~\ref{sec:limits}).
+
+\emph{(3) What it recovers is one moment.} Squared error on a scalar is strictly consistent for the \emph{mean} of the outcome distribution (Gneiting, 2011), nothing more (Section~\ref{sec:scalar}).
+
+The next two propositions turn (1) into theorems for the two readouts.
+
+\begin{proposition}[Expected-score readout: the truth maximizes $r$, but not uniquely]\label{prop:expected}
+Let $s=s(C)$ be a function of the item alone with $\Var(s)>0$, and suppose $\Var(\mu(C))>0$. Then
+\[
+r(s,Y)\;=\;r\bigl(s,\mu(C)\bigr)\sqrt{\frac{\Var(\mu(C))}{\Var(Y)}}\;\le\;\sqrt{\frac{\Var(\mu(C))}{\Var(Y)}}=r\bigl(\mu(C),Y\bigr),
+\]
+with equality if and only if $s=a\mu(C)+b$ almost surely for some $a>0$ and $b$.
+\end{proposition}
+\begin{proof}
+Since $s$ is a function of $C$, $\E[sY]=\E\bigl[s\,\E[Y\mid C]\bigr]=\E[s\mu]$, so $\Cov(s,Y)=\Cov(s,\mu)$. Also $\E Y=\E\mu$. Hence $r(s,Y)=\Cov(s,\mu)/\sqrt{\Var s\,\Var Y}=r(s,\mu)\sqrt{\Var\mu/\Var Y}$, and $r(s,\mu)\le1$ with equality iff $s$ is a positive affine function of $\mu$ (Cauchy--Schwarz).
+\end{proof}
+
+\begin{corollary}[Same conditional mean $\Rightarrow$ tie]\label{cor:tie}
+Two forecasts $q,q'$ with $\mu_q(c)=\mu_{q'}(c)$ for all $c$ have the same expected-score readout, hence the same Pearson, Spearman and Kendall correlation with $Y$ and the same mean squared error of that readout, whatever their spread. Any forecast whose mean is a positive affine image of $\mu(c)$ attains the maximal $r$ of Proposition~\ref{prop:expected}, including the truthful $\pstar$ and, when $\mu(c)$ lies on the rating grid, the point mass at $\mu(c)$.
+\end{corollary}
+(This is the ``same-mean non-identification'' statement. The tie is a one-line consequence of all four statistics being functions of the readout alone; the repository's Lean files check concrete same-mean pairs, not the general statement, see Section~\ref{sec:scope}.)
+
+\begin{proposition}[Sampled readout: correlation is anti-proper]\label{prop:sampled}
+Let the judge's score be $S\sim q(\cdot\mid C)$ independent of $Y$ given $C$. Put $\rho=\Var(\mu(C))/\Var(Y)$ and suppose $\Var(\mu(C))>0$ and $\E\Var(Y\mid C)>0$.
+\begin{enumerate}
+\item The truthful judge $q=\pstar$ has $r(S,Y)=\rho$, and $0<\rho<1$.
+\item The collapsed judge that outputs the deterministic score $S_\delta=a\mu(C)+b$ with $a>0$ has $r(S_\delta,Y)=\sqrt{\rho}>\rho$.
+\end{enumerate}
+So correlation ranks the collapsed judge strictly above the truthful one. When $\mu(c)$ is on the rating grid and $a=1,b=0$, $S_\delta$ is the point-mass forecast $\delta_{\mu(c)}$; by strict propriety of Brier, RPS and CE it is strictly worse than $\pstar$ on each of them whenever $\pstar(\cdot\mid c)$ is not a point mass on a set of items of positive probability, which $\E\Var(Y\mid C)>0$ guarantees.
+\end{proposition}
+\begin{proof}
+(1) $\E[S\mid C]=\mu(C)$, so $\E[SY]=\E[\mu^{2}]$, $\E S=\E Y$ and $\Cov(S,Y)=\E\mu^{2}-(\E Y)^{2}=\Var\mu$. The marginal law of $S$ equals that of $Y$, so $\Var S=\Var Y$. Thus $r=\Var\mu/\Var Y=\rho$. By the law of total variance $\Var Y=\Var\mu+\E\Var(Y\mid C)$, so $0<\rho<1$.
+(2) $\Cov(S_\delta,Y)=a\Var\mu$ and $\Var S_\delta=a^{2}\Var\mu$, so $r=a\Var\mu/\bigl(a\sqrt{\Var\mu\,\Var Y}\bigr)=\sqrt{\rho}$, which exceeds $\rho$ because $0<\rho<1$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:sampled} is the correlation analogue of the familiar fact that hedging to the mean beats honest sampling under a loss that sees only first moments; it is the reason the paper should say ``correlation is anti-proper for a sampled readout'' only with that qualifier, and ``non-identifying'' for the expected-score readout (Proposition~\ref{prop:expected}).
+\end{remark}
+
+\subsection{Scope of the formal checks in the repository}
+\label{sec:scope}
+
+The repository's standard (AGENTS.md) is that a claim is called a theorem only if it is checked in Lean~4 and in Python, and that the squared form of anti-properness is the Lean-checked one. Here is exactly what I found, and what I did not.
+
+\begin{center}
+\small
+\begin{tabular}{P{4.0cm}P{5.2cm}P{5.2cm}}
+\toprule
+Claim in this note & Repository evidence & Status \\
+\midrule
+Brier is strictly proper (any $K$) & \file{experiments/35\_brier\_vs\_corr\_math\_l2\_pearson\_lean\_start\_26Nov2026/BrierCorr.lean}: \texttt{brier\_strictly\_proper}, \texttt{brier\_decomposition} & Lean, rationals, standard axioms only (\texttt{lean\_check.txt}) \\
+Pearson affine invariance (Prop.~\ref{prop:affine}) & same file: \texttt{pearson\_affine\_invariant} ($a>0$); also \texttt{mse\_decomposition}, \texttt{standardized\_mse\_corr} & Lean; hypotheses supply rational standard deviations; $a<0$ and Spearman/Kendall are paper arguments \\
+Same-mean pairs differ in Brier/RPS & \file{experiments/35\_.../extended\_checks\_11-26-2026/squared\_difference\_vs\_distribution\_11-26-2026/MeanMatching.lean}; the Lean file under \file{experiments/36\_.../}: \texttt{ordinal\_same\_mean\_different\_law} & Lean, but the second is arithmetic on typed numbers, not linked to a Lean definition of RPS (the repository's own QA says so). General Cor.~\ref{cor:tie} is a paper argument \\
+Worked-example table (Section~\ref{sec:scalar}) & new: \file{Point2WorkedExamples.lean} defines Brier and RPS on ratings $0..5$ and evaluates all entries & Lean (\texttt{decide +kernel}), no \texttt{sorry}, standard axioms; a deliberately wrong entry fails to compile \\
+Anti-properness, squared form $\rho^{2}<\rho$ & the Lean file under \file{experiments/36\_.../}: \texttt{anti\_proper\_from\_parts} & Lean; proves only $0<\rho<1\Rightarrow\rho^{2}<\rho$ \\
+Anti-properness, square-root form (Prop.~\ref{prop:sampled}) & AGENTS.md: Monte Carlo only. A finite-joint-law Lean theorem \texttt{Model.anti\_proper} with the strict inequality exists in \file{PlanClaims.lean} in the plan-claims audit folder under experiment~35's \texttt{extended\_checks\_11-26-2026/} & I did \emph{not} recompile it (needs Mathlib). Treat the square-root form as paper-proved plus exact-fraction Python (Part~2 of the script) until the AGENTS.md wording and that file are reconciled \\
+Props.~\ref{prop:identity}, \ref{prop:murphy}, \ref{prop:expected}, \ref{prop:encoding}, \ref{prop:rps} & this note & Paper proofs; identity and RPS/Brier expectations also checked in exact fractions (200 random cases each); \emph{no new Lean} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{One-hot encoding and the Brier score}
+\label{sec:onehot}
+
+\begin{proposition}[One-hot squared error is the multiclass Brier score, strictly proper]\label{prop:onehot}
+$\E[\onehot_Y\mid C=c]=\pstar(\cdot\mid c)$, and for every forecast $q$,
+\[
+\E_{Y\sim\pstar}\,\Brier(q,Y)=\|q-\pstar\|_2^{2}+\bigl(1-\|\pstar\|_2^{2}\bigr).
+\]
+Hence Brier is strictly proper: the expected score is minimized uniquely at $q=\pstar$, with minimum $1-\|\pstar\|_2^{2}$.
+\end{proposition}
+\begin{proof}
+The $k$th coordinate of $\onehot_Y$ is $\1[Y=k]$, with mean $\pstar(k)$. Then $\E\|q-\onehot_Y\|^{2}=\|q\|^{2}-2\langle q,\E\onehot_Y\rangle+\E\|\onehot_Y\|^{2}=\|q\|^{2}-2\langle q,\pstar\rangle+1=\|q-\pstar\|^{2}+1-\|\pstar\|^{2}$, using $\|\onehot_Y\|^{2}=1$.
+\end{proof}
+
+The logarithmic score is the other standard strictly proper score for a categorical label: $\E_{Y\sim\pstar}\CE(q,Y)=H(\pstar)+\mathrm{KL}(\pstar\,\|\,q)$ by Gibbs' inequality (Gneiting and Raftery, 2007). It is not a squared error on an encoding, it is blind to ordering, and it is infinite whenever $q$ puts zero mass on a realized rating.
+
+\begin{remark}[$K=2$ is the one case where the scalar suffices]
+For $K=2$ the mean is $\pstar(1\mid c)$, which \emph{is} the distribution, and $\Brier=2(q_1-y)^{2}$, twice the scalar squared error (the repository's \texttt{binary\_brier\_eq\_two\_l2}). The argument below therefore bites exactly when $K\ge3$, which includes every 0--5 rubric.
+\end{remark}
+
+\section{The scalar encoding sees one moment}
+\label{sec:scalar}
+
+Squared error on the scalar $Y$ is the encoding $\varphi(y)=y$, i.e.\ the row $A=(0,1,\dots,K-1)$ applied to $\onehot_y$. Its conditional expectation is $\mu(c)=\sum_k k\,\pstar(k\mid c)$, a single linear functional of $\pstar$. The general statement covers all three encodings of this note.
+
+\begin{proposition}[Encoding rank]\label{prop:encoding}
+Let $A\in\mathbb{R}^{m\times K}$ and define the encoded squared-error score $S_A(q,y)=\|A(q-\onehot_y)\|_2^{2}$. Then, for every $p$ and $q$,
+\[
+\E_{Y\sim p}S_A(q,Y)=\|A(q-p)\|_2^{2}+\operatorname{tr}\bigl(A\,\Sigma_p A^{\top}\bigr),\qquad \Sigma_p=\operatorname{diag}(p)-pp^{\top},
+\]
+so $S_A$ is proper. It is strictly proper if and only if $A$ is injective on $D=\{v\in\mathbb{R}^{K}:\sum_k v_k=0\}$. If some nonzero $v\in D$ has $Av=0$, then $q$ and $q+tv$ (for small $t$, staying in the simplex) have the same expected score under every truth.
+\end{proposition}
+\begin{proof}
+$q-\onehot_Y=(q-p)-(\onehot_Y-p)$ and $\E[\onehot_Y-p]=0$, so $\E\|A(q-\onehot_Y)\|^{2}=\|A(q-p)\|^{2}+\E\|A(\onehot_Y-p)\|^{2}$, and the last term equals $\operatorname{tr}(A\Sigma_pA^{\top})$ and does not depend on $q$. The first term vanishes iff $A(q-p)=0$; since $q-p\in D$, this forces $q=p$ exactly when $\ker A\cap D=\{0\}$.
+\end{proof}
+
+\begin{itemize}
+\item \textbf{One-hot} $A=I_K$: injective, strictly proper (Proposition~\ref{prop:onehot}).
+\item \textbf{Cumulative} $A=L$ with rows $t=0,\dots,K-2$ and $(Lv)_t=\sum_{k\le t}v_k$: if $Lv=0$ then $v_0=\dots=v_{K-2}=0$, and $v\in D$ gives $v_{K-1}=0$. So $L$ is injective on $D$: strictly proper (Section~\ref{sec:cumulative}).
+\item \textbf{Scalar} $A=(0,1,\dots,K-1)$: rank one, so $\ker A\cap D$ has dimension $K-2$. For $K\ge3$ it is nonzero, and every pair of laws with equal mean ties exactly. For $K=2$ it is $\{0\}$ and the scalar is faithful (previous remark). The scalar squared error is strictly consistent for the mean functional (Gneiting, 2011), which is a different property from being proper for the distribution.
+\end{itemize}
+
+Pearson correlation then discards a further two parameters (the affine map in Propositions~\ref{prop:affine} and~\ref{prop:identity}), and Spearman and Kendall discard all monotone maps.
+
+\subsection{Worked example: same mean, different spread}
+
+Take $K=6$ (ratings $0,\dots,5$) and two laws:
+\[
+A=\delta_{2}=(0,0,1,0,0,0),\qquad B=\tfrac12\delta_{0}+\tfrac12\delta_{4}=(\tfrac12,0,0,0,\tfrac12,0).
+\]
+Both have mean $2$; the variances are $0$ and $4$. Their cumulative distribution functions at $t=0,\dots,4$ are $F_A=(0,0,1,1,1)$ and $F_B=(\tfrac12,\tfrac12,\tfrac12,\tfrac12,1)$. A judge issuing forecast $A$ or $B$ has the same scalar readout $2$, so the scalar squared error of the readout is the same for both: $0$ if the truth is $A$ and $4$ if the truth is $B$. Using Proposition~\ref{prop:onehot} and its RPS analogue (Proposition~\ref{prop:rps}), the expected scores of forecast $q$ under truth $p$ are:
+
+\begin{center}
+\begin{tabular}{llcccc}
+\toprule
+ & & \multicolumn{2}{c}{truth $A$} & \multicolumn{2}{c}{truth $B$} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Score & forecast $\to$ & $A$ & $B$ & $A$ & $B$ \\
+\midrule
+Scalar squared error of the mean readout & & $0$ & $0$ & $4$ & $4$ \\
+Brier $\|q-\onehot_Y\|^{2}$ & & $0$ & $3/2$ & $2$ & $1/2$ \\
+RPS (raw, thresholds $0..4$) & & $0$ & $1$ & $2$ & $1$ \\
+RPS normalized by $K-1=5$ & & $0$ & $1/5$ & $2/5$ & $1/5$ \\
+Cross-entropy (nats), exact & & $0$ & $+\infty$ & $+\infty$ & $\ln 2\approx0.6931$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Read across: under truth $A$, forecasts $A$ and $B$ score as in the first two columns; under truth $B$, as in the last two. Entries are expectations under the stated truth; lower is better. Brier and RPS values are exact fractions computed by \file{point2\_worked\_examples\_27Nov2026.py} and checked in Lean by \file{Point2WorkedExamples.lean}; the cross-entropy entries use exact zeros of $q$. (With 10\% uniform smoothing of the forecast, a numerical device and not part of the theory, the finite cross-entropies would be $0.0870$ and $0.7621$ on the diagonal and $4.0943$ off it, from the same script.)
+
+\textbf{Reading.} The scalar score cannot tell the two forecasts apart whichever truth holds, and Corollary~\ref{cor:tie} says the same for Pearson, Spearman and Kendall. Brier and RPS separate them under both truths, with the truthful forecast strictly best, as Proposition~\ref{prop:onehot} and Proposition~\ref{prop:rps} require. The Brier gap between forecasts under truth $A$ is $\|B-A\|^{2}=3/2$ and the RPS gap is $1$, which the repository's \texttt{ordinal\_same\_mean\_different\_law} also records.
+
+\subsection{A population version: correlation is maximal for a judge that is worse than the base rate}
+
+Take three equally likely items with truths $\pstar(\cdot\mid c_1)=\tfrac12\delta_0+\tfrac12\delta_2$, $\pstar(\cdot\mid c_2)=\tfrac12\delta_0+\tfrac12\delta_4$ and $\pstar(\cdot\mid c_3)=\tfrac12\delta_2+\tfrac12\delta_4$. The conditional means are $1,2,3$, the conditional variances $1,4,1$, and $\Var(Y)=8/3=\Var\mu+\E\Var(Y\mid C)=2/3+2$. Compare the truthful judge $T$ ($q=\pstar$) with the collapsed judge $D$ ($q=\delta_{\mu(c)}$):
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Population-average score (lower is better, except the last row) & $T$ & $D$ \\
+\midrule
+Pearson $r$, expected-score readout (identical $s=\mu$) & $1/2$ & $1/2$ \\
+Pearson $r$, \emph{sampled} readout (Prop.~\ref{prop:sampled}) & $1/4$ & $1/2$ \\
+Brier & $1/2$ & $2$ \\
+RPS (raw) & $2/3$ & $4/3$ \\
+RPS normalized ($/5$) & $2/15$ & $4/15$ \\
+Cross-entropy (nats) & $\ln2\approx0.6931$ & $+\infty$ \\
+Brier skill score $1-S(\text{judge})/S(\text{base rate})$ & $1/4$ & $-2$ \\
+RPS skill score $1-S(\text{judge})/S(\text{base rate})$ & $1/4$ & $-1/2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The base-rate forecast is the pooled marginal $(\tfrac13,0,\tfrac13,0,\tfrac13,0)$, with Brier $2/3$ and raw RPS $8/9$. On the expected-score readout the two judges tie on every correlation and on the mean squared error of the readout, and $r^{2}=1/4$ is the best any function of $c$ can achieve (Proposition~\ref{prop:expected}); yet $D$ is \emph{worse than the base rate} on Brier and RPS (negative skill) and has infinite cross-entropy. On the sampled readout, correlation prefers $D$ outright ($1/2$ against $1/4$), as Proposition~\ref{prop:sampled} predicts. These are constructed laws that verify the propositions; they are not evidence about any real judge.
+
+\section{The cumulative encoding and the ranked probability score}
+\label{sec:cumulative}
+
+Let $Z_t=\1[Y\le t]$ for $t=0,\dots,K-2$ (the $t=K-1$ indicator is identically one). Then $\E[Z_t\mid C=c]=F^{*}(t\mid c)=\sum_{k\le t}\pstar(k\mid c)$, and $F^{*}(0),\dots,F^{*}(K-2)$ determine $\pstar$ (take successive differences, and $\pstar(K-1)=1-F^{*}(K-2)$). Squared error on this encoding is the ranked probability score (Epstein, 1969; Murphy, 1971):
+\[
+\RPS(q,y)=\sum_{t=0}^{K-2}\bigl(F_q(t)-\1[y\le t]\bigr)^{2}=\|L(q-\onehot_y)\|_2^{2},
+\]
+the sum over thresholds of the binary Brier score for the event $\{Y\le t\}$. The repository normalizes by $K-1$, so each threshold term lies in $[0,1]$ and $\RPS/(K-1)\in[0,1]$.
+
+\begin{proposition}[RPS is strictly proper]\label{prop:rps}
+$\displaystyle \E_{Y\sim p}\RPS(q,Y)=\sum_{t=0}^{K-2}\bigl(F_q(t)-F_p(t)\bigr)^{2}+\sum_{t=0}^{K-2}F_p(t)\bigl(1-F_p(t)\bigr)$, so the unique minimizer over $q$ is $q=p$.
+\end{proposition}
+\begin{proof}
+For each $t$, $Z_t$ is Bernoulli with mean $F_p(t)$, and the binary Brier identity (Proposition~\ref{prop:onehot} with $K=2$) gives $\E(F_q(t)-Z_t)^{2}=(F_q(t)-F_p(t))^{2}+F_p(t)(1-F_p(t))$. Sum over $t$. The first sum is zero iff $F_q(t)=F_p(t)$ for all $t\le K-2$, iff $q=p$. (Equivalently, Proposition~\ref{prop:encoding} with $A=L$.)
+\end{proof}
+
+\begin{example}[Distance sensitivity: Brier is blind, RPS is not]\label{ex:distance}
+Let the realized rating be $Y=0$, and compare the point-mass forecasts $\delta_{1}$ and $\delta_{5}$. Both put zero mass on the realized rating and the same mass elsewhere, so $\Brier=2$ for each (and the cross-entropy is infinite for each). For $\delta_j$ and outcome $y$, $F_q(t)=\1[j\le t]$ and $\1[y\le t]$ differ exactly for $t$ between $\min(j,y)$ and $\max(j,y)-1$, so $\RPS(\delta_j,y)=|j-y|$. Thus $\RPS(\delta_1,0)=1$ and $\RPS(\delta_5,0)=5$ (normalized $1/5$ and $1$). Brier charges every wrong category the same; RPS charges the distance. The same values are computed by the script and checked in \file{Point2WorkedExamples.lean} (\texttt{distance\_sensitivity}).
+\end{example}
+
+\begin{remark}[CRPS as the continuous limit]
+For a real-valued outcome and a forecast cumulative distribution function $F$, $\mathrm{CRPS}(F,y)=\int_{-\infty}^{\infty}\bigl(F(t)-\1[y\le t]\bigr)^{2}dt$, the integral of the binary Brier scores at all thresholds (Matheson and Winkler, 1976; Gneiting and Raftery, 2007, Section~4.2); it is strictly proper on distributions with finite first moment. For a forecast supported on the integers and an integer outcome, $F$ and $\1[y\le t]$ are constant on each $[k,k+1)$, so the CRPS equals the unnormalized RPS: the RPS is the CRPS on the integer grid, and continuous ratings are handled by the same recipe with the cumulative encoding $\{\1[y\le t]\}_{t\in\mathbb{R}}$.
+\end{remark}
+
+\section{Framing recommendation: encoding, then matched strictly proper score}
+\label{sec:framing}
+
+\begin{center}
+\small
+\begin{tabular}{P{2.9cm}P{3.0cm}P{3.1cm}P{3.0cm}P{2.4cm}}
+\toprule
+Encoding $\varphi(Y)$ & $\E[\varphi\mid c]$ recovers & Squared-error score on $\varphi$ & Proper for $\pstar$? & Ordering-aware? \\
+\midrule
+Scalar $Y$ & the mean $\mu(c)$ only (rank-one) & $(s-y)^{2}$ & consistent for the mean; not proper for $\pstar$ when $K\ge3$ & uses numeric distance, spread invisible \\
+Scalar, then affine refit (Pearson) & $\mu(c)$ up to an affine map & $1-r^{2}$ (in-sample refit) & no: non-identifying (Prop.~\ref{prop:expected}), anti-proper if sampled (Prop.~\ref{prop:sampled}) & only through the means \\
+One-hot $\onehot_Y$ & $\pstar(\cdot\mid c)$ & Brier $\|q-\onehot_y\|^{2}$ & strictly & no: every wrong category costs the same \\
+Cumulative $\1[Y\le t]$, $t\le K-2$ & $F^{*}(\cdot\mid c)$, hence $\pstar$ & RPS & strictly & yes \\
+$\1[Y\le t]$, all real $t$ & $F^{*}(t\mid c)$, $t\in\mathbb{R}$ & CRPS & strictly (finite first moment) & yes \\
+\bottomrule
+\end{tabular}
+\end{center}
+Cross-entropy (the log score) on the one-hot encoding is a fifth strictly proper option, not a squared error; it is ordering-blind and infinite on zero-mass outcomes.
+
+\textbf{Recommendation.} State the validation target as the forecast of $\pstar(y\mid c,\text{rater pool},\text{rubric})$ and organize the evaluation protocol around the label type:
+\begin{enumerate}
+\item \emph{Declare the encoding by label type}: categorical $\to$ one-hot (CE or Brier); ordinal $\to$ cumulative (RPS); continuous $\to$ CRPS.
+\item \emph{Score with the matched strictly proper score}, as a per-item held-out mean, with item-clustered bootstrap intervals (the repository's standing protocol).
+\item \emph{Report the base-rate skill score} $1-S(\text{judge})/S(\text{base rate})$, so that a number is read against what a judge that ignores the item would get (the last two rows of the population table show why this matters).
+\item \emph{Stratify by human agreement}, since the skill ceiling depends on how peaked $\pstar$ is.
+\item \emph{Keep correlation as a discrimination diagnostic} next to a calibration diagnostic, not as the validity criterion.
+\end{enumerate}
+This replaces a framing around first moments (mean, variance, correlation) by one around what $\E[\text{encoding}\mid c]$ identifies. It is also where the paper's novelty sits: neither ``use proper scores'' nor ``labels are distributions'' is new; what is specific is the practice gap in judge validation, the identification result for correlation, the encoding-matched protocol, and the evidence on the size of the gap.
+
+\section{What this does and does not establish}
+\label{sec:limits}
+
+\begin{itemize}
+\item \textbf{Correlation remains useful.} By Proposition~\ref{prop:murphy}, $r^{2}\Var(Y)$ is a (linear) resolution term. If a downstream use only needs the ordering of items (best-of-$n$ selection, ranking), affine and monotone invariance is a feature. The claim here is about validating a judge as a \emph{forecaster of the human rating distribution}.
+\item \textbf{The constructed examples are not real judges.} Propositions~\ref{prop:expected} and~\ref{prop:sampled} and the worked examples show that the metrics \emph{can} disagree, exactly. A rank reversal between real LLM judges under a pre-registered paired test is not established by this note.
+\item \textbf{Exp.~41: calibration closes most of the gap.} Experiment~41 (\file{experiments/41\_output\_space\_k\_sweep\_g\_d\_study\_sufficiency\_and\_label\_dollars\_start\_27Nov2026/results/k\_sweep\_summary\_table.md}) trains \emph{linear-head} judges (not LLM judges) with cross-entropy or with Pearson correlation on seven real multi-annotator rating sets, viewed at $K\in\{2,3,5\}$ (17 views; ChaosNLI and $\alpha$NLI have one native view each), at a fixed ridge penalty of $0.01$ and at most 35 optimizer iterations. Held-out normalized RPS, mean over five split seeds, ``Pearson-trained minus CE-trained'' (positive means the CE-trained head is better): the raw gap is up to $+0.1282$ (largest in the SummEval crowd $K=5$ view, which the table flags as carrying no signal: constant-forecast normalized RPS $0.1277$); after each head's score passes through its own validation-fitted multinomial-logit calibration map, the gap is at most $+0.0024$ (largest in POPQUORN politeness, $K=2$; single-seed values in that view range from $+0.0019$ to $+0.0031$). These are the table's five-seed means; I make no significance claim from them here. This is what Proposition~\ref{prop:murphy} predicts qualitatively: Pearson training buys discrimination, and the missing ingredient is calibration, which a post-hoc map supplies. It is a statement about these linear heads, not about frontier LLM judges.
+\end{itemize}
+
+\section{Suggested paragraph for the paper}
+\label{sec:paragraph}
+
+\begin{quote}
+\small
+\begin{verbatim}
+\paragraph{Why correlation cannot validate a judge as a forecaster.}
+Pearson correlation is invariant to affine maps of the judge's score, and
+$r^{2}=1-\min_{a,b}\mathbb{E}(Y-a-bS)^{2}/\mathrm{Var}(Y)$ is the squared
+error after the best linear recalibration fitted on the evaluation labels
+themselves. It therefore rewards discrimination and does not charge for
+miscalibration. A scalar score also cannot identify the rating distribution:
+its conditional mean is one moment, so two forecasts with the same mean but
+different spread tie on correlation and on squared error of the mean, while
+differing in Brier, RPS and cross-entropy. Encoding the label first removes
+the problem. With the one-hot encoding, $\mathbb{E}[e_Y\mid c]=p^{*}(\cdot\mid c)$
+and squared error is the multiclass Brier score, strictly proper; with the
+cumulative encoding $\mathbf{1}[Y\le k]$ it is the ranked probability score,
+strictly proper and sensitive to the ordering of the categories. We therefore
+validate a judge by the strictly proper score matched to the label encoding,
+report its base-rate skill score stratified by human agreement, and keep
+correlation as a diagnostic of discrimination.
+\end{verbatim}
+\end{quote}
+
+\section{Verification ledger and references}
+\label{sec:ledger}
+
+\textbf{Checks run for this note} (files in \file{docs/notes/point2\_support\_27Nov2026/}): the exact-fraction script (\file{point2\_worked\_examples\_27Nov2026.py}, output \file{point2\_worked\_examples\_27Nov2026\_output.txt}, ends with \texttt{ALL ASSERTIONS PASSED}); the Lean file \file{Point2WorkedExamples.lean} with its compiler output \file{lean\_check.txt} (Lean 4.36.0, no Mathlib, no \texttt{sorry}, axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}). Reproduce: \texttt{python3 point2\_worked\_examples\_27Nov2026.py} and \texttt{lean Point2WorkedExamples.lean}.
+
+\textbf{Not Lean-checked here:} Propositions~\ref{prop:identity}, \ref{prop:murphy}, \ref{prop:expected}, \ref{prop:sampled}, \ref{prop:encoding} and~\ref{prop:rps} are proved on paper above, with the numerical checks listed. Under the repository's three-pillar standard they should be called ``analytical'' until a zero-\texttt{sorry} Lean lemma exists.
+
+\begin{thebibliography}{99}\small
+\bibitem{brier1950} G.~W. Brier. Verification of forecasts expressed in terms of probability. \emph{Monthly Weather Review}, 78(1):1--3, 1950.
+\bibitem{epstein1969} E.~S. Epstein. A scoring system for probability forecasts of ranked categories. \emph{Journal of Applied Meteorology}, 8:985--987, 1969.
+\bibitem{murphy1971} A.~H. Murphy. A note on the ranked probability score. \emph{Journal of Applied Meteorology}, 10:155--156, 1971.
+\bibitem{murphy1973} A.~H. Murphy. A new vector partition of the probability score. \emph{Journal of Applied Meteorology}, 12(4):595--600, 1973.
+\bibitem{matheson1976} J.~E. Matheson and R.~L. Winkler. Scoring rules for continuous probability distributions. \emph{Management Science}, 22(10):1087--1096, 1976.
+\bibitem{degroot1983} M.~H. DeGroot and S.~E. Fienberg. The comparison and evaluation of forecasters. \emph{The Statistician}, 32(1/2):12--22, 1983.
+\bibitem{gr2007} T.~Gneiting and A.~E. Raftery. Strictly proper scoring rules, prediction, and estimation. \emph{Journal of the American Statistical Association}, 102(477):359--378, 2007.
+\bibitem{brocker2009} J.~Br\"ocker. Reliability, sufficiency, and the decomposition of proper scores. \emph{Quarterly Journal of the Royal Meteorological Society}, 135(643):1512--1519, 2009.
+\bibitem{gneiting2011} T.~Gneiting. Making and evaluating point forecasts. \emph{Journal of the American Statistical Association}, 106(494):746--762, 2011.
+\end{thebibliography}
+
+Citation use in the text: Brier (1950), the quadratic score; Epstein (1969) and Murphy (1971), the RPS; Murphy (1973) and Br\"ocker (2009), the uncertainty--resolution--reliability decomposition (DeGroot and Fienberg, 1983, for the calibration/refinement form of the same idea); Matheson and Winkler (1976) and Gneiting and Raftery (2007), the CRPS as an integral of threshold Brier scores and propriety; Gneiting (2011), squared error as a consistent scoring function for the mean. I confirmed each reference's venue, volume and pages against the publisher, DOI or author-hosted record, and the CRPS-as-integral-of-Brier statement against the text of Gneiting and Raftery (2007), Section~4.2, Eq.~(20). I did not re-derive the claims those papers make beyond what is proved above.
+
+\tldr{Correlation is invariant to affine maps and equals squared error after a best affine refit on the evaluation labels, so it measures discrimination and gives calibration away; for a deterministic readout the truth ties with every positively affine image of its mean (non-identifying), and for a sampled readout a collapsed judge beats the truth (anti-proper). A scalar encoding has rank one and sees only the mean; one-hot (Brier) and cumulative (RPS) encodings are injective on the simplex, so squared error on them is strictly proper and RPS also charges distance. Worked example: same mean $2$, point mass at $2$ versus half on $0$ and half on $4$: scalar error ties, Brier differs by $3/2$ and RPS by $1$ ($1/5$ normalized). Organize the paper around label encoding $\to$ matched strictly proper score $\to$ base-rate skill score stratified by human agreement, keep correlation as a diagnostic, and note that Experiment~41's linear heads show most of the raw gap (up to $0.1282$) vanishes after post-hoc calibration (at most $0.0024$); real-judge rank reversal remains unestablished.}
+
+\end{document}
