@@ -1,0 +1,184 @@
+{
+ "reproduction": {
+  "exp23_reported": {
+   "pearson": 0.8765050449206083,
+   "calibrated_pearson": 0.8348534698350497
+  },
+  "this_run_exp23_function": {
+   "pearson": 0.8765050449206074,
+   "calibrated_pearson": 0.8348534698350498,
+   "continuous_calibrated_pearson": 0.8754441520889709
+  },
+  "this_run_cell_means": {
+   "pearson": 0.876505044920607,
+   "calibrated_pearson": 0.8348534698350496,
+   "continuous_calibrated_pearson": 0.8754441520889709
+  }
+ },
+ "selected_heads": {
+  "native:t=0.5,b=1,c=0": 4,
+  "native:t=0.5,b=1,c=1": 59,
+  "native:t=1.0,b=1,c=1": 1
+ },
+ "n_systems": 16,
+ "n_test_documents": 40,
+ "n_test_items": 640,
+ "draws": 64,
+ "boot": 2000,
+ "delta_pearson_minus_calibrated": {
+  "mean": 0.041651575085557516,
+  "draw_sd": 0.0064872034677644465,
+  "draw_p2_5": 0.02804447137543631,
+  "draw_p97_5": 0.05774947066126026,
+  "documents": {
+   "lo": -0.04886701174234746,
+   "hi": 0.1138253975050303,
+   "p_two_sided": 0.5197401299350325,
+   "n": 2000
+  },
+  "systems": {
+   "lo": -0.09497861170415356,
+   "hi": 0.2406318206813733,
+   "p_two_sided": 0.6316841579210395,
+   "n": 2000
+  },
+  "both": {
+   "lo": -0.12143763960589912,
+   "hi": 0.22650242044890145,
+   "p_two_sided": 0.751624187906047,
+   "n": 2000
+  },
+  "jackknife_systems": {
+   "min": 0.013584547675792202,
+   "max": 0.07727095629657477,
+   "se": 0.07055741859482072
+  }
+ },
+ "delta_pearson_minus_continuous_calibrated": {
+  "mean": 0.0010608928316364098,
+  "documents": {
+   "lo": -0.0716233088970962,
+   "hi": 0.16411169885056254,
+   "p_two_sided": 0.5777111444277861,
+   "n": 2000
+  },
+  "systems": {
+   "lo": -0.11835788609252319,
+   "hi": 0.10861049076231889,
+   "p_two_sided": 0.9165417291354323,
+   "n": 2000
+  },
+  "both": {
+   "lo": -0.1557662711738887,
+   "hi": 0.2662426766071126,
+   "p_two_sided": 0.7626186906546727,
+   "n": 2000
+  }
+ },
+ "level_intervals": {
+  "pearson": {
+   "documents": [
+    0.7207915969707951,
+    0.9373757486217861
+   ],
+   "systems": [
+    0.6046767608899584,
+    0.9766927537059749
+   ],
+   "both": [
+    0.49177842944732886,
+    0.9767840894092152
+   ]
+  },
+  "calibrated_pearson": {
+   "documents": [
+    0.685121688133985,
+    0.9147246242962532
+   ],
+   "systems": [
+    0.48308379183844746,
+    0.9856009427901059
+   ],
+   "both": [
+    0.42430824476455475,
+    0.9720934453571141
+   ]
+  },
+  "continuous_calibrated_pearson": {
+   "documents": [
+    0.6310669117492951,
+    0.9310846384196405
+   ],
+   "systems": [
+    0.5741992608956442,
+    0.9791527702281309
+   ],
+   "both": [
+    0.39815884251909955,
+    0.9728976204231977
+   ]
+  }
+ },
+ "level_sd_systems_bootstrap": {
+  "pearson": 0.09875352728550792,
+  "calibrated_pearson": 0.138899986739818,
+  "continuous_calibrated_pearson": 0.10619568048136452
+ },
+ "diagnostics": {
+  "human_system_means": {
+   "M0": 4.975,
+   "M1": 4.9667,
+   "M10": 4.4333,
+   "M11": 3.3,
+   "M12": 4.975,
+   "M13": 4.7917,
+   "M14": 4.825,
+   "M15": 4.9,
+   "M17": 4.9917,
+   "M2": 4.9917,
+   "M20": 3.5,
+   "M22": 4.9417,
+   "M23": 4.9917,
+   "M5": 5.0,
+   "M8": 4.65,
+   "M9": 4.6417
+  },
+  "human_tied_system_pairs": 4,
+  "human_min_gap_between_system_means": 0.0,
+  "pearson": {
+   "distinct_item_expected_scores_median_over_draws": 308.0,
+   "tied_system_pairs_mean": 0.0,
+   "system_pair_accuracy_mean": 0.8669270833333336,
+   "kendall_tau_b_mean": 0.7463995910950953,
+   "item_level_pearson_mean": 0.6009943540597302
+  },
+  "calibrated_pearson": {
+   "distinct_item_expected_scores_median_over_draws": 4.0,
+   "tied_system_pairs_mean": 0.0,
+   "system_pair_accuracy_mean": 0.8539062499999999,
+   "kendall_tau_b_mean": 0.7199127354849073,
+   "item_level_pearson_mean": 0.562325383716153
+  },
+  "continuous_calibrated_pearson": {
+   "distinct_item_expected_scores_median_over_draws": 308.0,
+   "tied_system_pairs_mean": 0.0,
+   "system_pair_accuracy_mean": 0.8658854166666667,
+   "kendall_tau_b_mean": 0.7442806426462802,
+   "item_level_pearson_mean": 0.639571104863265
+  }
+ },
+ "test_proper_scores_mean_over_draws": {
+  "pearson": {
+   "normalized_rps": 0.14361273219412118,
+   "ce_nats": 1.93348113787874
+  },
+  "calibrated_pearson": {
+   "normalized_rps": 0.054290473276381784,
+   "ce_nats": 0.4213524815229317
+  },
+  "continuous_calibrated_pearson": {
+   "normalized_rps": 0.04922569947367403,
+   "ce_nats": 0.39592350380975333
+  }
+ }
+}
