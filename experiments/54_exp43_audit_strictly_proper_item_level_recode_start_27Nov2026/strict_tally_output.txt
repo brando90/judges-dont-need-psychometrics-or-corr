@@ -1,0 +1,12 @@
+Papers coded: 49
+Experiment 43 broad code P (proper score or divergence, item level): 6/49; no P: 43/49
+Strict: item-level strictly proper score: 5/49; none: 44/49
+Strict and order-sensitive on an ordinal scale (RPS): 1/49
+The six broad-P papers (the 49 - 43):
+  - Beyond correlation (Elangovan et al.) (ICLR 2025; 2410.03775): Exp43 codes P,C,K -> P_div. Elangovan et al. (ICLR 2025), Sec. 3.1 Eq. 1-2: binned JSD between pooled human and machine label PMFs within bins of items grouped by median human rating; a population-level divergence, not an item-level proper score of the judge's forecast.
+  - Validating LLM-as-a-Judge under Rating Indeterminacy (Guerdan et al.) (NeurIPS 2025; 2503.05965): Exp43 codes P,A,K -> P_strict. Guerdan et al. (NeurIPS 2025): KL-D(h,j) and cross-entropy between human and judge response distributions per item (categorical and ordinal scales); KL(human||judge) is CE minus a judge-free term, hence strictly proper; not order-sensitive.
+  - Distributional LLM-as-a-Judge (Chen et al.) (NeurIPS 2025; 2505.12301): Exp43 codes P,A -> P_strict. Chen et al. (NeurIPS 2025), Eq. 10: KL(p||q_theta) from the human distribution to the model's, per item, on SNLI/MNLI and SummEval 1-5 Likert; strictly proper, not order-sensitive.
+  - Improving LLM-as-a-Judge Inference with the Judgment Distribution (Wang, Zhang & Choi) (Findings EMNLP 2025; 2503.03064): Exp43 codes P,A,C -> P_strict. Wang, Zhang & Choi (Findings EMNLP 2025): MSE between the judge's preference probability and the averaged human preference, i.e. a binary Brier score against a soft label; strictly proper, binary.
+  - Judging with Confidence: Calibrating Autoraters to Preference Distributions (Li et al.) (Findings EMNLP 2026; 2510.00263): Exp43 codes P -> P_strict. Li et al. (Findings EMNLP 2026): Brier and logarithmic scores against a pairwise preference distribution; strictly proper, binary; ordinal/Likert left to future work.
+  - Human-Residual Steering (Lyu, Do & Pergola) (arXiv (27 Oct 2026); 2610.37868): Exp43 codes P,C -> P_strict (ordinal RPS). Lyu, Do & Pergola (arXiv, 27 Oct 2026): annotation-level RPS on ordinal labels (Brier on nominal), plus Jensen-Shannon distance as the primary metric; RPS is strictly proper and order-sensitive.
+The 43 without any item-level proper score or divergence, by Experiment 43 group: {'D': 25, 'S': 5, 'W': 13}
