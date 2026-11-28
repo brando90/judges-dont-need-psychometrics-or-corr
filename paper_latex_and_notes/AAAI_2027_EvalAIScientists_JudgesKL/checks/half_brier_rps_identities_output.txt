@@ -1,0 +1,40 @@
+=== (A) half-Brier on point masses ===
+checked 203 pairs (K=2..8, all a,y). PASS
+=== (B) RPS on point masses ===
+checked 203 pairs (K=2..8). unnorm = |a-y|, norm = |a-y|/(K-1). PASS
+=== (C) one-rating unbiasedness (definition + MC sanity) ===
+checked 8 (Brier and normalized RPS on K=2,3,5,6). PASS
+=== (D) average RPS over K! orderings vs c * Brier ===
+checked 118 forecasts, K=2..6, exact fractions.
+normalized-RPS claim  avg = (K+1)/(6(K-1)) * Brier : HOLDS
+unnormalized analogue avg = (K+1)/6 * Brier         : HOLDS
+example ratios:
+  {'tag': 'onehot K=2 a=0 y=0', 'brier': '0', 'avg_norm_RPS': '0', 'avg_unnorm_RPS': '0', 'norm_factor_claimed': '1/2', 'norm_ratio_if_brier_pos': 'n/a', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=2 a=0 y=1', 'brier': '2', 'avg_norm_RPS': '1', 'avg_unnorm_RPS': '1', 'norm_factor_claimed': '1/2', 'norm_ratio_if_brier_pos': '1/2', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=2 a=1 y=0', 'brier': '2', 'avg_norm_RPS': '1', 'avg_unnorm_RPS': '1', 'norm_factor_claimed': '1/2', 'norm_ratio_if_brier_pos': '1/2', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=2 a=1 y=1', 'brier': '0', 'avg_norm_RPS': '0', 'avg_unnorm_RPS': '0', 'norm_factor_claimed': '1/2', 'norm_ratio_if_brier_pos': 'n/a', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=0 y=0', 'brier': '0', 'avg_norm_RPS': '0', 'avg_unnorm_RPS': '0', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': 'n/a', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=0 y=1', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=0 y=2', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=1 y=0', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=1 y=1', 'brier': '0', 'avg_norm_RPS': '0', 'avg_unnorm_RPS': '0', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': 'n/a', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=1 y=2', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=2 y=0', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=2 y=1', 'brier': '2', 'avg_norm_RPS': '2/3', 'avg_unnorm_RPS': '4/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'onehot K=3 a=2 y=2', 'brier': '0', 'avg_norm_RPS': '0', 'avg_unnorm_RPS': '0', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': 'n/a', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'half-ends K=3 y=0', 'brier': '1/2', 'avg_norm_RPS': '1/6', 'avg_unnorm_RPS': '1/3', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'half-ends K=3 y=mid', 'brier': '3/2', 'avg_norm_RPS': '1/2', 'avg_unnorm_RPS': '1', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+  {'tag': 'rand K=3 i=0 y=2', 'brier': '247/288', 'avg_norm_RPS': '247/864', 'avg_unnorm_RPS': '247/432', 'norm_factor_claimed': '1/3', 'norm_ratio_if_brier_pos': '1/3', 'norm_match': True, 'unnorm_match': True}
+=== (D) per-K ratios avg_norm_RPS / Brier (when Brier>0) ===
+  K=2: unique ratios = [Fraction(1, 2)]
+       claimed (K+1)/(6(K-1)) = 1/2
+  K=3: unique ratios = [Fraction(1, 3)]
+       claimed (K+1)/(6(K-1)) = 1/3
+  K=4: unique ratios = [Fraction(5, 18)]
+       claimed (K+1)/(6(K-1)) = 5/18
+  K=5: unique ratios = [Fraction(1, 4)]
+       claimed (K+1)/(6(K-1)) = 1/4
+  K=6: unique ratios = [Fraction(7, 30)]
+       claimed (K+1)/(6(K-1)) = 7/30
+
+All A/B/C checks passed; D verdict printed above.
