@@ -1,20 +1,23 @@
 \begin{abstract}
 \noindent
-% CS197 Move 1 (context): LLM judges are the default instrument for evaluating open-ended AI outputs, validated by correlation/agreement with human ratings.
-Large language model (LLM) judges are now the default instrument for evaluating open-ended AI outputs, and the community validates them by their correlation or agreement with human ratings.
-% CS197 Move 2 (gap/P\&K): human label variation established the target is a distribution, yet judge validation has not adopted metrics that evaluate a judge against that distribution.
-Work on human label variation has established that the target of such evaluation is a distribution over ratings, not a single gold label (Pavlick and Kwiatkowski, 2019; Plank, 2022), yet judge validation has not adopted metrics that evaluate a judge against that distribution.
-% CS197 Move 3 (assumption): a judge whose scores correlate highly with human scores is assumed to accurately predict the rating distribution induced by a specified rater pool and rubric.
-Validation by correlation rests on an implicit assumption: that a judge whose scores correlate highly with human scores accurately predicts human judgment, that is, the rating distribution induced by a specified rater pool and rubric.
-% CS197 Move 4 (here we show): that assumption fails; correlation is an affine-refit squared error and cannot identify the rating distribution on scales with three or more categories.
-Here, we show that this assumption fails: correlation, majority-label agreement, and psychometric reliability cannot, in general, validate a judge against this distribution, because they discard calibration or collapse it to a mean or mode, and on sampled scores correlation can prefer a collapsed prediction to the true distribution.
-Specifically, correlation equals scalar squared error after an optimal affine refit, which erases level and scale bias, and on ordinal scales with three or more categories, a different forecast that shares the mean of the true rating distribution ties with it on Pearson, Spearman, Kendall, and scalar mean squared error even though every strictly proper score ranks the true distribution strictly ahead of it; we machine-check this non-identification result and the sampled-score result, both for finite laws, in Lean~4.
-% CS197 Move 5 (propose + test (1)(2)): bounded proper scores (normalized Brier, RPS; CE secondary) with a skill score, plus the 49-paper audit and the seven-dataset calibration gap.
-We propose evaluating judges with a bounded, strictly proper score matched to the label encoding: the normalized Brier score on one-hot categorical labels, which reduces to 0--1 error on hard predictions, and the ranked probability score (RPS) on cumulative ordinal encodings, which reduces to normalized absolute error, with cross-entropy as a secondary diagnostic.
-Both are unbiased with a single human rating per item and are reported as skill scores relative to the human base rate.
-We test this view in two complementary ways:
-we (1) audit 49 judge-validation papers and find that 43 report no item-level proper score, with 29 of 30 score-based papers validating by correlation and 13 of 13 pairwise papers by agreement, accuracy, or kappa;
-and (2) show on seven human rating datasets that correlation-fit linear-head judges incur up to 0.128 higher normalized RPS than cross-entropy-fit ones, a gap that post-hoc calibration closes to at most 0.0024.
-% CS197 Move 6 (implications): apparent judge quality can be an artifact of an improper ruler; evaluate predicted rating distributions, not correlation or agreement.
-Our results suggest that apparent judge quality can be an artifact of an improper ruler, and that judges should be evaluated by how well their predicted rating distributions match the human rating distribution, not by correlation or agreement.
+% CS197 Move 1 (context): LLM judges are the default evaluators and are validated by correlation or agreement with human ratings.
+LLM judges, the default evaluators of open-ended AI outputs, are validated by correlation or agreement with human ratings.
+% CS197 Move 2 (where level and scale matter; advisor S3): correlation suits ranking, but raw judge scores are also thresholded and compared across judges.
+Correlation suits ranking, but raw scores also set pass thresholds and cross-judge comparisons, where level and scale matter.
+% CS197 Move 3 (construct, its own sentence; advisor S3): the target is p*(y | item, rater pool, rubric).
+The target is the conditional rating distribution $p^*(y\mid\text{item},\text{rater pool},\text{rubric})$.
+% CS197 Move 4 (what the current rulers miss; advisor S4/S5): agreement, not reliability; "this distribution" is the referent; the r^2 identity stated exactly; the equal-means tie is immediate by construction.
+Correlation and agreement (kappa, Krippendorff's alpha) discard calibration or collapse this distribution to a mean or mode.
+Correlation is squared error after the best affine refit, $r^2=1-\mathrm{MSE}_{\mathrm{aff}}/\mathrm{Var}(y)$, so same-mean distributions tie on it by construction.
+% CS197 Move 5 (sampled-score result, its own sentence and defined; advisor S4): judges sample at nonzero temperature; correlation then prefers the conditional mean to sampling from p*.
+On scores sampled at nonzero temperature, correlation prefers a judge outputting the conditional mean over one sampling from $p^*$.
+% CS197 Move 6 (adopt, not propose; one reduction; what is unbiased; advisor S6/S7).
+We adopt the ranked probability score (RPS; Epstein, 1969), which on hard predictions is normalized absolute error.
+With one rating per item, mean RPS is unbiased for the expected score against $p^*$, enough to rank judges; distance to $p^*$ needs repeated ratings.
+% CS197 Move 7 (evidence; advisor S2/S8/S9): narrowed gap with the audit (Exp 43/54: 44/49 no item-level strictly proper score; other five = distribution-aware work); real-judge reversals and negative skill (Exp 46 frontier panel, Holm-significant); recalibration cost (Exp 47; linear-head skill view in Exp 53).
+Despite distributional comparisons such as binned Jensen--Shannon divergence, 44 of 49 sampled judge-validation papers report no item-level strictly proper score; the rest are recent distribution-aware work.
+Among five frontier judges, Spearman and Brier skill rank one pair oppositely on two datasets, and four judges with 80--82\% majority agreement fall below the base rate.
+Recalibration removes these gaps but needs 50--200 held-out ratings per task.
+% CS197 Move 8 (recommendation, no "artifact" claim; advisor S9).
+We recommend reporting a proper score, split into calibration and resolution, alongside correlation.
 \end{abstract}
