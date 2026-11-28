@@ -16,6 +16,7 @@
 | 49 | Is Exp 23's system-level Spearman drop real? | 0.8765 → 0.8349 reproduced; document bootstrap Δ CI [−0.049, +0.114], p = 0.52; caused by the 4-bin calibrator (a continuous map gives Δ +0.001) | neutral (removes an apparent counterexample) | \$0 |
 | 50 | Gaps stratified by human agreement | Frontier skill falls from 0.16–0.91 to −0.38–0.11 on the least-agreement fifth while Pearson stays 0.38–0.86 (NLI); prediction R1 failed (the raw gap concentrates on high-agreement items) | mostly yes, one miss | \$0 |
 | 51 | Exp 41 across a fixed ridge grid | Raw gap > 0 in 119/120 cells; matched gap within ±0.003 nRPS in 152/160 | yes (robustness) | \$0 |
+| 56 | Labels needed to calibrate the frontier judges themselves | Every judge's mean calibrated skill > base rate at n = 100 single ratings on all 5 sets; at n = 25, 21/25 judge-set cases below uncalibrated; at n = 200 still 0.003–0.022 below full calibration | yes (recalibration has a label cost) | \$0 |
 | 52 | Skill-score estimator, one vs many ratings | One-rating estimator unbiased with a known base; at equal rating budget, one rating per item beats five | methods support | \$0 |
 
 ## Spend ledger (cumulative, estimated at configured gateway list rates)
@@ -23,3 +24,10 @@
 | date (Pacific) | experiment | what | USD | cumulative |
 |---|---|---|---|---|
 | 11-27-2026 | 46–52 | all CPU or frozen receipts; API runner built and mock-tested, not run (no key on box) | 0.00 | 0.00 |
+
+## Abstract/Elangovan–Li QA, 27 Nov 2026 late evening (Grok Bot)
+
+| date (Pacific) | item | what | USD | cumulative |
+|---|---|---|---|---|
+| 11-27-2026 | Exp 56 | CPU only, frozen forecasts | 0.00 | 0.00 |
+| 11-27-2026 | Mega QA reviewers | 'Fable 5.2' and 'Codex Vals Ultra' not run: no gateway key on the box (Stanford gateway returns 401 without a key; Vercel AI Gateway lists anthropic/claude-fable-5.2 but no key is configured; no model named 'Codex Vals Ultra' in any catalog checked; claude/codex CLIs not installed and subscription credits are excluded). QA done by hand: docs/notes/qa_abstract_elangovan_li_27Nov2026.md | 0.00 | 0.00 |
