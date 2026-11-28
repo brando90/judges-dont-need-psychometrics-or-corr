@@ -1,0 +1,17 @@
+{
+  "endpoint": "https://aiapi-prod.stanford.edu/v1/chat/completions",
+  "budget_usd": 150,
+  "fallback_usd_per_million_in_out": [10, 50],
+  "n_samples": 10,
+  "max_tokens": {"verbalized": 2048, "sampled": 1024},
+  "dry_run_tokens_per_call": {"verbalized": [260, 600], "sampled": [260, 400], "logprob": [260, 1]},
+  "stages": {"pilot": {"items_per_set": 50}, "full": {"items_per_set": 100000}},
+  "judges": [
+    {"name": "gpt-6-astra", "model": "gpt-6-astra", "usd_per_million_in_out": [10, 50], "rate_source": "gateway list rate (Exp 26 collect_forecasts.py)", "logprobs": false},
+    {"name": "claude-opus-5-5", "model": "claude-opus-5-5", "usd_per_million_in_out": [4, 20], "rate_source": "gateway list rate (Exp 26)", "logprobs": false},
+    {"name": "kimi-k3", "model": "Kimi K3", "usd_per_million_in_out": [1.4, 4.4], "rate_source": "listed $0 on gateway; 1.4/4.4 stand-in upper reference (Exp 26)", "logprobs": false},
+    {"name": "glm-5.3", "model": "GLM 5.3", "usd_per_million_in_out": [1.4, 4.4], "rate_source": "listed $0 on gateway; stand-in", "logprobs": false},
+    {"name": "deepseek-v4.1-flash", "model": "DeepSeek V4.1 Flash 1017", "usd_per_million_in_out": [1.4, 4.4], "rate_source": "listed $0 on gateway; stand-in", "logprobs": false}
+  ],
+  "candidate_additional_judges_to_verify_with_list_models": "Add 3-5 more providers/sizes (e.g. a Gemini, a Grok, a Llama/Qwen open model, a small closed model) by exact gateway id after `--list-models`; unknown rates fall back to the conservative 10/50 USD per million tokens."
+}

@@ -110,7 +110,7 @@ def load_all(labels_json, se_dir, local_dir):
         for idx, ident in enumerate(z["id"]):
             i = f"{s}::{ident}"; items[s].append(i); counts[i] = z["counts"][idx].astype(float); groups[i] = str(z["group"][idx])
             forecasts.setdefault("g-eval-gpt-4|sampled20", {})[i] = (z["native"][idx].astype(float), "valid")
-    for f in sorted(glob.glob(str(Path(local_dir) / "*.jsonl"))):
+    for f in sorted(x for d_ in str(local_dir).split(":") for x in glob.glob(str(Path(d_) / "*.jsonl"))):  # A2: colon-separated dirs (local + api)
         if "/test_" in f:
             continue
         for line in open(f):
@@ -157,16 +157,23 @@ def analyze_panel(name, judges, set_items, counts, groups, forecasts, calibrate,
         point = {j: {**{m_: float(per[j][m_].mean()) for m_ in ("nrps", "ce", "brier")},
                      "skill": float(1 - per[j][prim].mean() / Sb.mean()), **corr_stats(Q[j], H, full_w)} for j in judges}
         bootm = {j: {"S": (wb @ per[j][prim]) / wb.sum(1)} for j in judges}
+        # Amendment A1 (reporting only, decision rules unchanged): skill-score differences with CIs, base resampled with the items.
+        Sb_n = item_scores(base, H)["nrps"]
+        bb, bbn = (wb @ Sb) / wb.sum(1), (wb @ Sb_n) / wb.sum(1)
+        for j in judges:
+            point[j]["skill_nrps"] = float(1 - per[j]["nrps"].mean() / Sb_n.mean())
+            bootm[j]["skill"] = 1 - bootm[j]["S"] / bb
+            bootm[j]["skill_nrps"] = 1 - ((wb @ per[j]["nrps"]) / wb.sum(1)) / bbn
         for j in judges:
             cs = [corr_stats(Q[j], H, wb[b]) for b in range(BOOT)]
             for m_ in CORR_METRICS:
                 bootm[j][m_] = np.array([c[m_] for c in cs])
         for j in judges:
             rows.append({"panel": name, "set": s, "judge": j, "n_items": len(ids), "primary": prim, "invalid_frac": inval[j],
-                         "S_primary": point[j][prim], **point[j], "base_S_primary": float(Sb.mean())})
+                         "S_primary": point[j][prim], **point[j], "base_S_primary": float(Sb.mean()), "base_nrps": float(item_scores(base, H)["nrps"].mean())})
         for a, b in itertools.combinations(judges, 2):
             r = {"panel": name, "set": s, "A": a, "B": b, "n_items": len(ids)}
-            for m_ in ["S"] + CORR_METRICS:
+            for m_ in ["S", "skill", "skill_nrps"] + CORR_METRICS:
                 pa = point[a][prim] if m_ == "S" else point[a][m_]; pb = point[b][prim] if m_ == "S" else point[b][m_]
                 d = bootm[a][m_] - bootm[b][m_]; d = d[np.isfinite(d)]
                 p = min(1.0, 2 * min((1 + (d <= 0).sum()) / (len(d) + 1), (1 + (d >= 0).sum()) / (len(d) + 1))) if len(d) else np.nan
@@ -177,7 +184,7 @@ def analyze_panel(name, judges, set_items, counts, groups, forecasts, calibrate,
             xs = [point[j][m_] for j in judges]; ys = [-point[j][prim] for j in judges]
             ken_rows.append({"panel": name, "set": s, "metric": m_, "n_judges": len(judges), "kendall_tau_b_vs_primary": float(kendalltau(xs, ys).statistic),
                              "best_by_metric": judges[int(np.nanargmax(xs))], "best_by_primary": judges[int(np.argmax(ys))]})
-    for m_ in ["S"] + CORR_METRICS:  # Holm within metric family across all (set, pair) cells of the panel
+    for m_ in ["S", "skill", "skill_nrps"] + CORR_METRICS:  # Holm within metric family across all (set, pair) cells of the panel
         ps = [r[f"p_{m_}"] for r in pair_rows]
         if ps:
             adj = holm(np.nan_to_num(ps, nan=1.0))
@@ -192,7 +199,15 @@ def analyze_panel(name, judges, set_items, counts, groups, forecasts, calibrate,
             if opp:
                 rev.append({"panel": r["panel"], "set": r["set"], "A": r["A"], "B": r["B"], "metric": m_, "d_metric": r[f"d_{m_}"],
                             "ci_metric": [r[f"lo_{m_}"], r[f"hi_{m_}"]], "holm_metric": r.get(f"holm_{m_}"), "d_S": r["d_S"],
-                            "ci_S": [r["lo_S"], r["hi_S"]], "holm_S": r.get("holm_S"), "significant": bool(sig)})
+                            "ci_S": [r["lo_S"], r["hi_S"]], "holm_S": r.get("holm_S"), "significant": bool(sig), "versus": "primary_S"})
+    for r in pair_rows:  # A1: correlation vs nRPS skill (skill favours A when d_skill_nrps > 0)
+        for m_ in CORR_METRICS:
+            opp = (r[f"d_{m_}"] > 0 and r["d_skill_nrps"] < 0) or (r[f"d_{m_}"] < 0 and r["d_skill_nrps"] > 0)
+            if opp:
+                rev.append({"panel": r["panel"], "set": r["set"], "A": r["A"], "B": r["B"], "metric": m_, "versus": "skill_nrps", "d_metric": r[f"d_{m_}"],
+                            "ci_metric": [r[f"lo_{m_}"], r[f"hi_{m_}"]], "holm_metric": r.get(f"holm_{m_}"), "d_S": r["d_skill_nrps"],
+                            "ci_S": [r["lo_skill_nrps"], r["hi_skill_nrps"]], "holm_S": r.get("holm_skill_nrps"),
+                            "significant": bool(opp and r.get(f"holm_{m_}", 1) < ALPHA and r.get("holm_skill_nrps", 1) < ALPHA)})
     return rows, pair_rows, ken_rows, rev
 
 
@@ -218,7 +233,7 @@ def main(labels_json, se_dir, local_dir, out):
     panels = [("frontier_full", FRONTIER, {s: items[s] for s in SETS[:5]})]
     lj_nli = [j for j in local if all(all(i in fc[j] for i in sub_items[s]) for s in SETS[:5])]
     panels.append(("local_plus_frontier_subset", FRONTIER + lj_nli, {s: sub_items[s] for s in SETS[:5]}))
-    lj_se = [j for j in local if j.endswith("|native") and all(all(i in fc[j] for i in sub_items[s]) for s in SETS[5:])]
+    lj_se = [j for j in local if j.endswith(("|native", "|api-sampled", "|api-logprob")) and all(all(i in fc[j] for i in sub_items[s]) for s in SETS[5:])]
     panels.append(("summeval_geval_plus_local_subset", ["g-eval-gpt-4|sampled20"] + lj_se, {s: sub_items[s] for s in SETS[5:]}))
     # sensitivity: drop items where any frontier judge was invalid
     valid_items = {s: [i for i in items[s] if all(fc[j][i][1] == "valid" for j in FRONTIER)] for s in SETS[:5]}
@@ -231,8 +246,10 @@ def main(labels_json, se_dir, local_dir, out):
             rows, pairs, ken, rev = analyze_panel(tag, judges, set_items, counts, groups, fc, cal, pi * 2 + int(cal))
             allrows += rows; allpairs += pairs; allken += ken; allrev += rev
             summary["panels"][tag] = {"judges": judges, "n_pairs_x_sets": len(pairs),
-                                      "significant_reversals": {m_: sum(1 for r in rev if r["metric"] == m_ and r["significant"]) for m_ in CORR_METRICS},
-                                      "point_reversals": {m_: sum(1 for r in rev if r["metric"] == m_) for m_ in CORR_METRICS},
+                                      "significant_reversals": {m_: sum(1 for r in rev if r["metric"] == m_ and r["significant"] and r["versus"] == "primary_S") for m_ in CORR_METRICS},
+                                      "point_reversals": {m_: sum(1 for r in rev if r["metric"] == m_ and r["versus"] == "primary_S") for m_ in CORR_METRICS},
+                                      "A1_significant_reversals_vs_nrps_skill": {m_: sum(1 for r in rev if r["metric"] == m_ and r["significant"] and r["versus"] == "skill_nrps") for m_ in CORR_METRICS},
+                                      "A1_point_reversals_vs_nrps_skill": {m_: sum(1 for r in rev if r["metric"] == m_ and r["versus"] == "skill_nrps") for m_ in CORR_METRICS},
                                       "significant_S_differences": sum(1 for r in pairs if r.get("holm_S", 1) < ALPHA)}
             print(tag, json.dumps(summary["panels"][tag]["significant_reversals"]), "point", json.dumps(summary["panels"][tag]["point_reversals"]), flush=True)
     write_csv(out / "judge_scores.csv", allrows); write_csv(out / "pairwise.csv", allpairs)
