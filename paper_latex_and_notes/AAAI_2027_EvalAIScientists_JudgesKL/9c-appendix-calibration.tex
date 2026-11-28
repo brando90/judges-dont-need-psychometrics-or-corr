@@ -46,17 +46,23 @@ The expected score then decomposes as
 +
 \mathbb{E}\bigl[d(\hat q,p_{\hat q})\bigr].
 \end{equation}
-The three terms are, in order, \emph{uncertainty} (the score of the base-rate forecast), \emph{resolution} (how much the recalibrated law varies across issued forecasts), and \emph{reliability}
+The three terms are, in order, \emph{uncertainty} (the score of the base-rate forecast), \emph{resolution} (how much the recalibrated law varies across issued forecasts), and \emph{calibration error}
 \begin{equation}
-\label{eq:reliability}
-\mathrm{REL}
+\label{eq:calerror}
+\mathrm{CAL}
 =
 \mathbb{E}\bigl[d\bigl(\hat q,\Pr(Y\mid\hat q)\bigr)\bigr].
 \end{equation}
-The reliability term is zero if and only if $\hat q=\Pr(Y\mid\hat q)$ almost surely, which is exactly calibration~\eqref{eq:calibration}.
+The calibration error is zero if and only if $\hat q=\Pr(Y\mid\hat q)$ almost surely, which is exactly calibration~\eqref{eq:calibration}.
 For the Brier score this is the vector partition of \citet{murphy1973vector}.
 \citet{brocker2009reliability} extends the decomposition to strictly proper scores on finite-valued targets;~\citet{gneiting2007strictly} supply the associated divergence used in~\eqref{eq:proper-decomposition}.
-In this appendix, ``reliability'' means this meteorological term (calibration error), not psychometric reliability as in \appref{app:reliability}{the reliability appendix}.
+Forecast verification calls the third term \emph{reliability}; we call it calibration error throughout so that it is not confused with psychometric reliability (\appref{app:reliability}{the reliability appendix}).
+
+The identity~\eqref{eq:proper-decomposition} holds for any score $S$, because it uses only the linearity of expectation and the tower property; propriety is what makes the second and third terms nonnegative, and strict propriety is what makes the third zero only under calibration.
+The conditioning is on the issued forecast value.
+Conditioning on a finer partition, for example the item, leaves the sum unchanged and moves part of the calibration error into resolution, so the finer key never lowers the third term.
+Status of the decomposition: for squared error with a scalar score and for the multiclass Brier score it is machine-checked in Lean~4 for finite laws (\texttt{Point2.FinLaw.murphy}, \texttt{murphy\_\allowbreak scalar}, \texttt{brier\_\allowbreak murphy}, \texttt{reliability\_\allowbreak zero\_\allowbreak iff}, \texttt{brier\_\allowbreak reliability\_\allowbreak zero\_\allowbreak iff} in \texttt{docs/\allowbreak notes/\allowbreak point2\_\allowbreak support\_\allowbreak 27Nov2026/\allowbreak lean/\allowbreak Point2/\allowbreak Murphy.lean}; the Lean names say \texttt{reliability} for the calibration error; Lean 4.36.0, Mathlib revision \texttt{fc4f59e}, zero \texttt{sorry}, standard axioms only).
+For cross-entropy and the ranked probability score it is numerically checked and the Lean proof is pending: a seeded script checks it on $300$ random finite laws per score (exact fractions for the Brier score and RPS, tolerance $10^{-12}$ for cross-entropy), together with the claims that must fail (\texttt{proper\_\allowbreak score\_\allowbreak decomposition\_\allowbreak numerics\_\allowbreak 28Nov2026.py}, $25$ of $25$ checks pass).
 
 \subsection{Why Correlation Misses Calibration}
 As in the main text and \appref{app:concordance}{the concordance appendix}, squared Pearson correlation admits the identity
@@ -70,7 +76,12 @@ r^2
 \end{equation}
 Correlation therefore equals one minus standardized squared error after an optimal affine refit of the judge's scalar to $Y$.
 Any miscalibration that an affine map can remove is invisible, and spread about the conditional mean is never scored.
-In the language of~\eqref{eq:proper-decomposition}, correlation keeps a form of resolution (discrimination of $Y$ after that refit) and discards the reliability term.
+In the language of~\eqref{eq:proper-decomposition}, correlation keeps only the part of the resolution that the affine refit recovers.
+For squared error and a scalar score $S$, with $g(s)=\mathbb{E}[Y\mid S=s]$ and $S'$ the best affine refit of $S$ to $Y$, the identity is $r^2\,\mathrm{Var}(Y)=\mathrm{Var}\,g(S)-\mathbb{E}\bigl(g(S)-S'\bigr)^2$ (Lean: \texttt{Point2.FinLaw.r\_\allowbreak sq\_\allowbreak resolution}).
+So $r^2\,\mathrm{Var}(Y)$ never exceeds the resolution and equals it exactly when the calibration curve $g$ is affine in $S$.
+An affine relabelling of the score leaves $r$ and $g$ unchanged and changes the calibration error (Lean: \texttt{condE\_\allowbreak affine}).
+Correlation is therefore blind to miscalibration that an affine map can remove, not to every miscalibration: an informative but nonmonotone score can have $r=0$ with maximal resolution ($Y=S^2$), and a strictly increasing nonlinear relabelling can change Pearson's $r$.
+These last two statements are numerically checked on exact finite examples (the script of the previous subsection, checks 8f and 9g).
 Lin's concordance identity~\eqref{eq:lin-concordance} makes the same split visible as bias and scale terms that $r$ does not constrain.
 
 \subsection{Post-Hoc Calibration}
@@ -83,12 +94,18 @@ Given a frozen forecast $\hat q$ and a held-out validation sample $\{(c_i,y_i)\}
 \frac{1}{n}\sum_{i=1}^{n} S\bigl(g(\hat q(\cdot\mid c_i)),y_i\bigr),
 \end{equation}
 where $\mathcal{G}$ is a restricted family such as temperature scaling, Platt scaling, or isotonic regression.
-The aim is to reduce~\eqref{eq:reliability} without retraining the judge.
+The aim is to reduce~\eqref{eq:calerror} without retraining the judge.
+A map removes at most the calibration error: for every map $g$, $\mathbb{E}S(\hat q,Y)-\mathbb{E}S(g(\hat q),Y)\le\mathrm{CAL}$, with equality at $g(q)=\Pr(Y\mid\hat q=q)$ (numerically checked, check 6 of the script above).
+The calibration errors reported for real judges below are therefore lower bounds, within the map family, the folds and the sample used.
 A strictly increasing $g$ of a scalar score leaves the ranking of items unchanged; isotonic regression is only nondecreasing and can introduce ties.
 
 This is the map used in Experiment~41.
 On seven real multi-annotator rating sets re-binned to two, three and five classes, a cross-entropy-trained linear head beat a Pearson-trained one by up to $0.1282$ normalized ranked probability score (RPS) on held-out items (fixed ridge penalty $0.01$; the largest gap is on a view where neither head beat the constant forecast).
 After each head's scalar passed through its own validation-fitted calibration map of this form, the largest five-seed mean difference was $0.0024$ (single seeds up to $0.0031$).
 As skill over the base rate (Experiment~53), the Pearson-trained head's raw skill is negative on $15$ of $16$ views and the calibrated skill difference is $-0.0003$ to $+0.0098$.
-The gap that correlation could not see was almost entirely reliability in the sense of~\eqref{eq:reliability}.
-Frozen frontier judges show a similar reliability gap (Experiment~46, interim): on DICES-350, four of five score worse than the base rate in normalized RPS before calibration (skill $-0.177$ to $-0.096$, each 95\% item-cluster bootstrap interval below $0$) at $80$ to $82$ percent top-1 agreement with the human majority, and every judge's skill is positive on both DICES sets after a per-judge calibration map fitted on held-out folds.
+The gap that correlation could not see was almost entirely calibration error in the sense of~\eqref{eq:calerror}.
+Frozen frontier judges show a similar calibration gap (Experiment~46, interim): on DICES-350, four of five score worse than the base rate in normalized RPS before calibration (skill $-0.177$ to $-0.096$, each 95\% item-cluster bootstrap interval below $0$) at $80$ to $82$ percent top-1 agreement with the human majority, and every judge's skill is positive on both DICES sets after a per-judge calibration map fitted on held-out folds.
+Experiment~57 splits the normalized-RPS risk of the same five judges into the terms of~\eqref{eq:proper-decomposition} (calibration map fitted on other folds, five group folds, each term divided by the base-rate risk so that it is in skill units, higher resolution is better, lower calibration error is better).
+The calibration error ranges from $0.037$ to $0.231$ on DICES-350 and from $0.029$ to $0.207$ on DICES-990, whereas the resolution ranges only from $0.050$ to $0.072$ and from $0.090$ to $0.120$; the between-judge standard deviation is $0.077$ against $0.010$ on DICES-350 and $0.072$ against $0.012$ on DICES-990.
+One judge shows the split: on DICES-350, GPT-6 Astra has Pearson correlation $0.588$ with the human item mean (second of five), raw skill $-0.143$ (fourth of five; $95\%$ interval $-0.188$ to $-0.100$), calibration error $0.215$ and the highest resolution ($0.072$, a near tie with $0.069$ for Claude Opus 5.5).
+We had pre-registered that the correlation ranking of the five judges tracks their resolution ranking better than their raw-skill ranking does in at least four of five rating sets; that prediction was falsified (it held in one set, DICES-350), so on these judges the disagreement between correlation and a proper score concerns level more than order (Experiment~57).

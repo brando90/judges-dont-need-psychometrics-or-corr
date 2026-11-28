@@ -1,19 +1,26 @@
 \begin{abstract}
 \noindent
-% CS197 Move 1 (context): judges are validated by correlation or agreement.
+% Line notes S1-S9 applied 11-28-2026; 218 words by script (whitespace tokens, math as one token; see docs/notes/abstract_rewrite_28Nov2026.md).
+% S1: context sentence, unchanged.
 LLM judges are validated by correlation or agreement with human ratings.
-% CS197 Move 2 (construct, its own sentence): the target is p*(r | item, rater pool, rubric).
-The target is the conditional rating distribution $p^*(r\mid\text{item},\text{rater pool},\text{rubric})$.
-% CS197 Move 3 (credit prior distributional evaluation precisely; advisor warning 1; Codex QA F18): Elangovan Sec. 3.2 Eqs. 1-2 (pooled per bin); Li Sec. 4, 5.1 (teacher votes, pairwise).
-Prior work already compares judges with rating distributions: binned Jensen--Shannon divergence between pooled human and judge labels (Elangovan et al., 2025) and squared error to per-item vote means for pairwise preferences (Li et al., 2026).
-% CS197 Move 4 (adoption, not novelty; Codex QA F01/F10): item-level strictly proper scores are in concurrent use (Lyu et al. 2026); one-rating estimation is classical; the sampled-score result is for Pearson under conditional independence and nondegeneracy (Lean-checked).
-Item-level strictly proper scores (ranked probability score, Brier) are in concurrent use and can be estimated from one rating per item; less settled is when they change conclusions about real judges.
-For a judge that samples its score independently of the human rating, Pearson correlation prefers outputting the conditional mean to sampling from $p^*$.
-% CS197 Move 5 (real-judge evidence, primary null first; Exp 46 + ERRATUM_11-27-2026; Codex QA F08/F09/F15): preregistered Pearson test 0 significant reversals; Spearman with NLI labels coded as ordered: 2 Holm-significant (Astra vs GLM, SNLI/MNLI); DICES-350 four judges 0.80-0.82 top-1, normalized-RPS skill < 0; Astra-Opus top-1 +0.001 vs skill -0.175.
-Among five frontier judges, the preregistered Pearson test found no significant rank reversal against Brier skill, but Spearman, with NLI labels coded as ordered, reverses one pair on SNLI and MNLI (Holm-significant). On DICES-350, four judges with 80--82\% majority agreement score below the base-rate forecast, and two with nearly equal agreement differ by 0.175 in skill.
-% CS197 Move 6 (advisor warning 2, the 0.0024 point conceded; Codex QA F02/F03/F07/F14): Exp 46 calibrated 0 significant reversals; Exp 56 mean skill > 0 for every judge first at n = 100 single ratings (50 draws); Exp 48 78/82 significantly below in-domain, 33/82 significantly worse than raw, mixed transfer population.
-Per-judge recalibration on held-out ratings left no significant reversal, so with in-domain labels correlation-based selection was not contradicted.
-But every judge's mean calibrated skill first beat the base rate at 100 single ratings per dataset, and maps moved across datasets, rubrics or pooled sources were significantly worse than in-domain maps in 78 of 82 cases and than none in 33.
-% CS197 Move 7 (scope and recommendation; Codex QA F06): no calibration labels is not no evaluation labels.
-When calibration labels are scarce, the target shifts, or scores are sampled, we recommend reporting a proper score on held-out target ratings, split into calibration and resolution, alongside correlation.
+% S3 and the credit to Pavlick and Kwiatkowski 2019 / Plank 2022: the distribution target is theirs, so it is credited, not claimed; p* has its own sentence.
+Following Pavlick and Kwiatkowski (2019) and Plank (2022), the target is the rating distribution $p^*$ of a rater pool and rubric.
+% S2/S8: Elangovan et al. Sec. 3.2 (binned JSD on pooled labels) and Li et al. Sec. 5.1 (squared error to the ten-vote mean, pairwise only) already compare judges with rating distributions; no claim that no metric does.
+Binned Jensen--Shannon divergence (Elangovan et al., 2025) and squared error to vote means on pairwise preferences (Li et al., 2026) compare judges with such distributions.
+% S6: "adopt"; Epstein 1969; RPS spelled out; one reduction (RPS on a hard prediction is normalized absolute error); cross-entropy and Lean cut.
+We adopt item-level strictly proper scores: Brier for categories and, for ordinal ratings, the ranked probability score (RPS; Epstein, 1969), normalized absolute error on hard predictions.
+% S7: one rating per item gives an unbiased expected score, enough to rank judges (distance to p* needs several ratings; see the checklist in the Conclusion).
+One rating per item gives an unbiased expected score, enough to rank judges.
+% S5: r^2 = 1 - MSE(best affine fit)/Var(Y) in words; S3: level and scale named through pass-rate thresholds.
+Squared correlation is one minus the best affine fit's mean squared error over the rating variance, so it ignores the level and scale behind pass-rate thresholds.
+% S4: sampled-score result in its own sentence, with sampled scores defined; the pronoun "it" is gone.
+For sampled scores (single draws at nonzero temperature), correlation prefers the conditional mean to a draw from $p^*$.
+% S9: the preregistered Pearson test (Exp 46) found no significant rank reversal; no artifact is claimed.
+On five frontier judges, a preregistered test found no significant rank reversal between Pearson correlation and a proper score.
+% Exp 46 (80-82% majority agreement) and Exp 58 (mean forecast probability of unsafe 8.6 to 13.8% for those four judges, human rate 32.7%).
+Yet on DICES-350 four judges with 80--82\% majority agreement forecast unsafe rates of 9 to 14\% where the human rate is 33\%.
+% Exp 56 (first beats the base rate at 100 single ratings) and Exp 48 (78 of 82 moved maps significantly worse than in-domain).
+Recalibration needs about 100 single held-out ratings and transfers poorly across datasets, rubrics and pooled sources (78 of 82 significantly worse than in-domain).
+% S9: recommendation; correlation is kept for linear discrimination.
+We recommend reporting a proper score, split into calibration error and resolution, beside correlation.
 \end{abstract}

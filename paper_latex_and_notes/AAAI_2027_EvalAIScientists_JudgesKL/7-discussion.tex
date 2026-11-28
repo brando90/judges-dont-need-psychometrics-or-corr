@@ -6,4 +6,16 @@ Stratified by agreement, the same judges have little or negative skill on contes
 Optimize scalar correlation only for mean ranking; when outputs serve as distributions, train and evaluate with proper losses alongside correlation and bias.
 
 \section{Conclusion}
-Correlation alone does not identify a conditional rating distribution. On HelpSteer2, ChaosNLI, and DICES across Qwen3-4B and Llama-3.1-8B, correlation loses via scale drift and uncalibrated error (even $K=2$) plus omitted shape (resolved by MSE only for $K=2$). CE beats correlation past $16$--$80$ ratings, while logit calibration recovers shape on Qwen \texttt{ChaosNLI} and \texttt{HS2}.
+Correlation alone does not identify a conditional rating distribution.
+It measures linear discrimination, and for ranking it is a reasonable tool: on five frontier judges the preregistered test found no significant rank reversal against a proper score, and choosing a judge by correlation and then recalibrating did at least as well as choosing by a proper score.
+What correlation cannot see is level and scale, and on sampled scores it prefers a collapsed judge to a truthful one.
+Cross-entropy-trained linear heads beat correlation-trained ones on held-out RPS before calibration, but the comparison is circular and calibration shrinks the gap to at most about $0.01$; we report it as a check of the identity, not as evidence for the evaluation claim.
+We therefore recommend that judge validation report, beside correlation, a bounded strictly proper score with its calibration error and resolution split out.
+\paragraph{Judge validation checklist.}
+\begin{enumerate}
+\item Define $p^*$ by its rater pool and rubric.
+\item Score held-out target ratings with the normalized Brier score for categories or the RPS for ordinal ratings.
+\item Report skill over the base-rate forecast with item-clustered intervals.
+\item Split the score into calibration error and resolution.
+\item State whether each item has one rating (an unbiased expected score, enough to rank judges) or several (the distance to $p^*$, which needs the uncertainty term).
+\end{enumerate}
