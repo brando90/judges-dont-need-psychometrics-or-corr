@@ -1,0 +1,81 @@
+{
+  "cells": 25,
+  "H1": {
+    "rule": "raw soft rate: 95% interval of |error| entirely above 5 points in >= 10 of 25 primary cells",
+    "n": 13,
+    "decision": "supported"
+  },
+  "H2": {
+    "rule": "calibrated soft |error| < raw soft |error| in >= 18 of 25 primary cells (point estimates)",
+    "n": 25,
+    "decision": "supported"
+  },
+  "H3": {
+    "rule": "hard-label |error| > calibrated soft |error| in >= 18 of 25 primary cells (point estimates)",
+    "n": 25,
+    "decision": "supported"
+  },
+  "gate_flips": {
+    "primary:raw_soft": {
+      "gates": 125,
+      "flips": 39,
+      "significant_flips": 20,
+      "false_passes": 30,
+      "false_fails": 9
+    },
+    "primary:hard_label": {
+      "gates": 125,
+      "flips": 38,
+      "significant_flips": 22,
+      "false_passes": 31,
+      "false_fails": 7
+    },
+    "primary:calibrated_soft": {
+      "gates": 125,
+      "flips": 0,
+      "significant_flips": 0,
+      "false_passes": 0,
+      "false_fails": 0
+    },
+    "secondary:raw_soft": {
+      "gates": 50,
+      "flips": 17,
+      "significant_flips": 15,
+      "false_passes": 17,
+      "false_fails": 0
+    },
+    "secondary:hard_label": {
+      "gates": 50,
+      "flips": 20,
+      "significant_flips": 20,
+      "false_passes": 20,
+      "false_fails": 0
+    },
+    "secondary:calibrated_soft": {
+      "gates": 50,
+      "flips": 0,
+      "significant_flips": 0,
+      "false_passes": 0,
+      "false_fails": 0
+    }
+  },
+  "largest_raw_error": {
+    "dataset": "dices350",
+    "judge": "deepseek-v4.1-flash",
+    "error_pp": -24.060343944181184,
+    "ci": [
+      -25.937638384648658,
+      -22.18166214132869
+    ]
+  },
+  "calibration_helped_least": {
+    "dataset": "chaosnli_snli",
+    "judge": "kimi-k3",
+    "change_in_abs_error_pp": -1.2314869426454464,
+    "raw_abs_error": 1.2622301705555543,
+    "calibrated_abs_error": 0.030743227910107862,
+    "cells_where_calibration_increased_abs_error": 0
+  },
+  "bundle_sha256": "55935c4daacdf2ad73821b390e42b49b1d5f2affcbaafb5979d0ca13ef146929",
+  "draws": 4000
+}

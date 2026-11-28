@@ -1,0 +1,26 @@
+{
+  "H1": {
+    "rule": "at n = 25, proper-score selection (B) has lower mean regret than correlation selection (A) in >= 3 of 5 sets and the paired 95% interval excludes 0 in >= 2 of those sets",
+    "sets_B_lower": [],
+    "sets_with_interval_excluding_zero": [],
+    "decision": "falsified"
+  },
+  "H2": {
+    "rule": "at n = 200 the absolute difference in mean regret between A and B is below 0.005 skill points in all 5 sets",
+    "abs_difference": {
+      "chaosnli_snli": 0.000984221953963476,
+      "chaosnli_mnli": 0.0012187731920099548,
+      "chaosnli_alphanli": 0.0009457663621998541,
+      "dices350": 0.0022646310305618955,
+      "dices990": 0.010168967231702974
+    },
+    "decision": "falsified"
+  },
+  "H3": {
+    "rule": "smallest n on the grid at which |A minus B| < 0.005 in every set",
+    "value": "none"
+  },
+  "draws_per_cell": 200,
+  "bootstrap_draws": 4000,
+  "margin_skill_points": 0.005
+}

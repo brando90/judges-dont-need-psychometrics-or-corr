@@ -1,0 +1,66 @@
+{
+  "H1": {
+    "rule": "r(mean judge) minus r(sampled judge) positive with the 95% interval excluding 0 on every one of the 3 sets",
+    "decision": "supported",
+    "per_set": {
+      "chaosnli_alphanli": [
+        0.13963762033129698,
+        0.15138684081528142,
+        0.16295819139344478
+      ],
+      "dices350": [
+        0.22580176096292998,
+        0.23201136226096622,
+        0.2359832468484202
+      ],
+      "dices990": [
+        0.21393231363509796,
+        0.22000100197382685,
+        0.2246120112673888
+      ]
+    }
+  },
+  "H2": {
+    "rule": "|r(sampled) - rho_hat| <= 0.02 and |r(mean judge) - finite-half prediction| <= 0.02 on at least 2 of 3 sets",
+    "n_sets": 3,
+    "per_set": {
+      "chaosnli_alphanli": [
+        2.7558863717969118e-05,
+        -0.00019683884170640376
+      ],
+      "dices350": [
+        5.938798582405536e-06,
+        0.00022549050965259276
+      ],
+      "dices990": [
+        0.00018683579530365257,
+        0.0001512431330741859
+      ]
+    },
+    "decision": "supported"
+  },
+  "H3": {
+    "rule": "matched-rule risk of the collapsed forecast minus that of the truthful forecast is positive with the 95% interval excluding 0 on every set",
+    "decision": "supported",
+    "per_set": {
+      "chaosnli_alphanli": [
+        0.04630953051311975,
+        0.057123034646162224,
+        0.06825343561624879
+      ],
+      "dices350": [
+        0.13795453816011774,
+        0.14702092605806538,
+        0.1567409380142107
+      ],
+      "dices990": [
+        0.12590766642393617,
+        0.13587764806554373,
+        0.14556718568055893
+      ]
+    }
+  },
+  "splits": 200,
+  "bootstrap_draws": 4000,
+  "mc_splits": 20
+}

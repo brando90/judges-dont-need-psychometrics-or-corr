@@ -1,0 +1,15 @@
+# How to read the Experiment 57 results
+
+1. **Which data.** Five public multi-annotator rating sets (ChaosNLI SNLI, MNLI-m, alphaNLI, DICES-350, DICES-990) and five frozen frontier judges. Every number uses all items of a set, but anything that is fitted (the human base rate, the calibration map)
+   is fitted on the other four folds, so those numbers are cross-fitted held-out numbers. The raw skill needs no fit apart from the cross-fitted base rate. The ratings of these sets were seen in earlier work (Experiments 28, 46, 48, 55, 56), and this is stated in the protocol.
+2. **Which metric.** Risk is the unbiased per-sample proper risk, lower is better: Brier score on the NLI sets (range 0 to 2) and normalized ranked probability score (RPS, range 0 to 1) on DICES. RPS is the squared distance between the cumulative forecast and the cumulative human rating, divided by the number of labels minus one.
+   Skill = 1 - risk of the judge / risk of the human base-rate forecast; 0 is the base rate, 1 is perfect, higher is better. Calibration error and resolution are in the same units of risk and are also reported as shares of the base-rate risk, called skill points in the text: raw skill = resolution share - calibration share.
+   Pearson and Spearman are correlations across items between the judge's expected label value and the human mean label value; higher is better, 1 is perfect.
+3. **What is subtracted.** Calibration error = (risk of the raw judge) - (risk of the same judge after calibration), on the same items; positive means calibration helped. Resolution = (base-rate risk) - (risk of the calibrated judge). The H1 difference is
+   (Kendall tau-b between the Pearson ranking and the resolution ranking) minus (Kendall tau-b between the Pearson ranking and the raw-skill ranking), both on the same five judges; positive means correlation follows resolution more closely than raw skill.
+4. **Uncertainty.** Percentile 95% intervals from 4,000 group-clustered bootstrap draws (SNLI items that share an image move together), one weight matrix per set shared by all judges. The intervals do not include the variability of the fitted calibration map. H3 uses one-sided bootstrap p-values with Holm adjustment over four judges.
+5. **How the judge was chosen.** Nothing was chosen: the five judges are fixed. The calibration map is a multinomial logit on [log forecast, 1] fitted by individual-rating cross-entropy with a ridge of 1e-3 toward the identity, by L-BFGS-B starting at the identity,
+   on four folds at a time. The objective is convex in the map, but the result is that optimizer's answer on that data and a lower bound on what any map could remove, not a guaranteed optimum.
+
+Decisions are in `results/hypotheses.json`: H1 falsified (1 of 5 sets), H2 supported (4 of 5), H3 supported. The figure (`results/split_figure.png`): top row, a segment from the raw skill (hollow dot) to the calibrated skill (filled dot) per judge, so the segment length is the calibration error and the filled dot is the resolution;
+bottom row, the Pearson correlation of the same judge. The dashed vertical line is skill 0, the human base rate.

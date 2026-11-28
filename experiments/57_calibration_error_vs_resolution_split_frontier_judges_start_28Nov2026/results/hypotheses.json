@@ -1,0 +1,197 @@
+{
+  "H1": {
+    "sets": {
+      "chaosnli_snli": {
+        "pearson": {
+          "tau_resolution": 0.6,
+          "tau_raw": 0.6,
+          "difference": 0.0,
+          "difference_ci": [
+            -0.4,
+            0.6
+          ],
+          "n_draws_defined": 4000
+        },
+        "spearman": {
+          "tau_resolution": 1.0,
+          "tau_raw": 0.6,
+          "difference": 0.4,
+          "difference_ci": [
+            0.0,
+            0.8
+          ],
+          "n_draws_defined": 4000
+        },
+        "h1_set_supports": false
+      },
+      "chaosnli_mnli": {
+        "pearson": {
+          "tau_resolution": 0.4,
+          "tau_raw": 1.0,
+          "difference": -0.6,
+          "difference_ci": [
+            -0.6,
+            0.4
+          ],
+          "n_draws_defined": 4000
+        },
+        "spearman": {
+          "tau_resolution": 0.8,
+          "tau_raw": 0.6,
+          "difference": 0.20000000000000007,
+          "difference_ci": [
+            0.19999999999999996,
+            0.8
+          ],
+          "n_draws_defined": 4000
+        },
+        "h1_set_supports": false
+      },
+      "chaosnli_alphanli": {
+        "pearson": {
+          "tau_resolution": 1.0,
+          "tau_raw": 1.0,
+          "difference": 0.0,
+          "difference_ci": [
+            -0.4,
+            0.19999999999999996
+          ],
+          "n_draws_defined": 4000
+        },
+        "spearman": {
+          "tau_resolution": 0.8,
+          "tau_raw": 0.8,
+          "difference": 0.0,
+          "difference_ci": [
+            -0.4,
+            0.4
+          ],
+          "n_draws_defined": 4000
+        },
+        "h1_set_supports": false
+      },
+      "dices350": {
+        "pearson": {
+          "tau_resolution": 0.8,
+          "tau_raw": 0.4,
+          "difference": 0.4,
+          "difference_ci": [
+            -0.2,
+            1.0
+          ],
+          "n_draws_defined": 4000
+        },
+        "spearman": {
+          "tau_resolution": 0.8,
+          "tau_raw": 0.4,
+          "difference": 0.4,
+          "difference_ci": [
+            -0.19999999999999996,
+            0.6000000000000001
+          ],
+          "n_draws_defined": 4000
+        },
+        "h1_set_supports": true
+      },
+      "dices990": {
+        "pearson": {
+          "tau_resolution": 0.8,
+          "tau_raw": 0.8,
+          "difference": 0.0,
+          "difference_ci": [
+            -0.20000000000000007,
+            0.4
+          ],
+          "n_draws_defined": 4000
+        },
+        "spearman": {
+          "tau_resolution": 1.0,
+          "tau_raw": 0.6,
+          "difference": 0.4,
+          "difference_ci": [
+            0.0,
+            0.6
+          ],
+          "n_draws_defined": 4000
+        },
+        "h1_set_supports": false
+      }
+    },
+    "rule": "supported if tau_resolution > tau_raw (Pearson, point estimates) in >= 4 of 5 sets",
+    "n_sets_supporting": 1,
+    "decision": "falsified"
+  },
+  "H2": {
+    "sets": {
+      "chaosnli_snli": {
+        "sd_calibration_share": 0.024898855556423422,
+        "sd_resolution_share": 0.02124777794702255,
+        "h2_set_supports": true
+      },
+      "chaosnli_mnli": {
+        "sd_calibration_share": 0.06017641740839711,
+        "sd_resolution_share": 0.0188267419436708,
+        "h2_set_supports": true
+      },
+      "chaosnli_alphanli": {
+        "sd_calibration_share": 0.010057133774019955,
+        "sd_resolution_share": 0.04758665262080871,
+        "h2_set_supports": false
+      },
+      "dices350": {
+        "sd_calibration_share": 0.07744845515335803,
+        "sd_resolution_share": 0.00997737765198562,
+        "h2_set_supports": true
+      },
+      "dices990": {
+        "sd_calibration_share": 0.07177535156383492,
+        "sd_resolution_share": 0.011570071837662002,
+        "h2_set_supports": true
+      }
+    },
+    "rule": "supported if the between-judge SD (ddof=1) of the calibration share exceeds that of the resolution share in >= 4 of 5 sets",
+    "n_sets_supporting": 4,
+    "decision": "supported"
+  },
+  "H3": {
+    "rule": "supported if every judge with raw skill < 0 on DICES-350 has calibrated skill > 0 with Holm-adjusted one-sided p < 0.05",
+    "judges": [
+      {
+        "judge": "gpt-6-astra",
+        "raw_skill": -0.1433222932561673,
+        "calibrated_skill": 0.07189267745125394,
+        "p_one_sided": 0.00024993751562109475,
+        "p_holm": 0.000999750062484379,
+        "calibrated_skill_above_zero": true
+      },
+      {
+        "judge": "kimi-k3",
+        "raw_skill": -0.13802170345710763,
+        "calibrated_skill": 0.05043449212455531,
+        "p_one_sided": 0.00024993751562109475,
+        "p_holm": 0.000999750062484379,
+        "calibrated_skill_above_zero": true
+      },
+      {
+        "judge": "glm-5.3",
+        "raw_skill": -0.09778771392250118,
+        "calibrated_skill": 0.055024712588760516,
+        "p_one_sided": 0.00024993751562109475,
+        "p_holm": 0.000999750062484379,
+        "calibrated_skill_above_zero": true
+      },
+      {
+        "judge": "deepseek-v4.1-flash",
+        "raw_skill": -0.17896687584603477,
+        "calibrated_skill": 0.052288267859114224,
+        "p_one_sided": 0.00024993751562109475,
+        "p_holm": 0.000999750062484379,
+        "calibrated_skill_above_zero": true
+      }
+    ],
+    "decision": "supported"
+  },
+  "bundle_sha256": "55935c4daacdf2ad73821b390e42b49b1d5f2affcbaafb5979d0ca13ef146929",
+  "draws": 4000,
+  "max_abs_identity_residual": 2.7755575615628914e-17
+}

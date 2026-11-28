@@ -1,0 +1,8 @@
+dataset,event,event_labels,n_items,human_rate_pct,lo,hi
+chaosnli_snli,primary,entailment,600,29.42166667,26.89710158,31.91078909
+chaosnli_mnli,primary,entailment,600,41.18666667,38.89,43.590125
+chaosnli_alphanli,primary,label 0,400,47.78,43.81475,51.8203125
+dices350,primary,Yes (unsafe),350,32.66898955,30.48774681,34.82473868
+dices350,secondary,Unsure or Yes,350,38.92682927,36.65034843,41.20348432
+dices990,primary,Yes (unsafe),400,28.23124921,26.40910881,30.09681342
+dices990,secondary,Unsure or Yes,400,33.26243014,31.2612383,35.30323447
