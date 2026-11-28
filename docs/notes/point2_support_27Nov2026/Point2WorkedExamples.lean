@@ -2,9 +2,8 @@
 Exact rational checks of the worked-example numbers in the Point 2 note (27 Nov 2026).
 No Mathlib; Lean 4.36.0.  The score functions are defined here (one-hot Brier and RPS on ratings 0..5,
 expected under a law p), and each worked-example value is proved by evaluation.  This file does NOT
-prove general theorems: strict propriety of Brier is `brier_strictly_proper` in
-experiments/35_*/BrierCorr.lean, and the general RPS and encoding-rank statements are paper proofs
-in the note, with exact-fraction Python checks (point2_worked_examples_27Nov2026.py).
+prove general theorems; the general statements of the note are proved with Mathlib in the Lake
+project `lean/` next to this file (`lake build`; see lean/README.md).
 -/
 
 abbrev L6 := Fin 6 → Rat
@@ -44,6 +43,36 @@ def P1 : L6 := fun i => match i.val with | 1 => 1 | _ => 0
 def P5 : L6 := fun i => match i.val with | 5 => 1 | _ => 0
 theorem distance_sensitivity :
     brier1 P1 0 = 2 ∧ brier1 P5 0 = 2 ∧ rps1 P1 0 = 1 ∧ rps1 P5 0 = 5 := by decide +kernel
+
+/-! Population example (note, Section "A population version"): three equally likely items with
+truths `½δ₀+½δ₂`, `½δ₀+½δ₄`, `½δ₂+½δ₄`; truthful judge T, mean-collapsed judge D (`δ₁, δ₂, δ₃`),
+pooled base rate `(1/3, 0, 1/3, 0, 1/3, 0)`. Added 27 Nov 2026. -/
+
+def T1 : L6 := fun i => match i.val with | 0 => 1/2 | 2 => 1/2 | _ => 0
+def T2 : L6 := fun i => match i.val with | 0 => 1/2 | 4 => 1/2 | _ => 0
+def T3 : L6 := fun i => match i.val with | 2 => 1/2 | 4 => 1/2 | _ => 0
+def D1 : L6 := fun i => match i.val with | 1 => 1 | _ => 0
+def D2 : L6 := fun i => match i.val with | 2 => 1 | _ => 0
+def D3 : L6 := fun i => match i.val with | 3 => 1 | _ => 0
+def Base : L6 := fun i => match i.val with | 0 => 1/3 | 2 => 1/3 | 4 => 1/3 | _ => 0
+
+/-- population-average expected score of forecasts `(q1,q2,q3)` against the three truths -/
+def popB (q1 q2 q3 : L6) : Rat := (expB q1 T1 + expB q2 T2 + expB q3 T3) / 3
+def popR (q1 q2 q3 : L6) : Rat := (expR q1 T1 + expR q2 T2 + expR q3 T3) / 3
+
+theorem population_table :
+    popB T1 T2 T3 = 1/2 ∧ popB D1 D2 D3 = 2 ∧ popR T1 T2 T3 = 2/3 ∧ popR D1 D2 D3 = 4/3 ∧
+    popB Base Base Base = 2/3 ∧ popR Base Base Base = 8/9 ∧
+    1 - popB T1 T2 T3 / popB Base Base Base = 1/4 ∧ 1 - popB D1 D2 D3 / popB Base Base Base = -2 ∧
+    1 - popR T1 T2 T3 / popR Base Base Base = 1/4 ∧ 1 - popR D1 D2 D3 / popR Base Base Base = -1/2 ∧
+    mean T1 = 1 ∧ mean T2 = 2 ∧ mean T3 = 3 := by decide +kernel
+
+/-- Shift-and-stretch example: `E[Y²] = 17/2` on the eight-item list `0,1,2,3,4,5,2,3`. -/
+theorem shift_stretch_mse :
+    ([0, 1, 2, 3, 4, 5, 2, 3].map (fun y : Rat => y ^ 2)).sum / 8 = 17 / 2 := by decide +kernel
+
+#print axioms population_table
+#print axioms shift_stretch_mse
 
 #print axioms same_mean
 #print axioms brier_table

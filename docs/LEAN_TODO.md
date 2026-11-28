@@ -8,7 +8,13 @@ Status labels: "numerically checked, Lean pending", "paper proof, not yet Lean-c
 
 | Claim | Location | Status | What is missing |
 |---|---|---|---|
-| Point 2 note, Props. identity, Murphy, expected readout, encoding rank, RPS propriety; Cor. same-mean tie | `docs/notes/point2_encodings_vs_first_moments_27Nov2026.tex` | numerically checked, Lean pending (in progress 11-27-2026) | Lean theorems in `docs/notes/point2_support_27Nov2026/lean/` |
+| Point 2 note, Props. `prop:identity`, `prop:murphy`, `prop:expected` beyond finite laws (general distributions with finite second moment) | `docs/notes/point2_encodings_vs_first_moments_27Nov2026.tex` | Lean-checked special case (finite and empirical laws; `docs/notes/point2_support_27Nov2026/lean/`) | measure-theoretic statement |
+| Point 2 note, closing sentence of Prop. `prop:sampled`: the collapsed judge is strictly worse than the truth on population-average Brier, RPS and CE | same | per-item Brier and RPS strict propriety Lean-checked (`rps_strictly_proper`, `brier_strictly_proper`); averaging over items: paper proof, not yet Lean-checked; CE: cited (Gibbs' inequality) | Lean lemma summing per-item gaps with positive weights; a CE (log score) propriety lemma |
+| Point 2 note, Remark "CRPS as the continuous limit" (CRPS equals unnormalized RPS on the integer grid) | same | paper proof, not yet Lean-checked; CRPS propriety cited | Lean statement on step CDFs |
+
+## Done 11-27-2026
+
+- Point 2 note: every proposition and the corollary are Lean-checked for finite laws in `docs/notes/point2_support_27Nov2026/lean/` (43 theorems, zero `sorry`; claim map in that folder's `README.md`). Numerical checks run first: `docs/notes/point2_support_27Nov2026/point2_claims_numerics_27Nov2026.py` (seed 20261127, 15/15 PASS).
 
 ## Reconciled 11-27-2026
 

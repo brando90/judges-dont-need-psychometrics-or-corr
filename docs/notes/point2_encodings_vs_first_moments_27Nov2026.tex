@@ -30,6 +30,7 @@
 \newcommand{\1}{\mathbf{1}}
 \newcommand{\file}[1]{\nolinkurl{#1}}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\leanok}[2]{\par\smallskip\noindent{\small\textbf{Lean-checked} (\file{#1}): #2}\par}
 
 \newcommand{\tldr}[1]{\par\medskip\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\textbf{TL;DR.} #1}}\par\medskip}
 
@@ -90,13 +91,14 @@ $\Cov(aS+b,Y)=a\Cov(S,Y)$ and $\Var(aS+b)=a^{2}\Var(S)$, so
 r(aS+b,Y)=\frac{a\,\Cov(S,Y)}{|a|\sqrt{\Var S\,\Var Y}}=\operatorname{sgn}(a)\,r(S,Y).
 \]
 \end{proof}
+\leanok{lean/Point2/Moments.lean}{\texttt{Point2.FinLaw.pearson\_affine} (any real $a\neq0$, factor $a/|a|$), \texttt{pearson\_affine\_pos}, \texttt{pearson\_affine\_neg}; finite (including empirical) laws.}
 
 \begin{example}[Shift and stretch]\label{ex:shiftstretch}
-Let $S=Y+1$: every score is one point too high, yet $r(S,Y)=1$ while the mean squared error is $\E(S-Y)^2=1$. Let $S=2Y$: again $r=1$, and the error is $\E(S-Y)^2=\E[Y^2]$, which is large whenever the ratings are not concentrated near $0$ (on the eight-item list $0,1,2,3,4,5,2,3$ it is $17/2$). A correlation of one is compatible with a wrong location and a wrong spread.
+Let $S=Y+1$: every score is one point too high, yet $r(S,Y)=1$ while the mean squared error is $\E(S-Y)^2=1$. Let $S=2Y$: again $r=1$, and the error is $\E(S-Y)^2=\E[Y^2]$, which is large whenever the ratings are not concentrated near $0$ (on the eight-item list $0,1,2,3,4,5,2,3$ it is $17/2$; \texttt{shift\_stretch\_mse} in \file{Point2WorkedExamples.lean}). A correlation of one is compatible with a wrong location and a wrong spread.
 \end{example}
 
 \begin{remark}[Rank correlations]
-Spearman's $\rho$ and Kendall's $\tau$ depend on the scores only through the pairwise order of items, so they are invariant under any strictly increasing transformation of $S$ (and flip sign under a strictly decreasing one). This is strictly stronger than affine invariance: $S=\exp(Y)$ also gets $\rho=\tau=1$. The affine-invariance statement for Pearson is Lean-checked in the repository for $a>0$ and rational data (\texttt{pearson\_affine\_invariant}, Section~\ref{sec:scope}); the rank-invariance statement is a one-line argument that I have not seen formalized.
+Spearman's $\rho$ and Kendall's $\tau$ depend on the scores only through the pairwise order of items, so they are invariant under any strictly increasing transformation of $S$ (and flip sign under a strictly decreasing one). This is strictly stronger than affine invariance: $S=\exp(Y)$ also gets $\rho=\tau=1$. Lean-checked (\file{lean/Point2/Ranks.lean}) for the population mid-rank Spearman coefficient and Kendall's $\tau_a=\E\,\operatorname{sgn}((S-S')(Y-Y'))$ on a finite law: \texttt{spearman\_strictMono}, \texttt{kendall\_strictMono}, and the sign flip \texttt{spearman\_strictAnti}, \texttt{kendall\_strictAnti}; the $\exp$ example is the \texttt{example} after \texttt{spearman\_strictMono}.
 \end{remark}
 
 \section{The identity \texorpdfstring{$r^{2}=1-\min_{a,b}\mathrm{MSE}/\Var(Y)$}{r-squared = 1 - min MSE / Var(Y)} and what it keeps}
@@ -114,8 +116,9 @@ attained at $b^{*}=\Cov(S,Y)/\Var(S)$ and $a^{*}=\E Y-b^{*}\E S$.
 \begin{proof}
 For fixed $b$, $\E(Y-a-bS)^{2}=\Var(Y-bS)+(\E Y-b\E S-a)^{2}$ is minimized over $a$ by $a=\E Y-b\E S$ (the normal equation for the intercept), leaving $\Var(Y-bS)=\Var(Y)-2b\Cov(S,Y)+b^{2}\Var(S)$. This quadratic in $b$ is minimized at $b^{*}=\Cov(S,Y)/\Var(S)$ (the normal equation for the slope), with minimum value $\Var(Y)-\Cov(S,Y)^{2}/\Var(S)=\Var(Y)\bigl(1-r^{2}\bigr)$.
 \end{proof}
+\leanok{lean/Point2/Moments.lean}{\texttt{Point2.FinLaw.r\_sq\_identity} ($\Var(Y)(1-r^2)$ is the least element of $\{\E(Y-a-bS)^2:a,b\in\mathbb{R}\}$), \texttt{r\_sq\_eq\_one\_sub\_min}, \texttt{mse\_affine\_ge}, \texttt{mse\_affine\_opt} (attained at $(a^*,b^*)$); finite or empirical laws with $\Var S>0$, $\Var Y>0$.}
 
-The same algebra holds for the empirical (in-sample) moments of a finite evaluation set; the Python check \file{point2\_worked\_examples\_27Nov2026.py} verifies the identity in exact rational arithmetic on 200 random datasets.
+The Lean theorem is stated for any finite law, so it covers the empirical (in-sample) moments of a finite evaluation set directly; the Python check \file{point2\_worked\_examples\_27Nov2026.py} verifies the identity in exact rational arithmetic on 200 random datasets.
 
 \textbf{Reading.} The quantity $\Var(Y)\,r^{2}$ is what a squared-error score would give a judge \emph{after} the scores have been passed through the best affine map, a map fitted on the very labels being evaluated. Equivalently $r^{2}$ is the mean-squared-error skill score of the recalibrated score against the constant forecast $\E Y$. A judge whose scale or offset is wrong is not penalized: that is the content of Proposition~\ref{prop:affine}, and Proposition~\ref{prop:identity} says why.
 
@@ -137,6 +140,7 @@ In words, $r^{2}\Var(Y)$ is the resolution minus the calibration error that rema
 \begin{proof}
 $Y-g(S)$ is orthogonal to every square-integrable function of $S$, so $\E(Y-S)^{2}=\E(Y-g(S))^{2}+\E(g(S)-S)^{2}$, and $\E(Y-g(S))^{2}=\Var(Y)-\Var(g(S))$ by the law of total variance. For the second display, apply the same decomposition to $S'$, which carries the same information as $S$ (so $g(S')=g(S)$): $\E(Y-S')^{2}=\Var(Y)-\Var(g(S))+\E(g(S)-S')^{2}$. By Proposition~\ref{prop:identity} the left side equals $\Var(Y)(1-r^{2})$.
 \end{proof}
+\leanok{lean/Point2/Murphy.lean}{\texttt{Point2.FinLaw.murphy} (for any score that is a function of the conditioning variable), \texttt{murphy\_scalar} ($g(s)=\E[Y\mid S=s]$), \texttt{reliability\_zero\_iff} (reliability $=0$ iff $g(S)=S$ on the support), \texttt{r\_sq\_resolution} (second display; it does not need $b^*\neq0$ when one conditions on $S$), \texttt{condE\_affine} ($g(S')=g(S)$ for $b\neq0$); multiclass Brier with conditioning on the forecast vector: \texttt{brier\_murphy}, \texttt{brier\_reliability\_zero\_iff}. Scope: finite laws, hence finite forecast support; the general finite-second-moment statement is a paper proof, not yet Lean-checked.}
 
 For a binary outcome and a probability forecast this is the Brier-score decomposition of Murphy (1973), written there for forecasts grouped into bins; Br\"ocker (2009) extends it to any strictly proper score and finite-valued targets. Correlation therefore keeps resolution (discrimination) and discards the \emph{affine part} of reliability, the part an offset and a scale can repair. What remains of the reliability term after the fix is a nonlinear calibration error that correlation also does not charge for, beyond its effect on $r^{2}$.
 
@@ -163,11 +167,13 @@ with equality if and only if $s=a\mu(C)+b$ almost surely for some $a>0$ and $b$.
 \begin{proof}
 Since $s$ is a function of $C$, $\E[sY]=\E\bigl[s\,\E[Y\mid C]\bigr]=\E[s\mu]$, so $\Cov(s,Y)=\Cov(s,\mu)$. Also $\E Y=\E\mu$. Hence $r(s,Y)=\Cov(s,\mu)/\sqrt{\Var s\,\Var Y}=r(s,\mu)\sqrt{\Var\mu/\Var Y}$, and $r(s,\mu)\le1$ with equality iff $s$ is a positive affine function of $\mu$ (Cauchy--Schwarz).
 \end{proof}
+\leanok{lean/Point2/Murphy.lean}{\texttt{Point2.FinLaw.expected\_readout} (the identity, $r(\mu,Y)=\sqrt{\Var\mu/\Var Y}$, and the bound), \texttt{expected\_readout\_attained} (``if''), \texttt{expected\_readout\_equality} (``only if'': $\mu=a^*+b^*s$ on the support with $b^*>0$), \texttt{cov\_sq\_le} (Cauchy--Schwarz); finite laws, with $\Var Y>0$ assumed explicitly.}
 
 \begin{corollary}[Same conditional mean $\Rightarrow$ tie]\label{cor:tie}
 Two forecasts $q,q'$ with $\mu_q(c)=\mu_{q'}(c)$ for all $c$ have the same expected-score readout, hence the same Pearson, Spearman and Kendall correlation with $Y$ and the same mean squared error of that readout, whatever their spread. Any forecast whose mean is a positive affine image of $\mu(c)$ attains the maximal $r$ of Proposition~\ref{prop:expected}, including the truthful $\pstar$ and, when $\mu(c)$ lies on the rating grid, the point mass at $\mu(c)$.
 \end{corollary}
-(This is the ``same-mean non-identification'' statement. The tie is a one-line consequence of all four statistics being functions of the readout alone; the repository's Lean files check concrete same-mean pairs, not the general statement, see Section~\ref{sec:scope}.)
+(This is the ``same-mean non-identification'' statement.)
+\leanok{lean/Point2/Ranks.lean}{\texttt{Point2.FinLaw.same\_mean\_tie}: for any joint law of (item, rating) on $C\times\{0,\dots,K-1\}$, equal per-item means give equal Pearson, Spearman, Kendall and mean squared error of the expected-score readout; also \texttt{scalar\_same\_mean\_tie} in \file{lean/Point2/Encodings.lean}. The second sentence follows from \texttt{expected\_readout\_attained}.}
 
 \begin{proposition}[Sampled readout: correlation is anti-proper]\label{prop:sampled}
 Let the judge's score be $S\sim q(\cdot\mid C)$ independent of $Y$ given $C$. Put $\rho=\Var(\mu(C))/\Var(Y)$ and suppose $\Var(\mu(C))>0$ and $\E\Var(Y\mid C)>0$.
@@ -181,6 +187,7 @@ So correlation ranks the collapsed judge strictly above the truthful one. When $
 (1) $\E[S\mid C]=\mu(C)$, so $\E[SY]=\E[\mu^{2}]$, $\E S=\E Y$ and $\Cov(S,Y)=\E\mu^{2}-(\E Y)^{2}=\Var\mu$. The marginal law of $S$ equals that of $Y$, so $\Var S=\Var Y$. Thus $r=\Var\mu/\Var Y=\rho$. By the law of total variance $\Var Y=\Var\mu+\E\Var(Y\mid C)$, so $0<\rho<1$.
 (2) $\Cov(S_\delta,Y)=a\Var\mu$ and $\Var S_\delta=a^{2}\Var\mu$, so $r=a\Var\mu/\bigl(a\sqrt{\Var\mu\,\Var Y}\bigr)=\sqrt{\rho}$, which exceeds $\rho$ because $0<\rho<1$.
 \end{proof}
+\leanok{lean/Point2/SampledReadout.lean}{square-root form, finite joint law, sampled readout: \texttt{Point2.Sampled.Model.anti\_proper} ($r_T=\rho\in(0,1)$, $r_D^2=r_T$, $r_T<r_D$; both correlations computed from raw joint moments), ported from \texttt{PlanAudit.Model.anti\_proper} in experiment~35's \file{PlanClaims.lean}, which also rebuilds cleanly; the note's three-item instance is \texttt{noteModel\_anti\_proper}. The closing sentence of the proposition: per-item strict propriety of Brier and RPS is Lean-checked (\texttt{brier\_strictly\_proper}, \texttt{rps\_strictly\_proper}); the cross-entropy case is cited (Gibbs' inequality), and averaging the per-item gaps over items is a paper argument, not yet Lean-checked.}
 
 \begin{remark}
 Proposition~\ref{prop:sampled} is the correlation analogue of the familiar fact that hedging to the mean beats honest sampling under a loss that sees only first moments; it is the reason the paper should say ``correlation is anti-proper for a sampled readout'' only with that qualifier, and ``non-identifying'' for the expected-score readout (Proposition~\ref{prop:expected}).
@@ -189,24 +196,31 @@ Proposition~\ref{prop:sampled} is the correlation analogue of the familiar fact 
 \subsection{Scope of the formal checks in the repository}
 \label{sec:scope}
 
-The repository's standard (AGENTS.md) is that a claim is called a theorem only if it is checked in Lean~4 and in Python, and that the squared form of anti-properness is the Lean-checked one. Here is exactly what I found, and what I did not.
+The repository's rule (\file{AGENTS.md}, ``Every proof in Lean 4, with a quick numerical check first'') is that every stated proposition is machine-checked in Lean~4 with the file cited next to it, after a quick seeded numerical check. All propositions and the corollary of this note now carry a ``Lean-checked'' line. The Lean files are in \file{docs/notes/point2\_support\_27Nov2026/lean/} (Lean 4.36.0, Mathlib revision \texttt{fc4f59e5}, \texttt{lake build}, zero \texttt{sorry}, 43 theorems with only the standard axioms). Scope is stated exactly:
 
 \begin{center}
 \small
-\begin{tabular}{P{4.0cm}P{5.2cm}P{5.2cm}}
+\begin{tabular}{P{3.6cm}P{6.0cm}P{4.8cm}}
 \toprule
-Claim in this note & Repository evidence & Status \\
+Claim in this note & Lean theorem (file under \file{lean/Point2/}) & Status and scope \\
 \midrule
-Brier is strictly proper (any $K$) & \file{experiments/35\_brier\_vs\_corr\_math\_l2\_pearson\_lean\_start\_26Nov2026/BrierCorr.lean}: \texttt{brier\_strictly\_proper}, \texttt{brier\_decomposition} & Lean, rationals, standard axioms only (\texttt{lean\_check.txt}) \\
-Pearson affine invariance (Prop.~\ref{prop:affine}) & same file: \texttt{pearson\_affine\_invariant} ($a>0$); also \texttt{mse\_decomposition}, \texttt{standardized\_mse\_corr} & Lean; hypotheses supply rational standard deviations; $a<0$ and Spearman/Kendall are paper arguments \\
-Same-mean pairs differ in Brier/RPS & \file{experiments/35\_.../extended\_checks\_11-26-2026/squared\_difference\_vs\_distribution\_11-26-2026/MeanMatching.lean}; the Lean file under \file{experiments/36\_.../}: \texttt{ordinal\_same\_mean\_different\_law} & Lean, but the second is arithmetic on typed numbers, not linked to a Lean definition of RPS (the repository's own QA says so). General Cor.~\ref{cor:tie} is a paper argument \\
-Worked-example table (Section~\ref{sec:scalar}) & new: \file{Point2WorkedExamples.lean} defines Brier and RPS on ratings $0..5$ and evaluates all entries & Lean (\texttt{decide +kernel}), no \texttt{sorry}, standard axioms; a deliberately wrong entry fails to compile \\
-Anti-properness, squared form $\rho^{2}<\rho$ & the Lean file under \file{experiments/36\_.../}: \texttt{anti\_proper\_from\_parts} & Lean; proves only $0<\rho<1\Rightarrow\rho^{2}<\rho$ \\
-Anti-properness, square-root form (Prop.~\ref{prop:sampled}) & AGENTS.md: Monte Carlo only. A finite-joint-law Lean theorem \texttt{Model.anti\_proper} with the strict inequality exists in \file{PlanClaims.lean} in the plan-claims audit folder under experiment~35's \texttt{extended\_checks\_11-26-2026/} & I did \emph{not} recompile it (needs Mathlib). Treat the square-root form as paper-proved plus exact-fraction Python (Part~2 of the script) until the AGENTS.md wording and that file are reconciled \\
-Props.~\ref{prop:identity}, \ref{prop:murphy}, \ref{prop:expected}, \ref{prop:encoding}, \ref{prop:rps} & this note & Paper proofs; identity and RPS/Brier expectations also checked in exact fractions (200 random cases each); \emph{no new Lean} \\
+Prop.~\ref{prop:affine} & \texttt{pearson\_affine}, \texttt{\_pos}, \texttt{\_neg} (\file{Moments.lean}) & Lean-checked; any real $a\neq0$; finite laws \\
+Rank remark & \texttt{spearman\_strictMono}, \texttt{kendall\_strictMono}, \texttt{\_strictAnti} (\file{Ranks.lean}) & Lean-checked; population mid-rank Spearman, Kendall $\tau_a$ \\
+Prop.~\ref{prop:identity} & \texttt{r\_sq\_identity}, \texttt{mse\_affine\_opt} (\file{Moments.lean}) & Lean-checked; finite or empirical laws \\
+Prop.~\ref{prop:murphy} & \texttt{murphy}, \texttt{reliability\_zero\_iff}, \texttt{r\_sq\_resolution}, \texttt{brier\_murphy} (\file{Murphy.lean}) & Lean-checked special case: finite laws (finite forecast support) \\
+Prop.~\ref{prop:expected} & \texttt{expected\_readout}, \texttt{\_attained}, \texttt{\_equality} (\file{Murphy.lean}) & Lean-checked; finite laws, $\Var Y>0$ \\
+Cor.~\ref{cor:tie} & \texttt{same\_mean\_tie} (\file{Ranks.lean}) & Lean-checked; Pearson, Spearman, Kendall, MSE of the readout \\
+Prop.~\ref{prop:sampled}, square-root form & \texttt{Sampled.Model.anti\_proper} (\file{SampledReadout.lean}) & Lean-checked; finite joint law; CE clause cited; aggregation over items: paper proof, not yet Lean-checked \\
+Prop.~\ref{prop:onehot} & \texttt{brier\_expected}, \texttt{brier\_strictly\_proper} (\file{Encodings.lean}) & Lean-checked; any finite $K$ \\
+Prop.~\ref{prop:encoding} & \texttt{expScore\_eq}, \texttt{strictlyProper\_iff}, \texttt{scalar\_not\_strictly\_proper} (\file{Encodings.lean}) & Lean-checked; any finite $K$ and row set \\
+Prop.~\ref{prop:rps} & \texttt{rps\_expected}, \texttt{rps\_strictly\_proper} (\file{Encodings.lean}) & Lean-checked; $K$ ordered ratings \\
+Worked examples, population table & \file{Point2WorkedExamples.lean} (one folder up; no Mathlib) & Lean-checked by evaluation \\
+CRPS remark & none & paper proof, not yet Lean-checked; cited \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+The earlier repository statement that the square-root form of anti-properness was ``Monte Carlo only'' was out of date: \texttt{PlanAudit.Model.anti\_proper} in experiment~35's \file{PlanClaims.lean} proves it for a finite joint law, and it rebuilds with zero \texttt{sorry} and standard axioms (27~Nov~2026). \file{AGENTS.md} now says so.
 
 \section{One-hot encoding and the Brier score}
 \label{sec:onehot}
@@ -221,11 +235,12 @@ Hence Brier is strictly proper: the expected score is minimized uniquely at $q=\
 \begin{proof}
 The $k$th coordinate of $\onehot_Y$ is $\1[Y=k]$, with mean $\pstar(k)$. Then $\E\|q-\onehot_Y\|^{2}=\|q\|^{2}-2\langle q,\E\onehot_Y\rangle+\E\|\onehot_Y\|^{2}=\|q\|^{2}-2\langle q,\pstar\rangle+1=\|q-\pstar\|^{2}+1-\|\pstar\|^{2}$, using $\|\onehot_Y\|^{2}=1$.
 \end{proof}
+\leanok{lean/Point2/Encodings.lean}{\texttt{Point2.brier\_expected}, \texttt{Point2.brier\_strictly\_proper}; any finite number of categories $K$.}
 
 The logarithmic score is the other standard strictly proper score for a categorical label: $\E_{Y\sim\pstar}\CE(q,Y)=H(\pstar)+\mathrm{KL}(\pstar\,\|\,q)$ by Gibbs' inequality (Gneiting and Raftery, 2007). It is not a squared error on an encoding, it is blind to ordering, and it is infinite whenever $q$ puts zero mass on a realized rating.
 
 \begin{remark}[$K=2$ is the one case where the scalar suffices]
-For $K=2$ the mean is $\pstar(1\mid c)$, which \emph{is} the distribution, and $\Brier=2(q_1-y)^{2}$, twice the scalar squared error (the repository's \texttt{binary\_brier\_eq\_two\_l2}). The argument below therefore bites exactly when $K\ge3$, which includes every 0--5 rubric.
+For $K=2$ the mean is $\pstar(1\mid c)$, which \emph{is} the distribution, and $\Brier=2(q_1-y)^{2}$, twice the scalar squared error (the repository's \texttt{binary\_brier\_eq\_two\_l2} in experiment~36). The scalar encoding is strictly proper for $K=2$: \texttt{scalar\_two\_strictly\_proper} in \file{lean/Point2/Encodings.lean}. The argument below therefore bites exactly when $K\ge3$, which includes every 0--5 rubric.
 \end{remark}
 
 \section{The scalar encoding sees one moment}
@@ -243,6 +258,7 @@ so $S_A$ is proper. It is strictly proper if and only if $A$ is injective on $D=
 \begin{proof}
 $q-\onehot_Y=(q-p)-(\onehot_Y-p)$ and $\E[\onehot_Y-p]=0$, so $\E\|A(q-\onehot_Y)\|^{2}=\|A(q-p)\|^{2}+\E\|A(\onehot_Y-p)\|^{2}$, and the last term equals $\operatorname{tr}(A\Sigma_pA^{\top})$ and does not depend on $q$. The first term vanishes iff $A(q-p)=0$; since $q-p\in D$, this forces $q=p$ exactly when $\ker A\cap D=\{0\}$.
 \end{proof}
+\leanok{lean/Point2/Encodings.lean}{\texttt{Point2.expScore\_eq} (the identity, with $\operatorname{tr}(A\Sigma_pA^\top)$ written row by row), \texttt{enc\_proper}, \texttt{strictlyProper\_iff} (strictly proper $\iff$ injective on $D$; the ``only if'' direction builds $q=u+tv$ around the uniform law $u$), \texttt{expScore\_congr} (same $Aq$ $\Rightarrow$ same expected score under every truth). Bullets: \texttt{brier\_strictly\_proper}, \texttt{cumEnc\_injOnD}, \texttt{scalar\_not\_strictly\_proper} ($K\ge3$), \texttt{scalar\_two\_strictly\_proper} ($K=2$).}
 
 \begin{itemize}
 \item \textbf{One-hot} $A=I_K$: injective, strictly proper (Proposition~\ref{prop:onehot}).
@@ -299,7 +315,7 @@ RPS skill score $1-S(\text{judge})/S(\text{base rate})$ & $1/4$ & $-1/2$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-The base-rate forecast is the pooled marginal $(\tfrac13,0,\tfrac13,0,\tfrac13,0)$, with Brier $2/3$ and raw RPS $8/9$. On the expected-score readout the two judges tie on every correlation and on the mean squared error of the readout, and $r^{2}=1/4$ is the best any function of $c$ can achieve (Proposition~\ref{prop:expected}); yet $D$ is \emph{worse than the base rate} on Brier and RPS (negative skill) and has infinite cross-entropy. On the sampled readout, correlation prefers $D$ outright ($1/2$ against $1/4$), as Proposition~\ref{prop:sampled} predicts. These are constructed laws that verify the propositions; they are not evidence about any real judge.
+The base-rate forecast is the pooled marginal $(\tfrac13,0,\tfrac13,0,\tfrac13,0)$, with Brier $2/3$ and raw RPS $8/9$. On the expected-score readout the two judges tie on every correlation and on the mean squared error of the readout, and $r^{2}=1/4$ is the best any function of $c$ can achieve (Proposition~\ref{prop:expected}); yet $D$ is \emph{worse than the base rate} on Brier and RPS (negative skill) and has infinite cross-entropy. On the sampled readout, correlation prefers $D$ outright ($1/2$ against $1/4$), as Proposition~\ref{prop:sampled} predicts. All Brier, RPS, base-rate and skill entries are checked by evaluation in \file{Point2WorkedExamples.lean} (\texttt{population\_table}), and the two correlations by \texttt{noteModel\_anti\_proper}. These are constructed laws that verify the propositions; they are not evidence about any real judge.
 
 \section{The cumulative encoding and the ranked probability score}
 \label{sec:cumulative}
@@ -316,13 +332,14 @@ $\displaystyle \E_{Y\sim p}\RPS(q,Y)=\sum_{t=0}^{K-2}\bigl(F_q(t)-F_p(t)\bigr)^{
 \begin{proof}
 For each $t$, $Z_t$ is Bernoulli with mean $F_p(t)$, and the binary Brier identity (Proposition~\ref{prop:onehot} with $K=2$) gives $\E(F_q(t)-Z_t)^{2}=(F_q(t)-F_p(t))^{2}+F_p(t)(1-F_p(t))$. Sum over $t$. The first sum is zero iff $F_q(t)=F_p(t)$ for all $t\le K-2$, iff $q=p$. (Equivalently, Proposition~\ref{prop:encoding} with $A=L$.)
 \end{proof}
+\leanok{lean/Point2/Encodings.lean}{\texttt{Point2.rps\_eq\_encScore} ($\RPS=S_L$), \texttt{rps\_expected}, \texttt{rps\_strictly\_proper} (via \texttt{cumEnc\_injOnD}); $K=n+1$ ordered ratings, thresholds $0,\dots,K-2$.}
 
 \begin{example}[Distance sensitivity: Brier is blind, RPS is not]\label{ex:distance}
 Let the realized rating be $Y=0$, and compare the point-mass forecasts $\delta_{1}$ and $\delta_{5}$. Both put zero mass on the realized rating and the same mass elsewhere, so $\Brier=2$ for each (and the cross-entropy is infinite for each). For $\delta_j$ and outcome $y$, $F_q(t)=\1[j\le t]$ and $\1[y\le t]$ differ exactly for $t$ between $\min(j,y)$ and $\max(j,y)-1$, so $\RPS(\delta_j,y)=|j-y|$. Thus $\RPS(\delta_1,0)=1$ and $\RPS(\delta_5,0)=5$ (normalized $1/5$ and $1$). Brier charges every wrong category the same; RPS charges the distance. The same values are computed by the script and checked in \file{Point2WorkedExamples.lean} (\texttt{distance\_sensitivity}).
 \end{example}
 
 \begin{remark}[CRPS as the continuous limit]
-For a real-valued outcome and a forecast cumulative distribution function $F$, $\mathrm{CRPS}(F,y)=\int_{-\infty}^{\infty}\bigl(F(t)-\1[y\le t]\bigr)^{2}dt$, the integral of the binary Brier scores at all thresholds (Matheson and Winkler, 1976; Gneiting and Raftery, 2007, Section~4.2); it is strictly proper on distributions with finite first moment. For a forecast supported on the integers and an integer outcome, $F$ and $\1[y\le t]$ are constant on each $[k,k+1)$, so the CRPS equals the unnormalized RPS: the RPS is the CRPS on the integer grid, and continuous ratings are handled by the same recipe with the cumulative encoding $\{\1[y\le t]\}_{t\in\mathbb{R}}$.
+For a real-valued outcome and a forecast cumulative distribution function $F$, $\mathrm{CRPS}(F,y)=\int_{-\infty}^{\infty}\bigl(F(t)-\1[y\le t]\bigr)^{2}dt$, the integral of the binary Brier scores at all thresholds (Matheson and Winkler, 1976; Gneiting and Raftery, 2007, Section~4.2); it is strictly proper on distributions with finite first moment. For a forecast supported on the integers and an integer outcome, $F$ and $\1[y\le t]$ are constant on each $[k,k+1)$, so the CRPS equals the unnormalized RPS: the RPS is the CRPS on the integer grid, and continuous ratings are handled by the same recipe with the cumulative encoding $\{\1[y\le t]\}_{t\in\mathbb{R}}$. (CRPS statements: cited; the integer-grid identity is a paper proof, not yet Lean-checked.)
 \end{remark}
 
 \section{Framing recommendation: encoding, then matched strictly proper score}
@@ -391,9 +408,9 @@ correlation as a diagnostic of discrimination.
 \section{Verification ledger and references}
 \label{sec:ledger}
 
-\textbf{Checks run for this note} (files in \file{docs/notes/point2\_support\_27Nov2026/}): the exact-fraction script (\file{point2\_worked\_examples\_27Nov2026.py}, output \file{point2\_worked\_examples\_27Nov2026\_output.txt}, ends with \texttt{ALL ASSERTIONS PASSED}); the Lean file \file{Point2WorkedExamples.lean} with its compiler output \file{lean\_check.txt} (Lean 4.36.0, no Mathlib, no \texttt{sorry}, axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}). Reproduce: \texttt{python3 point2\_worked\_examples\_27Nov2026.py} and \texttt{lean Point2WorkedExamples.lean}.
+\textbf{Checks run for this note} (files in \file{docs/notes/point2\_support\_27Nov2026/}): the exact-fraction script (\file{point2\_worked\_examples\_27Nov2026.py}, output \file{point2\_worked\_examples\_27Nov2026\_output.txt}, ends with \texttt{ALL ASSERTIONS PASSED}); the Lean file \file{Point2WorkedExamples.lean} with its compiler output \file{lean\_check.txt} (Lean 4.36.0, no Mathlib, no \texttt{sorry}, axioms \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}). Reproduce: \texttt{python3 point2\_worked\_examples\_27Nov2026.py} and \texttt{lean Point2WorkedExamples.lean}. Numerical checks of every general claim, run before the Lean proofs: \file{point2\_claims\_numerics\_27Nov2026.py} (seed 20261127, exact fractions on random finite laws plus counterexample searches; output \file{point2\_claims\_numerics\_27Nov2026\_output.txt}, 15/15 PASS, identical on a second run). General Lean proofs: \texttt{cd lean \&\& lake exe cache get \&\& lake build \&\& lake env lean Axioms.lean} (outputs \file{lean/build\_output\_27Nov2026.txt}, \file{lean/axioms\_output\_27Nov2026.txt}).
 
-\textbf{Not Lean-checked here:} Propositions~\ref{prop:identity}, \ref{prop:murphy}, \ref{prop:expected}, \ref{prop:sampled}, \ref{prop:encoding} and~\ref{prop:rps} are proved on paper above, with the numerical checks listed. Under the repository's three-pillar standard they should be called ``analytical'' until a zero-\texttt{sorry} Lean lemma exists.
+\textbf{Not Lean-checked here} (tracked in \file{docs/LEAN_TODO.md}): the general (non-finite) versions of Propositions~\ref{prop:identity}, \ref{prop:murphy} and~\ref{prop:expected}; the CRPS remark; the cross-entropy statements (cited); and the averaging step in the closing sentence of Proposition~\ref{prop:sampled}. Each is labelled ``paper proof, not yet Lean-checked'' where it appears.
 
 \begin{thebibliography}{99}\small
 \bibitem{brier1950} G.~W. Brier. Verification of forecasts expressed in terms of probability. \emph{Monthly Weather Review}, 78(1):1--3, 1950.
