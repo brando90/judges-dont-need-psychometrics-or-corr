@@ -18,7 +18,7 @@ The 49 form a purposive convenience sample of papers or tools that propose or va
 | Guerdan et al., NeurIPS 2025 (2503.05965) | P,A,K | P_strict | KL(human‖judge) and cross-entropy per item, on categorical and ordinal scales |
 | Chen et al., NeurIPS 2025 (2505.12301) | P,A | P_strict | KL(p‖q) per item (Eq. 10) on SNLI/MNLI and SummEval 1–5 Likert |
 | Wang, Zhang & Choi, Findings EMNLP 2025 (2503.03064) | P,A,C | P_strict | MSE of the judge's preference probability against the averaged human preference (binary Brier) |
-| Li et al., Findings EMNLP 2026 (2510.00263) | P | P_strict | Brier and log scores against a pairwise preference distribution; ordinal left to future work |
+| Li et al., Findings EMNLP 2026 (2510.00263) | P | P_strict | MSE of the stated P(B>A) to each item's ten-vote mean (Sec. 5.1), a Brier-type strictly proper comparison; votes are Gemini-2.5-Flash persona annotations, not human (Sec. 4), and the Table 1 Brier/ECE use the binarized majority (App. C.1); kept as P_strict, the conservative choice for the gap count; ordinal left to future work (App. E) |
 | Lyu, Do & Pergola, arXiv Oct 2026 (2610.37868) | P,C | P_strict, ordinal RPS | annotation-level RPS (ordinal) or Brier (nominal), plus JS distance as the primary metric |
 
 The 43 others are 25 direct-score judges and metrics, 5 judge-based benchmarks and 13 pairwise judges or reward models.
