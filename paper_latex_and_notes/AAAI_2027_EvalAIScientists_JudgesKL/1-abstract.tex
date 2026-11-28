@@ -1,21 +1,18 @@
-% !TEX root = 00_main_aaai_2027.tex
 \begin{abstract}
-% CS197 move 1: problem motivation (failure mode) -- association does not identify probability forecasts.
-A judge can predict the correct mean rating while assigning the wrong conditional distribution to every input.
-% CS197 move 2: assumption (setup bit) -- scope is correlation alone, not all validation methods.
-Correlation between scalar judge and human scores cannot distinguish such forecasts.
-% CS197 move 3: contribution (bit flip) -- identify the desired target explicitly.
-We argue for evaluating the conditional rating distribution with proper probability losses, alongside scalar association and agreement diagnostics.
-% CS197 move 4: instantiation (bit flip instantiation) -- controlled synthetic identification, not natural-human validation.
-A binomial construction gives five candidate distributions with identical conditional means and distinct expected cross-entropy, Brier score and ranked probability score (RPS).
-% CS197 move 5a: evaluation -- provenance: experiment02/results/summary.json, m=1 ce.
-With one synthetic rating per item, cross-entropy selects the true distribution in 249 of 256 replications.
-% CS197 move 5b: diagnostic -- provenance: experiment02/results/selection_rows.csv, all scalar criteria.
-Pearson, Spearman, Kendall and scalar mean squared error retain all five candidates as ties throughout.
-% CS197 move 5d: learning study -- provenance: experiments/08_*/results.md, 06_*/results.md, 07_*/results.md.
-Training a flexible judge on synthetic ratings, cross-entropy beats correlation training on held-out rating distributions from 12 ratings in three targets with informative means; in the fourth target, correlation training helps with few ratings when variation lies mainly in rater disagreement.
-% CS197 move 5c: limitations -- include every tie, preserve contradictory historical evidence & retrospective native-prob LLM results.
-We enumerate these ties, preserve inconclusive three-call historical theorem-judge evidence under empty-bin floors, and evaluate native six-category probability, prompt, harness, and low-rank adaptation (LoRA) judges across ten open-weight and seven frontier models on the same retrospective human ratings: proper-loss mixtures, calibration heads, and LoRA weights improve held-out RPS over correlation fits, while coarse discrete single-prompt selection stays noisy.
-% CS197 move 6: implication (north star) -- narrow supported thesis.
-The result supports distribution-aware evaluation without implying zero-exposure human generalization, universal finite-sample superiority, or that psychometric methods are unnecessary.
+\noindent
+% CS197 Move 1 (Problem motivation): LLM judges are the default evaluation instrument, validated by correlation/agreement with humans.
+Large language model (LLM) judges are now the default instrument for evaluating language models, and the community validates them by their correlation or agreement with human ratings.
+% CS197 Move 2 (Set up the bit / assumption): a judge whose scores correlate highly with human scores is assumed to be a good forecaster of human judgment.
+This practice rests on an implicit assumption: that a judge whose scores correlate highly with human scores is a good forecaster of human judgment.
+% CS197 Move 3 (Flip the bit = contribution): the ruler, not the judge, is the problem -- correlation, agreement and reliability cannot validate a judge as a forecaster of the human rating distribution.
+Here, we show that this assumption fails: correlation, majority-label agreement, and psychometric reliability cannot validate a judge as a forecaster of the human rating distribution, because they discard calibration and, on sampled scores, reward the wrong forecast.
+% CS197 Move 4 (Instantiate the bit flip = solution): encoding view + Lean-checked non-identification + encoding-matched proper protocol.
+Specifically, correlation equals squared error after an optimal affine refit, so judges with identical conditional means but different rating distributions tie on Pearson, Spearman, Kendall, and mean squared error yet differ on every strictly proper score; we machine-check this non-identification result in Lean~4.
+We propose evaluating judges with a strictly proper score matched to the label encoding---cross-entropy or Brier for categorical labels, the ranked probability score (RPS) for ordinal scales---together with a base-rate skill score, an estimator that is unbiased with a single human rating per item.
+% CS197 Move 5 (Evaluation): practice audit + empirical gap + calibration control.
+We test this view in two complementary ways:
+we (1) audit 49 judge-validation papers and find that 43 report no item-level proper score, with 29 of 30 score-based papers validating by correlation and 13 of 13 pairwise papers by agreement, accuracy, or kappa;
+and (2) show on seven human rating datasets that correlation-fit linear-head judges incur up to 0.128 higher normalized RPS than cross-entropy-fit ones, a gap that post-hoc calibration closes to at most 0.0024.
+% CS197 Move 6 (Implications): reported judge reliability is partly an artifact of the ruler; evaluate forecasts, not agreement.
+Our results suggest that much of the reported reliability of LLM judges is an artifact of the ruler, and that judge evaluation should measure forecasts, not agreement.
 \end{abstract}

@@ -1,0 +1,172 @@
+% Supplementary Material, extended related work (compiled only into the arXiv edition via 00_main_arxiv.tex).
+% Provenance: Exp 43 (49-paper tally, experiments/43_*/papers.py, tally.py), Exp 41, Exp 06; every cited paper was checked against arXiv, the ACL Anthology, OpenReview, Crossref or CRAN.
+% One sentence per line (Trigger Rule 13); strictly anonymized.
+% Notation follows the main text: $x$ is the input (context), $r$ the human rating, $p(r\mid x)$ the human rating distribution for a stated rater pool and rubric, $q(r\mid x)$ the judge's forecast.
+
+\section{Extended Related Work}
+\label{sec:supp-related}
+
+This section places the paper among the work it builds on and states what is and is not new.
+We take three things as given by prior work: human ratings are a distribution rather than a noisy point (Section~\ref{sec:supp-hlv}), strictly proper scoring rules are the established tool for scoring probabilistic forecasts (Section~\ref{sec:supp-proper}), and several recent papers already train or score LLM judges against human rating distributions (Section~\ref{sec:supp-closest}).
+What we add is a measured account of how judges are validated in practice (Section~\ref{sec:supp-practice}), an identification analysis of what correlation, agreement and reliability can and cannot certify, an encoding-matched evaluation protocol, and a test of whether the choice of metric changes conclusions about judges (Section~\ref{sec:supp-new}).
+
+\subsection{Human Label Variation}
+\label{sec:supp-hlv}
+\citet{pavlick2019inherent} analyze disagreement about the validity of natural language inferences and show that it is often not annotation noise: disagreement persists as more ratings are collected and as the context shown to raters is varied.
+They also show that the uncertainty expressed by state-of-the-art NLI models does not reflect the uncertainty present in human disagreement, and they argue for an evaluation objective that requires models to capture the full distribution of plausible human judgments.
+\citet{plank2022problem} generalizes this into the term \emph{human label variation}: disagreement can reflect genuine disagreement, subjectivity or several plausible readings, and it affects every stage of the pipeline (data, modeling and evaluation).
+That position paper also catalogues public datasets with un-aggregated labels.
+\citet{uma2021learning} survey methods and resources for learning from disagreement rather than from a single aggregated gold label.
+ChaosNLI~\citep{nie2020chaosnli} collects $100$ labels per item for selected SNLI and MNLI examples, and DICES~\citep{aroyo2023dices} releases ratings from many raters per conversation; both are among the rating sets used in this paper.
+We adopt this literature's premise.
+Our target is $p(r\mid x)$ for a stated rater pool, eligibility rule and rubric, and changing the pool changes the target.
+That premise is not a contribution of this paper.
+
+\subsection{Strictly Proper Scoring Rules}
+\label{sec:supp-proper}
+A scoring rule $S(q,r)$ is proper if the expected score under $r\sim p$ is optimized by reporting $q=p$, and strictly proper if only $q=p$ optimizes it~\citep{gneiting2007strictly}.
+The Brier score~\citep{brier1950verification} and the logarithmic score~\citep{good1952rational} are the classical strictly proper rules for categorical outcomes.
+The ranked probability score (RPS)~\citep{epstein1969scoring,murphy1971note} applies the squared-error idea to cumulative probabilities and so respects category order, and the continuous ranked probability score (CRPS)~\citep{matheson1976scoring} is its analogue for real-valued outcomes.
+Which rule applies depends on the label encoding.
+A one-hot encoding of $r$ gives cross-entropy (CE) and the multiclass Brier score for binary or unordered categorical labels.
+A cumulative encoding $\mathbb{1}[r\le k]$ gives RPS for ordinal scales.
+A continuous outcome gives CRPS.
+Because $\mathbb{E}_{r\sim p}\,S(q,r)$ is what is optimized, $S(q,r)$ evaluated at one sampled rating per held-out item is an unbiased estimate of the expected score, so evaluation does not require repeated ratings per item.
+Repeated ratings are needed for distance-to-$p$ diagnostics, per-item divergences, stratification by human agreement, and human ceilings.
+Skill scores normalize a score by a reference forecast~\citep{murphy1989skill}.
+We use $\mathrm{Skill}_S = 1 - S(q_{\mathrm{judge}})/S(q_{\mathrm{base}})$ with the base-rate (marginal) forecast as reference, which puts scores from different datasets and label scales on one scale where $0$ is no better than the base rate.
+We do not propose a new scoring rule.
+
+\subsection{How LLM Judges Are Validated in Practice}
+\label{sec:supp-practice}
+Judges and judge-based benchmarks are overwhelmingly validated against a scalar summary of human ratings.
+G-Eval reports Spearman and Kendall correlation with human summary ratings~\citep{liu2023geval}, and Prometheus reports Pearson correlation with human and GPT-4 scores~\citep{kim2024prometheus,kim2024prometheus2}.
+MT-Bench and Chatbot Arena report pairwise agreement between the judge and human voters~\citep{zheng2023judging,chiang2024chatbot}.
+AlpacaFarm validates simulated annotators by agreement with the majority vote of three human annotators ($65\%$, against $66\%$ for a held-out human)~\citep{dubois2023alpacafarm}, and length-controlled AlpacaEval reports Spearman correlation with Chatbot Arena~\citep{dubois2024lengthcontrolled}.
+Reward-model and judge benchmarks such as RewardBench, RewardBench~2 and JudgeBench report accuracy on preference pairs~\citep{lambert2025rewardbench,malik2026rewardbench2,tan2025judgebench}.
+Arena-Hard and PPE report a Brier score, but at the level of model pairs on a human leaderboard rather than per item~\citep{li2025arenahard,frick2025ppe}.
+
+To size this pattern we coded $49$ papers and tools that propose or validate an LLM judge, an automatic text-quality metric or a judge-based benchmark (Experiment~43; Table~\ref{tab:supp-practice}).
+The sample is a purposive convenience sample from canonical, highly cited work and targeted searches; it is not a systematic review, it has one coder, and each paper's metrics were read by targeted full-text search rather than end to end.
+Percentages therefore describe this sample, not the field.
+Each paper is coded for every family it reports for judge-versus-human validation: correlation (C), raw agreement or accuracy (A), chance-corrected agreement (K), an item-level proper score or distributional divergence against human ratings (P), a proper score at the system level only (Ps), and psychometric reliability of the judge (R).
+Across the $49$ papers, $33$ report correlation ($67\%$), $24$ report agreement or accuracy ($49\%$), $7$ report kappa or alpha ($14\%$), $6$ report an item-level proper score or divergence ($12\%$), $2$ report a proper score only at the system level, and $1$ reports psychometric reliability.
+Thus $43$ of $49$ ($88\%$) report no item-level proper score or divergence against human ratings.
+The pattern splits by judge type.
+Of the $30$ direct-score and benchmark papers, $29$ report correlation (the exception is an IRT reliability paper).
+Of the $13$ pairwise-judge and reward-model papers, all $13$ report agreement, accuracy or kappa, and only $1$ reports correlation.
+All six papers with an item-level proper score or divergence are from 2025--2026 and are discussed next.
+The census supports a narrower statement than ``judges are validated by correlation'': most papers compare the judge with one aggregated or forced-choice human label per item using a point statistic.
+
+\begin{table}[t]
+\centering
+\caption{Experiment~43 tally by judge type (49 papers; rows overlap across metric families). C: correlation; A: agreement or accuracy; K: kappa or alpha; P: item-level proper score or divergence against human ratings; Ps: system-level proper score only; R: psychometric reliability.}
+\label{tab:supp-practice}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\hline
+Judge type & Papers & C & A & K & P & Ps & R \\
+\hline
+Direct-score judges and metrics & 25 & 24 & 6 & 2 & 0 & 0 & 1 \\
+Benchmarks vs.\ a human leaderboard & 5 & 5 & 3 & 0 & 0 & 2 & 0 \\
+Pairwise judges and reward models & 13 & 1 & 12 & 3 & 0 & 0 & 0 \\
+Distribution-aware validation & 6 & 3 & 3 & 2 & 6 & 0 & 0 \\
+\hline
+All & 49 & 33 & 24 & 7 & 6 & 2 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Closest Prior Work}
+\label{sec:supp-closest}
+\paragraph{Beyond correlation (Elangovan et al., ICLR 2025).}
+\citet{elangovan2025beyond} argue that a single aggregate correlation can obscure differences between human labels and automatic labels.
+When the share of items with uncertain human labels is high, machine labels can look as good as or better than human labels on correlation with the human majority label, while on items where humans agree the machine falls well below human--human correlation.
+They propose stratifying items by human label uncertainty, a binned Jensen--Shannon divergence for perception-type tasks, and perception charts.
+We share the stratification idea and the concern that correlation misleads.
+We differ in three ways: we score with strictly proper rules (a binned Jensen--Shannon divergence is not one) normalized into a base-rate skill score, we give an identification argument for why correlation, agreement and kappa cannot distinguish forecasts that proper scores separate, and we match the rule to the label encoding.
+Their binned divergence can be reported next to stratified skill in the same analysis.
+
+\paragraph{Judging with Confidence (Li et al., Findings of EMNLP 2026).}
+\citet{li2026judging} argue that an autorater should model the distribution of preferences of a target population and calibrate verbalized probability predictions to it.
+They study pairwise binary preferences with two methods: supervised fine-tuning on dense probabilistic labels, and reinforcement learning with Brier or logarithmic rewards on sparse binary labels.
+Both are scored against preference distributions built from ten annotations per evaluation prompt, using alignment error (mean squared error), calibration error and agreement.
+Under a matched total annotation budget, RL on $50$K prompts with one label each outperforms SFT on $5$K prompts with ten labels each; the authors attribute this to data diversity.
+That comparison changes the training method and the item-versus-rating split together, so it does not separate them, and we do not read it as evidence about the split alone.
+The authors state that multi-class strictly proper rewards for nominal or ordinal (Likert) outputs, such as the multi-class Brier score or cross-entropy, are left as future work.
+Our paper is evaluation-first, treats training as secondary, and covers ordinal scales, which is the opening they identify.
+
+\paragraph{Human-Residual Steering (Lyu, Do and Pergola, Oct.\ 2026).}
+\citet{lyu2026humanresidual} align frozen LLM judges with human judgment distributions through learned hidden-state interventions.
+They train on individual annotations with proper scoring rules, RPS for ordinal and cross-entropy for nominal judgments, and report Jensen--Shannon distance as the primary metric alongside annotation-level RPS (ordinal) or Brier score (nominal) and correlation with aggregate human scores, across $14$ benchmarks and four judges.
+Their introduction also observes that correlation, error and accuracy against aggregates do not establish whether a judge reflects the distribution of individual judgments.
+Lyu et al.\ already use RPS and CE for ordinal and nominal judges.
+Our focus is different: we document the practice gap and test whether metric choice changes real judge rankings, rather than proposing a steering method.
+
+\paragraph{2025 distributional-judging papers.}
+\citet{guerdan2025validating} study validation under rating indeterminacy, where several ratings may be reasonable for an item.
+They show that forced-choice human labels bias validation and that selecting judges by forced-choice agreement can pick systems that perform as much as $31\%$ worse than systems selected with multi-label response sets, using distributional metrics including KL divergence and cross-entropy.
+This is the closest existing evidence that the choice of validation metric changes which judge is selected, and our claim about rankings must be read next to it.
+\citet{chen2025beyond} train judges to match empirical human judgment distributions with a KL objective plus a cross-entropy term and adversarial robustness training, and evaluate with KL divergence and accuracy against the most frequent human label.
+\citet{wang2025improving} take the mean of the judge's own score distribution rather than its mode and find that the mean achieves higher accuracy in $42$ of $48$ cases on RewardBench and MT-Bench; they also report mean squared error against averaged human preference, which for binary targets is the Brier score.
+These papers use the human distribution as a target or as a source of information about the judge; none of them is a practice audit or an identification analysis of correlation.
+
+\begin{table*}[t]
+\centering
+\caption{Prior work versus this paper by aspect. A check mark is a stated main contribution as read in each paper's abstract and method for this appendix; a circle is a partial or adjacent treatment (named in the text); a dash is not a main contribution, not a claim that the paper never touches the aspect. Every row adopts the distributional target; only the last four columns carry our novelty claim. The audit column reflects the 49-paper census of this paper (a convenience sample, not a systematic review).}
+\label{tab:supp-novelty}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\hline
+Work & Distributional target & Item-level proper score & Ordinal (RPS) & Skill and stratified protocol & Practice audit & Identification result \\
+\hline
+\citet{pavlick2019inherent} & \checkmark & $\circ$ & -- & -- & -- & -- \\
+\citet{plank2022problem} & \checkmark & -- & -- & -- & -- & -- \\
+\citet{elangovan2025beyond} & \checkmark & -- & -- & $\circ$ & -- & $\circ$ \\
+\citet{guerdan2025validating} & \checkmark & \checkmark & -- & -- & -- & $\circ$ \\
+\citet{chen2025beyond} & \checkmark & $\circ$ & -- & -- & -- & -- \\
+\citet{li2026judging} & \checkmark & \checkmark & -- & -- & -- & -- \\
+\citet{lyu2026humanresidual} & \checkmark & \checkmark & \checkmark & -- & -- & -- \\
+This paper & adopted & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+\subsection{The Psychometric Thread}
+\label{sec:supp-psych}
+Reliability and agreement statistics from psychometrics are the other standard way to speak about judges.
+Cohen's kappa~\citep{cohen1960coefficient}, Krippendorff's alpha~\citep{krippendorff1970estimating}, intraclass correlations~\citep{mcgraw1996forming}, Lin's concordance~\citep{lin1989concordance}, generalizability theory~\citep{shavelson1989generalizability} and many-facet Rasch models~\citep{linacre1989many} describe consistency, agreement or variance components.
+Krippendorff's alpha and kappa were designed to quantify the reliability of human labeling, and \citet{elangovan2025beyond} point out that their assumptions may not transfer to machine-generated labels.
+A small recent thread applies item response theory or generalizability theory to LLM judges.
+\citet{choi2026diagnosing} fit a graded response model to measure the prompt consistency and marginal reliability of judges, and the \texttt{Gtheory4LLM} R package~\citep{liu2026gtheory4llm} decomposes evaluator, prompt and run facets and supports decision studies, including models for binary, ordinal and unordered categorical outcomes.
+Only $1$ of the $49$ papers in our census (Choi et al.) is coded as psychometric reliability, so we call this an emerging thread rather than a shift in practice.
+We do not argue that these methods are unnecessary.
+They answer how consistently an instrument measures and how many raters or prompts a design needs.
+They do not say whether the judge's probabilities match the human rating distribution, and a judge can be perfectly reliable while being miscalibrated.
+
+\subsection{What Is New Here}
+\label{sec:supp-new}
+Table~\ref{tab:supp-novelty} summarizes the comparison.
+Our novelty is not that the target is a distribution~\citep{pavlick2019inherent,plank2022problem} and not that proper scores should be used~\citep{li2026judging,lyu2026humanresidual}.
+It is the following.
+\begin{enumerate}
+\item \emph{A measured practice gap.} In a $49$-paper census, $43$ report no item-level proper score or divergence, $29$ of $30$ direct-score and benchmark papers report correlation, $13$ of $13$ pairwise papers report agreement, accuracy or kappa, $33$ of $49$ report correlation overall, and only $1$ of $49$ uses IRT or G-theory.
+\item \emph{An encoding-based identification analysis.} Squared correlation is one minus the mean squared error of the best affine fit divided by the variance of the human rating, $r^2 = 1 - \mathrm{MSE}(\text{best affine})/\mathrm{Var}(Y)$, so correlation measures discrimination after recalibration and ignores calibration.
+Forecasts with the same conditional mean tie on Pearson, Spearman, Kendall and mean squared error but differ on Brier, CE and RPS (machine-checked in Lean~4).
+For a judge that samples independently of the human given the input, correlation with sampled ratings can favor a collapsed mean judge over the true distribution; this anti-properness is machine-checked only in squared form ($\rho^2<\rho$), not for the unsquared correlation.
+That accuracy against the majority label is proper but not strictly proper is argued by hand and is not machine-checked.
+\item \emph{A general protocol.} A strictly proper score matched to the encoding, a base-rate skill score, and stratification by human agreement, estimated without bias from one rating per held-out item.
+\item \emph{Evidence on whether metric choice matters.} Two results in this paper bear on this; a third is open.
+In the synthetic ordinal suite (Experiment~06, Scenario~B, $n=2{,}048$), Pearson ($0.973$), Spearman ($0.982$) and Kendall ($0.981$) fits rank above the cross-entropy fit ($0.948$) on rank agreement with the conditional mean, yet their predicted distributions carry $0.0330$--$0.0951$ test RPS excess against $0.0037$ for cross-entropy, so the two metrics order the objectives oppositely.
+On seven real multi-annotator rating sets re-binned to two, three and five classes (Experiment~41), a cross-entropy-trained linear head beats a Pearson-trained one by up to $0.1282$ normalized RPS on held-out items at a fixed ridge penalty (the largest value is on a view where no head beats the constant forecast); after each head's score passes through its own validation-fitted calibration map, the difference is at most $0.0024$.
+This supports the evaluation claim (correlation cannot see calibration) more than the training claim.
+A comparison that ranks independently built real LLM judges by correlation and by held-out proper score with paired, pre-registered tests, and reports whether the rankings reverse, is not yet established in this paper, and \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
+\end{enumerate}
+We state three limits of this appendix.
+The $49$-paper tally is a convenience sample with a single coder.
+Training objective, scaling behavior and the item-versus-rating budget split are secondary to the evaluation claim and are left to follow-up work.
+Papers that appeared after the census was frozen are not included.
