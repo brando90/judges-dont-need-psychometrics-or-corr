@@ -1,0 +1,46 @@
+import Point2
+
+/-! Prints the axioms of every Point 2 theorem. Expected: only propext, Classical.choice, Quot.sound. -/
+#print axioms Point2.FinLaw.r_sq_identity
+#print axioms Point2.FinLaw.r_sq_eq_one_sub_min
+#print axioms Point2.FinLaw.mse_affine_ge
+#print axioms Point2.FinLaw.mse_affine_opt
+#print axioms Point2.FinLaw.pearson_affine
+#print axioms Point2.FinLaw.pearson_affine_pos
+#print axioms Point2.FinLaw.pearson_affine_neg
+#print axioms Point2.FinLaw.midrank_strictMono
+#print axioms Point2.FinLaw.kendall_strictMono
+#print axioms Point2.FinLaw.spearman_strictMono
+#print axioms Point2.FinLaw.same_mean_tie
+#print axioms Point2.expScore_eq
+#print axioms Point2.expScore_congr
+#print axioms Point2.enc_proper
+#print axioms Point2.strictlyProper_iff
+#print axioms Point2.brier_expected
+#print axioms Point2.brier_strictly_proper
+#print axioms Point2.cumEnc_injOnD
+#print axioms Point2.rps_eq_encScore
+#print axioms Point2.rps_expected
+#print axioms Point2.rps_strictly_proper
+#print axioms Point2.scalar_same_mean_tie
+#print axioms Point2.scalar_not_strictly_proper
+#print axioms Point2.scalar_two_strictly_proper
+#print axioms Point2.FinLaw.orth
+#print axioms Point2.FinLaw.murphy
+#print axioms Point2.FinLaw.murphy_scalar
+#print axioms Point2.FinLaw.reliability_zero_iff
+#print axioms Point2.FinLaw.condE_affine
+#print axioms Point2.FinLaw.r_sq_resolution
+#print axioms Point2.FinLaw.brier_murphy
+#print axioms Point2.FinLaw.brier_reliability_zero_iff
+#print axioms Point2.FinLaw.cov_sq_le
+#print axioms Point2.FinLaw.expected_readout
+#print axioms Point2.FinLaw.expected_readout_attained
+#print axioms Point2.FinLaw.expected_readout_equality
+#print axioms Point2.Sampled.Model.anti_proper
+#print axioms Point2.Sampled.Model.total_variance
+#print axioms Point2.Sampled.noteModel_moments
+#print axioms Point2.Sampled.noteModel_anti_proper
+#print axioms Point2.FinLaw.kendall_strictAnti
+#print axioms Point2.FinLaw.midrank_strictAnti
+#print axioms Point2.FinLaw.spearman_strictAnti
