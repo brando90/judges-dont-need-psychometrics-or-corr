@@ -43,6 +43,7 @@ This repository asks which objective to fit, and when a proper score beats Pears
 | [`experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026`](experiments/33_moment_derivation_checks_what_correlation_and_ce_identify_start_25Nov2026/README.md) | Numerical checks of the moment-derivation appendix. |
 | [`experiments/43_llm_judge_validation_practice_survey_start_27Nov2026`](experiments/43_llm_judge_validation_practice_survey_start_27Nov2026/README.md) | Literature check of how LLM judges are validated (49 papers coded; reproduce the tally with `python3 tally.py`). |
 | [`docs/prompts/claude_code_paper1_prompt_corrected_27Nov2026.md`](docs/prompts/claude_code_paper1_prompt_corrected_27Nov2026.md) | Archived corrected Claude Code prompt for the Paper 1 re-scope (framing: a strictly proper score matched to the label space). |
+| [`docs/prompts/claude_code_paper1_advisor_feedback_update_27Nov2026.md`](docs/prompts/claude_code_paper1_advisor_feedback_update_27Nov2026.md) | Advisor-feedback update to the Paper 1 Claude Code prompt (27 Nov 2026); applies on top of the corrected prompt and wins on conflicts. |
 | [`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL`](paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/README.md) | AAAI-27 workshop paper sources and PDFs. |
 | [`AGENTS.md`](AGENTS.md) | Agent policy. Identical to [`CLAUDE.md`](CLAUDE.md). Work is committed on `main` in experiment folders. |
 

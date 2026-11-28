@@ -1,3 +1,5 @@
+> **Latest version:** [claude_code_paper1_advisor_feedback_update_27Nov2026.md](claude_code_paper1_advisor_feedback_update_27Nov2026.md) applies on top of this prompt and wins on conflicts.
+
 # Corrected Claude Code prompt for Paper 1 (27 Nov 2026)
 
 **Doc link:** <https://github.com/brando90/judges-dont-need-psychometrics-or-corr/blob/main/docs/prompts/claude_code_paper1_prompt_corrected_27Nov2026.md>
@@ -34,7 +36,7 @@ Other notes:
 
 **Recommended model and effort.** Claude Opus at high effort for the full run, especially Stages 0 to 2 (audit, Exp 39 fix, Exp 43 and Lean updates, `paper_latex/` rewrite). If the main run is already finished and only the addendum is being applied as a follow-up, Claude Sonnet at medium effort is enough.
 
-You are updating the repository `https://github.com/brando90/judges-dont-need-psychometrics-or-corr` and its local LaTeX manuscript (`paper_latex/`) to execute our finalized, Sanmi-aligned Paper 1 strategy. Working title: "Mirage for Ordinal AI Judges: Breaking the Broken Ruler of Correlation, Majority-Label Agreement, and Symmetric Psychometrics", **to be generalized per the framing update at the end of this prompt** (the thesis is a strictly proper score matched to the label space, not "RPS only").
+You are updating the repository `https://github.com/brando90/judges-dont-need-psychometrics-or-corr` and its local LaTeX manuscript (`paper_latex/`) to execute our finalized, advisor-aligned Paper 1 strategy. Working title: "Mirage for Ordinal AI Judges: Breaking the Broken Ruler of Correlation, Majority-Label Agreement, and Symmetric Psychometrics", **to be generalized per the framing update at the end of this prompt** (the thesis is a strictly proper score matched to the label space, not "RPS only").
 
 ## 0. CONTEXT AND REFERENCE LINKS (READ FIRST)
 
@@ -43,7 +45,7 @@ Also consult these Google Docs and references (via Drive/MCP/browser if availabl
 
 1. **Merged Literature Check and Final Strategy (Master Spec, 27 Nov 2026; Gemini's synthesis, unedited; see the corrections table above, and treat Exp 43's README as canonical where they differ):**
    https://docs.google.com/document/d/1Pt4NFmrYn3aclbQqx6_YGIUXS9bQappZsY08IEEBlNo/edit
-2. **SK–BMG Alignment Draft (Top 5 Questions, incorporating Sanmi's Nov 26 email):**
+2. **SK–BMG Alignment Draft (Top 5 Questions, incorporating the advisor's Nov 26 email):**
    https://docs.google.com/document/d/1sH1WHv4qcskd6rPml9HZb8SxBjt1xMLZz_IUhN_q4Uw/edit
 3. **SK–BMG Detailed Repo Audit Draft (Exp 39 review + Exp 41 exact numbers):**
    https://docs.google.com/document/d/1KWGwp-a3DRjW2OQuvk5jSGwPmhnOioOdiTch5IwrLtc/edit
@@ -55,9 +57,7 @@ Also consult these Google Docs and references (via Drive/MCP/browser if availabl
    https://docs.google.com/document/d/1WtzpWNuUbkf3eGLOERMIvcyI7Sjec1hLfIZ1rJKfKvE/edit
 7. **Exp 41 Simulated Multi-Modal Population Report:**
    https://docs.google.com/document/d/1WJQVKxCmCwppfAwHvdQ46OUFqcfWPor35i-SdBpA24A/edit
-8. **Current Results Slide Deck (11-25-2026):**
-   https://docs.google.com/presentation/d/1Q0FoiIzbt3uTG5LDE-rrK4iSLp-ppaW2J6icAfufg1w/edit
-9. **Live Working Blog Draft (check and strip the Gemini prompt and share link from the appendix if a local copy exists):**
+8. **Live Working Blog Draft (check and strip the Gemini prompt and share link from the appendix if a local copy exists):**
    https://cs.stanford.edu/people/brando9/2026/11/25/bitter-judges-lesson.html
 
 ## 1. HARD CONSTRAINTS AND OPERATING RULES
@@ -76,7 +76,7 @@ Also consult these Google Docs and references (via Drive/MCP/browser if availabl
 - **Mandatory Paper 1 Framing Guardrails (DO NOT VIOLATE):**
   1. Target **"correlation, majority-label agreement, and symmetric psychometrics (alpha, weighted kappa, IRT, G-theory)"** — NEVER claim "correlation is the only ruler for all LLM judges" (explicitly distinguish direct-score/ordinal judges [correlation, 29/30 scored/benchmark papers in Exp 43] from pairwise/reward models [accuracy/agreement/kappa, 13/13 pairwise papers in Exp 43]).
   2. Respect the 3 known weak spots: (a) pairwise judges use majority-label accuracy (same mode-collapse failure, different theorem; accuracy is proper but not strictly proper), (b) system-level leaderboards summarize rankings (note Chatbot Arena BT uses binary CE and Arena-Hard uses system-level Pair Rank Brier), (c) objective-answer tasks (JudgeBench, No Free Labels, Judge's Verdict) have near-point-mass truth where accuracy is close to proper.
-  3. **Honest evaluation vs. training separation (Sanmi's Nov 26 guidance + Exp 41/23 reality):**
+  3. **Honest evaluation vs. training separation (the advisor's Nov 26 guidance + Exp 41/23 reality):**
      - Lead Paper 1 with the airtight **Mirage-style evaluation protocol** (explicit construct `p*(y | c, expert pool, rubric)` + unbiased single-rating proper score `S` matched to the label space + base-rate skill `Skill_S` for CE, Brier, and RPS + human-agreement stratification + downstream system-level ranking). RPS is the flagship score on ordinal Likert scales; CE and Brier are primary on unordered categories such as ChaosNLI.
      - State the training takeaway honestly: **"Evaluate with a strictly proper score matched to the label space, and train — or at minimum calibrate — with one."** Explicitly report BOTH the large raw calibration gap (up to `0.128` normalized RPS in Exp 41; `7/7` raw CE-LoRA wins in Exp 29) AND the honest post-calibration linear-head result (`<= 0.0024` normalized RPS gap between CE and calibrated Pearson across 16 views; regularized MSE + calibration ties CE within `0.0004` in Exp 41; calibrated Pearson beats direct CE-fit on DICES at some budgets in Exp 28; raw Pearson got higher system-level Spearman `0.877` vs `0.835` on SummEval in Exp 23).
      - Hold strong **scaling-law** and **Bitter Lesson** claims out of Paper 1's main claim (frame end-to-end training beyond linear heads, fixed-dollar allocation, and cross-generation drift as Paper 2 / future work).
@@ -116,7 +116,7 @@ Execute these concrete repo updates in order:
 
 3. **Add missing Paper 1 eval-protocol diagnostics on existing cached forecasts/datasets (CPU only, $0):**
    - On saved held-out datasets/forecasts (DICES-350/990, ChaosNLI, SummEval, CertJudge/VeriBench if local), compute and save a clean JSON/CSV + `results.md` under a new dated experiment folder (e.g., `experiments/44_ordinal_eval_protocol_skill_stratification_power_start_27Nov2026/`):
-     (a) **Base-rate skill scores** `Skill_S = 1 - S(judge) / S(base-rate)` for **CE, Brier, and RPS**, with item-clustered bootstrap 95% CIs (directly answering kappa/alpha pushback per Sanmi's email), clearly labeling which proper rule matches each dataset's label-space geometry (CE/Brier primary on unordered categories such as ChaosNLI; RPS primary on ordinal scales).
+     (a) **Base-rate skill scores** `Skill_S = 1 - S(judge) / S(base-rate)` for **CE, Brier, and RPS**, with item-clustered bootstrap 95% CIs (directly answering kappa/alpha pushback per the advisor's email), clearly labeling which proper rule matches each dataset's label-space geometry (CE/Brier primary on unordered categories such as ChaosNLI; RPS primary on ordinal scales).
      (b) **Human-agreement stratification** (low-entropy consensus vs. high-entropy disputed items, using independent rater splits for stratifying vs. scoring where multi-rater data permits), verifying proper distributional judging stays peaky on consensus items and calibrated on disputed items.
      (c) **Eval-set statistical power / Minimum Detectable Difference (MDD) curves** sweeping `(N_test, k_test)` via item-clustered bootstrap on existing benchmarks, quantifying whether current test set sizes already separate judges cleanly under the matched unbiased single-rating proper score (CE, Brier, and RPS).
      (d) **Explicit real-benchmark winner reversal summary table** pulling exact paired CIs for DICES-990, ChaosNLI MNLI-m (Exp 28), and G-theory reliability vs. the matched proper score (RPS, and CE/Brier as applicable) (Exps 4 & 41).
@@ -166,7 +166,7 @@ Inspect `paper_latex/` thoroughly (existing `.tex` files, `.bib`, figures, style
    - Summary of `paper_latex/` edits, compiled PDF path and page count, and verification of zero `2606.19544` / zero `[?]` / zero overclaims.
    - Reminder of any manual Google Doc or blog appendix cleanup items (e.g., stripping the Gemini prompt and share link from the live blog appendix if it is not hosted in this repository).
 
-**TL;DR (main prompt).** Audit this repository against the merged literature check and Sanmi's Nov 26 guidance; then on CPU ($0 API spend): install the three-pillar repo rules, verify Exp 43 (49 papers), fix and re-run Exp 39, compute Exp 44, verify zero-`sorry` Lean 4 builds; re-scope and compile `paper_latex/`; commit on `main` with a full verification report.
+**TL;DR (main prompt).** Audit this repository against the merged literature check and the advisor's Nov 26 guidance; then on CPU ($0 API spend): install the three-pillar repo rules, verify Exp 43 (49 papers), fix and re-run Exp 39, compute Exp 44, verify zero-`sorry` Lean 4 builds; re-scope and compile `paper_latex/`; commit on `main` with a full verification report.
 
 ---
 
@@ -176,7 +176,7 @@ Our core Paper 1 thesis is MORE GENERAL than ordinal RPS alone. Do NOT frame the
 
 1. **General Principle (Main Thesis, "Proper Evaluation Matched to the Judgment Space Y"):**
    - Replace correlation, majority-label agreement, and symmetric psychometrics (`alpha`, `kappa`, IRT, G-theory) with a **strictly proper scoring rule `S(q_hat(. | c), y)` matched to the encoding/geometry of the output space `Y`**, paired with its **base-rate skill score** `Skill_S = 1 - S(judge) / S(base-rate)` (answering chance-corrected agreement), human-agreement stratification, and downstream system-ranking checks.
-   - Include a crisp **Output-Space -> Encoding -> Strictly Proper Rule** table (echoing Sanmi's Nov 26 "frame around encodings" suggestion):
+   - Include a crisp **Output-Space -> Encoding -> Strictly Proper Rule** table (echoing the advisor's Nov 26 "frame around encodings" suggestion):
      * **Binary (`K = 2`):** Bernoulli `y in {0,1}` -> **CE (log-loss), Brier** (noting scalar L2 = 0.5 * Brier, yet Pearson still fails affine calibration, and hard accuracy against the majority label is proper but not strictly proper: it collapses to the mode).
      * **Unordered Categorical (`K >= 3`, e.g., error categories, nominal taxonomies, NLI):** One-hot `e_y in {0,1}^K` -> **CE (log-loss), Multiclass Brier** (`D_B(p* || q_hat)`). Explicitly note that **RPS does NOT apply to unordered categories**: proper evaluation works seamlessly for categorical judging via CE/Brier.
      * **Finite Ordinal (`K >= 3`, e.g., 0–5 / 1–5 Likert rubrics):** Cumulative threshold indicators `1[y <= k]` -> **RPS** (squared error on cumulative encoding, adding within-item distance sensitivity / "how wrong you are") alongside **CE and Brier**.
@@ -189,8 +189,8 @@ Our core Paper 1 thesis is MORE GENERAL than ordinal RPS alone. Do NOT frame the
    - Check dataset-to-metric matching carefully: on unordered/nominal multi-class tasks (or where class order is non-metric, e.g., note this transparently on ChaosNLI), report **CE and Brier** (plus their base-rate skill scores) prominently alongside any RPS numbers; on genuinely ordinal scales (SummEval, DICES, CertJudge `R_v1`, POPQUORN), report **RPS** (primary distance-sensitive proper score) together with **CE and Brier**.
 
 3. **Concrete Edits Required:**
-   - **Title / Abstract / Intro (`paper_latex/`):** Use a general title/framing such as *"Evaluating AI Judges Requires Proper Scoring Rules (Not Correlation or Psychometrics)"* or *"The Judge-Validation Mirage: Why Correlation and Psychometrics Mis-Rank AI Judges, and a Proper Scoring Protocol Across Categorical and Ordinal Scales"* (keeping the Mirage framing Sanmi liked without restricting the principle to RPS).
+   - **Title / Abstract / Intro (`paper_latex/`):** Use a general title/framing such as *"Evaluating AI Judges Requires Proper Scoring Rules (Not Correlation or Psychometrics)"* or *"The Judge-Validation Mirage: Why Correlation and Psychometrics Mis-Rank AI Judges, and a Proper Scoring Protocol Across Categorical and Ordinal Scales"* (keeping the Mirage framing the advisor liked without restricting the principle to RPS).
    - **Exp 44 (`experiments/44_...`):** Compute unbiased per-sample proper risk, **base-rate skill scores** (`1 - S(judge)/S(base-rate)`), human-agreement stratification, and eval-set power/MDD curves for **all three proper rules: CE, Brier, AND RPS**, clearly labeling which proper rule matches each dataset's label-space geometry.
-   - **Reference docs:** Keep alignment with our merged strategy doc (`https://docs.google.com/document/d/1Pt4NFmrYn3aclbQqx6_YGIUXS9bQappZsY08IEEBlNo/edit`, with the corrections above) and the Sanmi alignment doc (`https://docs.google.com/document/d/1sH1WHv4qcskd6rPml9HZb8SxBjt1xMLZz_IUhN_q4Uw/edit`).
+   - **Reference docs:** Keep alignment with our merged strategy doc (`https://docs.google.com/document/d/1Pt4NFmrYn3aclbQqx6_YGIUXS9bQappZsY08IEEBlNo/edit`, with the corrections above) and the advisor alignment doc (`https://docs.google.com/document/d/1sH1WHv4qcskd6rPml9HZb8SxBjt1xMLZz_IUhN_q4Uw/edit`).
 
 **TL;DR (addendum).** Broaden Paper 1's framing from "ordinal RPS only" to the general decision-theoretic principle: **evaluate AI judges with a strictly proper scoring rule matched to the label-space encoding `Y` (CE/Brier for binary and unordered categorical; RPS for finite ordinal; CRPS for 1D continuous) plus base-rate skill**, treating ordinal judging (RPS) as the flagship empirical instantiation alongside categorical judging (CE/Brier), and compute Exp 44 skill/stratification/power diagnostics across CE, Brier and RPS.
