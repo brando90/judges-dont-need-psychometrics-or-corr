@@ -105,17 +105,83 @@ def law_stats(items):
     return EY, VarY, mus, Varmu
 
 
+def table_truthful(items):
+    """Joint law of (J, Y) for a judge that samples J from the item's rating distribution, independently of Y given the item."""
+    t = {}
+    for w, d in items:
+        for j, qj in d.items():
+            for y, qy in d.items():
+                t[(j, y)] = t.get((j, y), Fr(0)) + w * qj * qy
+    return t
+
+
+def table_collapsed(items):
+    """Joint law of (J', Y) for a judge that always reports the item's mean rating."""
+    t = {}
+    for w, d in items:
+        m = sum(y * q for y, q in d.items())
+        for y, qy in d.items():
+            t[(m, y)] = t.get((m, y), Fr(0)) + w * qy
+    return t
+
+
+def table_arbitrary(items, scores):
+    """Joint law of (J'', Y) for a judge that reports the fixed number scores[i] on item i."""
+    t = {}
+    for (w, d), s in zip(items, scores):
+        for y, qy in d.items():
+            t[(s, y)] = t.get((s, y), Fr(0)) + w * qy
+    return t
+
+
+def table_moments(t):
+    """Exact moments of a finite joint law {(j, y): probability}: E J, E Y, Var J, Var Y, Cov(J, Y)."""
+    EJ = sum(p * j for (j, y), p in t.items())
+    EY = sum(p * y for (j, y), p in t.items())
+    VarJ = sum(p * j * j for (j, y), p in t.items()) - EJ ** 2
+    VarY = sum(p * y * y for (j, y), p in t.items()) - EY ** 2
+    Cov = sum(p * j * y for (j, y), p in t.items()) - EJ * EY
+    return EJ, EY, VarJ, VarY, Cov
+
+
+def corr2_of(t):
+    _, _, VarJ, VarY, Cov = table_moments(t)
+    return Cov ** 2 / (VarJ * VarY)
+
+
+def refit_error(t):
+    """Mean squared error of the best straight-line fit of Y on J. The line comes from the normal equations, the error is
+    summed over the joint table (not taken from a closed form), and the line is confirmed to be a minimum by exact nudges."""
+    EJ, EY, VarJ, _, Cov = table_moments(t)
+    b = Cov / VarJ
+    a = EY - b * EJ
+    err = lambda a_, b_: sum(p * (y - a_ - b_ * j) ** 2 for (j, y), p in t.items())
+    nudge = Fr(1, 7)
+    is_min = all(err(a + da, b + db) > err(a, b) for da, db in ((nudge, 0), (-nudge, 0), (0, nudge), (0, -nudge)))
+    return err(a, b), is_min
+
+
+def affine_map(t, a, b):
+    out = {}
+    for (j, y), p in t.items():
+        out[(a * j + b, y)] = out.get((a * j + b, y), Fr(0)) + p
+    return out
+
+
 # the two-item example of the post: item 1 rated 0 or 2 equally often, item 2 rated 2 or 4 equally often
 items = [(Fr(1, 2), {0: Fr(1, 2), 2: Fr(1, 2)}), (Fr(1, 2), {2: Fr(1, 2), 4: Fr(1, 2)})]
 EY, VarY, mus, Varmu = law_stats(items)
 rho = Varmu / VarY
-check("T6", rho == Fr(1, 2), f"two-item law: rho = Var(mu)/Var(Y) = {rho}; the truthful sampling judge's correlation equals rho (= {rho})", ["0.5"])
-collapsed_corr2 = Varmu ** 2 / (Varmu * VarY)  # Cov(mu, Y) = Var(mu); Var(mu) Var(Y) in the denominator
+_, _, vjt, vyt, cvt = table_moments(table_truthful(items))
+check("T6", rho == Fr(1, 2) and vjt == vyt and cvt / vyt == rho,
+      f"two-item law: rho = Var(mu)/Var(Y) = {rho}; the truthful sampling judge's correlation, computed from the joint table of judge and human, equals rho (= {cvt / vyt})", ["0.5"])
+collapsed_corr2 = corr2_of(table_collapsed(items))
 check("T7", collapsed_corr2 == rho and math.isclose(math.sqrt(collapsed_corr2), 0.5 ** 0.5, rel_tol=1e-15),
-      f"collapsed judge (outputs mu(X)): squared correlation {collapsed_corr2} = rho, so its correlation is sqrt(rho) = {math.sqrt(collapsed_corr2):.4f}", ["0.71"])
+      f"collapsed judge (outputs mu(X)): squared correlation {collapsed_corr2} = rho from the joint table, so its correlation is sqrt(rho) = {math.sqrt(collapsed_corr2):.4f}", ["0.71"])
 
 rng = random.Random(SEED)
-n_laws, n_ok_exact, n_ok_gt, n_ok_aff, n_ok_r2 = 2000, 0, 0, 0, 0
+rng2 = random.Random(SEED + 1)  # a separate stream for the arbitrary judge, so the random laws stay the same
+n_laws, n_ok_exact, n_ok_gt, n_cases, n_ok_aff, n_ok_r2, n_ok_min = 2000, 0, 0, 0, 0, 0, 0
 for _ in range(n_laws):
     ni = rng.randint(2, 5)
     ws = [rng.randint(1, 9) for _ in range(ni)]
@@ -131,27 +197,32 @@ for _ in range(n_laws):
         n_laws -= 1
         continue
     rho = Varmu / VarY
-    # truthful sampling judge J|x ~ p(y|x), independent of Y given x: Cov(J,Y) = Var(mu), Var(J) = Var(Y)
-    cov_JY = sum(w * m * m for (w, d), m in zip(its, mus)) - EY ** 2
-    corr_truth = cov_JY / VarY
-    # collapsed judge J' = mu(X): Cov(J',Y) = Var(mu), Var(J') = Var(mu)
-    corr2_coll = Varmu ** 2 / (Varmu * VarY)
-    n_ok_exact += (corr_truth == rho) and (corr2_coll == rho)
-    n_ok_gt += math.sqrt(float(corr2_coll)) > float(corr_truth)
-    # positive affine invariance of the squared correlation of the collapsed judge
+    tt, tc = table_truthful(its), table_collapsed(its)
+    _, _, vjt, vyt, cvt = table_moments(tt)
+    _, _, vjc, vyc, cvc = table_moments(tc)
+    corr2_t, corr2_c = cvt ** 2 / (vjt * vyt), cvc ** 2 / (vjc * vyc)
+    # truthful judge: Var(J) = Var(Y) and Cov(J, Y) = Var(mu), so its correlation is rho;
+    # collapsed judge: Var(J') = Cov(J', Y) = Var(mu), so its squared correlation is rho. Every moment is read off the joint table.
+    n_ok_exact += (vjt == vyt == VarY) and (cvt == Varmu) and (corr2_t == rho ** 2) and (vjc == cvc == Varmu) and (corr2_c == rho)
+    # both covariances are positive, so each correlation is the positive root of its square and they compare as the squares do
+    n_ok_gt += (cvt > 0) and (cvc > 0) and (corr2_c > corr2_t)
     a, b = Fr(rng.randint(1, 9), rng.randint(1, 9)), Fr(rng.randint(-9, 9), rng.randint(1, 9))
-    Jm = [a * m + b for m in mus]
-    EJ = sum(w * j for (w, d), j in zip(its, Jm))
-    covJ = sum(w * j * m for (w, d), j, m in zip(its, Jm, mus)) - EJ * EY
-    VarJ = sum(w * j * j for (w, d), j in zip(its, Jm)) - EJ ** 2
-    n_ok_aff += (covJ ** 2 / (VarJ * VarY) == corr2_coll)
-    # r^2 = 1 - MSE(best affine refit of Y on J') / Var(Y)
-    slope = covJ / VarJ
-    mse_aff = VarY - slope * covJ
-    n_ok_r2 += (1 - mse_aff / VarY == covJ ** 2 / (VarJ * VarY))
-check("T8", n_ok_exact == n_laws, f"{n_laws} random finite joint laws (seed {SEED}): truthful judge's correlation = rho and collapsed judge's squared correlation = rho, exactly")
+    scores = [rng2.randint(0, 5) for _ in its]
+    for t in (tt, tc, table_arbitrary(its, scores)):
+        _, _, VarJ_, VarY_, _ = table_moments(t)
+        if VarJ_ == 0:
+            continue
+        n_cases += 1
+        c2 = corr2_of(t)
+        n_ok_aff += (corr2_of(affine_map(t, a, b)) == c2)
+        mse_fit, is_min = refit_error(t)
+        n_ok_r2 += (1 - mse_fit / VarY_ == c2)
+        n_ok_min += is_min
+check("T8", n_ok_exact == n_laws, f"{n_laws} random finite joint laws (seed {SEED}), each joint table of judge and human built explicitly: truthful judge's correlation = rho and collapsed judge's squared correlation = rho, exactly")
 check("T9", n_ok_gt == n_laws, f"{n_laws} random laws: the collapsed judge's correlation sqrt(rho) exceeds the truthful judge's correlation rho whenever 0 < rho < 1")
-check("T10", n_ok_aff == n_laws and n_ok_r2 == n_laws, f"{n_laws} random laws: squared correlation is unchanged by positive affine maps of the judge, and equals 1 - MSE(best affine refit)/Var(Y), exactly")
+check("T10", n_cases >= n_laws and n_ok_aff == n_cases and n_ok_r2 == n_cases and n_ok_min == n_cases,
+      f"{n_cases} judge-by-law cases (truthful, collapsed and an arbitrary per-item judge on the {n_laws} random laws): squared correlation is unchanged by positive affine maps of the judge, "
+      f"and equals 1 - MSE(best affine refit)/Var(Y) with the MSE summed over the joint table, exactly; the refit is a strict minimum")
 
 # ======================================================================= P: how judges are validated today
 sys.path.insert(0, str(one("43_*")))
@@ -436,10 +507,17 @@ far_cases = cs(lambda c: c["shift"] == "far")
 to_nli = [c for c in far_cases if isd(c["source"]) and not isd(c["target"])]
 to_dices = [c for c in far_cases if not isd(c["source"]) and isd(c["target"])]
 f_ = lambda cases: sum(bool(c["calibration_fails_outright"]) for c in cases)
-check("C5b", len(arm_a) == 82 and sum(c["judge"] in frontier5 for c in arm_a) == 80 and len(dd_cases) == 10 and sum(bool(c["reopens"]) for c in dd_cases) == 0 and f_(dd_cases) == 0
+fr_cases = cs(lambda c: c["judge"] in frontier5)
+fr_reo, fr_fail = sum(bool(c["reopens"]) for c in fr_cases), f_(fr_cases)
+# every frontier case moves a map to a different rating set: a single set (near, far) or the pooled other three sets (leave one set out); the two rubric cases are G-Eval
+fr_shift = sorted({c["shift"] for c in fr_cases})
+loso_cases = [c for c in fr_cases if c["shift"] == "leave_one_set_out"]
+check("C5b", len(arm_a) == 82 and len(fr_cases) == 80 and (fr_reo, fr_fail) == (52, 33) and fr_shift == ["far", "leave_one_set_out", "near"]
+      and len(loso_cases) == 20 and all(c["source"] == "pooled_other_three" for c in loso_cases)
+      and sorted({c["shift"] for c in arm_a if c["judge"] not in frontier5}) == ["rubric"] and len(dd_cases) == 10 and sum(bool(c["reopens"]) for c in dd_cases) == 0 and f_(dd_cases) == 0
       and len(far_cases) == 40 and f_(far_cases) == 21 and 2 * f_(far_cases) > fl and len(to_nli) == 20 and f_(to_nli) == 19 and len(to_dices) == 20 and f_(to_dices) == 2,
-      f"experiment 48: the 82 cases are 80 frontier-judge cases plus 2 G-Eval rubric cases; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; "
-      f"{f_(far_cases)} of the {fl} outright failures are transfers between the inference sets and the safety sets (DICES to NLI {f_(to_nli)} of {len(to_nli)}, NLI to DICES {f_(to_dices)} of {len(to_dices)})", [])
+      f"experiment 48: the 82 cases are {len(fr_cases)} frontier-judge cases plus 2 G-Eval rubric cases; the {len(fr_cases)} frontier-judge cases (maps fitted on one rating set, or on the pooled other three, and applied to a new set) reopen the gap in {fr_reo} and fail outright in {fr_fail}; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; "
+      f"{f_(far_cases)} of the {fl} outright failures are transfers between the inference sets and the safety sets (DICES to NLI {f_(to_nli)} of {len(to_nli)}, NLI to DICES {f_(to_dices)} of {len(to_dices)})", ["52", "80"])
 
 s49 = json.loads((one("49_*") / "results" / "system_level_drop.json").read_text())
 rep = s49["reproduction"]["this_run_exp23_function"]

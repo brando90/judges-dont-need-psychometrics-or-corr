@@ -3,11 +3,11 @@ PASS [T2] expected Brier against the panel: truthful 1/2, certain-2 2
 PASS [T3] expected RPS (cumulative Brier): truthful 1, certain-2 2
 PASS [T4] normalized RPS (RPS / (K-1) = RPS / 5): 1/5 vs 2/5
 PASS [T5] squared error of one sampled judgment against one human rating: truthful 8, certain-2 4 (the collapsed judge looks twice as good)
-PASS [T6] two-item law: rho = Var(mu)/Var(Y) = 1/2; the truthful sampling judge's correlation equals rho (= 1/2)
-PASS [T7] collapsed judge (outputs mu(X)): squared correlation 1/2 = rho, so its correlation is sqrt(rho) = 0.7071
-PASS [T8] 1997 random finite joint laws (seed 20261127): truthful judge's correlation = rho and collapsed judge's squared correlation = rho, exactly
+PASS [T6] two-item law: rho = Var(mu)/Var(Y) = 1/2; the truthful sampling judge's correlation, computed from the joint table of judge and human, equals rho (= 1/2)
+PASS [T7] collapsed judge (outputs mu(X)): squared correlation 1/2 = rho from the joint table, so its correlation is sqrt(rho) = 0.7071
+PASS [T8] 1997 random finite joint laws (seed 20261127), each joint table of judge and human built explicitly: truthful judge's correlation = rho and collapsed judge's squared correlation = rho, exactly
 PASS [T9] 1997 random laws: the collapsed judge's correlation sqrt(rho) exceeds the truthful judge's correlation rho whenever 0 < rho < 1
-PASS [T10] 1997 random laws: squared correlation is unchanged by positive affine maps of the judge, and equals 1 - MSE(best affine refit)/Var(Y), exactly
+PASS [T10] 5882 judge-by-law cases (truthful, collapsed and an arbitrary per-item judge on the 1997 random laws): squared correlation is unchanged by positive affine maps of the judge, and equals 1 - MSE(best affine refit)/Var(Y) with the MSE summed over the joint table, exactly; the refit is a strict minimum
 PASS [P1] experiment 43: 33 of 49 papers report a correlation with human ratings
 PASS [P2] experiment 43: 43 of 49 papers have no item-level proper score or divergence against human ratings (broad code)
 PASS [P3] experiment 54 strict recode: 44 of 49 have no item-level strictly proper score
@@ -56,7 +56,7 @@ PASS [C2b] experiment 53: the raw cross-entropy-trained head's skill over the ba
 PASS [C3] experiment 47: with 25 calibration ratings the calibrated Pearson-trained head is still worse than the CE-trained head on all 16 views by 0.0097 to 0.0225 nRPS
 PASS [C4] experiment 47: the gap falls to 0.0024 or less after 50 ratings in one view and after 100 to 200 in 15 of 16
 PASS [C5] experiment 48: a calibration map fitted on one set or rubric and applied to another reopens the proper-score gap in 53 of 82 judge-by-shift cases and leaves the judge significantly worse than uncalibrated in 33
-PASS [C5b] experiment 48: the 82 cases are 80 frontier-judge cases plus 2 G-Eval rubric cases; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; 21 of the 33 outright failures are transfers between the inference sets and the safety sets (DICES to NLI 19 of 20, NLI to DICES 2 of 20)
+PASS [C5b] experiment 48: the 82 cases are 80 frontier-judge cases plus 2 G-Eval rubric cases; the 80 frontier-judge cases (maps fitted on one rating set, or on the pooled other three, and applied to a new set) reopen the gap in 52 and fail outright in 33; the 10 transfers between DICES-350 and DICES-990 never reopen the gap; 21 of the 33 outright failures are transfers between the inference sets and the safety sets (DICES to NLI 19 of 20, NLI to DICES 2 of 20)
 PASS [C6] experiment 49, SummEval, 16 systems: system-level Spearman 0.877 (Pearson-trained head) vs 0.835 (four-bin calibrated) vs 0.875 (continuous calibrator); difference +0.042, 95% interval over test documents [-0.049, +0.114] (includes 0)
 PASS [C6b] experiment 49 setup: SummEval consistency, G-Eval with GPT-4 as the judge, 40 test documents by 16 systems; the drop comes from the four-bin calibrator; interval over documents [-0.049, +0.114]
 PASS [S1] experiment 41 verifier exit 0; required PASS lines {'[B2]': True, '[B3]': True, '[B4]': True, '[B5]': True, '[B8]': True, '[B9]': True, '[B11]': True, '[B12]': True} (CE-trained curve fits in 9 of 11 panels, Pearson-trained in 1 of 11; 6 of 11 when counting only fits with more than four budgets; three of the nine are four-point fits; largest budgets 256, 1,024, 2,048; CE head pulls ahead after about 4 to 8 ratings)
@@ -101,6 +101,7 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
         44  P3
         49  P1
         50  R1,X5,C4
+        52  C5b
         53  P4b,C5
         55  P4
         60  M2
@@ -109,7 +110,7 @@ REGISTRY of numeric tokens (unsigned) the post may use, with the claims that sup
         75  X1c
         76  D1
         77  K1
-        80  R6
+        80  R6,C5b
         82  R6,C5
        0.2  T4
        0.4  T4
