@@ -42,7 +42,7 @@ Unclipped CE fitting is convex and every exact-gradient CE refit converged; Pear
 In the three targets with an informative mean (B, C and D, including the linear case), the CE-trained judge has significantly lower held-out RPS than the Pearson-trained judge at every tested size from 12 ratings (Figure~\ref{fig:ratings}).
 Correlation training wins only in A, where the mean is nearly constant: up to 96 ratings, with CE better from 192.
 Rank and mixed correlation training also stay worse than CE at large sizes, and at 2,048 tasks raw Pearson RPS excess against truth (0.025, 0.095, 0.089, 0.052 across A--D; oracle RPS 0.187 in A, 0.136 in B) exceeds even the constant forecast (0.010, 0.067, 0.064, 0.045) and CE (0.0007, 0.0037, 0.0032, 0.0028) despite reaching correlations 0.85--0.99.
-A calibrated head (\appref{app:concordance}{appendix}) with cross-fitted slope regularization removes the $n \le 32$ spike and matches 78-weight CE on constant-spread C/D at 2,048 (0.0015--0.0022 vs.\ 0.0027--0.0029 CE; MSE 0.0076--0.0118), while stalling at 0.0071--0.0079 vs.\ 0.0007--0.0036 in heteroscedastic A and B\@.
+A calibrated head (\appref{app:calibration}{the calibration appendix}; details in \appref{app:concordance}{the concordance appendix}) with cross-fitted slope regularization removes the $n \le 32$ spike and matches 78-weight CE on constant-spread C/D at 2,048 (0.0015--0.0022 vs.\ 0.0027--0.0029 CE; MSE 0.0076--0.0118), while stalling at 0.0071--0.0079 vs.\ 0.0007--0.0036 in heteroscedastic A and B\@.
 Even on correlation, the CE-trained judge's held-out correlation with the true mean is never significantly lower until Pearson training overtakes, from 1,536 ratings in B and C and 3,072 in D, and never in A.
 
 We checked the optimizer and the ridge.

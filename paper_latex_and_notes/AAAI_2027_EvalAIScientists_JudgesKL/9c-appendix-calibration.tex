@@ -1,0 +1,92 @@
+% Appendix: formal definition of calibration, Murphy/Bröcker decomposition, and post-hoc calibration (Exp 41).
+% One sentence per line (Trigger Rule 13); strictly anonymized.
+
+\section{Calibration: Formal Definition}
+\label{app:calibration}
+
+This appendix defines calibration, records the associated proper-score decomposition, and states why correlation does not see it.
+The main text writes $x$ for the input, $r$ for the rating, $p(r\mid x)$ for the human rating distribution, and $q(r\mid x)$ for the judge's forecast.
+Here we use the equivalent notation $c$ for the context (the same object as $x$), $Y$ for the human rating, $p^*(\cdot\mid c)$ for the human rating distribution of a stated rater pool and rubric, and $\hat q(\cdot\mid c)$ for the judge's forecast, with $C$ the random context.
+
+\subsection{Definition}
+Let $Y\in\{1,\dots,K\}$ and let $\hat q(\cdot\mid c)$ be a forecast distribution on these $K$ labels.
+The forecast is \emph{calibrated} if, whenever it issues a particular distribution $q$, the human rating has that distribution:
+\begin{equation}
+\label{eq:calibration}
+\Pr\bigl(Y=k \mid \hat q(\cdot\mid C)=q\bigr)
+=
+q_k
+\qquad\text{for all }q\text{ and all }k.
+\end{equation}
+In the binary case $Y\in\{0,1\}$, writing $\hat p(c)=\hat q(Y=1\mid c)$, this reduces to
+\begin{equation}
+\label{eq:calibration-binary}
+\Pr\bigl(Y=1 \mid \hat p(C)=p\bigr)
+=
+p
+\qquad\text{for all }p\in[0,1].
+\end{equation}
+Intuitively, a calibrated judge's stated probabilities are the frequencies with which the corresponding human ratings actually occur: when the judge says $q$, the humans do $q$.
+
+Calibration is a statement about $\Pr(Y\mid\hat q)$, not about whether $\hat q(\cdot\mid c)$ equals $p^*(\cdot\mid c)$ for each $c$.
+A forecast can be calibrated yet coarse (many contexts share the same $q$), and an uncalibrated forecast can still discriminate contexts well.
+
+\subsection{Proper-Score Decomposition}
+Write $S(q,y)$ for a scoring rule in the loss orientation of the main text (lower is better).
+If $S$ is strictly proper, it induces a divergence $d(q,p)=\mathbb{E}_{Y\sim p}[S(q,Y)]-\mathbb{E}_{Y\sim p}[S(p,Y)]\ge 0$, with equality if and only if $q=p$~\citep{gneiting2007strictly}.
+Let $p_{\hat q}(\cdot)=\Pr(Y\in\cdot\mid\hat q)$ be the recalibrated conditional law and let $\bar p$ be the marginal (base-rate) law of $Y$.
+The expected score then decomposes as
+\begin{equation}
+\label{eq:proper-decomposition}
+\mathbb{E}\bigl[S(\hat q,Y)\bigr]
+=
+\mathbb{E}\bigl[S(\bar p,Y)\bigr]
+-
+\mathbb{E}\bigl[d(\bar p,p_{\hat q})\bigr]
++
+\mathbb{E}\bigl[d(\hat q,p_{\hat q})\bigr].
+\end{equation}
+The three terms are, in order, \emph{uncertainty} (the score of the base-rate forecast), \emph{resolution} (how much the recalibrated law varies across issued forecasts), and \emph{reliability}
+\begin{equation}
+\label{eq:reliability}
+\mathrm{REL}
+=
+\mathbb{E}\bigl[d\bigl(\hat q,\Pr(Y\mid\hat q)\bigr)\bigr].
+\end{equation}
+The reliability term is zero if and only if $\hat q=\Pr(Y\mid\hat q)$ almost surely, which is exactly calibration~\eqref{eq:calibration}.
+For the Brier score this is the vector partition of \citet{murphy1973vector}.
+\citet{brocker2009reliability} extends the decomposition to strictly proper scores on finite-valued targets;~\citet{gneiting2007strictly} supply the associated divergence used in~\eqref{eq:proper-decomposition}.
+In this appendix, ``reliability'' means this meteorological term (calibration error), not psychometric reliability as in \appref{app:reliability}{the reliability appendix}.
+
+\subsection{Why Correlation Misses Calibration}
+As in the main text and \appref{app:concordance}{the concordance appendix}, squared Pearson correlation admits the identity
+\begin{equation}
+\label{eq:r-squared-cal}
+r^2
+=
+1
+-
+\frac{\mathrm{MSE}(\text{best affine fit})}{\mathrm{Var}(Y)}.
+\end{equation}
+Correlation therefore equals one minus standardized squared error after an optimal affine refit of the judge's scalar to $Y$.
+Any miscalibration that an affine map can remove is invisible, and spread about the conditional mean is never scored.
+In the language of~\eqref{eq:proper-decomposition}, correlation keeps a form of resolution (discrimination of $Y$ after that refit) and discards the reliability term.
+Lin's concordance identity~\eqref{eq:lin-concordance} makes the same split visible as bias and scale terms that $r$ does not constrain.
+
+\subsection{Post-Hoc Calibration}
+Given a frozen forecast $\hat q$ and a held-out validation sample $\{(c_i,y_i)\}_{i=1}^n$, a post-hoc map $g$ is chosen by empirical proper-score risk
+\begin{equation}
+\label{eq:posthoc-cal}
+\hat g
+=
+\arg\min_{g\in\mathcal{G}}
+\frac{1}{n}\sum_{i=1}^{n} S\bigl(g(\hat q(\cdot\mid c_i)),y_i\bigr),
+\end{equation}
+where $\mathcal{G}$ is a restricted family such as temperature scaling, Platt scaling, or isotonic regression.
+The aim is to reduce~\eqref{eq:reliability} without retraining the judge.
+A strictly increasing $g$ of a scalar score leaves the ranking of items unchanged; isotonic regression is only nondecreasing and can introduce ties.
+
+This is the map used in Experiment~41.
+On seven real multi-annotator rating sets re-binned to two, three and five classes, a cross-entropy-trained linear head beat a Pearson-trained one by up to $0.1282$ normalized ranked probability score (RPS) on held-out items (fixed ridge penalty $0.01$; the largest gap is on a view where neither head beat the constant forecast).
+After each head's scalar passed through its own validation-fitted calibration map of this form, the difference was at most $0.0024$.
+The gap that correlation could not see was almost entirely reliability in the sense of~\eqref{eq:reliability}.
