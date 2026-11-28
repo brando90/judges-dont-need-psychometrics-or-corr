@@ -17,6 +17,8 @@ They also show that the uncertainty expressed by state-of-the-art NLI models doe
 \citet{plank2022problem} generalizes this into the term \emph{human label variation}: disagreement can reflect genuine disagreement, subjectivity or several plausible readings, and it affects every stage of the pipeline (data, modeling and evaluation).
 That position paper also catalogues public datasets with un-aggregated labels.
 \citet{uma2021learning} survey methods and resources for learning from disagreement rather than from a single aggregated gold label.
+This literature already discusses scoring models against soft labels with measures such as cross-entropy and Jensen--Shannon divergence~\citep{plank2022problem}, and \citet{uma2021learning} find that the ranking of training approaches shifts with whether models are scored against gold labels or against label distributions, which is adjacent evidence that the choice of metric changes conclusions.
+Both papers predate the wide use of LLM judges, so neither asks how those judges are validated.
 ChaosNLI~\citep{nie2020chaosnli} collects $100$ labels per item for selected SNLI and MNLI examples, and DICES~\citep{aroyo2023dices} releases ratings from many raters per conversation; both are among the rating sets used in this paper.
 We adopt this literature's premise.
 Our target is $p(r\mid x)$ for a stated rater pool, eligibility rule and rubric, and changing the pool can change the target.
@@ -169,7 +171,7 @@ On seven real multi-annotator rating sets re-binned to two, three and five class
 This supports the evaluation claim (correlation cannot see calibration) more than the training claim.
 On five frozen frontier judges and five public multi-annotator rating sets (Experiment~46, interim), the pre-registered primary test, Pearson correlation against the proper score, finds no significant rank reversal on the frontier panel, and neither do top-1 agreement or kappa.
 Spearman correlation and the Brier score reverse for one judge pair on two sets: GPT-6 Astra is ahead of GLM~5.3 on Spearman by $0.021$ (SNLI) and $0.034$ (MNLI) and behind on Brier skill by $0.039$ and $0.098$ (Holm-adjusted $p\le0.042$ on both metrics), and no reversal remains after per-judge calibration on held-out ratings.
-On DICES-350, four of the five frontier judges are significantly worse than the base rate before calibration (skill in normalized ranked probability score, $-0.177$ to $-0.096$, each 95\% item-cluster bootstrap interval below $0$) at $80$ to $82$ percent top-1 agreement with the human majority; after per-judge calibration on held-out ratings every frontier judge has positive skill on both DICES sets.
+On DICES-350, four of the five frontier judges score below the base rate before calibration (each 95\% item-cluster bootstrap interval below $0$), and every frontier judge scores above it on both DICES sets after per-judge calibration on held-out ratings; the numbers are in \appref{app:calibration}{the calibration appendix}.
 A sensitivity run with $20{,}000$ bootstrap draws, a labelled deviation from the frozen $4{,}000$, keeps these two reversals (Holm-adjusted $p=0.0099$ and $0.028$) and adds two pairs among small local judges, one of them also on Pearson; both pairs involve a $0.5$-billion-parameter model whose verbalized answers are invalid on $52$ to $60$ percent of items.
 The local-judge panel is partial and the API panel has not run; \citet{guerdan2025validating} is the nearest existing evidence on selection effects.
 \end{enumerate}

@@ -1,0 +1,40 @@
+diff --git a/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.tex b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.tex
+index 572c6f4..b43e046 100644
+--- a/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.tex
++++ b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/00_main_aaai_2027.tex
+@@ -86,8 +86,12 @@
+ \input{3-problem}
+ \input{4-proposal}
+ \input{5-toy-counterexample}
++\ifsupplementary
+ \input{5b-learning-study}
+ \input{6-case-study}
++\else
++\input{6-case-study-summary}
++\fi
+ \input{7-discussion}
+ \bibliography{00_main}
+ 
+diff --git a/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/2-introduction.tex b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/2-introduction.tex
+index ac1436e..0469344 100644
+--- a/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/2-introduction.tex
++++ b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/2-introduction.tex
+@@ -20,5 +20,5 @@ Our contributions are as follows.
+ \item \emph{A practice gap.} In a $49$-paper audit (a purposive convenience sample), $43$ report no item-level proper score or divergence and $44$ no strictly proper one (the other five are 2025--2026 distribution-aware papers); $29$ of $30$ direct-score and benchmark papers report correlation, and all $13$ pairwise papers report agreement, accuracy or kappa\ifsupplementary{} (Section~\ref{sec:supp-practice})\fi.
+ \item \emph{An identification result.} Correlation is a function of the error of the best affine refit \citep[a classical decomposition;][]{murphy1988skill}, and forecasts that share a conditional mean tie on Pearson, Spearman, Kendall and scalar mean squared error whatever the human distribution is, while every strictly proper score ranks the true distribution strictly ahead of any other forecast that shares its mean. We construct such conditional distributions and evaluate sparse selection with full tie accounting and a marginal-permutation control (\emph{Controlled Conditional Identification}). This is non-identification in general, not a claim that correlation is always misleading; the tie is immediate, since each statistic is computed on the mean. On scores sampled at nonzero temperature, correlation prefers a judge outputting the conditional mean over one sampling from $p^*$ independently of the human rating (Lean-checked for finite laws; the same effect as a perfect model's ensemble mean outscoring a single member, \citealp{kumar2000analysis}).
+ \item \emph{A protocol.} A strictly proper score matched to the label encoding, a base-rate skill score and stratification by human agreement, from one rating per held-out item, enough to rank judges (the distance to $p^*$ needs two or more ratings per item and the strata at least four), reported beside correlation with calibration and resolution terms split out (\emph{Evaluate Conditional Probability Forecasts}).
+-\item \emph{Evidence.} A synthetic learning-curve study of when proper-loss training beats correlation training (\emph{Learning a Judge from Sparse Ratings}), and tests of ten open-weight and seven frontier language-model judges across prompt, harness and weight optimization on the same retrospective human ratings, including inconclusive three-call historical findings that we preserve (\emph{Human-Rating Evidence}). As skill over the base rate, correlation-trained linear heads fall below it on $15$ of $16$ views before recalibration and are within $0.01$ of the cross-entropy-trained heads after it, and among five frontier judges Spearman and Brier skill give two Holm-significant rank reversals (one pair, two datasets) that calibration removes. Rater-pool, agreement-strata, binned-divergence and power analyses are in the supplementary material.
++\item \emph{Evidence.} A synthetic learning-curve study of when proper-loss training beats correlation training (\ifsupplementary\emph{Learning a Judge from Sparse Ratings}\else\emph{Learning and Human-Rating Evidence}\fi), and tests of ten open-weight and seven frontier language-model judges across prompt, harness and weight optimization on the same retrospective human ratings, including inconclusive three-call historical findings that we preserve (\emph{Human-Rating Evidence}). As skill over the base rate, correlation-trained linear heads fall below it on $15$ of $16$ views before recalibration and are within $0.01$ of the cross-entropy-trained heads after it, and among five frontier judges Spearman and Brier skill give two Holm-significant rank reversals (one pair, two datasets) that calibration removes. Rater-pool, agreement-strata, binned-divergence and power analyses are in the supplementary material.
+ \end{enumerate}
+diff --git a/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study-summary.tex b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study-summary.tex
+new file mode 100644
+index 0000000..f1627b3
+--- /dev/null
++++ b/paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/6-case-study-summary.tex
+@@ -0,0 +1,6 @@
++% !TEX root = 00_main_aaai_2027.tex
++% Venue-edition summary of Sections "Learning a Judge from Sparse Ratings" and "Human-Rating Evidence"; the full sections are in the arXiv edition, as Rule 89 requires for overflow.
++\section{Learning and Human-Rating Evidence}
++\label{sec:case-summary}
++In a synthetic learning-curve study with four targets, a CE-trained softmax judge has significantly lower held-out RPS than a Pearson-trained one from 12 ratings whenever the conditional mean is informative, and correlation training wins only where the mean is nearly constant (up to 96 ratings).
++On public multi-annotator sets, raw CE training cleared Pearson training after $4$ to $64$ ratings on ChaosNLI, DICES, HelpSteer2 and KonIQ, whereas on SummEval Pearson stayed ahead until pseudocounts and calibration were added; full results and intervals are in the arXiv edition.

@@ -70,11 +70,13 @@ Labels follow `AGENTS.md`: "Lean-checked", "Lean-checked special case", "numeric
 2. Brier and RPS strictly proper (finite laws): **Lean-checked**, `Point2.brier_strictly_proper`, `Point2.rps_strictly_proper`.
 3. Scalar encoding strictly proper for two categories, not for three or more: **Lean-checked**, `Point2.scalar_two_strictly_proper`, `Point2.scalar_not_strictly_proper`.
 4. Squared correlation equals one minus the mean squared error of the best affine fit over the variance of the rating: **Lean-checked** for finite laws, `Point2.FinLaw.r_sq_identity`.
-5. Sampled-score anti-properness (finite joint law): **Lean-checked**. Square-root form, `Point2.Sampled.Model.anti_proper` (a port of `PlanAudit.Model.anti_proper` in experiment 35), which also proves that the collapsed judge's squared correlation equals the truthful judge's correlation; squared form from the variance parts, `anti_proper_from_parts` in experiment 36.
+5. Sampled-score anti-properness (finite joint law, with the judge's draw independent of the human rating given the input): **Lean-checked**. Square-root form, `Point2.Sampled.Model.anti_proper` (a port of `PlanAudit.Model.anti_proper` in experiment 35), which also proves that the collapsed judge's squared correlation equals the truthful judge's correlation; squared form from the variance parts, `anti_proper_from_parts` in experiment 36.
 6. Agreement with a label depends on a strict-mode forecast only through its mode, any number of categories, integer-scaled (that is, rational) forecasts: **Lean-checked (core Lean, no Mathlib)**, `Point1.agrees_iff_mode`, `Point1.agreement_depends_only_on_mode` in `point1_support_27Nov2026/Point1Checks.lean`. Axioms: `propext`, `Quot.sound` only; zero `sorry`; Lean 4.36.0; compiler output saved.
 7. Same mode but different Brier excess; same mean but different agreement; the pool changes the Brier excess of a fixed forecast; sharpening rewarded on a point-mass item and penalized on a contested one: **Lean-checked special case** (three categories, probabilities scaled by ten or twenty), the five `*_instance` theorems in the same file (the same-mean instance was added by the independent QA).
 8. Cross-entropy strict propriety (cited: Gibbs' inequality), accuracy proper but not strictly proper, and kappa statements (argued by hand): **paper proof, not yet Lean-checked**.
 9. Skill ratio consistent but not unbiased; unbiasedness of the per-sample risk estimate; variance nondecreasing in k at a fixed rating budget; binned JSD unchanged by within-bin reassignment: **numerically checked, Lean pending** (Experiments 52 and 44; listed in `docs/LEAN_TODO.md`).
+
+Three of the Lean checks are close to definitional: `Point1.agrees_iff_mode` (agreement is defined through the strict mode), `Point2.FinLaw.same_mean_tie` (proved by rewriting) and Experiment 53's `one_rating_witness` (arithmetic only). They fix the exact scope of a statement rather than prove a deep result. `HalfBrierRps.one_rating_unbiased` is `x = x` and checks nothing, so it is not cited as a check.
 
 The numerics were run before the Lean file: `point1_claims_numerics_27Nov2026.py` (seed 20261127, exact fractions, ten claims, all PASS, identical output on two runs, pytest wrapper passes). It tests the claims that must fail as failing cases: same mode does not imply same Brier excess (C3), same mean does not imply same agreement (C4), sharpening toward the mode does not always lower the excess (C9).
 
@@ -83,6 +85,7 @@ The numerics were run before the Lean file: `point1_claims_numerics_27Nov2026.py
 1. The local-judge and API panels of Experiment 46 (real-judge rank reversal of Pearson, top-1 agreement and kappa versus the held-out proper score): partial and not run. The frontier-panel result is in the paper as stated above (no Pearson, top-1 or kappa reversal; two Spearman reversals for one pair).
 2. The budget split (more items versus more ratings per item) as an empirical study, and drift under model and task change: Future Work in the paper. Only a synthetic estimator check (Experiment 52) and the variance formula are in.
 3. No API or GPU job was run for this work; all analyses use saved forecasts.
+4. No Codex or Fable review stage ran. Three sequential Opus 5.5 reviews at maximum effort did; what each found and what was fixed is in [`point1_mega_qa_27Nov2026.md`](point1_mega_qa_27Nov2026.md).
 
 ## Reproduce
 
