@@ -1,5 +1,5 @@
 % Supplementary Material, rater pool, agreement strata and power (compiled only into the arXiv edition via 00_main_arxiv.tex).
-% Provenance: experiments/44_* (RESULTS.md, results/key_numbers.md, results/*.csv), experiments/50_* (README.md, results/strata_tables.md), experiments/52_* (README.md); Lean theorem names from docs/notes/point2_support_27Nov2026/lean (README.md claim map, axioms_output_27Nov2026.txt).
+% Provenance: experiments/44_* (RESULTS.md, results/key_numbers.md, results/*.csv), experiments/47_* (results/label_budget_summary.json), experiments/48_* (README.md tables), experiments/50_* (README.md, results/strata_tables.md), experiments/52_* (README.md); Lean theorem names from docs/notes/point2_support_27Nov2026/lean (README.md claim map, axioms_output_27Nov2026.txt).
 % One sentence per line (Trigger Rule 13); strictly anonymized.
 % Notation follows the main text: $x$ is the input, $r$ the human rating, $p^*(r\mid x,\mathcal{P},\rho)$ the human rating distribution for a stated rater pool $\mathcal{P}$ and rubric $\rho$, $q(r\mid x)$ the judge's forecast.
 
@@ -38,6 +38,12 @@ With $N$ held-out items and $k$ ratings each, the variance of a paired mean diff
 At $N=400$ and $k=1$ the minimum detectable paired difference at $80\%$ power is $0.014$ to $0.065$ across the five sets, and $0$ to $6$ of the $10$ judge pairs per set are resolvable.
 At a fixed total number of ratings the variance never decreases in $k$, so more items beat more ratings per item, and a synthetic check of the skill estimator (Experiment~52) agrees: at $500$ ratings the standard deviation is $0.029$ with one rating on each of many items against $0.035$ with five ratings on a fifth as many.
 Nearly tied judges need far more items than these sets contain ($N_{80}$ up to $1.9\times10^{6}$ for the nearest ties).
+
+\paragraph{Calibration needs in-domain held-out ratings.}
+The bound of $0.0024$ normalized RPS between the cross-entropy-trained and the Pearson-trained linear head (Experiment~41) holds after each head's score passes through its own map, fitted by cross-entropy on the full validation split of the same data.
+Fitting that map on $n=25$ single held-out ratings instead (Experiment~47), the calibrated Pearson-trained head is still worse than the raw cross-entropy-trained head on all sixteen views, by $0.0097$ to $0.0225$ normalized RPS, and it reaches the $0.0024$ bound only at $n=50$ (one view), $n=100$ (six views) or $n=200$ (nine views).
+Fitting the map on a different dataset or rubric (Experiment~48) reopens the proper-score gap in $53$ of $82$ (judge, source, target) cases for five frozen frontier judges, and for the linear heads in all $16$ leave-one-dataset-out views and in $5$ of $6$ expert-to-crowd rater-pool shifts; the shift between the two DICES sets is the exception ($0$ of $10$ cases reopen).
+These results concern the cost of calibration, not an argument against it: each new target needs its own held-out human ratings, scored with a proper rule, which is the recommendation of this paper.
 
 \paragraph{Machine-checked claims.}
 The identification claims are proved in Lean~4 for finite laws (Lean 4.36.0, Mathlib revision \texttt{fc4f59e}, zero \texttt{sorry}, only the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}).

@@ -34,7 +34,7 @@ Paste-ready summary of what changed and why. Main note: `docs/notes/point1_targe
 
 ## Files changed
 
-1. Paper (`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`): `1-abstract.tex`, `2-introduction.tex`, `3-problem.tex`, `4-proposal.tex`, `7-discussion.tex`, `11-supplementary-related-work.tex`, new `12-supplementary-pool-strata-power.tex`, `00_main_aaai_2027.tex`, and both rebuilt PDFs (`00_main_aaai_2027.pdf`, 12 pages; `00_main_arxiv.pdf`, 23 pages).
+1. Paper (`paper_latex_and_notes/AAAI_2027_EvalAIScientists_JudgesKL/`): `1-abstract.tex`, `2-introduction.tex`, `3-problem.tex`, `4-proposal.tex`, `7-discussion.tex` (including one calibration-and-drift sentence), `11-supplementary-related-work.tex`, new `12-supplementary-pool-strata-power.tex`, `00_main_aaai_2027.tex`, and both rebuilt PDFs (`00_main_aaai_2027.pdf`, 12 pages; `00_main_arxiv.pdf`, 24 pages).
 2. Experiments: `experiments/44_pool_as_construct_consensus_sharpness_binned_jsd_power_start_27Nov2026/` (protocol, amendment, code, tests, results, figures, README, RESULTS, HOW_TO_READ_RESULTS); `experiments/README.md`; `experiments/41_.../BLOG_FACT_CHECK_11-27-2026.md` (a Gemini share link redacted).
 3. Docs: root `README.md`, `docs/LEAN_TODO.md`, `docs/notes/point1_target_vs_ruler_27Nov2026.md`, `docs/notes/point1_support_27Nov2026/` (core-Lean file, exact-fraction numerics, outputs, pytest), `DEFENSE_ONE_SLIDE_EVAL_NOTE.md`.
 
