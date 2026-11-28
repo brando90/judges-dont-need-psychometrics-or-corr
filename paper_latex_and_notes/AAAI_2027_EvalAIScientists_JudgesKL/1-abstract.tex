@@ -1,19 +1,19 @@
 \begin{abstract}
 \noindent
-% CS197 Move 1 (context): judges are validated by correlation or agreement (level/scale point now carried by Move 4's affine-refit clause; thresholds example in the intro).
+% CS197 Move 1 (context): judges are validated by correlation or agreement.
 LLM judges are validated by correlation or agreement with human ratings.
 % CS197 Move 2 (construct, its own sentence): the target is p*(r | item, rater pool, rubric).
 The target is the conditional rating distribution $p^*(r\mid\text{item},\text{rater pool},\text{rubric})$.
-% CS197 Move 3 (credit prior distributional evaluation; advisor warning 1; docs/notes/elangovan_li_summary_27Nov2026.md): Elangovan Sec. 3.2 Eqs. 1-2; Li Sec. 5.1.
-Prior work scores judges against it: binned Jensen--Shannon divergence (Elangovan et al., 2025) and squared error to per-item vote means for pairwise preferences (Li et al., 2026).
-% CS197 Move 4 (what they leave open, not claimed as new: Lyu et al. 2026 also use RPS/Brier; one-rating unbiasedness is classical; r^2 identity; sampled-score anti-properness, Lean-checked).
-Less settled is whether item-level strictly proper scores of human ratings (ranked probability score, Brier; estimable from one rating per item, and adopted by concurrent work) change conclusions about real judges.
-Correlation sees only a judge's best affine refit and, on scores sampled at nonzero temperature, prefers a judge outputting the conditional mean to one sampling from $p^*$.
-% CS197 Move 5 (real-judge evidence; Exp 46): Holm-significant Spearman-vs-Brier-skill reversals (GPT-6 Astra vs GLM 5.3, SNLI and MNLI); DICES-350 four judges 0.80-0.82 top-1 yet skill < 0; Astra-Opus top-1 tie (+0.001) vs skill gap 0.175.
-Among five frontier judges, Spearman and Brier skill rank one pair oppositely on SNLI and MNLI (Holm-significant); on DICES-350, four judges with 80--82\% majority agreement fall below the base rate, and two judges tied on agreement differ by 0.175 in skill.
-% CS197 Move 6 (advisor warning 2, head-on): recalibration removes the gaps, so with in-domain labels correlation suffices to choose (the 0.0024 point); its cost on the same judges (Exp 56: every judge above base rate at n = 100 single ratings, 21/25 cases worse than uncalibrated at n = 25) and under shift (Exp 48: 78/82 lose skill vs in-domain, 33 worse than uncalibrated).
-Recalibrating each judge on held-out ratings removes these gaps, so with in-domain labels correlation suffices to choose a judge.
-But it needed about 100 ratings per task before every judge beat the base rate, and maps moved across datasets or rubrics lost skill in 78 of 82 transfers, 33 ending worse than none.
-% CS197 Move 7 (scope of the claim and recommendation).
-Without in-domain labels, under shift, or with sampled scores, we recommend reporting a proper score, split into calibration and resolution, alongside correlation.
+% CS197 Move 3 (credit prior distributional evaluation precisely; advisor warning 1; Codex QA F18): Elangovan Sec. 3.2 Eqs. 1-2 (pooled per bin); Li Sec. 4, 5.1 (teacher votes, pairwise).
+Prior work already compares judges with rating distributions: binned Jensen--Shannon divergence between pooled human and judge labels (Elangovan et al., 2025) and squared error to per-item vote means for pairwise preferences (Li et al., 2026).
+% CS197 Move 4 (adoption, not novelty; Codex QA F01/F10): item-level strictly proper scores are in concurrent use (Lyu et al. 2026); one-rating estimation is classical; the sampled-score result is for Pearson under conditional independence and nondegeneracy (Lean-checked).
+Item-level strictly proper scores (ranked probability score, Brier) are in concurrent use and can be estimated from one rating per item; less settled is when they change conclusions about real judges.
+For a judge that samples its score independently of the human rating, Pearson correlation prefers outputting the conditional mean to sampling from $p^*$.
+% CS197 Move 5 (real-judge evidence, primary null first; Exp 46 + ERRATUM_11-27-2026; Codex QA F08/F09/F15): preregistered Pearson test 0 significant reversals; Spearman with NLI labels coded as ordered: 2 Holm-significant (Astra vs GLM, SNLI/MNLI); DICES-350 four judges 0.80-0.82 top-1, normalized-RPS skill < 0; Astra-Opus top-1 +0.001 vs skill -0.175.
+Among five frontier judges, the preregistered Pearson test found no significant rank reversal against Brier skill, but Spearman, with NLI labels coded as ordered, reverses one pair on SNLI and MNLI (Holm-significant). On DICES-350, four judges with 80--82\% majority agreement score below the base-rate forecast, and two with nearly equal agreement differ by 0.175 in skill.
+% CS197 Move 6 (advisor warning 2, the 0.0024 point conceded; Codex QA F02/F03/F07/F14): Exp 46 calibrated 0 significant reversals; Exp 56 mean skill > 0 for every judge first at n = 100 single ratings (50 draws); Exp 48 78/82 significantly below in-domain, 33/82 significantly worse than raw, mixed transfer population.
+Per-judge recalibration on held-out ratings left no significant reversal, so with in-domain labels correlation-based selection was not contradicted.
+But every judge's mean calibrated skill first beat the base rate at 100 single ratings per dataset, and maps moved across datasets, rubrics or pooled sources were significantly worse than in-domain maps in 78 of 82 cases and than none in 33.
+% CS197 Move 7 (scope and recommendation; Codex QA F06): no calibration labels is not no evaluation labels.
+When calibration labels are scarce, the target shifts, or scores are sampled, we recommend reporting a proper score on held-out target ratings, split into calibration and resolution, alongside correlation.
 \end{abstract}
